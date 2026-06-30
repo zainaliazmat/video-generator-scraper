@@ -25,6 +25,8 @@ Then:
     python ideas.py other.tsv
 """
 
+import json
+import re
 import sys
 from pathlib import Path
 
@@ -207,6 +209,110 @@ def run(data_path="youtube_results.tsv", out_path=OUT_PATH):
     Path(out_path).write_text(report, encoding="utf-8")
     print(f"\nContent plan saved:\n   {Path(out_path).resolve()}")
     return out_path
+
+
+# ---------------------------------------------------------------------------
+# Structured "predict my next video" JSON (used by the web app's AI tab).
+# Reuses the same Claude subscription auth as the markdown report above.
+# On failure it returns an HONEST error result (no fabricated numbers) so the
+# UI can show a real "couldn't generate / log in" state instead of fiction.
+# ---------------------------------------------------------------------------
+
+PREDICTION_SYSTEM = (
+    "You are a sharp YouTube content strategist. You are given real scraped "
+    "data about what is currently ranking for a set of search keywords. Predict "
+    "the single best NEW video a small/mid creator should make next to maximise "
+    "breakout (views relative to channel size), plus 4 alternatives. Cite real "
+    "numbers and titles from the data."
+)
+
+PREDICTION_INSTRUCTION = (
+    "Return ONLY minified JSON, no prose: "
+    '{"topic":string,"angle":string (one sentence, why now),'
+    '"est_breakout":string (like "x12"),"rationale":string (2 sentences),'
+    '"evidence":[3-4 short strings citing the data/patterns],'
+    '"ideas":[{"title":string,"est":string}] (exactly 4)}.\n\nDATA DIGEST:\n'
+)
+
+
+def parse_prediction_json(text):
+    if not text:
+        return None
+    a, b = text.find("{"), text.rfind("}")
+    if a < 0 or b < 0 or b < a:
+        return None
+    try:
+        return json.loads(text[a:b + 1])
+    except (ValueError, TypeError):
+        return None
+
+
+def _digits(x):
+    return re.sub(r"[^0-9.]", "", str(x if x is not None else "")) or ""
+
+
+def normalize_prediction(obj):
+    ev = obj.get("evidence") if isinstance(obj.get("evidence"), list) else []
+    ideas_in = obj.get("ideas") if isinstance(obj.get("ideas"), list) else []
+    ideas = []
+    for it in ideas_in[:4]:
+        it = it if isinstance(it, dict) else {}
+        ideas.append({"title": str(it.get("title", "")), "est": _digits(it.get("est"))})
+    return {
+        "topic": str(obj.get("topic", "")),
+        "angle": str(obj.get("angle", "")),
+        "est": _digits(obj.get("est_breakout")) or "10",
+        "rationale": str(obj.get("rationale", "")),
+        "evidence": [str(e) for e in ev[:4]],
+        "ideas": ideas[:4],
+    }
+
+
+async def _prediction_async(digest):
+    from claude_agent_sdk import (query, ClaudeAgentOptions, AssistantMessage,
+                                  TextBlock, ResultMessage)
+    options = ClaudeAgentOptions(
+        system_prompt=PREDICTION_SYSTEM, model=MODEL, fallback_model=FALLBACK_MODEL,
+        allowed_tools=[], max_turns=1, setting_sources=None,
+    )
+    parts, result_text = [], ""
+    async for message in query(prompt=PREDICTION_INSTRUCTION + digest, options=options):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, TextBlock):
+                    parts.append(block.text)
+        elif isinstance(message, ResultMessage):
+            if message.is_error:
+                raise RuntimeError(message.result or "Claude error")
+            result_text = message.result or ""
+    return "".join(parts) or result_text
+
+
+def generate_prediction(rows):
+    """Return {"ok": True, "source": "ai", ...prediction} on success, or
+    {"ok": False, "reason": ..., "detail": ...} on any failure. Never fabricates."""
+    try:
+        from claude_agent_sdk import CLINotFoundError
+    except ImportError:
+        CLINotFoundError = None
+    try:
+        import anyio
+        digest = build_digest(rows)
+        # Safe: this is called from a sync route running in FastAPI's threadpool,
+        # which has no running event loop, so anyio.run can start its own.
+        text = anyio.run(_prediction_async, digest)
+        obj = parse_prediction_json(text)
+        if not obj or not obj.get("topic"):
+            return {"ok": False, "reason": "parse_failed",
+                    "detail": "Claude returned no usable prediction."}
+        return {"ok": True, "source": "ai", **normalize_prediction(obj)}
+    except Exception as exc:
+        reason = "error"
+        if CLINotFoundError is not None and isinstance(exc, CLINotFoundError):
+            reason = "cli_missing"
+        elif any(w in str(exc).lower() for w in ("login", "log in", "auth", "unauthor")):
+            reason = "not_logged_in"
+        return {"ok": False, "reason": reason, "detail": str(exc)}
 
 
 if __name__ == "__main__":
