@@ -1,0 +1,5 @@
+*{box-sizing:border-box}
+body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;color:#5C6470}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+textarea,input,select,button{font-family:inherit}
