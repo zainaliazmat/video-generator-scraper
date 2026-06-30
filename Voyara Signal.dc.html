@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;color:#5C6470}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+textarea,input,select,button{font-family:inherit}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:linear-gradient(180deg,#DCF1FF 0%,#EFF8FF 380px,#FFFFFF 820px)">
+  <!-- ===== NAV ===== -->
+  <nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 30px;background:rgba(223,241,255,.74);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.6)">
+    <a onClick="{{ goHub }}" style="display:flex;align-items:center;gap:10px;cursor:pointer">
+      <span style="width:36px;height:36px;border-radius:50%;background:#121316;display:flex;align-items:center;justify-content:center;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2.5-7 5 16 2.5-9H21"/></svg></span>
+      <span style="line-height:1.04"><strong style="display:block;font-weight:700;font-size:1.06rem;color:#1B1D21">Signal</strong><small style="font-size:.54rem;font-weight:700;letter-spacing:.34em;color:#5C6470;text-transform:uppercase">Toolkit</small></span>
+    </a>
+    <div style="display:flex;gap:24px;align-items:center">
+      <a onClick="{{ goHub }}" style="font-weight:600;font-size:.9rem;color:#1B1D21;cursor:pointer">Tools</a>
+      <a style="font-weight:500;font-size:.9rem;color:#5C6470;cursor:pointer">Docs</a>
+      <a style="font-weight:500;font-size:.9rem;color:#5C6470;cursor:pointer">Changelog</a>
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #E7EBEF;border-radius:999px;padding:8px 15px;font-weight:600;font-size:.85rem;color:#1B1D21;cursor:pointer">Feedback</span>
+    </div>
+  </nav>
+
+  <!-- ===== HUB ===== -->
+  <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
+  <div style="max-width:860px;margin:0 auto;padding:50px 24px 70px">
+    <div style="font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8A93A0">Toolkit</div>
+    <h1 style="margin:10px 0 0;font-weight:600;font-size:2.5rem;letter-spacing:-.025em;color:#1B1D21;line-height:1.12">Research tools for YouTube creators</h1>
+    <p style="margin:13px 0 0;color:#5C6470;font-size:1.04rem;max-width:54ch">A growing set of small, sharp tools. Start with content research — more are on the way.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px">
+      <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="width:44px;height:44px;border-radius:13px;background:#121316;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:#DFF6EA;color:#1E7A4D;border-radius:999px;padding:5px 11px;font-weight:700;font-size:.72rem"><span style="width:7px;height:7px;border-radius:50%;background:#34A86B"></span>Live</span>
+        </div>
+        <div>
+          <h3 style="font-weight:600;font-size:1.12rem;color:#1B1D21;margin:0">YouTube Content Research</h3>
+          <p style="margin:7px 0 0;font-size:.9rem;color:#5C6470;line-height:1.55">Scrape the top search results for any niche, sort by what's breaking out, and let AI predict your next video — then export the data as a TSV.</p>
+        </div>
+        <button onClick="{{ openTool }}" style="align-self:flex-start;margin-top:2px;display:inline-flex;align-items:center;gap:8px;background:#121316;color:#fff;border:none;border-radius:999px;padding:11px 19px;font-weight:600;font-size:.88rem;cursor:pointer;box-shadow:0 8px 20px rgba(18,19,22,.25)">Open tool <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div style="background:#FBFCFE;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="width:44px;height:44px;border-radius:13px;background:#F2F4F6;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <span style="background:#F2F4F6;color:#8A93A0;border-radius:999px;padding:5px 11px;font-weight:700;font-size:.72rem">Coming soon</span>
+        </div>
+        <div><h3 style="font-weight:600;font-size:1.12rem;color:#5C6470;margin:0">Title &amp; Thumbnail Tester</h3><p style="margin:7px 0 0;font-size:.9rem;color:#8A93A0;line-height:1.55">Compare title and thumbnail variants against your niche before you publish.</p></div>
+      </div>
+      <div style="background:#FBFCFE;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="width:44px;height:44px;border-radius:13px;background:#F2F4F6;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+          <span style="background:#F2F4F6;color:#8A93A0;border-radius:999px;padding:5px 11px;font-weight:700;font-size:.72rem">Coming soon</span>
+        </div>
+        <div><h3 style="font-weight:600;font-size:1.12rem;color:#5C6470;margin:0">Channel Audit</h3><p style="margin:7px 0 0;font-size:.9rem;color:#8A93A0;line-height:1.55">Spot a channel's best-performing formats, lengths and posting cadence.</p></div>
+      </div>
+      <div style="background:#FBFCFE;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="width:44px;height:44px;border-radius:13px;background:#F2F4F6;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M21 7h-5M21 7v5"/></svg></span>
+          <span style="background:#F2F4F6;color:#8A93A0;border-radius:999px;padding:5px 11px;font-weight:700;font-size:.72rem">Coming soon</span>
+        </div>
+        <div><h3 style="font-weight:600;font-size:1.12rem;color:#5C6470;margin:0">Trend Tracker</h3><p style="margin:7px 0 0;font-size:.9rem;color:#8A93A0;line-height:1.55">Watch a niche evolve with automatic weekly snapshots and movement alerts.</p></div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===== INPUT ===== -->
+  <sc-if value="{{ isInput }}">
+  <div style="max-width:700px;margin:0 auto;padding:34px 24px 70px">
+    <a onClick="{{ goHub }}" style="display:inline-flex;align-items:center;gap:6px;font-size:.84rem;font-weight:600;color:#5C6470;margin-bottom:18px;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All tools</a>
+    <h1 style="margin:0;font-weight:600;font-size:2rem;letter-spacing:-.025em;color:#1B1D21;line-height:1.12">YouTube Content Research</h1>
+    <p style="margin:10px 0 0;color:#5C6470;font-size:.98rem;max-width:56ch">Paste YouTube search URLs or plain keywords — one per line. We'll pull the top results from each and build a table you can sort, analyse with AI, and download.</p>
+
+    <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:24px;margin-top:26px">
+      <label style="display:flex;align-items:baseline;justify-content:space-between;font-size:.8rem;font-weight:700;color:#1B1D21;margin-bottom:8px">Search URLs or keywords<span style="font-weight:500;color:#8A93A0">one per line</span></label>
+      <textarea rows="6" spellcheck="false" value="{{ urls }}" onChange="{{ setUrls }}" style="width:100%;border:1.5px solid #E7EBEF;border-radius:12px;padding:13px 15px;font-family:ui-monospace,Menlo,monospace;font-size:.84rem;color:#1B1D21;resize:vertical;outline:none;line-height:1.75;background:#FBFCFE" style-focus="border-color:#121316;box-shadow:0 0 0 4px rgba(18,19,22,.07);background:#fff"></textarea>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+        <div style="background:#FBFCFE;border:1.5px solid #E7EBEF;border-radius:12px;padding:10px 14px 9px">
+          <label style="display:block;font-size:.74rem;font-weight:700;color:#1B1D21;margin-bottom:3px">Results per link</label>
+          <select value="{{ perLink }}" onChange="{{ setPerLink }}" style="width:100%;border:none;background:none;outline:none;font-size:.92rem;font-weight:600;color:#1B1D21;appearance:none;cursor:pointer"><option>30 videos</option><option>60 videos</option><option>90 videos</option><option>120 videos</option></select>
+        </div>
+        <div style="background:#FBFCFE;border:1.5px solid #E7EBEF;border-radius:12px;padding:10px 14px 9px">
+          <label style="display:block;font-size:.74rem;font-weight:700;color:#1B1D21;margin-bottom:3px">Date filter</label>
+          <select value="{{ dateFilter }}" onChange="{{ setDateFilter }}" style="width:100%;border:none;background:none;outline:none;font-size:.92rem;font-weight:600;color:#1B1D21;appearance:none;cursor:pointer"><option>Any time</option><option>This year</option><option>Last 6 months</option><option>This month</option></select>
+        </div>
+      </div>
+
+      <div onClick="{{ toggleFast }}" style="display:flex;align-items:center;gap:10px;margin-top:14px;cursor:pointer">
+        <span style="{{ fastTrackStyle }}"><span style="{{ fastKnobStyle }}"></span></span>
+        <span style="font-size:.88rem;font-weight:600;color:#1B1D21">Fast mode</span>
+        <span style="font-size:.8rem;color:#8A93A0">— skip channel details for a quicker run</span>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:22px;padding-top:20px;border-top:1px solid #F2F4F6">
+        <span style="font-size:.84rem;color:#5C6470"><b style="color:#1B1D21">{{ linkCount }} links</b> × {{ perLinkNum }} results ≈ <b style="color:#1B1D21">{{ estTotal }} videos</b></span>
+        <button onClick="{{ run }}" style="display:inline-flex;align-items:center;gap:8px;background:#121316;color:#fff;border:none;border-radius:999px;padding:11px 19px;font-weight:600;font-size:.88rem;cursor:pointer;box-shadow:0 8px 20px rgba(18,19,22,.25)">Run research <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+    </div>
+    <p style="margin:16px 2px 0;font-size:.82rem;color:#8A93A0">Each run is saved as a dated snapshot, so you can re-run weekly and see what changed.</p>
+  </div>
+  </sc-if>
+
+  <!-- ===== TOOL (results + ai share a header) ===== -->
+  <sc-if value="{{ inTool }}">
+  <div style="max-width:960px;margin:0 auto;padding:30px 24px 60px">
+    <a onClick="{{ goInput }}" style="display:inline-flex;align-items:center;gap:6px;font-size:.84rem;font-weight:600;color:#5C6470;margin-bottom:14px;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>New run</a>
+    <h1 style="margin:0 0 16px;font-weight:600;font-size:1.85rem;letter-spacing:-.025em;color:#1B1D21">YouTube Content Research</h1>
+    <div style="display:flex;gap:9px;margin-bottom:22px">
+      <button onClick="{{ goResults }}" style="{{ tabResultsStyle }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>Results</button>
+      <button onClick="{{ goAi }}" style="{{ tabAiStyle }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3L12 3z"/></svg>AI prediction</button>
+    </div>
+
+    <!-- RESULTS -->
+    <sc-if value="{{ isResults }}">
+      <sc-if value="{{ running }}">
+        <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:48px;text-align:center">
+          <span style="display:inline-block;width:34px;height:34px;border-radius:50%;border:3px solid #E7EBEF;border-top-color:#121316;animation:spin .8s linear infinite"></span>
+          <div style="margin-top:18px;font-weight:600;color:#1B1D21">Scraping search results…</div>
+          <div style="margin-top:4px;font-size:.86rem;color:#8A93A0">Pulling videos, channel sizes and engagement for each link</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notRunning }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px">
+          <p style="margin:0;color:#5C6470;font-size:.92rem"><b style="color:#1B1D21">482 videos</b> from {{ linkCount }} links · scraped 1 Jul 2026</p>
+          <button onClick="{{ download }}" style="display:inline-flex;align-items:center;gap:8px;background:#121316;color:#fff;border:none;border-radius:999px;padding:10px 17px;font-weight:600;font-size:.85rem;cursor:pointer;box-shadow:0 8px 20px rgba(18,19,22,.25)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download TSV</button>
+        </div>
+        <!-- filter row -->
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px;display:flex;align-items:center;gap:9px;background:#fff;border:1.5px solid #E7EBEF;border-radius:12px;padding:10px 14px" style-focus-within="border-color:#121316">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+            <input value="{{ query }}" onChange="{{ setQuery }}" placeholder="Filter by title or channel…" style="border:none;outline:none;background:none;font-size:.9rem;color:#1B1D21;width:100%">
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #E7EBEF;border-radius:12px;padding:9px 13px">
+            <span style="font-size:.74rem;font-weight:700;color:#8A93A0">KEYWORD</span>
+            <select value="{{ keyword }}" onChange="{{ setKeyword }}" style="border:none;outline:none;background:none;font-size:.86rem;font-weight:600;color:#1B1D21;appearance:none;cursor:pointer"><option value="all">All</option><option value="best ai tools">best ai tools</option><option value="chatgpt tutorial for beginners">chatgpt tutorial for beginners</option><option value="how to make money with ai">how to make money with ai</option><option value="ai tools for small business">ai tools for small business</option></select>
+          </div>
+          <button onClick="{{ toggleVerified }}" style="{{ verifiedStyle }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verified only</button>
+        </div>
+        <!-- sort chips -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A93A0;margin-right:2px">Sort</span>
+          <sc-for list="{{ sortChips }}" as="c" hint-placeholder-count="6">
+            <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <!-- table -->
+        <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);overflow:hidden">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 150px 78px 84px 76px 60px;gap:12px;padding:12px 18px;border-bottom:1px solid #E7EBEF;background:#FBFCFE">
+            <span style="font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A93A0">Video</span>
+            <span style="font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A93A0">Channel</span>
+            <span style="font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A93A0;text-align:right">Views</span>
+            <span style="font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A93A0;text-align:right">Likes</span>
+            <span style="font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A93A0;text-align:right">Breakout</span>
+            <span style="font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A93A0;text-align:right">Len</span>
+          </div>
+          <sc-for list="{{ rows }}" as="v" hint-placeholder-count="8">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 150px 78px 84px 76px 60px;gap:12px;padding:{{ rowPad }};border-top:1px solid #F2F4F6;align-items:center">
+              <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                <div style="width:80px;height:46px;flex:none;border-radius:8px;position:relative;overflow:hidden;background:{{ v.thumb }}"><span style="position:absolute;right:4px;bottom:4px;background:rgba(10,14,22,.8);color:#fff;font-size:.6rem;font-weight:700;padding:1px 4px;border-radius:4px">{{ v.durLabel }}</span></div>
+                <div style="min-width:0"><div style="font-weight:600;font-size:.86rem;color:#1B1D21;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ v.title }}</div><div style="font-size:.72rem;color:#8A93A0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ v.keyword }}</div></div>
+              </div>
+              <div style="font-size:.82rem;color:#1B1D21;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ v.channel }}<div style="font-size:.71rem;color:#8A93A0;font-weight:500">{{ v.subsLabel }}</div></div>
+              <div style="text-align:right;font-weight:600;font-size:.84rem;color:#1B1D21">{{ v.viewsLabel }}</div>
+              <div style="text-align:right;font-size:.83rem;color:#5C6470">{{ v.likesLabel }}</div>
+              <div style="text-align:right"><span style="display:inline-flex;align-items:center;background:#121316;color:#fff;font-weight:700;font-size:.78rem;padding:4px 9px;border-radius:999px">×<b style="color:#9ED4F8">{{ v.breakoutLabel }}</b></span></div>
+              <div style="text-align:right;font-size:.78rem;color:#5C6470">{{ v.durLabel }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:.82rem;color:#8A93A0"><span>Showing {{ shownCount }} of 482</span><span style="display:flex;gap:6px"><span style="width:30px;height:30px;border-radius:8px;background:#121316;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600">1</span><span style="width:30px;height:30px;border-radius:8px;background:#fff;border:1px solid #E7EBEF;color:#1B1D21;display:flex;align-items:center;justify-content:center;font-weight:600">2</span><span style="width:30px;height:30px;border-radius:8px;background:#fff;border:1px solid #E7EBEF;color:#1B1D21;display:flex;align-items:center;justify-content:center;font-weight:600">3</span></span></div>
+      </sc-if>
+    </sc-if>
+
+    <!-- AI PREDICTION -->
+    <sc-if value="{{ isAi }}">
+      <sc-if value="{{ aiBusy }}">
+        <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:50px;text-align:center">
+          <span style="display:inline-block;width:34px;height:34px;border-radius:50%;border:3px solid #E7EBEF;border-top-color:#121316;animation:spin .8s linear infinite"></span>
+          <div style="margin-top:18px;font-weight:600;color:#1B1D21">Analysing 482 videos across {{ linkCount }} keywords…</div>
+          <div style="margin-top:4px;font-size:.86rem;color:#8A93A0">Reading breakout patterns, title formats and theme gaps to predict your next video</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ aiDone }}">
+        <div style="animation:fadeup .4s ease">
+          <!-- hero prediction -->
+          <div style="background:#121316;border-radius:22px;padding:30px 32px;color:#fff;position:relative;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+              <div style="font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9ED4F8">Predicted next video</div>
+              <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:6px 13px;font-weight:700;font-size:.8rem">est. breakout ×<b style="color:#9ED4F8">{{ ai.est }}</b></span>
+            </div>
+            <h2 style="margin:14px 0 0;font-weight:600;font-size:1.72rem;letter-spacing:-.02em;line-height:1.18;color:#fff;max-width:24ch">{{ ai.topic }}</h2>
+            <p style="margin:14px 0 0;color:#C7CDD4;font-size:.96rem;line-height:1.6;max-width:64ch">{{ ai.rationale }}</p>
+            <div style="display:inline-flex;align-items:flex-start;gap:9px;margin-top:18px;background:rgba(207,234,255,.12);border:1px solid rgba(158,212,248,.3);border-radius:12px;padding:12px 15px;max-width:64ch">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ED4F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3L12 3z"/></svg>
+              <span style="font-size:.88rem;color:#E7EBEF;line-height:1.5">{{ ai.angle }}</span>
+            </div>
+          </div>
+          <!-- two columns -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px">
+            <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:22px 24px">
+              <h3 style="font-weight:600;font-size:1.04rem;color:#1B1D21;margin:0 0 14px">Why this will work</h3>
+              <div style="display:flex;flex-direction:column;gap:13px">
+                <sc-for list="{{ ai.evidence }}" as="e" hint-placeholder-count="4">
+                  <div style="display:flex;gap:11px"><span style="flex:none;width:23px;height:23px;border-radius:50%;background:#DFF6EA;color:#1E7A4D;display:flex;align-items:center;justify-content:center;margin-top:1px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="font-size:.87rem;color:#5C6470;line-height:1.5">{{ e }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:22px 24px">
+              <h3 style="font-weight:600;font-size:1.04rem;color:#1B1D21;margin:0 0 14px">More ideas to test</h3>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ ai.ideas }}" as="idea" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:12px;background:#FBFCFE;border:1px solid #E7EBEF;border-radius:12px;padding:11px 13px"><span style="flex:1;font-weight:600;font-size:.86rem;color:#1B1D21;line-height:1.35">{{ idea.title }}</span><span style="flex:none;display:inline-flex;align-items:center;background:#121316;color:#fff;font-weight:700;font-size:.74rem;padding:4px 9px;border-radius:999px">×<b style="color:#9ED4F8">{{ idea.est }}</b></span></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:18px;flex-wrap:wrap">
+            <span style="font-size:.8rem;color:#8A93A0">Generated by Signal AI from this snapshot · estimates are directional, not guarantees</span>
+            <button onClick="{{ regenerate }}" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #E7EBEF;border-radius:999px;padding:9px 16px;font-weight:600;font-size:.85rem;color:#1B1D21;cursor:pointer" style-hover="border-color:#121316"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 4v4h-4"/></svg>Regenerate</button>
+          </div>
+        </div>
+      </sc-if>
+    </sc-if>
+  </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:840},&quot;defaultSort&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Best (breakout)&quot;,&quot;Most views&quot;,&quot;Most likes&quot;,&quot;Newest&quot;],&quot;default&quot;:&quot;Best (breakout)&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Results&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Comfortable&quot;,&quot;Compact&quot;],&quot;default&quot;:&quot;Comfortable&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Results&quot;},&quot;fastModeDefault&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Run&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const sortMap = { "Best (breakout)": "breakout", "Most views": "views", "Most likes": "likes", "Newest": "newest" };
+    this.state = {
+      view: "hub",
+      running: false,
+      sort: sortMap[props && props.defaultSort] || "breakout",
+      keyword: "all",
+      verifiedOnly: false,
+      query: "",
+      urls: "https://www.youtube.com/results?search_query=best+ai+tools\nhttps://www.youtube.com/results?search_query=chatgpt+tutorial+for+beginners\nhow to make money with ai\nai tools for small business",
+      perLink: "60 videos",
+      dateFilter: "Any time",
+      fastMode: props ? props.fastModeDefault !== false : true,
+      aiState: "idle",
+      ai: null
+    };
+    const g = [
+      "linear-gradient(150deg,#FFE3B8,#E8A052 60%,#8E5A1E)",
+      "linear-gradient(150deg,#A9D6FF,#4D8FD6 60%,#1F4E86)",
+      "linear-gradient(160deg,#9FE5D2,#3FAE8F 55%,#16614D)",
+      "linear-gradient(165deg,#8FA7FF,#5468D6 55%,#2C3A8E)",
+      "linear-gradient(165deg,#FFC2B0,#E0705E 55%,#8C3140)",
+      "linear-gradient(165deg,#D7B6FF,#8E63D8 60%,#4A2E86)"
+    ];
+    const raw = [
+      ["a1Xk92", "21 AI Tools That Will Make You Rich Before 2026", "Hustle Lab", 57000, false, 1230000, 48200, 3110, 760, "2026-06-14", "best ai tools"],
+      ["b7Qm14", "This Free AI Tool Replaces 12 Apps", "Tool Finder", 41000, false, 680000, 31500, 1840, 525, "2026-06-19", "best ai tools"],
+      ["c3Rt88", "Build a $10k/mo AI Agency (Full 2026 Roadmap)", "Agency OS", 28000, false, 410000, 22900, 2070, 1930, "2026-06-11", "how to make money with ai"],
+      ["d9Lp02", "ChatGPT Tutorial for Beginners \u2014 2026 Full Guide", "AI Simplified", 89000, true, 920000, 38600, 2450, 1455, "2026-06-09", "chatgpt tutorial for beginners"],
+      ["e5Wn37", "AI Agents Explained for Beginners", "Lean AI", 76000, false, 690000, 30100, 1760, 550, "2026-06-27", "best ai tools"],
+      ["f2Yu61", "ChatGPT vs Claude vs Gemini: 2026 Showdown", "Model Watch", 162000, true, 1400000, 62800, 5210, 1290, "2026-06-16", "best ai tools"],
+      ["g8Zd45", "How to Make Money with AI in 2026 (Realistic)", "Side Income Lab", 134000, true, 1100000, 51200, 4080, 930, "2026-06-21", "how to make money with ai"],
+      ["h4Vc19", "The Only 5 AI Tools You Actually Need", "Lean AI", 76000, false, 590000, 27400, 1620, 550, "2026-06-05", "ai tools for small business"],
+      ["i6Bn73", "10 ChatGPT Prompts That Feel Illegal to Know", "Prompt Pro", 64000, false, 430000, 24000, 1390, 380, "2026-06-24", "chatgpt tutorial for beginners"],
+      ["j0Cf58", "I Automated My Entire Job With AI (Step by Step)", "Build With AI", 120000, true, 720000, 34500, 2510, 1120, "2026-06-02", "how to make money with ai"],
+      ["k2Dg66", "Best AI Tools for Small Business Owners in 2026", "Niche Tools", 38000, false, 205000, 9800, 610, 665, "2026-06-28", "ai tools for small business"],
+      ["l9Hj21", "I Tried 100 AI Tools So You Don't Have To", "Future Stack", 346000, true, 1800000, 71000, 6020, 1100, "2026-05-29", "best ai tools"],
+      ["m5Kl37", "Make Faceless Videos With AI in Minutes", "Studio AI", 52000, false, 240000, 12600, 880, 450, "2026-06-23", "how to make money with ai"],
+      ["n8Mp90", "Claude vs ChatGPT for Coding \u2014 Real Tests", "Data Dive", 210000, true, 880000, 37200, 2980, 1670, "2026-06-18", "chatgpt tutorial for beginners"],
+      ["o3Nq45", "5 AI Side Hustles That Actually Pay in 2026", "Money Lab", 410000, true, 1550000, 66400, 5400, 850, "2026-06-07", "how to make money with ai"],
+      ["p7Rs12", "Is the AI Hype Over? An Honest 2026 Take", "Tech Mint", 95000, false, 300000, 11200, 1340, 345, "2026-06-26", "best ai tools"]
+    ];
+    this.DATA = raw.map((r, i) => ({ id: r[0], title: r[1], channel: r[2], subs: r[3], verified: r[4], views: r[5], likes: r[6], comments: r[7], dur: r[8], upload: r[9], keyword: r[10], thumb: g[i % 6] }));
+  }
+  fmtViews(n) { if (n >= 1e6) return (n / 1e6).toFixed(2) + "M"; if (n >= 1e3) return Math.round(n / 1e3) + "K"; return "" + n; }
+  fmtSubs(n) { if (n >= 1e6) return (n / 1e6).toFixed(1) + "M"; if (n >= 1e3) return Math.round(n / 1e3) + "K"; return "" + n; }
+  fmtK(n) { if (n >= 1e6) return (n / 1e6).toFixed(1) + "M"; if (n >= 1e3) return (n / 1e3).toFixed(1) + "K"; return "" + n; }
+  fmtDur(s) { const m = Math.floor(s / 60), x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
+  list() {
+    let r = this.DATA.slice();
+    if (this.state.keyword !== "all") r = r.filter(v => v.keyword === this.state.keyword);
+    if (this.state.verifiedOnly) r = r.filter(v => v.verified);
+    const q = this.state.query.trim().toLowerCase();
+    if (q) r = r.filter(v => (v.title + " " + v.channel).toLowerCase().includes(q));
+    const keys = { breakout: v => v.views / v.subs, views: v => v.views, likes: v => v.likes, comments: v => v.comments, newest: v => Date.parse(v.upload), longest: v => v.dur };
+    const k = keys[this.state.sort] || keys.breakout;
+    return r.sort((a, b) => k(b) - k(a));
+  }
+  rows() {
+    return this.list().map(v => ({
+      id: v.id, title: v.title, channel: v.channel, keyword: v.keyword, verified: v.verified,
+      subsLabel: this.fmtSubs(v.subs) + " subs",
+      viewsLabel: this.fmtViews(v.views),
+      likesLabel: this.fmtK(v.likes),
+      breakoutLabel: (v.views / v.subs).toFixed(1),
+      durLabel: this.fmtDur(v.dur),
+      thumb: v.thumb
+    }));
+  }
+  chip(active) {
+    return "display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 15px;font-weight:600;font-size:.82rem;cursor:pointer;transition:.15s;" + (active ? "background:#121316;color:#fff;border:1.5px solid #121316;" : "background:#fff;color:#5C6470;border:1.5px solid #E7EBEF;");
+  }
+  showAi() { this.setState({ view: "ai" }); if (this.state.aiState === "idle" || this.state.aiState === "error") this.runAi(); }
+  parseJson(s) { try { const a = s.indexOf("{"), b = s.lastIndexOf("}"); if (a < 0 || b < 0) return null; return JSON.parse(s.slice(a, b + 1)); } catch (_) { return null; } }
+  num(x) { return String(x == null ? "" : x).replace(/[^0-9.]/g, "") || ""; }
+  norm(j) {
+    return {
+      topic: String(j.topic || ""),
+      angle: String(j.angle || ""),
+      est: this.num(j.est_breakout) || "10",
+      rationale: String(j.rationale || ""),
+      evidence: Array.isArray(j.evidence) ? j.evidence.slice(0, 4).map(String) : [],
+      ideas: Array.isArray(j.ideas) ? j.ideas.slice(0, 4).map(i => ({ title: String((i && i.title) || ""), est: this.num(i && i.est) || "" })) : []
+    };
+  }
+  fallback() {
+    return {
+      topic: "I Built an AI Agency in 30 Days With $0 \u2014 Full Roadmap",
+      angle: "AI agencies are the highest-breakout theme in this niche yet only ~7% of videos cover them \u2014 wide open for a smaller channel.",
+      est: "12",
+      rationale: "Agency and freelancing angles massively outperform the saturated tool-roundup format, and long-form roadmaps are exactly what's ranking right now. A numbered, dated, dollar-specific title stacks every title pattern that's already working in this niche.",
+      evidence: ["AI agencies average \u00d712.1 breakout vs \u00d76.1 for tool roundups", "Numbered titles pull ~2.3\u00d7 more views than non-numbered", "20\u201340 min videos hit \u00d79.1 \u2014 long-form dominates the leaderboard", "Only ~7% of tracked videos cover agencies \u2014 low supply, high demand"],
+      ideas: [
+        { title: "7 AI Tools Every Real Estate Agent Needs in 2026", est: "11" },
+        { title: "I Tried to Run My Whole Business on AI for a Week", est: "10" },
+        { title: "The AI Tool Everyone Recommends \u2014 That Failed Me", est: "9" },
+        { title: "Make $100/Day With AI \u2014 A Realistic Beginner Plan", est: "8" }
+      ]
+    };
+  }
+  async runAi() {
+    if (this.state.aiState === "loading") return;
+    this.setState({ aiState: "loading" });
+    const data = this.DATA.map(v => v.title + " | " + this.fmtSubs(v.subs) + " subs | " + this.fmtViews(v.views) + " views | x" + (v.views / v.subs).toFixed(1) + " breakout | " + this.fmtDur(v.dur) + " | kw:" + v.keyword).join("\n");
+    const prompt = "You are a YouTube content strategist analysing the \"AI Tools\" niche. Below are the top tracked videos (title | channel subs | views | breakout = views/subs | length | keyword).\nKnown patterns: numbered titles get ~2.3x more views; long-form 20-40min outperforms (x9.1 avg) vs under-4min (x3.1); SATURATED themes = generic tool roundups & model comparisons; UNDERSERVED high-breakout themes = AI agencies/freelancing (avg x12) and AI for specific industries (avg x9.6).\nPredict the single best NEW video a small/mid creator should make next to maximise breakout, plus 4 alternatives.\nReturn ONLY minified JSON, no prose: {\"topic\":string,\"angle\":string (one sentence, why now),\"est_breakout\":string (like \"x12\"),\"rationale\":string (2 sentences),\"evidence\":[3-4 short strings citing the data/patterns],\"ideas\":[{\"title\":string,\"est\":string}] (exactly 4)}.\nDATA:\n" + data;
+    try {
+      if (!window.claude || !window.claude.complete) throw new Error("no-claude");
+      const out = await window.claude.complete(prompt);
+      const j = this.parseJson(out);
+      if (!j || !j.topic) throw new Error("bad");
+      this.setState({ ai: this.norm(j), aiState: "done" });
+    } catch (e) {
+      this.setState({ ai: this.fallback(), aiState: "done" });
+    }
+  }
+  downloadTsv() {
+    const cols = ["video_id", "title", "video_url", "upload_date", "duration", "keyword", "channel", "subscribers", "verified", "views", "likes", "comments", "breakout_x"];
+    const cell = (v, c) => {
+      switch (c) {
+        case "video_id": return v.id;
+        case "video_url": return "https://www.youtube.com/watch?v=" + v.id;
+        case "upload_date": return v.upload;
+        case "duration": return this.fmtDur(v.dur);
+        case "keyword": return v.keyword;
+        case "channel": return v.channel;
+        case "subscribers": return v.subs;
+        case "verified": return v.verified ? "Yes" : "No";
+        case "views": return v.views;
+        case "likes": return v.likes;
+        case "comments": return v.comments;
+        case "breakout_x": return (v.views / v.subs).toFixed(1);
+        default: return String(v.title).replace(/\t|\n/g, " ");
+      }
+    };
+    const tsv = [cols.join("\t")].concat(this.DATA.map(v => cols.map(c => String(cell(v, c)).replace(/\t|\n/g, " ")).join("\t"))).join("\n");
+    const blob = new Blob([tsv], { type: "text/tab-separated-values;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "youtube-research_ai-tools_2026-07-01.tsv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  renderVals() {
+    const s = this.state, v = s.view;
+    const lines = s.urls.split("\n").map(x => x.trim()).filter(Boolean);
+    const perN = parseInt(s.perLink, 10) || 60;
+    const rows = this.rows();
+    const sdefs = [["breakout", "Best"], ["views", "Most views"], ["likes", "Most likes"], ["comments", "Most comments"], ["newest", "Newest"], ["longest", "Longest"]];
+    const sortChips = sdefs.map(d => ({ label: d[1], style: this.chip(s.sort === d[0]), onClick: () => this.setState({ sort: d[0] }) }));
+    return {
+      isHub: v === "hub", isInput: v === "input", isResults: v === "results", isAi: v === "ai", inTool: v === "results" || v === "ai",
+      running: s.running, notRunning: !s.running,
+      rows, shownCount: rows.length,
+      sortChips,
+      tabResultsStyle: this.chip(v === "results"), tabAiStyle: this.chip(v === "ai"),
+      verifiedStyle: this.chip(s.verifiedOnly),
+      keyword: s.keyword, query: s.query, urls: s.urls, perLink: s.perLink, dateFilter: s.dateFilter,
+      fastTrackStyle: "width:38px;height:22px;border-radius:999px;position:relative;flex:none;transition:.15s;background:" + (s.fastMode ? "#121316" : "#D7DCE3"),
+      fastKnobStyle: "position:absolute;top:2px;" + (s.fastMode ? "right:2px" : "left:2px") + ";width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.2)",
+      rowPad: (this.props && this.props.density === "Compact") ? "8px 18px" : "11px 18px",
+      linkCount: lines.length, perLinkNum: perN, estTotal: lines.length * perN,
+      aiBusy: s.aiState === "loading" || s.aiState === "idle", aiDone: s.aiState === "done", ai: s.ai,
+      goHub: () => this.setState({ view: "hub" }),
+      openTool: () => this.setState({ view: "input" }),
+      goInput: () => this.setState({ view: "input" }),
+      run: () => { this.setState({ view: "results", running: true }); setTimeout(() => this.setState({ running: false }), 1300); },
+      goResults: () => this.setState({ view: "results" }),
+      goAi: () => this.showAi(),
+      setKeyword: e => this.setState({ keyword: e.target.value }),
+      toggleVerified: () => this.setState({ verifiedOnly: !this.state.verifiedOnly }),
+      setQuery: e => this.setState({ query: e.target.value }),
+      setUrls: e => this.setState({ urls: e.target.value }),
+      setPerLink: e => this.setState({ perLink: e.target.value }),
+      setDateFilter: e => this.setState({ dateFilter: e.target.value }),
+      toggleFast: () => this.setState({ fastMode: !this.state.fastMode }),
+      download: () => this.downloadTsv(),
+      regenerate: () => this.runAi()
+    };
+  }
+}
+</script>
+</body>
+</html>
