@@ -328,6 +328,51 @@ def write_tsv(rows, path):
         writer.writerows(rows)
 
 
+def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
+               should_cancel=None):
+    """Callable core of the scraper. Returns row dicts; reports status via
+    progress(str). Behaviour matches main()'s loop but never prints or exits.
+
+    NOT safe to call concurrently: it mutates module-level globals
+    (RESULTS_PER_KEYWORD, COOKIES_FROM_BROWSER, FETCH_*). The web layer
+    serializes calls (one scrape at a time) so this is safe there.
+
+    should_cancel: optional callable -> bool, checked before each URL; when it
+    returns True the scrape stops early and returns whatever was collected.
+    """
+    global RESULTS_PER_KEYWORD, COOKIES_FROM_BROWSER
+    global FETCH_FULL_VIDEO_DETAILS, FETCH_CHANNEL_INFO
+    RESULTS_PER_KEYWORD = limit
+    COOKIES_FROM_BROWSER = cookies or None
+    FETCH_FULL_VIDEO_DETAILS = not fast
+    FETCH_CHANNEL_INFO = channel_info and not fast
+
+    def say(msg):
+        if progress:
+            progress(msg)
+
+    all_rows = []
+    total = len(urls)
+    for i, url in enumerate(urls, start=1):
+        if should_cancel and should_cancel():
+            say("Cancelled — stopping early.")
+            break
+        kw = keyword_from_url(url)
+        try:
+            rows = scrape_url(url, RESULTS_PER_KEYWORD)
+            all_rows.extend(rows)
+            say(f"[{i}/{total}] {kw} ... {len(rows)} videos")
+        except Exception as exc:
+            say(f"[{i}/{total}] {kw} ... FAILED ({exc})")
+        if i < total and PAUSE_BETWEEN_URLS:
+            time.sleep(PAUSE_BETWEEN_URLS)
+
+    if all_rows and FETCH_CHANNEL_INFO and not (should_cancel and should_cancel()):
+        say("Looking up channels for description + subscriber counts ...")
+        enrich_with_channel_info(all_rows)
+    return all_rows
+
+
 def parse_args(argv=None):
     p = argparse.ArgumentParser(
         description="Scrape YouTube search results into a spreadsheet, then build "
@@ -396,28 +441,24 @@ def main(argv=None):
               "- this is much slower; each video page is opened.")
     print()
 
-    all_rows = []
-    per_keyword_counts = {}
-
-    for i, url in enumerate(urls, start=1):
-        kw = keyword_from_url(url)
-        print(f"[{i}/{len(urls)}] {kw} ...", end=" ", flush=True)
-        try:
-            rows = scrape_url(url, RESULTS_PER_KEYWORD)
-            all_rows.extend(rows)
-            per_keyword_counts[kw] = len(rows)
-            print(f"{len(rows)} videos")
-        except Exception as exc:
-            per_keyword_counts[kw] = 0
-            print(f"FAILED ({exc})")
-        if i < len(urls):
-            time.sleep(PAUSE_BETWEEN_URLS)
+    all_rows = run_scrape(
+        urls,
+        limit=RESULTS_PER_KEYWORD,
+        fast=args.fast,
+        channel_info=not args.no_channel_info,
+        cookies=COOKIES_FROM_BROWSER,
+        progress=print,
+    )
 
     if not all_rows:
         sys.exit("\nNo data was collected. See README.txt -> Troubleshooting.")
 
-    if FETCH_CHANNEL_INFO:
-        enrich_with_channel_info(all_rows)
+    # Per-keyword counts for the summary table (initialise zeros so keywords
+    # that returned nothing still show up).
+    per_keyword_counts = {keyword_from_url(u): 0 for u in urls}
+    for r in all_rows:
+        kw = r.get("keyword", "")
+        per_keyword_counts[kw] = per_keyword_counts.get(kw, 0) + 1
 
     tsv_path = f"{OUTPUT_BASENAME}.tsv"
     write_tsv(all_rows, tsv_path)
