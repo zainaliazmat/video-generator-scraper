@@ -22,3 +22,4 @@ web/dist/
 
 # Web app per-job outputs
 web_runs/
+.gstack/
