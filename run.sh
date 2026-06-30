@@ -60,6 +60,34 @@ case "${1:-}" in
         shift
         exec "$PY" ideas.py "$@"
         ;;
+    web)
+        shift
+        # Optional port:  ./run.sh web 8080
+        PORT=8000
+        case "${1:-}" in
+            ''|*[!0-9]*) : ;;            # no/!numeric arg -> keep default
+            *) PORT="$1"; shift ;;
+        esac
+        # Ensure the web Python deps exist even when the venv was created before
+        # they were added (run.sh only pip-installs at venv-creation time).
+        "$PY" -c 'import uvicorn, fastapi, sse_starlette' 2>/dev/null || {
+            echo "Installing web dependencies..."
+            "$PY" -m pip install -r requirements.txt -q
+        }
+        # Build the UI on first run (gate on the artifact, not the directory).
+        if [ ! -f "web/dist/index.html" ]; then
+            command -v npm >/dev/null 2>&1 || {
+                echo "ERROR: Node.js/npm is required to build the web UI."
+                echo "Install Node 18+ from https://nodejs.org/ (or your package"
+                echo "manager), then re-run:  ./run.sh web"
+                exit 1
+            }
+            echo "Building the web UI (first run downloads npm packages; may take a few minutes)..."
+            ( cd web && (npm ci 2>/dev/null || npm install) && npm run build )
+        fi
+        echo "Voyara Signal running at http://127.0.0.1:$PORT   (press Ctrl-C to stop)"
+        exec "$PY" -m uvicorn server.app:app --host 127.0.0.1 --port "$PORT"
+        ;;
 esac
 
 # 4. Optional: update yt-dlp (YouTube changes often; this fixes most breakages).

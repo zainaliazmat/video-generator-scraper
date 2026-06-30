@@ -127,6 +127,50 @@ back to claude-sonnet-4-6 if your plan can't reach Opus).
 
 
 ==========================================================
+THE WEB APP  (Voyara Signal)
+==========================================================
+A local browser version of the tool: paste keywords, run a scrape with live
+progress, sort/filter the results, get an AI "next video" prediction, and
+download the TSV - all in your browser. It drives the SAME scraper and AI as
+the CLI; nothing is sent to any server. It runs only on your own machine.
+
+PREREQUISITES
+  - Python (already needed for the CLI).
+  - Node.js 18+ and npm  (only to BUILD the UI the first time).
+        Get it from https://nodejs.org/  (or your package manager).
+  - For the AI tab: the Claude Code CLI, logged in (see "THE AI CONTENT PLAN"
+    above). Without it, the AI tab shows a "log in to use AI" message.
+
+RUN IT
+        ./run.sh web                 # builds the UI the first time, then serves it
+        ./run.sh web 8080            # use a different port (default 8000)
+
+  The FIRST run downloads npm packages and builds the UI (can take a few
+  minutes). Later runs start instantly. When it's up, open the printed URL
+  (default http://127.0.0.1:8000) in your browser. Press Ctrl-C to stop.
+
+  Port already in use? Pick another:  ./run.sh web 8090
+
+CHOOSING A MODE  (you pick before each run)
+  - Fast - titles & views only. Seconds. No breakout column, no AI prediction
+    (those need subscriber counts, which fast mode skips).
+  - Full - breakout + AI. Opens every video/channel, so it takes ~15-30 min for
+    a big run. This is the full product; use it when you want breakout analysis.
+
+BOT-CHECK ("Sign in to confirm you're not a robot")
+  On the setup screen, set "Use browser login" to the browser you're logged
+  into YouTube on (Chrome/Firefox/Edge/Brave), then re-run. Close that browser
+  fully first so the app can read its cookies. (Same as the CLI's --cookies.)
+
+WINDOWS
+  There's no run.sh on Windows. From the project folder, with the venv active:
+        venv\Scripts\python -m pip install -r requirements.txt
+        cd web && npm install && npm run build && cd ..
+        venv\Scripts\python -m uvicorn server.app:app --host 127.0.0.1 --port 8000
+  Then open http://127.0.0.1:8000 .
+
+
+==========================================================
 SETTINGS  (defaults, in youtube_scraper.py near the top)
 ==========================================================
   RESULTS_PER_KEYWORD = 60        videos per search  (override: --limit)
