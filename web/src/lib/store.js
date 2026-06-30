@@ -44,8 +44,9 @@ export const runProgress = derived(state, ($s) => {
     if (m) { pct = Math.round((+m[1] / +m[2]) * 100); break }
   }
   const last = $s.progress[$s.progress.length - 1] || ''
-  if (/channel/i.test(last) || /\bsubscriber/i.test(last)) phase = 'Looking up channels'
-  else if (/\[\d+\/\d+\]/.test(last) || /video/i.test(last)) phase = 'Scraping search results'
+  if (/looking up \d+ channels|subscriber counts/i.test(last) ||
+      (/\[\d+\/\d+\]/.test(last) && /\bok$/.test(last))) phase = 'Looking up channels'
+  else if (/\[\d+\/\d+\]/.test(last) || /video|searching/i.test(last)) phase = 'Scraping search results'
   return { pct, phase }
 })
 

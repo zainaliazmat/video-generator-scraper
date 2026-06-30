@@ -31,6 +31,7 @@ HOW TO RUN (see README.txt for full setup):
 
 import argparse
 import csv
+import re
 import sys
 import time
 import urllib.parse
@@ -236,17 +237,53 @@ def _base_opts():
     return opts
 
 
-def scrape_url(url, limit):
+_ITEM_RE = re.compile(r"Downloading item (\d+) of (\d+)")
+
+
+class _ScrapeLogger:
+    """Forwards yt-dlp's per-video progress to a progress(str) callback so the
+    UI can show live activity while the (slow) full-detail pass runs.
+
+    yt-dlp's own "item N of M" counter resets per internal page, so we keep a
+    monotonic count of our own to avoid a confusing restart in the log."""
+    def __init__(self, progress):
+        self.progress = progress
+        self.count = 0
+
+    def _maybe(self, msg):
+        if _ITEM_RE.search(msg):
+            self.count += 1
+            self.progress(f"   video {self.count} — fetching views, likes, tags ...")
+
+    def debug(self, msg):
+        self._maybe(msg)
+
+    def info(self, msg):
+        self._maybe(msg)
+
+    def warning(self, msg):
+        pass
+
+    def error(self, msg):
+        pass
+
+
+def scrape_url(url, limit, progress=None):
     """Use yt-dlp to extract the search results for one URL (no downloading).
 
     With FETCH_FULL_VIDEO_DETAILS off this is a fast, flat (list-only) pull.
     With it on, each video page is opened so we also get likes, comments,
     exact upload date, subscriber count, tags, category and language.
+
+    progress(str): optional callback fed per-video status during the slow
+    full-detail pass (so the UI isn't silent while one search is scraped).
     """
     ydl_opts = _base_opts()
     ydl_opts["playlistend"] = limit           # cap how many results per search
     if not FETCH_FULL_VIDEO_DETAILS:
         ydl_opts["extract_flat"] = True       # list metadata only - fast
+    elif progress:
+        ydl_opts["logger"] = _ScrapeLogger(progress)   # live per-video lines
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
@@ -373,10 +410,12 @@ def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
             say("Cancelled — stopping early.")
             break
         kw = keyword_from_url(url)
+        # Emit immediately so the UI isn't silent while this search is scraped.
+        say(f"[{i}/{total}] Searching \"{kw}\" ...")
         try:
-            rows = scrape_url(url, RESULTS_PER_KEYWORD)
+            rows = scrape_url(url, RESULTS_PER_KEYWORD, progress=progress)
             all_rows.extend(rows)
-            say(f"[{i}/{total}] {kw} ... {len(rows)} videos")
+            say(f"[{i}/{total}] {kw} — {len(rows)} videos")
         except Exception as exc:
             say(f"[{i}/{total}] {kw} ... FAILED ({exc})")
         if i < total and PAUSE_BETWEEN_URLS:

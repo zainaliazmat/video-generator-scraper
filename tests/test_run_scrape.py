@@ -7,7 +7,7 @@ def test_run_scrape_calls_progress_and_returns_rows(monkeypatch):
         "https://yt/?search_query=a": [{"video_id": "x1", "keyword": "a", "views": 10}],
         "https://yt/?search_query=b": [{"video_id": "x2", "keyword": "b", "views": 20}],
     }
-    monkeypatch.setattr(ys, "scrape_url", lambda url, limit: fake_rows[url])
+    monkeypatch.setattr(ys, "scrape_url", lambda url, limit, progress=None: fake_rows[url])
     # In fast mode channel enrichment must NOT run.
     monkeypatch.setattr(ys, "enrich_with_channel_info",
                         lambda rows: (_ for _ in ()).throw(AssertionError("should not enrich")))
@@ -22,10 +22,20 @@ def test_run_scrape_calls_progress_and_returns_rows(monkeypatch):
     assert any("[2/2]" in line for line in seen)
 
 
+def test_scrape_logger_emits_monotonic_per_video_lines():
+    seen = []
+    log = ys._ScrapeLogger(seen.append)
+    log.debug("[download] Downloading item 1 of 30")
+    log.debug("[youtube] abc: Downloading webpage")   # ignored (no item count)
+    log.debug("[download] Downloading item 1 of 15")  # yt-dlp page reset -> still counts up
+    assert seen == ["   video 1 — fetching views, likes, tags ...",
+                    "   video 2 — fetching views, likes, tags ..."]
+
+
 def test_run_scrape_honours_should_cancel(monkeypatch):
     calls = []
 
-    def fake_scrape(url, limit):
+    def fake_scrape(url, limit, progress=None):
         calls.append(url)
         return [{"video_id": "v", "keyword": "k"}]
 
