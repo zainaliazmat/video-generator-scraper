@@ -1,0 +1,14 @@
+# Plain search terms - one per line. Lines starting with # are ignored.
+# Use these instead of pasting full YouTube URLs:
+#     ./run.sh --keywords keywords.txt
+# The script builds the search URL for each line and applies an upload-date
+# filter (default: this year; change with --filter month|week|today|none).
+
+best ai tools
+best ai tools for small business
+best ai tools for content creation
+chatgpt tutorial for beginners
+ai tools you should be using
+best ai for video editing
+how to make money with ai
+best ai writing tool
