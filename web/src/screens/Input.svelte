@@ -11,10 +11,18 @@
   $: fullMins = Math.max(1, Math.ceil(estTotal / 30))   // ~30 videos/min incl. channel lookups
   $: canRun = !!$state.mode && lines.length > 0
 
-  async function run() {
+  let showConfirm = false
+
+  function run() {
+    if (!canRun) return
+    if ($state.mode === 'full') { showConfirm = true; return }
+    doRun()
+  }
+
+  async function doRun() {
+    showConfirm = false
     if (!canRun) return
     const full = $state.mode === 'full'
-    if (full && !confirm(`This full breakout scrape of ~${estTotal} videos can take ~${fullMins} min. Start?`)) return
 
     let job
     try {
@@ -109,3 +117,16 @@
   </div>
   <p style="margin:16px 2px 0;font-size:.82rem;color:#8A93A0">Each run is saved as a dated snapshot, so you can re-run weekly and see what changed.{#if !$state.mode} Pick a mode to start.{/if}</p>
 </div>
+
+{#if showConfirm}
+  <div on:click={() => showConfirm = false} style="position:fixed;inset:0;z-index:100;background:rgba(18,19,22,.45);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeup .15s ease">
+    <div on:click|stopPropagation style="background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(18,19,22,.3);padding:26px 28px;max-width:420px;width:100%">
+      <h3 style="margin:0;font-weight:700;font-size:1.1rem;color:#1B1D21">Start a full scrape?</h3>
+      <p style="margin:10px 0 0;font-size:.92rem;color:#5C6470;line-height:1.55">This pulls full breakout data for <b style="color:#1B1D21">~{estTotal} videos</b> and can take about <b style="color:#1B1D21">{fullMins} min</b>. You can cancel it any time while it runs.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:22px">
+        <button on:click={() => showConfirm = false} style="background:#fff;border:1.5px solid #E7EBEF;border-radius:999px;padding:9px 17px;font-weight:600;font-size:.86rem;color:#1B1D21;cursor:pointer">Cancel</button>
+        <button on:click={doRun} style="background:#121316;color:#fff;border:none;border-radius:999px;padding:9px 19px;font-weight:600;font-size:.86rem;cursor:pointer;box-shadow:0 8px 20px rgba(18,19,22,.25)">Start scrape</button>
+      </div>
+    </div>
+  </div>
+{/if}

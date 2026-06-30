@@ -30,6 +30,11 @@ class Job:
         self.cancelled = False
         self.progress = []
         self.events = queue.Queue()      # drained by the SSE endpoint
+        # AI prediction streaming (the live "Claude session" log)
+        self.predict_events = queue.Queue()
+        self.predict_log = []
+        self.prediction = None
+        self.predicting = False
 
     def add_progress(self, msg):
         self.progress.append(msg)

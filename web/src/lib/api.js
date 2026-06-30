@@ -39,6 +39,21 @@ export async function cancelJob(jobId) {
 
 export const downloadUrl = (jobId) => `/api/jobs/${jobId}/download`
 
+// Streaming AI prediction. onText(chunk) fires as Claude writes; onResult(pred)
+// fires once with the parsed prediction (or {ok:false,...}).
+export async function watchPredict(jobId, onText, onResult) {
+  await fetch(`/api/jobs/${jobId}/predict-start`, { method: 'POST' })
+  const es = new EventSource(`/api/jobs/${jobId}/predict-events`)
+  es.onmessage = (e) => {
+    let evt
+    try { evt = JSON.parse(e.data) } catch (_) { return }
+    if (evt.type === 'text') onText(evt.chunk)
+    else if (evt.type === 'result') { es.close(); onResult(evt.prediction) }
+  }
+  es.onerror = () => {}  // let it retry; the result frame closes it
+  return () => es.close()
+}
+
 // Live progress. onEvent receives {type, message?, count?}. Completion is also
 // guaranteed via a status poll (R2) so a dropped/late SSE never strands the UI.
 export function watchJob(jobId, onEvent) {

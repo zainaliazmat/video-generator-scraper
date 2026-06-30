@@ -1,21 +1,26 @@
 <script>
   import { onMount } from 'svelte'
   import { state } from '../lib/store.js'
-  import { predict } from '../lib/api.js'
+  import { watchPredict } from '../lib/api.js'
   import ToolHeader from './ToolHeader.svelte'
 
   const reRunFull = () => state.update(s => ({ ...s, view: 'input', mode: 'full' }))
 
-  async function run() {
+  function run() {
     if ($state.aiState === 'loading') return
-    state.update(s => ({ ...s, aiState: 'loading', ai: null }))
-    try {
-      const out = await predict($state.jobId)
-      if (out && out.ok) state.update(s => ({ ...s, aiState: 'done', ai: out }))
-      else state.update(s => ({ ...s, aiState: 'error', ai: out || { reason: 'error', detail: 'Unknown error' } }))
-    } catch (e) {
-      state.update(s => ({ ...s, aiState: 'error', ai: { reason: 'error', detail: e.message } }))
-    }
+    state.update(s => ({ ...s, aiState: 'loading', ai: null, predictLog: '' }))
+    watchPredict($state.jobId,
+      (chunk) => state.update(s => ({ ...s, predictLog: s.predictLog + chunk })),
+      (pred) => {
+        if (pred && pred.ok) state.update(s => ({ ...s, aiState: 'done', ai: pred }))
+        else state.update(s => ({ ...s, aiState: 'error', ai: pred || { reason: 'error', detail: 'Unknown error' } }))
+      })
+  }
+
+  function autoscroll(node) {
+    const obs = new MutationObserver(() => { node.scrollTop = node.scrollHeight })
+    obs.observe(node, { childList: true, subtree: true, characterData: true })
+    return { destroy: () => obs.disconnect() }
   }
 
   const REASONS = {
@@ -41,10 +46,16 @@
     </div>
 
   {:else if $state.aiState === 'loading' || $state.aiState === 'idle'}
-    <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:50px;text-align:center">
-      <span style="display:inline-block;width:34px;height:34px;border-radius:50%;border:3px solid #E7EBEF;border-top-color:#121316;animation:spin .8s linear infinite"></span>
-      <div style="margin-top:18px;font-weight:600;color:#1B1D21">Analysing {$state.rows.length} videos across {$state.keywords.length} keywords…</div>
-      <div style="margin-top:4px;font-size:.86rem;color:#8A93A0">Reading breakout patterns, title formats and theme gaps to predict your next video</div>
+    <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:26px 28px">
+      <div style="display:flex;align-items:center;gap:13px">
+        <span style="display:inline-block;width:26px;height:26px;flex:none;border-radius:50%;border:3px solid #E7EBEF;border-top-color:#121316;animation:spin .8s linear infinite"></span>
+        <div>
+          <div style="font-weight:600;color:#1B1D21">Analysing {$state.rows.length} videos across {$state.keywords.length} {$state.keywords.length === 1 ? 'keyword' : 'keywords'}…</div>
+          <div style="font-size:.84rem;color:#8A93A0">Live output from Claude as it reads your data</div>
+        </div>
+      </div>
+      <!-- live Claude session log -->
+      <div use:autoscroll style="margin-top:16px;background:#0E1116;border-radius:12px;padding:16px 18px;height:300px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;line-height:1.65;color:#C7D0DA;white-space:pre-wrap;word-break:break-word">{$state.predictLog || 'starting…'}<span style="color:#5B6675">▌</span></div>
     </div>
 
   {:else if $state.aiState === 'error'}

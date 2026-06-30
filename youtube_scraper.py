@@ -287,9 +287,19 @@ def fetch_channel_info(channel_url):
     }
 
 
-def enrich_with_channel_info(rows):
+def enrich_with_channel_info(rows, progress=None, should_cancel=None):
     """Fill channel_description / channel_tags for every row, one lookup per
-    unique channel (cached). Also backfills subscribers if a video page hid it."""
+    unique channel (cached). Also backfills subscribers if a video page hid it.
+
+    progress(str): optional callback for live status (one line per channel).
+    should_cancel(): optional callable -> bool to stop the lookups early.
+    """
+    def say(msg):
+        if progress:
+            progress(msg)
+        else:
+            print(msg)
+
     cache = {}
     # unique channels, keyed by channel_url (fall back to channel_id)
     channels = []
@@ -301,11 +311,16 @@ def enrich_with_channel_info(rows):
             channels.append(key)
 
     total = len(channels)
-    print(f"\nLooking up {total} unique channel(s) for description + topics ...")
+    say(f"Looking up {total} channels for subscriber counts + topics ...")
     for i, key in enumerate(channels, start=1):
-        print(f"   [{i}/{total}] {key} ...", end=" ", flush=True)
+        if should_cancel and should_cancel():
+            say("Cancelled — stopping channel lookups.")
+            break
         cache[key] = fetch_channel_info(key)
-        print("ok")
+        # Show the channel name where we have it (nicer than the raw URL).
+        name = next((r.get("channel") for r in rows
+                     if (r.get("channel_url") or r.get("channel_id")) == key and r.get("channel")), key)
+        say(f"[{i}/{total}] {name} ... ok")
         if i < total and PAUSE_BETWEEN_CHANNELS:
             time.sleep(PAUSE_BETWEEN_CHANNELS)
 
@@ -368,8 +383,7 @@ def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
             time.sleep(PAUSE_BETWEEN_URLS)
 
     if all_rows and FETCH_CHANNEL_INFO and not (should_cancel and should_cancel()):
-        say("Looking up channels for description + subscriber counts ...")
-        enrich_with_channel_info(all_rows)
+        enrich_with_channel_info(all_rows, progress=progress, should_cancel=should_cancel)
     return all_rows
 
 

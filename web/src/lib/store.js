@@ -33,6 +33,20 @@ export const state = writable({
   // ai
   aiState: 'idle',             // idle | loading | done | error
   ai: null,
+  predictLog: '',              // streamed Claude text (live AI session)
+})
+
+// Derive a progress bar + phase label from the latest "[i/n]" progress line.
+export const runProgress = derived(state, ($s) => {
+  let pct = 0, phase = 'Starting…'
+  for (let i = $s.progress.length - 1; i >= 0; i--) {
+    const m = $s.progress[i].match(/\[(\d+)\/(\d+)\]/)
+    if (m) { pct = Math.round((+m[1] / +m[2]) * 100); break }
+  }
+  const last = $s.progress[$s.progress.length - 1] || ''
+  if (/channel/i.test(last) || /\bsubscriber/i.test(last)) phase = 'Looking up channels'
+  else if (/\[\d+\/\d+\]/.test(last) || /video/i.test(last)) phase = 'Scraping search results'
+  return { pct, phase }
 })
 
 export function persistMode(mode) {

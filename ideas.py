@@ -227,6 +227,8 @@ PREDICTION_SYSTEM = (
 )
 
 PREDICTION_INSTRUCTION = (
+    "Do not write any preamble, explanation, or commentary. Your entire reply "
+    "must be the JSON object and nothing else.\n"
     "Return ONLY minified JSON, no prose: "
     '{"topic":string,"angle":string (one sentence, why now),'
     '"est_breakout":string (like "x12"),"rationale":string (2 sentences),'
@@ -275,7 +277,7 @@ async def _prediction_async(digest):
         system_prompt=PREDICTION_SYSTEM, model=MODEL, fallback_model=FALLBACK_MODEL,
         allowed_tools=[], max_turns=1, setting_sources=None,
     )
-    parts, result_text = [], ""
+    parts, result_text, err = [], "", None
     async for message in query(prompt=PREDICTION_INSTRUCTION + digest, options=options):
         if isinstance(message, AssistantMessage):
             for block in message.content:
@@ -283,14 +285,56 @@ async def _prediction_async(digest):
                     parts.append(block.text)
         elif isinstance(message, ResultMessage):
             if message.is_error:
-                raise RuntimeError(message.result or "Claude error")
-            result_text = message.result or ""
-    return "".join(parts) or result_text
+                err = message.result or "Claude error"
+            else:
+                result_text = message.result or ""
+    text = "".join(parts) or result_text
+    if err and not text:
+        raise RuntimeError(err)
+    return text
 
 
-def generate_prediction(rows):
+async def _prediction_async_streaming(digest, on_text):
+    """Like _prediction_async but streams each text chunk to on_text(chunk)."""
+    from claude_agent_sdk import (query, ClaudeAgentOptions, AssistantMessage,
+                                  TextBlock, ResultMessage)
+    options = ClaudeAgentOptions(
+        system_prompt=PREDICTION_SYSTEM, model=MODEL, fallback_model=FALLBACK_MODEL,
+        allowed_tools=[], max_turns=1, setting_sources=None,
+    )
+    parts, result_text, err = [], "", None
+    async for message in query(prompt=PREDICTION_INSTRUCTION + digest, options=options):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, TextBlock):
+                    parts.append(block.text)
+                    on_text(block.text)
+        elif isinstance(message, ResultMessage):
+            if message.is_error:
+                err = message.result or "Claude error"
+            else:
+                result_text = message.result or ""
+    text = "".join(parts) or result_text
+    if err and not text:
+        raise RuntimeError(err)
+    return text
+
+
+def _classify_prediction_error(exc, CLINotFoundError):
+    if CLINotFoundError is not None and isinstance(exc, CLINotFoundError):
+        return "cli_missing"
+    if any(w in str(exc).lower() for w in ("login", "log in", "auth", "unauthor")):
+        return "not_logged_in"
+    return "error"
+
+
+def generate_prediction(rows, on_text=None):
     """Return {"ok": True, "source": "ai", ...prediction} on success, or
-    {"ok": False, "reason": ..., "detail": ...} on any failure. Never fabricates."""
+    {"ok": False, "reason": ..., "detail": ...} on any failure. Never fabricates.
+
+    If on_text(chunk) is given, the model's text is streamed to it as it arrives
+    (used by the web app's live "AI session" log).
+    """
     try:
         from claude_agent_sdk import CLINotFoundError
     except ImportError:
@@ -298,21 +342,19 @@ def generate_prediction(rows):
     try:
         import anyio
         digest = build_digest(rows)
-        # Safe: this is called from a sync route running in FastAPI's threadpool,
-        # which has no running event loop, so anyio.run can start its own.
-        text = anyio.run(_prediction_async, digest)
+        # Safe: called from a sync route in FastAPI's threadpool (no running loop).
+        if on_text:
+            text = anyio.run(_prediction_async_streaming, digest, on_text)
+        else:
+            text = anyio.run(_prediction_async, digest)
         obj = parse_prediction_json(text)
         if not obj or not obj.get("topic"):
             return {"ok": False, "reason": "parse_failed",
                     "detail": "Claude returned no usable prediction."}
         return {"ok": True, "source": "ai", **normalize_prediction(obj)}
     except Exception as exc:
-        reason = "error"
-        if CLINotFoundError is not None and isinstance(exc, CLINotFoundError):
-            reason = "cli_missing"
-        elif any(w in str(exc).lower() for w in ("login", "log in", "auth", "unauthor")):
-            reason = "not_logged_in"
-        return {"ok": False, "reason": reason, "detail": str(exc)}
+        return {"ok": False, "reason": _classify_prediction_error(exc, CLINotFoundError),
+                "detail": str(exc)}
 
 
 if __name__ == "__main__":

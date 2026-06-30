@@ -5,6 +5,8 @@ Svelte UI. Single-user, binds 127.0.0.1, runs ONE scrape at a time.
 """
 import asyncio
 import json
+import queue
+import threading
 from datetime import date
 from pathlib import Path
 
@@ -167,6 +169,75 @@ def predict(body: PredictBody):
     if not job or job.status not in ("done", "cancelled"):
         raise HTTPException(404, "No finished job to analyse")
     return ideas.generate_prediction(job.rows)
+
+
+@app.post("/api/jobs/{job_id}/predict-start")
+def predict_start(job_id: str):
+    """Kick off a streaming prediction in the background (idempotent)."""
+    job = MANAGER.get(job_id)
+    if not job or job.status not in ("done", "cancelled"):
+        raise HTTPException(404, "No finished job to analyse")
+    if job.predicting:
+        return {"ok": True, "already": True}
+    job.predicting = True
+    job.prediction = None
+    job.predict_events = queue.Queue()
+    job.predict_log = []
+    model = getattr(ideas, "MODEL", "claude")
+
+    def emit(line):
+        job.predict_log.append(line)
+        job.predict_events.put({"type": "text", "chunk": line})
+
+    def work():
+        try:
+            emit(f"$ signal predict --videos {len(job.rows)}\n")
+            emit("building digest from your scraped data...\n")
+            emit(f"connecting to Claude ({model})...\n\n")
+            result = ideas.generate_prediction(job.rows, on_text=emit)
+            job.prediction = result
+            if result.get("ok"):
+                emit("\n\n[done] prediction ready.\n")
+            else:
+                emit(f"\n\n[error] {result.get('reason')}: {result.get('detail','')}\n")
+            job.predict_events.put({"type": "result", "prediction": result})
+        except Exception as exc:  # safety net
+            job.prediction = {"ok": False, "reason": "error", "detail": str(exc)}
+            job.predict_events.put({"type": "result", "prediction": job.prediction})
+        finally:
+            job.predicting = False
+
+    threading.Thread(target=work, daemon=True).start()
+    return {"ok": True}
+
+
+@app.get("/api/jobs/{job_id}/predict-events")
+async def predict_events(job_id: str):
+    job = MANAGER.get(job_id)
+    if not job:
+        raise HTTPException(404, "Unknown job")
+
+    async def gen():
+        while True:
+            try:
+                evt = job.predict_events.get_nowait()
+            except Exception:
+                evt = None
+            if evt is not None:
+                yield f"data: {json.dumps(evt)}\n\n"
+                if evt["type"] == "result":
+                    break
+                continue
+            # If a prediction already finished before this client connected,
+            # replay the log + result so it never hangs.
+            if not job.predicting and job.prediction is not None:
+                for line in job.predict_log:
+                    yield f"data: {json.dumps({'type': 'text', 'chunk': line})}\n\n"
+                yield f"data: {json.dumps({'type': 'result', 'prediction': job.prediction})}\n\n"
+                break
+            await asyncio.sleep(0.1)
+
+    return StreamingResponse(gen(), media_type="text/event-stream")
 
 
 # --------------------------------------------------------------------------- #
