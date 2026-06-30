@@ -38,10 +38,6 @@ class RunBody(BaseModel):
     cookies: str | None = None
 
 
-class PredictBody(BaseModel):
-    job_id: str
-
-
 # --------------------------------------------------------------------------- #
 # Run + progress
 # --------------------------------------------------------------------------- #
@@ -161,14 +157,6 @@ def download(job_id: str):
     ys.write_tsv(job.rows, out)
     return FileResponse(out, filename=f"voyara_{job.id}.tsv",
                         media_type="text/tab-separated-values")
-
-
-@app.post("/api/predict")
-def predict(body: PredictBody):
-    job = MANAGER.get(body.job_id)
-    if not job or job.status not in ("done", "cancelled"):
-        raise HTTPException(404, "No finished job to analyse")
-    return ideas.generate_prediction(job.rows)
 
 
 @app.post("/api/jobs/{job_id}/predict-start")

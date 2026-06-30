@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { state } from '../lib/store.js'
   import { watchPredict } from '../lib/api.js'
+  import { autoscroll } from '../lib/ui.js'
   import ToolHeader from './ToolHeader.svelte'
 
   const reRunFull = () => state.update(s => ({ ...s, view: 'input', mode: 'full' }))
@@ -15,12 +16,6 @@
         if (pred && pred.ok) state.update(s => ({ ...s, aiState: 'done', ai: pred }))
         else state.update(s => ({ ...s, aiState: 'error', ai: pred || { reason: 'error', detail: 'Unknown error' } }))
       })
-  }
-
-  function autoscroll(node) {
-    const obs = new MutationObserver(() => { node.scrollTop = node.scrollHeight })
-    obs.observe(node, { childList: true, subtree: true, characterData: true })
-    return { destroy: () => obs.disconnect() }
   }
 
   const REASONS = {

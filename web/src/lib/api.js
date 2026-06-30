@@ -26,13 +26,6 @@ export async function getResults(jobId) {
   return jsonOrThrow(await fetch(`/api/jobs/${jobId}/results`))
 }
 
-export async function predict(jobId) {
-  return jsonOrThrow(await fetch('/api/predict', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ job_id: jobId }),
-  }))
-}
-
 export async function cancelJob(jobId) {
   return fetch(`/api/jobs/${jobId}/cancel`, { method: 'POST' })
 }

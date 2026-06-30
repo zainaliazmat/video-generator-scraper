@@ -1,3 +1,5 @@
+import time
+
 from fastapi.testclient import TestClient
 
 import server.app as app_mod
@@ -47,13 +49,24 @@ def test_events_emits_terminal_for_finished_job():
     assert '"type": "done"' in body or '"type":"done"' in body
 
 
-def test_predict_uses_generate_prediction(monkeypatch):
+def test_predict_start_runs_generate_prediction(monkeypatch):
     job = _seed_done_job([{"video_id": "a", "views": "1000", "subscribers": "100"}])
-    monkeypatch.setattr(app_mod.ideas, "generate_prediction",
-                        lambda rows: {"ok": True, "source": "ai", "topic": "MOCK", "ideas": []})
-    r = client.post("/api/predict", json={"job_id": job.id})
+
+    def fake_predict(rows, on_text=None):
+        if on_text:
+            on_text("thinking...")
+        return {"ok": True, "source": "ai", "topic": "MOCK", "ideas": []}
+
+    monkeypatch.setattr(app_mod.ideas, "generate_prediction", fake_predict)
+    r = client.post(f"/api/jobs/{job.id}/predict-start")
     assert r.status_code == 200
-    assert r.json()["topic"] == "MOCK"
+    # wait for the background prediction thread to finish
+    for _ in range(50):
+        if job.prediction is not None:
+            break
+        time.sleep(0.05)
+    assert job.prediction["topic"] == "MOCK"
+    assert "thinking..." in "".join(job.predict_log)
 
 
 def test_download_writes_per_job_path(tmp_path, monkeypatch):

@@ -1,11 +1,9 @@
 <script>
   import { state } from '../lib/store.js'
+  import { chip } from '../lib/ui.js'
   const goInput = () => state.update(s => ({ ...s, view: 'input' }))
   const goResults = () => state.update(s => ({ ...s, view: 'results' }))
   const goAi = () => state.update(s => ({ ...s, view: 'ai' }))
-  const chip = (active) =>
-    `display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 15px;font-weight:600;font-size:.82rem;cursor:pointer;` +
-    (active ? 'background:#121316;color:#fff;border:1.5px solid #121316;' : 'background:#fff;color:#5C6470;border:1.5px solid #E7EBEF;')
 </script>
 
 <a on:click={goInput} style="display:inline-flex;align-items:center;gap:6px;font-size:.84rem;font-weight:600;color:#5C6470;margin-bottom:14px;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>New run</a>

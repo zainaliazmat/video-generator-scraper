@@ -2,15 +2,13 @@
   import { state, filteredRows, pagedRows, pageInfo, runProgress } from '../lib/store.js'
   import { cancelJob, downloadUrl } from '../lib/api.js'
   import { fmtViews, fmtSubs, fmtK, fmtDate, gradientFor } from '../lib/fmt.js'
+  import { chip, autoscroll } from '../lib/ui.js'
   import ToolHeader from './ToolHeader.svelte'
 
   const sortDefs = [
     ['breakout', 'Best'], ['views', 'Most views'], ['likes', 'Most likes'],
     ['comments', 'Most comments'], ['newest', 'Newest'], ['longest', 'Longest'],
   ]
-  const chip = (active) =>
-    `display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 15px;font-weight:600;font-size:.82rem;cursor:pointer;` +
-    (active ? 'background:#121316;color:#fff;border:1.5px solid #121316;' : 'background:#fff;color:#5C6470;border:1.5px solid #E7EBEF;')
 
   $: fast = $state.fast
   const setSort = (k) => { if (!(fast && k === 'breakout')) state.update(s => ({ ...s, sort: k, page: 1 })) }
@@ -20,13 +18,6 @@
   async function cancel() {
     state.update(s => ({ ...s, cancelling: true }))
     await cancelJob($state.jobId)
-  }
-
-  // Auto-scroll the terminal log to the newest line.
-  function autoscroll(node) {
-    const obs = new MutationObserver(() => { node.scrollTop = node.scrollHeight })
-    obs.observe(node, { childList: true, subtree: true, characterData: true })
-    return { destroy: () => obs.disconnect() }
   }
 </script>
 
