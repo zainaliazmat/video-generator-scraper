@@ -23,6 +23,9 @@ cd "$(dirname "$0")"
 
 VENV_DIR="venv"
 PY="$VENV_DIR/bin/python"
+REQS="backend/requirements.txt"
+# Python code lives in backend/; data files (urls.txt, outputs) stay here at root.
+export PYTHONPATH="$PWD/backend${PYTHONPATH:+:$PYTHONPATH}"
 
 # 1. Find a Python 3.8+ interpreter.
 if command -v python3 >/dev/null 2>&1; then
@@ -44,8 +47,8 @@ if [ ! -d "$VENV_DIR" ]; then
     echo "First-time setup: creating virtual environment..."
     $SYS_PY -m venv "$VENV_DIR"
     "$PY" -m pip install --upgrade pip -q
-    echo "Installing dependencies from requirements.txt..."
-    "$PY" -m pip install -r requirements.txt -q
+    echo "Installing dependencies from $REQS..."
+    "$PY" -m pip install -r "$REQS" -q
     echo "Setup done."
     echo
 fi
@@ -54,11 +57,11 @@ fi
 case "${1:-}" in
     diff)
         shift
-        exec "$PY" history.py "$@"
+        exec "$PY" backend/history.py "$@"
         ;;
     ideas)
         shift
-        exec "$PY" ideas.py "$@"
+        exec "$PY" backend/ideas.py "$@"
         ;;
     web)
         shift
@@ -72,10 +75,10 @@ case "${1:-}" in
         # they were added (run.sh only pip-installs at venv-creation time).
         "$PY" -c 'import uvicorn, fastapi, sse_starlette' 2>/dev/null || {
             echo "Installing web dependencies..."
-            "$PY" -m pip install -r requirements.txt -q
+            "$PY" -m pip install -r "$REQS" -q
         }
         # Build the UI on first run (gate on the artifact, not the directory).
-        if [ ! -f "web/dist/index.html" ]; then
+        if [ ! -f "frontend/dist/index.html" ]; then
             command -v npm >/dev/null 2>&1 || {
                 echo "ERROR: Node.js/npm is required to build the web UI."
                 echo "Install Node 18+ from https://nodejs.org/ (or your package"
@@ -83,7 +86,7 @@ case "${1:-}" in
                 exit 1
             }
             echo "Building the web UI (first run downloads npm packages; may take a few minutes)..."
-            ( cd web && (npm ci 2>/dev/null || npm install) && npm run build )
+            ( cd frontend && (npm ci 2>/dev/null || npm install) && npm run build )
         fi
         echo "Voyara Signal running at http://127.0.0.1:$PORT   (press Ctrl-C to stop)"
         exec "$PY" -m uvicorn server.app:app --host 127.0.0.1 --port "$PORT"
@@ -100,4 +103,4 @@ if [ "${1:-}" = "--update" ]; then
 fi
 
 # 5. Run the scraper, forwarding any remaining arguments (e.g. flags or a urls file).
-exec "$PY" youtube_scraper.py "$@"
+exec "$PY" backend/youtube_scraper.py "$@"

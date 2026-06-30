@@ -25,9 +25,11 @@ from server.serialize import row_to_api
 app = FastAPI(title="Voyara Signal")
 MANAGER = JobManager()
 
-ROOT = Path(__file__).resolve().parent.parent
-DIST = ROOT / "web" / "dist"
-WEB_RUNS = ROOT / "web_runs"
+# backend/server/app.py -> backend/ -> project root
+BACKEND = Path(__file__).resolve().parent.parent
+PROJECT = BACKEND.parent
+DIST = PROJECT / "frontend" / "dist"     # built Svelte UI
+WEB_RUNS = PROJECT / "web_runs"          # per-job TSV outputs (gitignored)
 
 
 class RunBody(BaseModel):

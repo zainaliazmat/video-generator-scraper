@@ -36,8 +36,9 @@ automatically, then scrapes urls.txt into youtube_results.tsv.
 
 Windows (or if you prefer manual control):
       python -m venv venv
-      venv\Scripts\python -m pip install -r requirements.txt
-      venv\Scripts\python youtube_scraper.py
+      venv\Scripts\python -m pip install -r backend\requirements.txt
+      set PYTHONPATH=%CD%\backend
+      venv\Scripts\python backend\youtube_scraper.py
 
 
 ==========================================================
@@ -164,14 +165,15 @@ BOT-CHECK ("Sign in to confirm you're not a robot")
 
 WINDOWS
   There's no run.sh on Windows. From the project folder, with the venv active:
-        venv\Scripts\python -m pip install -r requirements.txt
-        cd web && npm install && npm run build && cd ..
+        venv\Scripts\python -m pip install -r backend\requirements.txt
+        cd frontend && npm install && npm run build && cd ..
+        set PYTHONPATH=%CD%\backend
         venv\Scripts\python -m uvicorn server.app:app --host 127.0.0.1 --port 8000
   Then open http://127.0.0.1:8000 .
 
 
 ==========================================================
-SETTINGS  (defaults, in youtube_scraper.py near the top)
+SETTINGS  (defaults, in backend/youtube_scraper.py near the top)
 ==========================================================
   RESULTS_PER_KEYWORD = 60        videos per search  (override: --limit)
   PAUSE_BETWEEN_URLS  = 2         seconds between searches
@@ -208,13 +210,24 @@ Want to keep each run's results separately
 
 
 ==========================================================
-FILES IN THIS FOLDER
+PROJECT LAYOUT
 ==========================================================
-  youtube_scraper.py   the scraper (run it, or use ./run.sh)
-  history.py           saves snapshots + the run-over-run diff
-  ideas.py             the optional AI content plan
-  run.sh               one-command runner for all of the above
-  urls.txt             your search URLs (default input)
-  keywords.txt         plain search terms (alternative input)
-  requirements.txt     dependencies
+  run.sh               one-command runner for everything
+  urls.txt             your search URLs (default input)        <- you edit these
+  keywords.txt         plain search terms (alternative input)  <- you edit these
   README.txt           this file
+  Voyara Signal.dc.html   the UI design prototype (reference)
+
+  backend/             all the Python
+    youtube_scraper.py   the scraper
+    history.py           snapshots + the run-over-run diff
+    analyze.py           the Excel analysis dashboard
+    ideas.py             the AI content plan + web prediction
+    requirements.txt     Python dependencies
+    server/              the local web API (FastAPI)
+    tests/               the test suite
+
+  frontend/            the web UI (Svelte) -> builds to frontend/dist/
+
+  Outputs (youtube_results.tsv, history/, youtube_content_ideas.md) are written
+  here at the project root, next to urls.txt — your data stays where you edit.

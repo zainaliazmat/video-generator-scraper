@@ -11,10 +11,11 @@ youtube_content_ideas.md
 history/
 *.zip
 
-# Node / Svelte (future frontend)
+# Node / Svelte frontend
 node_modules/
-web/dist/
+frontend/dist/
 .vite/
+.pytest_cache/
 
 # OS / editor
 .DS_Store
