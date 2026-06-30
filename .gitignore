@@ -19,3 +19,6 @@ web/dist/
 # OS / editor
 .DS_Store
 *.swp
+
+# Web app per-job outputs
+web_runs/

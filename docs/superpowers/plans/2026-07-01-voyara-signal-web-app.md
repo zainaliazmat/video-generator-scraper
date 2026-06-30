@@ -1109,4 +1109,124 @@ git commit -m "fix: QA + design-review findings for the web app"
 - **Spec coverage:** Local/FastAPI/background-job/Svelte decisions → Tasks 1-9. Live progress → Tasks 4,6,8. Fast-mode degradation → Tasks 3,8 (`breakout` null + disabled chips). AI JSON shape + fallback → Task 5. Bot-check handling → Task 4 (`BOTCHECK_MSG`) + Task 8 (error display) + Task 9 (cookies/README). Snapshots → Task 6 (`history.save_snapshot`). CLI untouched → Task 1 Step 6 + Task 10 Step 5.
 - **Out of scope (per spec):** the three "Coming soon" tools (Hub shows them, inert), the `.xlsx` workbook, hosting/auth.
 - **Type consistency:** `run_scrape(...progress=)` signature consistent across Tasks 1/6; `row_to_api` keys consistent across Tasks 3/6/8; prediction `{topic,angle,est,rationale,evidence,ideas,source}` consistent across Tasks 5/8.
+
+---
+
+## Autoplan Review Revisions (2026-07-01, `[subagent-only]`)
+
+Four independent reviewers (CEO/Eng/Design/DX) reviewed this plan. The following amendments are AUTHORITATIVE — where they conflict with a task above, these win. Decisions: D1 proceed, D2=A (explicit mode choice, no silent default), D3 keep Svelte.
+
+### R1 — Serialize jobs; never mutate globals concurrently (fixes Eng#1 / CEO#5a, CRITICAL)
+`JobManager` runs at most ONE scrape at a time. Add to Task 4:
+- `JobManager.__init__` gains `self._running = False` (guarded by `self._lock`).
+- `run_in_thread` checks `_running`; if already running, the job is NOT started — `POST /api/run` (Task 6) returns HTTP 409 `{"detail": "A scrape is already running. Wait for it to finish."}`. Set `_running=True` before the thread starts and `False` in a `finally` inside `run`.
+- New test `test_second_run_rejected_while_running` in `tests/test_jobs.py`: start a job with a scrape_fn that blocks on a `threading.Event`, assert a second `run_in_thread` is refused (returns False / raises a typed `JobBusyError`).
+This makes the `run_scrape` global mutation safe (only one job touches the globals at a time). Document the constraint in `youtube_scraper.run_scrape`'s docstring: "not safe to call concurrently; the web layer serializes calls."
+
+### R2 — Completion driven by polled `/results`, not solely SSE (fixes Eng#2 / CEO#4 / Design#2, CRITICAL)
+- Task 6 `events()`: when `job.status` is terminal, ALWAYS yield a synthetic terminal frame derived from status (`{"type": job.status, ...}`) even if the queue item was already consumed by a prior connection. Loop: drain queued events, then if status terminal emit terminal frame and break. Add a `: ping` heartbeat comment every ~15s of idle so proxies don't kill the stream.
+- Add `GET /api/jobs/{id}` → `{"status", "progress": [...], "count", "error"}` (status poll, no streaming).
+- Task 7 `openEvents`: on `onerror`, do NOT permanently close — let EventSource retry, and ALSO start polling `GET /api/jobs/{id}` every 2s as a fallback; resolve the UI (load results or show error) from whichever reports terminal first. Add `closeEvents(es)` helper used once results/error are shown.
+- Task 8 `run()`: spinner resolves on terminal status from EITHER source; guard against double-resolve.
+- New test `tests/test_app.py::test_events_emits_terminal_for_finished_job`: seed a job already `done`, open `/api/jobs/{id}/events` via TestClient streaming, assert a terminal frame is yielded. And `test_status_poll_returns_terminal`.
+
+### R3 — Long-job UX: ETA, cancel, reconnect (fixes Design#2 / CEO#4, CRITICAL)
+- **ETA on Input screen:** below the `links × per-link ≈ N videos` line, show a mode-aware estimate. Fast: "~seconds". Full: rough `ceil(estTotal / 30)` min (≈ 30 videos/min incl. channel lookups) shown as "Full mode ≈ ~X min". Copy: exact wording is "Full breakout analysis ≈ ~{X} min".
+- **Confirm before a long run:** in Full mode, `run()` shows a confirm ("This full scrape of ~N videos can take ~X minutes. Start?") before calling `startRun`.
+- **Cancel:** add `POST /api/jobs/{id}/cancel` → sets `job.cancelled = True`; `run_scrape` gains an optional `should_cancel: callable -> bool` checked at the top of each URL iteration, returning early. `JobManager.run` marks status `cancelled` and emits a `cancelled` terminal event. Results screen shows a "Cancel run" button while running; cancelled state shows "Run cancelled — partial data kept" with whatever rows were collected.
+- **Reconnect:** store `jobId` in `localStorage` (not just in-memory). On app load, if a stored `jobId`'s `GET /api/jobs/{id}` reports `running`, reattach (spinner + events); if `done`, offer to load it. Drop the job from storage once consumed.
+- New tests: `test_cancel_sets_status`; `run_scrape` honours `should_cancel`.
+
+### R4 — Honest AI fallback; no fabricated numbers (fixes CEO#2 / Design#4 / DX#5, CRITICAL)
+Revise Task 5 + Task 8:
+- DELETE the statistics-laden `PREDICTION_FALLBACK`. `generate_prediction` returns a typed result: `{"ok": True, "source": "ai", ...prediction}` on success, or `{"ok": False, "reason": "not_logged_in" | "cli_missing" | "parse_failed" | "error", "detail": str}` on failure. Distinguish reasons by catching `CLINotFoundError` (cli_missing) and the SDK's auth error vs a parse failure vs generic.
+- Task 8 `AiPrediction.svelte`: when `ok === false`, render a real ERROR card (no hero, no fake evidence): for `not_logged_in`/`cli_missing` show "AI prediction needs the Claude CLI logged in" + the exact setup steps from README §AI + a Retry button; for `parse_failed`/`error` show "Couldn't generate a prediction from this data" + Retry. NEVER show invented breakout numbers.
+- Keep `est`/`evidence` ONLY when they came from the real model run.
+- Update `tests/test_predict.py`: drop the `PREDICTION_FALLBACK` shape test; add `test_generate_prediction_reports_not_logged_in` (monkeypatch `_prediction_async` to raise `CLINotFoundError`, assert `{"ok": False, "reason": "cli_missing"}`).
+
+### R5 — D2=A: explicit mode choice, no silent default (fixes Design#1, CRITICAL)
+- Input screen replaces the single "Fast mode" toggle with an explicit two-option mode selector (segmented control / two radio cards), no pre-selected silent default that disables features:
+  - "Fast — titles & views" (sub: "seconds · no breakout or AI")
+  - "Full — breakout + AI prediction" (sub: "15-30 min · the full product")
+- The app does NOT auto-run; the user picks a mode before "Run research" enables. Persist last choice in `localStorage`.
+- Results screen in Fast mode: a prominent banner (not a tiny note) — "Breakout & AI need Full mode" + a "Re-run in Full mode" button that returns to Input pre-set to Full. Breakout cells `—`; Breakout sort chip + Verified filter disabled; default sort = "Most views" in fast mode, "Best (breakout)" in full.
+- AI tab in Fast mode: a gate card "AI prediction needs Full-mode data (subscriber counts for breakout)" + "Re-run in Full mode", instead of calling `/predict` on data that can't support it.
+
+### R6 — Per-job file paths; never clobber the CLI (fixes Eng#3 / Eng#7, MEDIUM)
+- Task 6 `download()`: write to `web_runs/<job_id>.tsv` (dir gitignored), not `youtube_results.tsv`. Or stream directly from `job.rows` via `StreamingResponse`. Chosen: per-job file under `web_runs/`. Add `web_runs/` to `.gitignore`.
+- Web-run snapshots: call `history.save_snapshot(rows, ys.COLUMNS, "web_youtube_results")` so the web app's snapshots use a distinct basename and never overwrite the CLI's `youtube_results_<date>.tsv`. Log (don't silently swallow) any snapshot exception via the job's progress.
+
+### R7 — Missing frontend states (fixes Design#3 / Eng, HIGH)
+Task 8 must implement, each as a real rendered state:
+- **Error** (Results screen): when `state.error` set, show a card with the message, and for bot-check show "Turn on 'Use browser login' and re-run" CTA wired to the cookies control (R10). Replaces the spinner/table.
+- **Empty filter:** when `visibleRows` is empty but `rows` is not, show "No videos match your filters" + clear-filters.
+- **Partial results:** if the run reported per-link failures (Task 6 returns `failed_links: [...]` in `/results`), show "Scraped X of Y links — Z failed" banner.
+- **No-input validation:** Input `run()` catches the 400 and shows inline "Add at least one keyword or URL".
+- **AI states:** `aiState` includes `error`; render Retry (R4).
+
+### R8 — Wire real data; kill hardcoded mock values (fixes Design#5, MEDIUM)
+- `/api/jobs/{id}/results` returns `{count, fast, date (ISO), failed_links, rows}`. Results header uses `count` + `date` (not "482 videos · 1 Jul 2026").
+- Keyword filter dropdown built from the distinct `rows[].keyword`, not the four mock keywords.
+- Remove the fake 1/2/3 pagination, OR implement real client-side paging (page size 50). Chosen: client-side paging only if `rows.length > 50`, else hide the pager. "Showing N of M" reflects `visibleRows`/`count`.
+
+### R9 — `run.sh web` hardening (fixes DX#1 / DX#2 / DX#3 / DX#4, CRITICAL)
+Revise Task 9 `web` case:
+```bash
+    web)
+        shift
+        PORT="${1:-8000}"; case "$PORT" in ''|*[!0-9]*) PORT=8000 ;; *) shift ;; esac
+        # Ensure Python web deps even when the venv already exists.
+        "$PY" -c 'import uvicorn, fastapi, sse_starlette' 2>/dev/null || {
+            echo "Installing web dependencies..."
+            "$PY" -m pip install -r requirements.txt -q
+        }
+        if [ ! -f "web/dist/index.html" ]; then
+            command -v npm >/dev/null 2>&1 || {
+                echo "ERROR: Node.js/npm is required to build the web UI."
+                echo "Install Node 18+ from https://nodejs.org/ then re-run: ./run.sh web"
+                exit 1
+            }
+            echo "Building the web UI (first run downloads npm deps; may take a few minutes)..."
+            ( cd web && (npm ci 2>/dev/null || npm install) && npm run build )
+        fi
+        echo "Voyara Signal running at http://127.0.0.1:$PORT  (Ctrl-C to stop)"
+        exec "$PY" -m uvicorn server.app:app --host 127.0.0.1 --port "$PORT"
+        ;;
+```
+- `app.py`: when `DIST` is absent, mount a `/` handler returning a clear "Web UI not built — run `./run.sh web` with Node installed" message (HTTP 200 text), not a bare 404.
+
+### R10 — Cookies control in the UI (fixes DX#6, MEDIUM)
+Input screen adds a "Use browser login (for bot-checks)" control: a small select (`off` / `chrome` / `firefox` / `edge` / `brave`) wired to the `cookies` param in `startRun`. The bot-check error message references it: "Turn on 'Use browser login' above and re-run."
+
+### R11 — LRU job cap + softer bot-check message (fixes Eng#5 / Eng#7, LOW-MED)
+- `JobManager` keeps the last 10 jobs (`OrderedDict`, evict oldest on `create`).
+- `BOTCHECK_MSG` softened: "No videos were returned. This usually means a YouTube bot-check (turn on 'Use browser login' and re-run) — or yt-dlp is out of date (run ./run.sh --update), or no results matched."
+
+### R12 — Reliability surfacing (D1 follow-through, CEO#6)
+Add a small "Update yt-dlp" affordance: `POST /api/update-ytdlp` runs `pip install -U yt-dlp` in a thread and reports result; a link in the bot-check/empty error card triggers it. Low priority — implement after the core flow works (Task 10½), not a blocker.
+
+### R13 — Test gaps (fixes Eng#6, HIGH)
+Add tests alongside the relevant tasks: job serialization (R1), SSE terminal-for-finished-job + status poll (R2), cancel (R3), not-logged-in prediction (R4), int-typed serialize inputs, download writes a per-job path (R6). The suite must exercise the concurrency/SSE/cancel paths, not only pure functions.
+
+### R14 — README content (fixes DX#7, MEDIUM)
+Task 9 README "WEB APP" section MUST cover: prerequisites (Node 18+ & npm, Python); first run builds the UI (slow), later runs instant; exact command `./run.sh web [PORT]`, the URL, how to stop (Ctrl-C), how to change port; the bot-check → "Use browser login" control; the AI tab needs the Claude CLI logged in (cross-link §AI); Windows note (no `run.sh`; manual `uvicorn`/`npm` steps).
+
+## Decision Audit Trail
+
+| # | Phase | Decision | Class | Principle | Rationale |
+|---|-------|----------|-------|-----------|-----------|
+| 1 | Eng | Serialize jobs (1 at a time) vs thread config through | Mechanical | P5 explicit | Single-user tool; serialize is the simplest correct fix for the global-mutation race (R1) |
+| 2 | Eng | Drive completion off polled `/results` + replayable terminal frame | Mechanical | P1 completeness | SSE-only completion strands the UI on reconnect (R2) |
+| 3 | Design/CEO | Add ETA + cancel + reconnect for long jobs | Mechanical | P1 completeness | 30-min job needs real long-job affordances (R3); in blast radius |
+| 4 | CEO/Design/DX | Replace fabricated-stats fallback with honest error state | Mechanical | P1 honesty | Showing invented numbers as user data is unsafe (R4) |
+| 5 | Design | D2=A explicit mode choice, no silent default | **Taste→user** | P5 explicit | User chose A; avoids silently disabling the hero feature (R5) |
+| 6 | Eng | Per-job file paths under `web_runs/` | Mechanical | P4 DRY/safety | Never clobber the CLI's TSV/snapshot (R6) |
+| 7 | Design | Implement error/empty/partial/validation states | Mechanical | P1 completeness | Most common real path (bot-check) shipped broken otherwise (R7) |
+| 8 | Design | Wire real count/date/keywords; drop fake pager | Mechanical | P1 completeness | Verbatim mock copy lies over real data (R8) |
+| 9 | DX | `run.sh web` deps + Node preflight + port + dist guard | Mechanical | P1 completeness | Two first-run blockers otherwise (R9) |
+| 10 | DX | Cookies control in UI | Mechanical | P1 completeness | Bot-check message was a dead end (R10) |
+| 11 | Eng | LRU job cap; softer bot-check msg | Mechanical | P3 pragmatic | Bounded memory; accurate messaging (R11) |
+| 12 | CEO | Keep web app (D1) + add yt-dlp update affordance | **Premise→user** | P6 action | User confirmed proceed; reliability surfaced (R12) |
+| 13 | CEO | Keep Svelte (D3) over revert-to-vanilla | **User challenge** | — | User's deliberate, informed choice stands; 3/4 reviewers did not object |
+| 14 | Eng | Add concurrency/SSE/cancel tests | Mechanical | P1 completeness | Suite must fail on the real bugs (R13) |
 </content>
