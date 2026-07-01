@@ -19,6 +19,14 @@
     state.update(s => ({ ...s, cancelling: true }))
     await cancelJob($state.jobId)
   }
+
+  function predictThisRun() {
+    const s = $state
+    // Deep-link into the standalone tool with THIS snapshot preselected when it
+    // came from history; the store already holds the rows/jobId either way.
+    state.update(v => ({ ...v, view: 'predict', aiState: 'idle', ai: null, predictLog: '',
+      source: v.date ? { kind: 'history', file: `web_youtube_results_${v.date}.tsv`, label: `${v.date} · ${v.rows.length} videos` } : null }))
+  }
 </script>
 
 <div style="max-width:960px;margin:0 auto;padding:30px 24px 60px">
@@ -59,7 +67,12 @@
   {:else}
     <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px">
       <p style="margin:0;color:#5C6470;font-size:.92rem"><b style="color:#1B1D21">{$state.rows.length} videos</b> from {$state.keywords.length} {$state.keywords.length === 1 ? 'keyword' : 'keywords'}{#if $state.date} · scraped {fmtDate($state.date)}{/if}</p>
-      <a href={downloadUrl($state.jobId)} style="display:inline-flex;align-items:center;gap:8px;background:#121316;color:#fff;text-decoration:none;border:none;border-radius:999px;padding:10px 17px;font-weight:600;font-size:.85rem;cursor:pointer;box-shadow:0 8px 20px rgba(18,19,22,.25)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download TSV</a>
+      <div style="display:flex;gap:10px">
+        {#if !fast}
+          <button on:click={predictThisRun} style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #E7EBEF;color:#1B1D21;border-radius:999px;padding:10px 16px;font-weight:600;font-size:.85rem;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3L12 3z"/></svg>Predict next video</button>
+        {/if}
+        <a href={downloadUrl($state.jobId)} style="display:inline-flex;align-items:center;gap:8px;background:#121316;color:#fff;text-decoration:none;border:none;border-radius:999px;padding:10px 17px;font-weight:600;font-size:.85rem;cursor:pointer;box-shadow:0 8px 20px rgba(18,19,22,.25)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download TSV</a>
+      </div>
     </div>
 
     {#if $state.failedNote}

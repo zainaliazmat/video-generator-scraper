@@ -5,7 +5,7 @@
   import Hub from './screens/Hub.svelte'
   import Input from './screens/Input.svelte'
   import Results from './screens/Results.svelte'
-  import AiPrediction from './screens/AiPrediction.svelte'
+  import Predict from './screens/Predict.svelte'
 
   const goHub = () => state.update(s => ({ ...s, view: 'hub' }))
 
@@ -26,7 +26,7 @@
     } catch (_) { rememberJob(null) }
   })
 
-  $: inTool = $state.view === 'results' || $state.view === 'ai'
+  $: inTool = $state.view === 'results'
 </script>
 
 <div style="min-height:100vh;background:linear-gradient(180deg,#DCF1FF 0%,#EFF8FF 380px,#FFFFFF 820px)">
@@ -47,11 +47,9 @@
     <Hub />
   {:else if $state.view === 'input'}
     <Input />
-  {:else if inTool}
-    {#if $state.view === 'results'}
-      <Results />
-    {:else}
-      <AiPrediction />
-    {/if}
+  {:else if $state.view === 'results'}
+    <Results />
+  {:else if $state.view === 'predict'}
+    <Predict />
   {/if}
 </div>
