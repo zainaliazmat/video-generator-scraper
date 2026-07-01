@@ -34,24 +34,10 @@ export const state = writable({
   // predict tool (standalone)
   history: [],                 // [{file,date,count,keywords}]
   historyState: 'idle',        // idle | loading | error
-  source: null,                // {kind:'file',file:File,name} | {kind:'history',file,label}
+  source: null,                // {kind:'file',file:File,label} | {kind:'history',file,label}
   aiState: 'idle',             // idle | loading | done | error
   ai: null,
   predictLog: '',              // streamed Claude text (live AI session)
-})
-
-// Derive a progress bar + phase label from the latest "[i/n]" progress line.
-export const runProgress = derived(state, ($s) => {
-  let pct = 0, phase = 'Starting…'
-  for (let i = $s.progress.length - 1; i >= 0; i--) {
-    const m = $s.progress[i].match(/\[(\d+)\/(\d+)\]/)
-    if (m) { pct = Math.round((+m[1] / +m[2]) * 100); break }
-  }
-  const last = $s.progress[$s.progress.length - 1] || ''
-  if (/looking up \d+ channels|subscriber counts/i.test(last) ||
-      (/\[\d+\/\d+\]/.test(last) && /\bok$/.test(last))) phase = 'Looking up channels'
-  else if (/\[\d+\/\d+\]/.test(last) || /video|searching/i.test(last)) phase = 'Scraping search results'
-  return { pct, phase }
 })
 
 export function persistMode(mode) {

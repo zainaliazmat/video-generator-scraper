@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy } from 'svelte'
+  import { onDestroy } from 'svelte'
   import { state } from '../lib/store.js'
   import { cancelJob } from '../lib/api.js'
   import { autoscroll } from '../lib/ui.js'

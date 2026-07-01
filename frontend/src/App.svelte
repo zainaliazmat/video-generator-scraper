@@ -25,8 +25,6 @@
       } else { rememberJob(null) }
     } catch (_) { rememberJob(null) }
   })
-
-  $: inTool = $state.view === 'results'
 </script>
 
 <div style="min-height:100vh;background:linear-gradient(180deg,#DCF1FF 0%,#EFF8FF 380px,#FFFFFF 820px)">
