@@ -10,7 +10,7 @@ import threading
 from datetime import date
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -19,6 +19,7 @@ import history
 import ideas
 import youtube_scraper as ys
 from server import inputs as inputs_mod
+from server import tsv_sources
 from server.jobs import JobBusyError, JobManager
 from server.serialize import row_to_api
 
@@ -159,6 +160,51 @@ def download(job_id: str):
     ys.write_tsv(job.rows, out)
     return FileResponse(out, filename=f"voyara_{job.id}.tsv",
                         media_type="text/tab-separated-values")
+
+
+# --------------------------------------------------------------------------- #
+# Standalone prediction: history listing + TSV -> synthetic job
+# --------------------------------------------------------------------------- #
+_REASON_STATUS = {"empty": 422, "bad_columns": 422,
+                  "no_breakout_data": 422, "too_large": 413}
+
+
+@app.get("/api/history")
+def history_list():
+    """List saved TSV snapshots the predict tool can analyse."""
+    return {"snapshots": tsv_sources.list_snapshots()}
+
+
+@app.post("/api/predict")
+async def predict_source(file: UploadFile | None = File(default=None),
+                         history: str | None = Form(default=None)):
+    """Build a synthetic done-job from an uploaded TSV or a history snapshot,
+    so the existing predict-start/predict-events endpoints can stream on it."""
+    snapshot_date = ""
+    if file is not None:
+        data = await file.read()
+        if len(data) > tsv_sources.MAX_UPLOAD_BYTES:
+            raise HTTPException(413, "too_large")
+        rows = tsv_sources.parse_tsv(data)
+    elif history:
+        path = tsv_sources.resolve_history_path(history)
+        if path is None:
+            raise HTTPException(404, "Unknown history file")
+        rows = tsv_sources.parse_tsv(path.read_bytes())
+        snapshot_date = tsv_sources._date_key(path.name)
+    else:
+        raise HTTPException(400, "Provide a file upload or a history filename.")
+
+    reason = tsv_sources.source_error(rows)
+    if reason:
+        raise HTTPException(_REASON_STATUS.get(reason, 422), reason)
+
+    # Synthetic job: not gated by the scrape lock; params carry enough for the
+    # results screen if it is ever queried. Never remembered as the last job.
+    job = MANAGER.create({"fast": False, "date": snapshot_date, "predict": True})
+    job.rows = rows
+    job.status = "done"
+    return {"job_id": job.id}
 
 
 @app.post("/api/jobs/{job_id}/predict-start")
