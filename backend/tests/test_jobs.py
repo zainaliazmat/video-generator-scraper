@@ -74,3 +74,14 @@ def test_lru_evicts_oldest_beyond_cap():
     ids = [mgr.create({}).id for _ in range(4)]
     assert mgr.get(ids[0]) is None      # oldest evicted
     assert mgr.get(ids[3]) is not None  # newest retained
+
+
+def test_create_never_evicts_a_predicting_job():
+    from server.jobs import JobManager
+    m = JobManager(max_jobs=2)
+    keep = m.create({})
+    keep.predicting = True                     # mid-stream prediction
+    # Create enough jobs to force eviction well past the cap.
+    for _ in range(5):
+        m.create({})
+    assert m.get(keep.id) is keep              # survived eviction

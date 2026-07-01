@@ -42,7 +42,7 @@ class Job:
 
 
 class JobManager:
-    def __init__(self, max_jobs=10):
+    def __init__(self, max_jobs=50):
         self._jobs = OrderedDict()
         self._lock = threading.Lock()
         self._running = False
@@ -52,8 +52,16 @@ class JobManager:
         job = Job(uuid.uuid4().hex[:12], params)
         with self._lock:
             self._jobs[job.id] = job
+            # Evict oldest to stay under the cap, but NEVER a job whose
+            # prediction is still streaming (its predict-events SSE would 404
+            # and the client would retry forever). If every over-cap job is
+            # predicting, keep them all.
             while len(self._jobs) > self._max_jobs:
-                self._jobs.popitem(last=False)   # evict oldest
+                victim = next((jid for jid, j in self._jobs.items()
+                               if not j.predicting), None)
+                if victim is None:
+                    break
+                del self._jobs[victim]
         return job
 
     def get(self, job_id):
