@@ -1,9 +1,10 @@
 <script>
-  import { state, filteredRows, pagedRows, pageInfo, runProgress } from '../lib/store.js'
-  import { cancelJob, downloadUrl } from '../lib/api.js'
+  import { state, filteredRows, pagedRows, pageInfo } from '../lib/store.js'
+  import { downloadUrl } from '../lib/api.js'
   import { fmtViews, fmtSubs, fmtK, fmtDate, gradientFor } from '../lib/fmt.js'
-  import { chip, autoscroll } from '../lib/ui.js'
+  import { chip } from '../lib/ui.js'
   import ToolHeader from './ToolHeader.svelte'
+  import RunProgress from './RunProgress.svelte'
 
   const sortDefs = [
     ['breakout', 'Best'], ['views', 'Most views'], ['likes', 'Most likes'],
@@ -14,11 +15,6 @@
   const setSort = (k) => { if (!(fast && k === 'breakout')) state.update(s => ({ ...s, sort: k, page: 1 })) }
   const setPage = (p) => state.update(s => ({ ...s, page: p }))
   const reRunFull = () => state.update(s => ({ ...s, view: 'input', mode: 'full' }))
-
-  async function cancel() {
-    state.update(s => ({ ...s, cancelling: true }))
-    await cancelJob($state.jobId)
-  }
 
   function predictThisRun() {
     const s = $state
@@ -33,30 +29,7 @@
   <ToolHeader />
 
   {#if $state.running}
-    <div style="background:#fff;border:1px solid #E7EBEF;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:28px 30px">
-      <div style="display:flex;align-items:center;gap:13px">
-        <span style="display:inline-block;width:26px;height:26px;flex:none;border-radius:50%;border:3px solid #E7EBEF;border-top-color:#121316;animation:spin .8s linear infinite"></span>
-        <div style="flex:1;min-width:0">
-          <div style="font-weight:600;color:#1B1D21">{$runProgress.phase}…</div>
-          <div style="font-size:.84rem;color:#8A93A0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{$state.progress.length ? $state.progress[$state.progress.length - 1] : 'Starting the scrape…'}</div>
-        </div>
-        <button on:click={cancel} disabled={$state.cancelling} style="flex:none;background:#fff;border:1.5px solid #E7EBEF;border-radius:999px;padding:8px 16px;font-weight:600;font-size:.84rem;color:#1B1D21;cursor:pointer">{$state.cancelling ? 'Cancelling…' : 'Cancel run'}</button>
-      </div>
-
-      <!-- progress bar -->
-      <div style="margin-top:16px;height:7px;border-radius:999px;background:#EEF1F4;overflow:hidden">
-        <div style="height:100%;border-radius:999px;background:#121316;width:{$runProgress.pct}%;transition:width .4s ease"></div>
-      </div>
-
-      <!-- live terminal log -->
-      <div use:autoscroll style="margin-top:14px;background:#0E1116;border-radius:12px;padding:14px 16px;height:200px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;line-height:1.7;color:#C7D0DA">
-        {#each $state.progress as line}
-          <div><span style="color:#4B5563">$</span> <span style="color:{line.includes('FAILED') ? '#F0A0A0' : (line.includes('Cancelled') ? '#F0C674' : '#9ED4F8')}">{line}</span></div>
-        {/each}
-        <div style="color:#5B6675">▌</div>
-      </div>
-    </div>
-
+    <RunProgress />
   {:else if $state.error}
     <div style="background:#fff;border:1px solid #F3D3D3;border-radius:18px;box-shadow:0 1px 2px rgba(18,19,22,.05),0 8px 22px rgba(18,19,22,.06);padding:34px">
       <div style="font-weight:700;font-size:1.05rem;color:#B23B3B">Run didn't complete</div>

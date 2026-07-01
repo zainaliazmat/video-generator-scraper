@@ -38,7 +38,8 @@
     }
     rememberJob(job.job_id)
     state.update(s => ({ ...s, view: 'results', running: true, cancelling: false,
-      jobId: job.job_id, progress: [], error: null, rows: [], ai: null, aiState: 'idle' }))
+      jobId: job.job_id, progress: [], error: null, rows: [], ai: null, aiState: 'idle',
+      runStartMs: Date.now() }))
 
     watchJob(job.job_id, async (evt) => {
       if (evt.type === 'progress') {
