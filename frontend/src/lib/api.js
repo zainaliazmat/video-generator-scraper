@@ -77,3 +77,15 @@ export function watchJob(jobId, onEvent) {
   }, 2000)
   return () => finish({ type: 'closed' })
 }
+
+export async function getHistory() {
+  return jsonOrThrow(await fetch('/api/history'))
+}
+
+// source = {kind:'file', file:File} | {kind:'history', file:string(filename)}
+export async function startPredict(source) {
+  const body = new FormData()
+  if (source.kind === 'file') body.append('file', source.file)
+  else body.append('history', source.file)
+  return jsonOrThrow(await fetch('/api/predict', { method: 'POST', body }))
+}

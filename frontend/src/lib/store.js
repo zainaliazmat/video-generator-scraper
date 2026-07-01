@@ -6,7 +6,7 @@ const LS_JOB = 'voyara.jobId'
 const savedMode = (typeof localStorage !== 'undefined' && localStorage.getItem(LS_MODE)) || null
 
 export const state = writable({
-  view: 'hub',                 // hub | input | results | ai
+  view: 'hub',                 // hub | input | results | predict
   // input
   urls: 'https://www.youtube.com/results?search_query=best+ai+tools\nhow to make money with ai',
   perLink: '60 videos',
@@ -18,6 +18,7 @@ export const state = writable({
   running: false,
   cancelling: false,
   progress: [],
+  runStartMs: 0,               // Date.now() when the scrape started (for time-left)
   error: null,
   // results
   rows: [],
@@ -30,7 +31,10 @@ export const state = writable({
   verifiedOnly: false,
   query: '',
   page: 1,
-  // ai
+  // predict tool (standalone)
+  history: [],                 // [{file,date,count,keywords}]
+  historyState: 'idle',        // idle | loading | error
+  source: null,                // {kind:'file',file:File,name} | {kind:'history',file,label}
   aiState: 'idle',             // idle | loading | done | error
   ai: null,
   predictLog: '',              // streamed Claude text (live AI session)
