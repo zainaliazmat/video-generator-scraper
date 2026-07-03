@@ -1,5 +1,5 @@
 """Put the backend/ directory on sys.path so the top-level modules
-(youtube_scraper, analyze, history, ideas, server) import cleanly when pytest
+(youtube_scraper, analyze, history, ideas, tui) import cleanly when pytest
 is run from anywhere."""
 import os
 import sys

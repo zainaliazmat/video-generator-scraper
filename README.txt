@@ -31,31 +31,45 @@ Open a terminal in this folder and run:
       ./run.sh
 
 The first time, it creates a virtual environment and installs dependencies
-automatically, then scrapes urls.txt into youtube_results.tsv.
+automatically, then launches the TERMINAL UI: a menu you drive with the arrow
+keys. Pick a task (Scrape / Predict / Compare), press Enter, answer the prompts,
+hit Generate — no flags to remember, no urls.txt to edit by hand.
 (If you get "permission denied", run:  chmod +x run.sh  once.)
+
+Want to type one word from anywhere instead of ./run.sh? Put the launcher on
+your PATH once:
+
+      ln -s "$(pwd)/ytauto" ~/.local/bin/ytauto
+
+Then just run:  ytauto
 
 Windows (or if you prefer manual control):
       python -m venv venv
       venv\Scripts\python -m pip install -r backend\requirements.txt
       set PYTHONPATH=%CD%\backend
-      venv\Scripts\python backend\youtube_scraper.py
+      venv\Scripts\python -m tui                 # the terminal UI
+      venv\Scripts\python backend\youtube_scraper.py   # or the plain CLI scrape
 
 
 ==========================================================
 THE COMMANDS
 ==========================================================
-  ./run.sh                      scrape urls.txt into youtube_results.tsv
-  ./run.sh --update             update yt-dlp first (fixes most breakages), then scrape
-  ./run.sh --keywords keywords.txt   scrape from plain search terms (no URLs needed)
-  ./run.sh --fast               quick mode: list-only, skips likes/comments/subs/tags
-  ./run.sh --limit 30           grab 30 videos per keyword instead of 60
-  ./run.sh --cookies chrome     use your browser login if YouTube shows a bot check
+The terminal UI covers everything below with menus. These commands are still
+here for scripting / muscle memory:
+
+  ./run.sh                      launch the terminal UI (the default)
+  ./run.sh scrape               scrape urls.txt into youtube_results.tsv
+  ./run.sh scrape --update      update yt-dlp first (fixes most breakages), then scrape
+  ./run.sh scrape --keywords keywords.txt   scrape from plain search terms
+  ./run.sh scrape --fast        quick mode: list-only, skips likes/comments/subs/tags
+  ./run.sh scrape --limit 30    grab 30 videos per keyword instead of 60
+  ./run.sh scrape --cookies chrome   use your browser login if YouTube shows a bot check
   ./run.sh diff                 compare the two most recent snapshots in history/
-  ./run.sh ideas                AI content plan (needs ANTHROPIC_API_KEY - see below)
+  ./run.sh ideas                AI content plan (needs Claude access - see below)
 
-You can mix scrape flags:  ./run.sh --keywords keywords.txt --limit 40 --filter month
+You can mix scrape flags:  ./run.sh scrape --keywords keywords.txt --limit 40 --filter month
 
-Full flag list:  ./run.sh --help
+Full flag list:  ./run.sh scrape --help
 
 
 ==========================================================
@@ -128,48 +142,39 @@ back to claude-sonnet-4-6 if your plan can't reach Opus).
 
 
 ==========================================================
-THE WEB APP  (Voyara Signal)
+THE TERMINAL UI  (ytauto)
 ==========================================================
-A local browser version of the tool: paste keywords, run a scrape with live
-progress, sort/filter the results, get an AI "next video" prediction, and
-download the TSV - all in your browser. It drives the SAME scraper and AI as
-the CLI; nothing is sent to any server. It runs only on your own machine.
-
-PREREQUISITES
-  - Python (already needed for the CLI).
-  - Node.js 18+ and npm  (only to BUILD the UI the first time).
-        Get it from https://nodejs.org/  (or your package manager).
-  - For the AI tab: the Claude Code CLI, logged in (see "THE AI CONTENT PLAN"
-    above). Without it, the AI tab shows a "log in to use AI" message.
+The front end is a terminal app — no browser, no Node.js, no web server. It
+drives the SAME scraper, diff, and AI as the commands above; everything runs on
+your own machine, in-process.
 
 RUN IT
-        ./run.sh web                 # builds the UI the first time, then serves it
-        ./run.sh web 8080            # use a different port (default 8000)
+        ./run.sh          # or `ytauto` if you symlinked it onto your PATH
 
-  The FIRST run downloads npm packages and builds the UI (can take a few
-  minutes). Later runs start instantly. When it's up, open the printed URL
-  (default http://127.0.0.1:8000) in your browser. Press Ctrl-C to stop.
+HOW IT WORKS
+  1. A menu appears. Move with the arrow keys, press Enter to pick a task:
+        Scrape YouTube  ·  Predict content ideas  ·  Compare snapshots  ·  Quit
+  2. Scrape asks its questions on screen:
+        - paste your search URLs or plain keywords (one per line) — right in the
+          app, no editing urls.txt
+        - pick a time range and how many videos per link
+        - Fast mode on/off (on = list-only, much faster; off = full detail)
+     Then hit Generate and watch the progress stream live. When it finishes it
+     saves youtube_results.tsv + a dated history snapshot, and offers to run a
+     prediction on the fresh data.
+  3. Predict analyses the last scrape (or any saved snapshot) and streams a
+     Claude prediction. Needs Claude access (see "THE AI CONTENT PLAN" above);
+     without it you get a plain "couldn't reach Claude" message.
+  4. Compare picks two snapshots and shows what changed (same as ./run.sh diff).
 
-  Port already in use? Pick another:  ./run.sh web 8090
-
-CHOOSING A MODE  (you pick before each run)
-  - Fast - titles & views only. Seconds. No breakout column, no AI prediction
-    (those need subscriber counts, which fast mode skips).
-  - Full - breakout + AI. Opens every video/channel, so it takes ~15-30 min for
-    a big run. This is the full product; use it when you want breakout analysis.
+  Press Esc to go back a screen (or cancel a running task). Press q at the menu
+  to quit.
 
 BOT-CHECK ("Sign in to confirm you're not a robot")
-  On the setup screen, set "Use browser login" to the browser you're logged
-  into YouTube on (Chrome/Firefox/Edge/Brave), then re-run. Close that browser
-  fully first so the app can read its cookies. (Same as the CLI's --cookies.)
-
-WINDOWS
-  There's no run.sh on Windows. From the project folder, with the venv active:
-        venv\Scripts\python -m pip install -r backend\requirements.txt
-        cd frontend && npm install && npm run build && cd ..
-        set PYTHONPATH=%CD%\backend
-        venv\Scripts\python -m uvicorn server.app:app --host 127.0.0.1 --port 8000
-  Then open http://127.0.0.1:8000 .
+  This is YouTube's occasional check. Use the CLI's --cookies for it:
+        ./run.sh scrape --cookies chrome
+  (or edge/firefox/brave — whichever you're logged into YouTube on). Close that
+  browser fully first so the tool can read its cookies.
 
 
 ==========================================================
@@ -212,22 +217,20 @@ Want to keep each run's results separately
 ==========================================================
 PROJECT LAYOUT
 ==========================================================
-  run.sh               one-command runner for everything
-  urls.txt             your search URLs (default input)        <- you edit these
-  keywords.txt         plain search terms (alternative input)  <- you edit these
+  run.sh               one-command runner (launches the terminal UI by default)
+  ytauto               launcher you can symlink onto your PATH
+  urls.txt             your search URLs (default CLI input)     <- you edit these
+  keywords.txt         plain search terms (alternative input)   <- you edit these
   README.txt           this file
-  Voyara Signal.dc.html   the UI design prototype (reference)
 
   backend/             all the Python
     youtube_scraper.py   the scraper
     history.py           snapshots + the run-over-run diff
     analyze.py           the Excel analysis dashboard
-    ideas.py             the AI content plan + web prediction
+    ideas.py             the AI content plan + prediction
     requirements.txt     Python dependencies
-    server/              the local web API (FastAPI)
+    tui/                 the terminal UI (Textual) — the front end
     tests/               the test suite
-
-  frontend/            the web UI (Svelte) -> builds to frontend/dist/
 
   Outputs (youtube_results.tsv, history/, youtube_content_ideas.md) are written
   here at the project root, next to urls.txt — your data stays where you edit.

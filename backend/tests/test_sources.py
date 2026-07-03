@@ -1,4 +1,4 @@
-from server import tsv_sources as ts
+from tui import sources as ts
 
 
 def _write(dirpath, name, rows, header="keyword\tsubscribers\tviews\n"):
@@ -15,11 +15,12 @@ def test_parse_tsv_is_bom_tolerant():
     assert rows[0]["subscribers"] == "100"
 
 
-def test_source_error_codes():
-    assert ts.source_error([]) == "empty"
-    assert ts.source_error([{"title": "t"}]) == "bad_columns"          # no subscribers col
-    assert ts.source_error([{"subscribers": ""}]) == "no_breakout_data"
-    assert ts.source_error([{"subscribers": "0"}]) == "no_breakout_data"
+def test_source_error_messages():
+    # Valid data -> None; every unusable shape -> a human-readable reason string.
+    assert ts.source_error([]) is not None
+    assert ts.source_error([{"title": "t"}]) is not None          # no subscribers col
+    assert ts.source_error([{"subscribers": ""}]) is not None     # no usable counts
+    assert ts.source_error([{"subscribers": "0"}]) is not None
     assert ts.source_error([{"subscribers": "100"}]) is None
 
 
@@ -34,12 +35,4 @@ def test_list_snapshots_excludes_diffs_and_sorts_newest_first(tmp_path, monkeypa
     assert names[0] == "youtube_results_2026-07-01.tsv"    # newest by trailing date
     assert snaps[0]["count"] == 2
     assert snaps[0]["keywords"] == ["ml"]
-
-
-def test_resolve_history_path_blocks_traversal(tmp_path, monkeypatch):
-    monkeypatch.setattr(ts, "HISTORY_DIR", tmp_path)
-    real = _write(tmp_path, "web_youtube_results_2026-07-01.tsv", ["ai\t10\t100\n"])
-    assert ts.resolve_history_path("web_youtube_results_2026-07-01.tsv") == real.resolve()
-    assert ts.resolve_history_path("../../etc/passwd") is None
-    assert ts.resolve_history_path("nope.tsv") is None          # missing
-    assert ts.resolve_history_path("web_youtube_results_2026-07-01.csv") is None  # not .tsv
+    assert snaps[0]["path"].endswith("youtube_results_2026-07-01.tsv")

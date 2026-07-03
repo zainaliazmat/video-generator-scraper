@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# ytauto — launch the YouTube scraper's terminal UI from anywhere.
+#
+# Symlink this onto your PATH so you can just type `ytauto`:
+#     ln -s "$(pwd)/ytauto" ~/.local/bin/ytauto
+#
+# It resolves its own real location (following the symlink), so the symlink
+# works no matter where you run it from. First run sets up the venv.
+set -euo pipefail
+
+# Resolve the directory of the real script, even when invoked via a symlink.
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+ROOT="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+# Delegate to run.sh (handles first-time venv setup) with no args -> the TUI.
+exec "$ROOT/run.sh" "$@"

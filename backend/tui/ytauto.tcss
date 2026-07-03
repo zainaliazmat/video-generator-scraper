@@ -1,0 +1,92 @@
+/* ytauto — quiet, dark, keyboard-first. No funk. */
+
+Screen {
+    background: $surface;
+}
+
+#brand {
+    text-style: bold;
+    color: $accent;
+    padding: 1 2 0 2;
+}
+
+#tagline {
+    color: $text-muted;
+    padding: 0 2 1 2;
+}
+
+#menu {
+    width: 48;
+    margin: 1 2;
+    border: round $primary;
+    padding: 1;
+}
+
+/* --- forms (scrape / predict / diff) --------------------------------- */
+#form {
+    padding: 1 2;
+}
+
+#form-title {
+    text-style: bold;
+    color: $accent;
+    padding-bottom: 1;
+}
+
+.label {
+    color: $text-muted;
+    padding-top: 1;
+}
+
+#urls {
+    height: 8;
+    border: round $primary;
+}
+
+#sources {
+    height: auto;
+    max-height: 16;
+    border: round $primary;
+    margin-top: 1;
+}
+
+#fast-row {
+    height: auto;
+    align: left middle;
+}
+
+#scrape-actions, #diff-error, #scrape-error, #predict-error {
+    padding-top: 1;
+}
+
+Button {
+    margin-right: 2;
+}
+
+/* --- run screen ------------------------------------------------------- */
+#run-title {
+    text-style: bold;
+    color: $accent;
+    padding: 1 2 0 2;
+}
+
+#run-log {
+    height: 1fr;
+    border: round $primary;
+    margin: 1 2;
+    padding: 0 1;
+}
+
+#run-summary {
+    padding: 0 2;
+}
+
+#run-actions {
+    height: auto;
+    padding: 1 2;
+}
+
+#run-spinner {
+    height: 1;
+    padding: 0 2;
+}

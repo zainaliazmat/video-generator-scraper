@@ -1,4 +1,4 @@
-from server import inputs
+from tui import inputs
 
 
 def test_parse_inputs_mixes_urls_and_keywords():
