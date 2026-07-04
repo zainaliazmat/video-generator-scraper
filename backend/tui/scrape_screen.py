@@ -37,6 +37,12 @@ class ScrapeScreen(Screen):
                 yield Static("Fast mode (skip per-video likes/comments/subs — much faster):",
                              classes="label")
                 yield Switch(value=True, id="fast")
+            yield Static("Browser cookies (only if YouTube shows a bot check):",
+                         classes="label")
+            yield Select(
+                [(c, c) for c in inp.COOKIE_BROWSERS],
+                value="None", id="cookies", allow_blank=False,
+            )
             with Horizontal(id="scrape-actions"):
                 yield Button("Generate", id="generate", variant="success")
                 yield Button("Back", id="back")
@@ -63,11 +69,12 @@ class ScrapeScreen(Screen):
         err.update("")
         limit = inp.per_link_to_int(self.query_one("#perlink", Select).value)
         fast = self.query_one("#fast", Switch).value
+        cookies = inp.cookies_from_label(self.query_one("#cookies", Select).value)
 
         def work(log, should_cancel):
             log(f"Starting scrape of {len(urls)} search(es), up to {limit} videos each…")
             rows = ys.run_scrape(urls, limit=limit, fast=fast, channel_info=not fast,
-                                 cookies=None, progress=log, should_cancel=should_cancel)
+                                 cookies=cookies, progress=log, should_cancel=should_cancel)
             if rows:
                 ys.write_tsv(rows, "youtube_results.tsv")
                 log("Saved youtube_results.tsv")

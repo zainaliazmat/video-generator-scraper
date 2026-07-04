@@ -3,13 +3,9 @@
 history.py - keep dated snapshots and compare runs over time.
 =============================================================
 
-Every scrape can drop a timestamped copy into history/, so you build up a
-record of how your niche changes week to week. Then:
-
-    python history.py                 # compare the two most recent snapshots
-    python history.py old.tsv new.tsv # compare two specific snapshots
-
-The diff highlights what actually changed:
+Every scrape drops a timestamped copy into history/, so you build up a record
+of how your niche changes week to week. The TUI's Compare screen calls diff()
+on two snapshots to highlight what changed:
   - NEW videos that entered the results
   - GONE videos that dropped out
   - CLIMBERS - biggest view gains since last run (your trend signal)
@@ -18,7 +14,6 @@ A diff report is written to history/diff_<old>__<new>.tsv (and printed).
 """
 
 import csv
-import sys
 from datetime import date
 from pathlib import Path
 
@@ -49,13 +44,6 @@ def _load(path):
     with open(path, "r", encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         return {r["video_id"]: r for r in reader if r.get("video_id")}
-
-
-def list_snapshots(basename="youtube_results"):
-    d = Path(HISTORY_DIR)
-    if not d.exists():
-        return []
-    return sorted(str(p) for p in d.glob(f"{basename}_*.tsv"))
 
 
 def diff(old_path, new_path, out_path=None):
@@ -114,18 +102,3 @@ def diff(old_path, new_path, out_path=None):
             print(f"    +{gain:>10,}  {r.get('title','')[:60]}")
     print(f"\nFull diff written:\n   {Path(out_path).resolve()}")
     return out_path
-
-
-def main(argv):
-    if len(argv) >= 2:
-        diff(argv[0], argv[1])
-        return
-    snaps = list_snapshots()
-    if len(snaps) < 2:
-        sys.exit("Need at least two snapshots in history/ to compare. "
-                 "Run the scraper a couple of times first.")
-    diff(snaps[-2], snaps[-1])
-
-
-if __name__ == "__main__":
-    main(sys.argv[1:])

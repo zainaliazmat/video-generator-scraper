@@ -1,42 +1,21 @@
 #!/usr/bin/env python3
 """
-YouTube Search Results Scraper
-==============================
+YouTube Search Results Scraper - engine for the ytauto TUI.
+===========================================================
 
-Replaces the manual "Instant Data Scraper" workflow.
-
-Instead of opening each YouTube search URL by hand, scrolling, and clicking
-"Export" over and over, this script reads ALL your search URLs from urls.txt,
-pulls the video data for each one automatically, and saves everything into a
-single tab-separated file (youtube_results.tsv).
-
-For every video it collects:
-    keyword        - which search the video came from
-    title          - video title
-    channel        - channel name
-    channel_url    - link to the channel
-    views          - view count (number)
-    duration       - length, e.g. 12:34
-    duration_sec   - length in seconds (handy for sorting/filtering)
-    upload_date    - when uploaded (if YouTube provides it)
-    video_url      - link to the video
-    video_id       - the YouTube video id
-    thumbnail      - thumbnail image link
-
-HOW TO RUN (see README.txt for full setup):
-    1. pip install -r requirements.txt
-    2. put your search URLs in urls.txt (one per line)
-    3. python youtube_scraper.py
+Pulls video data for each search (keyword or URL) with yt-dlp and returns clean
+row dicts; the TUI's scrape screen drives it via run_scrape() and saves the
+result with write_tsv(). For every video it collects title, channel, views,
+likes/comments (full-detail mode), duration, upload date, subscriber count,
+tags, and the video/thumbnail links.
 """
 
-import argparse
 import csv
 import re
 import sys
 import time
 import urllib.parse
 from datetime import datetime
-from pathlib import Path
 
 try:
     import yt_dlp
@@ -45,10 +24,8 @@ except ImportError:
 
 
 # ----------------------------------------------------------------------------
-# SETTINGS  -  edit these if you want
+# SETTINGS  -  run_scrape() overrides these per call from the TUI form.
 # ----------------------------------------------------------------------------
-URLS_FILE = "urls.txt"            # file containing your search URLs (one per line)
-OUTPUT_BASENAME = "youtube_results"  # output file: youtube_results.tsv
 RESULTS_PER_KEYWORD = 60          # how many videos to grab per search URL
 PAUSE_BETWEEN_URLS = 2            # seconds to wait between searches (be polite)
 COOKIES_FROM_BROWSER = None       # e.g. "chrome" if YouTube asks you to sign in /
@@ -74,22 +51,6 @@ COLUMNS = [
     "channel_description", "channel_tags",
     "video_url", "video_id", "thumbnail",
 ]
-
-
-def read_urls(path):
-    """Read URLs from the file, ignoring blank lines and # comments."""
-    p = Path(path)
-    if not p.exists():
-        sys.exit(f"Could not find '{path}'. Create it and put one search URL per line.")
-    urls = []
-    for line in p.read_text(encoding="utf-8").splitlines():
-        line = line.strip().lstrip("*").strip()   # tolerate "* https://..." bullet lines
-        if not line or line.startswith("#"):
-            continue
-        urls.append(line)
-    if not urls:
-        sys.exit(f"'{path}' has no URLs in it.")
-    return urls
 
 
 def keyword_from_url(url):
@@ -123,22 +84,6 @@ def build_search_url(keyword, period="year"):
     if sp:
         url += f"&sp={sp}"
     return url
-
-
-def read_keywords(path, period="year"):
-    """Read plain search terms (one per line) and build search URLs from them."""
-    p = Path(path)
-    if not p.exists():
-        sys.exit(f"Could not find '{path}'. Create it and put one search term per line.")
-    urls = []
-    for line in p.read_text(encoding="utf-8").splitlines():
-        line = line.strip().lstrip("*").strip()
-        if not line or line.startswith("#"):
-            continue
-        urls.append(build_search_url(line, period))
-    if not urls:
-        sys.exit(f"'{path}' has no keywords in it.")
-    return urls
 
 
 def seconds_to_hms(seconds):
@@ -386,8 +331,8 @@ def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
     progress(str). Behaviour matches main()'s loop but never prints or exits.
 
     NOT safe to call concurrently: it mutates module-level globals
-    (RESULTS_PER_KEYWORD, COOKIES_FROM_BROWSER, FETCH_*). The web layer
-    serializes calls (one scrape at a time) so this is safe there.
+    (RESULTS_PER_KEYWORD, COOKIES_FROM_BROWSER, FETCH_*). The TUI runs one
+    scrape at a time, so this is safe there.
 
     should_cancel: optional callable -> bool, checked before each URL; when it
     returns True the scrape stops early and returns whatever was collected.
@@ -424,117 +369,3 @@ def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
     if all_rows and FETCH_CHANNEL_INFO and not (should_cancel and should_cancel()):
         enrich_with_channel_info(all_rows, progress=progress, should_cancel=should_cancel)
     return all_rows
-
-
-def parse_args(argv=None):
-    p = argparse.ArgumentParser(
-        description="Scrape YouTube search results into a spreadsheet, then build "
-                    "an analysis dashboard.",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="Examples:\n"
-               "  python youtube_scraper.py                 # use urls.txt\n"
-               "  python youtube_scraper.py --keywords keywords.txt\n"
-               "  python youtube_scraper.py --limit 30 --fast\n"
-               "  python youtube_scraper.py --cookies chrome\n",
-    )
-    p.add_argument("urls_file", nargs="?", default=None,
-                   help="search-URLs file (default: urls.txt)")
-    p.add_argument("--urls", dest="urls_file_opt", default=None,
-                   help="search-URLs file (one YouTube results URL per line)")
-    p.add_argument("--keywords", default=None,
-                   help="plain search terms file (one per line); URLs are built for you")
-    p.add_argument("--filter", default="year",
-                   choices=list(SP_FILTERS.keys()),
-                   help="upload-date filter when using --keywords (default: year)")
-    p.add_argument("--limit", type=int, default=RESULTS_PER_KEYWORD,
-                   help=f"videos per keyword (default: {RESULTS_PER_KEYWORD})")
-    p.add_argument("--output", default=OUTPUT_BASENAME,
-                   help=f"output basename (default: {OUTPUT_BASENAME})")
-    p.add_argument("--cookies", default=COOKIES_FROM_BROWSER,
-                   help="browser to read cookies from if YouTube shows a bot check "
-                        "(e.g. chrome, firefox, edge, brave)")
-    p.add_argument("--fast", action="store_true",
-                   help="fast list-only mode (skip per-video likes/comments/subs/tags)")
-    p.add_argument("--no-channel-info", action="store_true",
-                   help="skip the per-channel description/topics lookup")
-    p.add_argument("--no-history", action="store_true",
-                   help="don't save a timestamped snapshot to history/")
-    return p.parse_args(argv)
-
-
-def main(argv=None):
-    args = parse_args(argv)
-
-    # CLI flags override the SETTINGS constants at the top of the file.
-    global RESULTS_PER_KEYWORD, COOKIES_FROM_BROWSER
-    global FETCH_FULL_VIDEO_DETAILS, FETCH_CHANNEL_INFO, OUTPUT_BASENAME
-    RESULTS_PER_KEYWORD = args.limit
-    OUTPUT_BASENAME = args.output
-    if args.cookies:
-        COOKIES_FROM_BROWSER = args.cookies
-    if args.fast:
-        FETCH_FULL_VIDEO_DETAILS = False
-        FETCH_CHANNEL_INFO = False   # "fast" means skip the per-channel lookups too
-    if args.no_channel_info:
-        FETCH_CHANNEL_INFO = False
-
-    # Decide where the search URLs come from.
-    if args.keywords:
-        urls = read_keywords(args.keywords, args.filter)
-        source = f"{args.keywords} (built {len(urls)} URL(s), filter={args.filter})"
-    else:
-        urls_file = args.urls_file_opt or args.urls_file or URLS_FILE
-        urls = read_urls(urls_file)
-        source = urls_file
-
-    print(f"Found {len(urls)} search(es) from '{source}'.")
-    print(f"Grabbing up to {RESULTS_PER_KEYWORD} videos each. This runs without a browser.")
-    if FETCH_FULL_VIDEO_DETAILS:
-        print("Full-detail mode ON (likes, comments, subscribers, tags, upload date) "
-              "- this is much slower; each video page is opened.")
-    print()
-
-    all_rows = run_scrape(
-        urls,
-        limit=RESULTS_PER_KEYWORD,
-        fast=args.fast,
-        channel_info=not args.no_channel_info,
-        cookies=COOKIES_FROM_BROWSER,
-        progress=print,
-    )
-
-    if not all_rows:
-        sys.exit("\nNo data was collected. See README.txt -> Troubleshooting.")
-
-    # Per-keyword counts for the summary table (initialise zeros so keywords
-    # that returned nothing still show up).
-    per_keyword_counts = {keyword_from_url(u): 0 for u in urls}
-    for r in all_rows:
-        kw = r.get("keyword", "")
-        per_keyword_counts[kw] = per_keyword_counts.get(kw, 0) + 1
-
-    tsv_path = f"{OUTPUT_BASENAME}.tsv"
-    write_tsv(all_rows, tsv_path)
-    outputs = [tsv_path]
-
-    print("\n" + "=" * 50)
-    print("DONE")
-    print("=" * 50)
-    print(f"Total videos collected: {len(all_rows)}")
-    for kw, n in per_keyword_counts.items():
-        print(f"   {n:>4}  {kw}")
-    print("\nSaved:")
-    for o in outputs:
-        print(f"   {Path(o).resolve()}")
-
-    # --- Snapshot (best-effort; never break the scrape) ----------------------
-    if not args.no_history:
-        try:
-            import history
-            history.save_snapshot(all_rows, COLUMNS, OUTPUT_BASENAME)
-        except Exception as exc:
-            print(f"(history snapshot skipped: {exc})")
-
-
-if __name__ == "__main__":
-    main()

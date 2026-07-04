@@ -26,7 +26,7 @@ def test_normalize_clamps_and_cleans():
 def test_generate_prediction_reports_cli_missing(monkeypatch):
     from claude_agent_sdk import CLINotFoundError
 
-    async def boom(digest):
+    async def boom(digest, on_text=None):
         raise CLINotFoundError("claude CLI not found")
 
     monkeypatch.setattr(ideas, "build_digest", lambda rows: "digest")
@@ -37,7 +37,7 @@ def test_generate_prediction_reports_cli_missing(monkeypatch):
 
 
 def test_generate_prediction_success(monkeypatch):
-    async def fake(digest):
+    async def fake(digest, on_text=None):
         return '{"topic":"Do X","angle":"now","est_breakout":"x9",' \
                '"rationale":"r","evidence":["e1"],"ideas":[{"title":"t","est":"5"}]}'
 
@@ -50,7 +50,7 @@ def test_generate_prediction_success(monkeypatch):
 
 
 def test_generate_prediction_parse_failure(monkeypatch):
-    async def junk(digest):
+    async def junk(digest, on_text=None):
         return "the model rambled with no json"
 
     monkeypatch.setattr(ideas, "build_digest", lambda rows: "digest")

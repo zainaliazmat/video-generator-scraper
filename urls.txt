@@ -1,7 +1,0 @@
-# Put one YouTube search URL per line.
-# Lines starting with # are ignored. Add or remove URLs anytime.
-# Tip: keep the &sp=... part - that is your "Uploaded this year" filter.
-
-https://www.youtube.com/results?search_query=best+ai+tools&sp=EgIIBQ%253D%253D
-https://www.youtube.com/results?search_query=best+ai+tools+for+small+business&sp=EgIIBQ%253D%253D
-https://www.youtube.com/results?search_query=best+ai+tools+for+content+creation&sp=EgIIBQ%253D%253D

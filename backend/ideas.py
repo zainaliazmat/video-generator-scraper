@@ -1,40 +1,28 @@
 #!/usr/bin/env python3
 """
-ideas.py - turn the scraped data into a content plan with Claude.
-=================================================================
+ideas.py - "predict my next video" for the TUI's Predict screen.
+================================================================
 
-Reads youtube_results.tsv, summarises what's working (top videos, breakout
-outliers, channel leaders, title/length patterns), sends that digest to Claude,
-and writes a content-strategy report:
-
-    youtube_content_ideas.md
-
-  - Theme clusters across all the videos
-  - Content gaps (high interest, weak/!thin coverage = your opening)
-  - Ready-to-use video ideas (title + angle + hook + why)
-  - Competitor notes (what the dominant channels do well)
+Summarises the scraped data (top videos, breakout outliers, channel leaders,
+title/length patterns) into a compact digest, sends it to Claude, and returns a
+structured prediction: the single best NEW video to make next plus 4 alternatives.
 
 Uses your Claude subscription through the Claude Agent SDK - the same auth the
-Claude Code CLI uses - so no separate API key / billing is needed. Make sure:
-  - Node.js + the Claude Code CLI are installed and you're logged in
-    (the `claude` command works on its own), and
-  - ANTHROPIC_API_KEY is NOT set in your environment (so it bills your
-    subscription instead of the pay-as-you-go API).
-Then:
-    python ideas.py            # uses youtube_results.tsv
-    python ideas.py other.tsv
+Claude Code CLI uses - so no separate API key / billing is needed. It needs the
+Claude Code CLI installed and logged in, and ANTHROPIC_API_KEY must NOT be set
+(so it bills your subscription, not the pay-as-you-go API).
+
+On failure it returns an HONEST error result (no fabricated numbers) so the UI
+can show a real "couldn't generate / log in" state instead of fiction.
 """
 
 import json
 import re
-import sys
-from pathlib import Path
 
 import analyze  # reuse the metric helpers
 
 MODEL = "claude-opus-4-8"
 FALLBACK_MODEL = "claude-sonnet-4-6"   # used if your plan can't reach Opus
-OUT_PATH = "youtube_content_ideas.md"
 
 
 def _fmt_int(n):
@@ -98,126 +86,6 @@ def build_digest(rows, max_titles_per_kw=15):
     return "\n".join(lines)
 
 
-SYSTEM = (
-    "You are a sharp YouTube content strategist specialising in the AI-tools / "
-    "make-money-with-AI niche. You are given real scraped data about what is "
-    "currently ranking for a set of search keywords: view counts, subscriber "
-    "counts, engagement, title patterns, and which channels dominate. Your job "
-    "is to turn this into an actionable content plan for someone who wants to "
-    "make videos (or affiliate/SEO content) in this niche and win. Be specific "
-    "and concrete - cite real numbers and real titles from the data. Avoid "
-    "generic advice."
-)
-
-PROMPT_TEMPLATE = """Here is the scraped YouTube data digest:
-
-{digest}
-
-Using ONLY what this data supports, write a content-strategy report in Markdown
-with these sections:
-
-# YouTube Content Strategy — AI Tools Niche
-
-## 1. Theme map
-Cluster the videos into the main themes you see. For each theme: a name, a
-one-line description, which keyword(s) it spans, and 2-3 example titles from the
-data. Note which themes are crowded vs. underserved.
-
-## 2. What's working (evidence-based)
-The concrete patterns that correlate with high views here — title style, video
-length, channel size effects, engagement. Cite the bucket numbers.
-
-## 3. Content gaps & opportunities
-Where is there clear audience interest but weak, thin, or repetitive coverage?
-For each gap: the evidence from the data, and why it's an opening. Rank them by
-opportunity (strongest first).
-
-## 4. Video ideas (10)
-Ten specific, ready-to-make video ideas tailored to the gaps and winning
-patterns above. For each: a click-worthy **title**, the **angle**, a one-line
-**hook**, the **target keyword**, and **why it should work** (tie to the data).
-
-## 5. Competitor notes
-The 3-5 dominant channels and what specifically they do well that's worth
-learning from (and where they leave room).
-
-Keep it tight and skimmable. Lead with the actionable conclusion in each section.
-"""
-
-
-async def _generate_async(digest, on_text):
-    """Run one Claude turn through the Agent SDK and collect the report text."""
-    from claude_agent_sdk import (query, ClaudeAgentOptions, AssistantMessage,
-                                  TextBlock, ResultMessage)
-    options = ClaudeAgentOptions(
-        system_prompt=SYSTEM,
-        model=MODEL,
-        fallback_model=FALLBACK_MODEL,
-        allowed_tools=[],        # pure text generation - no file/tool access
-        max_turns=1,
-        setting_sources=None,    # don't load this project's CLAUDE.md / settings
-    )
-    parts = []
-    result_text = ""
-    async for message in query(prompt=PROMPT_TEMPLATE.format(digest=digest),
-                               options=options):
-        if isinstance(message, AssistantMessage):
-            for block in message.content:
-                if isinstance(block, TextBlock):
-                    parts.append(block.text)
-                    on_text(block.text)
-        elif isinstance(message, ResultMessage):
-            if message.is_error:
-                raise RuntimeError(message.result or "Claude returned an error.")
-            result_text = message.result or ""
-    return "".join(parts) or result_text
-
-
-def generate(rows):
-    try:
-        from claude_agent_sdk import CLINotFoundError, ClaudeSDKError
-    except ImportError:
-        sys.exit("The 'claude-agent-sdk' package is needed for AI ideas. Run:\n"
-                 "   pip install -r requirements.txt   (or: pip install claude-agent-sdk)\n"
-                 "It also needs the Claude Code CLI: npm install -g @anthropic-ai/claude-code")
-    import anyio
-
-    digest = build_digest(rows)
-    print(f"Asking Claude ({MODEL}) via your Claude subscription "
-          f"(Claude Code auth - no API key) ...\n")
-
-    def on_text(t):
-        print(t, end="", flush=True)
-
-    try:
-        report = anyio.run(_generate_async, digest, on_text)
-    except CLINotFoundError:
-        sys.exit("\nClaude Code CLI not found. Install it and log in first:\n"
-                 "   npm install -g @anthropic-ai/claude-code\n"
-                 "   claude        # then /login with your subscription")
-    except ClaudeSDKError as exc:
-        sys.exit(f"\nClaude Agent SDK error: {exc}")
-    print()
-    return report
-
-
-def run(data_path="youtube_results.tsv", out_path=OUT_PATH):
-    rows = analyze.load_rows(data_path)
-    if not rows:
-        sys.exit(f"'{data_path}' has no rows. Run the scraper first.")
-    report = generate(rows)
-    Path(out_path).write_text(report, encoding="utf-8")
-    print(f"\nContent plan saved:\n   {Path(out_path).resolve()}")
-    return out_path
-
-
-# ---------------------------------------------------------------------------
-# Structured "predict my next video" JSON (used by the web app's AI tab).
-# Reuses the same Claude subscription auth as the markdown report above.
-# On failure it returns an HONEST error result (no fabricated numbers) so the
-# UI can show a real "couldn't generate / log in" state instead of fiction.
-# ---------------------------------------------------------------------------
-
 PREDICTION_SYSTEM = (
     "You are a sharp YouTube content strategist. You are given real scraped "
     "data about what is currently ranking for a set of search keywords. Predict "
@@ -270,7 +138,9 @@ def normalize_prediction(obj):
     }
 
 
-async def _prediction_async(digest):
+async def _prediction_async(digest, on_text=None):
+    """Run one Claude turn and return its text. If on_text(chunk) is given, each
+    text chunk is streamed to it as it arrives (used by the live run log)."""
     from claude_agent_sdk import (query, ClaudeAgentOptions, AssistantMessage,
                                   TextBlock, ResultMessage)
     options = ClaudeAgentOptions(
@@ -283,32 +153,8 @@ async def _prediction_async(digest):
             for block in message.content:
                 if isinstance(block, TextBlock):
                     parts.append(block.text)
-        elif isinstance(message, ResultMessage):
-            if message.is_error:
-                err = message.result or "Claude error"
-            else:
-                result_text = message.result or ""
-    text = "".join(parts) or result_text
-    if err and not text:
-        raise RuntimeError(err)
-    return text
-
-
-async def _prediction_async_streaming(digest, on_text):
-    """Like _prediction_async but streams each text chunk to on_text(chunk)."""
-    from claude_agent_sdk import (query, ClaudeAgentOptions, AssistantMessage,
-                                  TextBlock, ResultMessage)
-    options = ClaudeAgentOptions(
-        system_prompt=PREDICTION_SYSTEM, model=MODEL, fallback_model=FALLBACK_MODEL,
-        allowed_tools=[], max_turns=1, setting_sources=None,
-    )
-    parts, result_text, err = [], "", None
-    async for message in query(prompt=PREDICTION_INSTRUCTION + digest, options=options):
-        if isinstance(message, AssistantMessage):
-            for block in message.content:
-                if isinstance(block, TextBlock):
-                    parts.append(block.text)
-                    on_text(block.text)
+                    if on_text:
+                        on_text(block.text)
         elif isinstance(message, ResultMessage):
             if message.is_error:
                 err = message.result or "Claude error"
@@ -332,8 +178,7 @@ def generate_prediction(rows, on_text=None):
     """Return {"ok": True, "source": "ai", ...prediction} on success, or
     {"ok": False, "reason": ..., "detail": ...} on any failure. Never fabricates.
 
-    If on_text(chunk) is given, the model's text is streamed to it as it arrives
-    (used by the web app's live "AI session" log).
+    If on_text(chunk) is given, the model's text is streamed to it as it arrives.
     """
     try:
         from claude_agent_sdk import CLINotFoundError
@@ -342,11 +187,8 @@ def generate_prediction(rows, on_text=None):
     try:
         import anyio
         digest = build_digest(rows)
-        # Safe: called from a sync route in FastAPI's threadpool (no running loop).
-        if on_text:
-            text = anyio.run(_prediction_async_streaming, digest, on_text)
-        else:
-            text = anyio.run(_prediction_async, digest)
+        # Safe: called from a worker thread (no running event loop).
+        text = anyio.run(_prediction_async, digest, on_text)
         obj = parse_prediction_json(text)
         if not obj or not obj.get("topic"):
             return {"ok": False, "reason": "parse_failed",
@@ -355,8 +197,3 @@ def generate_prediction(rows, on_text=None):
     except Exception as exc:
         return {"ok": False, "reason": _classify_prediction_error(exc, CLINotFoundError),
                 "detail": str(exc)}
-
-
-if __name__ == "__main__":
-    data_in = sys.argv[1] if len(sys.argv) > 1 else "youtube_results.tsv"
-    run(data_in)

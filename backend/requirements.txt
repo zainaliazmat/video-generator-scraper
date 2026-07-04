@@ -1,7 +1,6 @@
 yt-dlp>=2025.1.1
-openpyxl>=3.1.0
-claude-agent-sdk>=0.2.0   # only used by ideas.py (optional AI content plan; runs
-                          # through your Claude subscription via the Claude Code CLI)
+claude-agent-sdk>=0.2.0   # used by ideas.py for the AI prediction; runs through
+                          # your Claude subscription via the Claude Code CLI
 
 # Terminal UI (tui/) — the front end; drives the scraper in-process
 textual>=0.60

@@ -18,6 +18,15 @@ DATE_FILTERS = {
 # Choices shown for "videos per link"; the label's leading number is the limit.
 PER_LINK_CHOICES = ["30 videos", "60 videos", "120 videos"]
 
+# Browsers yt-dlp can read cookies from (for YouTube's occasional bot check).
+# "None" = no cookies. The others are passed straight to yt-dlp's cookiesfrombrowser.
+COOKIE_BROWSERS = ["None", "chrome", "firefox", "edge", "brave"]
+
+
+def cookies_from_label(label):
+    """'None' -> None; a browser name -> itself (for run_scrape's cookies arg)."""
+    return None if label == "None" else label
+
 
 def _looks_like_url(line):
     return line.startswith("http://") or line.startswith("https://")
