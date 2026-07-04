@@ -1,20 +1,16 @@
 ---
-summary: The dated-entry template (§10 of the Notion log) — every channel session ends by appending one of these to the Notion decisions log.
+summary: The Notion entry format — ≤3 lines, conclusion only. Full knowledge lives in the vault; Notion is a thin cross-surface notepad (slated for retirement).
 updated: 2026-07-04
-source: Notion decisions log §10
+source: creator's Notion policy, 2026-07-04
 ---
 
-# Notion log entry template
+# Notion log entry (≤3 lines — never a report)
 
 ```
-### [DATE] — [session topic]
-- Decision(s):
-- Gate / money / winnability result:
-- New verified facts (claim → source → date):
-- Comp-channel + earnings notes:
-- Next step:
+### [DATE] — [topic]: [one-line conclusion/decision]
+- Detail lives in vault: [note path] · Next: [one line]
 ```
 
-Also refresh the log's §1 Current Status + "Last updated" line. Respect the log's
-§11 compaction protocol (snapshot before major trims; protect the locked-niche
-rationale, the action-format finding, closed-niche kill lines, and the ~6 newest entries).
+Also refresh the log's "Last updated" line. That's it — analysis, evidence,
+facts, and reasoning stay in the vault ([[../CLAUDE|vault manual]]). Respect the
+log's §11 compaction protocol when trimming old fat entries.

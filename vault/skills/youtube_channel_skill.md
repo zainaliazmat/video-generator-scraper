@@ -12,6 +12,12 @@ CANONICAL; the claude.ai project copy is a snapshot (re-upload after edits, and 
 in Notion so web sessions know). §1 gains the LOCAL SCRAPER path — in Claude Code sessions the
 ytauto TUI + library.db (SQLite, deduped; 552 videos backfilled 2026-07-04) is the primary engine,
 with the manual vidIQ→CSV loop kept for claude.ai web sessions. Documents the &sp= encoding gotcha.
+
+v5.2 changelog (2026-07-04, same day — two additions): (1) STUDY LOOP — before scripting a
+Gate-1-passed topic, run the competitor study (vault/workflows/video-study.md): top/mid/low videos
+at 480p + transcripts + keyframes → analysis → findings into the vault (best-practices.md; ~3
+confirmations promote into a skill). (2) NOTION POLICY — the vault is the knowledge base; Notion
+entries are ≤3-line conclusions only (§10 revised).
 Goal: build the channel into real income (target ~$10K/month). Money is the objective. The niche and format are chosen for monetization and newcomer-winnability, NOT personal interest. Claude has authority to choose/change the niche based on evidence.
 
 This skill is now one of TWO. It owns the business engine — should we make this, will it earn, and is it compliant. Its companion, long_form_scripting.md, owns the creative engine — how to write and deliver the actual video (structure, hooks, retention architecture, persuasion psychology, the human-delivery system, frameworks, the analogy bank, and the script deliverable template).
@@ -159,7 +165,7 @@ Scripting/retention/delivery caveats (e.g. that creator-education retention and 
 
 10. DELIVERABLE TEMPLATE → see the companion skill
 Every script ships in the production-doc format defined in long_form_scripting.md §Deliverable Template (title options, thumbnail concepts + A/B plan, the two-track VO + on-screen-cue script, fact-check table, affiliate setup, pre-publish checklist).
-Channel-ops requirement that stays here: every working session ends by appending a dated entry to the Notion decisions log ("Faceless YouTube Channel — Decisions & Learnings Log") and refreshing its Current Status — decision, money/affiliate, new verified facts, next step. Read that log at session start; update it at session end.
+Channel-ops requirement (REVISED 2026-07-04): the OBSIDIAN VAULT is the knowledge base — verified facts, study findings, and analysis land in vault notes during the session. The Notion log gets a ≤3-line dated conclusion only (template: vault/templates/notion-log-entry.md) so claude.ai web sessions see headline status. Read the Notion log §1 at session start; write the vault + the 3-line Notion note at session end. (Notion is slated for retirement once the setup is complete.)
 
 QUICK-REFERENCE RUNBOOK
 
@@ -170,4 +176,4 @@ Fact-find (specs/prices/comparisons), triangulate + date everything, reconcile a
 Write the script in long_form_scripting.md (action format = deliver value fast + honest verdict/CTA; engineer retention; write for the ear and for the creator's own voice).
 Package + set up monetization — packaging/A-B testing per the companion skill; affiliate sign-ups + disclosure + links per §6 here.
 GATE 2 — COMPLIANCE before publish: verify current policy from the platform's own docs → AI/synthetic disclosure only if visuals warrant it (when in doubt, disclose) → material variation (avoid "inauthentic") → cleared music. Then re-verify live prices.
-Update the Notion decisions log (decision, verified facts, next step) and refresh current status.
+Write findings into the vault; post a ≤3-line conclusion to the Notion log and refresh its status line.

@@ -17,10 +17,17 @@ updated: 2026-07-04
 - [[knowledge/niches/closed-niches]] — every killed niche + kill reason (protected; never re-test blind).
 - [[knowledge/monetization]] — calibrated money reality, income ladder, affiliate program table.
 - [[knowledge/scraping-playbook]] — ytauto/library.db engine, sp= encoding gotcha, capture facts, 2026-07-04 lane findings.
+- [[knowledge/best-practices]] — LIVING synthesis from our video studies; evidence accumulates, 3× confirmations promote into skills.
+- `knowledge/video-studies/` — one note per studied topic (template below).
+
+## Workflows
+- [[workflows/video-study]] — the study mechanism: top/mid/low at 480p + transcripts + keyframes → analysis → vault knowledge (`backend/study.py`).
 
 ## Videos
 - [[videos/video-01/status]] — Video #1 stage, what's local vs web-only, next steps.
 - [[videos/video-01/script-v2]] — the locked v2 script (delivery-marked, fact-check table).
 
 ## Templates
-- [[templates/notion-log-entry]] — the dated-entry template for the Notion decisions log.
+- [[templates/script-template]] — the production script skeleton (v2-proven layout) — copy for every new script.
+- [[templates/video-study]] — per-topic study note template.
+- [[templates/notion-log-entry]] — Notion format: ≤3 lines, conclusion only (vault holds the knowledge).

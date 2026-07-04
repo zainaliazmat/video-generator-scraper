@@ -34,9 +34,16 @@ sessions **can**. Notion is the only store both surfaces reach, so:
 1. **Start** (channel work): read the Notion log §1 Current Status first.
 2. **Work**: cite facts from vault notes; verify anything stale (facts carry
    dates — AI-tool prices move monthly, re-verify per the skill's rules).
+   Before scripting a topic, run the study loop: `workflows/video-study.md`.
 3. **End**: distill what was learned into the right vault note (update, don't
-   append-forever), then add a dated entry to the Notion log
-   (template: `templates/notion-log-entry.md`).
+   append-forever). Notion gets **≤3 lines only** — dated conclusion + next
+   step (template: `templates/notion-log-entry.md`). Never post full reports
+   or analysis to Notion.
+
+**Notion policy (2026-07-04):** Obsidian is THE knowledge base. Notion is a
+thin cross-surface notepad for claude.ai web sessions — headline status only —
+and is slated for retirement once the setup is complete. When in doubt where
+something goes: the vault.
 
 Git versions this vault — history of every note IS the audit trail of learning.
 
