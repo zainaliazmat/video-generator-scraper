@@ -5,7 +5,16 @@ source: creator's v1 skill (claude.ai project); vault copy canonical as of 2026-
 ---
 
 # SKILL — Long-Form YouTube Scripting & Delivery (v1)
- 
+
+> **NARRATION ADDENDUM (2026-07-04):** channel narration is currently **Kokoro TTS**, not the
+> creator's voice (see youtube_channel_skill v5.3 — creator constraint; own-voice PARKED, not
+> deleted). When writing for TTS: short 8–16s numbered segments (mapping to the project's
+> audio_request.json lines), clean punctuation instead of §8b markup, numbers written as they
+> should be SPOKEN, and the EDIT carries the energy — visual pattern interrupts every 30–45s,
+> music beats, planned silences. §8's human-delivery system stands by for when human VO returns.
+> Everything else here (structure, hooks, retention, psychology, packaging, analogies) applies
+> unchanged. Reference implementation: videos/video-02-claude-edits-video/script-v2-tts.md.
+
 **Companion to `youtube_channel_skill.md`.** That skill decides *whether* to make a video (money, research, Gate 0/1, compliance). **This skill is how the video gets written and delivered** so it's structurally engineered for retention, psychologically grounded, and never generic.
  
 **Load this when:** Gate 1 has passed and it's time to write or revise a long-form (~8+ min) script.

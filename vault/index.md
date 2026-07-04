@@ -27,7 +27,9 @@ updated: 2026-07-04
 ## Videos
 - [[videos/video-01/status]] — Video #1 stage, what's local vs web-only, next steps.
 - [[videos/video-01/script-v2]] — the locked v2 script (delivery-marked, fact-check table).
-- [[videos/video-02-claude-edits-video/script-v1]] — the launch piece: "Claude Code edited this entire video", built around A Century of Travel (~15 min, no-affiliate honesty beat).
+- [[videos/video-02-claude-edits-video/script-v2-tts]] — **CURRENT** launch-piece script: full Kokoro-TTS edition, 46 numbered VO segments, AI-narration-as-premise hook.
+- [[videos/video-02-claude-edits-video/recording-guide]] — the 10 screen clips the creator records (zero voice); build handoff steps.
+- [[videos/video-02-claude-edits-video/script-v1]] — v1 (human-VO edition, superseded; kept for the delivery-markup reference).
 
 ## Templates
 - [[templates/script-template]] — the production script skeleton (v2-proven layout) — copy for every new script.

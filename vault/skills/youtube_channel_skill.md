@@ -18,6 +18,16 @@ Gate-1-passed topic, run the competitor study (vault/workflows/video-study.md): 
 at 480p + transcripts + keyframes → analysis → findings into the vault (best-practices.md; ~3
 confirmations promote into a skill). (2) NOTION POLICY — the vault is the knowledge base; Notion
 entries are ≤3-line conclusions only (§10 revised).
+
+v5.3 changelog (2026-07-04, later — NARRATION REVISED): channel narration = Kokoro TTS for now.
+The creator (native Urdu speaker) fumbles reading English scripts aloud — the own-voice rule
+blocked publishing for two weeks, and an unexecutable rule is worse than an honest workaround.
+The own-voice decision is PARKED, not deleted (revisit when comfortable). Consequences: scripts
+ship in TTS-segment format (see videos/video-02-claude-edits-video/script-v2-tts.md — numbered
+lines mapping to the project's audio_request.json); disclosure toggle = YES per video and said
+IN the video (transparency as premise, not liability); long_form_scripting §8's human-delivery
+system applies only if human VO returns. Gate-2 "inauthentic content" defense stays what it was:
+material variation — own artifacts, own tests, own verdicts — not the voice.
 Goal: build the channel into real income (target ~$10K/month). Money is the objective. The niche and format are chosen for monetization and newcomer-winnability, NOT personal interest. Claude has authority to choose/change the niche based on evidence.
 
 This skill is now one of TWO. It owns the business engine — should we make this, will it earn, and is it compliant. Its companion, long_form_scripting.md, owns the creative engine — how to write and deliver the actual video (structure, hooks, retention architecture, persuasion psychology, the human-delivery system, frameworks, the analogy bank, and the script deliverable template).
