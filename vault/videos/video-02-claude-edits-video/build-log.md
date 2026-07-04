@@ -62,6 +62,17 @@ Iterate: edit storyboard → `node build.mjs` → `npx hyperframes render . --qu
   with symlinks back at videos/<name>/assets; video-02's assets follow after its
   render finishes. Gitignored in the studio repo. Rules in library/README.md.
 
+- **Draft-4 (2026-07-05) — creator audit-3 applied.** (1) CRITICAL FIX: draft-3's white
+  screen-mat was a filled box that painted OVER the root-level videos (scene chrome
+  stacks above videos in DOM order) → every screen recording rendered as a blank
+  white panel. Mat is now a hollow 10px white border ring — never give scene chrome
+  a background that covers the video area. (2) vo21 years card → animated polaroid
+  timeline: 6 era stills from a-century-of-travel pop in over their years one by one,
+  then float. (3) Channel brand assets in `studio/library/brand/` (techtooltester +
+  historyframesfilm logos/banners); **standing rule: every channel video ends with
+  the channel logo + SUBSCRIBE overlay** (outro block in build.mjs, logo pop + pulsing
+  pill over the last scene).
+
 ## Draft-1 deliberate placeholders — MUST become real before publish ⚠️
 1. **S35 bot-scroll clip** — draft shows a text card. Final: cut the real frozen-scroll
    capture from the 2026-07-02 Playwright test (or re-run it and record).
