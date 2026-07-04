@@ -1,6 +1,6 @@
 ---
 summary: Build log for Video #2 — what draft-1 contains, which placeholders MUST become real before publish (Gate-2 "I tested" integrity), and how to iterate.
-updated: 2026-07-04
+updated: 2026-07-05
 source: the build session 2026-07-04 (studio/videos/video-02-claude-edits-video/)
 ---
 
@@ -17,10 +17,50 @@ Iterate: edit storyboard → `node build.mjs` → `npx hyperframes render . --qu
   prompt-typing, scene-written, kokoro-gen).
 - Century excerpts cut from the 1080p master → `assets/excerpts/` (title / 1907 /
   1970 / outro / flawed-title-card.png).
+- **Draft-1 RENDERED (2026-07-04):** all 50/50 VO lines done (gen-vo.sh resumed at
+  line 46), build.mjs → 55 scenes / 9:26, draft render (32.5 min) →
+  `renders/video-02-claude-edits-video_2026-07-04_22-29-27.mp4` (128 MB).
+- **Draft-2 (2026-07-05) — creator audit-1 applied.** New design system in build.mjs:
+  living gradient bg (drifting glows + dot grid + grain.png borrowed from
+  soul-of-coffee) replaces flat black; ALL media now ≤60% panels (never full-bleed);
+  kinetic left text-rail on screen/phone scenes (chip text, staggered); burned-in
+  captions from the 50 VO lines (255 chunks, ≤6 words, proportional timing — no
+  word-level stamps, Kokoro doesn't emit them); whoosh/pop SFX per scene (synthesized
+  in assets/sfx/ via ffmpeg); hook = artifact panel left + animated Claude/Pr/DaVinci
+  icon tiles (strike-through on Pr+DaVinci, glow on Claude); phone scene gets CSS
+  bezel+notch. Clip fixes: OBS window trimmed off heads of clip-05 (2.0s) + clip-02
+  (1.2s) (flashed at 2:06/3:18 of draft-1; originals in assets/backup/);
+  runbook-scroll wander cut — new sub/runbook-click.mp4 (8.5–26.5s: settle→click→doc
+  opens) + doc-a/b/c distinct ranges for S06/S16/S17 (fixes the replay-from-0 reuse);
+  animated zooms into the runbook doc + the Pinterest reference player (GSAP scale
+  with synced clip-path inset — root-level videos can't be nested, so clip-path keeps
+  the zoom inside the panel; formula in build.mjs zoom block) + bracket highlights.
+  Preview harness: scratchpad preview.mjs (puppeteer + tl.seek + video.currentTime;
+  NOTE: video seeks race — trust ffmpeg frame extraction over harness screenshots).
 - VO: 50 Kokoro lines (bm_george). Gotchas hit + fixed: `kokoro-onnx` python pkg
   was missing (installed vs SYSTEM python — the shell's venv shadows it); the shared
   audio engine runs all lines in `Promise.all` → 50 parallel model loads exhausted
   RAM → wrote `gen-vo.sh` (serial, resumable, rebuilds audio_meta.json).
+
+- **Draft-3 (2026-07-05) — creator audit-2 applied.** Style pivot to the creator's
+  Pinterest references (SaasCendx, in `studio/library/reference/pinterest/`): BRIGHT
+  white/pastel gradient bg (coral+blue+lavender drifting glows), grain overlay and
+  dark vignette DELETED (draft-2's grain was fogging all content), media on white
+  mats with soft blue-tinted shadows, dark ink text. Kinetic type everywhere: every
+  .big/.sub/.rail-line word scales in one by one (kSplit → .kw spans, GSAP stagger,
+  back.out), accent words get static glow text-shadow, chips split on "·" and pop
+  individually, pipe/years chips stagger as units. Webfonts (Archivo Black +
+  JetBrains Mono) now loaded from Google Fonts — local machine doesn't have them.
+  SFX remapped: whoosh (2 alternating variants) only on media scenes, pop on cards,
+  boom on slam, shimmer on Claude-glow; all ffmpeg-synthesized — creator to supply
+  downloaded packs (see asset request list in session notes). Preview harness lives
+  at scratchpad preview.mjs (needs executablePath /usr/bin/google-chrome; poll for
+  __timelines instead of waitForFunction; video frames still race — trust ffmpeg).
+- **Central asset library (2026-07-05):** `studio/library/` — reference/, sfx/,
+  textures/, music/, projects/. `library data/` (repo root) moved into
+  reference/pinterest/. Idle projects' assets moved to library/projects/<name>
+  with symlinks back at videos/<name>/assets; video-02's assets follow after its
+  render finishes. Gitignored in the studio repo. Rules in library/README.md.
 
 ## Draft-1 deliberate placeholders — MUST become real before publish ⚠️
 1. **S35 bot-scroll clip** — draft shows a text card. Final: cut the real frozen-scroll
