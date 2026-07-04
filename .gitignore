@@ -9,6 +9,7 @@ youtube_results.tsv
 youtube_results_analysis.xlsx
 youtube_content_ideas.md
 history/
+library.db
 *.zip
 
 .pytest_cache/

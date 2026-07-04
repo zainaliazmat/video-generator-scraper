@@ -51,18 +51,29 @@ Windows:
 HOW THE APP WORKS
 ==========================================================
   1. A menu appears. Move with the arrow keys, Enter to pick a task:
-        Scrape YouTube  ·  Predict content ideas  ·  Compare snapshots  ·  Quit
+        Scrape · Predict · Compare · Browse library · Quit
   2. SCRAPE asks its questions on screen:
         - paste your search URLs or plain keywords (one per line)
         - pick a time range and how many videos per link
         - Fast mode on/off (on = list-only, much faster; off = full detail)
-     Hit Generate and watch progress stream live. When it finishes it saves
-     youtube_results.tsv + a dated history snapshot, and offers to Predict on
-     the fresh data.
+        - Browser cookies (only if YouTube shows a bot check)
+     Hit Generate and watch progress stream live. Every video is deduped into
+     the central library (see below): you'll see "N already in library" per
+     search, and when a search is mostly already-seen it pages deeper for
+     brand-new videos (or tells you there are none left). When it finishes it
+     saves youtube_results.tsv + a dated history snapshot, and offers to Predict.
   3. PREDICT analyses the last scrape (or any saved snapshot) and streams a
      Claude prediction. Needs Claude access (see below); without it you get a
      plain "couldn't reach Claude" message — never a fabricated number.
   4. COMPARE picks two snapshots and shows what changed.
+  5. BROWSE LIBRARY searches everything you've ever scraped (one row per video,
+     with its latest view/sub counts and how many times you've seen it).
+
+THE LIBRARY (library.db)
+  A single SQLite file at the project root is the permanent knowledge base:
+  one row per video, keyed by video_id. Re-scraping a known video refreshes its
+  numbers instead of duplicating it (a blank from fast mode never wipes a real
+  value a full scrape found). It's plain SQLite — query it with any tool.
 
   Esc goes back a screen (or cancels a running task). q at the menu quits.
 
@@ -116,11 +127,12 @@ PROJECT LAYOUT
 
   backend/             all the Python
     tui/                 the terminal UI (Textual) — the front end
-    youtube_scraper.py   the scrape engine
+    youtube_scraper.py   the scrape engine (+ dedup/top-up against the library)
+    library.py           the central SQLite library (dedup, refresh, search)
     history.py           snapshots + the run-over-run diff
     analyze.py           metric helpers (scoring, aggregations) for the digest
     ideas.py             the Claude prediction
     requirements.txt     Python dependencies
     tests/               the test suite
 
-  Outputs (youtube_results.tsv, history/) are written here at the project root.
+  Outputs (youtube_results.tsv, history/, library.db) live at the project root.

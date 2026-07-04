@@ -16,6 +16,7 @@ import sys
 import time
 import urllib.parse
 from datetime import datetime
+from math import ceil
 
 try:
     import yt_dlp
@@ -39,6 +40,15 @@ FETCH_FULL_VIDEO_DETAILS = True   # True = open each video for likes, comments,
 FETCH_CHANNEL_INFO = True         # True = one extra lookup per channel for the
                                   # channel description + channel topics/tags.
 PAUSE_BETWEEN_CHANNELS = 1        # seconds to wait between channel lookups
+
+# --- Top-up (fetch brand-new videos when a search is mostly already-seen) ----
+# ponytail: three tunable knobs, no model. If a search's top results are more
+# than TOPUP_TRIGGER already in the library, page deeper into the SAME search
+# (so results stay relevant) to collect TOPUP_FRACTION x limit brand-new videos,
+# but never scrape deeper than TOPUP_MAX_DEPTH x limit. Adjust to taste.
+TOPUP_TRIGGER = 0.5       # >50% of the batch already known -> go get new ones
+TOPUP_FRACTION = 0.25     # aim to add 25% of the target as brand-new videos
+TOPUP_MAX_DEPTH = 4       # ...but stop after paging 4x deep (avoid endless scrape)
 # ----------------------------------------------------------------------------
 
 
@@ -213,18 +223,23 @@ class _ScrapeLogger:
         pass
 
 
-def scrape_url(url, limit, progress=None):
+def scrape_url(url, limit, progress=None, start=1):
     """Use yt-dlp to extract the search results for one URL (no downloading).
 
     With FETCH_FULL_VIDEO_DETAILS off this is a fast, flat (list-only) pull.
     With it on, each video page is opened so we also get likes, comments,
     exact upload date, subscriber count, tags, category and language.
 
+    start: 1-based rank of the first result to keep (playliststart). Used to page
+    DEEPER into the same search when the top results are already in the library.
+
     progress(str): optional callback fed per-video status during the slow
     full-detail pass (so the UI isn't silent while one search is scraped).
     """
     ydl_opts = _base_opts()
     ydl_opts["playlistend"] = limit           # cap how many results per search
+    if start > 1:
+        ydl_opts["playliststart"] = start     # skip results already pulled above
     if not FETCH_FULL_VIDEO_DETAILS:
         ydl_opts["extract_flat"] = True       # list metadata only - fast
     elif progress:
@@ -325,10 +340,63 @@ def write_tsv(rows, path):
         writer.writerows(rows)
 
 
+def _topup_target(batch_size, known_in_batch, limit):
+    """How many brand-new videos to still collect for one search (0 = don't).
+    Triggered only when the batch is more than TOPUP_TRIGGER already-known."""
+    if not batch_size or limit <= 0:
+        return 0
+    if known_in_batch / batch_size > TOPUP_TRIGGER:
+        return ceil(limit * TOPUP_FRACTION)
+    return 0
+
+
+def _topup_deeper(url, limit, need, known_before, have_ids, label, say, should_cancel):
+    """Page DEEPER into the same search for brand-new videos (ids not in
+    known_before and not already collected). Returns (extra_rows, new_count).
+    Stays on-topic by only going deeper into this one query."""
+    extra, new_count = [], 0
+    step = limit
+    start = limit + 1
+    max_start = limit * TOPUP_MAX_DEPTH
+    while new_count < need:
+        if should_cancel and should_cancel():
+            break
+        if start > max_start:
+            say(f'   {label}: {new_count}/{need} new after searching {start - 1} '
+                f"deep — no more without going off-topic.")
+            break
+        say(f"   {label}: {new_count}/{need} new — paging results "
+            f"{start}-{start + step - 1} ...")
+        try:
+            batch = scrape_url(url, start + step - 1, start=start)
+        except Exception as exc:
+            say(f"   {label}: stopped paging ({exc}).")
+            break
+        if not batch:
+            say(f"   {label}: no more new videos on YouTube to fetch "
+                f"({new_count}/{need} found).")
+            break
+        for r in batch:
+            vid = (r.get("video_id") or "").strip()
+            if not vid or vid in have_ids:
+                continue
+            have_ids.add(vid)
+            extra.append(r)                 # still refresh known ones in the library
+            if vid not in known_before:
+                new_count += 1
+        start += step
+    return extra, new_count
+
+
 def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
-               should_cancel=None):
+               should_cancel=None, library=None):
     """Callable core of the scraper. Returns row dicts; reports status via
-    progress(str). Behaviour matches main()'s loop but never prints or exits.
+    progress(str). Never prints or exits.
+
+    library: optional library module. When given, every scraped video is
+    upserted into it (dedup + refresh on video_id), results are deduped within
+    the run, and any search whose top results are mostly already-in-library is
+    topped up with brand-new videos paged deeper into the SAME query.
 
     NOT safe to call concurrently: it mutates module-level globals
     (RESULTS_PER_KEYWORD, COOKIES_FROM_BROWSER, FETCH_*). The TUI runs one
@@ -348,24 +416,62 @@ def run_scrape(urls, limit, fast, channel_info, cookies=None, progress=None,
         if progress:
             progress(msg)
 
+    conn = None
+    known_before = set()
+    if library is not None:
+        conn = library.connect()
+        known_before = library.known_ids(conn)
+
     all_rows = []
+    have_ids = set()          # video_ids collected this run (dedup within the run)
     total = len(urls)
     for i, url in enumerate(urls, start=1):
         if should_cancel and should_cancel():
             say("Cancelled — stopping early.")
             break
         kw = keyword_from_url(url)
-        # Emit immediately so the UI isn't silent while this search is scraped.
-        say(f"[{i}/{total}] Searching \"{kw}\" ...")
+        label = f'[{i}/{total}] "{kw}"'
+        say(f"{label} Searching ...")
         try:
             rows = scrape_url(url, RESULTS_PER_KEYWORD, progress=progress)
-            all_rows.extend(rows)
-            say(f"[{i}/{total}] {kw} — {len(rows)} videos")
         except Exception as exc:
-            say(f"[{i}/{total}] {kw} ... FAILED ({exc})")
+            say(f"{label} ... FAILED ({exc})")
+            continue
+
+        fresh = [r for r in rows if not (r.get("video_id") or "").strip() in have_ids]
+        for r in fresh:
+            vid = (r.get("video_id") or "").strip()
+            if vid:
+                have_ids.add(vid)
+        all_rows.extend(fresh)
+        known_in_batch = sum(1 for r in fresh
+                             if (r.get("video_id") or "").strip() in known_before)
+        note = f" ({known_in_batch} already in library)" if library is not None else ""
+        say(f"{label} — {len(fresh)} videos{note}")
+
+        if library is not None and not (should_cancel and should_cancel()):
+            need = _topup_target(len(fresh), known_in_batch, RESULTS_PER_KEYWORD)
+            if need:
+                say(f"   {label}: mostly already known — fetching {need} brand-new ...")
+                extra, got = _topup_deeper(url, RESULTS_PER_KEYWORD, need,
+                                           known_before, have_ids, label, say,
+                                           should_cancel)
+                all_rows.extend(extra)
+                if got >= need:
+                    say(f"   {label}: added {got} brand-new videos.")
+                elif got == 0:
+                    say(f"   {label}: no new videos on YouTube to fetch.")
+                else:
+                    say(f"   {label}: only {got}/{need} new videos available on YouTube.")
+
         if i < total and PAUSE_BETWEEN_URLS:
             time.sleep(PAUSE_BETWEEN_URLS)
 
     if all_rows and FETCH_CHANNEL_INFO and not (should_cancel and should_cancel()):
         enrich_with_channel_info(all_rows, progress=progress, should_cancel=should_cancel)
+
+    if conn is not None:
+        new, updated = library.upsert_videos(conn, all_rows)
+        say(f"Library: +{new} new, {updated} refreshed (now {library.count(conn)} total).")
+        conn.close()
     return all_rows

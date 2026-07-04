@@ -10,6 +10,7 @@ from textual.screen import Screen
 from textual.widgets import Button, Footer, Header, Select, Static, Switch, TextArea
 
 import history
+import library
 from tui import inputs as inp
 from tui.run_screen import RunScreen
 
@@ -74,7 +75,8 @@ class ScrapeScreen(Screen):
         def work(log, should_cancel):
             log(f"Starting scrape of {len(urls)} search(es), up to {limit} videos each…")
             rows = ys.run_scrape(urls, limit=limit, fast=fast, channel_info=not fast,
-                                 cookies=cookies, progress=log, should_cancel=should_cancel)
+                                 cookies=cookies, progress=log, should_cancel=should_cancel,
+                                 library=library)
             if rows:
                 ys.write_tsv(rows, "youtube_results.tsv")
                 log("Saved youtube_results.tsv")

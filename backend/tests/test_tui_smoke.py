@@ -7,6 +7,7 @@ import pytest
 
 from tui.app import YtAutoApp
 from tui.diff_screen import DiffScreen
+from tui.library_screen import LibraryScreen
 from tui.predict_screen import PredictScreen
 from tui.scrape_screen import ScrapeScreen
 
@@ -41,6 +42,12 @@ async def test_open_each_screen():
         app.push_screen(DiffScreen())
         await pilot.pause()
         assert isinstance(app.screen, DiffScreen)
+        app.pop_screen()
+        await pilot.pause()
+
+        app.push_screen(LibraryScreen())
+        await pilot.pause()
+        assert isinstance(app.screen, LibraryScreen)
 
 
 @pytest.mark.asyncio

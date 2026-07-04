@@ -11,6 +11,7 @@ from textual.widgets import Footer, Header, OptionList, Static
 from textual.widgets.option_list import Option
 
 from tui.diff_screen import DiffScreen
+from tui.library_screen import LibraryScreen
 from tui.predict_screen import PredictScreen
 from tui.scrape_screen import ScrapeScreen
 
@@ -28,6 +29,7 @@ class MenuScreen(Screen):
             Option("Scrape YouTube", id="scrape"),
             Option("Predict content ideas", id="predict"),
             Option("Compare snapshots", id="diff"),
+            Option("Browse library", id="library"),
             Option("Quit", id="quit"),
             id="menu",
         )
@@ -45,6 +47,8 @@ class MenuScreen(Screen):
             self.app.push_screen(PredictScreen())
         elif choice == "diff":
             self.app.push_screen(DiffScreen())
+        elif choice == "library":
+            self.app.push_screen(LibraryScreen())
         elif choice == "quit":
             self.app.exit()
 
