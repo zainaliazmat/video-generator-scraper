@@ -18,10 +18,14 @@ source: script-v2-tts.md screen cues
 
 ## The clips
 
-**clip-01-brief.mp4** (~60s) — Claude Code in the terminal, inside the a-century-of-travel project.
-Paste this brief and hit enter; let Claude start responding (~20s of streaming is enough):
-> Create a cinematic, vintage parallax photo slideshow telling the history of travel decade by decade. Archival black-and-white photos, giant year numbers, elegant serif titles, gentle camera drift, film grain, slow nostalgic score. About 4 minutes.
-*Must be visible: the prompt text + Claude's response streaming.*
+**clip-01-reference-and-runbook.mp4** (~75s, two parts in one file) — the HONEST stage-one.
+(a) ~15s: the Pinterest reference video/pin you originally used, playing or on screen.
+(b) ~60s: open `videos/a-century-of-travel/PRODUCTION_RUNBOOK.md` and scroll SLOWLY —
+pause ~3s each on: the style-analysis part (§0), the topic decision, the verified-timeline
+table, and the asset list. This document IS the star of the video's first act.
+*Must be visible: the reference, then the runbook's timeline table + asset list.*
+(If you still have the Claude AI chat where the runbook was built, 10s of scrolling that
+conversation is a great bonus — only if no personal info is visible.)
 
 **clip-02-design.mp4** (~40s) — Open `videos/a-century-of-travel/DESIGN.md` in your editor.
 Scroll slowly top → bottom, pausing ~3s on the color palette table and ~3s on the "Motion language" section.
@@ -30,9 +34,11 @@ Scroll slowly top → bottom, pausing ~3s on the color palette table and ~3s on 
 **clip-03-timeline.mp4** (~25s) — Open any timeline editor (CapCut / DaVinci — free is fine) with any project that has several clips on the timeline. Drag a clip, scrub the playhead back and forth, hover over the layers. It should look busy/manual.
 *Must be visible: a cluttered multi-track timeline + the playhead moving.*
 
-**clip-04-scene-prompt.mp4** (~60s) — Claude Code again. Type this and let it work:
-> Create the 1907 scene: the Mauretania ocean liner photo, giant year number "1907", title "Queens of the Atlantic" on a dark band, caption "Four and a half days to cross an ocean.", slow drift left per DESIGN.md.
-*Must be visible: your plain-English request + the scene file being written.*
+**clip-04-scene-prompt.mp4** (~60s) — Claude Code, inside the project. This re-enacts the
+step-by-step prompting you actually did. Use the REAL scene prompt from your runbook flow if
+you still have it; otherwise this representative one:
+> Create the 1907 scene per the runbook: the Mauretania ocean liner photo, giant year number "1907", title "Queens of the Atlantic" on a dark band, caption "Four and a half days to cross an ocean.", slow drift left per DESIGN.md.
+*Must be visible: the plain-English request + the scene file being written.*
 
 **clip-05-scene-code.mp4** (~25s) — Open one scene HTML file from the project (any scene under the video's folder). Scroll slowly; then rest the cursor/selection on the `data-start` and `data-duration` attributes for ~4s.
 *Must be visible: those two attributes, sharp and readable.*
@@ -53,8 +59,8 @@ Don't record the whole 20 minutes — start + finish is all I need.
 **clip-09-fix.mp4** (~45s) — WAIT for my go on this one. I will first prepare the title-card fix in the project; then you record: paste the one-sentence fix prompt I give you → the re-render of that scene → open the fixed frame.
 *Must be visible: prompt → render → the clean title card.*
 
-**clip-10-files.mp4** (~20s) — File manager (or `tree` in terminal) inside `videos/a-century-of-travel/`: browse slowly through assets/ → voice wavs → scenes → renders/.
-*Must be visible: the folder structure + the 14 voice files + the renders.*
+**clip-10-files.mp4** (~35s) — File manager (or `tree` in terminal) inside `videos/a-century-of-travel/`: browse slowly through assets/ (LINGER ~10s on the archival photos — the script's Stage 4 "I downloaded these myself" beat uses this) → voice wavs → scenes → renders/.
+*Must be visible: the B&W photo files, the 14 voice files, the renders.*
 
 ## Already covered — do NOT record
 The documentary itself (I have both renders), its frames, DESIGN.md/runbook text for
