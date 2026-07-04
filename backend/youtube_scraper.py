@@ -4,13 +4,12 @@ YouTube Search Results Scraper - engine for the ytauto TUI.
 ===========================================================
 
 Pulls video data for each search (keyword or URL) with yt-dlp and returns clean
-row dicts; the TUI's scrape screen drives it via run_scrape() and saves the
-result with write_tsv(). For every video it collects title, channel, views,
-likes/comments (full-detail mode), duration, upload date, subscriber count,
-tags, and the video/thumbnail links.
+row dicts; the TUI's scrape screen drives it via run_scrape(), which upserts the
+results into the library and (when given one) tops up brand-new videos. For every
+video it collects title, channel, views, likes/comments (full-detail mode),
+duration, upload date, subscriber count, tags, and the video/thumbnail links.
 """
 
-import csv
 import re
 import sys
 import time
@@ -330,14 +329,6 @@ def enrich_with_channel_info(rows, progress=None, should_cancel=None):
         r["channel_tags"] = info["channel_tags"]
         if r.get("subscribers") in ("", None) and info["subscribers"] != "":
             r["subscribers"] = info["subscribers"]
-
-
-def write_tsv(rows, path):
-    # Tab-separated so values that contain commas stay in one column.
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.DictWriter(f, fieldnames=COLUMNS, delimiter="\t")
-        writer.writeheader()
-        writer.writerows(rows)
 
 
 def _topup_target(batch_size, known_in_batch, limit):

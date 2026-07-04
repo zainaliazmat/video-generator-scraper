@@ -3,7 +3,7 @@
 analyze.py - metric helpers for the scraped YouTube data.
 =========================================================
 
-Loads youtube_results.tsv and scores each video (engagement, views/sub,
+Loads a scraped TSV and scores each video (engagement, views/sub,
 velocity, title/length/freshness buckets). The TUI's prediction screen uses
 these to build the digest it sends to Claude; nothing here writes files.
 """

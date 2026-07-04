@@ -78,8 +78,9 @@ class ScrapeScreen(Screen):
                                  cookies=cookies, progress=log, should_cancel=should_cancel,
                                  library=library)
             if rows:
-                ys.write_tsv(rows, "youtube_results.tsv")
-                log("Saved youtube_results.tsv")
+                # The library (upserted in run_scrape) is the canonical store; the
+                # dated snapshot is what Compare diffs against. No redundant
+                # youtube_results.tsv — nothing read it back.
                 try:
                     path = history.save_snapshot(rows, ys.COLUMNS)
                     log(f"Saved snapshot {path}")
@@ -88,7 +89,7 @@ class ScrapeScreen(Screen):
             return rows
 
         def summarize(rows):
-            return f"Collected {len(rows)} videos → youtube_results.tsv"
+            return f"Collected {len(rows)} videos → library + snapshot"
 
         def followups(rows):
             if not rows:

@@ -16,8 +16,8 @@ menu on your own machine:
                 make next (plus 4 alternatives), with the evidence behind it.
 
 Output files (in this folder):
-  youtube_results.tsv                 - every video, one row each, tab-separated
-  history/youtube_results_<date>.tsv  - dated snapshot of each run
+  library.db                          - the central store, one row per video (dedup)
+  history/youtube_results_<date>.tsv  - dated snapshot of each run (Compare diffs these)
 
 
 ==========================================================
@@ -61,7 +61,7 @@ HOW THE APP WORKS
      the central library (see below): you'll see "N already in library" per
      search, and when a search is mostly already-seen it pages deeper for
      brand-new videos (or tells you there are none left). When it finishes it
-     saves youtube_results.tsv + a dated history snapshot, and offers to Predict.
+     saves a dated history snapshot (for Compare), and offers to Predict.
   3. PREDICT analyses the last scrape (or any saved snapshot) and streams a
      Claude prediction. Needs Claude access (see below); without it you get a
      plain "couldn't reach Claude" message — never a fabricated number.
@@ -135,4 +135,4 @@ PROJECT LAYOUT
     requirements.txt     Python dependencies
     tests/               the test suite
 
-  Outputs (youtube_results.tsv, history/, library.db) live at the project root.
+  Outputs (library.db, history/) live at the project root.
