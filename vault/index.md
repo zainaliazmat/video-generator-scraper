@@ -18,7 +18,8 @@ updated: 2026-07-04
 - [[knowledge/monetization]] — calibrated money reality, income ladder, affiliate program table.
 - [[knowledge/scraping-playbook]] — ytauto/library.db engine, sp= encoding gotcha, capture facts, 2026-07-04 lane findings.
 - [[knowledge/best-practices]] — LIVING synthesis from our video studies; evidence accumulates, 3× confirmations promote into skills.
-- `knowledge/video-studies/` — one note per studied topic (template below).
+- [[knowledge/channels]] — the two-channel plan (AI-tools active · cinematic-history planned) and how they cross-feed.
+- [[knowledge/video-studies/claude-video-editing-launch]] — first study: Nate 363k / Simon 19× / MSG autopsy → title anchors to Claude, never the unknown tool name.
 
 ## Workflows
 - [[workflows/video-study]] — the study mechanism: top/mid/low at 480p + transcripts + keyframes → analysis → vault knowledge (`backend/study.py`).
@@ -26,6 +27,7 @@ updated: 2026-07-04
 ## Videos
 - [[videos/video-01/status]] — Video #1 stage, what's local vs web-only, next steps.
 - [[videos/video-01/script-v2]] — the locked v2 script (delivery-marked, fact-check table).
+- [[videos/video-02-claude-edits-video/script-v1]] — the launch piece: "Claude Code edited this entire video", built around A Century of Travel (~15 min, no-affiliate honesty beat).
 
 ## Templates
 - [[templates/script-template]] — the production script skeleton (v2-proven layout) — copy for every new script.
