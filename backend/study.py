@@ -113,7 +113,7 @@ def fetch(video_id, dest, skip_video=False):
         "merge_output_format": "mp4",
         "outtmpl": str(dest / "video.%(ext)s"),
         "writesubtitles": True, "writeautomaticsub": True,
-        "subtitleslangs": ["en", "en-orig", "en-US", "en-GB"],
+        "subtitleslangs": ["en", "en-orig", "en-US", "en-GB", "hi", "hi-orig"],
         "subtitlesformat": "vtt",
         "skip_download": skip_video,
     }
@@ -208,6 +208,13 @@ def main(argv=None):
         print(f"[{rank}] done -> {dest}")
     (out / "manifest.md").write_text("\n".join(manifest), encoding="utf-8")
     print(f"\nPacket ready: {out}/manifest.md\nNext: analyze per vault/workflows/video-study.md")
+    # A study without transcripts is a study of thumbnails — fail loudly rather
+    # than let a downstream note degrade silently (needs 2 of 3 picks readable).
+    got = sum(1 for rank, row in picks
+              if (out / f"{rank}-{row['video_id']}" / "transcript.txt").exists())
+    if got < min(2, len(picks)):
+        sys.exit(f"ERROR: only {got}/{len(picks)} picks produced a transcript — "
+                 "not enough to ground a study note.")
 
 
 if __name__ == "__main__":

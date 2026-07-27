@@ -322,6 +322,40 @@ CHECKS = {
 PER_CUT = set(CHECKS) - {"research", "facts"}
 
 
+# --------------------------------------------------------------------- doctor
+
+def doctor(tier):
+    """X-11: fail in five seconds with the fix command, not at minute 95."""
+    import shutil
+    fmt = load_format()
+    problems = []
+    for exe in ("ffmpeg", "ffprobe", "node"):
+        if not shutil.which(exe):
+            problems.append(f"{exe} not on PATH")
+    env = {}
+    env_path = os.path.join(ROOT, ".env")
+    if os.path.exists(env_path):
+        for line in open(env_path, encoding="utf-8"):
+            if "=" in line and not line.strip().startswith("#"):
+                k, _, v = line.partition("=")
+                env[k.strip()] = v.strip().strip('"').strip("'")
+    for key in ("ELEVENLABS_API_KEY", "PIXABAY_API_KEY"):
+        if not (os.environ.get(key) or env.get(key)):
+            problems.append(f"{key} missing — add it to .env")
+    whisper = subprocess.run(
+        [os.path.join(ROOT, "venv", "bin", "python"), "-c", "import faster_whisper"],
+        capture_output=True)
+    if whisper.returncode != 0:
+        problems.append("faster-whisper not importable in venv — "
+                        "fix: venv/bin/pip install faster-whisper")
+    need_gb = 2 * fmt["tiers"][tier]["disk_gb_per_pair"]  # R-9: 2× headroom
+    free_gb = shutil.disk_usage(ROOT).free / 1e9
+    if free_gb < need_gb:
+        problems.append(f"only {free_gb:.1f} GB free, tier '{tier}' needs "
+                        f"{need_gb:.1f} GB headroom — run post-delivery cleanup first")
+    return problems
+
+
 # ------------------------------------------------------------------- run.json
 
 def mark(stage, slug, cut, problems, attempt, log):
@@ -430,8 +464,9 @@ def _selftest():
 
 def main(argv=None):
     p = argparse.ArgumentParser(description="finance-pipeline stage postconditions")
-    p.add_argument("mode", nargs="?", choices=["check", "mark"])
+    p.add_argument("mode", nargs="?", choices=["check", "mark", "doctor"])
     p.add_argument("stage", nargs="?", choices=sorted(CHECKS))
+    p.add_argument("--tier", default="short", choices=["short", "medium", "long"])
     p.add_argument("--slug")
     p.add_argument("--cut", choices=["hi", "en"])
     p.add_argument("--attempt", type=int, default=1)
@@ -442,6 +477,12 @@ def main(argv=None):
     if args.selftest:
         _selftest()
         return 0
+    if args.mode == "doctor":
+        problems = doctor(args.tier)
+        for pr in problems:
+            print(f"  ✗ {pr}")
+        print("FAIL doctor" if problems else "PASS doctor")
+        return 1 if problems else 0
     if not (args.mode and args.stage and args.slug):
         p.error("need: <check|mark> <stage> --slug <slug> [--cut hi|en]")
     if args.stage in PER_CUT and not args.cut:

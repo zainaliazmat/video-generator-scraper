@@ -40,17 +40,20 @@
       "range_seconds": [60, 300],
       "default_target_seconds": 165,
       "architecture": "blockframe-9",
-      "lines": 9
+      "lines": 9,
+      "disk_gb_per_pair": 1.0
     },
     "medium": {
       "target_seconds": 510,
       "architecture": "per-line-chapters",
-      "reference": "studio/videos/firaun-ka-anjaam/build.py"
+      "reference": "studio/videos/firaun-ka-anjaam/build.py",
+      "disk_gb_per_pair": 3.0
     },
     "long": {
       "min_seconds": 600,
       "architecture": "per-line-chapters",
-      "reference": "studio/videos/firaun-ka-anjaam/build.py"
+      "reference": "studio/videos/firaun-ka-anjaam/build.py",
+      "disk_gb_per_pair": 4.0
     }
   },
 
