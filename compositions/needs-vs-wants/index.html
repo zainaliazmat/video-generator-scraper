@@ -5,6 +5,16 @@
     <title>Needs vs Wants — the subscription leak (Hindi)</title>
     <script src="assets/js/gsap.min.js"></script>
     <style>
+      /* Self-hosted variable face. Real weight 100-900 (no synthetic bold) and it
+         carries U+20B9 RUPEE, which Archivo Black does not. Deterministic: no
+         render-time network fetch, no dependency on installed system fonts. */
+      @font-face {
+        font-family: "FinanceSans";
+        src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
       :root {
         --bg: #0d1017;
         --panel: #161b25;
@@ -14,7 +24,7 @@
         --warn: #ef4444;
         --target: #f59e0b;
         --pop: #ff5c39;
-        --font: "Arial Black", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+        --font: "FinanceSans", system-ui, sans-serif;
       }
       * { box-sizing: border-box; }
       body { margin: 0; background: #000; }
@@ -115,6 +125,30 @@
       .counter { font-size: 96px; font-weight: 900; color: var(--warn); margin: 0; }
 
       .arrow { font-size: 72px; font-weight: 900; color: var(--muted); }
+      /* U+2192 and U+25B6 are absent from the self-hosted subset, so they are drawn
+         in CSS instead of relying on a system fallback. Sizes are em-based, so they
+         scale with whatever font-size the host element carries. */
+      .arrow, .arr {
+        display: inline-block; position: relative; vertical-align: middle;
+        width: 0.92em; height: 0.62em; color: inherit;
+      }
+      .arr { width: 0.78em; margin: 0 0.12em; }
+      .arrow::before, .arr::before {
+        content: ""; position: absolute; left: 0; top: 50%;
+        width: 100%; height: 0.09em; background: currentColor; transform: translateY(-50%);
+      }
+      .arrow::after, .arr::after {
+        content: ""; position: absolute; right: 0.02em; top: 50%;
+        width: 0.3em; height: 0.3em;
+        border-top: 0.09em solid currentColor; border-right: 0.09em solid currentColor;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .tri {
+        display: inline-block; width: 0; height: 0; vertical-align: middle;
+        margin-right: 0.34em;
+        border-left: 0.62em solid currentColor;
+        border-top: 0.36em solid transparent; border-bottom: 0.36em solid transparent;
+      }
       .cta { font-size: 46px; font-weight: 900; letter-spacing: 2px; padding: 24px 56px; border-radius: 14px; background: var(--pop); color: #0d1017; }
       .glow { text-shadow: 0 0 60px currentColor; }
     </style>
@@ -233,9 +267,9 @@
         <div class="stack">
           <p id="s6k" class="kicker">Ask one question</p>
           <h1 id="s6q" class="huge" style="font-size: 76px">USED IT IN THE LAST <span class="fundc">30 DAYS?</span></h1>
-          <div id="s6r1" class="decision">ZERO <span class="arrow" style="font-size: 44px">→</span> <span class="verdict v-cancel">CANCEL</span></div>
-          <div id="s6r2" class="decision">ONCE <span class="arrow" style="font-size: 44px">→</span> <span class="verdict v-down">DOWNGRADE / SHARE</span></div>
-          <div id="s6r3" class="decision">DAILY <span class="arrow" style="font-size: 44px">→</span> <span class="verdict v-keep">KEEP IT, GUILT-FREE</span></div>
+          <div id="s6r1" class="decision">ZERO <span class="arrow" style="font-size: 44px"></span> <span class="verdict v-cancel">CANCEL</span></div>
+          <div id="s6r2" class="decision">ONCE <span class="arrow" style="font-size: 44px"></span> <span class="verdict v-down">DOWNGRADE / SHARE</span></div>
+          <div id="s6r3" class="decision">DAILY <span class="arrow" style="font-size: 44px"></span> <span class="verdict v-keep">KEEP IT, GUILT-FREE</span></div>
           <div id="s6stamp" class="stamp fund">ONE IN, ONE OUT</div>
         </div>
       </section>
@@ -281,12 +315,12 @@
           <div id="s8stamp" class="stamp pop">DO THIS TODAY</div>
           <div class="row">
             <div id="s8a" class="chip">OPEN AUTOPAY LIST</div>
-            <div id="s8arrow" class="arrow">→</div>
+            <div id="s8arrow" class="arrow"></div>
             <div id="s8b" class="chip fund">PICK THE ONE YOU FORGOT</div>
-            <div id="s8arrow2" class="arrow">→</div>
+            <div id="s8arrow2" class="arrow"></div>
             <div id="s8c" class="chip warn">CANCEL IT</div>
           </div>
-          <h1 id="s8t" class="huge" style="font-size: 76px">“someday” → <span class="fundc">DONE</span></h1>
+          <h1 id="s8t" class="huge" style="font-size: 76px">“someday” <i class="arr"></i> <span class="fundc">DONE</span></h1>
         </div>
       </section>
 
@@ -302,7 +336,7 @@
             <div id="s9c" class="chip">AUDIT QUARTERLY</div>
             <div id="s9d" class="chip warn">CANCEL ONE TODAY</div>
           </div>
-          <div id="s9cta" class="cta">▶ SUBSCRIBE</div>
+          <div id="s9cta" class="cta"><span class="tri"></span>SUBSCRIBE</div>
           <p id="s9sub" class="sub">money basics that actually make sense</p>
         </div>
       </section>

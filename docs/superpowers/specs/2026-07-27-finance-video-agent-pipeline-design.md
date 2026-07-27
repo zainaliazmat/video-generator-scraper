@@ -1549,6 +1549,48 @@ stamp on every future video. `known_benign` in `format.json` is load-bearing.
 
 ---
 
+## T3 RESOLVED 2026-07-28 — self-hosted variable face + CSS-drawn glyphs
+
+Creator chose (c)+(a): remove the arrow dependency, then pick on looks.
+
+**Font.** `studio/library/fonts/NotoSansFinance-var.woff2` — Noto Sans variable,
+subset to the Latin + punctuation + currency the format actually uses, width axis
+pinned, **weight axis kept at 100-900**. 32 KB. Carries `₹` U+20B9. Wired into both
+cuts as `@font-face { font-family: "FinanceSans"; font-weight: 100 900 }` with
+`--font: "FinanceSans", system-ui, sans-serif`.
+
+This replaces synthetic bold on a 400-weight fallback with a **real 900**, and it
+removes the last render-time dependency on installed system fonts.
+
+**Glyphs.** `→` U+2192 and `▶` U+25B6 are absent from the subset (and from Archivo
+Black, and from system Noto Sans Bold). Rather than carry a fallback chain, both
+are now drawn in CSS — `.arrow`/`.arr` (shaft + rotated-border head) and `.tri`
+(border triangle), all em-based so they scale with the host element's font-size.
+Verified by snapshot at t=152.5s and t=176.5s: both render cleanly.
+
+**Unexpected win:** contrast went from `✗ #s3stamp 1.7:1` to **41/41 text checks
+pass WCAG AA**. The warning was not purely a checker artifact — real 900 strokes
+clear the threshold that faux-bold-on-400 could not. `known_benign` is still worth
+having, but this specific entry is no longer needed.
+
+**Verification:** `npm run check` passes on both cuts, 0 errors, 0 warnings beyond
+the pre-existing `.grain` / `.bg`-bleed infos.
+
+### Live defect found while verifying (not fixed — already published)
+
+The t=152.5s frame of the shipped Hindi cut shows `s8` sitting on a **phone-screen
+photo, upside down, with the carrier string `MTN-SA` legible**. This is verbatim
+the trap in `knowledge/stock-photo-sourcing.md`: *"Never use a phone-screen photo
+as a background — the screen is someone else's brand, and it's the brightest thing
+in frame."* The note records this shipping twice undetected; it is now three.
+`s9` additionally rests the whole recap on an identifiable person's face while the
+VO discusses wasted money — the license concern in R-8.
+
+Not corrected here: that video is uploaded and scheduled. It is evidence for why
+`fin-assets` needs the trap list enforced, not a change to make now.
+
+---
+
 ## GSTACK REVIEW REPORT
 
 | Review | Trigger | Why | Runs | Status | Findings |
