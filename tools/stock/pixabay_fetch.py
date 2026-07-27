@@ -14,12 +14,22 @@ the Nth result instead of the first — that's the retry knob when hit 0 is wron
 
   {"s4.jpg": "apartment building india#3"}
 
-Existing files are skipped unless --force. Downloads `largeImageURL` (1280px wide),
-which is what every video in studio/videos/ already uses.
+Existing files are skipped only when the query that produced them is unchanged
+(recorded in a `<file>.src` sidecar) — a retried query with a new `#N` re-fetches
+instead of silently keeping the rejected image. --force re-downloads everything.
+Downloads `largeImageURL` (1280px wide), which is what every video in
+studio/videos/ already uses.
+
+CREDITS.txt is appended per image as it lands, so an aborted batch never leaves
+downloaded images without attribution. Exits non-zero if any requested image is
+missing at the end. Set FIN_FAKE_APIS=1 to generate local placeholder jpgs
+instead of calling the API (zero-cost pipeline dry runs).
 """
 import argparse
+import hashlib
 import json
 import os
+import subprocess
 import sys
 import urllib.error
 import urllib.parse
@@ -84,23 +94,60 @@ def download(hit, out):
     with urllib.request.urlopen(req, timeout=60) as resp:
         data = resp.read()
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
-    with open(out, "wb") as fh:
+    tmp = out + ".tmp"
+    with open(tmp, "wb") as fh:
         fh.write(data)
+    os.replace(tmp, out)
     return len(data), url
 
 
-def fetch_one(key, raw_query, out, force, credits):
+def write_credit(out, line):
+    """Append attribution immediately — an aborted batch must never leave an
+    image on disk without its licence line."""
+    path = os.path.join(os.path.dirname(os.path.abspath(out)), "CREDITS.txt")
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(line + "\n")
+
+
+def fake_fetch(raw_query, out):
+    """FIN_FAKE_APIS=1: a flat-colour 1280x720 jpg, colour keyed to the query so
+    different queries yield different bytes (keeps md5-dedup checks meaningful)."""
+    colour = hashlib.md5(raw_query.encode("utf-8")).hexdigest()[:6]
+    os.makedirs(os.path.dirname(os.path.abspath(out)) or ".", exist_ok=True)
+    subprocess.run(
+        ["ffmpeg", "-y", "-v", "error", "-f", "lavfi",
+         "-i", f"color=c=#{colour}:s=1280x720", "-frames:v", "1",
+         "-q:v", "2", out], check=True)
+    print(f"OK (FAKE) {os.path.basename(out):<18} '{raw_query}'")
+    write_credit(out, f"{os.path.basename(out)}\tFIN_FAKE_APIS placeholder\tby nobody\tno licence")
+
+
+def fetch_one(key, raw_query, out, force):
+    """Returns True if the image is on disk when we're done."""
+    src = out + ".src"
     if os.path.exists(out) and not force:
-        print(f"skip (exists): {out}")
-        return
+        # skip only if the SAME query produced this file — a changed query
+        # means the old image was rejected and must be replaced (spec E-8)
+        prev = open(src, encoding="utf-8").read().strip() if os.path.exists(src) else None
+        if prev == raw_query:
+            print(f"skip (exists): {out}")
+            return True
+    if os.environ.get("FIN_FAKE_APIS") == "1":
+        fake_fetch(raw_query, out)
+        with open(src, "w", encoding="utf-8") as fh:
+            fh.write(raw_query)
+        return True
     query, want = split_query(raw_query)
     hit = search(key, query, want)
     if not hit:
         print(f"  ! NO RESULTS for '{query}' -> {out}")
-        return
+        return False
     size, url = download(hit, out)
+    with open(src, "w", encoding="utf-8") as fh:
+        fh.write(raw_query)
     print(f"OK {os.path.basename(out):<18} {size:>9,}b  {hit.get('imageWidth')}x{hit.get('imageHeight')}  '{query}'")
-    credits.append(f"{os.path.basename(out)}\t{hit.get('pageURL','')}\tby {hit.get('user','?')}\tPixabay Content License")
+    write_credit(out, f"{os.path.basename(out)}\t{hit.get('pageURL','')}\tby {hit.get('user','?')}\tPixabay Content License")
+    return True
 
 
 def main(argv=None):
@@ -116,30 +163,52 @@ def main(argv=None):
         _selftest()
         return
 
-    load_env()
-    key = api_key()
-    credits = []
+    fake = os.environ.get("FIN_FAKE_APIS") == "1"
+    key = ""
+    if not fake:
+        load_env()
+        key = api_key()
 
+    missing = []
     if args.manifest:
         outdir = os.path.dirname(os.path.abspath(args.manifest))
         with open(args.manifest, encoding="utf-8") as fh:
             manifest = json.load(fh)
         for name, query in manifest.items():
-            fetch_one(key, query, os.path.join(outdir, name), args.force, credits)
-        if credits:
-            with open(os.path.join(outdir, "CREDITS.txt"), "a", encoding="utf-8") as fh:
-                fh.write("\n".join(credits) + "\n")
-            print(f"\ncredits appended -> {os.path.join(outdir, 'CREDITS.txt')}")
+            if not fetch_one(key, query, os.path.join(outdir, name), args.force):
+                missing.append(name)
     elif args.query and args.out:
-        fetch_one(key, args.query, args.out, args.force, credits)
+        if not fetch_one(key, args.query, args.out, args.force):
+            missing.append(os.path.basename(args.out))
     else:
         sys.exit("ERROR: give --manifest, or both --query and --out.")
+
+    if missing:
+        sys.exit(f"ERROR: {len(missing)} image(s) missing: {', '.join(missing)}")
 
 
 def _selftest():
     assert split_query("apartment india#3") == ("apartment india", 2)
     assert split_query("apartment india") == ("apartment india", 0)
     assert split_query("c# tutorial") == ("c# tutorial", 0), split_query("c# tutorial")
+    import shutil, tempfile
+    # fake-mode fetch + query-keyed skip (offline, needs ffmpeg)
+    os.environ["FIN_FAKE_APIS"] = "1"
+    d = tempfile.mkdtemp(prefix="pixabay-")
+    try:
+        out = os.path.join(d, "s1.jpg")
+        assert fetch_one("", "empty gym", out, False)
+        first = open(out, "rb").read()
+        mtime = os.path.getmtime(out)
+        assert fetch_one("", "empty gym", out, False)          # same query → skip
+        assert os.path.getmtime(out) == mtime, "unchanged query was re-fetched"
+        assert fetch_one("", "empty gym#3", out, False)        # new query → replace
+        assert open(out, "rb").read() != first, "changed query kept the rejected image"
+        credits = open(os.path.join(d, "CREDITS.txt"), encoding="utf-8").read()
+        assert credits.count("s1.jpg") == 2, credits
+    finally:
+        os.environ.pop("FIN_FAKE_APIS", None)
+        shutil.rmtree(d, ignore_errors=True)
     import tempfile
     with tempfile.NamedTemporaryFile("w", suffix=".env", delete=False, encoding="utf-8") as fh:
         fh.write('# c\n\nPIXABAY_API_KEY = "abc123"\n')

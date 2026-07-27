@@ -13,13 +13,20 @@ Reads ELEVENLABS_API_KEY from the project-root .env (or the environment).
   python3 tools/tts/elevenlabs_tts.py --voice <VOICE_ID> --file segment.txt --out out.mp3
 
 Default model is eleven_multilingual_v2 (supports Urdu). Override with --model.
+
+Exit codes: 0 ok · 2 terminal (bad/missing key, 4xx) · 3 retryable (429, 5xx,
+network unreachable). Set FIN_FAKE_APIS=1 to synthesize a local sine-tone mp3
+instead of calling the API (zero-cost pipeline dry runs).
 """
 import argparse
 import json
 import os
+import subprocess
 import sys
 import urllib.error
 import urllib.request
+
+EXIT_TERMINAL, EXIT_RETRYABLE = 2, 3
 
 API = "https://api.elevenlabs.io/v1"
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -44,8 +51,9 @@ def load_env(path=None):
 def api_key():
     key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
     if not key:
-        sys.exit("ERROR: ELEVENLABS_API_KEY is empty. Paste your key into .env "
-                 "(see .env.example) then re-run.")
+        print("ERROR: ELEVENLABS_API_KEY is empty. Paste your key into .env "
+              "(see .env.example) then re-run.", file=sys.stderr)
+        sys.exit(EXIT_TERMINAL)
     return key
 
 
@@ -60,9 +68,11 @@ def _request(url, key, data=None, method="GET"):
             return resp.read()
     except urllib.error.HTTPError as e:
         body = e.read().decode("utf-8", "replace")
-        sys.exit(f"ERROR {e.code} from ElevenLabs: {body}")
+        print(f"ERROR {e.code} from ElevenLabs: {body}", file=sys.stderr)
+        sys.exit(EXIT_RETRYABLE if e.code == 429 or e.code >= 500 else EXIT_TERMINAL)
     except urllib.error.URLError as e:
-        sys.exit(f"ERROR: could not reach ElevenLabs ({e.reason}).")
+        print(f"ERROR: could not reach ElevenLabs ({e.reason}).", file=sys.stderr)
+        sys.exit(EXIT_RETRYABLE)
 
 
 def list_voices(key):
@@ -77,8 +87,24 @@ def list_voices(key):
         print(f"{v['voice_id']:<24}  {v.get('name','?')}  ({labels})")
 
 
+def fake_synthesize(text, out):
+    """FIN_FAKE_APIS=1: a local sine-tone mp3 sized from char count. A tone, not
+    silence, so the pipeline's silent-clip guard still passes on dry runs.
+    13 chars/s sits within the ±35% duration check for both 12.5 and 15."""
+    dur = max(1.2, len(text) / 13.0)
+    os.makedirs(os.path.dirname(os.path.abspath(out)) or ".", exist_ok=True)
+    subprocess.run(
+        ["ffmpeg", "-y", "-v", "error", "-f", "lavfi",
+         "-i", "sine=frequency=440:sample_rate=44100",
+         "-t", f"{dur:.2f}", "-q:a", "2", out], check=True)
+    print(f"OK (FAKE): wrote {dur:.2f}s tone -> {out}")
+
+
 def synthesize(key, voice, text, out, model, stability, similarity,
                style=0.0, speed=1.0, prev_text=None, next_text=None, seed=None):
+    if os.environ.get("FIN_FAKE_APIS") == "1":
+        fake_synthesize(text, out)
+        return
     url = f"{API}/text-to-speech/{voice}"
     payload = {
         "text": text,
@@ -100,8 +126,10 @@ def synthesize(key, voice, text, out, model, stability, similarity,
         payload["seed"] = seed
     audio = _request(url, key, data=payload, method="POST")
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
-    with open(out, "wb") as fh:
+    tmp = out + ".tmp"
+    with open(tmp, "wb") as fh:
         fh.write(audio)
+    os.replace(tmp, out)  # never observed half-written
     print(f"OK: wrote {len(audio):,} bytes -> {out}")
 
 
@@ -120,6 +148,8 @@ def main(argv=None):
     p.add_argument("--prev-text", help="preceding text (request stitching, continuity across chunks)")
     p.add_argument("--next-text", help="following text (request stitching)")
     p.add_argument("--seed", type=int, help="fixed seed for reproducible takes")
+    p.add_argument("--skip-existing", action="store_true",
+                   help="skip if --out already exists and is non-empty (resume without re-spending credits)")
     p.add_argument("--selftest", action="store_true", help="offline check of the .env parser")
     args = p.parse_args(argv)
 
@@ -142,6 +172,9 @@ def main(argv=None):
         sys.exit("ERROR: give --text or --file.")
     if not args.voice:
         sys.exit("ERROR: give --voice (run --list-voices to find one).")
+    if args.skip_existing and os.path.exists(args.out) and os.path.getsize(args.out) > 0:
+        print(f"skip (exists): {args.out}")
+        return
 
     synthesize(key, args.voice, text, args.out, args.model, args.stability, args.similarity,
                style=args.style, speed=args.speed, prev_text=args.prev_text,

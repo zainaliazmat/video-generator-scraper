@@ -1,0 +1,87 @@
+{
+  "_comment": "Single machine-readable home for finance-pipeline constants (spec T6/T30/T32/T36). Prose/design rationale lives in vault/knowledge/design-finance-blockframe.md — never duplicate it here.",
+  "design_doc": "vault/knowledge/design-finance-blockframe.md",
+  "hyperframes_pin": "0.7.66",
+
+  "cuts": {
+    "hi": {
+      "channel": "@cashguruguides",
+      "currency": "₹",
+      "forbidden_currency": "$",
+      "locale": "en-IN",
+      "voice_id": "HTUuC7OeeEt6OL5fViVe",
+      "voice_name": "Harsh",
+      "chars_per_second": 12.5
+    },
+    "en": {
+      "channel": "@moneymavens101",
+      "currency": "$",
+      "forbidden_currency": "₹",
+      "locale": "en-US",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian",
+      "chars_per_second": 15.0
+    }
+  },
+
+  "tts": {
+    "model": "eleven_multilingual_v2",
+    "style": 0.0,
+    "tool": "tools/tts/elevenlabs_tts.py",
+    "min_clip_bytes": 10240,
+    "min_clip_seconds": 1.0,
+    "duration_tolerance_pct": 35,
+    "silence_mean_volume_db": -50.0,
+    "timing_ffprobe_tolerance_s": 0.05
+  },
+
+  "tiers": {
+    "short": {
+      "range_seconds": [60, 300],
+      "default_target_seconds": 165,
+      "architecture": "blockframe-9",
+      "lines": 9
+    },
+    "medium": {
+      "target_seconds": 510,
+      "architecture": "per-line-chapters",
+      "reference": "studio/videos/firaun-ka-anjaam/build.py"
+    },
+    "long": {
+      "min_seconds": 600,
+      "architecture": "per-line-chapters",
+      "reference": "studio/videos/firaun-ka-anjaam/build.py"
+    }
+  },
+
+  "scene": {
+    "lead_in_seconds": 0.4,
+    "tail_seconds": 1.0,
+    "max_static_hold_seconds": 2.0
+  },
+
+  "layout": {
+    "type_ladder_px": [290, 240, 112, 96, 88, 76, 72, 54, 50, 46, 44, 40, 32, 30, 28, 26],
+    "one_focal_per_scene": true,
+    "cue_min_gap_seconds": 0.8,
+    "cascade": { "max_items": 5, "gap_seconds": [0.6, 0.7] },
+    "first_cue_by_seconds": 0.5,
+    "max_simultaneous_elements": 6,
+    "max_chips_per_row": 3,
+    "max_chip_chars": 22,
+    "photo_free_scene_ratio": 0.23
+  },
+
+  "colors": {
+    "bg": "#0d1017",
+    "panel": "#161b25",
+    "ink": "#f5f3ec",
+    "muted": "#98a2b3",
+    "positive": "#22c55e",
+    "danger": "#ef4444",
+    "accent": "#f59e0b",
+    "cta": "#ff5c39"
+  },
+
+  "known_benign": []
+}
