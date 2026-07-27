@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Needs vs Wants — the subscription leak (Hindi)</title>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/js/gsap.min.js"></script>
     <style>
       :root {
         --bg: #0d1017;
@@ -109,6 +109,9 @@
       .track2 { position: relative; width: 740px; height: 66px; background: var(--panel); border: 3px solid #2a3241; border-radius: 14px; overflow: hidden; }
       .fill2 { position: absolute; inset: 0; background: var(--warn); transform: scaleX(0); transform-origin: left center; }
       .ticks { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 12 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 12 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 12)); }
+      .counter, .mega, .billrow, .head2, .huge {
+        font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
+      }
       .counter { font-size: 96px; font-weight: 900; color: var(--warn); margin: 0; }
 
       .arrow { font-size: 72px; font-weight: 900; color: var(--muted); }
@@ -331,12 +334,15 @@
       function pop(sel, at, dur) {
         tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.6 : dur, ease: "back.out(1.7)" }, at);
       }
+      // Locale-correct grouping. en-IN gives 1,24,564 (lakh); en-US gives 124,564.
+      // Deterministic in Chrome, no network.
+      var NUMFMT = new Intl.NumberFormat("en-IN");
       function countUp(id, from, to, at, dur) {
         var el = document.getElementById(id);
         var p = { v: from };
         tl.fromTo(p, { v: from }, {
           v: to, duration: dur == null ? 1.2 : dur, ease: "power1.out",
-          onUpdate: function () { el.textContent = Math.round(p.v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+          onUpdate: function () { el.textContent = NUMFMT.format(Math.round(p.v)); }
         }, at);
       }
       function fill(sel, at, dur, to) {
@@ -347,6 +353,13 @@
       }
       function pulse(sel, at, s) {
         tl.to(sel, { scale: s == null ? 1.12 : s, duration: 0.16, ease: "power2.out", repeat: 1, yoyo: true }, at);
+      }
+      // Photo-free scenes carry no .bg, so they get no ken() zoom. Without this the
+      // frame is literally motionless between text cues — measured on the shipped
+      // render: s2 was 79% frozen and s7 held 7.5s dead at the count-up payoff.
+      // A slow continuous scale keeps the frame alive without touching the design.
+      function drift(sel, at, dur, to) {
+        tl.fromTo(sel, { scale: 1 }, { scale: to == null ? 1.035 : to, duration: dur, ease: "none" }, at);
       }
       function breathe(sel, at, dur) {
         var cyc = 1.5, n = Math.max(1, Math.round(dur / cyc)); if (n % 2 === 0) n += 1;
@@ -365,6 +378,10 @@
       ken("#s6 .bg", S.s6, 27.73, true);
       ken("#s8 .bg", S.s8, 16.29, false);
       ken("#s9 .bg", S.s9, 17.31, true);
+      // photo-free scenes: keep motion alive (see drift())
+      drift("#s2 .stack", S.s2, 10.96);
+      drift("#s7 .stack", S.s7, 26.43);
+
 
       // 1 · HOOK
       rise("#s1k", S.s1 + 0.40, 0.6, 20);

@@ -1494,6 +1494,61 @@ a shipped, validated format.
 
 ---
 
+## GROUP 0 — APPLIED 2026-07-28 (reference implementation fixed)
+
+Applied to `studio/videos/needs-vs-wants/` and `needs-vs-wants-en/` — the pair
+`fin-build` is specified to copy. Both pass `npm run check` (0 errors, 0 warnings).
+Mirrored to `compositions/`.
+
+- **T1 DONE** — GSAP vendored to `assets/js/gsap.min.js`; the jsdelivr `<script>`
+  is gone from both cuts. `grep -c cdn.jsdelivr` = 0.
+- **T2 DONE** — `Intl.NumberFormat("en-IN")` for `-hi`, `"en-US"` for `-en`, plus
+  `font-variant-numeric: tabular-nums` on `.counter/.mega/.billrow/.head2/.huge`.
+  Six-figure Hindi numbers now group as `1,24,564`; counters no longer shimmy.
+- **NEW: dead-air fix** — measured on the shipped render, `s2` was **79% frozen**
+  and `s7` held **7.5s motionless** at the count-up payoff, because photo-free
+  scenes drop `.bg` and therefore get no `ken()` zoom. Added a `drift()` helper
+  (slow continuous scale, `ease:"none"`) applied to every photo-free scene's
+  `.stack`. Becomes a `format.json` rule: **no scene may hold a static frame
+  beyond ~2s.**
+
+### ⚠️ T3 CORRECTED — the specified font fix was wrong
+
+`design-techtooltester.md` specifies **Archivo Black**, and both the design review
+and this spec recommended self-hosting it. Verified with fontTools against the
+local `ArchivoBlack-Regular.woff2` (220 glyphs):
+
+| glyph | Archivo Black | Noto Sans Bold (system) |
+|---|---|---|
+| `₹` U+20B9 | **NO** | YES |
+| `→` U+2192 | **NO** | **NO** |
+| `$` `·` `—` | YES | YES |
+
+The Hindi cut uses `₹` 10× and `→` 6×; the English uses `→` 9×. Self-hosting
+Archivo Black would have **broken the rupee sign in the hero number of the Hindi
+channel** — strictly worse than today's fallback. No font on this machine covers
+the format's glyph set at display weight (the only ₹-carrying faces are Spectral
+at weight 400-500, a serif).
+
+**T3 is reopened as a creator decision**, since the typeface defines how every
+future video looks. Options: (a) download a real Black-weight face with ₹ and →
+coverage (Noto Sans variable to 900, Archivo variable, Manrope ExtraBold);
+(b) self-host Noto Sans Bold for a real 700 instead of synthetic 900-on-400 and
+let `→` keep falling back as it does today; (c) replace `→` with a CSS-drawn
+arrow, which removes the constraint entirely.
+
+Until resolved, the system stack stays — it is the only configuration verified to
+render every glyph the format uses.
+
+### Live confirmation of D-2
+
+`npm run check` on both cuts reports exactly one warning: `#s3stamp` at 1.7:1
+(hi) / 1.61:1 (en). `storyboard-hi.md:267` says *"Do not 'fix' it by lightening
+the text."* An agent instructed to "fix until clean" would degrade the signature
+stamp on every future video. `known_benign` in `format.json` is load-bearing.
+
+---
+
 ## GSTACK REVIEW REPORT
 
 | Review | Trigger | Why | Runs | Status | Findings |
