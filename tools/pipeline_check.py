@@ -18,6 +18,7 @@ Exit codes: 0 = pass · 1 = postcondition failed · 2 = usage / missing input.
 """
 import argparse
 import glob
+import hashlib
 import json
 import os
 import re
@@ -192,8 +193,31 @@ def check_voice_dir(vdir, cut, fmt):
     return problems
 
 
+def script_hash(slug, cut):
+    path = os.path.join(vault_dir(slug), f"script-{cut}.md")
+    if not os.path.exists(path):
+        return None
+    return hashlib.sha256(open(path, "rb").read()).hexdigest()
+
+
+def stale_script_problems(slug, cut):
+    """X-8: audit-edits-script-after-voice is the NORMAL case, so every stage
+    downstream of voice compares the current script hash against the one
+    recorded when voice was marked done. Mismatch = stale mp3s."""
+    run_path = os.path.join(vault_dir(slug), "run.json")
+    if not os.path.exists(run_path):
+        return []
+    voice = json.load(open(run_path, encoding="utf-8")).get(
+        "stages", {}).get(f"fin-voice-{cut}", {})
+    recorded = voice.get("script_sha256")
+    if recorded and recorded != script_hash(slug, cut):
+        return [f"script-{cut}.md changed after fin-voice ran — the mp3s and "
+                "timing.json are stale; re-run fin-voice before continuing"]
+    return []
+
+
 def check_storyboard(slug, cut, fmt):
-    problems = []
+    problems = stale_script_problems(slug, cut)
     sb = os.path.join(vault_dir(slug), f"storyboard-{cut}.md")
     if not os.path.exists(sb):
         problems.append(f"missing storyboard: {sb}")
@@ -237,7 +261,7 @@ def check_build(slug, cut, fmt):
     if not os.path.exists(index):
         return [f"missing {index}"]
     html = open(index, encoding="utf-8").read()
-    problems = []
+    problems = stale_script_problems(slug, cut)
     # determinism: no render-time network fetches (E-3 class of silent corruption)
     for m in re.finditer(r'(?:src|href)="(https?://[^"]+)"', html):
         problems.append(f"network fetch in composition: {m.group(1)}")
@@ -265,7 +289,7 @@ def check_render(slug, cut, fmt):
     mp4 = os.path.join(studio_dir(slug, cut), "renders", f"FINAL-1080p-{cut}.mp4")
     if not os.path.exists(mp4):
         return [f"missing render: {mp4}"]
-    problems = []
+    problems = stale_script_problems(slug, cut)
     if os.path.getsize(mp4) < 1_000_000:
         problems.append(f"render under 1MB — almost certainly a failed encode: {mp4}")
     timing_path = os.path.join(studio_dir(slug, cut), "assets", "voice", "timing.json")
@@ -308,13 +332,18 @@ def mark(stage, slug, cut, problems, attempt, log):
     if os.path.exists(path):
         run = json.load(open(path, encoding="utf-8"))
     key = f"fin-{stage}" + (f"-{cut}" if stage in PER_CUT else "")
-    run.setdefault("stages", {})[key] = {
+    entry = {
         "status": "done" if not problems else "failed",
         "reason": "" if not problems else "; ".join(problems)[:500],
         "attempt": attempt,
         "log": log or "",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
+    if stage == "voice" and not problems:
+        # X-8: freeze the script the clips were generated from, so any later
+        # edit invalidates every downstream stage
+        entry["script_sha256"] = script_hash(slug, cut)
+    run.setdefault("stages", {})[key] = entry
     os.makedirs(vault_dir(slug), exist_ok=True)
     atomic_write_json(path, run)
 
@@ -380,10 +409,19 @@ def _selftest():
         mark("script", slug, "en", ["bad"], 1, "")
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
         assert run["stages"]["fin-script-en"]["status"] == "failed"
+        with open(os.path.join(vault_dir(slug), "script-hi.md"), "w", encoding="utf-8") as fh:
+            fh.write("original script " + "x" * 600)
         mark("voice", slug, cut, [], 2, "logs/fin-voice-hi-2.md")
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
         assert run["stages"]["fin-voice-hi"] == {**run["stages"]["fin-voice-hi"],
                                                 "status": "done", "attempt": 2}
+        assert run["stages"]["fin-voice-hi"]["script_sha256"]
+
+        # X-8: editing the script after voice ran must invalidate downstream stages
+        assert stale_script_problems(slug, cut) == []
+        with open(os.path.join(vault_dir(slug), "script-hi.md"), "a", encoding="utf-8") as fh:
+            fh.write("\naudit rewrote this line")
+        assert any("stale" in p for p in stale_script_problems(slug, cut))
         print("selftest OK")
     finally:
         ROOT = real_root
