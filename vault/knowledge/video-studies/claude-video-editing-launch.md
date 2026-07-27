@@ -6,7 +6,7 @@ source: study packet research/ZNbgOhxhzXg/ (480p + transcripts + frames) + web r
 
 # Study: Claude-edits-video launch piece — 2026-07-04
 
-**Packet:** `research/ZNbgOhxhzXg/` · **Gate status:** Notion 2026-07-04 — pure HyperFrames
+**Packet:** `research/ZNbgOhxhzXg/` · **Gate status:** 2026-07-04 — pure HyperFrames
 tutorial SOFT-FAILS Gate 1; the reframed "Claude can now edit video, honest hands-on"
 IS winnable (launch/authority piece, not the money video — no affiliate exists).
 
@@ -66,7 +66,7 @@ which makes the failure instructive:
 ## Cross-cutting (honest)
 - **Both winners are face-cam channels** (frames confirm). We're faceless — their face
   is part of the trust signal we must replace with: the result-first artifact, own-voice
-  VO, named honest limits, and shown iteration. (Notion's Chronixel 8k→142k proves
+  VO, named honest limits, and shown iteration. (the Chronixel 8k→142k breakout proves
   small channels break out in this lane; face status unverified — do not overclaim.)
 - Winners are LONG (18–32 min) — third confirmation of the long-form pattern in this
   lane (matches 2026-07-04 scrape finding).
@@ -88,5 +88,4 @@ which makes the failure instructive:
 
 ## Evidence exported
 - [[../best-practices]] — hook, search-anchor, failure-mode lines added (2026-07-04).
-- Notion: 3-line conclusion posted 2026-07-04.
 - Script: [[../../videos/video-02-claude-edits-video/script-v1]].

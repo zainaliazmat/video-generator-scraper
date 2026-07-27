@@ -65,5 +65,4 @@ top pinned comment) · disclosure line (top of description AND spoken).
 ## 7. PRE-PUBLISH (Gate 2)
 ☐ "I tested" claims actually tested ☐ prices re-verified day-of ☐ material
 variation (own testing/angle/voice) ☐ cleared music only ☐ AI-disclosure toggle
-ONLY if visuals contain realistic synthetic media ☐ vault study note updated ·
-Notion gets ≤3 lines.
+ONLY if visuals contain realistic synthetic media ☐ vault study note updated.

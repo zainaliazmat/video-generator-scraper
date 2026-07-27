@@ -43,8 +43,6 @@ future script starts smarter. Claude-driven, from a Claude Code session.
    - **Promotion rule:** a pattern confirmed by ~3 independent studies gets
      promoted INTO the relevant skill (bump its version, note the evidence).
      That is the improve-over-time loop: observe → accumulate → promote.
-5. **Notion:** ≤3 lines (topic studied + headline conclusion + next step). The
-   full analysis lives here, not there.
 
 ## Honest limits (ponytail)
 - Transcripts = YouTube captions; a caption-less video is flagged in the manifest

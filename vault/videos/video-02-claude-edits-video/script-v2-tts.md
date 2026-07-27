@@ -172,4 +172,4 @@ the verdict card) · captions ON · numbers written as SPOKEN · audition "Hyper
 | Historical dates (1841/1869/1907/1927/1970) | runbook verified-timeline | 2026-07-04 | ☐ vs sourced photos |
 
 ## 4. GATE 2 (TTS edition)
-☐ toggle = YES (S27 consistency) ☐ material variation: own artifact + own blueprint + flaw fixed live ✓ ☐ YT Audio Library music only ☐ every "I tried/tested" really happened (bot clip = real 2026-07-02 test; live fix performed at build; hours = creator-confirmed) ☐ giveaway (runbook template + DESIGN + prompts) live before publish ☐ Notion ≤3 lines.
+☐ toggle = YES (S27 consistency) ☐ material variation: own artifact + own blueprint + flaw fixed live ✓ ☐ YT Audio Library music only ☐ every "I tried/tested" really happened (bot clip = real 2026-07-02 test; live fix performed at build; hours = creator-confirmed) ☐ giveaway (runbook template + DESIGN + prompts) live before publish.

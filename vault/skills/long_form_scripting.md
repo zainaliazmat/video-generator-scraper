@@ -1,10 +1,10 @@
 ---
 summary: The creative engine — script structure, hooks, retention architecture, persuasion psychology, packaging/A-B, the 9-habit human-delivery system with script-as-score markup, framework + analogy banks, deliverable template. Load after Gate 1 passes to write or revise a long-form script.
-updated: 2026-07-04
-source: creator's v1 skill (claude.ai project); vault copy canonical as of 2026-07-04, content unchanged
+updated: 2026-07-22
+source: creator's v1 skill (claude.ai project); vault copy canonical. v1.1 (2026-07-07) adds four externally-corroborated rules (hook-written-last, 5–7 STP loops per 10–15 min, data-driven CTA placement, CTR/AVD/AVP KPIs) from research/workflow-improvement-research-2026-07-07.md
 ---
 
-# SKILL — Long-Form YouTube Scripting & Delivery (v1)
+# SKILL — Long-Form YouTube Scripting & Delivery (v1.1)
 
 > **NARRATION ADDENDUM (2026-07-04):** channel narration is currently **Kokoro TTS**, not the
 > creator's voice (see youtube_channel_skill v5.3 — creator constraint; own-voice PARKED, not
@@ -37,14 +37,24 @@ source: creator's v1 skill (claude.ai project); vault copy canonical as of 2026-
 4. **Write for the ear, and for YOUR voice.** Short sentences. One idea per sentence. Contractions. Spoken rhythm. Cut any sentence you can't say comfortably in one breath. Read every line aloud as you write it — if you stumble, the sentence is wrong, not your delivery. (This also satisfies plain language: Feynman-simple, second person, define jargon the instant you use it.)
 5. **Accuracy / legal.** For buyer's-guide/tutorial/comparison content, "facts" = accurate specs, current pricing, feature comparisons, hands-on behavior. Date-stamp and triangulate (≥2 sources). Speak prices as approximate ("around $X as I record this — check the live price via the link"); put precise dated figures in the fact-check table, not the VO. Truth is a complete defense; "in my opinion" doesn't shield a false factual claim — attribute harsh claims about named companies to lawsuits/critics/your own testing. Disclose affiliate relationships.
 6. **Design for compliance (Gate 2).** Every video must carry your own testing, angle, voice, and POV — that material variation is what keeps the *whole channel* monetizable. Use cleared music only.
+7. **Write in LINES, never paragraphs (2026-07-22, Firaun rebuild).** Author the script as
+   single-sentence lines — one line = one spoken sentence/clause (~2–8 s of TTS), NOT a
+   multi-sentence block. **Why:** each line becomes exactly one TTS clip and one scene with one
+   exact timeline anchor, so the timeline is correct *by construction* (see [[../workflows/voiceover-tts]]
+   Rule 0). Author at paragraph granularity and each paragraph is one 1–5 min clip anchored only
+   once — the 3–4 scene images under it get split by *guessed weights* and drift seconds off the
+   words (the "image/timeline mismatch" bug). Firaun v1's 56 paragraphs had to be re-lined to
+   **307 lines** to fix exactly this; write it lined the first time. (When you must re-line an
+   existing script, SLICE the source string, never retype — retyping mixed Urdu/Devanagari silently
+   swaps scripts; gate the split with a byte-for-byte reconstruction check.)
 ---
  
 ## 2. LENGTH, PACING & THE END-TO-END BUILD
  
-**Pacing math.** Spoken pace ≈ **150 words per minute** (conversational adult English; ~130–160 range). So: 8 min ≈ 1,200 words, 10 min ≈ 1,500, 12 min ≈ 1,800. Long-form = 10+ min unlocks mid-roll ads; a common engagement sweet spot is ~8–15 min. **Write the first draft, then cut it ~30%** — the first draft is always too long. Read aloud and time it.
+**Pacing math.** Spoken pace ≈ **150 words per minute** (conversational adult English; ~130–160 range). So: 8 min ≈ 1,200 words, 10 min ≈ 1,500, 12 min ≈ 1,800. Long-form = 10+ min unlocks mid-roll ads; a common engagement sweet spot is ~8–15 min. **Write the first draft, then cut it ~30%** — the first draft is always too long. Read aloud and time it. **Calibrate to OUR narrator, not the estimate:** the creator's real recorded read runs meaningfully longer than the 150 wpm / TTS figure (video-02: Kokoro 9:26 → creator's Roman-Urdu recording 12:27, ~+32%). Budget scene durations for the *human* read; a composition timed to TTS will run short of the recorded VO and need a full re-time. — video-02, 2026-07-06
  
 **The build, in order:**
-1. **Outline first — never a blank page.** Spine: **Hook → Setup → Body segments → Payoff → CTA.** Put a rough timestamp on each act *before* writing, to prevent the filler middle (the #1 cause of mid-video drop-off).
+1. **Outline first — never a blank page.** Spine: **Hook → Setup → Body segments → Payoff → CTA.** Put a rough timestamp on each act *before* writing, to prevent the filler middle (the #1 cause of mid-video drop-off). **Write the HOOK LAST** (v1.1): draft the body first, then write the opening — "a hook that perfectly sells the value of a script that doesn't exist yet is nearly impossible" (corroborated 2026-06). The hook's job is to promise the payoff you actually built, so build it first.
 2. **Two-track / two-column script** is mandatory because we're faceless — *the visuals carry the show.* Left column = **VO** (what you say). Right column = **`[ ]` on-screen cue** (screen recording, b-roll, graphic, zoom, text overlay). Every line gets a planned visual.
 3. **Default action-format arc for this channel:** Hook (open a loop) → promise the exact decision/payoff → fast overview or early verdict → segmented deep-dive (one tool/step per segment, each with an example + an honest verdict card) → the "big one" payoff near ~70% → final verdict + CTA.
 4. **Chapters** built into the structure (not bolted on in the description).
@@ -54,7 +64,7 @@ source: creator's v1 skill (claude.ai project); vault copy canonical as of 2026-
  
 Pick by intent; all are compatible with the arc in §2.
  
-- **Open-loop / curiosity-gap:** open an unresolved question early, keep it open, close it late. Stack 2–3 loops in a long video. *The backbone of retention.*
+- **Open-loop / curiosity-gap:** open an unresolved question early, keep it open, close it late. *The backbone of retention.* **Dosage (v1.1):** a 10–15 min video should run **5–7 setup→tension→payoff loops**, not 2–3 — one is always open at any moment (tease the next point before resolving the current one). Countable: an agent can self-check the loop count against runtime.
 - **PAS — Problem → Agitate → Solve:** the default for how-to/educational. Name the creator's pain, make it sting, then resolve. (e.g., "Editing a faceless video by hand takes hours → here's why it kills your output → the tool that cuts it to minutes.")
 - **AIDA — Attention → Interest → Desire → Action:** persuasive/CTA-driven videos.
 - **ABT — "And, But, Therefore"** (the causality test, from Trey Parker/Matt Stone via Randy Olson): Context (*and*) → conflict (*but*) → consequence (*therefore*). **Run this on every transition** — if beats connect with "and then," it's a list; if they connect with "but"/"therefore," it's a story.
@@ -105,7 +115,8 @@ Pick by intent; all are compatible with the arc in §2.
 - **Deliver value fast** (action formats) — give the punchline/overview early, then go deep.
 - **Protect the mid-video drop zone (~55–65% of runtime).** Cumulative drop-off peaks here, often on the least exciting step. **Open that section with tension or stakes, never a flat transition.** ("Time to put the stack together" → "this is where most creators accidentally sabotage their whole video…")
 - **Plant a reward at ~70%.** Hold back one genuinely strong tip/payoff, **tease it early** ("the big one — with the fix — is near the end"), and **deliver it around 70%** to pull viewers to the finish. Don't front-load every peak.
-- **CTAs recur.** At least one soft mid-roll subscribe ask — ideally right after a payoff or verdict card (~70%) — plus the end CTA. Not only at the very end.
+- **CTAs recur.** At least one soft mid-roll subscribe ask — ideally right after a payoff or verdict card (~70%) — plus the end CTA. Not only at the very end. **Data-driven placement (v1.1):** once the channel has real analytics, put the mid-roll ask *just before the channel's typical major drop-off point* on its retention curve, not at a fixed %. Until then, the after-a-payoff default (~70%) stands.
+- **Track three KPIs per video (v1.1, MrBeast framing):** **CTR** (packaging), **AVD** = average view duration, **AVP** = average view percentage. The goal is "the best *YouTube* video," not the best-*produced* video — optimize for these, not polish. Record them in the study/post-publish note so packaging and retention decisions are evidence-based, not vibes.
 - **Pattern interrupt every ~30–45s; re-hook right before known drop-offs; no slow intro** (~33% drop in the first 30s).
 **Re-hook / pattern-interrupt swipe file:** tonal shift · new visual or graphic · surprising stat · direct address ("watch this") · b-roll · screen-zoom or angle change · music change · a new open loop · a mini-cliffhanger ("but there's a catch — in a sec"). For 10+ min videos, a mid-video re-hook is mandatory, plus a clear one-sentence **bridge** between segments (bridges are a common failure point).
  
@@ -224,7 +235,7 @@ This format is battle-tested — reuse it. Blocks:
 4. **Fact-check table** — every spec/price/claim with the **source**, the **date checked**, and a **"re-verify before publish"** flag. Include **platform-policy rows** (AI-disclosure only-if-visuals-warrant + inauthentic/material-variation + cleared music).
 5. **Affiliate setup** — programs in **priority order** (recurring first), each with commission model + network + cookie window + payout minimum; **link placement** (description grouped by step + pinned-comment top 2–3); and the **disclosure text**.
 6. **Pre-publish checklist** — the **"I tested" integrity** check; **re-verify all prices** (and policy wording); **Gate 2 compliance**; affiliate disclosure present; **pronunciation rehearsed**; runtime check.
-7. **Decisions-log entry** to paste into the Notion log (decision, money/affiliate, new verified facts, next step).
+7. **Decisions entry** recorded in the relevant vault note (decision, money/affiliate, new verified facts, next step).
 ---
  
 ## 12. PRE-WRITE & PRE-PUBLISH CHECKLIST
@@ -243,7 +254,7 @@ This format is battle-tested — reuse it. Blocks:
 - [ ] Draft cut ~30%; one idea per sentence; read aloud.
 - [ ] VO marked for pauses/emphasis/breath (§8b); tricky names rehearsed.
 - [ ] Ends on a peak + recurring CTA + a loop into the next video.
-**Before publish:** re-verify prices + platform policy (day-of) · Gate 2 (disclosure only-if-warranted, material variation, cleared music) · affiliate links + disclosure live · dead air cut but dramatic pauses kept · update the Notion decisions log.
+**Before publish:** re-verify prices + platform policy (day-of) · Gate 2 (disclosure only-if-warranted, material variation, cleared music) · affiliate links + disclosure live · dead air cut but dramatic pauses kept · record the decision + next step in the relevant vault note.
  
 ---
  

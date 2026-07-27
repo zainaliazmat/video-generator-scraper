@@ -270,4 +270,4 @@ The narration is a **human performance over screen recordings.** Most delivery p
 
 ## 7. DECISIONS LOG
 
-The channel decisions log is maintained **directly in Notion** ("Faceless YouTube Channel — Decisions & Learnings Log (AI Tools niche)") — not in a project file. A dated entry for this v2 revision is appended there at the end of this session (decision, money/affiliate, verified facts, next step). Read that page at the start of every session.
+Channel decisions and status now live in the vault (this is a Claude Code local project — no external log). A dated entry for this revision goes in the relevant vault note at session end; read the vault at the start of every session.

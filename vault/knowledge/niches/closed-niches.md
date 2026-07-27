@@ -1,7 +1,7 @@
 ---
 summary: Every niche tested and killed, with the kill reason — so none is ever re-tested from scratch. Protected memory; add lines, never delete them.
 updated: 2026-07-04
-source: Notion decisions log §2 (validation history)
+source: channel decisions log (historical) — validation history
 ---
 
 # Closed niches (do not revisit without NEW evidence)
@@ -15,7 +15,6 @@ source: Notion decisions log §2 (validation history)
   rant) but zero genuine small-channel breakouts across 9 sub-angles; big numbers were
   auction-reality genre; explainer winner was Wendover (giant); the copycat swarm was
   non-competitive AI slop (<300 views each); the one "win" was a one-off + course funnel.
-  (Fact library archived in Notion §8.)
 - **Pure HyperFrames tutorial — SOFT-FAILED Gate 1 (2026-07-04).** Every genuinely-
   HyperFrames small-channel video capped at 5k–19k; zero sub-20k breakouts; the big
   numbers are giant-owned (Nate Herk 364k/282k). Winnable only reframed as "Claude/AI

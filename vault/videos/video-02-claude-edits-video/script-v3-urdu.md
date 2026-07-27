@@ -1,0 +1,118 @@
+---
+summary: Roman-Urdu VO script for video-02, v5 — HUMANIZED pass after transcript research (real creator speech patterns from Kashif Majeed / Aasan Computer study). Self-questions, theek ha? checkpoints, yani restatements, viewer-thought voicing. Line 09 + affiliate talk removed. Awaiting creator read-aloud test.
+updated: 2026-07-05
+source: Creator's lines 01–11 (2026-07-05) + human-speech research in [[../../knowledge/urdu-script-style]] (transcript study tNPD4r39CWA, -g9Gnx5MFsU)
+---
+
+# Video 02 — Urdu Script (v5, Roman Urdu — insaan ki tarah bolta hova)
+
+**Status:** humanized pass done — creator ka read-aloud test pending.
+
+**Parhna sa pehla:**
+- Test simple ha: har line ko awaz sa parho. Agar aisa nahi lagta ka ap dost ko bata
+  raha ho, bata dena — wo line dobara likhon ga.
+- Line IDs pipeline sa 1:1 match. **Line 09 REMOVED** (affiliate bat poori script sa
+  out). Lines 02/25/26 ap ki apni awaz ka hisaab sa adapted hain.
+- Style + research: [[../../knowledge/urdu-script-style]]
+
+---
+
+**01** — Ya jo video ap abhi dakh raha ho na — is ka har ak frame Claude na banaya ha. Kisi insan na nahi. Ma na is ma na Premiere Pro use kiya, na DaVinci. Balka sach poocho to is video ma koi timeline ha hi nahi. Har scene bas ak text file ha — or ak command sa poori video render ho jati ha.
+
+**02** — Or ak or bat — aga jis documentary ka demo ma ap ko dikhaon ga na, us ki awaz bhi kisi insan ki nahi ha. Wo ak bilkul free, open source AI awaz ha. Or is video ma ma ap ko ya bhi bataon ga ka ap khud aisi free voice kasa generate kar sakta ho.
+
+**03** — Lakin ak bat ma shuru ma hi clear kar don — jo ap ko koi or nahi bata ga. Ya sab kisi ak magic prompt sa nahi hova. Theek ha? Mujha is pa poora 5 ghanta laga, ak proper workflow ka sath. Or ma ap ko har step dikhaon ga — wo 2 ghanta ki tayari bhi, jo baqi log apni videos ma sa kaat deta hain.
+
+**04** — Or video ka akhir ma? Ya poora workflow ma ap logo ka sath share karon ga, ta ka ap khud try kar sako. Sath hi wo tareeqa bhi bataon ga jo ma na try kiya or fail hova. Kyun? Ta ka ap ka time bach jaya, or ap seedha kaam ki cheez pa lag jao.
+
+**05** — Acha, to chalo dakhta hain ma na kiya kasa. First step: sab sa pehla mujha ak reference chahiye tha. Mujha ak vintage parallax history slideshow video pasand aayi — ma na kaha bas, mujha aisi hi video banani ha.
+
+**06** — Second step: ma na wo video Claude ko di or kaha — is video ko analyze karo. Dakho is ma kon sa fonts hain, kon sa colors, animations kasi hain, motion graphics kya hain, video ki raftar kya ha. Or phir apna liya ak reference document banao, jis ko use kar ka tum bilkul aisi hi video bana sako. Result kya nikla? Ak production runbook — yani video ka mukammal blueprint.
+
+**07** — Third step: blueprint ma jitni images ka likha tha, wo sab ma na internet sa download keen — copyright free, theek ha? — or apna local project structure ma rakh deen.
+
+**08** — Or fourth step: ab asal jadoo. Ma na blueprint ka prompts ak ak kar ka Claude Code ma paste kiya. Claude Code na har prompt ka according har scene ka code likh diya. Phir ak render command — bas. 4 minute ki cinematic documentary, poori 1080P ma, ready.
+
+**09** — *(REMOVED — affiliate wali bat poori script sa out)*
+
+**10** — Ab ap soch raha ho ga ka ya tool ha kon sa. Is ka naam ha HyperFrames. HeyGen company na isa April ma open source kiya tha — yani bilkul free.
+
+**11** — Dakho, normal editors — Premiere, CapCut — un ma hota kya ha? Hum khud har cut lagata hain, timeline ko khud manually adjust karta hain. Har cheez haath sa.
+
+**12** — HyperFrames ma aisa bilkul nahi. Ap bas ak dafa likh deta ho — ya scene yahan start ho ga, itni dair chala ga, left slide ho ga, phir fade out. Or renderer? Har bar bilkul wohi ka wohi render kar deta ha. Zero galti.
+
+**13** — Han, ak masla zaroor ha — likhta waqt ap ko kuch nazar nahi aata. To kya karta hain? Preview dakho, theek karo, dobara render karo. Bas yehi loop ha.
+
+**14** — Or yahan pa asal point samjho. Claude mouse pakar kar playhead nahi ghaseet sakta — ya us ka bas ki bat hi nahi. Lakin text likhna? Us ma wo kamaal ka ha. To jab ap na scenes ko text bana diya, to video editing wo kaam ban gayi jo AI sab sa acha karta ha. Simple si bat ha.
+
+**15** — Ab wo stage jo har banda skip kar deta ha — or hum wahin sa start karen ga. Dakho, ap seedha "video bana do" ka prompt nahi likhta. Ap ak reference sa start karta ho — ak asli video jis ka style ap chahta ho — or phir Claude ka sath ak lambi discussion.
+
+**16** — Ma na Claude ko apna reference diya, or hum koi 2-3 ghanta bas discuss karta raha. Is style ma khaas kya ha? Kon kon sa effects hain? Har effect HyperFrames ma kasa bana ga? Ak ak cheez pa bat hui.
+
+**17** — Or is sari discussion sa nikla kya? Production runbook. Topic final. History ki verified timeline. Shot list. Asset list. Poora blueprint tayar. Or sach bataon? Ya document us render sa bhi zyada qeemti ha.
+
+**18** — Phir blueprint sa Claude na ak design file likhi. Or yaad rakhna — yehi wo file ha jis ki wajah sa result professional lagta ha, AI generated nahi.
+
+**19** — Is file ma kya ha? Har color. Har font. Images ka exact treatment — grayscale, thori si sepia, ak thandi blue wash. Or motion ka rules bhi: har image aahista aahista Ken Burns pa drift karti ha, or text image sa 3 guna slow chalta ha. Yehi cheez asal parallax depth banati ha.
+
+**20** — Or maza ki bat? Claude is file ko qanoon ki tarah manta ha. Ap ak jagah change karo, poori video khud ko update kar leti ha. Zara socho — timeline editor ma ap ko ya karna parta, to har scene khud theek karta phirta.
+
+**21** — Ab kyun ka ya history video thi, facts sab sa zyada important thay. To runbook na sab sa pehla timeline lock ki. 1841 — Thomas Cook ka pehla tour. 1869 — Suez Canal. Phir Orient Express, bara bahri jahaz, 1927 ma Lindbergh, or 1970 ma 747. Sab verified.
+
+**22** — Us ka baad narration. 14 voice segments, total koi 160 second ki awaz — or har segment ka time visuals banna sa PEHLA fix kiya. Kyun? Kyun ka pehla audio, phir visuals — is tarteeb sa sync ka masla paida hi nahi hota. Warna yehi masla editing ka sara time kha jata ha.
+
+**23** — Chotha stage haath ka kaam tha, or ma bahana nahi banaon ga — blueprint ki list ki har purani image ma na khud dhoond kar download ki. Sab public domain thin. Yani itni purani ka copyright khatam ho chuka. Is ka fayda? Video monetize karna bhi bilkul safe.
+
+**24** — Is kaam ka liya koi 45 minute rakh lo. Or yahan shortcut mat lena — achi images dhoondna hi wo farq ha jo cinematic video ko stock photo slideshow sa alag karta ha.
+
+**25** — Ab wo bat jis ka wada kiya tha — free voice. Documentary ka narrator ak AI awaz ha. Engine ka naam ha Kokoro — open source text to speech. Bilkul free, or ap ka apna computer pa chalta ha. Na koi subscription, na koi credits.
+
+**26** — Or ma ap sa kuch nahi chhupa raha — ya awaz jo ap abhi sun raha ho, ya meri apni ha. Lakin documentary ki poori narration usi free engine sa bani ha. Ab khud socho — agar tool itna acha ha ka apna demo khud bol raha ha, to is sa bara review kya ho ga?
+
+**27** — Han, ak rule yaad rakhna. Agar ap apna channel pa aisi AI awaz use karo, to YouTube kehta ha ka disclose karo. Is video ma wo toggle yes pa ha. Is sa koi nuqsan nahi hota — balka log is honesty ki respect karta hain.
+
+**28** — Ab wo hissa jo pehli bar mujha jadoo laga. Ma na Claude Code ko har scene ka liya simple English ma prompt diya — seedha blueprint sa. Ak scene, ak prompt.
+
+**29** — Jasa: 1907. Mauretania. Bara sa year number. Dark band pa title. Slow left drift. Bas itna likha — or us na poora scene likh diya. Ak HTML file, jis ma image, typography, timing — sab kuch set.
+
+**30** — 14 scenes. 14 prompts. Phir ak command. Mera aam sa laptop pa koi 20 minute ki rendering — or bahar aata ha 700 MB ka 1080P master. Or timeline? Ak bar bhi nahi kholi.
+
+**31** — Acha ab ruko. Ab wo hissa jo baqi videos ap sa chhupati hain.
+
+**32** — Agar ap soch raha ho ka apni asli footage daal kar Claude sa kaho ga — "is ki 5 minute ki edit bana do" — to meri bat suno: mat karo.
+
+**33** — Isi saal independent testing ma logon na bilkul yehi try kiya. 5 minute ki cut maangi. Mila kya? 9 minute 30 second — or model kehta raha ka 4 minute 59 second ha. Or 11 ma sa 11 cuts? Sab sentence ka beech ma lagi. Sab.
+
+**34** — Wajah simple ha. Claude na beat feel kar sakta ha, na sans sun sakta ha. Wo structure edit karta ha, footage nahi. Or yehi to scenes as code ki khoobi ha — yahan kuch cut hota hi nahi. Motion likhi jati ha, perfectly render hoti ha. Aankh sa napna ki zaroorat hi nahi parti.
+
+**35** — Doosri limit: asli apps ki screen recording. Ma na browser bot sa ya automate karna ki koshish ki — scrolling atak atak kar chal rahi thi, jhatka pa jhatka. To rule ya ha: asli screens khud record karo, baqi sab render karo.
+
+**36** — Or teesri bat — ya wali important ha, is pa apna sath honest raho. Is workflow ki ak learning curve ha. Mera 5 ghanta tab laga jab mujha tools pehla sa aata thay. Ap ki pehli video is sa zyada time la gi — shayad poora din. Or ya nuqsan nahi ha, ya seekhna ha.
+
+**37** — Or chothi — ap ko maza aaya gi ya wali. Mera apna title card dakho. Dakh raha ho caption title ma ghus raha ha? Ya bug Claude na ship kiya — or sach ya ha ka ma bhi nahi pakar saka.
+
+**38** — To chalo, abhi live theek karta hain. Sirf ak sentence sa. Dakho.
+
+**39** — Ab poori pipeline ak nazar ma dakh lo — kyun ka jab ya sab ak sath dakhta ho na, tab asal ma samajh aata ha ka hova kya ha.
+
+**40** — Ak reference video. Ak lambi discussion — jo blueprint ban gayi. Ak asset folder. 14 voice lines. 14 scene prompts. Or ak render command. Bas. Yehi poora system ha.
+
+**41** — Total koi 5 ghanta ki mehnat. Or asal bat ya ha — timeline editor ma to ma ya video bana hi nahi sakta tha. Ma editor hoon hi nahi. Yehi to poora point ha.
+
+**42** — Or ap ko ya sab khud sa figure out karna ki zaroorat nahi. Mera runbook template, design file, sara scene prompts — sab neecha description ma para ha. Bilkul free. Na email maangon ga, na kuch. Bas la jao or use karo.
+
+**43** — Ab akhri sawal — kya AP ko ya use karna chahiya?
+
+**44** — Dakho, seedhi bat. Agar ap asli footage wali videos banata ho — vlogs, gameplay, interviews — to nahi. Ap ka liya timeline editor hi behtar ha. Text file sa larna ka koi faida nahi.
+
+**45** — Lakin agar ap motion graphics banata ho — explainers, aisi documentaries, data stories, faceless channels — to phir suno: ya is saal ka sab sa acha free tool ha jo ma na test kiya. Bas shart ak ha — blueprint la kar aao, sirf idea nahi.
+
+**46** — Or han — ya poora ka poora free ha. Ma na bohat dhoonda, koi catch nahi mila.
+
+**47** — Mera apna plan? Is channel ka sister history channel pa har cinematic video ab isi tareeqa sa bana gi. Pehla blueprint, phir video. Har bar.
+
+**48** — Agli video ma hum or aaga jayen ga — ak mukammal faceless video, poora AI stack sa. Script sa la kar awaz, visuals, edit — sab kuch. Start sa end tak.
+
+**49** — Or us ma ma ap ko ya bhi bataon ga ka kon sa AK tool paisa dena ka laiq ha — or yaqeen mano, wo wo nahi ha jo ap soch raha ho. Agar aisi seedhi bat wali videos achi lagti hain to subscribe kar lo. Hafta ma ak video. Bas kaam ki bat, zero hype.
+
+**50** — Or poori documentary — poora 4 minute — neecha link ma para ha. Jao, khud dakho — ak blueprint or ak text file mil kar kya kar sakti hain.

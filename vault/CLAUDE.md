@@ -5,45 +5,49 @@ It is an Obsidian vault AND a plain markdown folder — Claude Code reads it
 natively with Read/Grep; the human opens it in the Obsidian app. No MCP, no
 plugin, no sync machinery.
 
-## The three-layer memory rule (one home per fact — never duplicate)
+## The two-home memory rule (one home per fact — never duplicate)
 
-| Layer | Home | Owns |
-|---|---|---|
-| **Data**      | `../library.db` (SQLite)  | Raw scraped video rows: views, subs, dedup, times_seen. Numbers live HERE, never in notes. |
-| **Knowledge** | this vault (markdown)     | Durable prose: skills, niche dossiers, verified facts (dated + sourced), scrape findings, video artifacts, templates. |
-| **Decisions** | Notion decisions log      | What was decided / killed / pending, session log entries, current status. |
+| Home | What it owns |
+|---|---|
+| `../library.db` (SQLite)  | Raw scraped video rows: views, subs, dedup, times_seen. Numbers live HERE, never in notes. |
+| **this vault** (markdown) | Everything else durable: skills, niche dossiers, verified facts (dated + sourced), scrape findings, video artifacts, templates — **and all decisions/status/session notes** (what was decided / killed / pending, current status). |
 
-Notion page: "Faceless YouTube Channel — Decisions & Learnings Log"
-https://app.notion.com/p/38f4c89fff95819b96dac503872bba6c
-
-## Cross-surface boundary (the load-bearing rule)
-
-claude.ai web sessions **cannot see this vault** (it is local). Claude Code
-sessions **can**. Notion is the only store both surfaces reach, so:
-
-- Anything a web session must know goes **into the Notion log**, not only here.
-- The skill files in `skills/` are **canonical**. The copies in the claude.ai
-  project knowledge are snapshots — when a skill changes here, the human
-  re-uploads it to the web project. Record every skill change in the Notion log
-  so web sessions know their copy is stale.
-- Artifacts that exist only in the web project (see `videos/video-01/status.md`)
-  must be pasted here to become durable.
+This is a **Claude Code local project — the vault is the single source of truth.**
+The `skills/` files are canonical. There is no external log and no other surface
+to sync to: if it matters, it lives in the vault.
 
 ## Session protocol (how this vault learns over time)
 
-1. **Start** (channel work): read the Notion log §1 Current Status first.
+1. **Start** (channel work): read `index.md` and the relevant notes for current status.
 2. **Work**: cite facts from vault notes; verify anything stale (facts carry
    dates — AI-tool prices move monthly, re-verify per the skill's rules).
    Before scripting a topic, run the study loop: `workflows/video-study.md`.
 3. **End**: distill what was learned into the right vault note (update, don't
-   append-forever). Notion gets **≤3 lines only** — dated conclusion + next
-   step (template: `templates/notion-log-entry.md`). Never post full reports
-   or analysis to Notion.
+   append-forever). Decisions and status update the relevant note in place —
+   full analysis and evidence included; there's nowhere else for it to go.
 
-**Notion policy (2026-07-04):** Obsidian is THE knowledge base. Notion is a
-thin cross-surface notepad for claude.ai web sessions — headline status only —
-and is slated for retirement once the setup is complete. When in doubt where
-something goes: the vault.
+## Post-delivery cleanup (once a video ships to YouTube)
+
+Standing rule (creator, 2026-07-10): **a delivered video's home is YouTube, not
+this disk.** The moment a project is uploaded + scheduled, reclaim the space:
+
+1. **Distill first, delete second.** Capture every durable learning into the vault
+   (a `videos/<id>/index.md` milestone note + any reusable runbook/design/script)
+   BEFORE removing anything. The render is about to be the only place some of this
+   lived — text it into the vault or it's lost.
+2. **Delete the heavy, regenerable assets:** the final `*.mp4` render, extracted
+   frame PNGs / snapshots, audio (`*.wav`/`*.mp3`), waveform/thumbnail caches, and
+   `work-*/` temp dirs. These are large and are either on YouTube now or rebuildable
+   from the kept source.
+3. **Keep the light text:** scripts, `DESIGN.md`, runbook, `index.html` + scene
+   source, JSON meta, and the final thumbnail PNG (the deliverable). Text is tiny and
+   is what future projects start from.
+4. **Record the URL + publish date** in the milestone note.
+
+**The point (creator's framing):** each shipped video is a **milestone**, not a
+throwaway. The next one starts FROM its runbook + design system + learnings and must
+be *better* — that compounding is the real growth. First milestone:
+[[videos/video-hist-01-travel/index]].
 
 Git versions this vault — history of every note IS the audit trail of learning.
 

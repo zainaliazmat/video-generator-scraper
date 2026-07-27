@@ -1,7 +1,7 @@
 ---
 summary: How scraping works here (ytauto TUI + library.db primary; vidIQ loop for web sessions), the &sp= filter encoding gotcha, hard-won capture facts, and the 2026-07-04 lane findings.
 updated: 2026-07-04
-source: this repo (backend/, library.db) + Notion log entries 2026-07-03/04
+source: this repo (backend/, library.db) + channel decisions log (historical) 2026-07-03/04
 ---
 
 # Scraping playbook (local engine)

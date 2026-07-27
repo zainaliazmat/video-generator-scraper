@@ -1,7 +1,7 @@
 ---
 summary: The LOCKED niche — "AI tools & workflows for content creators / faceless video." Why it won, the comp channels to study, and the load-bearing strategic finding that drove the pivot.
 updated: 2026-07-04
-source: Notion decisions log §1–§3, §7 (validated 2026-06-30; re-checked in the 2026-07-04 scrape)
+source: channel decisions log (historical), validated 2026-06-30; re-checked in the 2026-07-04 scrape
 ---
 
 # Niche: AI tools → creator/video (✅ LOCKED 2026-06-30)
@@ -41,7 +41,7 @@ also stack ads + affiliate + sponsors; explainers earn low-intent ads only.
   video — honest hands-on" frame is small-channel-winnable; Nate Herk (838k) owns the
   broad frame. Faceless lane re-confirmed: Aftab Khan 58k→492K, zapiwala ai 120k→523K.
 
-## Process rules extracted (Notion §6)
+## Process rules extracted
 1. Money-first beats interest-first. 2. Action formats are where newcomers win AND
 where the money lives. 3. Validate every pick with the gates — an open-looking topic
 can be an AI-slop graveyard under one giant. 4. vidIQ outlier multipliers on

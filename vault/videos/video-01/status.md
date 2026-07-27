@@ -1,7 +1,7 @@
 ---
 summary: Video #1 ("Best AI Tools for Faceless YouTube Videos — I Tested the Whole Stack") — where it stands, what exists locally vs only in the web project, and the exact next steps.
 updated: 2026-07-04
-source: Notion decisions log §1, §5, §9 entries 2026-06-30 → 2026-07-04
+source: channel decisions log (historical), 2026-06-30 → 2026-07-04
 ---
 
 # Video #1 — status
@@ -24,7 +24,7 @@ clips + own-voice VO by hand off the recording guide (doubles as the "I tested" 
 - `hyperframes_production.md` — the production skill → [[../../skills/hyperframes_production]].
 - (v1 of the script also exists in ~/Downloads; superseded by v2 — not vaulted.)
 
-## Next steps (Notion §5)
+## Next steps
 1. Creator records the 10 clips + VO per the guide (backs every "I tested" claim).
 2. Claude maps clips → storyboard beats, writes the HyperFrames build prompt.
 3. Build: sound-design.json → compositions → `npm run check` → render.

@@ -14,6 +14,12 @@ library.db
 
 .pytest_cache/
 
+# Secrets — NEVER commit the API key
+.env
+
+# TTS audio outputs (regenerable)
+assets/tts-samples/*.mp3
+
 # OS / editor
 .DS_Store
 *.swp
@@ -24,3 +30,6 @@ vault/.obsidian/
 .gstack/
 research/
 studio
+
+# Delivered-video heavy assets (regenerable; post-delivery cleanup rule in vault/CLAUDE.md)
+Pompie Assets/

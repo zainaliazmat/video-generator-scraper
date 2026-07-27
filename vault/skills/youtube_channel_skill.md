@@ -7,17 +7,16 @@ source: creator's v5 skill (claude.ai project) + v5.1 vault refinement
 SKILL — Faceless YouTube Channel: Money-First Research → Validation → Compliant Publish (v5.1)
 Load this when working on the faceless YouTube channel.
 
-v5.1 changelog (vault edition, 2026-07-04 — additive, nothing deleted): this vault copy is now
-CANONICAL; the claude.ai project copy is a snapshot (re-upload after edits, and log skill changes
-in Notion so web sessions know). §1 gains the LOCAL SCRAPER path — in Claude Code sessions the
-ytauto TUI + library.db (SQLite, deduped; 552 videos backfilled 2026-07-04) is the primary engine,
-with the manual vidIQ→CSV loop kept for claude.ai web sessions. Documents the &sp= encoding gotcha.
+v5.1 changelog (vault edition, 2026-07-04 — additive, nothing deleted): this vault copy is the
+canonical, single source of truth. §1 gains the LOCAL SCRAPER path — in Claude Code sessions the
+ytauto TUI + library.db (SQLite, deduped; 552 videos backfilled 2026-07-04) is the primary engine.
+Documents the &sp= encoding gotcha.
 
 v5.2 changelog (2026-07-04, same day — two additions): (1) STUDY LOOP — before scripting a
 Gate-1-passed topic, run the competitor study (vault/workflows/video-study.md): top/mid/low videos
 at 480p + transcripts + keyframes → analysis → findings into the vault (best-practices.md; ~3
-confirmations promote into a skill). (2) NOTION POLICY — the vault is the knowledge base; Notion
-entries are ≤3-line conclusions only (§10 revised).
+confirmations promote into a skill). (2) KNOWLEDGE POLICY — the vault is the single knowledge base;
+all findings, analysis, and decisions land in vault notes (§10 revised).
 
 v5.3 changelog (2026-07-04, later — NARRATION REVISED): channel narration = Kokoro TTS for now.
 The creator (native Urdu speaker) fumbles reading English scripts aloud — the own-voice rule
@@ -175,7 +174,7 @@ Scripting/retention/delivery caveats (e.g. that creator-education retention and 
 
 10. DELIVERABLE TEMPLATE → see the companion skill
 Every script ships in the production-doc format defined in long_form_scripting.md §Deliverable Template (title options, thumbnail concepts + A/B plan, the two-track VO + on-screen-cue script, fact-check table, affiliate setup, pre-publish checklist).
-Channel-ops requirement (REVISED 2026-07-04): the OBSIDIAN VAULT is the knowledge base — verified facts, study findings, and analysis land in vault notes during the session. The Notion log gets a ≤3-line dated conclusion only (template: vault/templates/notion-log-entry.md) so claude.ai web sessions see headline status. Read the Notion log §1 at session start; write the vault + the 3-line Notion note at session end. (Notion is slated for retirement once the setup is complete.)
+Channel-ops requirement: the OBSIDIAN VAULT is the single knowledge base — verified facts, study findings, analysis, decisions, and status all land in vault notes during the session. Read `vault/index.md` + the relevant notes at session start; update them (in place, don't append-forever) at session end. Git history is the audit trail.
 
 QUICK-REFERENCE RUNBOOK
 
@@ -186,4 +185,4 @@ Fact-find (specs/prices/comparisons), triangulate + date everything, reconcile a
 Write the script in long_form_scripting.md (action format = deliver value fast + honest verdict/CTA; engineer retention; write for the ear and for the creator's own voice).
 Package + set up monetization — packaging/A-B testing per the companion skill; affiliate sign-ups + disclosure + links per §6 here.
 GATE 2 — COMPLIANCE before publish: verify current policy from the platform's own docs → AI/synthetic disclosure only if visuals warrant it (when in doubt, disclose) → material variation (avoid "inauthentic") → cleared music. Then re-verify live prices.
-Write findings into the vault; post a ≤3-line conclusion to the Notion log and refresh its status line.
+Write findings and decisions into the vault (update the relevant note in place).

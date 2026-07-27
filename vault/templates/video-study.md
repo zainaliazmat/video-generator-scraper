@@ -8,11 +8,13 @@ updated: 2026-07-04
 **Packet:** `research/<slug>/` · **Gate status:** <Gate 0/1 result that motivated this>
 
 ## The three
-| | video | channel (subs) | views | views/sub | length |
-|---|---|---|---|---|---|
-| TOP | | | | | |
-| MID | | | | | |
-| LOW | | | | | |
+| | video | channel (subs) | views | views/sub | length | CTR | AVD | AVP |
+|---|---|---|---|---|---|---|---|---|
+| TOP | | | | | | | | |
+| MID | | | | | | | | |
+| LOW | | | | | | | | |
+
+> CTR/AVD/AVP (the three KPIs — [[../skills/long_form_scripting]] §6) are only visible for OUR own uploads in YouTube Studio; leave blank for competitor rows (public data doesn't expose them). Fill them for our published videos in the post-publish review.
 
 ## TOP — why it won
 - **Hook (0–30s):** <type, when the payoff promise lands, the open loop, visual treatment from hook frames>
@@ -32,4 +34,3 @@ updated: 2026-07-04
 
 ## Evidence exported
 - Appended to [[../knowledge/best-practices]]: <the lines added, dated>
-- Notion (≤3 lines): <the conclusion posted>

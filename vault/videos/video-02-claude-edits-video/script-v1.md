@@ -224,4 +224,4 @@ material variation: own artifact, own flaw shown + fixed, own verdicts ✓ ☐
 music: YT Audio Library only ☐ altered-content toggle: the embedded documentary
 clips use an AI narrator — per current policy human-VO tutorial itself doesn't
 trigger it; **when unsure, disclose** ☐ giveaway link live before publish ☐
-vault study note updated · Notion ≤3 lines.
+vault study note updated.

@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Runner (personal)",
+  "version": "2.0",
+  "description": "Pastes prompts one-by-one into a chat with a delay; submits with a real trusted click via chrome.debugger. Personal use.",
+  "permissions": ["debugger", "downloads"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*",
+        "https://aistudio.google.com/*",
+        "https://labs.google/*",
+        "https://flow.google/*",
+        "https://*.labs.google/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
