@@ -28,6 +28,7 @@ updated: 2026-07-27
 - [[knowledge/subscription-economics-2026]] — **verified 2026 money numbers for both markets** (2026-07-27): US = C+R $86-guessed vs $219-actual gap + 42% forgot + Deloitte $69/mo across 4 services; India = PLFS ₹20,702 salaried average + published price cards → a bottom-up ₹2,047/mo stack. HARD/SOFT confidence tags; names the blog-tier numbers NOT to use.
 - [[knowledge/us-english-script-style]] — **the `-en` cut is a US rewrite, not a translation** (creator rule 2026-07-27): $ + US grouping, US shocks (car/layoff/22% card), HYSA + FDIC + "1–2 days away not instant", automate-the-transfer, Brian voice, ≈15 chars/s, and photo b-roll counts as localization. Written after emergency-fund-en shipped with rupees in it.
 - [[knowledge/indian-business-culture-slang]] — Marwari/Gujarati thrift + dhandho money framings and usable vocab (व्यापार, मुनाफ़ा, बचत, हिसाब, तिजोरी, सेठ) for finance-script flavor; refuted items flagged.
+- [[knowledge/design-finance-blockframe]] — **the finance design system** (dark blockframe) for [[knowledge/channels|@cashguruguides]] + [[knowledge/channels|@moneymavens101]]: tokens, the `grayscale(.32) brightness(.62)` grade, four-layer scrim, the type ladder, nine motion helpers, the `0.4 + clip + 1.0` timing contract, and the determinism rules (vendored GSAP, self-hosted variable font carrying `₹`). **Supersedes design-techtooltester for all finance work** — that note is the opposite (bright) system.
 - [[knowledge/design-techtooltester]] — the durable TechToolTester design system (bright grade tokens/type/motion/SFX/outro) — copy into each video's DESIGN.md.
 - [[knowledge/design-cinematic-history]] — the durable HistoryFramesFilm design system (vintage blue-sepia parallax, Archivo Black + Playfair Display, deterministic grain) — copy into each history video's DESIGN.md. Proven by HIST-01.
 - [[knowledge/video-studies/claude-video-editing-launch]] — first study: Nate 363k / Simon 19× / MSG autopsy → title anchors to Claude, never the unknown tool name.
@@ -73,5 +74,6 @@ updated: 2026-07-27
 
 ## Templates
 - [[templates/script-template]] — the production script skeleton (v2-proven layout) — copy for every new script.
+- [[templates/storyboard-template-finance]] — storyboard SPEC for the finance channels: mandatory per-video colour-semantics table, scene DOM + cue table with anchored/fixed classes, the timing contract, and the `-en` divergence table.
 - [[templates/storyboard-template]] — the storyboard SPEC (Gate ②: creator-reviewable beat table) — copy, sign off, then mirror into storyboard.mjs.
 - [[templates/video-study]] — per-topic study note template (now with CTR/AVD/AVP columns for our own uploads).
