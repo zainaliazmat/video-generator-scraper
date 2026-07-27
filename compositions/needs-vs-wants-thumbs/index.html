@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Needs vs Wants — Thumbnails</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0d1017;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --want: #f59e0b;
+        --warn: #ef4444;
+        --pop: #ff5c39;
+        --font: "Arial Black", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .thumb {
+        position: absolute; inset: 0; overflow: hidden;
+        background: var(--bg); color: var(--ink);
+        display: flex; align-items: center; padding: 0 60px;
+      }
+      .bg {
+        position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center right;
+        filter: grayscale(0.3) brightness(0.55) contrast(1.08);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          linear-gradient(90deg, rgba(13,16,23,0.96) 0%, rgba(13,16,23,0.90) 44%, rgba(13,16,23,0.34) 78%, rgba(13,16,23,0.18) 100%),
+          radial-gradient(ellipse 80% 90% at 28% 50%, var(--tint, rgba(239,68,68,0.20)), transparent 70%),
+          linear-gradient(180deg, rgba(13,16,23,0.35), transparent 40%, rgba(13,16,23,0.55));
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url(assets/img/grain.png); background-size: cover;
+      }
+      .inner { position: relative; z-index: 2; width: 78%; }
+
+      .tag {
+        display: inline-block; font-size: 29px; font-weight: 900; letter-spacing: 3px;
+        text-transform: uppercase; padding: 10px 22px; border-radius: 999px;
+        background: var(--warn); color: #0d1017; margin: 0 0 22px 0;
+      }
+      .line {
+        font-size: 100px; line-height: 0.96; font-weight: 900; margin: 0; letter-spacing: -2px;
+        text-shadow: 0 4px 30px rgba(0,0,0,0.85), 0 2px 6px rgba(0,0,0,0.7);
+      }
+      .line.red { color: var(--warn); }
+      .line.amber { color: var(--want); }
+      .sub {
+        margin: 24px 0 0 0; font-size: 33px; font-weight: 900; letter-spacing: 1px; color: var(--ink);
+        text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+      }
+      .sub .w { color: var(--warn); }
+      .sub .a { color: var(--want); }
+
+      /* the leak strip — 12 ticks = 12 months, carries the brand across both cuts */
+      .mini { position: relative; width: 100%; height: 28px; margin-top: 24px;
+              border-radius: 7px; border: 3px solid var(--warn); background: rgba(239,68,68,0.30); overflow: hidden; }
+      .mini .ticks {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 12 - 3px),
+          rgba(13,16,23,0.65) calc(100% / 12 - 3px), rgba(13,16,23,0.65) calc(100% / 12));
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1280" data-height="720" data-start="0" data-duration="4"
+         style="position: relative; width: 1280px; height: 720px; overflow: hidden;">
+
+      <!-- HINDI (Roman) THUMBNAIL — the annual number is the hook -->
+      <section id="tHi" class="thumb clip" data-start="0" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/hi-bg.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239,68,68,0.22)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag">Subscription Trap</p>
+          <h1 class="line">HAR SAAL</h1>
+          <h1 class="line red" style="font-size: 126px">&#8377;24,564 GAYAB</h1>
+          <p class="sub">5 subscriptions jo aap <span class="w">use bhi nahi karte</span></p>
+          <div class="mini"><div class="ticks"></div></div>
+        </div>
+      </section>
+
+      <!-- ENGLISH THUMBNAIL — the guess-vs-real gap is the hook -->
+      <section id="tEn" class="thumb clip" data-start="2" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/en-bg.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239,68,68,0.20)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag">Subscription Leak</p>
+          <h1 class="line">YOU THINK <span class="amber">$86</span>.</h1>
+          <h1 class="line red">IT&rsquo;S <span style="font-size: 126px">$219</span>.</h1>
+          <p class="sub">That gap costs you <span class="w">$1,596 a year</span></p>
+          <div class="mini"><div class="ticks"></div></div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // static thumbnails — a registered empty paused timeline satisfies the runtime contract
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

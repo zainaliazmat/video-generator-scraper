@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Needs vs Wants — the subscription leak (Hindi)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --target: #f59e0b;
+        --pop: #ff5c39;
+        --font: "Arial Black", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .scene {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        padding: 110px 150px; background: var(--bg); color: var(--ink); text-align: center;
+        overflow: hidden;
+      }
+      .bg {
+        position: absolute; inset: -8%; z-index: 0; background-size: cover; background-position: center;
+        filter: grayscale(0.32) brightness(0.62) contrast(1.05);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+          radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13, 16, 23, 0.46), transparent 80%),
+          radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13, 16, 23, 0.14), rgba(13, 16, 23, 0.58)),
+          linear-gradient(180deg, rgba(13, 16, 23, 0.40), rgba(13, 16, 23, 0.10) 46%, rgba(13, 16, 23, 0.52));
+      }
+      .kicker, .huge, .mega, .sub, .foot, .collabel, .counter, .head2 {
+        text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.55);
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background-image: url(assets/img/grain.png); background-size: cover; opacity: 0.05; mix-blend-mode: overlay;
+      }
+      .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
+      .row { display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap; }
+      .cols { display: flex; align-items: center; justify-content: center; gap: 90px; }
+      .col { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+      .kicker { font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); font-weight: 800; margin: 0; }
+      .huge { font-size: 112px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px; }
+      .mega { font-size: 290px; line-height: 0.9; font-weight: 900; margin: 0; letter-spacing: -6px; color: var(--target); }
+      .sub { font-size: 40px; color: var(--muted); font-weight: 800; margin: 0; }
+      .foot { font-size: 26px; color: var(--muted); font-weight: 700; letter-spacing: 2px; margin: 0; }
+      .collabel { font-size: 28px; font-weight: 900; letter-spacing: 3px; margin: 0; }
+      .lbl-need { color: var(--fund); }
+      .lbl-want { color: var(--target); }
+      .warn { color: var(--warn); }
+      .fundc { color: var(--fund); }
+      .targetc { color: var(--target); }
+
+      .chip {
+        font-size: 32px; font-weight: 800; letter-spacing: 1px; padding: 18px 32px;
+        border-radius: 999px; background: var(--panel); border: 3px solid #2a3241; color: var(--ink);
+      }
+      .chip.fund { border-color: var(--fund); }
+      .chip.warn { border-color: var(--warn); }
+      .chip.target { border-color: var(--target); }
+
+      .stamp {
+        font-size: 44px; font-weight: 900; letter-spacing: 3px; padding: 18px 40px; border-radius: 16px;
+        color: #0d1017; transform: rotate(-4deg);
+      }
+      .stamp.fund { background: var(--fund); }
+      .stamp.pop  { background: var(--pop); }
+      .stamp.warn { background: var(--warn); }
+
+      .block {
+        display: flex; align-items: center; justify-content: center;
+        width: 300px; height: 150px; border-radius: 22px; background: var(--panel);
+        border: 5px solid var(--target); font-size: 42px; font-weight: 900; color: var(--target);
+      }
+
+      /* itemised monthly bill — the s7 hero */
+      .bill { display: flex; flex-direction: column; gap: 12px; width: 780px; }
+      .billrow {
+        display: flex; justify-content: space-between; font-size: 40px; font-weight: 800;
+        padding: 12px 26px; background: var(--panel); border: 3px solid #2a3241; border-radius: 14px;
+      }
+      .billrow.total { border-color: var(--warn); color: var(--warn); font-size: 50px; }
+      .rule { height: 5px; background: #2a3241; width: 780px; }
+
+      /* s6 verdict rows */
+      .decision { display: flex; align-items: center; gap: 20px; font-size: 40px; font-weight: 800; }
+      .decision .verdict { padding: 10px 26px; border-radius: 999px; color: #0d1017; }
+      .v-cancel { background: var(--warn); }
+      .v-down   { background: var(--target); }
+      .v-keep   { background: var(--fund); }
+
+      .statstrip {
+        font-size: 32px; font-weight: 800; letter-spacing: 1px; padding: 14px 30px; border-radius: 12px;
+        background: rgba(239, 68, 68, 0.14); border: 3px solid var(--warn); color: var(--ink); margin: 0;
+      }
+
+      /* 12 ticks = 12 months */
+      .head2 { font-size: 54px; font-weight: 900; margin: 0; }
+      .track2 { position: relative; width: 740px; height: 66px; background: var(--panel); border: 3px solid #2a3241; border-radius: 14px; overflow: hidden; }
+      .fill2 { position: absolute; inset: 0; background: var(--warn); transform: scaleX(0); transform-origin: left center; }
+      .ticks { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 12 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 12 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 12)); }
+      .counter { font-size: 96px; font-weight: 900; color: var(--warn); margin: 0; }
+
+      .arrow { font-size: 72px; font-weight: 900; color: var(--muted); }
+      .cta { font-size: 46px; font-weight: 900; letter-spacing: 2px; padding: 24px 56px; border-radius: 14px; background: var(--pop); color: #0d1017; }
+      .glow { text-shadow: 0 0 60px currentColor; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="178.7" style="position: relative; width: 1920px; height: 1080px; overflow: hidden;">
+
+      <!-- 1 · HOOK — the auto-debit you don't remember -->
+      <section id="s1" class="scene clip" data-start="0" data-duration="19.14" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s1-phone.jpg)"></div>
+        <div class="bg" id="s1bgA" style="background-image: url(assets/img/s1-gym.jpg); opacity: 0"></div>
+        <div class="bg" id="s1bgB" style="background-image: url(assets/img/s1-bill.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s1k" class="kicker">Quick question — be honest</p>
+          <h1 id="s1q" class="huge" style="font-size: 88px">WHAT LEFT YOUR ACCOUNT <span class="warn">ON ITS OWN?</span></h1>
+          <p id="s1amt" class="counter" style="color: var(--muted)">₹ ?</p>
+          <div class="row">
+            <div id="s1a" class="chip warn">OTT</div>
+            <div id="s1b" class="chip warn">GYM</div>
+            <div id="s1c" class="chip warn">MUSIC</div>
+            <div id="s1d" class="chip warn">CLOUD</div>
+            <div id="s1e" class="chip warn">FOOD PASS</div>
+          </div>
+          <div id="s1stamp" class="stamp warn">THE LEAK</div>
+        </div>
+      </section>
+
+      <!-- 2 · ROADMAP — no photo, panel rest -->
+      <section id="s2" class="scene clip" data-start="19.14" data-duration="10.96" data-track-index="1">
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s2k" class="kicker">By the end you'll know</p>
+          <div class="row">
+            <div id="s2a" class="chip">THE HONEST TEST</div>
+            <div id="s2b" class="chip">THE 24-HOUR RULE</div>
+            <div id="s2c" class="chip">THE AUDIT</div>
+            <div id="s2d" class="chip">CUT WITHOUT PAIN</div>
+          </div>
+          <p id="s2sub" class="sub">No big income required</p>
+        </div>
+      </section>
+
+      <!-- 3 · THE HONEST TEST — survive vs enjoy -->
+      <section id="s3" class="scene clip" data-start="30.1" data-duration="21.23" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s3-need.jpg)"></div>
+        <div class="bg" id="s3bgB" style="background-image: url(assets/img/s3-want.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s3k" class="kicker">Survive vs enjoy</p>
+          <div class="cols" style="align-items: flex-start">
+            <div class="col">
+              <p id="s3yl" class="collabel lbl-need">NEED — TO SURVIVE</p>
+              <div id="s3a" class="chip fund">RENT</div>
+              <div id="s3b" class="chip fund">FOOD</div>
+              <div id="s3c" class="chip fund">MEDICINE</div>
+              <div id="s3d" class="chip fund">COMMUTE</div>
+            </div>
+            <div class="col">
+              <p id="s3nl" class="collabel lbl-want">WANT — TO ENJOY</p>
+              <div id="s3x" class="chip target">STREAMING</div>
+              <div id="s3y" class="chip target">TAKEOUT</div>
+              <div id="s3z" class="chip target">NEW PHONE</div>
+            </div>
+          </div>
+          <div id="s3stamp" class="stamp fund">WANTS AREN'T THE ENEMY</div>
+        </div>
+      </section>
+
+      <!-- 4 · THE 24-HOUR RULE -->
+      <section id="s4" class="scene clip" data-start="51.33" data-duration="21.17" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s4.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 22px">
+          <h1 id="s4num" class="mega glow" style="font-size: 240px">24</h1>
+          <p id="s4l" class="huge" style="font-size: 62px">HOURS BEFORE YOU BUY</p>
+          <div class="row">
+            <div id="s4b1" class="block">ADD TO CART</div>
+            <div id="s4b2" class="block">WAIT</div>
+            <div id="s4b3" class="block">DECIDE</div>
+          </div>
+          <p id="s4stat" class="statstrip">7 times out of 10 you'll forget it existed</p>
+          <p id="s4f" class="foot">Over ₹10,000? Wait 30 days.</p>
+        </div>
+      </section>
+
+      <!-- 5 · THE AUDIT — where the ghosts hide -->
+      <section id="s5" class="scene clip" data-start="72.5" data-duration="18.43" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s5-bank.jpg)"></div>
+        <div class="bg" id="s5bgB" style="background-image: url(assets/img/s5-phone.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s5k" class="kicker">Find every recurring charge</p>
+          <div class="row">
+            <div id="s5a" class="chip fund">BANK — 3 MONTHS BACK</div>
+            <div id="s5b" class="chip fund">UPI AUTOPAY MANDATES</div>
+          </div>
+          <div class="row">
+            <div id="s5c" class="chip fund">GOOGLE PLAY SUBS</div>
+            <div id="s5d" class="chip fund">TELECOM BUNDLE</div>
+          </div>
+          <div id="s5stamp" class="stamp fund">WRITE THEM ALL DOWN</div>
+          <p id="s5f" class="foot">Annual plans hide — check 12 months too</p>
+        </div>
+      </section>
+
+      <!-- 6 · CUT WITHOUT MISERY -->
+      <section id="s6" class="scene clip" data-start="90.93" data-duration="27.73" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s6.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s6k" class="kicker">Ask one question</p>
+          <h1 id="s6q" class="huge" style="font-size: 76px">USED IT IN THE LAST <span class="fundc">30 DAYS?</span></h1>
+          <div id="s6r1" class="decision">ZERO <span class="arrow" style="font-size: 44px">→</span> <span class="verdict v-cancel">CANCEL</span></div>
+          <div id="s6r2" class="decision">ONCE <span class="arrow" style="font-size: 44px">→</span> <span class="verdict v-down">DOWNGRADE / SHARE</span></div>
+          <div id="s6r3" class="decision">DAILY <span class="arrow" style="font-size: 44px">→</span> <span class="verdict v-keep">KEEP IT, GUILT-FREE</span></div>
+          <div id="s6stamp" class="stamp fund">ONE IN, ONE OUT</div>
+        </div>
+      </section>
+
+      <!-- 7 · THE MATH — no photo, the bill IS the visual -->
+      <section id="s7" class="scene clip" data-start="118.66" data-duration="26.43" data-track-index="1">
+        <div class="grain"></div>
+        <div class="stack" style="gap: 26px">
+          <p id="s7k" class="kicker">A normal monthly stack</p>
+          <div class="cols" style="align-items: center">
+            <div class="col" style="gap: 12px">
+              <div class="bill">
+                <div id="s7r1" class="billrow"><span>GYM</span><span>₹1,500</span></div>
+                <div id="s7r2" class="billrow"><span>NETFLIX (BASIC)</span><span>₹199</span></div>
+                <div id="s7r3" class="billrow"><span>MUSIC</span><span>₹119</span></div>
+                <div id="s7r4" class="billrow"><span>CLOUD 100GB</span><span>₹130</span></div>
+                <div id="s7r5" class="billrow"><span>FOOD PASS</span><span>₹99</span></div>
+              </div>
+              <div id="s7rule" class="rule"></div>
+              <div class="bill">
+                <div id="s7total" class="billrow total"><span>PER MONTH</span><span>₹2,047</span></div>
+              </div>
+            </div>
+            <div class="col" style="gap: 24px">
+              <p id="s7counter" class="counter">₹<span id="s7c">0</span></p>
+              <div id="s7track" class="track2">
+                <div id="s7fill" class="fill2"></div>
+                <div class="ticks"></div>
+              </div>
+              <h2 id="s7head" class="head2">₹30,000/mo in-hand<br><span class="targetc">= 25 DAYS of pay</span></h2>
+            </div>
+          </div>
+          <p id="s7cap" class="foot">Published prices, July 2026 · example only</p>
+        </div>
+      </section>
+
+      <!-- 8 · DO THIS TODAY -->
+      <section id="s8" class="scene clip" data-start="145.09" data-duration="16.29" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s8.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(255, 92, 57, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <div id="s8stamp" class="stamp pop">DO THIS TODAY</div>
+          <div class="row">
+            <div id="s8a" class="chip">OPEN AUTOPAY LIST</div>
+            <div id="s8arrow" class="arrow">→</div>
+            <div id="s8b" class="chip fund">PICK THE ONE YOU FORGOT</div>
+            <div id="s8arrow2" class="arrow">→</div>
+            <div id="s8c" class="chip warn">CANCEL IT</div>
+          </div>
+          <h1 id="s8t" class="huge" style="font-size: 76px">“someday” → <span class="fundc">DONE</span></h1>
+        </div>
+      </section>
+
+      <!-- 9 · RECAP + CTA -->
+      <section id="s9" class="scene clip" data-start="161.38" data-duration="17.31" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s9.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <div class="row">
+            <div id="s9a" class="chip fund">NEED vs WANT</div>
+            <div id="s9b" class="chip target">WAIT 24H</div>
+            <div id="s9c" class="chip">AUDIT QUARTERLY</div>
+            <div id="s9d" class="chip warn">CANCEL ONE TODAY</div>
+          </div>
+          <div id="s9cta" class="cta">▶ SUBSCRIBE</div>
+          <p id="s9sub" class="sub">money basics that actually make sense</p>
+        </div>
+      </section>
+
+      <!-- voiceover (ElevenLabs "Harsh", Hindi) — one clip per scene, direct root children -->
+      <audio id="vo1" src="assets/voice/h1.mp3" data-start="0.4" data-duration="17.74" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo2" src="assets/voice/h2.mp3" data-start="19.54" data-duration="9.56" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo3" src="assets/voice/h3.mp3" data-start="30.5" data-duration="19.83" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo4" src="assets/voice/h4.mp3" data-start="51.73" data-duration="19.77" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo5" src="assets/voice/h5.mp3" data-start="72.9" data-duration="17.03" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo6" src="assets/voice/h6.mp3" data-start="91.33" data-duration="26.33" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo7" src="assets/voice/h7.mp3" data-start="119.06" data-duration="25.03" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo8" src="assets/voice/h8.mp3" data-start="145.49" data-duration="14.89" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo9" src="assets/voice/h9.mp3" data-start="161.78" data-duration="15.91" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // scene starts (s) — locked to the measured Hindi VO durations.
+      // every cue = scene start + 0.4 VO lead-in + the word's position inside its clip
+      // (character-offset × clip duration — the narration rate is steady enough to land on the word).
+      var S = { s1: 0, s2: 19.14, s3: 30.1, s4: 51.33, s5: 72.5, s6: 90.93, s7: 118.66, s8: 145.09, s9: 161.38 };
+
+      function rise(sel, at, dur, y) {
+        tl.fromTo(sel, { opacity: 0, y: y == null ? 40 : y }, { opacity: 1, y: 0, duration: dur == null ? 0.7 : dur, ease: "expo.out" }, at);
+      }
+      function pop(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.6 : dur, ease: "back.out(1.7)" }, at);
+      }
+      function countUp(id, from, to, at, dur) {
+        var el = document.getElementById(id);
+        var p = { v: from };
+        tl.fromTo(p, { v: from }, {
+          v: to, duration: dur == null ? 1.2 : dur, ease: "power1.out",
+          onUpdate: function () { el.textContent = Math.round(p.v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+        }, at);
+      }
+      function fill(sel, at, dur, to) {
+        tl.fromTo(sel, { scaleX: 0 }, { scaleX: to == null ? 1 : to, duration: dur == null ? 0.8 : dur, ease: "power2.out" }, at);
+      }
+      function fade(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: dur == null ? 0.5 : dur, ease: "power1.out" }, at);
+      }
+      function pulse(sel, at, s) {
+        tl.to(sel, { scale: s == null ? 1.12 : s, duration: 0.16, ease: "power2.out", repeat: 1, yoyo: true }, at);
+      }
+      function breathe(sel, at, dur) {
+        var cyc = 1.5, n = Math.max(1, Math.round(dur / cyc)); if (n % 2 === 0) n += 1;
+        tl.to(sel, { scale: 1.035, duration: cyc, ease: "sine.inOut", repeat: n, yoyo: true }, at);
+      }
+      function ken(sel, at, dur, zoomIn) {
+        tl.fromTo(sel,
+          { scale: zoomIn ? 1.0 : 1.16, xPercent: zoomIn ? -2.5 : 2.5 },
+          { scale: zoomIn ? 1.16 : 1.0, xPercent: zoomIn ? 2.5 : -2.5, duration: dur, ease: "none" }, at);
+      }
+      // alternating drift, scene to scene — never two pushes in a row
+      ken("#s1 .bg", S.s1, 19.14, true);
+      ken("#s3 .bg", S.s3, 21.23, false);
+      ken("#s4 .bg", S.s4, 21.17, true);
+      ken("#s5 .bg", S.s5, 18.43, false);
+      ken("#s6 .bg", S.s6, 27.73, true);
+      ken("#s8 .bg", S.s8, 16.29, false);
+      ken("#s9 .bg", S.s9, 17.31, true);
+
+      // 1 · HOOK
+      rise("#s1k", S.s1 + 0.40, 0.6, 20);
+      pop("#s1q", S.s1 + 1.65, 0.6);
+      pop("#s1amt", S.s1 + 4.31, 0.7);
+      breathe("#s1amt", S.s1 + 5.10, 2.2);
+      pop("#s1a", S.s1 + 5.81, 0.45);
+      pop("#s1b", S.s1 + 6.81, 0.45);
+      fade("#s1bgA", S.s1 + 6.81, 0.7);
+      pop("#s1c", S.s1 + 7.23, 0.45);
+      pop("#s1d", S.s1 + 8.31, 0.45);
+      pop("#s1e", S.s1 + 9.64, 0.45);
+      tl.to("#s1amt", { color: "#ef4444", duration: 0.3 }, S.s1 + 11.31);   // "याद है?" — the blank goes red
+      pulse("#s1amt", S.s1 + 11.31, 1.14);
+      fade("#s1bgB", S.s1 + 11.31, 0.7);
+      pop("#s1stamp", S.s1 + 15.81, 0.6);
+      pulse("#s1stamp", S.s1 + 16.70, 1.06);
+
+      // 2 · ROADMAP
+      rise("#s2k", S.s2 + 0.40);
+      rise("#s2a", S.s2 + 1.48, 0.5, 30);
+      rise("#s2b", S.s2 + 3.97, 0.5, 30);
+      rise("#s2c", S.s2 + 5.64, 0.5, 30);
+      rise("#s2d", S.s2 + 7.47, 0.5, 30);
+      rise("#s2sub", S.s2 + 9.20);
+
+      // 3 · THE HONEST TEST
+      rise("#s3k", S.s3 + 0.40);
+      rise("#s3yl", S.s3 + 1.62, 0.5, 20);
+      pop("#s3a", S.s3 + 5.88, 0.5);
+      pop("#s3b", S.s3 + 6.57, 0.5);
+      pop("#s3c", S.s3 + 7.10, 0.5);
+      pop("#s3d", S.s3 + 7.62, 0.5);
+      rise("#s3nl", S.s3 + 9.36, 0.5, 20);
+      fade("#s3bgB", S.s3 + 9.36, 0.9);
+      pop("#s3x", S.s3 + 13.01, 0.5);
+      pop("#s3y", S.s3 + 13.62, 0.5);
+      pop("#s3z", S.s3 + 14.84, 0.5);
+      pop("#s3stamp", S.s3 + 15.71, 0.55);
+      pulse("#s3stamp", S.s3 + 16.60, 1.08);
+
+      // 4 · THE 24-HOUR RULE
+      pop("#s4num", S.s4 + 1.07, 0.7);
+      countUp("s4num", 0, 24, S.s4 + 1.12, 0.9);
+      rise("#s4l", S.s4 + 2.75);
+      breathe("#s4num", S.s4 + 3.80, 2.2);
+      pop("#s4b1", S.s4 + 6.10, 0.5);
+      pop("#s4b2", S.s4 + 7.69, 0.5);
+      pop("#s4b3", S.s4 + 9.45, 0.5);
+      rise("#s4stat", S.s4 + 13.05);
+      pulse("#s4stat", S.s4 + 14.00, 1.06);
+      rise("#s4f", S.s4 + 16.32);
+
+      // 5 · THE AUDIT
+      rise("#s5k", S.s5 + 0.40);
+      pop("#s5a", S.s5 + 1.54, 0.5);
+      pop("#s5stamp", S.s5 + 5.21, 0.55);
+      pop("#s5b", S.s5 + 9.36, 0.5);
+      fade("#s5bgB", S.s5 + 9.36, 0.9);
+      pop("#s5c", S.s5 + 11.08, 0.5);
+      pop("#s5d", S.s5 + 14.42, 0.5);
+      rise("#s5f", S.s5 + 15.64);
+
+      // 6 · CUT WITHOUT MISERY
+      rise("#s6k", S.s6 + 0.40);
+      pop("#s6q", S.s6 + 6.96, 0.7);
+      breathe("#s6q", S.s6 + 8.10, 2.4);
+      pop("#s6r1", S.s6 + 10.82, 0.5);
+      pop("#s6r2", S.s6 + 12.29, 0.5);
+      pop("#s6r3", S.s6 + 18.77, 0.5);
+      pulse("#s6r3", S.s6 + 19.90, 1.06);
+      pop("#s6stamp", S.s6 + 24.35, 0.55);
+      pulse("#s6stamp", S.s6 + 25.20, 1.08);
+
+      // 7 · THE MATH — the bill assembles as each item is spoken, then 12 months run
+      rise("#s7k", S.s7 + 0.40);
+      rise("#s7r1", S.s7 + 3.23, 0.45, 24);
+      rise("#s7r2", S.s7 + 4.44, 0.45, 24);
+      rise("#s7r3", S.s7 + 5.89, 0.45, 24);
+      rise("#s7r4", S.s7 + 7.50, 0.45, 24);
+      rise("#s7r5", S.s7 + 9.36, 0.45, 24);
+      fade("#s7rule", S.s7 + 11.10, 0.4);
+      pop("#s7total", S.s7 + 11.54, 0.6);
+      pulse("#s7total", S.s7 + 12.40, 1.08);
+      fade("#s7counter", S.s7 + 14.85, 0.4);
+      fade("#s7track", S.s7 + 14.85, 0.4);
+      fill("#s7fill", S.s7 + 14.85, 2.60, 1);
+      countUp("s7c", 0, 24564, S.s7 + 14.85, 2.60);
+      rise("#s7head", S.s7 + 16.95);
+      pulse("#s7head", S.s7 + 18.60, 1.05);
+      rise("#s7cap", S.s7 + 21.55);
+
+      // 8 · DO THIS TODAY
+      pop("#s8stamp", S.s8 + 0.40, 0.6);
+      pop("#s8a", S.s8 + 1.68, 0.5);
+      fade("#s8arrow", S.s8 + 2.40, 0.3);
+      pop("#s8b", S.s8 + 2.95, 0.5);
+      fade("#s8arrow2", S.s8 + 7.60, 0.3);
+      pop("#s8c", S.s8 + 8.23, 0.5);
+      pulse("#s8c", S.s8 + 9.10, 1.10);
+      rise("#s8t", S.s8 + 12.40);
+
+      // 9 · RECAP + CTA
+      pop("#s9a", S.s9 + 1.71, 0.45);
+      pop("#s9b", S.s9 + 3.70, 0.45);
+      pop("#s9c", S.s9 + 5.32, 0.45);
+      pop("#s9d", S.s9 + 7.55, 0.45);
+      pop("#s9cta", S.s9 + 14.20, 0.6);
+      pulse("#s9cta", S.s9 + 15.10, 1.08);
+      rise("#s9sub", S.s9 + 15.30);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

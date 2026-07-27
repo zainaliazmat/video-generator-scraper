@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!-- NOTE: no dir="rtl" on <html> — hyperframes lint: it previews fine but renders a
+     fully black video. RTL is scoped to .ur / .cite / .stamp instead. -->
+<html lang="ur">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>فرعون کا انجام — chapter 10</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face{font-family:"Nastaliq";font-weight:400;font-display:block;src:url("assets/fonts/NotoNastaliqUrdu-Regular.ttf") format("truetype");}
+      @font-face{font-family:"Nastaliq";font-weight:700;font-display:block;src:url("assets/fonts/NotoNastaliqUrdu-Bold.ttf") format("truetype");}
+      @font-face{font-family:"Archivo Black";font-weight:400;font-display:block;src:url("assets/fonts/ArchivoBlack-Regular.woff2") format("woff2");}
+      @font-face{font-family:"Playfair Display";font-weight:700;font-display:block;src:url("assets/fonts/PlayfairDisplay-Normal.woff2") format("woff2");}
+      :root{--paper:#0d0f12;--ink:#f4f1ea;--ink-soft:rgba(244,241,234,0.82);--parchment:#e8dcc0;
+             --parch-ink:#2b2418;--nile-gold:#c9973f;--river-deep:#1f3a4d;--sepia-1881:#8a6f4d;
+             --museum-cool:#9aa8b0;--stamp-red:#9c342a;}
+      *{box-sizing:border-box;}
+      body{margin:0;background:#000;}
+      #root{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper);}
+      .scene{position:absolute;inset:0;}
+      .scene-inner{position:absolute;inset:0;will-change:opacity;}
+      .photo{position:absolute;inset:-7%;background:#0b0d10;will-change:transform;overflow:hidden;}
+      .photo img{width:100%;height:100%;object-fit:cover;transform-origin:50% 50%;}
+      .photo.dim{filter:brightness(0.62);}
+      /* --- the 4 era grades (DESIGN §era table) --- */
+      .g-ancient{filter:saturate(1.06) contrast(1.06) brightness(1.00);}
+      .g-sepia{filter:sepia(0.42) saturate(0.92) contrast(1.10) brightness(0.94);}
+      .g-bw1976{filter:grayscale(1) contrast(1.20) brightness(0.98);}
+      .g-museum{filter:saturate(0.90) contrast(1.06) brightness(0.92) hue-rotate(-6deg);}
+      .photo.dim.g-museum{filter:saturate(0.90) contrast(1.06) brightness(0.58) hue-rotate(-6deg);}
+      .grade{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;}
+      .g-ancient-tint{background:radial-gradient(120% 100% at 50% 42%,rgba(201,151,63,0.07),rgba(13,15,18,0.0) 45%,rgba(13,15,18,0.34) 100%);}
+      .g-sepia-tint{background:radial-gradient(120% 100% at 50% 45%,rgba(138,111,77,0.10),rgba(13,15,18,0.0) 42%,rgba(13,15,18,0.42) 100%);}
+      .g-bw1976-tint{background:radial-gradient(120% 100% at 50% 45%,rgba(255,255,255,0.0),rgba(13,15,18,0.0) 40%,rgba(13,15,18,0.46) 100%);}
+      .g-museum-tint{background:radial-gradient(120% 100% at 50% 45%,rgba(154,168,176,0.06),rgba(13,15,18,0.0) 40%,rgba(13,15,18,0.44) 100%);}
+      /* --- persistent film passes (deterministic: static SVG noise, no random) --- */
+      #ov-grain{position:absolute;inset:0;pointer-events:none;opacity:0.085;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+      #ov-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 100% at 50% 45%,transparent 54%,rgba(0,0,0,0.46) 100%);}
+      #ov-black{position:absolute;inset:0;pointer-events:none;background:#000;opacity:0;}
+      /* --- Urdu type: Nastaliq needs vertical room; NEVER animate letter-spacing --- */
+      .ur{font-family:"Nastaliq",serif;direction:rtl;line-height:2.05;}
+      .kw{display:inline-block;opacity:0;}
+      .rl{opacity:0;}
+      /* cite chip — the channel's "verified" mark */
+      .chip{position:absolute;right:64px;bottom:56px;opacity:0;font-size:30px;line-height:2.0;
+             color:var(--ink);background:rgba(10,13,17,0.58);padding:6px 22px 16px;border-radius:5px;}
+      /* cards */
+      .card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+             align-items:center;text-align:center;padding:0 200px;background:var(--parchment);}
+      .card::after{content:"";position:absolute;inset:0;opacity:0.13;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");}
+      .card>*{position:relative;z-index:1;}
+      .card-dark{background:#0a0c0f;}
+      .card .ur{color:var(--parch-ink);}
+      .card-dark .ur{color:var(--ink);}
+      .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 170px;}
+      .parch{background:rgba(232,220,192,0.95);padding:54px 86px 30px;border-radius:6px;
+              box-shadow:0 24px 90px rgba(0,0,0,.55);max-width:1420px;text-align:center;}
+      .parch .ur{color:var(--parch-ink);}
+      .parch-sm{padding:36px 64px 18px;}
+      .q1{font-size:52px;margin:0 0 10px;}
+      .big{font-size:86px;font-weight:700;margin:0 0 18px;}
+      .cite{font-family:"Nastaliq",serif;direction:rtl;font-size:26px;line-height:2.0;
+             color:var(--stamp-red);margin:26px 0 0;opacity:0;}
+      .card .cite{color:var(--stamp-red);}
+      /* era-fall card (hook) */
+      .erafall{text-align:center;}
+      .era-n{font-family:"Archivo Black";font-size:96px;color:var(--ink);margin:0;opacity:0;}
+      .era-mid{color:var(--sepia-1881);font-size:112px;margin:22px 0;}
+      .era-u{font-size:78px;color:var(--nile-gold);margin:18px 0 0;}
+      /* 9-signs tally */
+      .tally-row{display:flex;gap:20px;justify-content:center;margin:44px 0 0;}
+      .tk{width:12px;height:52px;background:var(--parch-ink);opacity:0.18;border-radius:2px;}
+      #tally{position:absolute;right:64px;top:56px;opacity:0;background:rgba(232,220,192,0.92);
+              padding:20px 26px;border-radius:5px;box-shadow:0 12px 44px rgba(0,0,0,.45);}
+      .tally-in{display:flex;gap:12px;}
+      .tm{width:9px;height:40px;background:var(--nile-gold);border-radius:2px;opacity:0;}
+      /* name card */
+      .namecard{background:rgba(10,13,17,0.62);padding:40px 76px;border-radius:6px;text-align:center;}
+      .name-en{font-family:"Playfair Display";font-size:82px;color:var(--ink);margin:0;letter-spacing:.03em;opacity:0;}
+      .name-ur{font-size:52px;color:var(--nile-gold);margin:14px 0 0;}
+      /* myth cards */
+      .myth{text-align:center;}
+      .myth-n{font-family:"Archivo Black";font-size:64px;color:var(--parch-ink);opacity:0;margin:0 0 10px;}
+      .myth-q{font-size:56px;margin:0;}
+      .myth-f{font-size:38px;margin:34px 0 0;opacity:.85;}
+      .stamp{font-family:"Nastaliq",serif;direction:rtl;font-size:74px;line-height:1.9;color:var(--stamp-red);
+              border:6px solid var(--stamp-red);padding:4px 46px 22px;border-radius:8px;
+              transform:rotate(-7deg);margin:36px 0 0;display:inline-block;opacity:0;}
+      .stamp-amber{color:#9a6a1e;border-color:#9a6a1e;}
+      /* timeline ribbon */
+      /* era marker: hidden by default, surfaces ONLY at an era jump then leaves */
+      #ribbon{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;
+               justify-content:center;align-items:center;gap:80px;opacity:0;
+               background:linear-gradient(0deg,rgba(6,8,11,0.72),rgba(6,8,11,0));}
+      .rb-seg{font-size:26px;line-height:2.0;color:var(--ink-soft);opacity:0.16;}
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="137.61" data-fps="30">
+
+      <section id="s00" class="scene clip" data-start="0.0" data-duration="2.159" data-track-index="1"><div class="scene-inner" id="s00-inner"><div class="photo g-museum" id="s00-photo"><img src="assets/images/P49b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s01" class="scene clip" data-start="2.159" data-duration="4.126" data-track-index="2"><div class="scene-inner" id="s01-inner"><div class="photo g-museum" id="s01-photo"><img src="assets/images/P49b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s02" class="scene clip" data-start="5.285" data-duration="5.327" data-track-index="1"><div class="scene-inner" id="s02-inner"><div class="photo g-museum" id="s02-photo"><img src="assets/images/P49a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s03" class="scene clip" data-start="9.612" data-duration="8.514" data-track-index="2"><div class="scene-inner" id="s03-inner"><div class="photo g-museum" id="s03-photo"><img src="assets/images/P49b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s04" class="scene clip" data-start="17.127" data-duration="9.526" data-track-index="1"><div class="scene-inner" id="s04-inner"><div class="photo g-museum" id="s04-photo"><img src="assets/images/P49a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s05" class="scene clip" data-start="26.652" data-duration="4.953" data-track-index="2"><div class="scene-inner" id="s05-inner"><div class="photo g-museum" id="s05-photo"><img src="assets/images/P49a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s06" class="scene clip" data-start="30.605" data-duration="3.753" data-track-index="1"><div class="scene-inner" id="s06-inner"><div class="photo g-museum" id="s06-photo"><img src="assets/images/P50a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s07" class="scene clip" data-start="34.358" data-duration="1.611" data-track-index="2"><div class="scene-inner" id="s07-inner"><div class="photo g-museum" id="s07-photo"><img src="assets/images/P50a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s08" class="scene clip" data-start="35.968" data-duration="3.596" data-track-index="1"><div class="scene-inner" id="s08-inner"><div class="photo g-museum" id="s08-photo"><img src="assets/images/P50a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s09" class="scene clip" data-start="39.564" data-duration="10.839" data-track-index="2"><div class="scene-inner" id="s09-inner"><div class="photo g-museum" id="s09-photo"><img src="assets/images/P50a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s10" class="scene clip" data-start="49.403" data-duration="12.929" data-track-index="1"><div class="scene-inner" id="s10-inner"><div class="photo g-museum" id="s10-photo"><img src="assets/images/P50b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s11" class="scene clip" data-start="61.332" data-duration="6.189" data-track-index="2"><div class="scene-inner" id="s11-inner"><div class="photo g-museum" id="s11-photo"><img src="assets/images/P50c.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s12" class="scene clip" data-start="66.522" data-duration="1.924" data-track-index="1"><div class="scene-inner" id="s12-inner"><div class="photo g-museum" id="s12-photo"><img src="assets/images/P50a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s13" class="scene clip" data-start="68.446" data-duration="4.429" data-track-index="2"><div class="scene-inner" id="s13-inner"><div class="photo g-museum" id="s13-photo"><img src="assets/images/P50a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s14" class="scene clip" data-start="71.875" data-duration="2.473" data-track-index="1"><div class="scene-inner" id="s14-inner"><div class="photo g-museum" id="s14-photo"><img src="assets/images/P51a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s15" class="scene clip" data-start="74.348" data-duration="1.767" data-track-index="2"><div class="scene-inner" id="s15-inner"><div class="photo g-museum" id="s15-photo"><img src="assets/images/P51a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s16" class="scene clip" data-start="76.115" data-duration="2.428" data-track-index="1"><div class="scene-inner" id="s16-inner"><div class="photo g-museum" id="s16-photo"><img src="assets/images/P51a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s17" class="scene clip" data-start="77.543" data-duration="1.689" data-track-index="2"><div class="scene-inner" id="s17-inner"><div class="photo g-museum" id="s17-photo"><img src="assets/images/P51b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s18" class="scene clip" data-start="79.232" data-duration="2.969" data-track-index="1"><div class="scene-inner" id="s18-inner"><div class="photo g-museum" id="s18-photo"><img src="assets/images/P51b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s19" class="scene clip" data-start="82.201" data-duration="9.402" data-track-index="2"><div class="scene-inner" id="s19-inner"><div class="photo g-museum" id="s19-photo"><img src="assets/images/P51b.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s20" class="scene clip" data-start="90.603" data-duration="6.468" data-track-index="1"><div class="scene-inner" id="s20-inner"><div class="photo g-museum" id="s20-photo"><img src="assets/images/P51a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s21" class="scene clip" data-start="96.071" data-duration="2.551" data-track-index="2"><div class="scene-inner" id="s21-inner"><div class="photo g-museum" id="s21-photo"><img src="assets/images/P52a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s22" class="scene clip" data-start="98.622" data-duration="11.359" data-track-index="1"><div class="scene-inner" id="s22-inner"><div class="photo g-museum" id="s22-photo"><img src="assets/images/P52a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s23" class="scene clip" data-start="108.981" data-duration="6.809" data-track-index="2"><div class="scene-inner" id="s23-inner"><div class="photo g-museum" id="s23-photo"><img src="assets/images/P53a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s24" class="scene clip" data-start="115.79" data-duration="7.358" data-track-index="1"><div class="scene-inner" id="s24-inner"><div class="photo g-museum" id="s24-photo"><img src="assets/images/P53a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s25" class="scene clip" data-start="123.148" data-duration="5.451" data-track-index="2"><div class="scene-inner" id="s25-inner"><div class="photo g-museum" id="s25-photo"><img src="assets/images/P53a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s26" class="scene clip" data-start="128.598" data-duration="7.122" data-track-index="1"><div class="scene-inner" id="s26-inner"><div class="photo g-museum" id="s26-photo"><img src="assets/images/P53a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+      <section id="s27" class="scene clip" data-start="135.721" data-duration="1.889" data-track-index="2"><div class="scene-inner" id="s27-inner"><div class="photo g-museum" id="s27-photo"><img src="assets/images/P53a.jpeg" alt=""></div><div class="grade g-museum-tint"></div></div></section>
+
+      <div id="ov-grain"></div>
+      <div id="ov-vignette"></div>
+      <div id="ov-black"></div>
+      <div id="tally"><div class="tally-in"><span class="tm" id="tm1"></span><span class="tm" id="tm2"></span><span class="tm" id="tm3"></span><span class="tm" id="tm4"></span><span class="tm" id="tm5"></span><span class="tm" id="tm6"></span><span class="tm" id="tm7"></span><span class="tm" id="tm8"></span><span class="tm" id="tm9"></span></div></div>
+      <div id="ribbon"><span class="rb-seg ur" id="rb-ancient">‏3000 سال پہلے</span><span class="rb-seg ur" id="rb-1881">1881</span><span class="rb-seg ur" id="rb-1976">1976</span><span class="rb-seg ur" id="rb-today">آج</span></div>
+      <div class="chip ur" id="chip20">یونس 10:92</div>
+      <audio id="vo-49.1" src="assets/audio/seg-49.1.mp3" data-start="0.0" data-duration="1.959" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-49.2" src="assets/audio/seg-49.2.mp3" data-start="2.159" data-duration="2.926" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-49.3" src="assets/audio/seg-49.3.mp3" data-start="5.285" data-duration="4.127" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-49.4" src="assets/audio/seg-49.4.mp3" data-start="9.612" data-duration="7.314" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-49.5" src="assets/audio/seg-49.5.mp3" data-start="17.127" data-duration="9.326" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-49.6" src="assets/audio/seg-49.6.mp3" data-start="26.652" data-duration="3.553" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.1" src="assets/audio/seg-50.1.mp3" data-start="30.605" data-duration="3.553" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.2" src="assets/audio/seg-50.2.mp3" data-start="34.358" data-duration="1.411" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.3" src="assets/audio/seg-50.3.mp3" data-start="35.968" data-duration="3.396" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.4" src="assets/audio/seg-50.4.mp3" data-start="39.564" data-duration="9.639" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.5" src="assets/audio/seg-50.5.mp3" data-start="49.403" data-duration="11.729" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.6" src="assets/audio/seg-50.6.mp3" data-start="61.332" data-duration="4.989" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.7" src="assets/audio/seg-50.7.mp3" data-start="66.522" data-duration="1.724" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-50.8" src="assets/audio/seg-50.8.mp3" data-start="68.446" data-duration="2.429" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.1" src="assets/audio/seg-51.1.mp3" data-start="71.875" data-duration="2.273" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.2" src="assets/audio/seg-51.2.mp3" data-start="74.348" data-duration="1.567" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.3" src="assets/audio/seg-51.3.mp3" data-start="76.115" data-duration="1.228" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.4" src="assets/audio/seg-51.4.mp3" data-start="77.543" data-duration="1.489" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.5" src="assets/audio/seg-51.5.mp3" data-start="79.232" data-duration="2.769" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.6" src="assets/audio/seg-51.6.mp3" data-start="82.201" data-duration="8.202" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-51.7" src="assets/audio/seg-51.7.mp3" data-start="90.603" data-duration="5.068" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-52.1" src="assets/audio/seg-52.1.mp3" data-start="96.071" data-duration="2.351" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-52.2" src="assets/audio/seg-52.2.mp3" data-start="98.622" data-duration="8.359" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-53.1" src="assets/audio/seg-53.1.mp3" data-start="108.981" data-duration="6.609" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-53.2" src="assets/audio/seg-53.2.mp3" data-start="115.79" data-duration="7.158" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-53.3" src="assets/audio/seg-53.3.mp3" data-start="123.148" data-duration="5.251" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-53.4" src="assets/audio/seg-53.4.mp3" data-start="128.598" data-duration="6.922" data-track-index="20" data-volume="1"></audio>
+      <audio id="vo-53.5" src="assets/audio/seg-53.5.mp3" data-start="135.721" data-duration="1.489" data-track-index="20" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // --- motion (deterministic; only transform/opacity/colour animated) ---
+      function kb(sel,at,dur,dir,cap){gsap.set(sel,{transformOrigin:"50% 50%"});tl.fromTo(sel,{scale:1.0,xPercent:dir*-1.3,yPercent:0.5},{scale:cap,xPercent:dir*1.3,yPercent:-0.5,duration:dur,ease:"sine.inOut"},at);}
+      function pin(sel,at,dur,cap){gsap.set(sel,{transformOrigin:"50% 50%"});tl.fromTo(sel,{scale:1.0},{scale:cap,duration:dur,ease:"sine.inOut"},at);}
+      function pback(sel,at,dur,cap){gsap.set(sel,{transformOrigin:"50% 50%"});tl.fromTo(sel,{scale:cap},{scale:1.0,duration:dur,ease:"sine.inOut"},at);}
+      function tup(sel,at,dur,cap){gsap.set(sel,{transformOrigin:"50% 50%"});tl.fromTo(sel,{scale:cap*0.95,yPercent:2.6},{scale:cap,yPercent:-2.6,duration:dur,ease:"sine.inOut"},at);}
+      function hold(sel,at,dur,cap){gsap.set(sel,{transformOrigin:"50% 50%"});tl.fromTo(sel,{scale:1.0},{scale:1.035,duration:dur,ease:"sine.inOut"},at);}
+      // continuous linear zoom (same-image runs) — matched scale at each invisible cut, so a group reads as ONE smooth move
+      function zc(sel,at,dur,s0,s1){gsap.set(sel,{transformOrigin:"50% 50%"});tl.fromTo(sel,{scale:s0},{scale:s1,duration:dur,ease:"none"},at);}
+      // --- transitions ---
+      // dip-free dissolve: the incoming (opaque photo) fades in ON TOP of the outgoing held at full opacity, so no black shows through the mid-point (no luminance dip). Outgoing is dropped once covered.
+      function xd(from,to,at){gsap.set(to,{opacity:0});tl.to(to,{opacity:1,duration:1.0,ease:"power1.inOut"},at);if(from)tl.set(from,{opacity:0},at+1.0);}
+      function cut(from,to,at){if(from)tl.set(from,{opacity:0},at);tl.set(to,{opacity:1},at);}
+      function blk(from,to,at){tl.to("#ov-black",{opacity:1,duration:0.25,ease:"power2.in"},Math.max(at-0.25,0));if(from)tl.set(from,{opacity:0},at);tl.set(to,{opacity:1},at);tl.to("#ov-black",{opacity:0,duration:0.7,ease:"power2.out"},at+0.5);}
+      // --- reveals ---
+      function fin(sel,at,dur){gsap.set(sel,{opacity:0});tl.to(sel,{opacity:1,duration:dur,ease:"power2.out"},at);}
+      function fout(sel,at,dur){tl.to(sel,{opacity:0,duration:dur,ease:"power2.in"},at);}
+      // era jump: the ribbon surfaces, the reached era lights gold, then it leaves
+      function rib(sel,at){
+        tl.to("#ribbon",{opacity:1,duration:0.6,ease:"power2.out"},at);
+        tl.to(sel,{opacity:1,color:"#c9973f",duration:0.7,ease:"power2.out"},at+0.3);
+        tl.to("#ribbon",{opacity:0,duration:0.9,ease:"power2.in"},at+4.5);
+      }
+      // card/overlay reveal: container fades, then WORD-BY-WORD y+opacity (Nastaliq-safe)
+      function rvl(sel,at){
+        fin(sel,at,0.7);
+        tl.to(sel+" .rl",{opacity:1,duration:0.6,stagger:0.35,ease:"power2.out"},at+0.15);
+        tl.fromTo(sel+" .kw",{opacity:0,y:26},{opacity:1,y:0,duration:0.5,stagger:0.075,ease:"power2.out"},at+0.25);
+      }
+      // held card: same card continues into a new line — show it composed, no re-punch
+      function shw(sel,at){
+        tl.set(sel,{opacity:1},at);
+        tl.set(sel+" .rl, "+sel+" .kw",{opacity:1,y:0},at);
+      }
+
+      gsap.set(["#s00-inner","#s01-inner","#s02-inner","#s03-inner","#s04-inner","#s05-inner","#s06-inner","#s07-inner","#s08-inner","#s09-inner","#s10-inner","#s11-inner","#s12-inner","#s13-inner","#s14-inner","#s15-inner","#s16-inner","#s17-inner","#s18-inner","#s19-inner","#s20-inner","#s21-inner","#s22-inner","#s23-inner","#s24-inner","#s25-inner","#s26-inner","#s27-inner"], {opacity:0});
+      gsap.set("#s00-inner", {opacity:1});
+      zc("#s00-photo",0.0,2.159,1.0,1.0344);
+      cut("#s00-inner","#s01-inner",2.159);
+      zc("#s01-photo",2.159,4.126,1.0344,1.1);
+      xd("#s01-inner","#s02-inner",5.285);
+      kb("#s02-photo",5.285,5.327,1,1.13);
+      xd("#s02-inner","#s03-inner",9.612);
+      pback("#s03-photo",9.612,8.514,1.13);
+      xd("#s03-inner","#s04-inner",17.127);
+      zc("#s04-photo",17.127,9.526,1.1,1.0342);
+      cut("#s04-inner","#s05-inner",26.652);
+      zc("#s05-photo",26.652,4.953,1.0342,1.0);
+      xd("#s05-inner","#s06-inner",30.605);
+      zc("#s06-photo",30.605,3.753,1.0,1.019);
+      cut("#s06-inner","#s07-inner",34.358);
+      zc("#s07-photo",34.358,1.611,1.019,1.0271);
+      cut("#s07-inner","#s08-inner",35.968);
+      zc("#s08-photo",35.968,3.596,1.0271,1.0453);
+      cut("#s08-inner","#s09-inner",39.564);
+      zc("#s09-photo",39.564,10.839,1.0453,1.1);
+      xd("#s09-inner","#s10-inner",49.403);
+      kb("#s10-photo",49.403,12.929,1,1.13);
+      xd("#s10-inner","#s11-inner",61.332);
+      hold("#s11-photo",61.332,6.189,1.08);
+      xd("#s11-inner","#s12-inner",66.522);
+      zc("#s12-photo",66.522,1.924,1.1,1.0697);
+      cut("#s12-inner","#s13-inner",68.446);
+      zc("#s13-photo",68.446,4.429,1.0697,1.0);
+      xd("#s13-inner","#s14-inner",71.875);
+      zc("#s14-photo",71.875,2.473,1.0,1.0371);
+      cut("#s14-inner","#s15-inner",74.348);
+      zc("#s15-photo",74.348,1.767,1.0371,1.0636);
+      cut("#s15-inner","#s16-inner",76.115);
+      zc("#s16-photo",76.115,2.428,1.0636,1.1);
+      xd("#s16-inner","#s17-inner",77.543);
+      zc("#s17-photo",77.543,1.689,1.1,1.088);
+      cut("#s17-inner","#s18-inner",79.232);
+      zc("#s18-photo",79.232,2.969,1.088,1.0669);
+      cut("#s18-inner","#s19-inner",82.201);
+      zc("#s19-photo",82.201,9.402,1.0669,1.0);
+      xd("#s19-inner","#s20-inner",90.603);
+      xd("#s20-inner","#s21-inner",96.071);
+      zc("#s21-photo",96.071,2.551,1.1,1.0817);
+      cut("#s21-inner","#s22-inner",98.622);
+      zc("#s22-photo",98.622,11.359,1.0817,1.0);
+      xd("#s22-inner","#s23-inner",108.981);
+      zc("#s23-photo",108.981,6.809,1.0,1.0238);
+      cut("#s23-inner","#s24-inner",115.79);
+      zc("#s24-photo",115.79,7.358,1.0238,1.0495);
+      cut("#s24-inner","#s25-inner",123.148);
+      zc("#s25-photo",123.148,5.451,1.0495,1.0685);
+      cut("#s25-inner","#s26-inner",128.598);
+      zc("#s26-photo",128.598,7.122,1.0685,1.0934);
+      cut("#s26-inner","#s27-inner",135.721);
+      zc("#s27-photo",135.721,1.889,1.0934,1.1);
+      fin("#chip20",91.203,0.5);
+      fout("#chip20",96.571,0.4);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

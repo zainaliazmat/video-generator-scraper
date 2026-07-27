@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Emergency Fund</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --target: #f59e0b;
+        --pop: #ff5c39;
+        --font: "Arial Black", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .scene {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        padding: 120px 160px; background: var(--bg); color: var(--ink); text-align: center;
+        overflow: hidden;
+      }
+      /* photographic background system — one consistent grade so 9 photos read as one film */
+      .bg {
+        position: absolute; inset: -8%; z-index: 0; background-size: cover; background-position: center;
+        filter: grayscale(0.32) brightness(0.62) contrast(1.05);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+          radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13, 16, 23, 0.46), transparent 80%),
+          radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13, 16, 23, 0.14), rgba(13, 16, 23, 0.58)),
+          linear-gradient(180deg, rgba(13, 16, 23, 0.40), rgba(13, 16, 23, 0.10) 46%, rgba(13, 16, 23, 0.52));
+      }
+      /* text legibility now comes from a shadow, not a heavy scrim — so photos stay visible */
+      .kicker, .huge, .mega, .sub, .foot, .collabel, .counter, .head2 {
+        text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.55);
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background-image: url(assets/img/grain.png); background-size: cover; opacity: 0.05; mix-blend-mode: overlay;
+      }
+      .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 34px; width: 100%; }
+      .row { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+      .cols { display: flex; align-items: flex-start; justify-content: center; gap: 80px; }
+      .col { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+      .kicker { font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); font-weight: 800; margin: 0; }
+      .huge { font-size: 122px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px; }
+      .mega { font-size: 300px; line-height: 0.9; font-weight: 900; margin: 0; letter-spacing: -6px; color: var(--fund); }
+      .sub { font-size: 40px; color: var(--muted); font-weight: 800; margin: 0; }
+      .foot { font-size: 26px; color: var(--muted); font-weight: 700; letter-spacing: 2px; margin: 0; }
+      .collabel { font-size: 28px; font-weight: 900; letter-spacing: 3px; margin: 0; }
+      .lbl-yes { color: var(--fund); }
+      .lbl-no { color: var(--warn); }
+      .warn { color: var(--warn); }
+      .fundc { color: var(--fund); }
+      .targetc { color: var(--target); }
+
+      .chip {
+        font-size: 32px; font-weight: 800; letter-spacing: 1px; padding: 18px 32px;
+        border-radius: 999px; background: var(--panel); border: 3px solid #2a3241; color: var(--ink);
+      }
+      .chip.fund { border-color: var(--fund); }
+      .chip.warn { border-color: var(--warn); }
+      .chip.target { border-color: var(--target); }
+
+      .stamp {
+        font-size: 44px; font-weight: 900; letter-spacing: 3px; padding: 18px 40px; border-radius: 16px;
+        color: #0d1017; transform: rotate(-4deg);
+      }
+      .stamp.fund { background: var(--fund); }
+      .stamp.pop  { background: var(--pop); }
+
+      .block {
+        display: flex; align-items: center; justify-content: center;
+        width: 300px; height: 220px; border-radius: 22px; background: var(--panel);
+        border: 5px solid var(--fund); font-size: 46px; font-weight: 900; color: var(--fund);
+      }
+
+      /* coin row */
+      .coin { width: 74px; height: 74px; border-radius: 999px; background: var(--fund); border: 4px solid #0d1017; }
+
+      /* milestone bar */
+      .head2 { font-size: 64px; font-weight: 900; margin: 0; }
+      .track2 { position: relative; width: 1400px; height: 74px; background: var(--panel); border: 3px solid #2a3241; border-radius: 14px; overflow: hidden; }
+      .fill2 { position: absolute; inset: 0; background: var(--fund); transform: scaleX(0); transform-origin: left center; }
+      .ticks { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 12 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 12 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 12)); }
+      .counter { font-size: 104px; font-weight: 900; color: var(--fund); margin: 0; }
+
+      .arrow { font-size: 84px; font-weight: 900; color: var(--muted); }
+      .cta { font-size: 46px; font-weight: 900; letter-spacing: 2px; padding: 24px 56px; border-radius: 14px; background: var(--pop); color: #0d1017; }
+      .glow { text-shadow: 0 0 60px currentColor; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-pfs4" id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="144.36" style="position: relative; width: 1920px; height: 1080px; overflow: hidden;">
+
+      <!-- 1 · HOOK -->
+      <section data-hf-id="hf-4wft" id="s1" class="scene clip" data-start="0" data-duration="15.44" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s1.jpg)"></div>
+        <div class="bg" id="s1bgA" style="background-image: url(assets/img/s1-bike.jpg); opacity: 0"></div>
+        <div class="bg" id="s1bgB" style="background-image: url(assets/img/s1-phone.jpg); opacity: 0"></div>
+        <div class="bg" id="s1bgC" style="background-image: url(assets/img/s1-bill.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.16)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-d1zs" class="stack">
+          <p data-hf-id="hf-x3h6" id="s1k" class="kicker">Quick question — be honest</p>
+          <h1 data-hf-id="hf-rj12" id="s1q" class="huge" style="font-size: 92px">HOW MUCH IS IN YOUR ACCOUNT <span data-hf-id="hf-0vry" class="warn">RIGHT NOW?</span></h1>
+          <p data-hf-id="hf-amt1" id="s1amt" class="counter" style="color: var(--muted)">₹ ?</p>
+          <div data-hf-id="hf-thy4" class="row">
+            <div data-hf-id="hf-6q9d" id="s1a" class="chip warn">BIKE BREAKS</div>
+            <div data-hf-id="hf-a06d" id="s1b" class="chip warn">PHONE GONE</div>
+            <div data-hf-id="hf-oeb5" id="s1c" class="chip warn">SUDDEN BILL</div>
+          </div>
+          <div data-hf-id="hf-t5kx" id="s1fix" class="stamp fund">THE FIX: EMERGENCY FUND</div>
+        </div>
+      </section>
+
+      <!-- 2 · PROMISE -->
+      <section data-hf-id="hf-aage" id="s2" class="scene clip" data-start="15.44" data-duration="10.24" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s2.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(120, 150, 200, 0.10)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-g2wg" class="stack">
+          <p data-hf-id="hf-kgvs" id="s2k" class="kicker">By the end you'll know</p>
+          <div data-hf-id="hf-lt04" class="row">
+            <div data-hf-id="hf-j7hp" id="s2a" class="chip">WHAT IT IS</div>
+            <div data-hf-id="hf-0ub9" id="s2b" class="chip">HOW BIG</div>
+            <div data-hf-id="hf-n9yd" id="s2c" class="chip">WHERE</div>
+            <div data-hf-id="hf-fgmi" id="s2d" class="chip">HOW TO START</div>
+          </div>
+          <p data-hf-id="hf-tcvx" id="s2sub" class="sub">No big income required</p>
+        </div>
+      </section>
+
+      <!-- 3 · WHAT IT IS -->
+      <section data-hf-id="hf-8cn6" id="s3" class="scene clip" data-start="25.68" data-duration="18.99" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s3.jpg)"></div>
+        <div class="bg" id="s3bgA" style="background-image: url(assets/img/s3-medical.jpg); opacity: 0"></div>
+        <div class="bg" id="s3bgB" style="background-image: url(assets/img/s3-job.jpg); opacity: 0"></div>
+        <div class="bg" id="s3bgC" style="background-image: url(assets/img/s3-repair.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-evzd" class="stack">
+          <p data-hf-id="hf-sy3c" id="s3k" class="kicker">Cash for real emergencies</p>
+          <div data-hf-id="hf-6ra9" class="cols">
+            <div data-hf-id="hf-7s1i" class="col">
+              <p data-hf-id="hf-ymmb" id="s3yl" class="collabel lbl-yes">FOR</p>
+              <div data-hf-id="hf-58d0" id="s3a" class="chip fund">MEDICAL BILL</div>
+              <div data-hf-id="hf-97f5" id="s3b" class="chip fund">JOB LOSS</div>
+              <div data-hf-id="hf-90vk" id="s3c" class="chip fund">URGENT REPAIR</div>
+            </div>
+            <div data-hf-id="hf-vmze" class="col">
+              <p data-hf-id="hf-lpp9" id="s3nl" class="collabel lbl-no">NOT FOR</p>
+              <div data-hf-id="hf-v3is" id="s3x" class="chip warn">A SALE</div>
+              <div data-hf-id="hf-z44t" id="s3y" class="chip warn">A TRIP</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-1zqp" id="s3stamp" class="stamp fund">STOPS DEBT</div>
+        </div>
+      </section>
+
+      <!-- 4 · WHY 3 MONTHS -->
+      <section data-hf-id="hf-ikg8" id="s4" class="scene clip" data-start="44.67" data-duration="13.69" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s4.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-faae" class="stack">
+          <h1 data-hf-id="hf-v3sl" id="s4num" class="mega glow">3</h1>
+          <p data-hf-id="hf-fr3p" id="s4l" class="huge" style="font-size: 68px">MONTHS OF EXPENSES</p>
+          <div data-hf-id="hf-km31" class="row">
+            <div data-hf-id="hf-4o36" id="s4b1" class="block">1</div>
+            <div data-hf-id="hf-eg9m" id="s4b2" class="block">2</div>
+            <div data-hf-id="hf-w5ci" id="s4b3" class="block">3</div>
+          </div>
+          <p data-hf-id="hf-58me" id="s4f" class="foot">Start at 1 month · Guideline — adjust to your life</p>
+        </div>
+      </section>
+
+      <!-- 5 · WHERE TO KEEP IT -->
+      <section data-hf-id="hf-ewsb" id="s5" class="scene clip" data-start="58.36" data-duration="17.63" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s5.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.11)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-e3db" class="stack">
+          <p data-hf-id="hf-6pz1" id="s5k" class="kicker">Keep it separate &amp; boring</p>
+          <div data-hf-id="hf-l0e2" class="row">
+            <div data-hf-id="hf-772g" id="s5a" class="chip fund">DIFFERENT ACCOUNT</div>
+            <div data-hf-id="hf-b2da" id="s5b" class="chip fund">REACH IN MINUTES</div>
+          </div>
+          <div data-hf-id="hf-mzx7" class="row">
+            <div data-hf-id="hf-kpbu" id="s5x" class="chip warn">NOT DAILY CARD</div>
+            <div data-hf-id="hf-fnfk" id="s5y" class="chip warn">NOT LOCKED</div>
+            <div data-hf-id="hf-wrhx" id="s5z" class="chip warn">NOT RISKY</div>
+          </div>
+          <div data-hf-id="hf-ylf0" id="s5stamp" class="stamp fund">INSTANT ACCESS</div>
+        </div>
+      </section>
+
+      <!-- 6 · START SMALL -->
+      <section data-hf-id="hf-tvuq" id="s6" class="scene clip" data-start="75.99" data-duration="18.47" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s6.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-ehoc" class="stack">
+          <h1 data-hf-id="hf-8kif" id="s6amt" class="huge"><span data-hf-id="hf-ip6v" class="fundc">₹2,500</span> / week</h1>
+          <p data-hf-id="hf-5d9i" id="s6sub" class="sub">= skip 2 takeaways</p>
+          <div data-hf-id="hf-w7gj" class="row" style="gap: 16px">
+            <div data-hf-id="hf-t2jt" id="c1" class="coin"></div><div data-hf-id="hf-x0nu" id="c2" class="coin"></div><div data-hf-id="hf-0yrv" id="c3" class="coin"></div>
+            <div data-hf-id="hf-dhac" id="c4" class="coin"></div><div data-hf-id="hf-e8y5" id="c5" class="coin"></div><div data-hf-id="hf-i726" id="c6" class="coin"></div>
+            <div data-hf-id="hf-ocrz" id="c7" class="coin"></div><div data-hf-id="hf-jqhk" id="c8" class="coin"></div>
+          </div>
+          <div data-hf-id="hf-7398" id="s6stamp" class="stamp fund">SMALL BEATS NEVER</div>
+        </div>
+      </section>
+
+      <!-- 7 · WORKED EXAMPLE -->
+      <section data-hf-id="hf-9vf3" id="s7" class="scene clip" data-start="94.46" data-duration="20.43" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s7.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-84s6" class="stack" style="gap: 26px">
+          <h1 data-hf-id="hf-qz3l" id="s7head" class="head2">₹40,000/mo → 3-month target <span data-hf-id="hf-5c7n" class="targetc">₹1,20,000</span></h1>
+          <p data-hf-id="hf-g62f" id="s7mile" class="sub" style="color: var(--ink)">First milestone: <span data-hf-id="hf-3xdd" class="fundc">₹30,000</span></p>
+          <p data-hf-id="hf-01n6" id="s7counter" class="counter">₹<span data-hf-id="hf-vycg" id="s7c">0</span></p>
+          <div data-hf-id="hf-2t0t" class="track2">
+            <div data-hf-id="hf-2hxo" id="s7fill" class="fill2"></div>
+            <div data-hf-id="hf-895q" class="ticks"></div>
+          </div>
+          <p data-hf-id="hf-r68l" id="s7cap" class="foot">₹2,500 × 12 weeks = ₹30,000</p>
+        </div>
+      </section>
+
+      <!-- 8 · ACTION STEP -->
+      <section data-hf-id="hf-ib0s" id="s8" class="scene clip" data-start="114.89" data-duration="15.65" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s8.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(255, 92, 57, 0.15)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-dar9" class="stack">
+          <div data-hf-id="hf-bjxu" id="s8stamp" class="stamp pop">DO THIS TODAY</div>
+          <div data-hf-id="hf-ne88" class="row">
+            <div data-hf-id="hf-jxr8" id="s8a" class="chip">OPEN SEPARATE ACCOUNT</div>
+            <div data-hf-id="hf-fch3" id="s8arrow" class="arrow">→</div>
+            <div data-hf-id="hf-j8xo" id="s8b" class="chip fund">MOVE ₹2,500 IN</div>
+          </div>
+          <h1 data-hf-id="hf-onp7" id="s8t" class="huge" style="font-size: 84px">someday → <span data-hf-id="hf-fz40" class="fundc">STARTED</span></h1>
+        </div>
+      </section>
+
+      <!-- 9 · RECAP + CTA -->
+      <section data-hf-id="hf-zpdo" id="s9" class="scene clip" data-start="130.54" data-duration="13.82" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s9.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-dp2a" class="stack">
+          <div data-hf-id="hf-m7b5" class="row">
+            <div data-hf-id="hf-76s6" id="s9a" class="chip fund">3 MONTHS</div>
+            <div data-hf-id="hf-8viz" id="s9b" class="chip">SEPARATE</div>
+            <div data-hf-id="hf-p5n1" id="s9c" class="chip target">START SMALL</div>
+          </div>
+          <div data-hf-id="hf-1z0k" id="s9cta" class="cta">▶ SUBSCRIBE</div>
+          <p data-hf-id="hf-6sj0" id="s9sub" class="sub">money basics that actually make sense</p>
+        </div>
+      </section>
+
+      <!-- voiceover (ElevenLabs Haryanvi voice 9BHT…) — one clip per scene, direct root children -->
+      <audio data-hf-id="hf-ovd2" id="vo1" src="assets/voice/h1.mp3" data-start="0.40" data-duration="14.24" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-0svg" id="vo2" src="assets/voice/h2.mp3" data-start="15.84" data-duration="9.04" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-cjuo" id="vo3" src="assets/voice/h3.mp3" data-start="26.08" data-duration="17.79" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-42z8" id="vo4" src="assets/voice/h4.mp3" data-start="45.07" data-duration="12.49" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-3ycf" id="vo5" src="assets/voice/h5.mp3" data-start="58.76" data-duration="16.43" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-dyv2" id="vo6" src="assets/voice/h6.mp3" data-start="76.39" data-duration="17.27" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-dykg" id="vo7" src="assets/voice/h7.mp3" data-start="94.86" data-duration="19.23" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-mmia" id="vo8" src="assets/voice/h8.mp3" data-start="115.29" data-duration="14.45" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-66us" id="vo9" src="assets/voice/h9.mp3" data-start="130.94" data-duration="12.62" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // scene start times (s) — visuals follow the Haryanvi VO clips
+      var S = { s1: 0, s2: 15.44, s3: 25.68, s4: 44.67, s5: 58.36, s6: 75.99, s7: 94.46, s8: 114.89, s9: 130.54 };
+
+      function rise(sel, at, dur, y) {
+        tl.fromTo(sel, { opacity: 0, y: y == null ? 40 : y }, { opacity: 1, y: 0, duration: dur == null ? 0.7 : dur, ease: "expo.out" }, at);
+      }
+      function pop(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.6 : dur, ease: "back.out(1.7)" }, at);
+      }
+      function riseEach(sels, at, step) {
+        for (var i = 0; i < sels.length; i++) rise(sels[i], at + i * step, 0.55, 30);
+      }
+      function popEach(sels, at, step) {
+        for (var i = 0; i < sels.length; i++) pop(sels[i], at + i * step, 0.45);
+      }
+      function countUp(id, from, to, at, dur) {
+        var el = document.getElementById(id);
+        var p = { v: from };
+        tl.fromTo(p, { v: from }, {
+          v: to, duration: dur == null ? 1.2 : dur, ease: "power1.out",
+          onUpdate: function () { el.textContent = Math.round(p.v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+        }, at);
+      }
+      function fill(sel, at, dur, to) {
+        tl.fromTo(sel, { scaleX: 0 }, { scaleX: to == null ? 1 : to, duration: dur == null ? 0.8 : dur, ease: "power2.out" }, at);
+      }
+      // opacity-only reveal — safe for inline spans / containers where scale/y don't apply
+      function fade(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: dur == null ? 0.5 : dur, ease: "power1.out" }, at);
+      }
+      // quick emphasis on a spoken word — block elements only (inline spans ignore scale)
+      function pulse(sel, at, s) {
+        tl.to(sel, { scale: s == null ? 1.12 : s, duration: 0.16, ease: "power2.out", repeat: 1, yoyo: true }, at);
+      }
+      // subtle finite "breathing" to fill a would-be-static gap (seek-safe: finite yoyo, never repeat:-1)
+      function breathe(sel, at, dur) {
+        var cyc = 1.5, n = Math.max(1, Math.round(dur / cyc)); if (n % 2 === 0) n += 1; // odd → ends at base scale
+        tl.to(sel, { scale: 1.035, duration: cyc, ease: "sine.inOut", repeat: n, yoyo: true }, at);
+      }
+      // slow Ken-Burns drift on each photo — finite, linear over the whole scene (seek-safe)
+      function ken(sel, at, dur, zoomIn) {
+        tl.fromTo(sel,
+          { scale: zoomIn ? 1.0 : 1.16, xPercent: zoomIn ? -2.5 : 2.5 },
+          { scale: zoomIn ? 1.16 : 1.0, xPercent: zoomIn ? 2.5 : -2.5, duration: dur, ease: "none" }, at);
+      }
+      ken("#s1 .bg", S.s1, 15.44, true);
+      ken("#s2 .bg", S.s2, 10.24, false);
+      ken("#s3 .bg", S.s3, 18.99, true);
+      ken("#s4 .bg", S.s4, 13.69, false);
+      ken("#s5 .bg", S.s5, 17.63, true);
+      ken("#s6 .bg", S.s6, 18.47, false);
+      ken("#s7 .bg", S.s7, 20.43, true);
+      ken("#s8 .bg", S.s8, 15.65, false);
+      ken("#s9 .bg", S.s9, 13.82, true);
+
+      // 1 · HOOK — the question, the blank number, the shock, then the fix
+      rise("#s1k", S.s1 + 0.4, 0.6, 20);          // "सुण भाई, सीधा सवाल"
+      pop("#s1q", S.s1 + 0.8, 0.6);               // the question
+      pop("#s1amt", S.s1 + 2.3, 0.7);             // "कितने पैसे?" — the blank ₹?
+      breathe("#s1amt", S.s1 + 3.3, 3.3);         // it just sits there, taunting
+      pop("#s1a", S.s1 + 4.9, 0.45);              // गाड़ी बिगड़ ज्या
+      fade("#s1bgA", S.s1 + 4.9, 0.7);            // photo → bike as BIKE BREAKS appears
+      pop("#s1b", S.s1 + 6.0, 0.45);              // फोन गुम
+      fade("#s1bgB", S.s1 + 6.0, 0.7);            // → cracked phone
+      pop("#s1c", S.s1 + 7.0, 0.45);              // अचानक बिल
+      fade("#s1bgC", S.s1 + 7.0, 0.7);            // → the bill
+      tl.to("#s1amt", { color: "#ef4444", duration: 0.3 }, S.s1 + 8.4); // "एक झटका → उधार": blank goes red
+      pulse("#s1amt", S.s1 + 8.4, 1.15);
+      pulse("#s1a", S.s1 + 8.6); pulse("#s1b", S.s1 + 8.75); pulse("#s1c", S.s1 + 8.9);
+      pop("#s1fix", S.s1 + 11.0, 0.6);            // "बस एक ही इलाज — इमरजेंसी फंड"
+      breathe("#s1fix", S.s1 + 11.9, 2.5);
+
+      // 2 · PROMISE — reveal each item as spoken (tightened agenda; keep it moving)
+      rise("#s2k", S.s2 + 0.3);                   // "चार बात"
+      rise("#s2a", S.s2 + 1.6, 0.5, 30);          // "के सै"
+      rise("#s2b", S.s2 + 2.6, 0.5, 30);          // "कितना बड़ा"
+      rise("#s2c", S.s2 + 3.9, 0.5, 30);          // "कड़ै राखणा"
+      rise("#s2d", S.s2 + 5.2, 0.5, 30);          // "कड़ै तै शुरू"
+      rise("#s2sub", S.s2 + 6.8);                 // "मोटी तनख्वाह की जरूरत कोन्या"
+
+      // 3 · WHAT IT IS
+      rise("#s3k", S.s3 + 0.3);
+      rise("#s3yl", S.s3 + 0.8, 0.5, 20);
+      pop("#s3a", S.s3 + 4.4, 0.5);               // हस्पताल का बिल
+      fade("#s3bgA", S.s3 + 4.4, 0.7);            // photo → medical as MEDICAL BILL appears
+      pop("#s3b", S.s3 + 5.9, 0.5);               // नौकरी छूट ज्या
+      fade("#s3bgB", S.s3 + 5.9, 0.7);            // → job loss
+      pop("#s3c", S.s3 + 7.2, 0.5);               // जरूरी मरम्मत
+      fade("#s3bgC", S.s3 + 7.2, 0.7);            // → urgent repair
+      rise("#s3nl", S.s3 + 8.6, 0.5, 20);
+      pop("#s3x", S.s3 + 9.1, 0.5);               // सेल ना
+      pop("#s3y", S.s3 + 10.4, 0.5);              // घूमण ना
+      pop("#s3stamp", S.s3 + 13.3, 0.5);          // "कर्जा बणण तै रोकणा"
+
+      // 4 · WHY 3 MONTHS
+      pop("#s4num", S.s4 + 0.4, 0.7);
+      countUp("s4num", 0, 3, S.s4 + 0.5, 0.8);
+      rise("#s4l", S.s4 + 1.1);
+      pop("#s4b1", S.s4 + 1.9, 0.5); pop("#s4b2", S.s4 + 2.5, 0.5); pop("#s4b3", S.s4 + 3.1, 0.5);
+      rise("#s4f", S.s4 + 4.2);
+      breathe("#s4num", S.s4 + 4.5, 6.5);         // hero number keeps living through the gap
+      pulse("#s4b1", S.s4 + 10.4);                // "एक महीने तै शुरू कर"
+
+      // 5 · WHERE
+      rise("#s5k", S.s5 + 0.3);
+      pop("#s5a", S.s5 + 2.0, 0.5);               // न्यारा खाता
+      pop("#s5b", S.s5 + 4.0, 0.5);               // मिनटां म्ह
+      pop("#s5x", S.s5 + 6.8, 0.5);               // रोज आळे कार्ड तै दूर
+      pop("#s5y", S.s5 + 9.0, 0.5);               // ना ताला
+      pop("#s5z", S.s5 + 9.9, 0.5);               // ना रिस्क
+      pop("#s5stamp", S.s5 + 12.0, 0.5);          // "झट्ट-पट्ट हाथ म्ह"
+
+      // 6 · START SMALL — coins stack across "हर हफ्ते डाळता रह"
+      pop("#s6amt", S.s6 + 0.4, 0.7);
+      breathe("#s6amt", S.s6 + 1.4, 4.0);
+      rise("#s6sub", S.s6 + 5.6);                 // "दो बार का बाहर का खाणा छोड़ दे"
+      popEach(["#c1", "#c2", "#c3", "#c4", "#c5", "#c6", "#c7", "#c8"], S.s6 + 8.0, 0.42);
+      pop("#s6stamp", S.s6 + 13.5, 0.5);          // "मारवाड़ी सेठ" punchline
+
+      // 7 · WORKED EXAMPLE — reveal the numbers in sequence, count-up starts at ₹0 (no pre-show)
+      rise("#s7head", S.s7 + 0.4);
+      fade("#s7head .targetc", S.s7 + 5.0, 0.5);  // target lands on "एक लाख बीस हजार"
+      rise("#s7mile", S.s7 + 8.0);                // "छोटे पड़ाव — तीस हजार"
+      rise("#s7cap", S.s7 + 11.3);                // "बस बारह हफ्ते"
+      fade("#s7counter", S.s7 + 12.6, 0.5);       // counter hidden until the climb begins
+      fade(".track2", S.s7 + 12.6, 0.5);
+      fill("#s7fill", S.s7 + 13.2, 4.8, 1);       // "देख कैसे चढ़ै सै — तीस हजार तक"
+      countUp("s7c", 0, 30000, S.s7 + 13.2, 4.8);
+
+      // 8 · ACTION
+      pop("#s8stamp", S.s8 + 0.4, 0.5);
+      rise("#s8a", S.s8 + 2.0);                   // "एक अलग खाता खोल"
+      pop("#s8arrow", S.s8 + 4.0, 0.4);
+      pop("#s8b", S.s8 + 6.8, 0.5);               // "पहला ढाई हजार डाळ दे"
+      rise("#s8t", S.s8 + 11.8);                  // punchline: "'कदे करूँगा' नै 'कर दिया'"
+      pulse("#s8t", S.s8 + 12.6, 1.08);
+
+      // 9 · RECAP + CTA — recap, cheeky mock-scold beat, then SUBSCRIBE on the word
+      pop("#s9a", S.s9 + 1.9, 0.5);               // टारगेट तीन महीने
+      pop("#s9b", S.s9 + 3.4, 0.5);               // राख अलग
+      pop("#s9c", S.s9 + 5.9, 0.5);               // छोटी रकम शुरू कर
+      pulse("#s9a", S.s9 + 8.6); pulse("#s9b", S.s9 + 8.75); pulse("#s9c", S.s9 + 8.9); // "फेर ना कहियो बताया कोन्या"
+      pop("#s9cta", S.s9 + 10.6, 0.6);            // "सब्सक्राइब कर दे भाई"
+      pulse("#s9cta", S.s9 + 11.4, 1.1);
+      rise("#s9sub", S.s9 + 11.6);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

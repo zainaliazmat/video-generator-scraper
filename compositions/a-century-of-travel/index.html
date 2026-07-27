@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>A Century of Travel</title>
+
+    <!-- GSAP (HyperFrames default animation runtime) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+    <!-- Fonts: Archivo Black (YEAR) + Playfair Display (TITLE / caption) are both
+         pre-bundled by the HyperFrames compiler — no <link> needed; they embed offline. -->
+
+    <style>
+      :root {
+        /* === DESIGN TOKENS (mirror DESIGN.md) === */
+        --paper: #0d0f12;                       /* near-black base */
+        --ink: #f4f1ea;                         /* warm off-white text */
+        --ink-soft: rgba(244, 241, 234, 0.82);  /* captions / secondary */
+        --band: rgba(15, 19, 24, 0.55);         /* semi-transparent title band */
+        --grade-wash: rgba(28, 40, 56, 0.18);   /* cool blue-sepia wash (multiply) */
+        --accent-warm: #c9a86a;                 /* sparing: rules, underlines */
+      }
+
+      body {
+        margin: 0;
+        background: #000;
+        font-family: "Playfair Display", Georgia, serif;
+      }
+
+      /* Composition root — explicitly sized, relative, overflow hidden */
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      /* Each scene is a full-bleed clip (direct child of root) */
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+      /* The layer we cross-dissolve (never tween the clip element itself) */
+      .scene-inner {
+        position: absolute;
+        inset: 0;
+        will-change: opacity;
+      }
+
+      /* PHOTO PLATE — gradient sits behind the image so a missing file still
+         renders gracefully (graceful placeholder). Ken Burns transforms .photo. */
+      .photo-frame {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(120% 90% at 50% 35%, #3a4047 0%, #23282e 55%, #15191e 100%);
+      }
+      .photo {
+        position: absolute;
+        top: -6%;
+        left: -6%;
+        width: 112%;
+        height: 112%;            /* slight bleed so Ken Burns never shows an edge */
+        object-fit: cover;
+        /* Vintage grade per DESIGN.md — base recipe (median frame) */
+        filter: grayscale(1) contrast(1.08) brightness(0.92) sepia(0.12);
+        will-change: transform;
+      }
+      /* Per-photo grade corrections — pull bright/flat sources toward the film's
+         median so every cut reads as one print (desaturated, cool shadows). */
+      #s01-photo { filter: grayscale(1) contrast(1.12) brightness(0.88) sepia(0.12); } /* 1841 — bright sky */
+      #s02-photo { filter: grayscale(1) contrast(1.14) brightness(0.86) sepia(0.12); } /* 1869 — bright/flat */
+      #s06-photo { filter: grayscale(1) contrast(1.16) brightness(0.86) sepia(0.12); } /* 1912 — hazy/flat */
+      #s09-photo { filter: grayscale(1) contrast(1.16) brightness(0.85) sepia(0.12); } /* 1939 — washed sky */
+      #s11-photo { filter: grayscale(1) contrast(1.12) brightness(0.89) sepia(0.12); } /* 1970 — bright sky */
+      /* Placeholder label for any slot without an image */
+      .slot-label {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: 28px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(244, 241, 234, 0.30);
+        text-align: center;
+        line-height: 1.6;
+        padding: 0 120px;
+        box-sizing: border-box;
+      }
+
+      /* Blue-sepia grade wash over each photo (multiply) */
+      .grade {
+        position: absolute;
+        inset: 0;
+        background: var(--grade-wash);
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      /* TEXT BLOCK — left-aligned, vertically centered, title-safe padding */
+      .text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 200px;
+        box-sizing: border-box;
+      }
+      .kicker {
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent-warm);
+        margin: 0 0 30px 6px;
+      }
+      .year {
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: 150px;
+        line-height: 1.0;
+        color: var(--ink);
+        margin: 0;
+        text-shadow: 0 6px 40px rgba(0, 0, 0, 0.55);
+        letter-spacing: -0.01em;
+      }
+      .year-rule {
+        width: 132px;
+        height: 4px;
+        background: var(--accent-warm);
+        margin: 22px 0 24px 6px;
+        border-radius: 2px;
+      }
+      .title-band {
+        display: inline-block;
+        background: var(--band);
+        padding: 14px 26px;
+      }
+      .title {
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+        font-size: 62px;
+        line-height: 1.05;
+        color: var(--ink);
+        margin: 0;
+      }
+      .caption {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 30px;
+        color: var(--ink-soft);
+        margin: 26px 0 0 6px;
+        max-width: 820px;
+      }
+
+      /* CENTERED variant — title card + outro */
+      .text.center {
+        align-items: center;
+        text-align: center;
+        padding: 0 160px;
+      }
+      .text.center .kicker {
+        margin: 0 0 26px 0;
+      }
+      .text.center .title {
+        font-size: 110px;
+        font-weight: 700;
+      }
+      .text.center .caption {
+        font-size: 36px;
+        margin: 28px 0 0 0;
+      }
+      .text.center .year-rule {
+        margin: 26px auto 30px auto;
+      }
+
+      /* Channel branding lockup (outro) — HistoryFramesFilm */
+      .logo-slot {
+        margin-top: 44px;
+        padding: 28px 60px;
+        border: 1px solid rgba(201, 168, 106, 0.55);
+        border-radius: 4px;
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+      .logo-slot .handle {
+        display: block;
+        margin-top: 14px;
+        font-family: "Playfair Display", serif;
+        font-size: 17px;
+        letter-spacing: 0.16em;
+        text-transform: none;
+        color: var(--accent-warm);
+      }
+
+      /* === PERSISTENT TEXTURE OVERLAYS (full-duration clips, top tracks) === */
+
+      /* Vignette — darkens corners to ~0.6 alpha for legibility + period mood */
+      .vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(
+          130% 110% at 50% 46%,
+          rgba(0, 0, 0, 0) 52%,
+          rgba(0, 0, 0, 0.32) 82%,
+          rgba(0, 0, 0, 0.60) 100%
+        );
+      }
+
+      /* Vintage paper / manuscript scan — edge-anchored right + bottom, faint.
+         Negative inset gives bleed so the slow parallax drift never shows an edge. */
+      .paper {
+        position: absolute;
+        inset: -3%;
+        pointer-events: none;
+        background-image: url("assets/textures/paper.png");
+        background-repeat: no-repeat;
+        background-position: right bottom;
+        background-size: 66% auto;
+        opacity: 0.12;
+        mix-blend-mode: multiply;
+        will-change: transform;
+      }
+
+      /* Film grain — deterministic SVG feTurbulence (fixed seed), desaturated,
+         soft-light at ~8%. No Math.random / Date.now anywhere. */
+      .grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        mix-blend-mode: soft-light;
+        opacity: 0.08;
+      }
+      .grain svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Act-break white bloom (css-light family) — opacity animated at act breaks */
+      .bloom {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        mix-blend-mode: screen;
+        background: radial-gradient(
+          120% 90% at 50% 44%,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 250, 240, 0.5) 38%,
+          rgba(255, 250, 240, 0) 72%
+        );
+      }
+    </style>
+  </head>
+
+  <body>
+    <div data-hf-id="hf-tpoc" id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="240" data-fps="30">
+      <!-- ============ SCENE 00 — TITLE CARD (0–17s) ============ -->
+      <section data-hf-id="hf-qbb8" id="s00" class="scene clip" data-start="0" data-duration="18" data-track-index="1">
+        <div data-hf-id="hf-anvb" class="scene-inner" id="s00-inner">
+          <div data-hf-id="hf-4aao" class="photo-frame">
+            <img data-hf-id="hf-6kd5" class="photo" data-layout-allow-overflow="" id="s00-photo" src="assets/s00_title.jpg" alt="">
+          </div>
+          <div data-hf-id="hf-jezh" class="grade"></div>
+          <div data-hf-id="hf-3t1j" class="text center" id="s00-text">
+            <p data-hf-id="hf-q4og" class="kicker reveal">1841 — Today</p>
+            <h1 data-hf-id="hf-632f" class="title reveal" id="s00-title">A Century of Travel</h1>
+            <p data-hf-id="hf-765m" class="caption reveal">How the world learned to wander</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 01 — 1841 (16–35s) ============ -->
+      <section data-hf-id="hf-y66r" id="s01" class="scene clip" data-start="17" data-duration="19" data-track-index="2">
+        <div data-hf-id="hf-u71u" class="scene-inner" id="s01-inner">
+          <div data-hf-id="hf-2plk" class="photo-frame"><img data-hf-id="hf-ua14" class="photo" data-layout-allow-overflow="" id="s01-photo" src="assets/s01_1841_cook.jpg" alt=""></div>
+          <div data-hf-id="hf-obsh" class="grade"></div>
+          <div data-hf-id="hf-hfh9" class="text" id="s01-text">
+            <p data-hf-id="hf-l5fn" class="kicker reveal">№ 01 · Est. 1841</p>
+            <h2 data-hf-id="hf-7whd" class="year reveal">1841</h2>
+            <div data-hf-id="hf-ukzd" class="year-rule reveal"></div>
+            <div data-hf-id="hf-r1j5" class="title-band reveal"><h3 data-hf-id="hf-m0ij" class="title">The First Excursion</h3></div>
+            <p data-hf-id="hf-ndis" class="caption reveal">Thomas Cook runs the very first organized tour.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 02 — 1869 (34–53s) ============ -->
+      <section data-hf-id="hf-uyw1" id="s02" class="scene clip" data-start="35" data-duration="19" data-track-index="1">
+        <div data-hf-id="hf-ikot" class="scene-inner" id="s02-inner">
+          <div data-hf-id="hf-1ioh" class="photo-frame"><img data-hf-id="hf-m7zp" class="photo" data-layout-allow-overflow="" id="s02-photo" src="assets/s02_1869_suez.jpg" alt=""></div>
+          <div data-hf-id="hf-pipk" class="grade"></div>
+          <div data-hf-id="hf-1o1o" class="text" id="s02-text">
+            <p data-hf-id="hf-ldt4" class="kicker reveal">№ 02 · Est. 1869</p>
+            <h2 data-hf-id="hf-m3w7" class="year reveal">1869</h2>
+            <div data-hf-id="hf-zrf1" class="year-rule reveal"></div>
+            <div data-hf-id="hf-yglx" class="title-band reveal"><h3 data-hf-id="hf-is9f" class="title">The World Shrinks</h3></div>
+            <p data-hf-id="hf-xuqe" class="caption reveal">The Suez Canal links two seas — and two worlds.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 03 — 1883 (52–71s) ============ -->
+      <section data-hf-id="hf-74yx" id="s03" class="scene clip" data-start="53" data-duration="19" data-track-index="2">
+        <div data-hf-id="hf-6psg" class="scene-inner" id="s03-inner">
+          <div data-hf-id="hf-1wzi" class="photo-frame"><img data-hf-id="hf-096l" class="photo" data-layout-allow-overflow="" id="s03-photo" src="assets/s03_1883_orient.jpg" alt=""></div>
+          <div data-hf-id="hf-p4ej" class="grade"></div>
+          <div data-hf-id="hf-lipb" class="text" id="s03-text">
+            <p data-hf-id="hf-xwcf" class="kicker reveal">№ 03 · Est. 1883</p>
+            <h2 data-hf-id="hf-5mcf" class="year reveal">1883</h2>
+            <div data-hf-id="hf-0yc4" class="year-rule reveal"></div>
+            <div data-hf-id="hf-znj0" class="title-band reveal"><h3 data-hf-id="hf-r5lt" class="title">Romance on Rails</h3></div>
+            <p data-hf-id="hf-y6qt" class="caption reveal">The Orient Express makes the journey the destination.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 04 — 1897 (70–89s) ============ -->
+      <section data-hf-id="hf-sxa7" id="s04" class="scene clip" data-start="71" data-duration="18" data-track-index="1">
+        <div data-hf-id="hf-q337" class="scene-inner" id="s04-inner">
+          <div data-hf-id="hf-0q2f" class="photo-frame"><img data-hf-id="hf-tp1p" class="photo" data-layout-allow-overflow="" id="s04-photo" src="assets/s04_1897_liner.jpg" alt=""></div>
+          <div data-hf-id="hf-n4ve" class="grade"></div>
+          <div data-hf-id="hf-gkwm" class="text" id="s04-text">
+            <p data-hf-id="hf-cgwr" class="kicker reveal">№ 04 · Est. 1897</p>
+            <h2 data-hf-id="hf-p4yi" class="year reveal">1897</h2>
+            <div data-hf-id="hf-0k13" class="year-rule reveal"></div>
+            <div data-hf-id="hf-z97z" class="title-band reveal"><h3 data-hf-id="hf-6j2y" class="title">The Gilded Crossing</h3></div>
+            <p data-hf-id="hf-wz2n" class="caption reveal">Steam and steel turn the Atlantic into a stage.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 05 — 1907 (88–107s) ============ -->
+      <section data-hf-id="hf-n2xa" id="s05" class="scene clip" data-start="88" data-duration="18" data-track-index="2">
+        <div data-hf-id="hf-dyzi" class="scene-inner" id="s05-inner">
+          <div data-hf-id="hf-14dg" class="photo-frame"><img data-hf-id="hf-0w1i" class="photo" data-layout-allow-overflow="" id="s05-photo" src="assets/s05_1907_mauretania.jpg" alt=""></div>
+          <div data-hf-id="hf-mqkd" class="grade"></div>
+          <div data-hf-id="hf-ul1t" class="text" id="s05-text">
+            <p data-hf-id="hf-22cy" class="kicker reveal">№ 05 · Est. 1907</p>
+            <h2 data-hf-id="hf-4dnk" class="year reveal">1907</h2>
+            <div data-hf-id="hf-1qy6" class="year-rule reveal"></div>
+            <div data-hf-id="hf-0g52" class="title-band reveal"><h3 data-hf-id="hf-bg0j" class="title">Queens of the Atlantic</h3></div>
+            <p data-hf-id="hf-51w4" class="caption reveal">Four and a half days to cross an ocean.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 06 — 1912 (106–125s) ============ -->
+      <section data-hf-id="hf-ogof" id="s06" class="scene clip" data-start="105" data-duration="18" data-track-index="1">
+        <div data-hf-id="hf-98hl" class="scene-inner" id="s06-inner">
+          <div data-hf-id="hf-zxgd" class="photo-frame"><img data-hf-id="hf-un7i" class="photo" data-layout-allow-overflow="" id="s06-photo" src="assets/s06_1912_grand_liner.jpg" alt=""></div>
+          <div data-hf-id="hf-nxhg" class="grade"></div>
+          <div data-hf-id="hf-sfow" class="text" id="s06-text">
+            <p data-hf-id="hf-gz99" class="kicker reveal">№ 06 · Est. 1912</p>
+            <h2 data-hf-id="hf-018i" class="year reveal">1912</h2>
+            <div data-hf-id="hf-1cn5" class="year-rule reveal"></div>
+            <div data-hf-id="hf-01u1" class="title-band reveal"><h3 data-hf-id="hf-rc0g" class="title">An Age of Ambition</h3></div>
+            <p data-hf-id="hf-tqmf" class="caption reveal">The grandest ships the world had ever seen.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 07 — 1927 (124–143s) ============ -->
+      <section data-hf-id="hf-m6rn" id="s07" class="scene clip" data-start="122" data-duration="18" data-track-index="2">
+        <div data-hf-id="hf-nbr0" class="scene-inner" id="s07-inner">
+          <div data-hf-id="hf-0bre" class="photo-frame"><img data-hf-id="hf-trh2" class="photo" data-layout-allow-overflow="" id="s07-photo" src="assets/s07_1927_aviation.jpg" alt=""></div>
+          <div data-hf-id="hf-nj6f" class="grade"></div>
+          <div data-hf-id="hf-ay37" class="text" id="s07-text">
+            <p data-hf-id="hf-rxoa" class="kicker reveal">№ 07 · Est. 1927</p>
+            <h2 data-hf-id="hf-4br2" class="year reveal">1927</h2>
+            <div data-hf-id="hf-2jk8" class="year-rule reveal"></div>
+            <div data-hf-id="hf-18r4" class="title-band reveal"><h3 data-hf-id="hf-ff4z" class="title">Wings Over the World</h3></div>
+            <p data-hf-id="hf-p054" class="caption reveal">One pilot crosses the Atlantic — alone.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 08 — 1936 (142–161s) ============ -->
+      <section data-hf-id="hf-h92h" id="s08" class="scene clip" data-start="139" data-duration="19" data-track-index="1">
+        <div data-hf-id="hf-4yy7" class="scene-inner" id="s08-inner">
+          <div data-hf-id="hf-5hqr" class="photo-frame"><img data-hf-id="hf-z9o8" class="photo" data-layout-allow-overflow="" id="s08-photo" src="assets/s08_1936_queenmary.jpg" alt=""></div>
+          <div data-hf-id="hf-rwjq" class="grade"></div>
+          <div data-hf-id="hf-mgp6" class="text" id="s08-text">
+            <p data-hf-id="hf-dpeh" class="kicker reveal">№ 08 · Est. 1936</p>
+            <h2 data-hf-id="hf-1kk4" class="year reveal">1936</h2>
+            <div data-hf-id="hf-2597" class="year-rule reveal"></div>
+            <div data-hf-id="hf-0ug3" class="title-band reveal"><h3 data-hf-id="hf-7qut" class="title">Floating Palaces</h3></div>
+            <p data-hf-id="hf-tyal" class="caption reveal">Ballrooms and grand staircases set sail.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 09 — 1939 (160–179s) ============ -->
+      <section data-hf-id="hf-v6np" id="s09" class="scene clip" data-start="157" data-duration="18" data-track-index="2">
+        <div data-hf-id="hf-i8ui" class="scene-inner" id="s09-inner">
+          <div data-hf-id="hf-5w1s" class="photo-frame"><img data-hf-id="hf-nn9x" class="photo" data-layout-allow-overflow="" id="s09-photo" src="assets/s09_1939_clipper.jpg" alt=""></div>
+          <div data-hf-id="hf-ri8p" class="grade"></div>
+          <div data-hf-id="hf-5kl1" class="text" id="s09-text">
+            <p data-hf-id="hf-26wn" class="kicker reveal">№ 09 · Est. 1939</p>
+            <h2 data-hf-id="hf-55bd" class="year reveal">1939</h2>
+            <div data-hf-id="hf-3c6a" class="year-rule reveal"></div>
+            <div data-hf-id="hf-vogq" class="title-band reveal"><h3 data-hf-id="hf-ngnw" class="title">Crossing the Sky</h3></div>
+            <p data-hf-id="hf-ffx7" class="caption reveal">Flying boats carry the first passengers across the ocean.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 10 — 1952 (178–197s) ============ -->
+      <section data-hf-id="hf-85o1" id="s10" class="scene clip" data-start="174" data-duration="18" data-track-index="1">
+        <div data-hf-id="hf-7wcg" class="scene-inner" id="s10-inner">
+          <div data-hf-id="hf-at4o" class="photo-frame"><img data-hf-id="hf-xgy2" class="photo" data-layout-allow-overflow="" id="s10-photo" src="assets/s10_1952_jet.jpg" alt=""></div>
+          <div data-hf-id="hf-gkcz" class="grade"></div>
+          <div data-hf-id="hf-ke3n" class="text" id="s10-text">
+            <p data-hf-id="hf-mn1q" class="kicker reveal">№ 10 · Est. 1952</p>
+            <h2 data-hf-id="hf-i16m" class="year reveal">1952</h2>
+            <div data-hf-id="hf-2xv9" class="year-rule reveal"></div>
+            <div data-hf-id="hf-va5p" class="title-band reveal"><h3 data-hf-id="hf-xh72" class="title">The Jet Age Dawns</h3></div>
+            <p data-hf-id="hf-afix" class="caption reveal">The world's first jet airliner takes to the skies.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 11 — 1970 (196–215s) ============ -->
+      <section data-hf-id="hf-xshd" id="s11" class="scene clip" data-start="191" data-duration="18" data-track-index="2">
+        <div data-hf-id="hf-0be5" class="scene-inner" id="s11-inner">
+          <div data-hf-id="hf-aetn" class="photo-frame"><img data-hf-id="hf-3355" class="photo" data-layout-allow-overflow="" id="s11-photo" src="assets/s11_1970_747.jpg" alt=""></div>
+          <div data-hf-id="hf-gyo0" class="grade"></div>
+          <div data-hf-id="hf-6e0w" class="text" id="s11-text">
+            <p data-hf-id="hf-wnjp" class="kicker reveal">№ 11 · Est. 1970</p>
+            <h2 data-hf-id="hf-5hwq" class="year reveal">1970</h2>
+            <div data-hf-id="hf-bypz" class="year-rule reveal"></div>
+            <div data-hf-id="hf-km9r" class="title-band reveal"><h3 data-hf-id="hf-9p7h" class="title">The World, For Everyone</h3></div>
+            <p data-hf-id="hf-0obu" class="caption reveal">The jumbo jet opens the skies to all.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 12 — TODAY (214–233s) ============ -->
+      <section data-hf-id="hf-zg72" id="s12" class="scene clip" data-start="208" data-duration="19" data-track-index="1">
+        <div data-hf-id="hf-orz6" class="scene-inner" id="s12-inner">
+          <div data-hf-id="hf-a0im" class="photo-frame"><img data-hf-id="hf-kuba" class="photo" data-layout-allow-overflow="" id="s12-photo" src="assets/s12_today.jpg" alt=""></div>
+          <div data-hf-id="hf-frqx" class="grade"></div>
+          <div data-hf-id="hf-gi8x" class="text" id="s12-text">
+            <p data-hf-id="hf-3l3e" class="kicker reveal">№ 12 · Present Day</p>
+            <h2 data-hf-id="hf-isd8" class="year reveal">Today</h2>
+            <div data-hf-id="hf-cd10" class="year-rule reveal"></div>
+            <div data-hf-id="hf-l0ks" class="title-band reveal"><h3 data-hf-id="hf-zkmj" class="title">The Journey Continues</h3></div>
+            <p data-hf-id="hf-so6i" class="caption reveal">Today, the whole world is a day away.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 13 — OUTRO (232–244s) ============ -->
+      <section data-hf-id="hf-bq5v" id="s13" class="scene clip" data-start="226" data-duration="14" data-track-index="2">
+        <div data-hf-id="hf-1i4n" class="scene-inner" id="s13-inner">
+          <div data-hf-id="hf-9m7l" class="photo-frame"></div>
+          <div data-hf-id="hf-g61y" class="grade"></div>
+          <div data-hf-id="hf-gy37" class="text center" id="s13-text">
+            <h1 data-hf-id="hf-d011" class="title reveal" id="s13-title" data-layout-allow-overlap>Where will you go next?</h1>
+            <div data-hf-id="hf-b63x" class="year-rule reveal"></div>
+            <div data-hf-id="hf-av03" class="logo-slot reveal">HistoryFramesFilm<span data-hf-id="hf-av04" class="handle">@historyframesfilm</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PERSISTENT OVERLAYS (full-duration clips, top tracks) ============ -->
+      <!-- Vignette — darkens corners -->
+      <div data-hf-id="hf-mb73" id="ov-vignette" class="scene clip vignette" data-start="0" data-duration="240" data-track-index="10"></div>
+      <!-- Vintage paper texture — edge-anchored right + bottom, slow parallax drift -->
+      <div data-hf-id="hf-an34" id="ov-paper" class="scene clip paper" data-start="0" data-duration="240" data-track-index="11"></div>
+      <!-- Film grain — deterministic SVG feTurbulence, fixed seed, soft-light ~8% -->
+      <div data-hf-id="hf-rrmx" id="ov-grain" class="scene clip grain" data-start="0" data-duration="240" data-track-index="12">
+        <svg data-hf-id="hf-ztyk" xmlns="http://www.w3.org/2000/svg">
+          <filter data-hf-id="hf-n64n" id="grainFilter">
+            <feturbulence data-hf-id="hf-vpqi" type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" />
+            <fecolormatrix data-hf-id="hf-skw8" type="saturate" values="0" />
+          </filter>
+          <rect data-hf-id="hf-qncy" width="100%" height="100%" filter="url(#grainFilter)" />
+        </svg>
+      </div>
+      <!-- Act-break white bloom — opacity animated into scenes 02 and 07 -->
+      <div data-hf-id="hf-yus0" id="ov-bloom" class="scene clip bloom" data-start="0" data-duration="240" data-track-index="13"></div>
+
+      <!-- ============ BACKGROUND MUSIC ============ -->
+      <!-- Nostalgic score — DIRECT child of root (framework owns playback). Spans the
+           whole piece; volume fades are animated on the timeline (not data-volume). -->
+      <audio data-hf-id="hf-wmsr" id="bgm-score" src="assets/audio/score.mp3" data-start="0" data-duration="240" data-track-index="30" data-volume="0.9"></audio>
+
+      <!-- ============ NARRATION (VO) — one <audio> clip per scene, DIRECT children of root ============ -->
+      <!-- Warm documentary narrator (Kokoro bm_george, 0.9x). Each line sits inside its scene. -->
+      <audio data-hf-id="hf-6a3d" id="vo-00" src="assets/voice/00.wav" data-start="2" data-duration="10.56" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-1do8" id="vo-01" src="assets/voice/01.wav" data-start="18" data-duration="14.016" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-h3c0" id="vo-02" src="assets/voice/02.wav" data-start="36" data-duration="13.312" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-j1i7" id="vo-03" src="assets/voice/03.wav" data-start="54" data-duration="13.227" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-ldb0" id="vo-04" src="assets/voice/04.wav" data-start="72" data-duration="10.944" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-favi" id="vo-05" src="assets/voice/05.wav" data-start="89" data-duration="10.944" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-arqs" id="vo-06" src="assets/voice/06.wav" data-start="106" data-duration="11.093" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-j7tz" id="vo-07" src="assets/voice/07.wav" data-start="123" data-duration="11.925" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-28ix" id="vo-08" src="assets/voice/08.wav" data-start="140" data-duration="13.355" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-xztg" id="vo-09" src="assets/voice/09.wav" data-start="158" data-duration="11.883" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-f2dh" id="vo-10" src="assets/voice/10.wav" data-start="175" data-duration="11.968" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-ypng" id="vo-11" src="assets/voice/11.wav" data-start="192" data-duration="10.901" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-t7od" id="vo-12" src="assets/voice/12.wav" data-start="209" data-duration="11.904" data-track-index="31" data-volume="1"></audio>
+      <audio data-hf-id="hf-qpu4" id="vo-13" src="assets/voice/13.wav" data-start="227" data-duration="4.459" data-track-index="31" data-volume="1"></audio>
+    </div>
+
+    <script>
+      // ===== ONE paused GSAP timeline, registered under the composition id "main" =====
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- PARALLAX + Ken Burns: photo (near plane) drifts MORE than text (far) ----
+      // Photo pushes scale 1.12–1.16 + pans horizontally; text travels ~30% of that
+      // horizontal drift, same direction — depth without motion sickness. sine.inOut.
+      function kenBurns(id, start, dur, dir, scaleTo) {
+        const photoX = 3.6 * dir;
+        tl.fromTo(
+          `#${id}-photo`,
+          { scale: 1.0, xPercent: 0, yPercent: 0 },
+          { scale: scaleTo, xPercent: photoX, yPercent: -1.6, duration: dur, ease: "sine.inOut" },
+          start
+        );
+        tl.fromTo(
+          `#${id}-text`,
+          { xPercent: 0 },
+          { xPercent: photoX * 0.3, duration: dur, ease: "sine.inOut" },
+          start
+        );
+      }
+
+      // ---- Choreographed text entrance (DESIGN.md): YEAR rises first, then TITLE
+      //      (+0.12s), then CAPTION (+0.28s). Driven by scene type so each scene only
+      //      animates the roles it actually has — no missing-target tweens. ----
+      function rise(sel, at, dur, ease, dy) {
+        tl.fromTo(sel, { y: dy, opacity: 0 }, { y: 0, opacity: 1, duration: dur, ease }, at);
+      }
+      function enterText(scene, at, type) {
+        const base = `#${scene}-text`;
+        if (type === "content") {
+          rise(`${base} .kicker`, at - 0.05, 0.7, "power3.out", 30);
+          rise(`${base} .year`, at, 0.7, "power3.out", 40);
+          rise(`${base} .year-rule`, at + 0.18, 0.55, "power2.out", 14);
+          rise(`${base} .title-band`, at + 0.12, 0.7, "power3.out", 36); // title rides the band
+          rise(`${base} .caption`, at + 0.28, 0.7, "power2.out", 24);
+        } else if (type === "title") {
+          rise(`${base} .kicker`, at - 0.05, 0.7, "power3.out", 30);
+          rise(`${base} .title`, at + 0.12, 0.7, "power3.out", 36);
+          rise(`${base} .caption`, at + 0.28, 0.7, "power2.out", 24);
+        } else {
+          // outro
+          rise(`${base} .title`, at + 0.12, 0.7, "power3.out", 36);
+          rise(`${base} .year-rule`, at + 0.3, 0.55, "power2.out", 14);
+          rise(`${base} .logo-slot`, at + 0.42, 0.7, "power2.out", 24);
+        }
+      }
+
+      // ---- Cross-dissolve: previous out, next in, over 1.0s at time T ----
+      function dissolve(outScene, inScene, t) {
+        tl.to(`#${outScene}-inner`, { opacity: 0, duration: 1.0, ease: "power1.inOut" }, t);
+        tl.fromTo(`#${inScene}-inner`, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power1.inOut" }, t);
+      }
+
+      // ---- Soft white bloom at an act break (css-light family), centered on T ----
+      function bloom(t) {
+        tl.to("#ov-bloom", { opacity: 0.5, duration: 0.5, ease: "power1.in" }, t - 0.2);
+        tl.to("#ov-bloom", { opacity: 0, duration: 0.9, ease: "power2.out" }, t + 0.3);
+      }
+
+      // ---- Duck the music under a VO line: drop to -8 dB just before, lift after ----
+      const MUSIC_FULL = 0.9;
+      const MUSIC_DUCK = 0.36; // 0.9 × 10^(-8/20) ≈ -8 dB under the VO
+      function duck(voStart, voEnd) {
+        tl.to("#bgm-score", { volume: MUSIC_DUCK, duration: 0.6, ease: "power1.out", overwrite: "auto" }, voStart - 0.6);
+        tl.to("#bgm-score", { volume: MUSIC_FULL, duration: 0.9, ease: "power1.in", overwrite: "auto" }, voEnd);
+      }
+
+      // ===== Scene table: [id, start, duration, drift dir, Ken Burns scale, type] =====
+      // Durations re-timed so each scene comfortably holds its VO line; total = 240s (4:00).
+      const scenes = [
+        ["s00", 0, 18, 1, 1.12, "title"],
+        ["s01", 17, 19, -1, 1.14, "content"],
+        ["s02", 35, 19, 1, 1.16, "content"],
+        ["s03", 53, 19, -1, 1.13, "content"],
+        ["s04", 71, 18, 1, 1.15, "content"],
+        ["s05", 88, 18, -1, 1.12, "content"],
+        ["s06", 105, 18, 1, 1.16, "content"],
+        ["s07", 122, 18, -1, 1.14, "content"],
+        ["s08", 139, 19, 1, 1.13, "content"],
+        ["s09", 157, 18, -1, 1.15, "content"],
+        ["s10", 174, 18, 1, 1.12, "content"],
+        ["s11", 191, 18, -1, 1.16, "content"],
+        ["s12", 208, 19, 1, 1.14, "content"],
+        ["s13", 226, 14, 1, 1.0, "outro"],
+      ];
+
+      scenes.forEach(([id, start, dur, dir, scaleTo, type]) => {
+        // Parallax Ken Burns on the photo (outro s13 has no image, so skip)
+        if (id !== "s13") kenBurns(id, start, dur, dir, scaleTo);
+        // Text rises in shortly after the scene begins
+        enterText(id, start + 0.4, type);
+      });
+
+      // Cross-dissolve at each scene boundary (incoming scene's start time)
+      for (let i = 1; i < scenes.length; i++) {
+        dissolve(scenes[i - 1][0], scenes[i][0], scenes[i][1]);
+      }
+
+      // Act-break soft white blooms — placed ON the music's two swells so the visual
+      // lift rides the score: first build → dissolve into 1883 (T=53); biggest swell →
+      // dissolve into the Jet Age, 1952 (T=174). Rhythm: drift → swell → LIFT (×2) → exhale.
+      bloom(53);
+      bloom(174);
+
+      // Very slow paper-texture parallax drift across the whole piece
+      tl.fromTo(
+        "#ov-paper",
+        { xPercent: 0, yPercent: 0 },
+        { xPercent: -1.0, yPercent: -0.8, duration: 240, ease: "sine.inOut" },
+        0
+      );
+
+      // ===== Subtle life (deterministic — finite repeats, no Math.random/Date.now) =====
+      // Vignette "breathe": corners darken and lift on a slow ~24s cycle.
+      tl.to(
+        "#ov-vignette",
+        { opacity: 0.82, duration: 12, ease: "sine.inOut", repeat: 19, yoyo: true },
+        0
+      );
+      // Grain "alive": faint square-wave flicker (~0.12s) keeps the grain shimmering.
+      tl.fromTo(
+        "#ov-grain",
+        { opacity: 0.1 },
+        { opacity: 0.06, duration: 0.12, ease: "steps(1)", repeat: 2000, yoyo: true },
+        0
+      );
+
+      // ===== Narration timing: [global VO start, VO duration] — must match the
+      //       #vo-NN <audio> data-start / data-duration in the body. Drives ducking. =====
+      const vo = [
+        [2, 10.56], [18, 14.016], [36, 13.312], [54, 13.227], [72, 10.944],
+        [89, 10.944], [106, 11.093], [123, 11.925], [140, 13.355], [158, 11.883],
+        [175, 11.968], [192, 10.901], [209, 11.904], [227, 4.459],
+      ];
+
+      // ===== Background music: 1.5s fade-in, duck -8 dB under each VO line, 2s fade-out.
+      //       Volume is animated on the timeline (runtime probes the keyframes). =====
+      tl.fromTo("#bgm-score", { volume: 0 }, { volume: MUSIC_FULL, duration: 1.5, ease: "power1.in", overwrite: "auto" }, 0);
+      vo.forEach(([s, d]) => duck(s, s + d));
+      tl.to("#bgm-score", { volume: 0, duration: 2.0, ease: "power1.out", overwrite: "auto" }, 238);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

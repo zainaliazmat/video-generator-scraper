@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>50-30-20 Rule — USA</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --needs: #38bdf8;
+        --wants: #f59e0b;
+        --save: #22c55e;
+        --warn: #ef4444;
+        --pop: #ff5c39;
+        --font: "Arial Black", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .scene {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        padding: 100px 140px; background: var(--bg); color: var(--ink); text-align: center;
+        overflow: hidden;
+      }
+      .bg {
+        position: absolute; inset: -8%; z-index: 0; background-size: cover; background-position: center;
+        filter: grayscale(0.32) brightness(0.62) contrast(1.05);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+          radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13, 16, 23, 0.46), transparent 80%),
+          radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13, 16, 23, 0.14), rgba(13, 16, 23, 0.58)),
+          linear-gradient(180deg, rgba(13, 16, 23, 0.40), rgba(13, 16, 23, 0.10) 46%, rgba(13, 16, 23, 0.52));
+      }
+      .kicker, .huge, .sub, .foot, .counter, .head2, .legpct, .legnum {
+        text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.55);
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background-image: url(assets/img/grain.png); background-size: cover; opacity: 0.05; mix-blend-mode: overlay;
+      }
+      .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; }
+      .row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+      .kicker { font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); font-weight: 800; margin: 0; }
+      .huge { font-size: 104px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px; }
+      .sub { font-size: 38px; color: var(--muted); font-weight: 800; margin: 0; }
+      .foot { font-size: 26px; color: var(--muted); font-weight: 700; letter-spacing: 2px; margin: 0; }
+      .counter { font-size: 96px; font-weight: 900; margin: 0; }
+      .head2 { font-size: 62px; font-weight: 900; margin: 0; }
+      .needsc { color: var(--needs); } .wantsc { color: var(--wants); }
+      .savec { color: var(--save); } .warnc { color: var(--warn); }
+
+      .chip {
+        font-size: 30px; font-weight: 800; letter-spacing: 1px; padding: 16px 28px;
+        border-radius: 999px; background: var(--panel); border: 3px solid #2a3241; color: var(--ink);
+      }
+      .chip.needs { border-color: var(--needs); }
+      .chip.wants { border-color: var(--wants); }
+      .chip.save  { border-color: var(--save); }
+      .chip.warn  { border-color: var(--warn); }
+
+      .stamp {
+        font-size: 42px; font-weight: 900; letter-spacing: 3px; padding: 16px 36px; border-radius: 16px;
+        color: #0d1017; transform: rotate(-4deg);
+      }
+      .stamp.save { background: var(--save); }
+      .stamp.warn { background: var(--warn); color: #fff; }
+      .stamp.pop  { background: var(--pop); }
+
+      /* ── the three-bar meter — identical system to the Hindi cut ──
+         Bars carry NO text so they animate with pure transforms (x / scaleX);
+         layout props like left/width snap to integer pixels and stutter under
+         the seek-by-frame capture engine. Text lives in the legend row. */
+      .meter { position: relative; width: 1500px; height: 96px; }
+      .bar {
+        position: absolute; top: 0; height: 100%; border-radius: 12px;
+        border: 4px solid; background: rgba(22, 27, 37, 0.80); transform-origin: left center;
+      }
+      .bar.needs { border-color: var(--needs); background: rgba(56, 189, 248, 0.16); }
+      .bar.wants { border-color: var(--wants); background: rgba(245, 158, 11, 0.16); }
+      .bar.save  { border-color: var(--save);  background: rgba(34, 197, 94, 0.18); }
+      .legend { display: flex; gap: 26px; justify-content: center; }
+      .leg {
+        display: flex; flex-direction: column; align-items: center; gap: 2px;
+        padding: 12px 26px; border-radius: 14px; border: 3px solid #2a3241;
+        background: var(--panel); min-width: 240px;
+      }
+      .leg.needs { border-color: var(--needs); color: var(--needs); }
+      .leg.wants { border-color: var(--wants); color: var(--wants); }
+      .leg.save  { border-color: var(--save);  color: var(--save); }
+      .legpct { font-size: 46px; font-weight: 900; line-height: 1; margin: 0; }
+      .leglbl { font-size: 19px; letter-spacing: 3px; font-weight: 800; color: var(--muted); margin: 0; }
+      .legnum { font-size: 30px; font-weight: 900; margin: 0; }
+
+      .cta { font-size: 44px; font-weight: 900; letter-spacing: 2px; padding: 22px 52px; border-radius: 14px; background: var(--pop); color: #0d1017; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="223.25" style="position: relative; width: 1920px; height: 1080px; overflow: hidden;">
+
+      <!-- 1 · HOOK -->
+      <section id="s1" class="scene clip" data-start="0" data-duration="23.3" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s1.jpg)"></div>
+        <div class="bg" id="s1bgA" style="background-image: url(assets/img/s1-wallet.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.16)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s1k" class="kicker">Payday Friday &rarr; the 20th</p>
+          <h1 id="s1q" class="huge">WHERE DID IT <span class="warnc">GO?</span></h1>
+          <p id="s1amt" class="counter" style="color: var(--muted)">$ ?</p>
+          <div id="s1stat" class="stamp warn">AMERICA SAVES 3%</div>
+          <p id="s1ghost" class="sub">the rule says <span class="savec">20%</span></p>
+          <div id="s1fix" class="stamp save">50 &middot; 30 &middot; 20</div>
+        </div>
+      </section>
+
+      <!-- 2 · PROMISE -->
+      <section id="s2" class="scene clip" data-start="23.3" data-duration="15.31" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s2.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(120, 150, 200, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p class="kicker" id="s2k">By the end you'll know</p>
+          <div class="row">
+            <div id="s2a" class="chip">THE RULE</div>
+            <div id="s2b" class="chip">3 BUCKETS</div>
+            <div id="s2c" class="chip">$4,000 MATH</div>
+            <div id="s2d" class="chip warn">THE 2026 PATCH</div>
+          </div>
+          <p id="s2f" class="foot">this rule was written in 2005</p>
+        </div>
+      </section>
+
+      <!-- 3 · THE RULE -->
+      <section id="s3" class="scene clip" data-start="38.61" data-duration="28.26" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s3.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(56, 189, 248, 0.11)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s3k" class="kicker">Every dollar gets a job</p>
+          <div class="meter">
+            <div id="m3a" class="bar needs" style="left: 0px;    width: 741px; opacity: 0"></div>
+            <div id="m3b" class="bar wants" style="left: 750px;  width: 441px; opacity: 0"></div>
+            <div id="m3c" class="bar save"  style="left: 1200px; width: 300px; opacity: 0"></div>
+          </div>
+          <div class="legend">
+            <div id="l3a" class="leg needs" style="opacity: 0"><p class="legpct">50</p><p class="leglbl">NEEDS</p></div>
+            <div id="l3b" class="leg wants" style="opacity: 0"><p class="legpct">30</p><p class="leglbl">WANTS</p></div>
+            <div id="l3c" class="leg save"  style="opacity: 0"><p class="legpct">20</p><p class="leglbl">SAVE</p></div>
+          </div>
+          <p id="s3cred" class="foot">All Your Worth &mdash; Warren &amp; Tyagi, 2005</p>
+          <div id="s3stamp" class="stamp warn">TAKE-HOME, NOT SALARY</div>
+        </div>
+      </section>
+
+      <!-- 4 · NEEDS 50% -->
+      <section id="s4" class="scene clip" data-start="66.87" data-duration="35.97" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s4.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(56, 189, 248, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 24px">
+          <div class="meter" style="height: 84px">
+            <div id="m4a" class="bar needs" style="left: 0px;    width: 741px"></div>
+            <div id="m4b" class="bar wants" style="left: 750px;  width: 441px; opacity: 0.3"></div>
+            <div id="m4c" class="bar save"  style="left: 1200px; width: 300px; opacity: 0.3"></div>
+          </div>
+          <div class="row">
+            <div id="s4a" class="chip needs">RENT</div>
+            <div id="s4b" class="chip needs">GROCERIES</div>
+            <div id="s4c" class="chip needs">INSURANCE</div>
+            <div id="s4d" class="chip needs">UTILITIES</div>
+            <div id="s4e" class="chip needs">MIN. PAYMENT</div>
+          </div>
+          <h1 id="s4rent" class="head2">MEDIAN US RENT <span class="warnc">$1,850</span> <span style="color: var(--muted); font-size: 40px">of your</span> <span class="needsc">$2,000</span></h1>
+          <div id="s4stamp" class="stamp warn">49% OF RENTERS ARE COST-BURDENED</div>
+          <p id="s4f" class="foot">Not a discipline problem &mdash; a math problem</p>
+        </div>
+      </section>
+
+      <!-- 5 · WANTS 30% -->
+      <section id="s5" class="scene clip" data-start="102.84" data-duration="15.85" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s5.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.13)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <div class="meter" style="height: 84px">
+            <div id="m5a" class="bar needs" style="left: 0px;    width: 741px; opacity: 0.3"></div>
+            <div id="m5b" class="bar wants" style="left: 750px;  width: 441px"></div>
+            <div id="m5c" class="bar save"  style="left: 1200px; width: 300px; opacity: 0.3"></div>
+          </div>
+          <div class="row">
+            <div id="s5a" class="chip wants">TAKEOUT</div>
+            <div id="s5b" class="chip wants">STREAMING</div>
+            <div id="s5c" class="chip wants">CONCERTS</div>
+            <div id="s5d" class="chip wants">THE SHOES</div>
+          </div>
+          <div id="s5stamp" class="stamp pop">CAP IT, DON'T KILL IT</div>
+          <p id="s5f" class="foot">A budget that bans joy lasts 11 days</p>
+        </div>
+      </section>
+
+      <!-- 6 · SAVINGS 20% -->
+      <section id="s6" class="scene clip" data-start="118.69" data-duration="32.78" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s6.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 26px">
+          <div class="meter" style="height: 84px">
+            <div id="m6a" class="bar needs" style="left: 0px;    width: 741px; opacity: 0.25"></div>
+            <div id="m6b" class="bar wants" style="left: 750px;  width: 441px; opacity: 0.25"></div>
+            <div id="m6c" class="bar save"  style="left: 1200px; width: 300px"></div>
+          </div>
+          <div class="row">
+            <div id="s6a" class="chip save">1 &middot; EMERGENCY FUND</div>
+            <div id="s6b" class="chip save">2 &middot; RETIREMENT</div>
+            <div id="s6c" class="chip save">3 &middot; ABOVE-MIN DEBT</div>
+          </div>
+          <div class="row">
+            <div id="s6d1" class="chip warn">AVG CARD DEBT <span id="n6a">$0</span></div>
+            <div id="s6d2" class="chip warn">IF YOU REVOLVE <span id="n6b">$0</span></div>
+          </div>
+          <div id="s6stamp" class="stamp save">20% APR PAYOFF = GUARANTEED RETURN</div>
+          <h1 id="s6line" class="head2">the only line that <span class="savec">pays you back</span></h1>
+        </div>
+      </section>
+
+      <!-- 7 · WORKED EXAMPLE -->
+      <section id="s7" class="scene clip" data-start="151.47" data-duration="23.8" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s7.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 34px">
+          <h1 id="s7head" class="huge" style="font-size: 84px">$4,000 <span style="color: var(--muted); font-size: 46px">TAKE-HOME</span></h1>
+          <div class="meter" style="height: 96px">
+            <div id="m7a" class="bar needs" style="left: 0px;    width: 741px"></div>
+            <div id="m7b" class="bar wants" style="left: 750px;  width: 441px"></div>
+            <div id="m7c" class="bar save"  style="left: 1200px; width: 300px"></div>
+          </div>
+          <div class="legend">
+            <div id="l7a" class="leg needs"><p class="legpct">50</p><p id="n7a" class="legnum">$0</p></div>
+            <div id="l7b" class="leg wants"><p class="legpct">30</p><p id="n7b" class="legnum">$0</p></div>
+            <div id="l7c" class="leg save"><p class="legpct">20</p><p id="n7c" class="legnum">$0</p></div>
+          </div>
+          <p id="s7f" class="foot">$800/month = $9,600 a year</p>
+        </div>
+      </section>
+
+      <!-- 8 · THE 2026 PATCH + ACTION -->
+      <section id="s8" class="scene clip" data-start="175.27" data-duration="34.06" data-track-index="1">
+        <!-- charred-wood texture is near-black already; lift it so the grain reads under the climax scene -->
+        <div class="bg" style="background-image: url(assets/img/s8.jpg); filter: grayscale(0.32) brightness(1.45) contrast(1.02)"></div>
+        <div class="scrim" style="--tint: rgba(255, 92, 57, 0.14)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 24px">
+          <div id="s8stamp" class="stamp pop">THE 2026 PATCH</div>
+          <div class="meter" style="height: 90px">
+            <div id="m8a" class="bar needs" style="left: 0px;    width: 741px"></div>
+            <div id="m8b" class="bar wants" style="left: 750px;  width: 441px"></div>
+            <div id="m8c" class="bar save"  style="left: 1200px; width: 300px"></div>
+          </div>
+          <div class="legend">
+            <div class="leg needs"><p id="p8a" class="legpct">50</p><p class="leglbl">NEEDS</p></div>
+            <div class="leg wants"><p id="p8b" class="legpct">30</p><p class="leglbl">WANTS</p></div>
+            <div id="l8c" class="leg save"><p class="legpct">20</p><p class="leglbl">SAVE</p></div>
+          </div>
+          <h1 id="s8rule" class="head2">CUT THE <span class="wantsc">WANTS</span>, NOT THE <span class="savec">SAVINGS</span></h1>
+          <div id="s8never" class="stamp save">THE 20 NEVER MOVES</div>
+          <p id="s8fall" class="foot">Can't do 20? Start at 5 &mdash; +1 with every raise</p>
+          <div class="row">
+            <div id="s8act" class="chip save">AUTO-TRANSFER, DAY AFTER PAYDAY</div>
+          </div>
+          <p id="s8close" class="sub">automatically, not heroically</p>
+        </div>
+      </section>
+
+      <!-- 9 · RECAP + CTA -->
+      <section id="s9" class="scene clip" data-start="209.33" data-duration="13.92" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s9.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <div class="row">
+            <div id="s9a" class="chip needs">50 NEEDS</div>
+            <div id="s9b" class="chip wants">30 WANTS</div>
+            <div id="s9c" class="chip save">20 FUTURE</div>
+          </div>
+          <p id="s9split" class="sub">off your take-home &mdash; split on payday</p>
+          <h1 id="s9x" class="head2"><span class="savec">7&times;</span> the national average</h1>
+          <div id="s9cta" class="cta">&#9654; SUBSCRIBE</div>
+        </div>
+      </section>
+
+      <!-- voiceover — ElevenLabs "Brian", same voice as emergency-fund-en -->
+      <audio id="vo1" src="assets/voice/en1.mp3" data-start="0.4"    data-duration="22.1"  data-track-index="10" data-volume="1"></audio>
+      <audio id="vo2" src="assets/voice/en2.mp3" data-start="23.7"   data-duration="14.11" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo3" src="assets/voice/en3.mp3" data-start="39.01"  data-duration="27.06" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo4" src="assets/voice/en4.mp3" data-start="67.27"  data-duration="34.77" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo5" src="assets/voice/en5.mp3" data-start="103.24" data-duration="14.65" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo6" src="assets/voice/en6.mp3" data-start="119.09" data-duration="31.58" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo7" src="assets/voice/en7.mp3" data-start="151.87" data-duration="22.6"  data-track-index="10" data-volume="1"></audio>
+      <audio id="vo8" src="assets/voice/en8.mp3" data-start="175.67" data-duration="32.86" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo9" src="assets/voice/en9.mp3" data-start="209.73" data-duration="12.72" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      var S = { s1: 0, s2: 23.3, s3: 38.61, s4: 66.87, s5: 102.84, s6: 118.69, s7: 151.47, s8: 175.27, s9: 209.33 };
+
+      function rise(sel, at, dur, y) {
+        tl.fromTo(sel, { opacity: 0, y: y == null ? 40 : y }, { opacity: 1, y: 0, duration: dur == null ? 0.7 : dur, ease: "expo.out" }, at);
+      }
+      function pop(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.6 : dur, ease: "back.out(1.7)" }, at);
+      }
+      function fade(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: dur == null ? 0.5 : dur, ease: "power1.out" }, at);
+      }
+      function pulse(sel, at, s) {
+        tl.to(sel, { scale: s == null ? 1.12 : s, duration: 0.16, ease: "power2.out", repeat: 1, yoyo: true }, at);
+      }
+      function breathe(sel, at, dur) {
+        var cyc = 1.5, n = Math.max(1, Math.round(dur / cyc)); if (n % 2 === 0) n += 1;
+        tl.to(sel, { scale: 1.035, duration: cyc, ease: "sine.inOut", repeat: n, yoyo: true }, at);
+      }
+      function ken(sel, at, dur, zoomIn) {
+        tl.fromTo(sel,
+          { scale: zoomIn ? 1.0 : 1.16, xPercent: zoomIn ? -2.5 : 2.5 },
+          { scale: zoomIn ? 1.16 : 1.0, xPercent: zoomIn ? 2.5 : -2.5, duration: dur, ease: "none" }, at);
+      }
+      function countUp(id, from, to, at, dur, prefix) {
+        var el = document.getElementById(id);
+        var p = { v: from };
+        tl.fromTo(p, { v: from }, {
+          v: to, duration: dur == null ? 1.2 : dur, ease: "power1.out",
+          onUpdate: function () {
+            el.textContent = (prefix || "") + Math.round(p.v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          }
+        }, at);
+      }
+      function segIn(sel, at) {
+        tl.fromTo(sel, { opacity: 0, scaleX: 0.12 }, { opacity: 1, scaleX: 1, duration: 0.7, ease: "expo.out" }, at);
+      }
+      // 50/30/20 → 65/15/20, transforms only.
+      // needs 741→966px = 1.3036 · wants shifts +225px and 441→216px = 0.4898 · save untouched.
+      function toPatch(a, b, at, dur) {
+        tl.to(a, { scaleX: 1.3036, duration: dur, ease: "power2.inOut" }, at);
+        tl.to(b, { x: 225, scaleX: 0.4898, duration: dur, ease: "power2.inOut" }, at);
+      }
+      // the squeeze: needs takes the same 15 points, but out of SAVE —
+      // wants holds its width, save is shoved to the edge and crushed to a sliver.
+      function toSqueeze(a, b, c, at, dur) {
+        tl.to(a, { scaleX: 1.3036, borderColor: "#ef4444", backgroundColor: "rgba(239,68,68,0.18)", duration: dur, ease: "power2.inOut" }, at);
+        tl.to(b, { x: 225, duration: dur, ease: "power2.inOut" }, at);
+        tl.to(c, { x: 216, scaleX: 0.25, borderColor: "#ef4444", opacity: 0.55, duration: dur, ease: "power2.inOut" }, at);
+      }
+
+      ken("#s1 .bg", S.s1, 23.3, true);
+      ken("#s2 .bg", S.s2, 15.31, false);
+      ken("#s3 .bg", S.s3, 28.26, true);
+      ken("#s4 .bg", S.s4, 35.97, false);
+      ken("#s5 .bg", S.s5, 15.85, true);
+      ken("#s6 .bg", S.s6, 32.78, false);
+      ken("#s7 .bg", S.s7, 23.8, true);
+      ken("#s8 .bg", S.s8, 34.06, false);
+      ken("#s9 .bg", S.s9, 13.92, true);
+
+      // 1 · HOOK
+      rise("#s1k", S.s1 + 1.97, 0.6, 20);           // "Your paycheck hits Friday"
+      pop("#s1q", S.s1 + 4.53, 0.6);                // "Where is it by the twentieth?"
+      pop("#s1amt", S.s1 + 6.20, 0.7);
+      breathe("#s1amt", S.s1 + 7.20, 1.8);
+      fade("#s1bgA", S.s1 + 8.60, 0.8);             // photo → empty wallet
+      tl.to("#s1amt", { color: "#ef4444", duration: 0.3 }, S.s1 + 8.90);
+      pop("#s1stat", S.s1 + 9.60, 0.6);             // "saving about three percent" — BEA
+      pulse("#s1stat", S.s1 + 11.40, 1.1);          // "Three."
+      rise("#s1ghost", S.s1 + 13.58);               // "the most famous budget rule… twenty"
+      pop("#s1fix", S.s1 + 20.60, 0.6);             // "Fifty, thirty, twenty."
+
+      // 2 · PROMISE
+      rise("#s2k", S.s2 + 0.30);
+      rise("#s2a", S.s2 + 1.26, 0.5, 30);
+      rise("#s2b", S.s2 + 2.44, 0.5, 30);
+      rise("#s2c", S.s2 + 4.95, 0.5, 30);
+      rise("#s2d", S.s2 + 8.71, 0.5, 30);
+      rise("#s2f", S.s2 + 11.41);                   // "written in two thousand five"
+      pulse("#s2f", S.s2 + 12.40, 1.06);
+
+      // 3 · THE RULE — the meter is born here
+      rise("#s3k", S.s3 + 0.60);
+      segIn("#m3a", S.s3 + 4.92); fade("#l3a", S.s3 + 5.12, 0.5);   // "Fifty percent to needs"
+      segIn("#m3b", S.s3 + 6.43); fade("#l3b", S.s3 + 6.63, 0.5);   // "thirty to wants"
+      segIn("#m3c", S.s3 + 7.49); fade("#l3c", S.s3 + 7.69, 0.5);   // "twenty to savings and debt"
+      rise("#s3cred", S.s3 + 10.57);                // "Elizabeth Warren and Amelia Warren Tyagi"
+      pop("#s3stamp", S.s3 + 19.67, 0.6);           // "of your take-home pay"
+      pulse("#s3stamp", S.s3 + 25.80, 1.1);         // "not the one on the offer letter"
+
+      // 4 · NEEDS — chips, then the squeeze
+      rise("#s4a", S.s4 + 2.50, 0.5, 24); rise("#s4b", S.s4 + 3.00, 0.5, 24);
+      rise("#s4c", S.s4 + 3.50, 0.5, 24); rise("#s4d", S.s4 + 4.00, 0.5, 24);
+      rise("#s4e", S.s4 + 4.50, 0.5, 24);
+      pulse("#m4a", S.s4 + 7.79, 1.06);             // "Half your take-home — fifty percent"
+      rise("#s4rent", S.s4 + 15.45);                // "about eighteen hundred fifty a month"
+      toSqueeze("#m4a", "#m4b", "#m4c", S.s4 + 20.06, 1.5);   // "rent alone eats almost your entire needs budget"
+      pop("#s4stamp", S.s4 + 23.38, 0.6);           // "Half of American renters" — JCHS
+      rise("#s4f", S.s4 + 32.19);                   // "that's a math problem"
+
+      // 5 · WANTS
+      rise("#s5a", S.s5 + 1.79, 0.45, 24); rise("#s5b", S.s5 + 2.25, 0.45, 24);
+      rise("#s5c", S.s5 + 2.71, 0.45, 24); rise("#s5d", S.s5 + 3.17, 0.45, 24);
+      pulse("#m5b", S.s5 + 5.31, 1.06);             // "Thirty percent"
+      pop("#s5stamp", S.s5 + 11.02, 0.6);           // "you're supposed to cap it"
+      rise("#s5f", S.s5 + 14.17);                   // "lasts about eleven days"
+
+      // 6 · SAVINGS
+      rise("#s6a", S.s6 + 4.72, 0.5, 24);           // emergency fund
+      rise("#s6b", S.s6 + 6.07, 0.5, 24);           // retirement
+      rise("#s6c", S.s6 + 7.99, 0.5, 24);           // above-minimum debt
+      pop("#s6d1", S.s6 + 14.09, 0.5);
+      countUp("n6a", 0, 6715, S.s6 + 14.09, 1.2, "$");
+      pop("#s6d2", S.s6 + 18.35, 0.5);
+      countUp("n6b", 0, 10870, S.s6 + 18.35, 1.2, "$");
+      pop("#s6stamp", S.s6 + 23.04, 0.6);           // "a guaranteed return"
+      breathe("#m6c", S.s6 + 24.60, 4.5);
+      rise("#s6line", S.s6 + 30.60);                // "the only one that pays you back"
+
+      // 7 · WORKED EXAMPLE — the payoff shot
+      rise("#s7head", S.s7 + 1.46);
+      countUp("n7a", 0, 2000, S.s7 + 5.76, 1.3, "$");
+      pulse("#l7a", S.s7 + 5.76, 1.05);
+      countUp("n7b", 0, 1200, S.s7 + 8.23, 1.3, "$");
+      pulse("#l7b", S.s7 + 8.23, 1.05);
+      countUp("n7c", 0, 800, S.s7 + 10.82, 1.3, "$");
+      pulse("#l7c", S.s7 + 10.82, 1.05);
+      breathe("#l7c", S.s7 + 13.00, 4.5);
+      rise("#s7f", S.s7 + 21.47);                   // "ninety-six hundred a year"
+
+      // 8 · THE PATCH — same 65%, opposite meaning: the 20 does not move
+      pop("#s8stamp", S.s8 + 2.29, 0.6);
+      pulse("#m8a", S.s8 + 4.12, 1.06);             // "If your needs eat sixty-five percent"
+      toPatch("#m8a", "#m8b", S.s8 + 7.76, 1.4);    // "run sixty-five, fifteen, twenty"
+      countUp("p8a", 50, 65, S.s8 + 7.76, 1.4);
+      countUp("p8b", 30, 15, S.s8 + 7.76, 1.4);
+      rise("#s8rule", S.s8 + 10.16);                // "Cut the wants, not the savings"
+      pop("#s8never", S.s8 + 13.30, 0.6);           // "The twenty never moves"
+      pulse("#l8c", S.s8 + 13.90, 1.12);            // …and the save bar never moved
+      pulse("#l8c", S.s8 + 14.40, 1.12);
+      rise("#s8fall", S.s8 + 17.09);                // "start at five"
+      pop("#s8act", S.s8 + 21.09, 0.6);             // "set an automatic transfer"
+      rise("#s8close", S.s8 + 32.17);               // "automatically, not heroically"
+
+      // 9 · RECAP + CTA
+      pop("#s9a", S.s9 + 0.65, 0.5);
+      pop("#s9b", S.s9 + 1.48, 0.5);
+      pop("#s9c", S.s9 + 2.36, 0.5);
+      rise("#s9split", S.s9 + 4.58);
+      rise("#s9x", S.s9 + 10.08);
+      pulse("#s9x", S.s9 + 10.90, 1.08);
+      pop("#s9cta", S.s9 + 12.23, 0.6);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>The Soul of Coffee</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* ===== SELF-HOSTED FONTS (assets/fonts/*.woff2) ===== */
+      @font-face {
+        font-family: "Pinyon Script";
+        src: url("assets/fonts/Pinyon_Script/PinyonScript-Regular.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Marcellus SC";
+        src: url("assets/fonts/Marcellus_SC/MarcellusSC-Regular.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Spectral";
+        src: url("assets/fonts/Spectral/Spectral-Regular.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Spectral";
+        src: url("assets/fonts/Spectral/Spectral-Medium.woff2") format("woff2");
+        font-weight: 500; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Spectral";
+        src: url("assets/fonts/Spectral/Spectral-Italic.woff2") format("woff2");
+        font-weight: 400; font-style: italic; font-display: block;
+      }
+
+      /* ===== DESIGN TOKENS ===== */
+      :root {
+        --paper: #efe7d6;
+        --ink: #2b2622;
+        --ink-soft: #5a5048;
+        --accent: #8c5a3c;
+        --accent-dim: #c9a87f;
+        --bleed-warm: #b5762e;
+        --bleed-cool: #4a6a78;
+        --font-script: "Pinyon Script", cursive;
+        --font-label: "Marcellus SC", serif;
+        --font-body: "Spectral", serif;
+      }
+
+      html, body { margin: 0; padding: 0; background: var(--ink); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+      .svg-defs { position: absolute; width: 0; height: 0; }
+
+      /* ===== shared scene scaffold ===== */
+      .scene.clip { position: absolute; inset: 0; }
+      .scene-content { position: absolute; inset: 0; overflow: hidden; background: var(--paper); }
+
+      /* LAYER 1 : paper ground */
+      .paper-bg {
+        position: absolute; inset: 0;
+        background-color: var(--paper);
+        background-image: url("assets/textures/paper.jpg");
+        background-size: cover; background-position: center;
+      }
+
+      /* LAYER 2 : photo panel that paints in (per-scene inset/paint/source generated) */
+      .photo-wrap {
+        position: absolute; overflow: hidden;
+        filter: url(#watercolor-edge);
+        --paint: 10%;
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-position: center; mask-position: center;
+        -webkit-mask-size: var(--paint); mask-size: var(--paint);
+      }
+      .photo-inner {
+        position: absolute; inset: 0;
+        isolation: isolate;
+        background: linear-gradient(160deg, #6f7d3f 0%, #4f6a39 45%, #38502c 100%);
+        will-change: transform;
+      }
+      .photo-base {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        object-fit: cover; display: block;
+        filter: grayscale(0.55) sepia(0.25) contrast(1.05) brightness(0.96);
+      }
+      .photo-color {
+        position: absolute; inset: 0;
+        background-size: cover; background-position: center;
+        mix-blend-mode: multiply; opacity: 0.7;
+      }
+      .watercolor-tex {
+        position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(181, 118, 46, 0.25), rgba(181, 118, 46, 0.25)),
+          url("assets/textures/watercolor-1.png");
+        background-size: cover, cover; background-position: center, center;
+        mix-blend-mode: multiply; opacity: 0.5;
+      }
+      .photo-feather {
+        position: absolute; inset: 0; pointer-events: none;
+        box-shadow: inset 0 0 90px 36px var(--paper);
+      }
+
+      /* paper veil — cream glow behind centred title cards */
+      .paper-veil {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(62% 52% at 50% 50%,
+          rgba(239, 231, 214, 0.92) 0%, rgba(239, 231, 214, 0.55) 40%, rgba(239, 231, 214, 0) 72%);
+      }
+
+      /* LAYER 3 : text */
+      .text-block { position: absolute; left: 150px; bottom: 110px; max-width: 520px; }
+      .text-center {
+        position: absolute; left: 0; right: 0; top: 50%;
+        transform: translateY(-50%);
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        padding: 0 220px; box-sizing: border-box;
+      }
+      /* soft paper halo keeps dark ink type legible over any image edge it overlaps */
+      .title { margin: 0; font-family: "Pinyon Script", cursive; font-size: 112px; line-height: 0.95; color: var(--ink); font-weight: 400; text-shadow: 0 1px 2px rgba(239, 231, 214, 0.6), 0 0 26px rgba(239, 231, 214, 0.5); }
+      .text-center .title { font-size: 150px; line-height: 0.9; }
+      .subtitle { margin: 18px 0 0; font-family: "Marcellus SC", serif; font-size: 30px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); font-weight: 400; text-shadow: 0 1px 12px rgba(239, 231, 214, 0.7); }
+      .text-center .subtitle { letter-spacing: 0.22em; }
+      .line { margin: 12px 0 0; font-family: "Spectral", serif; font-style: italic; font-size: 22px; letter-spacing: 0.01em; color: var(--ink-soft); text-shadow: 0 1px 10px rgba(239, 231, 214, 0.7); }
+
+      /* brand logo — inks in via its own mask wipe */
+      .brand-logo {
+        position: relative; width: 300px; height: 64px; margin: 30px 0 6px;
+        --logo-paint: 0%;
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-position: center; mask-position: center;
+        -webkit-mask-size: var(--logo-paint); mask-size: var(--logo-paint);
+      }
+      .brand-logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+      .logo-fallback {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        border: 1px solid rgba(43, 38, 34, 0.45);
+        font-family: "Marcellus SC", serif; font-size: 16px; letter-spacing: 0.34em; color: var(--ink-soft);
+      }
+
+      /* LAYER 5/6 : grain + vignette */
+      .grain {
+        position: absolute; inset: 0; pointer-events: none;
+        background-image: url("assets/textures/grain.png");
+        background-size: cover; mix-blend-mode: overlay; opacity: 0.34;
+      }
+      .vignette {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 120% at 50% 45%, rgba(20, 15, 10, 0) 55%, rgba(20, 15, 10, 0.45) 100%);
+      }
+
+      /* ===== ink-wipe transition overlays (per-transition mask generated) ===== */
+      .ink-transition { position: absolute; inset: 0; }
+      .ink-fill {
+        position: absolute; inset: 0;
+        background: var(--ink);
+        filter: url(#watercolor-edge);
+        --tx-paint: 0%;
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-size: var(--tx-paint); mask-size: var(--tx-paint);
+      }
+
+      /* ===== constant intro / outro overrides (full-frame bloom, centred card) ===== */
+      #intro .photo-wrap, #outro .photo-wrap { inset: 40px; --paint: 8%; }
+      #intro .photo-color { background-image: url("assets/images/00-hills-dawn.jpg"); }
+      #outro .photo-color { background-image: url("assets/images/23-cup-on-wood.jpg"); }
+
+      /* ===== generated per-scene overrides ===== */
+      #scene-1 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 8%;
+        filter: url(#wc-1);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-1 .photo-color { background-image: url("assets/images/01-highlands.jpg"); opacity: 0.7; }
+      #scene-1 .watercolor-tex { background-image: linear-gradient(rgba(95,120,82,0.20), rgba(95,120,82,0.20)), url("assets/textures/watercolor-1.png"); }
+      #scene-2 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 14%;
+        filter: url(#wc-2);
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+      }
+      #scene-2 .photo-color { background-image: url("assets/images/02-arabica-shrub.jpg"); opacity: 0.84; }
+      #scene-2 .watercolor-tex { background-image: linear-gradient(rgba(74,110,55,0.26), rgba(74,110,55,0.26)), url("assets/textures/watercolor-1.png"); }
+      #scene-2 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-3 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 10%;
+        filter: url(#wc-3);
+        -webkit-mask-image: url("assets/textures/ink-splatter-4.png");
+        mask-image: url("assets/textures/ink-splatter-4.png");
+      }
+      #scene-3 .photo-color { background-image: url("assets/images/03-goats-herder.jpg"); opacity: 0.66; }
+      #scene-3 .watercolor-tex { background-image: linear-gradient(rgba(150,85,52,0.24), rgba(150,85,52,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-4 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 12%;
+        filter: url(#wc-4);
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+      }
+      #scene-4 .photo-color { background-image: url("assets/images/04-world-map-vintage.jpg"); opacity: 0.55; }
+      #scene-4 .watercolor-tex { background-image: linear-gradient(rgba(150,120,80,0.16), rgba(150,120,80,0.16)), url("assets/textures/watercolor-1.png"); }
+      #scene-4 .photo-base { filter: grayscale(0.28) sepia(0.34) contrast(1.0) brightness(1.16); }
+      #scene-4 .vignette { opacity: 0.24; }
+      #scene-4 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-5 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 8%;
+        filter: url(#wc-5);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-5 .photo-color { background-image: url("assets/images/05-red-cherries.jpg"); opacity: 0.92; }
+      #scene-5 .watercolor-tex { background-image: linear-gradient(rgba(186,40,34,0.34), rgba(186,40,34,0.34)), url("assets/textures/watercolor-1.png"); }
+      #scene-6 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 14%;
+        filter: url(#wc-6);
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+      }
+      #scene-6 .photo-color { background-image: url("assets/images/06-hands-picking.jpg"); opacity: 0.8; }
+      #scene-6 .watercolor-tex { background-image: linear-gradient(rgba(176,90,66,0.26), rgba(176,90,66,0.26)), url("assets/textures/watercolor-1.png"); }
+      #scene-6 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-7 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 10%;
+        filter: url(#wc-7);
+        -webkit-mask-image: url("assets/textures/ink-splatter-4.png");
+        mask-image: url("assets/textures/ink-splatter-4.png");
+      }
+      #scene-7 .photo-color { background-image: url("assets/images/07-harvest-baskets.jpg"); opacity: 0.78; }
+      #scene-7 .watercolor-tex { background-image: linear-gradient(rgba(166,70,50,0.28), rgba(166,70,50,0.28)), url("assets/textures/watercolor-1.png"); }
+      #scene-8 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 12%;
+        filter: url(#wc-8);
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+      }
+      #scene-8 .photo-color { background-image: url("assets/images/08-drying-beds.jpg"); opacity: 0.7; }
+      #scene-8 .watercolor-tex { background-image: linear-gradient(rgba(205,170,115,0.22), rgba(205,170,115,0.22)), url("assets/textures/watercolor-1.png"); }
+      #scene-8 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-9 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 8%;
+        filter: url(#wc-9);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-9 .photo-color { background-image: url("assets/images/09-green-beans.jpg"); opacity: 0.62; }
+      #scene-9 .watercolor-tex { background-image: linear-gradient(rgba(110,125,90,0.20), rgba(110,125,90,0.20)), url("assets/textures/watercolor-1.png"); }
+      #scene-10 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 14%;
+        filter: url(#wc-10);
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+      }
+      #scene-10 .photo-color { background-image: url("assets/images/10-roaster-drum.jpg"); opacity: 0.9; }
+      #scene-10 .watercolor-tex { background-image: linear-gradient(rgba(212,118,38,0.34), rgba(212,118,38,0.34)), url("assets/textures/watercolor-1.png"); }
+      #scene-10 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-11 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 8%;
+        filter: url(#wc-11);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-11 .photo-color { background-image: url("assets/images/11-roasted-beans.jpg"); opacity: 0.82; }
+      #scene-11 .watercolor-tex { background-image: linear-gradient(rgba(132,74,40,0.28), rgba(132,74,40,0.28)), url("assets/textures/watercolor-1.png"); }
+      #scene-12 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 10%;
+        filter: url(#wc-12);
+        -webkit-mask-image: url("assets/textures/ink-splatter-4.png");
+        mask-image: url("assets/textures/ink-splatter-4.png");
+      }
+      #scene-12 .photo-color { background-image: url("assets/images/12-roaster-hands.jpg"); opacity: 0.76; }
+      #scene-12 .watercolor-tex { background-image: linear-gradient(rgba(146,92,55,0.24), rgba(146,92,55,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-12 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-13 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 8%;
+        filter: url(#wc-13);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-13 .photo-color { background-image: url("assets/images/13-grinder.jpg"); opacity: 0.6; }
+      #scene-13 .watercolor-tex { background-image: linear-gradient(rgba(120,112,102,0.20), rgba(120,112,102,0.20)), url("assets/textures/watercolor-1.png"); }
+      #scene-14 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 14%;
+        filter: url(#wc-14);
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+      }
+      #scene-14 .photo-color { background-image: url("assets/images/14-bloom-steam.jpg"); opacity: 0.8; }
+      #scene-14 .watercolor-tex { background-image: linear-gradient(rgba(176,122,72,0.26), rgba(176,122,72,0.26)), url("assets/textures/watercolor-1.png"); }
+      #scene-14 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-15 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 10%;
+        filter: url(#wc-15);
+        -webkit-mask-image: url("assets/textures/ink-splatter-4.png");
+        mask-image: url("assets/textures/ink-splatter-4.png");
+      }
+      #scene-15 .photo-color { background-image: url("assets/images/15-jebena-pour.jpg"); opacity: 0.82; }
+      #scene-15 .watercolor-tex { background-image: linear-gradient(rgba(186,98,60,0.28), rgba(186,98,60,0.28)), url("assets/textures/watercolor-1.png"); }
+      #scene-16 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 12%;
+        filter: url(#wc-16);
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+      }
+      #scene-16 .photo-color { background-image: url("assets/images/16-pour-over.jpg"); opacity: 0.78; }
+      #scene-16 .watercolor-tex { background-image: linear-gradient(rgba(172,122,52,0.26), rgba(172,122,52,0.26)), url("assets/textures/watercolor-1.png"); }
+      #scene-16 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-17 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 8%;
+        filter: url(#wc-17);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-17 .photo-color { background-image: url("assets/images/17-finished-cup.jpg"); opacity: 0.82; }
+      #scene-17 .watercolor-tex { background-image: linear-gradient(rgba(182,132,82,0.24), rgba(182,132,82,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-18 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 14%;
+        filter: url(#wc-18);
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+      }
+      #scene-18 .photo-color { background-image: url("assets/images/18-cafe-window.jpg"); opacity: 0.76; }
+      #scene-18 .watercolor-tex { background-image: linear-gradient(rgba(192,142,82,0.24), rgba(192,142,82,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-18 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-19 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 10%;
+        filter: url(#wc-19);
+        -webkit-mask-image: url("assets/textures/ink-splatter-4.png");
+        mask-image: url("assets/textures/ink-splatter-4.png");
+      }
+      #scene-19 .photo-color { background-image: url("assets/images/19-shared-table.jpg"); opacity: 0.78; }
+      #scene-19 .watercolor-tex { background-image: linear-gradient(rgba(182,122,82,0.24), rgba(182,122,82,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-20 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 8%;
+        filter: url(#wc-20);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-20 .photo-color { background-image: url("assets/images/20-hands-cup-closeup.jpg"); opacity: 0.8; }
+      #scene-20 .watercolor-tex { background-image: linear-gradient(rgba(186,136,92,0.24), rgba(186,136,92,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-20 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      #scene-21 .photo-wrap {
+        top: 64px; right: 90px; bottom: 90px; left: 600px;
+        --paint: 14%;
+        filter: url(#wc-21);
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+      }
+      #scene-21 .photo-color { background-image: url("assets/images/21-beans-scattered.jpg"); opacity: 0.82; }
+      #scene-21 .watercolor-tex { background-image: linear-gradient(rgba(122,76,46,0.28), rgba(122,76,46,0.28)), url("assets/textures/watercolor-1.png"); }
+      #scene-22 .photo-wrap {
+        top: 64px; left: 90px; bottom: 90px; right: 600px;
+        --paint: 8%;
+        filter: url(#wc-22);
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+      }
+      #scene-22 .photo-color { background-image: url("assets/images/22-barista-portrait.jpg"); opacity: 0.8; }
+      #scene-22 .watercolor-tex { background-image: linear-gradient(rgba(182,126,82,0.24), rgba(182,126,82,0.24)), url("assets/textures/watercolor-1.png"); }
+      #scene-22 .text-block { left: auto; right: 150px; bottom: 110px; text-align: right; }
+      /* ===== generated transition masks ===== */
+      #trans-1 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-2 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-3 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-4 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+        -webkit-mask-position: 50% -30%;
+        mask-position: 50% -30%;
+      }
+      #trans-5 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-6 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-7 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-8 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+        -webkit-mask-position: 50% -30%;
+        mask-position: 50% -30%;
+      }
+      #trans-9 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-10 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-11 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-12 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+        -webkit-mask-position: 50% -30%;
+        mask-position: 50% -30%;
+      }
+      #trans-13 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-14 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-15 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-16 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+        -webkit-mask-position: 50% -30%;
+        mask-position: 50% -30%;
+      }
+      #trans-17 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-18 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-19 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-20 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-3.png");
+        mask-image: url("assets/textures/ink-splatter-3.png");
+        -webkit-mask-position: 50% -30%;
+        mask-position: 50% -30%;
+      }
+      #trans-21 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-22 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-2.png");
+        mask-image: url("assets/textures/ink-splatter-2.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+      #trans-23 .ink-fill {
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-wfnh" id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="238">
+      <!-- ===================== INTRO (0-11s) ===================== -->
+      <section data-hf-id="hf-j4xr" id="intro" class="scene clip" data-start="0" data-duration="11" data-track-index="1">
+        <div data-hf-id="hf-cn5c" class="scene-content">
+          <div data-hf-id="hf-ug6y" class="paper-bg"></div>
+          <div data-hf-id="hf-uqvt" class="photo-wrap">
+            <div data-hf-id="hf-ljxj" class="photo-inner">
+              <img data-hf-id="hf-se5h" class="photo-base" src="assets/images/00-hills-dawn.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-i3ny" class="photo-color"></div>
+              <div data-hf-id="hf-zx3a" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-uv1y" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-55tf" class="paper-veil"></div>
+          <div data-hf-id="hf-qfu9" class="text-center">
+            <h1 data-hf-id="hf-rmnx" class="title">The Soul of Coffee</h1>
+            <div data-hf-id="hf-y9s5" class="brand-logo">
+              <img data-hf-id="hf-mtmp" src="assets/brand/logo.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+              <div data-hf-id="hf-vg7h" class="logo-fallback" style="display: none">LOGO</div>
+            </div>
+            <p data-hf-id="hf-diqm" class="subtitle">A Film About Origin, Craft &amp; Ritual</p>
+          </div>
+          <div data-hf-id="hf-h60x" class="grain"></div>
+          <div data-hf-id="hf-q7bi" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 1 (11-21s) — right ===== -->
+      <section data-hf-id="hf-5uvo" id="scene-1" class="scene clip" data-start="11" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-o0eg" class="scene-content">
+          <div data-hf-id="hf-r28u" class="paper-bg"></div>
+          <div data-hf-id="hf-46el" class="photo-wrap">
+            <div data-hf-id="hf-g0xz" class="photo-inner">
+              <img data-hf-id="hf-uepv" class="photo-base" src="assets/images/01-highlands.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-ufiq" class="photo-color"></div>
+              <div data-hf-id="hf-vv4a" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-cly2" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-jfjl" class="text-block">
+            <h1 data-hf-id="hf-695e" class="title">Where It Begins</h1>
+            <p data-hf-id="hf-emd0" class="subtitle">Ethiopian Highlands</p>
+            <p data-hf-id="hf-9jp0" class="line">1,500 metres above the sea</p>
+          </div>
+          <div data-hf-id="hf-3l5h" class="grain"></div>
+          <div data-hf-id="hf-8o0i" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 2 (21-30s) — left ===== -->
+      <section data-hf-id="hf-0x5s" id="scene-2" class="scene clip" data-start="21" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-mthd" class="scene-content">
+          <div data-hf-id="hf-rgjv" class="paper-bg"></div>
+          <div data-hf-id="hf-5dbo" class="photo-wrap">
+            <div data-hf-id="hf-fmmy" class="photo-inner">
+              <img data-hf-id="hf-lr84" class="photo-base" src="assets/images/02-arabica-shrub.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-uttr" class="photo-color"></div>
+              <div data-hf-id="hf-w9fb" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-d093" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-ehyd" class="text-block">
+            <h1 data-hf-id="hf-9sbq" class="title">The First Forest</h1>
+            <p data-hf-id="hf-kfgs" class="subtitle">Coffea Arabica</p>
+            <p data-hf-id="hf-1856" class="line">Wild beneath the forest canopy</p>
+          </div>
+          <div data-hf-id="hf-4s2k" class="grain"></div>
+          <div data-hf-id="hf-92bj" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 3 (30-40s) — right ===== -->
+      <section data-hf-id="hf-qddp" id="scene-3" class="scene clip" data-start="30" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-n7se" class="scene-content">
+          <div data-hf-id="hf-ruuw" class="paper-bg"></div>
+          <div data-hf-id="hf-4z0n" class="photo-wrap">
+            <div data-hf-id="hf-f8bx" class="photo-inner">
+              <img data-hf-id="hf-z8uo" class="photo-base" src="assets/images/03-goats-herder.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-v84s" class="photo-color"></div>
+              <div data-hf-id="hf-wnqc" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-dek4" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-fovg" class="text-block">
+            <h1 data-hf-id="hf-iwgu" class="title">A Shepherd's Discovery</h1>
+            <p data-hf-id="hf-vy3r" class="subtitle">The Legend of Kaldi</p>
+            <p data-hf-id="hf-zuw4" class="line">His goats danced on the crimson cherry</p>
+          </div>
+          <div data-hf-id="hf-4drj" class="grain"></div>
+          <div data-hf-id="hf-9gmk" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 4 (40-48s) — left ===== -->
+      <section data-hf-id="hf-sgao" id="scene-4" class="scene clip" data-start="40" data-duration="8" data-track-index="1">
+        <div data-hf-id="hf-m0vb" class="scene-content">
+          <div data-hf-id="hf-p2pp" class="paper-bg"></div>
+          <div data-hf-id="hf-65xq" class="photo-wrap">
+            <div data-hf-id="hf-i0h4" class="photo-inner">
+              <img data-hf-id="hf-qw1k" class="photo-base" src="assets/images/04-world-map-vintage.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-vmft" class="photo-color"></div>
+              <div data-hf-id="hf-x21d" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-dsv5" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-fakf" class="text-block">
+            <h1 data-hf-id="hf-6j9e" class="title">Across the World</h1>
+            <p data-hf-id="hf-xsdi" class="subtitle">By Way of Yemen</p>
+            <p data-hf-id="hf-huyg" class="line">Qahwa — brewed for night prayer</p>
+          </div>
+          <div data-hf-id="hf-5kom" class="grain"></div>
+          <div data-hf-id="hf-9uxl" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 5 (48-58s) — right ===== -->
+      <section data-hf-id="hf-fnx6" id="scene-5" class="scene clip" data-start="48" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-mf6c" class="scene-content">
+          <div data-hf-id="hf-ph0q" class="paper-bg"></div>
+          <div data-hf-id="hf-5rmp" class="photo-wrap">
+            <div data-hf-id="hf-hm63" class="photo-inner">
+              <img data-hf-id="hf-ppxo" class="photo-base" src="assets/images/05-red-cherries.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-w0qu" class="photo-color"></div>
+              <div data-hf-id="hf-xgce" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-e766" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-ghhi" class="text-block">
+            <h1 data-hf-id="hf-kdln" class="title">The Crimson Harvest</h1>
+            <p data-hf-id="hf-5niw" class="subtitle">Ripe &amp; Ready</p>
+            <p data-hf-id="hf-h8yt" class="line">Only the reddest are chosen</p>
+          </div>
+          <div data-hf-id="hf-56dl" class="grain"></div>
+          <div data-hf-id="hf-a98m" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 6 (58-67s) — left ===== -->
+      <section data-hf-id="hf-a3aw" id="scene-6" class="scene clip" data-start="58" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-l899" class="scene-content">
+          <div data-hf-id="hf-pvbr" class="paper-bg"></div>
+          <div data-hf-id="hf-6yjs" class="photo-wrap">
+            <div data-hf-id="hf-h7v2" class="photo-inner">
+              <img data-hf-id="hf-bxwu" class="photo-base" src="assets/images/06-hands-picking.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-wf1v" class="photo-color"></div>
+              <div data-hf-id="hf-xunf" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-elh7" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-g36h" class="text-block">
+            <h1 data-hf-id="hf-c79m" class="title">Picked by Hand</h1>
+            <p data-hf-id="hf-xxep" class="subtitle">One Cherry at a Time</p>
+            <p data-hf-id="hf-044x" class="line">No machine knows ripeness like a hand</p>
+          </div>
+          <div data-hf-id="hf-6dao" class="grain"></div>
+          <div data-hf-id="hf-anjn" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 7 (67-75s) — right ===== -->
+      <section data-hf-id="hf-1fnq" id="scene-7" class="scene clip" data-start="67" data-duration="8" data-track-index="1">
+        <div data-hf-id="hf-lmka" class="scene-content">
+          <div data-hf-id="hf-q9ms" class="paper-bg"></div>
+          <div data-hf-id="hf-6k8r" class="photo-wrap">
+            <div data-hf-id="hf-gtk1" class="photo-inner">
+              <img data-hf-id="hf-l28q" class="photo-base" src="assets/images/07-harvest-baskets.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-wtcw" class="photo-color"></div>
+              <div data-hf-id="hf-y8yg" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-ezs8" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-ha3k" class="text-block">
+            <h1 data-hf-id="hf-mh1a" class="title">The Day's Gathering</h1>
+            <p data-hf-id="hf-kgex" class="subtitle">Baskets Brim Full</p>
+            <p data-hf-id="hf-3y10" class="line">A morning's patient work</p>
+          </div>
+          <div data-hf-id="hf-5yzn" class="grain"></div>
+          <div data-hf-id="hf-b1uo" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 8 (75-84s) — left ===== -->
+      <section data-hf-id="hf-psfd" id="scene-8" class="scene clip" data-start="75" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-qsjn" class="scene-content">
+          <div data-hf-id="hf-tue1" class="paper-bg"></div>
+          <div data-hf-id="hf-7r5u" class="photo-wrap">
+            <div data-hf-id="hf-jlp8" class="photo-inner">
+              <img data-hf-id="hf-3eyy" class="photo-base" src="assets/images/08-drying-beds.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-qurh" class="photo-color"></div>
+              <div data-hf-id="hf-yn9h" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-fe39" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-gvsj" class="text-block">
+            <h1 data-hf-id="hf-ysvb" class="title">Under the Sun</h1>
+            <p data-hf-id="hf-f8gu" class="subtitle">Raised Drying Beds</p>
+            <p data-hf-id="hf-iv8q" class="line">Turned by hand for twelve days</p>
+          </div>
+          <div data-hf-id="hf-0t0a" class="grain"></div>
+          <div data-hf-id="hf-5399" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 9 (84-93s) — right ===== -->
+      <section data-hf-id="hf-8em0" id="scene-9" class="scene clip" data-start="84" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-r6uo" class="scene-content">
+          <div data-hf-id="hf-u8p2" class="paper-bg"></div>
+          <div data-hf-id="hf-7cut" class="photo-wrap">
+            <div data-hf-id="hf-j7e7" class="photo-inner">
+              <img data-hf-id="hf-9nie" class="photo-base" src="assets/images/09-green-beans.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-r92i" class="photo-color"></div>
+              <div data-hf-id="hf-z1ki" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-fsea" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-bpt6" class="text-block">
+            <h1 data-hf-id="hf-32w0" class="title">The Green Heart</h1>
+            <p data-hf-id="hf-nb9u" class="subtitle">Unroasted Potential</p>
+            <p data-hf-id="hf-2mfb" class="line">Dense, grassy, and alive</p>
+          </div>
+          <div data-hf-id="hf-0ep9" class="grain"></div>
+          <div data-hf-id="hf-5hka" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 10 (93-103s) — left ===== -->
+      <section data-hf-id="hf-vmz6" id="scene-10" class="scene clip" data-start="93" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-cenc" class="scene-content">
+          <div data-hf-id="hf-n14a" class="paper-bg"></div>
+          <div data-hf-id="hf-u63r" class="photo-wrap">
+            <div data-hf-id="hf-5as5" class="photo-inner">
+              <img data-hf-id="hf-u9fo" class="photo-base" src="assets/images/10-roaster-drum.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-bv5y" class="photo-color"></div>
+              <div data-hf-id="hf-v4su" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-8qvy" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-bbi5" class="text-block">
+            <h1 data-hf-id="hf-aorb" class="title">Into the Fire</h1>
+            <p data-hf-id="hf-atqz" class="subtitle">The Roast Begins</p>
+            <p data-hf-id="hf-vm2u" class="line">Where sugar becomes aroma</p>
+          </div>
+          <div data-hf-id="hf-zzpb" class="grain"></div>
+          <div data-hf-id="hf-uu4m" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 11 (103-112s) — right ===== -->
+      <section data-hf-id="hf-b8rh" id="scene-11" class="scene clip" data-start="103" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-c0cb" class="scene-content">
+          <div data-hf-id="hf-mmt9" class="paper-bg"></div>
+          <div data-hf-id="hf-ukes" class="photo-wrap">
+            <div data-hf-id="hf-5p36" class="photo-inner">
+              <img data-hf-id="hf-qrj8" class="photo-base" src="assets/images/11-roasted-beans.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-bgux" class="photo-color"></div>
+              <div data-hf-id="hf-uqht" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-8ckx" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-dcr3" class="text-block">
+            <h1 data-hf-id="hf-y7ko" class="title">First Crack</h1>
+            <p data-hf-id="hf-m4b7" class="subtitle">Roasted Dark &amp; Bright</p>
+            <p data-hf-id="hf-vpya" class="line">First crack — near 196°C</p>
+          </div>
+          <div data-hf-id="hf-0e0c" class="grain"></div>
+          <div data-hf-id="hf-uftl" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 12 (112-121s) — left ===== -->
+      <section data-hf-id="hf-qts0" id="scene-12" class="scene clip" data-start="112" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-bm1a" class="scene-content">
+          <div data-hf-id="hf-ntqc" class="paper-bg"></div>
+          <div data-hf-id="hf-tdhp" class="photo-wrap">
+            <div data-hf-id="hf-63e7" class="photo-inner">
+              <img data-hf-id="hf-s9ka" class="photo-base" src="assets/images/12-roaster-hands.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-cns0" class="photo-color"></div>
+              <div data-hf-id="hf-vxew" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-9ji0" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-dr24" class="text-block">
+            <h1 data-hf-id="hf-1b3t" class="title">The Roaster's Judgment</h1>
+            <p data-hf-id="hf-ylda" class="subtitle">By Sight &amp; Smell</p>
+            <p data-hf-id="hf-90xb" class="line">Seconds decide everything</p>
+          </div>
+          <div data-hf-id="hf-z739" class="grain"></div>
+          <div data-hf-id="hf-vmqo" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 13 (121-129s) — right ===== -->
+      <section data-hf-id="hf-t9qm" id="scene-13" class="scene clip" data-start="121" data-duration="8" data-track-index="1">
+        <div data-hf-id="hf-b7q9" class="scene-content">
+          <div data-hf-id="hf-nffb" class="paper-bg"></div>
+          <div data-hf-id="hf-trsq" class="photo-wrap">
+            <div data-hf-id="hf-6hp8" class="photo-inner">
+              <img data-hf-id="hf-9vyf" class="photo-base" src="assets/images/13-grinder.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-c9gz" class="photo-color"></div>
+              <div data-hf-id="hf-vj3v" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-956z" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-ck51" class="text-block">
+            <h1 data-hf-id="hf-kk9o" class="title">Ground to Order</h1>
+            <p data-hf-id="hf-shuj" class="subtitle">The Burr Turns</p>
+            <p data-hf-id="hf-3itq" class="line">Fragrance, released in an instant</p>
+          </div>
+          <div data-hf-id="hf-zlea" class="grain"></div>
+          <div data-hf-id="hf-v8fn" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 14 (129-139s) — left ===== -->
+      <section data-hf-id="hf-8shy" id="scene-14" class="scene clip" data-start="129" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-atf8" class="scene-content">
+          <div data-hf-id="hf-omce" class="paper-bg"></div>
+          <div data-hf-id="hf-vrbv" class="photo-wrap">
+            <div data-hf-id="hf-6w09" class="photo-inner">
+              <img data-hf-id="hf-enud" class="photo-base" src="assets/images/14-bloom-steam.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-a9xu" class="photo-color"></div>
+              <div data-hf-id="hf-tjkq" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-75nu" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-cyg2" class="text-block">
+            <h1 data-hf-id="hf-r4uc" class="title">The Bloom</h1>
+            <p data-hf-id="hf-q99b" class="subtitle">First Pour</p>
+            <p data-hf-id="hf-n17x" class="line">It blooms, and breathes</p>
+          </div>
+          <div data-hf-id="hf-1kxf" class="grain"></div>
+          <div data-hf-id="hf-t8wi" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 15 (139-149s) — right ===== -->
+      <section data-hf-id="hf-0zny" id="scene-15" class="scene clip" data-start="139" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-af47" class="scene-content">
+          <div data-hf-id="hf-o81d" class="paper-bg"></div>
+          <div data-hf-id="hf-w5mw" class="photo-wrap">
+            <div data-hf-id="hf-7aba" class="photo-inner">
+              <img data-hf-id="hf-7slc" class="photo-base" src="assets/images/15-jebena-pour.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-9vmt" class="photo-color"></div>
+              <div data-hf-id="hf-t59p" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-6rct" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-izyb" class="text-block">
+            <h1 data-hf-id="hf-llrg" class="title">The Jebena</h1>
+            <p data-hf-id="hf-wksi" class="subtitle">Ethiopian Tradition</p>
+            <p data-hf-id="hf-2dca" class="line">Poured high, in a single arc</p>
+          </div>
+          <div data-hf-id="hf-1z8g" class="grain"></div>
+          <div data-hf-id="hf-sulh" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 16 (149-158s) — left ===== -->
+      <section data-hf-id="hf-45tk" id="scene-16" class="scene clip" data-start="149" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-a0t6" class="scene-content">
+          <div data-hf-id="hf-peyg" class="paper-bg"></div>
+          <div data-hf-id="hf-uypt" class="photo-wrap">
+            <div data-hf-id="hf-7omb" class="photo-inner">
+              <img data-hf-id="hf-cnjg" class="photo-base" src="assets/images/16-pour-over.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-b2jw" class="photo-color"></div>
+              <div data-hf-id="hf-uc6s" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-7y9w" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-je9c" class="text-block">
+            <h1 data-hf-id="hf-401q" class="title">The Slow Pour</h1>
+            <p data-hf-id="hf-i861" class="subtitle">Patience in a Spiral</p>
+            <p data-hf-id="hf-pukn" class="line">Water finds its own way down</p>
+          </div>
+          <div data-hf-id="hf-0sbd" class="grain"></div>
+          <div data-hf-id="hf-u1ik" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 17 (158-169s) — right ===== -->
+      <section data-hf-id="hf-htd4" id="scene-17" class="scene clip" data-start="158" data-duration="11" data-track-index="1">
+        <div data-hf-id="hf-9mi5" class="scene-content">
+          <div data-hf-id="hf-p0nf" class="paper-bg"></div>
+          <div data-hf-id="hf-vd0u" class="photo-wrap">
+            <div data-hf-id="hf-82xc" class="photo-inner">
+              <img data-hf-id="hf-7zx3" class="photo-base" src="assets/images/17-finished-cup.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-ao8v" class="photo-color"></div>
+              <div data-hf-id="hf-txvr" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-7jyv" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-e5d5" class="text-block">
+            <h1 data-hf-id="hf-hvwp" class="title">The First Sip</h1>
+            <p data-hf-id="hf-fqdc" class="subtitle">Crema &amp; Calm</p>
+            <p data-hf-id="hf-sxi6" class="line">Everything led to this</p>
+          </div>
+          <div data-hf-id="hf-16me" class="grain"></div>
+          <div data-hf-id="hf-tn7j" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 18 (169-178s) — left ===== -->
+      <section data-hf-id="hf-c7sk" id="scene-18" class="scene clip" data-start="169" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-fl3k" class="scene-content">
+          <div data-hf-id="hf-q7ki" class="paper-bg"></div>
+          <div data-hf-id="hf-xcjz" class="photo-wrap">
+            <div data-hf-id="hf-24bx" class="photo-inner">
+              <img data-hf-id="hf-ynhv" class="photo-base" src="assets/images/18-cafe-window.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-8opq" class="photo-color"></div>
+              <div data-hf-id="hf-yb92" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-bxc6" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-ilna" class="text-block">
+            <h1 data-hf-id="hf-4uh8" class="title">A Place to Gather</h1>
+            <p data-hf-id="hf-imqs" class="subtitle">Warm Light, Cold Morning</p>
+            <p data-hf-id="hf-ejdo" class="line">The world slows at the window</p>
+          </div>
+          <div data-hf-id="hf-wt93" class="grain"></div>
+          <div data-hf-id="hf-rnoe" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 19 (178-188s) — right ===== -->
+      <section data-hf-id="hf-heep" id="scene-19" class="scene clip" data-start="178" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-f6sj" class="scene-content">
+          <div data-hf-id="hf-pt9h" class="paper-bg"></div>
+          <div data-hf-id="hf-xqv0" class="photo-wrap">
+            <div data-hf-id="hf-2imy" class="photo-inner">
+              <img data-hf-id="hf-b5mk" class="photo-base" src="assets/images/19-shared-table.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-8aep" class="photo-color"></div>
+              <div data-hf-id="hf-xwy1" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-bj15" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-a6av" class="text-block">
+            <h1 data-hf-id="hf-3le1" class="title">Shared</h1>
+            <p data-hf-id="hf-n86q" class="subtitle">Around One Table</p>
+            <p data-hf-id="hf-0a5e" class="line">Coffee was never meant for one</p>
+          </div>
+          <div data-hf-id="hf-x7k4" class="grain"></div>
+          <div data-hf-id="hf-r9dd" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 20 (188-197s) — left ===== -->
+      <section data-hf-id="hf-huxc" id="scene-20" class="scene clip" data-start="188" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-ck83" class="scene-content">
+          <div data-hf-id="hf-m9gh" class="paper-bg"></div>
+          <div data-hf-id="hf-asb0" class="photo-wrap">
+            <div data-hf-id="hf-62fy" class="photo-inner">
+              <img data-hf-id="hf-tx0j" class="photo-base" src="assets/images/20-hands-cup-closeup.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-havx" class="photo-color"></div>
+              <div data-hf-id="hf-dabp" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-7z85" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-aklw" class="text-block">
+            <h1 data-hf-id="hf-1rk3" class="title">Held</h1>
+            <p data-hf-id="hf-u7vf" class="subtitle">Warmth in the Palms</p>
+            <p data-hf-id="hf-vmzc" class="line">A small, daily comfort</p>
+          </div>
+          <div data-hf-id="hf-3w3o" class="grain"></div>
+          <div data-hf-id="hf-09ul" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 21 (197-206s) — right ===== -->
+      <section data-hf-id="hf-igpp" id="scene-21" class="scene clip" data-start="197" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-cyj4" class="scene-content">
+          <div data-hf-id="hf-mnri" class="paper-bg"></div>
+          <div data-hf-id="hf-adzz" class="photo-wrap">
+            <div data-hf-id="hf-5o4x" class="photo-inner">
+              <img data-hf-id="hf-rpcs" class="photo-base" src="assets/images/21-beans-scattered.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-hp6y" class="photo-color"></div>
+              <div data-hf-id="hf-domq" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-8dj6" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-h95g" class="text-block">
+            <h1 data-hf-id="hf-n9cn" class="title">From Bean to Cup</h1>
+            <p data-hf-id="hf-bar9" class="subtitle">The Whole Journey</p>
+            <p data-hf-id="hf-2rbk" class="line">Every cup remembers the forest</p>
+          </div>
+          <div data-hf-id="hf-3hsn" class="grain"></div>
+          <div data-hf-id="hf-0o5m" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== SCENE 22 (206-216s) — left ===== -->
+      <section data-hf-id="hf-1cf3" id="scene-22" class="scene clip" data-start="206" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-brm1" class="scene-content">
+          <div data-hf-id="hf-n22j" class="paper-bg"></div>
+          <div data-hf-id="hf-9zoy" class="photo-wrap">
+            <div data-hf-id="hf-6v20" class="photo-inner">
+              <img data-hf-id="hf-ur3w" class="photo-base" src="assets/images/22-barista-portrait.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-i3hz" class="photo-color"></div>
+              <div data-hf-id="hf-e2xr" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-8ru7" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-guuf" class="text-block">
+            <h1 data-hf-id="hf-t3m0" class="title">The Hands Behind It</h1>
+            <p data-hf-id="hf-wio0" class="subtitle">The Barista</p>
+            <p data-hf-id="hf-9696" class="line">Craft, passed from hand to hand</p>
+          </div>
+          <div data-hf-id="hf-33hm" class="grain"></div>
+          <div data-hf-id="hf-12gn" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===================== OUTRO (216-238s) ===================== -->
+      <section data-hf-id="hf-kypd" id="outro" class="scene clip" data-start="216" data-duration="22" data-track-index="1">
+        <div data-hf-id="hf-c5x2" class="scene-content">
+          <div data-hf-id="hf-ngdk" class="paper-bg"></div>
+          <div data-hf-id="hf-9ldx" class="photo-wrap">
+            <div data-hf-id="hf-6gqz" class="photo-inner">
+              <img data-hf-id="hf-cdhl" class="photo-base" src="assets/images/23-cup-on-wood.jpg" alt="" onerror="this.style.display='none'">
+              <div data-hf-id="hf-iht0" class="photo-color"></div>
+              <div data-hf-id="hf-eh8s" class="watercolor-tex"></div>
+            </div>
+            <div data-hf-id="hf-9658" class="photo-feather"></div>
+          </div>
+          <div data-hf-id="hf-bqc3" class="paper-veil"></div>
+          <div data-hf-id="hf-wgit" class="text-center">
+            <h1 data-hf-id="hf-u55d" class="title">The Soul of Coffee</h1>
+            <div data-hf-id="hf-ox95" class="brand-logo">
+              <img data-hf-id="hf-natx" src="assets/brand/logo.svg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+              <div data-hf-id="hf-r0g1" class="logo-fallback" style="display: none">LOGO</div>
+            </div>
+            <p data-hf-id="hf-sw5n" class="subtitle">HistoryFramesFilm</p>
+            <p data-hf-id="hf-sofz" class="line">@historyframesfilm · History, brought to life</p>
+          </div>
+          <div data-hf-id="hf-2p6l" class="grain"></div>
+          <div data-hf-id="hf-1gro" class="vignette"></div>
+        </div>
+      </section>
+
+      <!-- ===== ink-wipe transition clips ===== -->
+      <div data-hf-id="hf-vpvz" id="trans-1" class="ink-transition clip" data-start="10.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-iqv2" class="ink-fill"></div></div>
+      <div data-hf-id="hf-au2f" id="trans-2" class="ink-transition clip" data-start="20.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-i5ia" class="ink-fill"></div></div>
+      <div data-hf-id="hf-86x5" id="trans-3" class="ink-transition clip" data-start="29.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-ijtb" class="ink-fill"></div></div>
+      <div data-hf-id="hf-k3an" id="trans-4" class="ink-transition clip" data-start="39.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-iy4c" class="ink-fill"></div></div>
+      <div data-hf-id="hf-a63r" id="trans-5" class="ink-transition clip" data-start="47.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-jcfd" class="ink-fill"></div></div>
+      <div data-hf-id="hf-a83t" id="trans-6" class="ink-transition clip" data-start="57.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-jqqe" class="ink-fill"></div></div>
+      <div data-hf-id="hf-cdxg" id="trans-7" class="ink-transition clip" data-start="66.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-k51f" class="ink-fill"></div></div>
+      <div data-hf-id="hf-paao" id="trans-8" class="ink-transition clip" data-start="74.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-kjcg" class="ink-fill"></div></div>
+      <div data-hf-id="hf-1nwb" id="trans-9" class="ink-transition clip" data-start="83.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-ekr1" class="ink-fill"></div></div>
+      <div data-hf-id="hf-ydin" id="trans-10" class="ink-transition clip" data-start="92.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-ez22" class="ink-fill"></div></div>
+      <div data-hf-id="hf-ywqy" id="trans-11" class="ink-transition clip" data-start="102.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-t82e" class="ink-fill"></div></div>
+      <div data-hf-id="hf-5vr1" id="trans-12" class="ink-transition clip" data-start="111.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-strd" class="ink-fill"></div></div>
+      <div data-hf-id="hf-irrg" id="trans-13" class="ink-transition clip" data-start="120.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-u0og" class="ink-fill"></div></div>
+      <div data-hf-id="hf-314r" id="trans-14" class="ink-transition clip" data-start="128.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-tmdf" class="ink-fill"></div></div>
+      <div data-hf-id="hf-8jqd" id="trans-15" class="ink-transition clip" data-start="138.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-rmua" class="ink-fill"></div></div>
+      <div data-hf-id="hf-2kxn" id="trans-16" class="ink-transition clip" data-start="148.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-r8j9" class="ink-fill"></div></div>
+      <div data-hf-id="hf-kz9u" id="trans-17" class="ink-transition clip" data-start="157.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-sfgc" class="ink-fill"></div></div>
+      <div data-hf-id="hf-2j6r" id="trans-18" class="ink-transition clip" data-start="168.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-s15b" class="ink-fill"></div></div>
+      <div data-hf-id="hf-43ie" id="trans-19" class="ink-transition clip" data-start="177.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-q1m6" class="ink-fill"></div></div>
+      <div data-hf-id="hf-fzzr" id="trans-20" class="ink-transition clip" data-start="187.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-pnb5" class="ink-fill"></div></div>
+      <div data-hf-id="hf-1w2k" id="trans-21" class="ink-transition clip" data-start="196.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-fqlp" class="ink-fill"></div></div>
+      <div data-hf-id="hf-s3eo" id="trans-22" class="ink-transition clip" data-start="205.60" data-duration="0.9" data-track-index="5"><div data-hf-id="hf-g4wq" class="ink-fill"></div></div>
+      <div data-hf-id="hf-pmo1" id="trans-23" class="ink-transition clip" data-start="215.60" data-duration="1.1" data-track-index="5"><div data-hf-id="hf-gj7r" class="ink-fill"></div></div>
+
+      <!-- ===== audio (direct children of #root) ===== -->
+      <audio data-hf-id="hf-qvhb" id="bgm" src="assets/audio/music.mp3" data-start="0" data-duration="238" data-track-index="10" data-volume="0.3"></audio>
+      <audio data-hf-id="hf-1q77" id="sfx-paper" src="assets/audio/sfx-paper.wav" data-start="0" data-track-index="11" data-volume="0.16"></audio>
+      <audio data-hf-id="hf-kwtv" id="whoosh-1" src="assets/audio/sfx-ink-whoosh.wav" data-start="10.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-otjl" id="whoosh-2" src="assets/audio/sfx-ink-whoosh.wav" data-start="20.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-30pd" id="whoosh-3" src="assets/audio/sfx-ink-whoosh.wav" data-start="29.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-drll" id="whoosh-4" src="assets/audio/sfx-ink-whoosh.wav" data-start="39.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-4fxj" id="whoosh-5" src="assets/audio/sfx-ink-whoosh.wav" data-start="47.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-ij2v" id="whoosh-6" src="assets/audio/sfx-ink-whoosh.wav" data-start="57.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-4mku" id="whoosh-7" src="assets/audio/sfx-ink-whoosh.wav" data-start="66.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-e6a8" id="whoosh-8" src="assets/audio/sfx-ink-whoosh.wav" data-start="74.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-iu2b" id="whoosh-9" src="assets/audio/sfx-ink-whoosh.wav" data-start="83.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-n22x" id="whoosh-10" src="assets/audio/sfx-ink-whoosh.wav" data-start="92.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-5mue" id="whoosh-11" src="assets/audio/sfx-ink-whoosh.wav" data-start="102.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-lq9d" id="whoosh-12" src="assets/audio/sfx-ink-whoosh.wav" data-start="111.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-ehjk" id="whoosh-13" src="assets/audio/sfx-ink-whoosh.wav" data-start="120.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-yd53" id="whoosh-14" src="assets/audio/sfx-ink-whoosh.wav" data-start="128.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-si33" id="whoosh-15" src="assets/audio/sfx-ink-whoosh.wav" data-start="138.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-vggv" id="whoosh-16" src="assets/audio/sfx-ink-whoosh.wav" data-start="148.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-sx96" id="whoosh-17" src="assets/audio/sfx-ink-whoosh.wav" data-start="157.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-bc2v" id="whoosh-18" src="assets/audio/sfx-ink-whoosh.wav" data-start="168.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-t7v2" id="whoosh-19" src="assets/audio/sfx-ink-whoosh.wav" data-start="177.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-0oz9" id="whoosh-20" src="assets/audio/sfx-ink-whoosh.wav" data-start="187.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-2iim" id="whoosh-21" src="assets/audio/sfx-ink-whoosh.wav" data-start="196.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-2utw" id="whoosh-22" src="assets/audio/sfx-ink-whoosh.wav" data-start="205.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-6yeg" id="whoosh-23" src="assets/audio/sfx-ink-whoosh.wav" data-start="215.75" data-duration="0.6" data-track-index="12" data-volume="0.24"></audio>
+
+      <!-- ===== narration / voiceover (bm_george · direct children of #root) ===== -->
+      <audio id="vo-intro" src="assets/audio/vo/intro.wav" data-start="2.30" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s1" src="assets/audio/vo/s1.wav" data-start="11.50" data-duration="8" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s2" src="assets/audio/vo/s2.wav" data-start="21.50" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s3" src="assets/audio/vo/s3.wav" data-start="30.00" data-duration="10" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s4" src="assets/audio/vo/s4.wav" data-start="40.00" data-duration="8" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s5" src="assets/audio/vo/s5.wav" data-start="48.60" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s6" src="assets/audio/vo/s6.wav" data-start="58.50" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s7" src="assets/audio/vo/s7.wav" data-start="67.60" data-duration="5" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s8" src="assets/audio/vo/s8.wav" data-start="75.60" data-duration="6" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s9" src="assets/audio/vo/s9.wav" data-start="84.60" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s10" src="assets/audio/vo/s10.wav" data-start="93.60" data-duration="6" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s11" src="assets/audio/vo/s11.wav" data-start="103.60" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s12" src="assets/audio/vo/s12.wav" data-start="112.60" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s13" src="assets/audio/vo/s13.wav" data-start="121.60" data-duration="6" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s14" src="assets/audio/vo/s14.wav" data-start="129.80" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s15" src="assets/audio/vo/s15.wav" data-start="139.60" data-duration="8" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s16" src="assets/audio/vo/s16.wav" data-start="149.60" data-duration="6" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s17" src="assets/audio/vo/s17.wav" data-start="158.80" data-duration="5" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s18" src="assets/audio/vo/s18.wav" data-start="169.60" data-duration="7" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s20" src="assets/audio/vo/s20.wav" data-start="188.60" data-duration="5" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s21" src="assets/audio/vo/s21.wav" data-start="197.60" data-duration="6" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-s22" src="assets/audio/vo/s22.wav" data-start="206.80" data-duration="6" data-track-index="13" data-volume="1"></audio>
+      <audio id="vo-outro" src="assets/audio/vo/outro.wav" data-start="217.60" data-duration="9" data-track-index="13" data-volume="1"></audio>
+    </div>
+
+    <svg data-hf-id="hf-kp0p" class="svg-defs" aria-hidden="true">
+      <defs data-hf-id="hf-mh0t">
+        <filter data-hf-id="hf-ssk6" id="watercolor-edge" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-y9mc" type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="7" result="n" /><fedisplacementmap data-hf-id="hf-2b9k" in="SourceGraphic" in2="n" scale="20" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-bgkq" id="wc-1" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-3dky" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="4" result="n" /><fedisplacementmap data-hf-id="hf-8r3x" in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-b2hz" id="wc-2" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-bsow" type="fractalNoise" baseFrequency="0.015 0.019" numOctaves="3" seed="7" result="n" /><fedisplacementmap data-hf-id="hf-2j11" in="SourceGraphic" in2="n" scale="25" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-xabc" id="wc-3" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-l7fi" type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="10" result="n" /><fedisplacementmap data-hf-id="hf-xpbt" in="SourceGraphic" in2="n" scale="21" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-lacd" id="wc-4" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-28tl" type="fractalNoise" baseFrequency="0.013 0.017" numOctaves="3" seed="13" result="n" /><fedisplacementmap data-hf-id="hf-upti" in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-dmam" id="wc-5" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-q8db" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="16" result="n" /><fedisplacementmap data-hf-id="hf-ia1d" in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-piqz" id="wc-6" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-57rr" type="fractalNoise" baseFrequency="0.015 0.019" numOctaves="3" seed="19" result="n" /><fedisplacementmap data-hf-id="hf-2fwp" in="SourceGraphic" in2="n" scale="25" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-zdmk" id="wc-7" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-9jr9" type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="22" result="n" /><fedisplacementmap data-hf-id="hf-xydp" in="SourceGraphic" in2="n" scale="21" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-lb5t" id="wc-8" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-p1fi" type="fractalNoise" baseFrequency="0.013 0.017" numOctaves="3" seed="25" result="n" /><fedisplacementmap data-hf-id="hf-meu2" in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-gtua" id="wc-9" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-6rpg" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="28" result="n" /><fedisplacementmap data-hf-id="hf-jgyg" in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-wesi" id="wc-10" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-mprl" type="fractalNoise" baseFrequency="0.015 0.019" numOctaves="3" seed="31" result="n" /><fedisplacementmap data-hf-id="hf-7osw" in="SourceGraphic" in2="n" scale="25" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-nc5t" id="wc-11" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-9fxz" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="34" result="n" /><fedisplacementmap data-hf-id="hf-mttr" in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-7q9c" id="wc-12" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-gkkr" type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="37" result="n" /><fedisplacementmap data-hf-id="hf-1lfd" in="SourceGraphic" in2="n" scale="18" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-mn9b" id="wc-13" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-s012" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="40" result="n" /><fedisplacementmap data-hf-id="hf-j2nf" in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-m25y" id="wc-14" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-wcru" type="fractalNoise" baseFrequency="0.015 0.019" numOctaves="3" seed="43" result="n" /><fedisplacementmap data-hf-id="hf-7ahv" in="SourceGraphic" in2="n" scale="25" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-yz9x" id="wc-15" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-kuhj" type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="46" result="n" /><fedisplacementmap data-hf-id="hf-z5as" in="SourceGraphic" in2="n" scale="21" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-cpn8" id="wc-16" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-c09o" type="fractalNoise" baseFrequency="0.013 0.017" numOctaves="3" seed="49" result="n" /><fedisplacementmap data-hf-id="hf-mt53" in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-a97n" id="wc-17" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-1887" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="52" result="n" /><fedisplacementmap data-hf-id="hf-h34a" in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-vdtm" id="wc-18" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-jhb3" type="fractalNoise" baseFrequency="0.015 0.019" numOctaves="3" seed="55" result="n" /><fedisplacementmap data-hf-id="hf-18zm" in="SourceGraphic" in2="n" scale="25" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-sxft" id="wc-19" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-1szm" type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="58" result="n" /><fedisplacementmap data-hf-id="hf-yqzr" in="SourceGraphic" in2="n" scale="21" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-4xop" id="wc-20" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-pbx9" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="61" result="n" /><fedisplacementmap data-hf-id="hf-vpiq" in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-ul16" id="wc-21" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-c37v" type="fractalNoise" baseFrequency="0.015 0.019" numOctaves="3" seed="64" result="n" /><fedisplacementmap data-hf-id="hf-1ggk" in="SourceGraphic" in2="n" scale="24" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter data-hf-id="hf-l7p3" id="wc-22" x="-12%" y="-12%" width="124%" height="124%"><feturbulence data-hf-id="hf-kq1f" type="fractalNoise" baseFrequency="0.010 0.013" numOctaves="3" seed="67" result="n" /><fedisplacementmap data-hf-id="hf-7am4" in="SourceGraphic" in2="n" scale="15" xChannelSelector="R" yChannelSelector="G" /></filter>
+      </defs>
+    </svg>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      function paintIn(el, varName, from, to, dur, ease, at) {
+        var p = { v: from };
+        el.style.setProperty(varName, from + "%");
+        tl.fromTo(p, { v: from }, { v: to, duration: dur, ease: ease, onUpdate: function () { el.style.setProperty(varName, p.v + "%"); } }, at);
+      }
+      function rise(sel, dur, at) {
+        tl.fromTo(sel, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: dur, ease: "expo.out" }, at);
+      }
+      function inkWipe(transId, start, coverDur, fadeDur) {
+        var el = document.querySelector("#" + transId + " .ink-fill");
+        var p = { v: 0 };
+        el.style.setProperty("--tx-paint", "0%");
+        tl.fromTo(p, { v: 0 }, { v: 260, duration: coverDur, ease: "power2.in", onUpdate: function () { el.style.setProperty("--tx-paint", p.v + "%"); } }, start);
+        tl.fromTo(el, { opacity: 1 }, { opacity: 0, duration: fadeDur, ease: "power1.out" }, start + coverDur);
+      }
+
+      /* ---------------- INTRO ---------------- */
+      paintIn(document.querySelector("#intro .photo-wrap"), "--paint", 8, 160, 2.6, "power1.out", 0);
+      tl.fromTo("#intro .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.06, xPercent: -0.6, yPercent: -0.4, ease: "sine.inOut", duration: 11 }, 0);
+      tl.fromTo("#intro .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 1.6, yPercent: -1.2, ease: "sine.inOut", duration: 11 }, 0);
+      rise("#intro .title", 1.7, 1.0);
+      rise("#intro .subtitle", 1.3, 1.7);
+      paintIn(document.querySelector("#intro .brand-logo"), "--logo-paint", 0, 150, 1.2, "power2.out", 3.0);
+      tl.fromTo("#intro .text-center", { opacity: 1 }, { opacity: 0, duration: 1.5, ease: "power2.inOut" }, 9.5);
+      tl.set("#intro .text-center", { opacity: 0 }, 11);
+
+      /* ---------------- CONTENT SCENES (1–22) ---------------- */
+      paintIn(document.querySelector("#scene-1 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 11);
+      tl.fromTo("#scene-1 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.08, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 11);
+      tl.fromTo("#scene-1 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 11);
+      tl.fromTo("#scene-1 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 11);
+      rise("#scene-1 .title", 1.5, 11.90);
+      rise("#scene-1 .subtitle", 1.3, 12.32);
+      rise("#scene-1 .line", 1.2, 12.74);
+      paintIn(document.querySelector("#scene-2 .photo-wrap"), "--paint", 14, 170, 2.1, "power2.out", 21);
+      tl.fromTo("#scene-2 .photo-inner", { scale: 1.05, xPercent: 0, yPercent: 0 }, { scale: 1.055, xPercent: 2.4, yPercent: -0.6, ease: "sine.inOut", duration: 9 }, 21);
+      tl.fromTo("#scene-2 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 21);
+      tl.fromTo("#scene-2 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 21);
+      rise("#scene-2 .title", 1.5, 21.90);
+      rise("#scene-2 .subtitle", 1.3, 22.20);
+      rise("#scene-2 .line", 1.2, 22.50);
+      paintIn(document.querySelector("#scene-3 .photo-wrap"), "--paint", 10, 162, 2, "power1.out", 30);
+      tl.fromTo("#scene-3 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 30);
+      tl.fromTo("#scene-3 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 30);
+      tl.fromTo("#scene-3 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 30);
+      rise("#scene-3 .title", 1.5, 30.90);
+      rise("#scene-3 .subtitle", 1.3, 31.32);
+      rise("#scene-3 .line", 1.2, 31.74);
+      paintIn(document.querySelector("#scene-4 .photo-wrap"), "--paint", 12, 172, 2, "power2.out", 40);
+      tl.fromTo("#scene-4 .photo-inner", { scale: 1.08, xPercent: 0.9, yPercent: 0.6 }, { scale: 1, xPercent: 0, yPercent: 0, ease: "sine.inOut", duration: 8 }, 40);
+      tl.fromTo("#scene-4 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 8 }, 40);
+      tl.fromTo("#scene-4 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.00, repeat: 1, yoyo: true }, 40);
+      rise("#scene-4 .title", 1.5, 40.90);
+      rise("#scene-4 .subtitle", 1.3, 41.20);
+      rise("#scene-4 .line", 1.2, 41.50);
+      paintIn(document.querySelector("#scene-5 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 48);
+      tl.fromTo("#scene-5 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.1, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 48);
+      tl.fromTo("#scene-5 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 48);
+      tl.fromTo("#scene-5 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 48);
+      rise("#scene-5 .title", 1.5, 48.90);
+      rise("#scene-5 .subtitle", 1.3, 49.32);
+      rise("#scene-5 .line", 1.2, 49.74);
+      paintIn(document.querySelector("#scene-6 .photo-wrap"), "--paint", 14, 170, 2.1, "power2.out", 58);
+      tl.fromTo("#scene-6 .photo-inner", { scale: 1.05, xPercent: 0, yPercent: 0 }, { scale: 1.055, xPercent: -2.4, yPercent: -0.6, ease: "sine.inOut", duration: 9 }, 58);
+      tl.fromTo("#scene-6 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 58);
+      tl.fromTo("#scene-6 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 58);
+      rise("#scene-6 .title", 1.5, 58.90);
+      rise("#scene-6 .subtitle", 1.3, 59.20);
+      rise("#scene-6 .line", 1.2, 59.50);
+      paintIn(document.querySelector("#scene-7 .photo-wrap"), "--paint", 10, 162, 2, "power1.out", 67);
+      tl.fromTo("#scene-7 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 8 }, 67);
+      tl.fromTo("#scene-7 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 8 }, 67);
+      tl.fromTo("#scene-7 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.00, repeat: 1, yoyo: true }, 67);
+      rise("#scene-7 .title", 1.5, 67.90);
+      rise("#scene-7 .subtitle", 1.3, 68.20);
+      rise("#scene-7 .line", 1.2, 68.50);
+      paintIn(document.querySelector("#scene-8 .photo-wrap"), "--paint", 12, 172, 2, "power2.out", 75);
+      tl.fromTo("#scene-8 .photo-inner", { scale: 1.05, xPercent: 0, yPercent: 0 }, { scale: 1.055, xPercent: 2.4, yPercent: -0.6, ease: "sine.inOut", duration: 9 }, 75);
+      tl.fromTo("#scene-8 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 75);
+      tl.fromTo("#scene-8 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 75);
+      rise("#scene-8 .title", 1.5, 75.90);
+      rise("#scene-8 .subtitle", 1.3, 76.20);
+      rise("#scene-8 .line", 1.2, 76.50);
+      paintIn(document.querySelector("#scene-9 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 84);
+      tl.fromTo("#scene-9 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 9 }, 84);
+      tl.fromTo("#scene-9 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 84);
+      tl.fromTo("#scene-9 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 84);
+      rise("#scene-9 .title", 1.5, 84.90);
+      rise("#scene-9 .subtitle", 1.3, 85.20);
+      rise("#scene-9 .line", 1.2, 85.50);
+      paintIn(document.querySelector("#scene-10 .photo-wrap"), "--paint", 14, 170, 2.1, "power2.out", 93);
+      tl.fromTo("#scene-10 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.1, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 93);
+      tl.fromTo("#scene-10 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 93);
+      tl.fromTo("#scene-10 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 93);
+      rise("#scene-10 .title", 1.5, 93.90);
+      rise("#scene-10 .subtitle", 1.3, 94.32);
+      rise("#scene-10 .line", 1.2, 94.74);
+      paintIn(document.querySelector("#scene-11 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 103);
+      tl.fromTo("#scene-11 .photo-inner", { scale: 1.08, xPercent: 0.9, yPercent: 0.6 }, { scale: 1, xPercent: 0, yPercent: 0, ease: "sine.inOut", duration: 9 }, 103);
+      tl.fromTo("#scene-11 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 103);
+      tl.fromTo("#scene-11 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 103);
+      rise("#scene-11 .title", 1.5, 103.90);
+      rise("#scene-11 .subtitle", 1.3, 104.20);
+      rise("#scene-11 .line", 1.2, 104.50);
+      paintIn(document.querySelector("#scene-12 .photo-wrap"), "--paint", 10, 162, 2, "power1.out", 112);
+      tl.fromTo("#scene-12 .photo-inner", { scale: 1.05, xPercent: 0, yPercent: 0 }, { scale: 1.055, xPercent: -2.4, yPercent: -0.6, ease: "sine.inOut", duration: 9 }, 112);
+      tl.fromTo("#scene-12 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 112);
+      tl.fromTo("#scene-12 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 112);
+      rise("#scene-12 .title", 1.5, 112.90);
+      rise("#scene-12 .subtitle", 1.3, 113.20);
+      rise("#scene-12 .line", 1.2, 113.50);
+      paintIn(document.querySelector("#scene-13 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 121);
+      tl.fromTo("#scene-13 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 8 }, 121);
+      tl.fromTo("#scene-13 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 8 }, 121);
+      tl.fromTo("#scene-13 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.00, repeat: 1, yoyo: true }, 121);
+      rise("#scene-13 .title", 1.5, 121.90);
+      rise("#scene-13 .subtitle", 1.3, 122.20);
+      rise("#scene-13 .line", 1.2, 122.50);
+      paintIn(document.querySelector("#scene-14 .photo-wrap"), "--paint", 14, 170, 2.1, "power2.out", 129);
+      tl.fromTo("#scene-14 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.08, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 129);
+      tl.fromTo("#scene-14 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 129);
+      tl.fromTo("#scene-14 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 129);
+      rise("#scene-14 .title", 1.5, 129.90);
+      rise("#scene-14 .subtitle", 1.3, 130.32);
+      rise("#scene-14 .line", 1.2, 130.74);
+      paintIn(document.querySelector("#scene-15 .photo-wrap"), "--paint", 10, 162, 2, "power1.out", 139);
+      tl.fromTo("#scene-15 .photo-inner", { scale: 1.05, xPercent: 0, yPercent: 0 }, { scale: 1.055, xPercent: 2.4, yPercent: -0.6, ease: "sine.inOut", duration: 10 }, 139);
+      tl.fromTo("#scene-15 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 139);
+      tl.fromTo("#scene-15 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 139);
+      rise("#scene-15 .title", 1.5, 139.90);
+      rise("#scene-15 .subtitle", 1.3, 140.32);
+      rise("#scene-15 .line", 1.2, 140.74);
+      paintIn(document.querySelector("#scene-16 .photo-wrap"), "--paint", 12, 172, 2, "power2.out", 149);
+      tl.fromTo("#scene-16 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 9 }, 149);
+      tl.fromTo("#scene-16 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 149);
+      tl.fromTo("#scene-16 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 149);
+      rise("#scene-16 .title", 1.5, 149.90);
+      rise("#scene-16 .subtitle", 1.3, 150.20);
+      rise("#scene-16 .line", 1.2, 150.50);
+      paintIn(document.querySelector("#scene-17 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 158);
+      tl.fromTo("#scene-17 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.06, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 11 }, 158);
+      tl.fromTo("#scene-17 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 11 }, 158);
+      tl.fromTo("#scene-17 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.50, repeat: 1, yoyo: true }, 158);
+      rise("#scene-17 .title", 1.5, 158.90);
+      rise("#scene-17 .subtitle", 1.3, 159.32);
+      rise("#scene-17 .line", 1.2, 159.74);
+      paintIn(document.querySelector("#scene-18 .photo-wrap"), "--paint", 14, 170, 2.1, "power2.out", 169);
+      tl.fromTo("#scene-18 .photo-inner", { scale: 1.05, xPercent: 0, yPercent: 0 }, { scale: 1.055, xPercent: -2.4, yPercent: -0.6, ease: "sine.inOut", duration: 9 }, 169);
+      tl.fromTo("#scene-18 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 169);
+      tl.fromTo("#scene-18 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 169);
+      rise("#scene-18 .title", 1.5, 169.90);
+      rise("#scene-18 .subtitle", 1.3, 170.20);
+      rise("#scene-18 .line", 1.2, 170.50);
+      paintIn(document.querySelector("#scene-19 .photo-wrap"), "--paint", 10, 162, 2, "power1.out", 178);
+      tl.fromTo("#scene-19 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 178);
+      tl.fromTo("#scene-19 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 178);
+      tl.fromTo("#scene-19 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 178);
+      rise("#scene-19 .title", 1.5, 178.90);
+      rise("#scene-19 .subtitle", 1.3, 179.32);
+      rise("#scene-19 .line", 1.2, 179.74);
+      paintIn(document.querySelector("#scene-20 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 188);
+      tl.fromTo("#scene-20 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.07, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 9 }, 188);
+      tl.fromTo("#scene-20 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 188);
+      tl.fromTo("#scene-20 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 188);
+      rise("#scene-20 .title", 1.5, 188.90);
+      rise("#scene-20 .subtitle", 1.3, 189.20);
+      rise("#scene-20 .line", 1.2, 189.50);
+      paintIn(document.querySelector("#scene-21 .photo-wrap"), "--paint", 14, 170, 2.1, "power2.out", 197);
+      tl.fromTo("#scene-21 .photo-inner", { scale: 1.08, xPercent: 0.9, yPercent: 0.6 }, { scale: 1, xPercent: 0, yPercent: 0, ease: "sine.inOut", duration: 9 }, 197);
+      tl.fromTo("#scene-21 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 2.6, yPercent: -1.8, ease: "sine.inOut", duration: 9 }, 197);
+      tl.fromTo("#scene-21 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 4.50, repeat: 1, yoyo: true }, 197);
+      rise("#scene-21 .title", 1.5, 197.90);
+      rise("#scene-21 .subtitle", 1.3, 198.20);
+      rise("#scene-21 .line", 1.2, 198.50);
+      paintIn(document.querySelector("#scene-22 .photo-wrap"), "--paint", 8, 156, 1.9, "power2.out", 206);
+      tl.fromTo("#scene-22 .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.08, xPercent: -1.3, yPercent: -1.1, ease: "sine.inOut", duration: 10 }, 206);
+      tl.fromTo("#scene-22 .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: -2.6, yPercent: -1.8, ease: "sine.inOut", duration: 10 }, 206);
+      tl.fromTo("#scene-22 .grain", { opacity: 0.3 }, { opacity: 0.4, ease: "sine.inOut", duration: 5.00, repeat: 1, yoyo: true }, 206);
+      rise("#scene-22 .title", 1.5, 206.90);
+      rise("#scene-22 .subtitle", 1.3, 207.32);
+      rise("#scene-22 .line", 1.2, 207.74);
+
+      /* ---------------- OUTRO ---------------- */
+      paintIn(document.querySelector("#outro .photo-wrap"), "--paint", 8, 160, 2.6, "power1.out", 216);
+      tl.fromTo("#outro .photo-inner", { scale: 1, xPercent: 0, yPercent: 0 }, { scale: 1.05, xPercent: -0.8, yPercent: -0.5, ease: "sine.inOut", duration: 22 }, 216);
+      tl.fromTo("#outro .watercolor-tex", { xPercent: 0, yPercent: 0 }, { xPercent: 1.4, yPercent: -1.0, ease: "sine.inOut", duration: 22 }, 216);
+      rise("#outro .title", 1.7, 217);
+      paintIn(document.querySelector("#outro .brand-logo"), "--logo-paint", 0, 150, 1.2, "power2.out", 219);
+      rise("#outro .subtitle", 1.3, 217.7);
+      rise("#outro .line", 1.2, 218.2);
+      tl.fromTo("#outro .photo-wrap", { opacity: 1 }, { opacity: 0, duration: 6, ease: "power2.inOut" }, 232);
+      tl.fromTo("#outro .text-center", { opacity: 1 }, { opacity: 0, duration: 6, ease: "power2.inOut" }, 232);
+      tl.fromTo("#outro .paper-veil", { opacity: 1 }, { opacity: 0, duration: 6, ease: "power2.inOut" }, 232);
+
+      /* ---------------- INK-WIPE TRANSITIONS ---------------- */
+      inkWipe("trans-1", 10.60, 0.6, 0.6);
+      inkWipe("trans-2", 20.60, 0.4, 0.45);
+      inkWipe("trans-3", 29.60, 0.4, 0.45);
+      inkWipe("trans-4", 39.60, 0.4, 0.45);
+      inkWipe("trans-5", 47.60, 0.4, 0.45);
+      inkWipe("trans-6", 57.60, 0.4, 0.45);
+      inkWipe("trans-7", 66.60, 0.4, 0.45);
+      inkWipe("trans-8", 74.60, 0.4, 0.45);
+      inkWipe("trans-9", 83.60, 0.4, 0.45);
+      inkWipe("trans-10", 92.60, 0.4, 0.45);
+      inkWipe("trans-11", 102.60, 0.4, 0.45);
+      inkWipe("trans-12", 111.60, 0.4, 0.45);
+      inkWipe("trans-13", 120.60, 0.4, 0.45);
+      inkWipe("trans-14", 128.60, 0.4, 0.45);
+      inkWipe("trans-15", 138.60, 0.4, 0.45);
+      inkWipe("trans-16", 148.60, 0.4, 0.45);
+      inkWipe("trans-17", 157.60, 0.5, 0.7);
+      inkWipe("trans-18", 168.60, 0.4, 0.45);
+      inkWipe("trans-19", 177.60, 0.4, 0.45);
+      inkWipe("trans-20", 187.60, 0.4, 0.45);
+      inkWipe("trans-21", 196.60, 0.4, 0.45);
+      inkWipe("trans-22", 205.60, 0.4, 0.45);
+      inkWipe("trans-23", 215.60, 0.6, 0.7);
+
+      /* ---------------- MUSIC BED (ducked under narration) ---------------- */
+      tl.fromTo("#bgm", { volume: 0 }, { volume: 0.5, duration: 2, ease: "sine.out" }, 0);
+      tl.to("#bgm", { volume: 0.3, duration: 1.2, ease: "sine.inOut" }, 2.3);   // duck under intro VO
+      tl.to("#bgm", { volume: 0.5, duration: 1.6, ease: "sine.out" }, 178.6);   // S19 breathes (no VO)
+      tl.to("#bgm", { volume: 0.3, duration: 1.6, ease: "sine.inOut" }, 186.4); // duck again for S20 VO
+      tl.to("#bgm", { volume: 0, duration: 4, ease: "sine.in" }, 234);
+      tl.to("#sfx-paper", { volume: 0, duration: 0.5, ease: "sine.in" }, 0.8);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>The Iron Horse of the Indus — composition</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Self-hosted fonts (vendored for deterministic offline render — same families as the locked style) */
+      @font-face{font-family:"Archivo Black";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/ArchivoBlack-Regular.woff2") format("woff2");}
+      @font-face{font-family:"Playfair Display";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/PlayfairDisplay-Normal.woff2") format("woff2");}
+      @font-face{font-family:"Playfair Display";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/PlayfairDisplay-Normal.woff2") format("woff2");}
+      @font-face{font-family:"Playfair Display";font-style:italic;font-weight:500;font-display:swap;src:url("assets/fonts/PlayfairDisplay-Italic.woff2") format("woff2");}
+      :root{
+        --ink:#f4f1ea; --paper:#0d0f12; --ink-soft:rgba(244,241,234,0.82);
+        --band:rgba(15,19,24,0.55); --grade-overlay:rgba(28,40,56,0.18); --accent-warm:#c9a86a;
+      }
+      body{margin:0;background:#000;font-family:"Playfair Display",Georgia,serif;}
+      #root{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper);}
+      .scene{position:absolute;inset:0;}
+      .scene-inner{position:absolute;inset:0;will-change:opacity;}
+      .photo{position:absolute;inset:-6%;background:radial-gradient(120% 90% at 50% 35%,#3a4047 0%,#23282e 55%,#15191e 100%);display:grid;place-items:center;filter:grayscale(1) contrast(1.08) brightness(0.92) sepia(0.12);will-change:transform;}
+      .photo img{width:100%;height:100%;object-fit:cover;}
+      .slot-label{font-family:"Archivo Black",system-ui,sans-serif;font-size:30px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,241,234,.32);text-align:center;line-height:1.5;padding:0 80px;filter:none;}
+      .grade{position:absolute;inset:0;background:var(--grade-overlay);mix-blend-mode:multiply;pointer-events:none;}
+      .text{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 200px;box-sizing:border-box;will-change:transform;}
+      .kicker{font-family:"Archivo Black",system-ui,sans-serif;font-size:22px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-warm);margin:0 0 14px 2px;opacity:.92;}
+      .year{font-family:"Archivo Black",system-ui,sans-serif;font-size:150px;line-height:.9;color:var(--ink);margin:0 0 10px 0;text-shadow:0 6px 40px rgba(0,0,0,.55);letter-spacing:-0.01em;}
+      .rule{width:120px;height:3px;background:var(--accent-warm);border:0;margin:0 0 18px 4px;opacity:.85;}
+      .title-band{display:inline-block;background:var(--band);padding:14px 26px;backdrop-filter:blur(1px);}
+      .title{font-family:"Playfair Display",serif;font-weight:500;font-size:62px;line-height:1.05;color:var(--ink);margin:0;}
+      .caption{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:30px;color:var(--ink-soft);margin:26px 0 0 4px;max-width:760px;}
+      .text.center{align-items:center;text-align:center;padding:0 160px;}
+      .text.center .title{font-size:110px;font-weight:700;}
+      .text.center .caption{font-size:36px;margin-top:28px;}
+      .vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 110% at 50% 46%,rgba(0,0,0,0) 52%,rgba(0,0,0,.32) 82%,rgba(0,0,0,.62) 100%);}
+      .grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.5;}
+      .grain svg{width:100%;height:100%;}
+      .paper-tex{position:absolute;inset:0;pointer-events:none;background-repeat:no-repeat;background-position:right bottom;background-size:cover;opacity:.10;mix-blend-mode:multiply;}
+      .bloom{position:absolute;inset:0;pointer-events:none;background:#f4f1ea;opacity:0;mix-blend-mode:screen;}
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-djna" id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="536.8" data-fps="30">
+
+      <section data-hf-id="hf-1l3i" id="s00" class="scene clip" data-start="0.0" data-duration="15.0" data-track-index="1">
+        <div data-hf-id="hf-anvb" class="scene-inner" id="s00-inner">
+          <div data-hf-id="hf-uafe" class="photo" id="s00-photo"><img src="assets/images/s00_rails.jpg" alt=""></div>
+          <div data-hf-id="hf-jezh" class="grade"></div>
+        <div data-hf-id="hf-3t1j" class="text center" id="s00-text">
+          <p data-hf-id="hf-telj" class="kicker" id="s00-kicker">A RAILWAY HISTORY · 1860s–1970s</p>
+          <h2 data-hf-id="hf-q3ey" class="title" id="s00-title">The Iron Horse of the Indus</h2>
+          <p data-hf-id="hf-5r2c" class="caption" id="s00-cap">The North Western Railway and the making of a nation.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-552j" id="s01" class="scene clip" data-start="14.0" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-u71u" class="scene-inner" id="s01-inner">
+          <div data-hf-id="hf-w83b" class="photo" id="s01-photo"><img src="assets/images/s01_flotilla.jpg" alt=""></div>
+          <div data-hf-id="hf-obsh" class="grade"></div>
+        <div data-hf-id="hf-hfh9" class="text" id="s01-text">
+          <p data-hf-id="hf-fmzv" class="kicker" id="s01-kicker">№ 01</p>
+          <h1 data-hf-id="hf-l8h8" class="year" id="s01-year">1850s</h1>
+          <hr data-hf-id="hf-264e" class="rule" id="s01-rule">
+          <div data-hf-id="hf-wsha" class="title-band"><h2 data-hf-id="hf-ycje" class="title" id="s01-title">The River Highway</h2></div>
+          <p data-hf-id="hf-zmoi" class="caption" id="s01-cap">Before the rails, the Indus carried everything northward from Karachi.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-gsu0" id="s02" class="scene clip" data-start="34.7" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-ikot" class="scene-inner" id="s02-inner">
+          <div data-hf-id="hf-n09g" class="photo" id="s02-photo"><img src="assets/images/s02_charter.jpg" alt=""></div>
+          <div data-hf-id="hf-pipk" class="grade"></div>
+        <div data-hf-id="hf-1o1o" class="text" id="s02-text">
+          <p data-hf-id="hf-mtjj" class="kicker" id="s02-kicker">№ 02</p>
+          <h1 data-hf-id="hf-3qvh" class="year" id="s02-year">1855</h1>
+          <hr data-hf-id="hf-kbqr" class="rule" id="s02-rule">
+          <div data-hf-id="hf-ihpu" class="title-band"><h2 data-hf-id="hf-ha2v" class="title" id="s02-title">A Line on Paper</h2></div>
+          <p data-hf-id="hf-r7by" class="caption" id="s02-cap">The Scinde Railway is chartered — the legal birth of the railways.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-xwfs" id="s03" class="scene clip" data-start="55.4" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-6psg" class="scene-inner" id="s03-inner">
+          <div data-hf-id="hf-p515" class="photo" id="s03-photo"><img src="assets/images/s03_kotri.jpg" alt=""></div>
+          <div data-hf-id="hf-p4ej" class="grade"></div>
+        <div data-hf-id="hf-lipb" class="text" id="s03-text">
+          <p data-hf-id="hf-yorb" class="kicker" id="s03-kicker">№ 03</p>
+          <h1 data-hf-id="hf-2mwx" class="year" id="s03-year">1861</h1>
+          <hr data-hf-id="hf-7wno" class="rule" id="s03-rule">
+          <div data-hf-id="hf-iw0v" class="title-band"><h2 data-hf-id="hf-lf7b" class="title" id="s03-title">Karachi to Kotri</h2></div>
+          <p data-hf-id="hf-lm6a" class="caption" id="s03-cap">The first track opens — one hundred and eight miles of new iron.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-s73y" id="s04" class="scene clip" data-start="76.1" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-q337" class="scene-inner" id="s04-inner">
+          <div data-hf-id="hf-yqja" class="photo" id="s04-photo"><img src="assets/images/s04_lahore.jpg" alt=""></div>
+          <div data-hf-id="hf-n4ve" class="grade"></div>
+        <div data-hf-id="hf-gkwm" class="text" id="s04-text">
+          <p data-hf-id="hf-crcr" class="kicker" id="s04-kicker">№ 04</p>
+          <h1 data-hf-id="hf-7z0n" class="year" id="s04-year">1860</h1>
+          <hr data-hf-id="hf-jlv5" class="rule" id="s04-rule">
+          <div data-hf-id="hf-jabw" class="title-band"><h2 data-hf-id="hf-2avq" class="title" id="s04-title">The Fortress Station</h2></div>
+          <p data-hf-id="hf-zddi" class="caption" id="s04-cap">Lahore reaches Amritsar; a station built like a stronghold.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-fbcx" id="s05" class="scene clip" data-start="96.8" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-dyzi" class="scene-inner" id="s05-inner">
+          <div data-hf-id="hf-r04z" class="photo" id="s05-photo"><img src="assets/images/s05_spdr_map.jpg" alt=""></div>
+          <div data-hf-id="hf-mqkd" class="grade"></div>
+        <div data-hf-id="hf-ul1t" class="text" id="s05-text">
+          <p data-hf-id="hf-qtvf" class="kicker" id="s05-kicker">№ 05</p>
+          <h1 data-hf-id="hf-u6bl" class="year" id="s05-year">1870</h1>
+          <hr data-hf-id="hf-qxu2" class="rule" id="s05-rule">
+          <div data-hf-id="hf-jomx" class="title-band"><h2 data-hf-id="hf-prel" class="title" id="s05-title">Four Become One</h2></div>
+          <p data-hf-id="hf-t42k" class="caption" id="s05-cap">The Scinde, Punjab and Delhi Railway — Karachi to Delhi under one hand.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-utfe" id="s06" class="scene clip" data-start="117.5" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-98hl" class="scene-inner" id="s06-inner">
+          <div data-hf-id="hf-ppcg" class="photo" id="s06-photo"><img src="assets/images/s06_empress.jpg" alt=""></div>
+          <div data-hf-id="hf-nxhg" class="grade"></div>
+        <div data-hf-id="hf-sfow" class="text" id="s06-text">
+          <p data-hf-id="hf-nbx3" class="kicker" id="s06-kicker">№ 06</p>
+          <h1 data-hf-id="hf-tlhc" class="year" id="s06-year">1878</h1>
+          <hr data-hf-id="hf-ijrz" class="rule" id="s06-rule">
+          <div data-hf-id="hf-k2xy" class="title-band"><h2 data-hf-id="hf-iezw" class="title" id="s06-title">The Empress Bridge</h2></div>
+          <p data-hf-id="hf-9mcw" class="caption" id="s06-cap">Iron vaults the Sutlej in the country of five rivers.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-p4ww" id="s07" class="scene clip" data-start="138.2" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-nbr0" class="scene-inner" id="s07-inner">
+          <div data-hf-id="hf-vh6t" class="photo" id="s07-photo"><img src="assets/images/s07_attock.jpg" alt=""></div>
+          <div data-hf-id="hf-nj6f" class="grade"></div>
+        <div data-hf-id="hf-ay37" class="text" id="s07-text">
+          <p data-hf-id="hf-gf73" class="kicker" id="s07-kicker">№ 07</p>
+          <h1 data-hf-id="hf-h9rx" class="year" id="s07-year">1883</h1>
+          <hr data-hf-id="hf-di8w" class="rule" id="s07-rule">
+          <div data-hf-id="hf-kh8z" class="title-band"><h2 data-hf-id="hf-6wkc" class="title" id="s07-title">Iron Over the Indus</h2></div>
+          <p data-hf-id="hf-ke0f" class="caption" id="s07-cap">At Attock, rail finally crosses the great river of the north.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-v0ar" id="s08" class="scene clip" data-start="158.9" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-4yy7" class="scene-inner" id="s08-inner">
+          <div data-hf-id="hf-8awy" class="photo" id="s08-photo"><img src="assets/images/s08_nwr_map.png" alt=""></div>
+          <div data-hf-id="hf-rwjq" class="grade"></div>
+        <div data-hf-id="hf-mgp6" class="text" id="s08-text">
+          <p data-hf-id="hf-x9wr" class="kicker" id="s08-kicker">№ 08</p>
+          <h1 data-hf-id="hf-2557" class="year" id="s08-year">1886</h1>
+          <hr data-hf-id="hf-u7d9" class="rule" id="s08-rule">
+          <div data-hf-id="hf-kvk0" class="title-band"><h2 data-hf-id="hf-qanf" class="title" id="s08-title">The Line Takes Its Name</h2></div>
+          <p data-hf-id="hf-g1or" class="caption" id="s08-cap">Many railways are forged into the North Western State Railway.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-rfg7" id="s09" class="scene clip" data-start="179.6" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-i8ui" class="scene-inner" id="s09-inner">
+          <div data-hf-id="hf-lkfj" class="photo" id="s09-photo"><img src="assets/images/s09_bolan.jpg" alt=""></div>
+          <div data-hf-id="hf-ri8p" class="grade"></div>
+        <div data-hf-id="hf-5kl1" class="text" id="s09-text">
+          <p data-hf-id="hf-x2tn" class="kicker" id="s09-kicker">№ 09</p>
+          <h1 data-hf-id="hf-cflk" class="year" id="s09-year">1886</h1>
+          <hr data-hf-id="hf-ahja" class="rule" id="s09-rule">
+          <div data-hf-id="hf-ewyl" class="title-band"><h2 data-hf-id="hf-e7ag" class="title" id="s09-title">Through the Bolan</h2></div>
+          <p data-hf-id="hf-d2wz" class="caption" id="s09-cap">Strategic track climbs the pass toward the Afghan frontier.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-pzge" id="s10" class="scene clip" data-start="200.3" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-7wcg" class="scene-inner" id="s10-inner">
+          <div data-hf-id="hf-iail" class="photo" id="s10-photo"><img src="assets/images/s10_chappar.jpg" alt=""></div>
+          <div data-hf-id="hf-gkcz" class="grade"></div>
+        <div data-hf-id="hf-ke3n" class="text" id="s10-text">
+          <p data-hf-id="hf-5ikn" class="kicker" id="s10-kicker">№ 10</p>
+          <h1 data-hf-id="hf-r529" class="year" id="s10-year">1887</h1>
+          <hr data-hf-id="hf-o97c" class="rule" id="s10-rule">
+          <div data-hf-id="hf-fb9m" class="title-band"><h2 data-hf-id="hf-92ab" class="title" id="s10-title">The Chappar Rift</h2></div>
+          <p data-hf-id="hf-6qdu" class="caption" id="s10-cap">The Louise Margaret Bridge hangs high above a desert gorge.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-mpxq" id="s11" class="scene clip" data-start="221.0" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-0be5" class="scene-inner" id="s11-inner">
+          <div data-hf-id="hf-f45k" class="photo" id="s11-photo"><img src="assets/images/s11_khojak.jpg" alt=""></div>
+          <div data-hf-id="hf-gyo0" class="grade"></div>
+        <div data-hf-id="hf-6e0w" class="text" id="s11-text">
+          <p data-hf-id="hf-e1ib" class="kicker" id="s11-kicker">№ 11</p>
+          <h1 data-hf-id="hf-v8zt" class="year" id="s11-year">1891</h1>
+          <hr data-hf-id="hf-iv2v" class="rule" id="s11-rule">
+          <div data-hf-id="hf-ahwm" class="title-band"><h2 data-hf-id="hf-ccrp" class="title" id="s11-title">The Mountain Pierced</h2></div>
+          <p data-hf-id="hf-juw2" class="caption" id="s11-cap">The first engine breaks through the long Khojak Tunnel.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-yv4x" id="s12" class="scene clip" data-start="241.7" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-orz6" class="scene-inner" id="s12-inner">
+          <div data-hf-id="hf-exij" class="photo" id="s12-photo"><img src="assets/images/s12_lansdowne.jpg" alt=""></div>
+          <div data-hf-id="hf-frqx" class="grade"></div>
+        <div data-hf-id="hf-gi8x" class="text" id="s12-text">
+          <p data-hf-id="hf-e7y7" class="kicker" id="s12-kicker">№ 12</p>
+          <h1 data-hf-id="hf-vsqp" class="year" id="s12-year">1889</h1>
+          <hr data-hf-id="hf-zxs2" class="rule" id="s12-rule">
+          <div data-hf-id="hf-a3ll" class="title-band"><h2 data-hf-id="hf-2rah" class="title" id="s12-title">Lansdowne at Sukkur</h2></div>
+          <p data-hf-id="hf-gbrv" class="caption" id="s12-cap">On completion, the longest rigid span in the world.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-fgqz" id="s13" class="scene clip" data-start="262.4" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-1i4n" class="scene-inner" id="s13-inner">
+          <div data-hf-id="hf-ztzi" class="photo" id="s13-photo"><img src="assets/images/s13_mushkaf.jpg" alt=""></div>
+          <div data-hf-id="hf-g61y" class="grade"></div>
+        <div data-hf-id="hf-u8va" class="text" id="s13-text">
+          <p data-hf-id="hf-gjlf" class="kicker" id="s13-kicker">№ 13</p>
+          <h1 data-hf-id="hf-xph8" class="year" id="s13-year">1894</h1>
+          <hr data-hf-id="hf-4xjd" class="rule" id="s13-rule">
+          <div data-hf-id="hf-baio" class="title-band"><h2 data-hf-id="hf-n9pg" class="title" id="s13-title">The All-Weather Road</h2></div>
+          <p data-hf-id="hf-lzq7" class="caption" id="s13-cap">Through Mushkaf and Bolan, the first train runs clear to Quetta.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-s9rz" id="s14" class="scene clip" data-start="283.1" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-8kdo" class="scene-inner" id="s14-inner">
+          <div data-hf-id="hf-pnqp" class="photo" id="s14-photo"><img src="assets/images/s14_mughalpura.jpg" alt=""></div>
+          <div data-hf-id="hf-ez4v" class="grade"></div>
+        <div data-hf-id="hf-j0zj" class="text" id="s14-text">
+          <p data-hf-id="hf-rltz" class="kicker" id="s14-kicker">№ 14</p>
+          <h1 data-hf-id="hf-1p0f" class="year" id="s14-year">1904</h1>
+          <hr data-hf-id="hf-j6i4" class="rule" id="s14-rule">
+          <div data-hf-id="hf-aw7n" class="title-band"><h2 data-hf-id="hf-461y" class="title" id="s14-title">The Heart of Steam</h2></div>
+          <p data-hf-id="hf-iw2y" class="caption" id="s14-cap">At Mughalpura, the workshops that built and healed the line.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-2ehf" id="s15" class="scene clip" data-start="303.8" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-78q1" class="scene-inner" id="s15-inner">
+          <div data-hf-id="hf-csks" class="photo" id="s15-photo"><img src="assets/images/s15_station.jpg" alt=""></div>
+          <div data-hf-id="hf-fdfw" class="grade"></div>
+        <div data-hf-id="hf-ezpo" class="text" id="s15-text">
+          <p data-hf-id="hf-85p7" class="kicker" id="s15-kicker">№ 15</p>
+          <h1 data-hf-id="hf-rb0x" class="year" id="s15-year">1900s</h1>
+          <hr data-hf-id="hf-s9fv" class="rule" id="s15-rule">
+          <div data-hf-id="hf-8woi" class="title-band"><h2 data-hf-id="hf-bjzx" class="title" id="s15-title">Palaces of Steam</h2></div>
+          <p data-hf-id="hf-suy1" class="caption" id="s15-cap">Grand stations rise as civic statements across the network.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-qkqd" id="s16" class="scene clip" data-start="324.5" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-xytq" class="scene-inner" id="s16-inner">
+          <div data-hf-id="hf-wxvz" class="photo" id="s16-photo"><img src="assets/images/s16_workforce.jpg" alt=""></div>
+          <div data-hf-id="hf-e6it" class="grade"></div>
+        <div data-hf-id="hf-qvhp" class="text" id="s16-text">
+          <p data-hf-id="hf-bgof" class="kicker" id="s16-kicker">№ 16</p>
+          <h1 data-hf-id="hf-ol1e" class="year" id="s16-year">1900s</h1>
+          <hr data-hf-id="hf-tcza" class="rule" id="s16-rule">
+          <div data-hf-id="hf-8idh" class="title-band"><h2 data-hf-id="hf-e31z" class="title" id="s16-title">The Human Machine</h2></div>
+          <p data-hf-id="hf-af8h" class="caption" id="s16-cap">Drivers, firemen, platelayers and clerks who ran the iron daily.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-i4jl" id="s17" class="scene clip" data-start="345.2" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-kakz" class="scene-inner" id="s17-inner">
+          <div data-hf-id="hf-zgo2" class="photo" id="s17-photo"><div data-hf-id="hf-cduw" class="slot-label" data-layout-allow-occlusion="">PHOTO PLATE · S17 · WWI troop train · frontier logistics</div></div>
+          <div data-hf-id="hf-ektu" class="grade"></div>
+        <div data-hf-id="hf-a99e" class="text" id="s17-text">
+          <p data-hf-id="hf-7sdn" class="kicker" id="s17-kicker">№ 17</p>
+          <h1 data-hf-id="hf-2u3f" class="year" id="s17-year">1914–1918</h1>
+          <hr data-hf-id="hf-4k59" class="rule" id="s17-rule">
+          <div data-hf-id="hf-9pak" class="title-band"><h2 data-hf-id="hf-zzha" class="title" id="s17-title">The Railway at War</h2></div>
+          <p data-hf-id="hf-8os9" class="caption" id="s17-cap">Troops, animals and matériel move to the frontier and the ports.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-wb9i" id="s18" class="scene clip" data-start="365.9" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-grrs" class="scene-inner" id="s18-inner">
+          <div data-hf-id="hf-qp7p" class="photo" id="s18-photo"><img src="assets/images/s18_khyber.jpg" alt=""></div>
+          <div data-hf-id="hf-ddwr" class="grade"></div>
+        <div data-hf-id="hf-ie0r" class="text" id="s18-text">
+          <p data-hf-id="hf-6pyv" class="kicker" id="s18-kicker">№ 18</p>
+          <h1 data-hf-id="hf-2g9a" class="year" id="s18-year">1925</h1>
+          <hr data-hf-id="hf-bl8w" class="rule" id="s18-rule">
+          <div data-hf-id="hf-9azj" class="title-band"><h2 data-hf-id="hf-kh8j" class="title" id="s18-title">Through the Khyber</h2></div>
+          <p data-hf-id="hf-ftqv" class="caption" id="s18-cap">Thirty-four tunnels of broad gauge climb to Landi Kotal.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-8t6w" id="s19" class="scene clip" data-start="386.6" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-385h" class="scene-inner" id="s19-inner">
+          <div data-hf-id="hf-weeo" class="photo" id="s19-photo"><img src="assets/images/s19_mail.jpg" alt=""></div>
+          <div data-hf-id="hf-ds7s" class="grade"></div>
+        <div data-hf-id="hf-seig" class="text" id="s19-text">
+          <p data-hf-id="hf-k3cz" class="kicker" id="s19-kicker">№ 19</p>
+          <h1 data-hf-id="hf-rnis" class="year" id="s19-year">1920s–30s</h1>
+          <hr data-hf-id="hf-6gr3" class="rule" id="s19-rule">
+          <div data-hf-id="hf-7bge" class="title-band"><h2 data-hf-id="hf-suy6" class="title" id="s19-title">The Everyday Timetable</h2></div>
+          <p data-hf-id="hf-1ocq" class="caption" id="s19-cap">Mail trains and frontier branches — the network at its height.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-7y9q" id="s20" class="scene clip" data-start="407.3" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-jal5" class="scene-inner" id="s20-inner">
+          <div data-hf-id="hf-qu58" class="photo" id="s20-photo"><div data-hf-id="hf-4tm6" class="slot-label" data-layout-allow-occlusion="">PHOTO PLATE · S20 · Chappar Rift line intact (pre-1942)</div></div>
+          <div data-hf-id="hf-kgrc" class="grade"></div>
+        <div data-hf-id="hf-3qdk" class="text" id="s20-text">
+          <p data-hf-id="hf-hh27" class="kicker" id="s20-kicker">№ 20</p>
+          <h1 data-hf-id="hf-exp2" class="year" id="s20-year">1942</h1>
+          <hr data-hf-id="hf-yoe7" class="rule" id="s20-rule">
+          <div data-hf-id="hf-6x5d" class="title-band"><h2 data-hf-id="hf-61u7" class="title" id="s20-title">The First Retreat</h2></div>
+          <p data-hf-id="hf-5xez" class="caption" id="s20-cap">A flood takes the Chappar Rift; a proud line is lifted away.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-d5c4" id="s21" class="scene clip" data-start="428.0" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-xy70" class="scene-inner" id="s21-inner">
+          <div data-hf-id="hf-hych" class="photo" id="s21-photo"><img src="assets/images/s21_partition.jpg" alt=""></div>
+          <div data-hf-id="hf-k2gb" class="grade"></div>
+        <div data-hf-id="hf-m1or" class="text" id="s21-text">
+          <p data-hf-id="hf-ggzn" class="kicker" id="s21-kicker">№ 21</p>
+          <h1 data-hf-id="hf-aywq" class="year" id="s21-year">1947</h1>
+          <hr data-hf-id="hf-d6yo" class="rule" id="s21-rule">
+          <div data-hf-id="hf-x0fx" class="title-band"><h2 data-hf-id="hf-gyoe" class="title" id="s21-title">A Line Divided</h2></div>
+          <p data-hf-id="hf-9mnw" class="caption" id="s21-cap">At independence, one system is severed at a new border.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-evaf" id="s22" class="scene clip" data-start="448.7" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-t4cj" class="scene-inner" id="s22-inner">
+          <div data-hf-id="hf-3zde" class="photo" id="s22-photo"><div data-hf-id="hf-hzx5" class="slot-label" data-layout-allow-occlusion="">PHOTO PLATE · S22 · refugee train 1947 · quiet, non-graphic</div></div>
+          <div data-hf-id="hf-jo5a" class="grade"></div>
+        <div data-hf-id="hf-abf2" class="text" id="s22-text">
+          <p data-hf-id="hf-va0b" class="kicker" id="s22-kicker">№ 22</p>
+          <h1 data-hf-id="hf-6gej" class="year" id="s22-year">1947</h1>
+          <hr data-hf-id="hf-kklt" class="rule" id="s22-rule">
+          <div data-hf-id="hf-xeqy" class="title-band"><h2 data-hf-id="hf-1afu" class="title" id="s22-title">The Refugee Trains</h2></div>
+          <p data-hf-id="hf-2qm7" class="caption" id="s22-cap">Across the new border, the carriages carried a whole people's grief.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-iqdv" id="s23" class="scene clip" data-start="469.4" data-duration="21.7" data-track-index="2">
+        <div data-hf-id="hf-5hj2" class="scene-inner" id="s23-inner">
+          <div data-hf-id="hf-ti4f" class="photo" id="s23-photo"><div data-hf-id="hf-nywq" class="slot-label" data-layout-allow-occlusion="">PHOTO PLATE · S23 · Pakistan Western Railway 1961</div></div>
+          <div data-hf-id="hf-j9u9" class="grade"></div>
+        <div data-hf-id="hf-yds9" class="text" id="s23-text">
+          <p data-hf-id="hf-h6dr" class="kicker" id="s23-kicker">№ 23</p>
+          <h1 data-hf-id="hf-lytg" class="year" id="s23-year">1961</h1>
+          <hr data-hf-id="hf-427e" class="rule" id="s23-rule">
+          <div data-hf-id="hf-xt1z" class="title-band"><h2 data-hf-id="hf-ily8" class="title" id="s23-title">A New Name</h2></div>
+          <p data-hf-id="hf-0kv6" class="caption" id="s23-cap">The North Western Railway becomes the Pakistan Western Railway.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-97d8" id="s24" class="scene clip" data-start="490.1" data-duration="21.7" data-track-index="1">
+        <div data-hf-id="hf-zd99" class="scene-inner" id="s24-inner">
+          <div data-hf-id="hf-75rs" class="photo" id="s24-photo"><div data-hf-id="hf-7jyb" class="slot-label" data-layout-allow-occlusion="">PHOTO PLATE · S24 · Pakistan Railways 1971–74</div></div>
+          <div data-hf-id="hf-ivj8" class="grade"></div>
+        <div data-hf-id="hf-dkno" class="text" id="s24-text">
+          <p data-hf-id="hf-h8zr" class="kicker" id="s24-kicker">№ 24</p>
+          <h1 data-hf-id="hf-rycj" class="year" id="s24-year">1974</h1>
+          <hr data-hf-id="hf-izmb" class="rule" id="s24-rule">
+          <div data-hf-id="hf-y7d0" class="title-band"><h2 data-hf-id="hf-8b2r" class="title" id="s24-title">One Name, One Nation</h2></div>
+          <p data-hf-id="hf-baxd" class="caption" id="s24-cap">The lines are consolidated as Pakistan Railways.</p>
+        </div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-bbzw" id="s25" class="scene clip" data-start="510.8" data-duration="26.0" data-track-index="2">
+        <div data-hf-id="hf-9r1s" class="scene-inner" id="s25-inner">
+          <div data-hf-id="hf-lj71" class="photo" id="s25-photo"><img src="assets/images/s25_horizon.jpg" alt=""></div>
+          <div data-hf-id="hf-ih87" class="grade"></div>
+        <div data-hf-id="hf-m7ra" class="text center" id="s25-text">
+          <p data-hf-id="hf-myyt" class="kicker" id="s25-kicker">PAKISTAN RAILWAYS</p>
+          <h2 data-hf-id="hf-8og3" class="title" id="s25-title">The Iron Endures</h2>
+          <p data-hf-id="hf-i720" class="caption" id="s25-cap">[CLIENT LOGO]</p>
+        </div>
+        </div>
+      </section>
+
+      <!-- Voiceover: one Kokoro WAV per scene, direct children of #root, ~0.5s lead-in after each scene start -->
+      <audio data-hf-id="hf-q8ms" id="vo-s00" data-start="0.5" data-duration="10.0" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s00.wav"></audio>
+      <audio data-hf-id="hf-g9tb" id="vo-s01" data-start="14.5" data-duration="17.1" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s01.wav"></audio>
+      <audio data-hf-id="hf-ue5o" id="vo-s02" data-start="35.2" data-duration="15.0" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s02.wav"></audio>
+      <audio data-hf-id="hf-yqwf" id="vo-s03" data-start="55.9" data-duration="17.0" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s03.wav"></audio>
+      <audio data-hf-id="hf-ordi" id="vo-s04" data-start="76.6" data-duration="18.8" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s04.wav"></audio>
+      <audio data-hf-id="hf-s15g" id="vo-s05" data-start="97.3" data-duration="18.0" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s05.wav"></audio>
+      <audio data-hf-id="hf-nf9t" id="vo-s06" data-start="118.0" data-duration="18.6" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s06.wav"></audio>
+      <audio data-hf-id="hf-wp2y" id="vo-s07" data-start="138.7" data-duration="14.8" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s07.wav"></audio>
+      <audio data-hf-id="hf-fs7f" id="vo-s08" data-start="159.4" data-duration="17.8" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s08.wav"></audio>
+      <audio data-hf-id="hf-fzew" id="vo-s09" data-start="180.1" data-duration="16.1" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s09.wav"></audio>
+      <audio data-hf-id="hf-6qgd" id="vo-s10" data-start="200.8" data-duration="17.1" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s10.wav"></audio>
+      <audio data-hf-id="hf-31oa" id="vo-s11" data-start="221.5" data-duration="16.7" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s11.wav"></audio>
+      <audio data-hf-id="hf-i6nq" id="vo-s12" data-start="242.2" data-duration="16.9" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s12.wav"></audio>
+      <audio data-hf-id="hf-i0gn" id="vo-s13" data-start="262.9" data-duration="15.6" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s13.wav"></audio>
+      <audio data-hf-id="hf-5j6h" id="vo-s14" data-start="283.6" data-duration="16.3" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s14.wav"></audio>
+      <audio data-hf-id="hf-pdkp" id="vo-s15" data-start="304.3" data-duration="18.0" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s15.wav"></audio>
+      <audio data-hf-id="hf-etai" id="vo-s16" data-start="325.0" data-duration="16.7" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s16.wav"></audio>
+      <audio data-hf-id="hf-8jjh" id="vo-s17" data-start="345.7" data-duration="16.9" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s17.wav"></audio>
+      <audio data-hf-id="hf-jwet" id="vo-s18" data-start="366.4" data-duration="18.1" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s18.wav"></audio>
+      <audio data-hf-id="hf-mfa6" id="vo-s19" data-start="387.1" data-duration="16.8" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s19.wav"></audio>
+      <audio data-hf-id="hf-w634" id="vo-s20" data-start="407.8" data-duration="15.3" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s20.wav"></audio>
+      <audio data-hf-id="hf-emzv" id="vo-s21" data-start="428.5" data-duration="17.0" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s21.wav"></audio>
+      <audio data-hf-id="hf-v9q7" id="vo-s22" data-start="449.2" data-duration="16.5" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s22.wav"></audio>
+      <audio data-hf-id="hf-pwjy" id="vo-s23" data-start="469.9" data-duration="17.8" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s23.wav"></audio>
+      <audio data-hf-id="hf-byjr" id="vo-s24" data-start="490.6" data-duration="17.6" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s24.wav"></audio>
+      <audio data-hf-id="hf-hbve" id="vo-s25" data-start="511.3" data-duration="15.4" data-track-index="30" data-volume="1.0" src="assets/audio/vo_s25.wav"></audio>
+      <!-- MUSIC TODO: drop a ~9-minute period bed at assets/audio/score.mp3, then uncomment the element below
+           AND rename data-src-todo to src (kept as data-src-todo so the linter doesn't flag a not-yet-present file).
+           Mood string for sourcing/generation: "wistful nostalgic orchestral, soft piano and warm strings, gentle swell, vintage, period documentary".
+           Set data-volume ~0.28 under VO (≈ -8 dB duck); raise toward ~0.5 in the title/outro gaps if desired.
+        <audio id="bg-score" data-start="0" data-duration="536.8" data-track-index="29" data-volume="0.28" data-src-todo="assets/audio/score.mp3"></audio>
+      -->
+
+      <!-- Persistent overlays (constant) -->
+      <div data-hf-id="hf-jwny" id="ov-vignette" class="scene clip vignette" data-start="0" data-duration="536.8" data-track-index="20"></div>
+      <div data-hf-id="hf-tqk9" id="ov-grain" class="scene clip grain" data-start="0" data-duration="536.8" data-track-index="21">
+        <svg data-hf-id="hf-ztyk" xmlns="http://www.w3.org/2000/svg">
+          <filter data-hf-id="hf-n64n" id="grainFilter">
+            <feturbulence data-hf-id="hf-vpqi" type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" />
+            <fecolormatrix data-hf-id="hf-skw8" type="saturate" values="0" />
+          </filter>
+          <rect data-hf-id="hf-ayrl" width="100%" height="100%" filter="url(#grainFilter)" opacity="0.45" />
+        </svg>
+      </div>
+      <div data-hf-id="hf-yn4q" id="ov-bloom" class="scene clip bloom" data-start="0" data-duration="536.8" data-track-index="22"></div>
+      <!-- Optional paper (only if assets/textures/paper.png exists):
+        <div id="ov-paper" class="scene clip paper-tex" style="background-image:url('assets/textures/paper.png')" data-start="0" data-duration="536.8" data-track-index="19"></div> -->
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const has = s => !!document.querySelector(s);
+
+      function enterText(prefix, at){
+        if (has(`#${prefix}-kicker`)) tl.from(`#${prefix}-kicker`, { y:30, opacity:0, duration:0.6, ease:"power3.out" }, at);
+        const ny = [`#${prefix}-year`,`#${prefix}-rule`].filter(has).join(",");
+        if (ny) tl.from(ny, { y:40, opacity:0, duration:0.7, ease:"power3.out" }, at+0.05);
+        if (has(`#${prefix}-title`)) tl.from(`#${prefix}-title`, { y:36, opacity:0, duration:0.7, ease:"power3.out" }, at+0.17);
+        if (has(`#${prefix}-cap`)) tl.from(`#${prefix}-cap`, { y:24, opacity:0, duration:0.7, ease:"power2.out" }, at+0.33);
+      }
+      function kenBurns(photoSel, textSel, start, dur, dir){
+        tl.fromTo(photoSel, { scale:1.0, xPercent:0, yPercent:0 },
+          { scale:1.14, xPercent:2.5*dir, yPercent:-1.5, duration:dur, ease:"sine.inOut" }, start);
+        tl.fromTo(textSel, { xPercent:0 }, { xPercent:0.8*dir, duration:dur, ease:"sine.inOut" }, start);
+      }
+      function crossDissolve(outInner, inInner, at, d){
+        if (outInner && has(outInner)) tl.to(outInner, { opacity:0, duration:d, ease:"power1.inOut" }, at);
+        if (inInner && has(inInner)) tl.from(inInner, { opacity:0, duration:d, ease:"power1.inOut" }, at);
+      }
+
+// GENERATED TIMELINE: BEGIN
+      kenBurns("#s00-photo","#s00-text",0.0,15.0,1); enterText("s00",0.4);
+      kenBurns("#s01-photo","#s01-text",14.0,21.7,-1); enterText("s01",14.4);
+      kenBurns("#s02-photo","#s02-text",34.7,21.7,1); enterText("s02",35.1);
+      kenBurns("#s03-photo","#s03-text",55.4,21.7,-1); enterText("s03",55.8);
+      kenBurns("#s04-photo","#s04-text",76.1,21.7,1); enterText("s04",76.5);
+      kenBurns("#s05-photo","#s05-text",96.8,21.7,-1); enterText("s05",97.2);
+      kenBurns("#s06-photo","#s06-text",117.5,21.7,1); enterText("s06",117.9);
+      kenBurns("#s07-photo","#s07-text",138.2,21.7,-1); enterText("s07",138.6);
+      kenBurns("#s08-photo","#s08-text",158.9,21.7,1); enterText("s08",159.3);
+      kenBurns("#s09-photo","#s09-text",179.6,21.7,-1); enterText("s09",180.0);
+      kenBurns("#s10-photo","#s10-text",200.3,21.7,1); enterText("s10",200.7);
+      kenBurns("#s11-photo","#s11-text",221.0,21.7,-1); enterText("s11",221.4);
+      kenBurns("#s12-photo","#s12-text",241.7,21.7,1); enterText("s12",242.1);
+      kenBurns("#s13-photo","#s13-text",262.4,21.7,-1); enterText("s13",262.8);
+      kenBurns("#s14-photo","#s14-text",283.1,21.7,1); enterText("s14",283.5);
+      kenBurns("#s15-photo","#s15-text",303.8,21.7,-1); enterText("s15",304.2);
+      kenBurns("#s16-photo","#s16-text",324.5,21.7,1); enterText("s16",324.9);
+      kenBurns("#s17-photo","#s17-text",345.2,21.7,-1); enterText("s17",345.6);
+      kenBurns("#s18-photo","#s18-text",365.9,21.7,1); enterText("s18",366.3);
+      kenBurns("#s19-photo","#s19-text",386.6,21.7,-1); enterText("s19",387.0);
+      kenBurns("#s20-photo","#s20-text",407.3,21.7,1); enterText("s20",407.7);
+      kenBurns("#s21-photo","#s21-text",428.0,21.7,-1); enterText("s21",428.4);
+      kenBurns("#s22-photo","#s22-text",448.7,21.7,1); enterText("s22",449.1);
+      kenBurns("#s23-photo","#s23-text",469.4,21.7,-1); enterText("s23",469.8);
+      kenBurns("#s24-photo","#s24-text",490.1,21.7,1); enterText("s24",490.5);
+      kenBurns("#s25-photo","#s25-text",510.8,26.0,-1); enterText("s25",511.2);
+
+      crossDissolve("#s00-inner","#s01-inner",14.0,1.0);
+      crossDissolve("#s01-inner","#s02-inner",34.7,1.0);
+      crossDissolve("#s02-inner","#s03-inner",55.4,1.0);
+      crossDissolve("#s03-inner","#s04-inner",76.1,1.0);
+      crossDissolve("#s04-inner","#s05-inner",96.8,1.0);
+      crossDissolve("#s05-inner","#s06-inner",117.5,1.0);
+      crossDissolve("#s06-inner","#s07-inner",138.2,1.0);
+      crossDissolve("#s07-inner","#s08-inner",158.9,1.0);
+      crossDissolve("#s08-inner","#s09-inner",179.6,1.0);
+      crossDissolve("#s09-inner","#s10-inner",200.3,1.0);
+      crossDissolve("#s10-inner","#s11-inner",221.0,1.0);
+      crossDissolve("#s11-inner","#s12-inner",241.7,1.0);
+      crossDissolve("#s12-inner","#s13-inner",262.4,1.0);
+      crossDissolve("#s13-inner","#s14-inner",283.1,1.0);
+      crossDissolve("#s14-inner","#s15-inner",303.8,1.0);
+      crossDissolve("#s15-inner","#s16-inner",324.5,1.0);
+      crossDissolve("#s16-inner","#s17-inner",345.2,1.0);
+      crossDissolve("#s17-inner","#s18-inner",365.9,1.0);
+      crossDissolve("#s18-inner","#s19-inner",386.6,1.0);
+      crossDissolve("#s19-inner","#s20-inner",407.3,1.0);
+      crossDissolve("#s20-inner","#s21-inner",428.0,1.0);
+      crossDissolve("#s21-inner","#s22-inner",448.7,1.0);
+      crossDissolve("#s22-inner","#s23-inner",469.4,1.0);
+      crossDissolve("#s23-inner","#s24-inner",490.1,1.0);
+      crossDissolve("#s24-inner","#s25-inner",510.8,1.0);
+
+      // act-break white blooms (deterministic)
+      tl.to("#ov-bloom",{opacity:0.55,duration:0.5,ease:"power1.in"},117.2); tl.to("#ov-bloom",{opacity:0,duration:1.0,ease:"power1.out"},117.7);
+      tl.to("#ov-bloom",{opacity:0.55,duration:0.5,ease:"power1.in"},282.8); tl.to("#ov-bloom",{opacity:0,duration:1.0,ease:"power1.out"},283.3);
+      tl.to("#ov-bloom",{opacity:0.55,duration:0.5,ease:"power1.in"},427.7); tl.to("#ov-bloom",{opacity:0,duration:1.0,ease:"power1.out"},428.2);
+      // GENERATED TIMELINE: END
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

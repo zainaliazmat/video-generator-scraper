@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* ============================================================
+         DARK TRUTH BEHIND THE SOCIAL MEDIA
+         Style pass 1 — DESIGN.md identity (texture + type + color).
+         Layouts unchanged from the greybox.
+         ============================================================ */
+
+      /* ---- DESIGN.md §2 color tokens ---- */
+      :root {
+        --paper: #f2eed6;
+        --paper-shade: #e4e0c8;
+        --ink: #1f1f1e;
+        --charcoal: #3a3a39;
+        --spray: #2e5e1f;
+        --spray-deep: #1a5614;
+        --lime: #8fb573;
+        --paper-line: #c9c5ae;
+      }
+
+      /* ---- DESIGN.md §2 type system (local files) ---- */
+      @font-face {
+        font-family: "Rubik Spray Paint";
+        src: url("assets/fonts/Rubik_Spray_Paint/RubikSprayPaint-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Roboto Slab";
+        src: url("assets/fonts/Roboto_Slab/static/RobotoSlab-Black.ttf") format("truetype");
+        font-weight: 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Space Mono";
+        src: url("assets/fonts/Space_Mono/SpaceMono-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Space Mono";
+        src: url("assets/fonts/Space_Mono/SpaceMono-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+        font-weight: 100 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Sacramento";
+        src: url("assets/fonts/Sacramento/Sacramento-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--paper);
+        font-family: "Inter", sans-serif;
+        color: var(--ink);
+      }
+      .mono {
+        font-family: "Space Mono", monospace;
+      }
+
+      #root {
+        position: relative;
+      }
+
+      /* ---- Scene shell: paper + subtle depth + printed-plate frame ---- */
+      .scene {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 50% 42%,
+          var(--paper) 58%,
+          var(--paper-shade) 100%
+        );
+        color: var(--ink);
+      }
+      .scene::before {
+        content: "";
+        position: absolute;
+        inset: 36px;
+        border: 1px solid var(--paper-line);
+        opacity: 0.45;
+        pointer-events: none;
+        z-index: 2;
+      }
+      .scene-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 110px 160px;
+        gap: 36px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+
+      /* ---- Procedural grunge speckle (drifts slowly, multiply ~7%) ---- */
+      .grain {
+        position: absolute;
+        inset: -220px;
+        width: calc(100% + 440px);
+        height: calc(100% + 440px);
+        opacity: 0.07;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+        z-index: 50;
+        will-change: transform;
+      }
+
+      /* ---- Kinetic typography word units ---- */
+      .word {
+        display: inline-block;
+        will-change: clip-path, transform, opacity;
+      }
+
+      /* ---- Flash-through-white act transitions ---- */
+      .flash {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        opacity: 0;
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      /* ---- Decorative metadata (injected into every scene) ---- */
+      .v-tag {
+        position: absolute;
+        left: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        writing-mode: vertical-rl;
+        font-size: 15px;
+        letter-spacing: 5px;
+        color: var(--paper-line);
+        white-space: nowrap;
+        z-index: 3;
+      }
+      .reg-ticks {
+        position: absolute;
+        top: 44px;
+        right: 52px;
+        color: var(--paper-line);
+        z-index: 3;
+        line-height: 0;
+      }
+      .credit {
+        position: absolute;
+        bottom: 44px;
+        right: 52px;
+        text-align: right;
+        font-size: 13px;
+        line-height: 1.55;
+        letter-spacing: 1px;
+        color: var(--paper-line);
+        z-index: 3;
+      }
+      .credit .l {
+        display: block;
+      }
+
+      /* ---- Greybox QA tag, restyled subtle (timing readout) ---- */
+      /* Stale dev scene-tag labels (carried wrong 240s timings) — removed from the
+         brand surface. Kept the elements in the DOM but never rendered. */
+      .tag {
+        display: none;
+      }
+
+      /* ---- Type roles ---- */
+      .lead {
+        font-family: "Rubik Spray Paint", sans-serif;
+        font-size: 96px;
+        font-weight: 400;
+        line-height: 1.06;
+        max-width: 1500px;
+        letter-spacing: 0.5px;
+        color: var(--ink);
+        filter: url(#spray-rough);
+        text-shadow:
+          0 0 5px rgba(26, 86, 20, 0.06),
+          0 1px 0 rgba(31, 31, 30, 0.05);
+      }
+      .lead .em {
+        color: var(--spray);
+      }
+      /* Emphasized hero words are inline-block word-units; the spray-rough filter and
+         the hand-drawn strike/underline overshoot their box and can visually swallow
+         the adjacent word-space. Guarantee a hard gap so e.g. "A DISCIPLINE" never
+         collides into "ADISCIPLINE". */
+      .lead .em,
+      .lead .mark {
+        margin: 0 0.1em;
+      }
+      /* Secondary slab — "SOCIAL MEDIA", big numbers (clean, no spray edge) */
+      .slab {
+        font-family: "Roboto Slab", serif;
+        font-weight: 900;
+        filter: none;
+        text-shadow: none;
+        letter-spacing: -1px;
+      }
+      /* Mono kicker label */
+      .kicker {
+        font-family: "Space Mono", monospace;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 5px;
+        color: var(--charcoal);
+        text-transform: uppercase;
+      }
+      .kicker .em {
+        color: var(--spray);
+      }
+      .label {
+        font-family: "Space Mono", monospace;
+        font-size: 22px;
+        letter-spacing: 3px;
+        color: var(--charcoal);
+      }
+      .label.faint {
+        color: var(--paper-line);
+      }
+      .footnote {
+        font-family: "Space Mono", monospace;
+        font-size: 24px;
+        color: var(--charcoal);
+        max-width: 1100px;
+      }
+      /* Small sourcing line under hard stats (keeps figures defensible on screen). */
+      .stat-src {
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        color: var(--paper-line);
+      }
+
+      /* ---- Placeholder primitives (kept; repainted to palette) ---- */
+      .box {
+        border: 2px dashed var(--paper-line);
+        background: var(--paper-shade);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: "Space Mono", monospace;
+        font-size: 22px;
+        letter-spacing: 1px;
+        color: var(--charcoal);
+        padding: 16px;
+      }
+      .row {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .glyph {
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        border-style: solid;
+        font-size: 56px;
+        color: var(--spray);
+      }
+      .card {
+        border: 1.5px solid var(--paper-line);
+        border-left: 6px solid var(--spray);
+        background: var(--paper-shade);
+        padding: 36px 40px;
+        max-width: 560px;
+        text-align: left;
+        font-family: "Inter", sans-serif;
+        font-size: 30px;
+        line-height: 1.32;
+        color: var(--ink);
+      }
+      .card .attr {
+        margin-top: 22px;
+        font-family: "Space Mono", monospace;
+        font-size: 20px;
+        letter-spacing: 1px;
+        color: var(--charcoal);
+      }
+      .stat {
+        width: 380px;
+        height: 240px;
+        flex-direction: column;
+        gap: 10px;
+        border: 1.5px solid var(--paper-line);
+        border-top: 5px solid var(--spray);
+        border-radius: 0;
+        background: var(--paper-shade);
+        font-family: "Roboto Slab", serif;
+        font-size: 56px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .stat small {
+        font-family: "Space Mono", monospace;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 3px;
+        color: var(--charcoal);
+      }
+      .vmono {
+        position: absolute;
+        top: 50%;
+        right: 58px;
+        transform: translateY(-50%) rotate(90deg);
+        transform-origin: center;
+        font-family: "Space Mono", monospace;
+        font-size: 23px;
+        letter-spacing: 5px;
+        color: var(--charcoal);
+        white-space: nowrap;
+        z-index: 3;
+      }
+      .scroll-col {
+        position: absolute;
+        right: 240px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        font-family: "Roboto Slab", serif;
+        font-size: 70px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        color: var(--paper-line);
+        line-height: 1;
+        z-index: 1;
+      }
+      .scroll-col span:last-child {
+        color: var(--spray);
+      }
+      .checklist {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+        text-align: left;
+        font-family: "Inter", sans-serif;
+        font-size: 44px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .checklist .item {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .checkbox {
+        width: 48px;
+        height: 48px;
+        border: 3px solid var(--spray);
+        background: var(--paper);
+        flex: 0 0 auto;
+      }
+      .signature {
+        font-family: "Sacramento", cursive;
+        font-size: 108px;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .handle-row {
+        display: flex;
+        gap: 30px;
+        font-family: "Space Mono", monospace;
+        font-size: 28px;
+        color: var(--charcoal);
+      }
+
+      /* ============ SCENE 2 — left silhouette / right type ============ */
+      .s2-content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 64px;
+        padding: 90px 200px 90px 130px;
+        text-align: left;
+      }
+      .portrait-stage {
+        position: relative;
+        width: 700px;
+        height: 860px;
+        flex: 0 0 auto;
+      }
+      .portrait-img {
+        position: absolute;
+        left: 40px;
+        top: 20px;
+        width: 620px;
+        height: 760px;
+        object-fit: cover;
+        object-position: 50% 22%;
+        filter: url(#halftone);
+      }
+      .outline {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 700px;
+        height: 860px;
+        overflow: visible;
+        pointer-events: none;
+        filter: url(#spray-rough);
+      }
+      .outline-path {
+        fill: none;
+        stroke: var(--spray);
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .icon-cluster {
+        position: absolute;
+        inset: 0;
+        transform-origin: 350px 300px;
+        pointer-events: none;
+      }
+      .brand-icon {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--paper);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+      }
+      .brand-icon svg {
+        width: 56%;
+        height: 56%;
+        fill: var(--ink);
+      }
+      .title-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-width: 820px;
+      }
+      .l-behind {
+        color: var(--spray);
+      }
+
+      /* ============ SCENE 5 — social-post quote cards ============ */
+      .s5-kicker {
+        position: relative;
+        z-index: 1;
+      }
+      .watermark-inf {
+        position: absolute;
+        width: 1420px;
+        height: 1420px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -47%);
+        color: var(--spray);
+        opacity: 0.09;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .cards-row {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 56px;
+        align-items: stretch;
+        justify-content: center;
+      }
+      .post-card {
+        width: 640px;
+        background: #fbf9ef;
+        border: 1.5px solid var(--paper-line);
+        box-shadow: 10px 12px 0 rgba(31, 31, 30, 0.1);
+        padding: 40px 44px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        text-align: left;
+      }
+      .post-head {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .avatar {
+        width: 86px;
+        height: 86px;
+        border-radius: 50%;
+        background: var(--spray);
+        border: 2px solid var(--ink);
+        position: relative;
+        overflow: hidden;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .avatar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(var(--ink) 1.3px, transparent 1.4px);
+        background-size: 7px 7px;
+        opacity: 0.3;
+        mix-blend-mode: multiply;
+      }
+      .mono-init {
+        position: relative;
+        z-index: 1;
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 34px;
+        letter-spacing: 1px;
+        color: var(--paper);
+      }
+      .byline {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .name-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .name {
+        font-family: "Inter", sans-serif;
+        font-weight: 800;
+        font-size: 30px;
+        color: var(--ink);
+      }
+      .verified {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--spray);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      .verified svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: var(--paper);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .role {
+        font-family: "Space Mono", monospace;
+        font-size: 19px;
+        letter-spacing: 1px;
+        color: var(--charcoal);
+      }
+      /* Quote-card citation — replaces the (misleading) verified check with a real source. */
+      .post-src {
+        margin-top: 14px;
+        font-size: 15px;
+        letter-spacing: 1.5px;
+        color: var(--paper-line);
+      }
+      .post-body {
+        font-family: "Inter", sans-serif;
+        font-size: 36px;
+        line-height: 1.32;
+        color: var(--ink);
+      }
+      .hl {
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+      }
+      .hl .swipe {
+        position: absolute;
+        left: -6px;
+        right: -6px;
+        top: 48%;
+        height: 0.62em;
+        background: var(--spray);
+        opacity: 0.55;
+        transform: scaleX(0);
+        transform-origin: left center;
+        border-radius: 4px 7px 5px 6px;
+        z-index: 0;
+      }
+      .hl .hl-text {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ============ Lucide glyphs (stroke = currentColor) ============ */
+      .g-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink);
+      }
+      .g-icon.spray {
+        color: var(--spray);
+      }
+      .g-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* S4 reward-glyph chips */
+      .glyph-chip {
+        width: 118px;
+        height: 118px;
+        border: 2px solid var(--paper-line);
+        background: var(--paper-shade);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .glyph-chip .g-icon {
+        width: 60px;
+        height: 60px;
+      }
+
+      /* ============ Phone device frame ============ */
+      .phone {
+        position: relative;
+        border: 6px solid var(--ink);
+        border-radius: 38px;
+        background: var(--paper);
+        box-shadow: 9px 11px 0 rgba(31, 31, 30, 0.12);
+        padding: 16px;
+      }
+      .phone::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 104px;
+        height: 16px;
+        background: var(--ink);
+        border-radius: 0 0 12px 12px;
+        z-index: 2;
+      }
+      .phone-screen {
+        border: 1.5px solid var(--paper-line);
+        border-radius: 24px;
+        background: var(--paper-shade);
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      /* S4 infinite-feed phone */
+      .s4-phone {
+        width: 250px;
+        height: 360px;
+      }
+      .feed-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+        height: 60px;
+        border-bottom: 1px solid var(--paper-line);
+        flex: 0 0 auto;
+      }
+      .feed-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--paper-line);
+        flex: 0 0 auto;
+      }
+      .feed-dot.spray {
+        background: var(--spray);
+      }
+      .feed-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        flex: 1;
+      }
+      .feed-bar {
+        height: 9px;
+        border-radius: 5px;
+        background: var(--paper-line);
+      }
+      .feed-bar.short {
+        width: 55%;
+      }
+      /* S8 digital-wellbeing phone */
+      .s8-phone {
+        width: 460px;
+        height: 560px;
+      }
+      .wb-header {
+        padding: 20px 26px 16px;
+        font-family: "Space Mono", monospace;
+        font-size: 17px;
+        letter-spacing: 2px;
+        color: var(--charcoal);
+        border-bottom: 1px solid var(--paper-line);
+        flex: 0 0 auto;
+      }
+      .wb-item {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 22px 26px;
+        border-bottom: 1px solid var(--paper-line);
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        font-size: 27px;
+        color: var(--ink);
+      }
+      .wb-check {
+        width: 36px;
+        height: 36px;
+        color: var(--spray);
+        flex: 0 0 auto;
+      }
+
+      /* ============ S6 shatter bar ============ */
+      .shatter {
+        width: 760px;
+        height: 240px;
+        overflow: visible;
+      }
+      .shatter .shard {
+        fill: var(--ink);
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+      .shatter .crack {
+        fill: none;
+        stroke: var(--spray);
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ============ Hand-drawn green accents ============ */
+      .mark {
+        position: relative;
+        display: inline-block;
+      }
+      .accent {
+        position: absolute;
+        overflow: visible;
+        pointer-events: none;
+        z-index: 5;
+        filter: url(#spray-rough);
+      }
+      .accent path {
+        fill: none;
+        stroke: var(--spray);
+        stroke-width: 4.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+      }
+      .accent.under {
+        left: -3%;
+        bottom: -0.34em;
+        width: 106%;
+        height: 0.5em;
+      }
+      .accent.strike {
+        left: -7%;
+        top: -14%;
+        width: 114%;
+        height: 128%;
+      }
+      .accent.strike path {
+        stroke-width: 7;
+      }
+      .accent.circle {
+        left: -8%;
+        top: -15%;
+        width: 115%;
+        height: 130%;
+      }
+      .accent.circle {
+        filter: none;
+      }
+      .accent.circle path {
+        stroke-width: 5.5;
+      }
+      /* S9 signature flourish */
+      .sig-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .sig-flourish {
+        position: absolute;
+        left: -6%;
+        bottom: -28px;
+        width: 112%;
+        height: 60px;
+        overflow: visible;
+        pointer-events: none;
+        filter: url(#spray-rough);
+      }
+      .sig-flourish path {
+        fill: none;
+        stroke: var(--spray);
+        stroke-width: 4;
+        stroke-linecap: round;
+        vector-effect: non-scaling-stroke;
+      }
+
+      /* ============================================================
+         SIMULATED-INTERACTION MOTION (S1 / S3 / S4 / S6 / S8)
+         All decorative; transforms + color/opacity only; seek-safe.
+         ============================================================ */
+
+      /* ---- S1: notification bell + badge (GSAP "Lottie-style" ring) ---- */
+      .s1-bell {
+        position: absolute;
+        left: 50%;
+        top: 250px;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 120px;
+        z-index: 4;
+        pointer-events: none;
+      }
+      .s1-bell .bell-pivot {
+        position: absolute;
+        left: 12px;
+        top: 6px;
+        width: 96px;
+        height: 96px;
+        transform-origin: 50% 14%;
+        color: var(--ink);
+      }
+      .s1-bell .bell-pivot svg {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #s1 .em.slab {
+        display: inline-block;
+      }
+      /* S1 beat B — the hook's sharpest line, promoted from caption to hero type.
+         Slightly smaller than beat A so it reads as the follow-through punch. */
+      .s1-beatB {
+        font-size: 74px;
+        margin-top: 10px;
+      }
+      .s1-badge {
+        position: absolute;
+        right: 8px;
+        top: 2px;
+        min-width: 34px;
+        height: 34px;
+        padding: 0 7px;
+        border-radius: 17px;
+        background: #c0392b;
+        border: 2.5px solid var(--paper);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 1;
+        z-index: 5;
+      }
+
+      /* ---- S3: icon cluster orbiting a center dot ---- */
+      .s3-orbit {
+        position: absolute;
+        left: 50%;
+        top: 138px;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 200px;
+        z-index: 1;
+        pointer-events: none;
+      }
+      #s3 .stat-num {
+        display: inline-block;
+      }
+      #s7 .lead .em,
+      #s9 .lead .em {
+        display: inline-block;
+      }
+      .s3-orbit-node .ico {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        will-change: transform;
+      }
+      .s3-orbit-center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 26px;
+        height: 26px;
+        margin: -13px 0 0 -13px;
+        border-radius: 50%;
+        background: var(--spray);
+        box-shadow: 0 0 0 7px rgba(46, 94, 31, 0.13);
+      }
+      .s3-orbit-ring {
+        position: absolute;
+        inset: 0;
+        will-change: transform;
+      }
+      .s3-orbit-node {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 52px;
+        height: 52px;
+        margin: -26px 0 0 -26px;
+        border-radius: 50%;
+        background: var(--paper);
+        border: 2px solid var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        will-change: transform;
+      }
+      .s3-orbit-node svg {
+        width: 54%;
+        height: 54%;
+        fill: var(--ink);
+      }
+
+      /* ---- S3: calendar grid that fills then crumbles ---- */
+      .s3-cal {
+        position: absolute;
+        left: 50%;
+        bottom: 86px;
+        transform: translateX(-50%);
+        display: grid;
+        grid-template-columns: repeat(6, 40px);
+        gap: 8px;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .s3-cal-cell {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        background: var(--paper-shade);
+        border: 1.5px solid var(--paper-line);
+        will-change: transform, opacity;
+      }
+      .s3-cal-cap {
+        position: absolute;
+        bottom: 384px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 4px;
+        color: var(--charcoal);
+        white-space: nowrap;
+        z-index: 1;
+      }
+
+      /* ---- S4: pull-to-refresh slot-reel spinner + cursor + feed ---- */
+      .s4-refresh {
+        flex: 0 0 auto;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid var(--paper-line);
+        background: var(--paper-shade);
+      }
+      .s4-spinner {
+        width: 30px;
+        height: 30px;
+        color: var(--spray);
+        will-change: transform;
+      }
+      .s4-spinner svg {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 3;
+        stroke-linecap: round;
+      }
+      .feed-scroll {
+        display: flex;
+        flex-direction: column;
+        will-change: transform;
+      }
+      .s4-cursor {
+        position: absolute;
+        left: 150px;
+        top: 150px;
+        width: 38px;
+        height: 38px;
+        z-index: 6;
+        pointer-events: none;
+        will-change: transform;
+        filter: drop-shadow(1px 2px 1px rgba(31, 31, 30, 0.35));
+      }
+      .s4-cursor svg {
+        width: 100%;
+        height: 100%;
+      }
+      /* glyph-chips become slot reels */
+      #s4 .glyph-chip {
+        overflow: hidden;
+        position: relative;
+        align-items: flex-start;
+      }
+      #s4 .glyph-chip .reel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        will-change: transform;
+      }
+      #s4 .glyph-chip .reel .g-icon {
+        flex: 0 0 114px;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* SCROLL column: outline by default, fills solid on its beat */
+      #s4 .scroll-col span {
+        display: block;
+        color: rgba(46, 94, 31, 0);
+        -webkit-text-stroke: 2.6px var(--spray);
+        will-change: transform;
+      }
+
+      /* S6 headline always reads above the drifting shards */
+      #s6 .lead {
+        position: relative;
+        z-index: 4;
+      }
+
+      /* ===== Burned-in VO captions — Space Mono, ink on subtle paper, lower third ===== */
+      .vo-cap {
+        position: absolute;
+        left: 50%;
+        bottom: 92px;
+        transform: translateX(-50%);
+        max-width: 1160px;
+        width: max-content;
+        padding: 12px 26px;
+        background: rgba(242, 238, 214, 0.82);
+        border: 1px solid var(--paper-line);
+        box-shadow: 0 5px 0 rgba(31, 31, 30, 0.05);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 1.3;
+        letter-spacing: 0.3px;
+        color: var(--ink);
+        text-align: center;
+        z-index: 60;
+      }
+      /* S3: calendar grid occupies the lower-centre — drop captions below it */
+      .vo-cap.vo-cap-low {
+        bottom: 46px;
+      }
+
+      /* ===== News-intro transition overlays ===== */
+      .tx-swipe {
+        position: absolute;
+        top: -6%;
+        bottom: -6%;
+        left: 0;
+        width: 44%;
+        background: var(--spray);
+        transform: translateX(-170%) skewX(-9deg);
+        opacity: 0;
+        z-index: 80;
+        pointer-events: none;
+        will-change: transform, opacity;
+        box-shadow: 0 0 60px rgba(46, 94, 31, 0.4);
+      }
+      .tx-paper {
+        position: absolute;
+        inset: 0;
+        background: var(--paper);
+        opacity: 0;
+        z-index: 81;
+        pointer-events: none;
+      }
+      .tx-flash {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        opacity: 0;
+        z-index: 82;
+        pointer-events: none;
+      }
+      /* ===== Continuous news ticker band (top margin, scrolls leftward) ===== */
+      .ticker-band {
+        position: absolute;
+        top: 10px;
+        left: 36px;
+        right: 36px;
+        height: 24px;
+        overflow: hidden;
+        z-index: 6;
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+      }
+      .ticker-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--paper-line);
+        opacity: 0.1;
+      }
+      .ticker-band::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background: var(--spray);
+        opacity: 0.55;
+      }
+      .ticker-track {
+        position: relative;
+        display: inline-flex;
+        white-space: nowrap;
+        will-change: transform;
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        color: var(--charcoal);
+        opacity: 0.72;
+        padding-left: 22px;
+      }
+      .ticker-track .tk {
+        padding: 0 26px;
+      }
+      .ticker-track .tk b {
+        color: var(--spray);
+        font-weight: 700;
+      }
+      /* ---- S6: faint highlight-reel grid scrolling behind ---- */
+      .s6-reelgrid {
+        position: absolute;
+        left: 36px;
+        right: 36px;
+        top: -120px;
+        height: 1500px;
+        z-index: 0;
+        opacity: 0.1;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 16px;
+        will-change: transform;
+        pointer-events: none;
+      }
+      .s6-reelcell {
+        width: 100%;
+        height: 150px;
+        background: var(--charcoal);
+        border-radius: 6px;
+      }
+      /* RGB-split glitch stamp */
+      .s6-glitch {
+        position: absolute;
+        left: 50%;
+        bottom: 210px;
+        transform: translateX(-50%);
+        z-index: 3;
+        font-family: "Roboto Slab", serif;
+        font-weight: 900;
+        font-size: 62px;
+        letter-spacing: 2px;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .s6-glitch .g-base {
+        position: relative;
+        color: var(--ink);
+        opacity: 0;
+      }
+      .s6-glitch .g-layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+        opacity: 0;
+        will-change: transform;
+      }
+      .s6-glitch .g-r {
+        color: #e23b3b;
+        mix-blend-mode: multiply;
+      }
+      .s6-glitch .g-c {
+        color: #1f9b8a;
+        mix-blend-mode: multiply;
+      }
+
+      /* ---- S8: checkmark draw + phone grayscale drain ---- */
+      #s8 .s8-phone {
+        will-change: filter;
+      }
+      #s8 .wb-check .s8-draw {
+        /* drawn on via stroke-dashoffset in the timeline */
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-28jf" id="root" data-composition-id="dark-truth" data-start="0" data-duration="85" data-width="1920" data-height="1080">
+      <!-- Reusable SVG filters: rough spray edge for hero words -->
+      <svg data-hf-id="hf-p3r6" width="0" height="0" style="position: absolute" aria-hidden="true">
+        <defs data-hf-id="hf-mh0t">
+          <filter data-hf-id="hf-kcg9" id="spray-rough" x="-15%" y="-15%" width="130%" height="130%">
+            <feturbulence data-hf-id="hf-dsjg" type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n" />
+            <fedisplacementmap data-hf-id="hf-e2qn" in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+
+          <!-- In-engine 1-bit halftone dither: luminance -> contrast -> noise dither
+               -> posterize to 1-bit -> recolor inked pixels to --ink, paper transparent -->
+          <filter data-hf-id="hf-odio" id="halftone" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <fecolormatrix data-hf-id="hf-n8zq" type="matrix" values=".299 .587 .114 0 0  .299 .587 .114 0 0  .299 .587 .114 0 0  0 0 0 1 0" result="g" />
+            <fecomponenttransfer data-hf-id="hf-x9pr" in="g" result="c">
+              <fefuncr data-hf-id="hf-xort" type="linear" slope="1.5" intercept="0.05" />
+              <fefuncg data-hf-id="hf-rw96" type="linear" slope="1.5" intercept="0.05" />
+              <fefuncb data-hf-id="hf-0ti1" type="linear" slope="1.5" intercept="0.05" />
+            </fecomponenttransfer>
+            <feturbulence data-hf-id="hf-clf1" type="fractalNoise" baseFrequency="0.65" numOctaves="1" seed="7" stitchTiles="stitch" result="n2" />
+            <fecolormatrix data-hf-id="hf-6s3p" in="n2" type="saturate" values="0" result="ng" />
+            <fecomposite data-hf-id="hf-koo8" in="c" in2="ng" operator="arithmetic" k1="0" k2="1" k3="0.35" k4="-0.175" result="mix" />
+            <fecomponenttransfer data-hf-id="hf-86ph" in="mix" result="bits">
+              <fefuncr data-hf-id="hf-7mt9" type="discrete" tableValues="0 1" />
+              <fefuncg data-hf-id="hf-84x0" type="discrete" tableValues="0 1" />
+              <fefuncb data-hf-id="hf-z965" type="discrete" tableValues="0 1" />
+            </fecomponenttransfer>
+            <fecolormatrix data-hf-id="hf-ppp5" in="bits" type="matrix" values="0 0 0 0 0.122  0 0 0 0 0.122  0 0 0 0 0.118  -1 0 0 0 1" />
+          </filter>
+        </defs>
+      </svg>
+
+      <!-- ================= SCENE 1 — HOOK (0 / 18) ================= -->
+      <section data-hf-id="hf-kmmu" id="s1" class="scene clip" data-start="0" data-duration="6.267" data-track-index="1">
+        <div data-hf-id="hf-gryk" class="tag mono">S1 HOOK · 0–18s</div>
+        <div data-hf-id="hf-s1bl" class="s1-bell" data-layout-ignore="" aria-hidden="true">
+          <div data-hf-id="hf-s1bp" class="bell-pivot">
+            <svg data-hf-id="hf-s1bs" viewBox="0 0 24 24"><path data-hf-id="hf-s1b1" d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path data-hf-id="hf-s1b2" d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></svg>
+          </div>
+          <div data-hf-id="hf-s1bg" class="s1-badge mono">1</div>
+        </div>
+        <div data-hf-id="hf-cn5c" class="scene-content">
+          <div data-hf-id="hf-yt7a" class="label faint mono anim">AR/17—20 // FIELD REPORT</div>
+          <div data-hf-id="hf-mq4a" class="lead">
+            YOU'LL UNLOCK YOUR PHONE
+            <span data-hf-id="hf-zeo6" class="mark"><span data-hf-id="hf-vbs3" class="em slab">0</span><svg data-hf-id="hf-9udw" class="accent under" viewBox="0 0 100 12" preserveAspectRatio="none">
+                <path data-hf-id="hf-27bd" class="accent-draw" data-draw="2.6" pathLength="1" d="M2 7 C 22 3, 44 11, 64 6 S 96 8, 98 7" />
+              </svg></span>
+            MORE TIMES
+          </div>
+          <div data-hf-id="hf-a5cm" class="lead s1-beatB">YOU WON'T DECIDE TO. <span data-hf-id="hf-tlkq" class="em">YOU JUST WILL.</span></div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 2 — TITLE (18 / 14) ================= -->
+      <section data-hf-id="hf-e7yi" id="s2" class="scene clip" data-start="5.867" data-duration="3.792" data-track-index="3">
+        <div data-hf-id="hf-y5a9" class="tag mono">S2 TITLE · 18–32s</div>
+        <div data-hf-id="hf-p514" class="vmono mono">AR/17—20/.0610</div>
+        <div data-hf-id="hf-ipcj" class="scene-content s2-content">
+          <!-- LEFT: halftone portrait + self-drawing spray outline + orbiting icons -->
+          <div data-hf-id="hf-72do" class="portrait-stage">
+            <img data-hf-id="hf-9x4e" class="portrait-img" src="assets/img/portrait.jpg" alt="">
+            <svg data-hf-id="hf-t1j4" class="outline" viewBox="0 0 700 860" fill="none" aria-hidden="true">
+              <path data-hf-id="hf-c3jf" class="outline-path" pathLength="1" d="M 120 790 C 150 600 235 540 250 470 C 258 440 240 400 238 360 C 234 320 230 270 250 222 C 272 185 305 165 350 158 C 395 165 428 185 450 222 C 470 270 466 320 462 360 C 460 400 442 440 450 470 C 465 540 550 600 580 790" />
+            </svg>
+            <div data-hf-id="hf-lpuy" class="icon-cluster">
+              <span data-hf-id="hf-jb01" class="brand-icon" data-i="0"><svg data-hf-id="hf-y9f5" viewBox="0 0 24 24"><path data-hf-id="hf-h4pb" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z" /></svg></span>
+              <span data-hf-id="hf-ijc8" class="brand-icon" data-i="1"><svg data-hf-id="hf-svtx" viewBox="0 0 24 24"><path data-hf-id="hf-5mpm" d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" /></svg></span>
+              <span data-hf-id="hf-r783" class="brand-icon" data-i="2"><svg data-hf-id="hf-u2r0" viewBox="0 0 24 24"><path data-hf-id="hf-f1zd" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077" /></svg></span>
+              <span data-hf-id="hf-n942" class="brand-icon" data-i="3"><svg data-hf-id="hf-tofz" viewBox="0 0 24 24"><path data-hf-id="hf-dvue" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg></span>
+              <span data-hf-id="hf-4hed" class="brand-icon" data-i="4"><svg data-hf-id="hf-uvd2" viewBox="0 0 24 24"><path data-hf-id="hf-tlb1" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" /></svg></span>
+            </div>
+          </div>
+          <!-- RIGHT: type stack -->
+          <div data-hf-id="hf-25jt" class="title-stack">
+            <div data-hf-id="hf-jc7y" class="lead l-dark">DARK TRUTH</div>
+            <div data-hf-id="hf-r6h0" class="lead l-behind">BEHIND THE</div>
+            <div data-hf-id="hf-qg4l" class="lead slab l-social">SOCIAL MEDIA</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 3 — SCALE (32 / 28) ================= -->
+      <section data-hf-id="hf-8u7s" id="s3" class="scene clip" data-start="9.259" data-duration="11.387" data-track-index="1">
+        <div data-hf-id="hf-6b0x" class="tag mono">S3 SCALE · 32–60s</div>
+        <div data-hf-id="hf-s3or" class="s3-orbit" data-layout-ignore="" aria-hidden="true">
+          <div data-hf-id="hf-s3oc" class="s3-orbit-center"></div>
+          <div data-hf-id="hf-s3rg" class="s3-orbit-ring"></div>
+        </div>
+        <div data-hf-id="hf-mthd" class="scene-content">
+          <div data-hf-id="hf-iqeu" class="kicker">THE <span data-hf-id="hf-ziib" class="em">SCALE</span></div>
+          <div data-hf-id="hf-thy4" class="row">
+            <div data-hf-id="hf-h4id" class="box stat anim"><span data-hf-id="hf-s3n1" class="stat-num" data-count="5.66" data-dec="2" data-suffix="B">0.00B</span><small data-hf-id="hf-jm64">USERS</small></div>
+            <div data-hf-id="hf-s1j2" class="box stat anim"><span data-hf-id="hf-s3n2" class="stat-num" data-count="141" data-dec="0" data-suffix=" min">0 min</span><small data-hf-id="hf-zj2h">PER DAY</small></div>
+            <div data-hf-id="hf-9jz2" class="box stat anim">
+              <span data-hf-id="hf-60l2" class="mark">≈ <span data-hf-id="hf-s3n3" class="stat-num" data-count="36" data-dec="0" data-suffix=" days">0 days</span><svg data-hf-id="hf-1xza" class="accent circle" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path data-hf-id="hf-istl" class="accent-draw" data-draw="37.5" data-dur="0.9" pathLength="1" d="M52 7 C 24 6, 6 28, 8 52 C 10 78, 30 95, 55 92 C 82 89, 96 66, 92 42 C 88 20, 68 7, 44 9" />
+                </svg></span>
+              <small data-hf-id="hf-vmow">PER YEAR</small>
+            </div>
+          </div>
+          <div data-hf-id="hf-ezqz" class="stat-src mono anim">SOURCE: DataReportal &amp; GWI, 2025 · global averages</div>
+        </div>
+        <div data-hf-id="hf-s3cc" class="s3-cal-cap mono">36 DAYS / YEAR · SCROLLING</div>
+        <div data-hf-id="hf-s3cl" class="s3-cal" data-layout-ignore="" aria-hidden="true"></div>
+      </section>
+
+      <!-- ================= SCENE 4 — MACHINE (60 / 32) ================= -->
+      <section data-hf-id="hf-hzsf" id="s4" class="scene clip" data-start="20.246" data-duration="11.6" data-track-index="3">
+        <div data-hf-id="hf-uahf" class="tag mono">S4 MACHINE · 60–92s</div>
+        <div data-hf-id="hf-rxii" class="scroll-col mono anim">
+          <span data-hf-id="hf-e4r4">SCROLL</span><span data-hf-id="hf-snzc">SCROLL</span><span data-hf-id="hf-rh29">SCROLL</span><span data-hf-id="hf-rvda">SCROLL</span><span data-hf-id="hf-qog7">SCROLL</span>
+        </div>
+        <div data-hf-id="hf-c9xd" class="scene-content" style="align-items: flex-start; text-align: left; padding-left: 200px">
+          <div data-hf-id="hf-fzgv" class="lead">IT'S NOT A BUG.<br data-hf-id="hf-x5px">IT'S THE <span data-hf-id="hf-lktu" class="em">PRODUCT</span>.</div>
+          <div data-hf-id="hf-x3pf" class="row anim" style="justify-content: flex-start">
+            <div data-hf-id="hf-cqch" class="glyph-chip">
+              <span data-hf-id="hf-nf8p" class="g-icon spray"><svg data-hf-id="hf-i6u6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-sn8n" d="M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8" /></svg></span>
+            </div>
+            <div data-hf-id="hf-w8dx" class="glyph-chip">
+              <span data-hf-id="hf-vuz6" class="g-icon"><svg data-hf-id="hf-1w5e" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-i1j2" d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /><path data-hf-id="hf-pseq" d="M21 3v5h-5" /><path data-hf-id="hf-56nx" d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /><path data-hf-id="hf-8lg6" d="M8 16H3v5" /></svg></span>
+            </div>
+            <div data-hf-id="hf-xfb0" class="glyph-chip">
+              <span data-hf-id="hf-fzdp" class="g-icon spray"><svg data-hf-id="hf-2agf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-wur9" d="M10.268 21a2 2 0 0 0 3.464 0" /><path data-hf-id="hf-rdpc" d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg></span>
+            </div>
+          </div>
+          <div data-hf-id="hf-w99o" class="label anim">VARIABLE REWARD</div>
+          <div data-hf-id="hf-ksdx" class="phone s4-phone anim">
+            <div data-hf-id="hf-s4cu" class="s4-cursor" data-layout-ignore="" aria-hidden="true">
+              <svg data-hf-id="hf-s4cs" viewBox="0 0 24 24"><path data-hf-id="hf-s4cp" d="M5 3L19 12L12 13L9 20L5 3Z" fill="#1f1f1e" stroke="#f2eed6" stroke-width="1.5" /></svg>
+            </div>
+            <div data-hf-id="hf-9o7x" class="phone-screen">
+              <div data-hf-id="hf-s4rf" class="s4-refresh">
+                <div data-hf-id="hf-s4sp" class="s4-spinner"><svg data-hf-id="hf-s4ss" viewBox="0 0 24 24"><path data-hf-id="hf-s4s1" d="M21 12a9 9 0 1 1-6.2-8.5" /></svg></div>
+              </div>
+              <div data-hf-id="hf-s4fs" class="feed-scroll">
+                <div data-hf-id="hf-sz3n" class="feed-row"><span data-hf-id="hf-e87w" class="feed-dot spray"></span><div data-hf-id="hf-8702" class="feed-lines"><div data-hf-id="hf-69dw" class="feed-bar"></div><div data-hf-id="hf-ihh6" class="feed-bar short"></div></div></div>
+                <div data-hf-id="hf-lv6b" class="feed-row"><span data-hf-id="hf-0cyz" class="feed-dot"></span><div data-hf-id="hf-a9fa" class="feed-lines"><div data-hf-id="hf-qtks" class="feed-bar"></div><div data-hf-id="hf-qzku" class="feed-bar short"></div></div></div>
+                <div data-hf-id="hf-lgva" class="feed-row"><span data-hf-id="hf-l30r" class="feed-dot"></span><div data-hf-id="hf-anqb" class="feed-lines"><div data-hf-id="hf-pmnp" class="feed-bar"></div><div data-hf-id="hf-rdvv" class="feed-bar short"></div></div></div>
+                <div data-hf-id="hf-l2k9" class="feed-row"><span data-hf-id="hf-irkk" class="feed-dot spray"></span><div data-hf-id="hf-b21c" class="feed-lines"><div data-hf-id="hf-q0yq" class="feed-bar"></div><div data-hf-id="hf-rs6w" class="feed-bar short"></div></div></div>
+                <div data-hf-id="hf-ko98" class="feed-row"><span data-hf-id="hf-kopq" class="feed-dot"></span><div data-hf-id="hf-89w5" class="feed-lines"><div data-hf-id="hf-s0hv" class="feed-bar"></div><div data-hf-id="hf-p01p" class="feed-bar short"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 5 — ENGINEERS (92 / 36) ================= -->
+      <section data-hf-id="hf-d7mb" id="s5" class="scene clip" data-start="31.446" data-duration="12.581" data-track-index="1">
+        <div data-hf-id="hf-z0nc" class="tag mono">S5 ENGINEERS · 92–128s</div>
+        <div data-hf-id="hf-o0eg" class="scene-content">
+          <!-- giant faint ∞ watermark behind both cards -->
+          <svg data-hf-id="hf-0ga4" class="watermark-inf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path data-hf-id="hf-eybx" d="M12 12c-2-2.8-4-4.2-6.2-4.2a4.2 4.2 0 1 0 0 8.4c2.2 0 4.2-1.4 6.2-4.2Zm0 0c2 2.8 4 4.2 6.2 4.2a4.2 4.2 0 0 0 0-8.4c-2.2 0-4.2 1.4-6.2 4.2Z" />
+          </svg>
+          <div data-hf-id="hf-mrh6" class="kicker s5-kicker">THE <span data-hf-id="hf-o1fj" class="em">ENGINEERS</span> SPEAK</div>
+          <div data-hf-id="hf-62wu" class="cards-row">
+            <div data-hf-id="hf-5zfs" class="post-card anim card-a">
+              <div data-hf-id="hf-ysvt" class="post-head">
+                <div data-hf-id="hf-o4a3" class="avatar"><span data-hf-id="hf-ms2k" class="mono-init">AR</span></div>
+                <div data-hf-id="hf-ohnh" class="byline">
+                  <div data-hf-id="hf-yy2y" class="name-row">
+                    <span data-hf-id="hf-trxi" class="name">Aza Raskin</span>
+                  </div>
+                  <div data-hf-id="hf-eo0n" class="role">inventor of infinite scroll</div>
+                </div>
+              </div>
+              <div data-hf-id="hf-hjbs" class="post-body">
+                "Sprinkling <span data-hf-id="hf-l9hl" class="hl"><span data-hf-id="hf-q1v1" class="swipe"></span><span data-hf-id="hf-b98s" class="hl-text">behavioral cocaine</span></span> over your interface."
+              </div>
+              <div data-hf-id="hf-2pj8" class="post-src mono">SOURCE: BBC · 2018</div>
+            </div>
+            <div data-hf-id="hf-enbn" class="post-card anim card-b">
+              <div data-hf-id="hf-ghal" class="post-head">
+                <div data-hf-id="hf-z7gr" class="avatar"><span data-hf-id="hf-83yl" class="mono-init">LB</span></div>
+                <div data-hf-id="hf-5zzl" class="byline">
+                  <div data-hf-id="hf-6z0u" class="name-row">
+                    <span data-hf-id="hf-58q5" class="name">Loren Brichter</span>
+                  </div>
+                  <div data-hf-id="hf-ke0w" class="role">creator of pull-to-refresh</div>
+                </div>
+              </div>
+              <div data-hf-id="hf-83ig" class="post-body">
+                "Pull-to-refresh is addictive… These are <span data-hf-id="hf-skl9" class="hl"><span data-hf-id="hf-8uxt" class="swipe"></span><span data-hf-id="hf-mhr2" class="hl-text">not good things</span></span>."
+              </div>
+              <div data-hf-id="hf-4n29" class="post-src mono">SOURCE: THE GUARDIAN · 2016</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 6 — COST (128 / 34) ================= -->
+      <section data-hf-id="hf-ns2y" id="s6" class="scene clip" data-start="43.627" data-duration="11.216" data-track-index="3">
+        <div data-hf-id="hf-hw36" class="tag mono">S6 COST · 128–162s</div>
+        <div data-hf-id="hf-s6rg" class="s6-reelgrid" data-layout-ignore="" aria-hidden="true"></div>
+        <div data-hf-id="hf-s6gl" class="s6-glitch" data-layout-ignore="" aria-hidden="true">
+          <span data-hf-id="hf-s6g0" class="g-base">NOT ENOUGH</span>
+          <span data-hf-id="hf-s6gr" class="g-layer g-r">NOT ENOUGH</span>
+          <span data-hf-id="hf-s6gc" class="g-layer g-c">NOT ENOUGH</span>
+        </div>
+        <div data-hf-id="hf-m0vb" class="scene-content">
+          <div data-hf-id="hf-r1vd" class="lead">
+            YOUR WORST vs THEIR <span data-hf-id="hf-1ehd" class="em">HIGHLIGHT</span> REEL
+          </div>
+          <div data-hf-id="hf-3bkf" class="row" style="gap: 56px">
+            <svg data-hf-id="hf-f7se" class="shatter anim" viewBox="0 0 760 240" aria-hidden="true">
+              <polygon data-hf-id="hf-ii7d" class="shard s6-shard" data-i="0" points="0,0 190,0 165,120 200,240 0,240" />
+              <polygon data-hf-id="hf-aojf" class="shard s6-shard" data-i="1" points="190,0 375,0 352,118 392,240 200,240 165,120" />
+              <polygon data-hf-id="hf-lu9z" class="shard s6-shard" data-i="2" points="375,0 555,0 575,118 552,240 392,240 352,118" />
+              <polygon data-hf-id="hf-y46p" class="shard s6-shard" data-i="3" points="555,0 760,0 760,240 552,240 575,118" />
+              <path data-hf-id="hf-yy57" class="crack" d="M190 0 L165 120 L200 240" />
+              <path data-hf-id="hf-zuu1" class="crack" d="M375 0 L352 118 L392 240" />
+              <path data-hf-id="hf-dmaa" class="crack" d="M555 0 L575 118 L552 240" />
+            </svg>
+            <div data-hf-id="hf-iqw4" class="glyph-chip anim">
+              <span data-hf-id="hf-oah5" class="g-icon spray" style="width: 64px; height: 64px"><svg data-hf-id="hf-2org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-m1lh" cx="12" cy="12" r="10" /><path data-hf-id="hf-h8jk" d="M16 16s-1.5-2-4-2-4 2-4 2" /><line data-hf-id="hf-r4kp" x1="9" x2="9.01" y1="9" y2="9" /><line data-hf-id="hf-6qf1" x1="15" x2="15.01" y1="9" y2="9" /></svg></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 7 — WILLPOWER (162 / 26) ================= -->
+      <section data-hf-id="hf-hf1o" id="s7" class="scene clip" data-start="54.443" data-duration="12.965" data-track-index="1">
+        <div data-hf-id="hf-34q5" class="tag mono">S7 WILLPOWER · 162–188s</div>
+        <div data-hf-id="hf-mf6c" class="scene-content">
+          <div data-hf-id="hf-f5m5" class="lead">
+            IT'S NOT A
+            <span data-hf-id="hf-qipc" class="mark">DISCIPLINE<svg data-hf-id="hf-cwqw" class="accent strike" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path data-hf-id="hf-wq35" class="accent-draw" data-draw="164.2" pathLength="1" d="M6 20 C 38 42, 62 58, 96 82" />
+                <path data-hf-id="hf-ro74" class="accent-draw" data-draw="164.7" pathLength="1" d="M94 18 C 62 42, 38 60, 8 84" />
+              </svg></span>
+            PROBLEM.<br data-hf-id="hf-rsrt">IT'S A <span data-hf-id="hf-5fwg" class="em">DESIGNED</span> PROBLEM.
+          </div>
+          <div data-hf-id="hf-w8vp" class="footnote mono anim">
+            LA &amp; Santa Fe juries, 2026 · cos. appealing
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 8 — TAKEBACK (188 / 32) ================= -->
+      <section data-hf-id="hf-oquo" id="s8" class="scene clip" data-start="67.008" data-duration="11.707" data-track-index="3">
+        <div data-hf-id="hf-aml0" class="tag mono">S8 TAKEBACK · 188–220s</div>
+        <div data-hf-id="hf-l899" class="scene-content">
+          <div data-hf-id="hf-zk5p" class="kicker">TAKE IT <span data-hf-id="hf-n2l0" class="em">BACK</span></div>
+          <div data-hf-id="hf-fseh" class="phone s8-phone anim">
+            <div data-hf-id="hf-a9kh" class="phone-screen">
+              <div data-hf-id="hf-5102" class="wb-header">DIGITAL WELLBEING</div>
+              <div data-hf-id="hf-5sy2" class="wb-item"><span data-hf-id="hf-73pf" class="g-icon spray wb-check"><svg data-hf-id="hf-9wfg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-jqh5" cx="12" cy="12" r="10" /><path data-hf-id="hf-yfzu" d="m9 12 2 2 4-4" /></svg></span>Notifications OFF</div>
+              <div data-hf-id="hf-9i0h" class="wb-item"><span data-hf-id="hf-nu2r" class="g-icon spray wb-check"><svg data-hf-id="hf-i878" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-ozdc" cx="12" cy="12" r="10" /><path data-hf-id="hf-b76m" d="m9 12 2 2 4-4" /></svg></span>Grayscale ON</div>
+              <div data-hf-id="hf-4cgf" class="wb-item"><span data-hf-id="hf-nfrq" class="g-icon spray wb-check"><svg data-hf-id="hf-h1a5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-ol2b" cx="12" cy="12" r="10" /><path data-hf-id="hf-blhn" d="m9 12 2 2 4-4" /></svg></span>2 windows / day</div>
+              <div data-hf-id="hf-446t" class="wb-item"><span data-hf-id="hf-n1gp" class="g-icon spray wb-check"><svg data-hf-id="hf-hfl6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-ijk2" cx="12" cy="12" r="10" /><path data-hf-id="hf-bzso" d="m9 12 2 2 4-4" /></svg></span>Boredom allowed</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 9 — OUTRO (220 / 20) ================= -->
+      <section data-hf-id="hf-nhpb" id="s9" class="scene clip" data-start="78.315" data-duration="6.544" data-track-index="1">
+        <div data-hf-id="hf-p5yf" class="tag mono">S9 OUTRO · 220–240s</div>
+        <div data-hf-id="hf-lmka" class="scene-content">
+          <div data-hf-id="hf-vf9q" class="lead">LOG OFF. BREATHE. LIVE <span data-hf-id="hf-sngn" class="em">REAL</span>.</div>
+          <div data-hf-id="hf-evvp" class="signature anim">
+            <span data-hf-id="hf-4593" class="sig-wrap">Royale<svg data-hf-id="hf-70s1" class="sig-flourish" viewBox="0 0 100 22" preserveAspectRatio="none">
+                <path data-hf-id="hf-1p2t" class="accent-draw" data-draw="222" data-dur="1.1" pathLength="1" d="M2 13 C 26 2, 56 22, 80 10 C 90 5, 96 9, 99 15" />
+              </svg></span>
+          </div>
+          <div data-hf-id="hf-qj0d" class="handle-row mono anim">
+            <span data-hf-id="hf-mvsl">@handle</span><span data-hf-id="hf-1o6h">@handle</span><span data-hf-id="hf-2v3k">@handle</span>
+          </div>
+          <div data-hf-id="hf-x55w" class="label faint mono anim">AR/17—20/.0610 · END</div>
+        </div>
+      </section>
+
+      <!-- Procedural grunge speckle overlay (above scenes, multiply) -->
+      <div data-hf-id="hf-ub7q" class="grain" aria-hidden="true">
+        <svg data-hf-id="hf-xdap" width="100%" height="100%" preserveAspectRatio="none">
+          <filter data-hf-id="hf-a50s" id="grain-noise">
+            <feturbulence data-hf-id="hf-wz76" type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" seed="11" />
+            <fecolormatrix data-hf-id="hf-skw8" type="saturate" values="0" />
+          </filter>
+          <rect data-hf-id="hf-ul0x" width="100%" height="100%" filter="url(#grain-noise)" />
+        </svg>
+      </div>
+
+      <!-- News-intro transition overlays + continuous ticker band -->
+      <div data-hf-id="hf-0ujo" class="tx-swipe" aria-hidden="true"></div>
+      <div data-hf-id="hf-q2io" class="tx-paper" aria-hidden="true"></div>
+      <div data-hf-id="hf-96r8" class="tx-flash" aria-hidden="true"></div>
+      <div data-hf-id="hf-3y3x" class="ticker-band" aria-hidden="true"><div data-hf-id="hf-ftm8" class="ticker-track"></div></div>
+
+      <!-- ===== Narration audio (per scene, at NEW VO-driven starts) ===== -->
+      <audio data-hf-id="hf-ghja" id="aud-1" src="assets/audio/vo/s1.wav" data-start="0" data-duration="5.867" data-track-index="9" data-volume="1"></audio>
+      <audio data-hf-id="hf-lue7" id="aud-2" src="assets/audio/vo/s2.wav" data-start="5.867" data-duration="3.392" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-y3te" id="aud-3" src="assets/audio/vo/s3.wav" data-start="9.259" data-duration="10.987" data-track-index="9" data-volume="1"></audio>
+      <audio data-hf-id="hf-dn96" id="aud-4" src="assets/audio/vo/s4.wav" data-start="20.246" data-duration="11.200" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-3zp9" id="aud-5" src="assets/audio/vo/s5.wav" data-start="31.446" data-duration="12.181" data-track-index="9" data-volume="1"></audio>
+      <audio data-hf-id="hf-ft02" id="aud-6" src="assets/audio/vo/s6.wav" data-start="43.627" data-duration="10.816" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-agld" id="aud-7" src="assets/audio/vo/s7.wav" data-start="54.443" data-duration="12.565" data-track-index="9" data-volume="1"></audio>
+      <audio data-hf-id="hf-3pzj" id="aud-8" src="assets/audio/vo/s8.wav" data-start="67.008" data-duration="11.307" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-yg8x" id="aud-9" src="assets/audio/vo/s9.wav" data-start="78.315" data-duration="6.144" data-track-index="9" data-volume="1"></audio>
+
+      <!-- ===== Background music bed (dark → hopeful at the S8 pivot ~67s, sidechain-ducked under VO) ===== -->
+      <audio data-hf-id="hf-rdct" id="aud-10" src="assets/audio/music.mp3" data-start="0" data-duration="85" data-track-index="8" data-volume="1"></audio>
+
+      <!-- ===== SFX hits — on the new transition beats (VO-forward) ===== -->
+      <audio data-hf-id="hf-0v1t" id="aud-11" src="assets/audio/universfield-new-notification-08-352461.mp3" data-start="0.6" data-duration="1.1" data-track-index="7" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-1hvl" id="aud-12" src="assets/audio/dragon-studio-simple-whoosh-382724.mp3" data-start="5.867" data-duration="0.6" data-track-index="7" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-0xwf" id="aud-13" src="assets/audio/dragon-studio-simple-whoosh-382724.mp3" data-start="9.259" data-duration="0.6" data-track-index="7" data-volume="0.45"></audio>
+      <audio data-hf-id="hf-vmh2" id="aud-14" src="assets/audio/freesound_community-slot-machine-payout-81725.mp3" data-start="20.6" data-duration="3.7" data-track-index="7" data-volume="0.4"></audio>
+      <audio data-hf-id="hf-69zm" id="aud-15" src="assets/audio/dragon-studio-simple-whoosh-382724.mp3" data-start="31.446" data-duration="0.6" data-track-index="7" data-volume="0.45"></audio>
+      <audio data-hf-id="hf-zhxj" id="aud-16" src="assets/audio/kave_msri-glitch-sfx-312910.mp3" data-start="49.5" data-duration="1.8" data-track-index="7" data-volume="0.38"></audio>
+      <audio data-hf-id="hf-cbxe" id="aud-17" src="assets/audio/sfx-stamp.mp3" data-start="60.0" data-duration="0.6" data-track-index="7" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-ndxg" id="aud-18" src="assets/audio/dragon-studio-simple-whoosh-382724.mp3" data-start="67.008" data-duration="0.6" data-track-index="7" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-n6pi" id="aud-19" src="assets/audio/dragon-studio-simple-whoosh-382724.mp3" data-start="78.315" data-duration="0.6" data-track-index="7" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-ixsl" id="aud-20" src="assets/audio/universfield-soft-opening-piano-logo-153268.mp3" data-start="79.85" data-duration="5.0" data-track-index="7" data-volume="0.5"></audio>
+
+      <!-- ===== Burned-in VO captions (verbatim, whisper-synced to NEW timing) ===== -->
+      <div data-hf-id="hf-s03b" class="vo-cap-layer" aria-hidden="true">
+        <div data-hf-id="hf-4l42" class="vo-cap clip" data-start="0.0" data-duration="1.08" data-track-index="2" data-layout-ignore="">Before this video ends…</div>
+        <div data-hf-id="hf-m9aq" class="vo-cap clip" data-start="1.28" data-duration="0.89" data-track-index="2" data-layout-ignore="">you'll unlock your phone</div>
+        <div data-hf-id="hf-370m" class="vo-cap clip" data-start="2.22" data-duration="0.82" data-track-index="2" data-layout-ignore="">four more times.</div>
+        <div data-hf-id="hf-fcj5" class="vo-cap clip" data-start="3.36" data-duration="0.96" data-track-index="2" data-layout-ignore="">You won't decide to.</div>
+        <div data-hf-id="hf-ujiz" class="vo-cap clip" data-start="4.48" data-duration="1.30" data-track-index="2" data-layout-ignore="">You just will.</div>
+        <div data-hf-id="hf-2oxw" class="vo-cap clip" data-start="5.867" data-duration="1.17" data-track-index="2" data-layout-ignore="">This is the dark truth</div>
+        <div data-hf-id="hf-2hzh" class="vo-cap clip" data-start="7.087" data-duration="1.28" data-track-index="2" data-layout-ignore="">behind social media.</div>
+        <div data-hf-id="hf-vel2" class="vo-cap clip vo-cap-low" data-start="9.259" data-duration="1.51" data-track-index="2" data-layout-ignore="">Five point six billion of us.</div>
+        <div data-hf-id="hf-94kj" class="vo-cap clip vo-cap-low" data-start="10.819" data-duration="1.86" data-track-index="2" data-layout-ignore="">Two hours, twenty-one minutes a day.</div>
+        <div data-hf-id="hf-3mvg" class="vo-cap clip vo-cap-low" data-start="12.899" data-duration="0.86" data-track-index="2" data-layout-ignore="">Every single day.</div>
+        <div data-hf-id="hf-rhue" class="vo-cap clip vo-cap-low" data-start="13.939" data-duration="0.45" data-track-index="2" data-layout-ignore="">Do the math —</div>
+        <div data-hf-id="hf-z52f" class="vo-cap clip vo-cap-low" data-start="14.439" data-duration="1.62" data-track-index="2" data-layout-ignore="">that's thirty-six days a year.</div>
+        <div data-hf-id="hf-kp74" class="vo-cap clip vo-cap-low" data-start="16.619" data-duration="1.48" data-track-index="2" data-layout-ignore="">A month and a week of your life, gone.</div>
+        <div data-hf-id="hf-gypp" class="vo-cap clip vo-cap-low" data-start="18.399" data-duration="1.0" data-track-index="2" data-layout-ignore="">Vanished into the scroll.</div>
+        <div data-hf-id="hf-xe61" class="vo-cap clip" data-start="20.246" data-duration="1.42" data-track-index="2" data-layout-ignore="">Here's what no one says out loud:</div>
+        <div data-hf-id="hf-5r6y" class="vo-cap clip" data-start="21.906" data-duration="0.81" data-track-index="2" data-layout-ignore="">this isn't a bug.</div>
+        <div data-hf-id="hf-mzxl" class="vo-cap clip" data-start="22.766" data-duration="0.77" data-track-index="2" data-layout-ignore="">It's the product.</div>
+        <div data-hf-id="hf-om0v" class="vo-cap clip" data-start="23.586" data-duration="0.7" data-track-index="2" data-layout-ignore="">The endless feed.</div>
+        <div data-hf-id="hf-clac" class="vo-cap clip" data-start="24.506" data-duration="1.01" data-track-index="2" data-layout-ignore="">The pull-to-refresh.</div>
+        <div data-hf-id="hf-88au" class="vo-cap clip" data-start="25.566" data-duration="0.83" data-track-index="2" data-layout-ignore="">The little red dots.</div>
+        <div data-hf-id="hf-le09" class="vo-cap clip" data-start="26.446" data-duration="1.31" data-track-index="2" data-layout-ignore="">Every one is a slot machine</div>
+        <div data-hf-id="hf-h4is" class="vo-cap clip" data-start="27.806" data-duration="0.85" data-track-index="2" data-layout-ignore="">for your brain.</div>
+        <div data-hf-id="hf-j2ij" class="vo-cap clip" data-start="28.706" data-duration="0.75" data-track-index="2" data-layout-ignore="">Pull. Wait.</div>
+        <div data-hf-id="hf-33pv" class="vo-cap clip" data-start="29.506" data-duration="0.64" data-track-index="2" data-layout-ignore="">Maybe you win.</div>
+        <div data-hf-id="hf-up8r" class="vo-cap clip" data-start="30.186" data-duration="1.20" data-track-index="2" data-layout-ignore="">Pull again.</div>
+        <div data-hf-id="hf-1xjn" class="vo-cap clip" data-start="31.446" data-duration="1.26" data-track-index="2" data-layout-ignore="">Don't take my word for it.</div>
+        <div data-hf-id="hf-zdej" class="vo-cap clip" data-start="32.846" data-duration="1.65" data-track-index="2" data-layout-ignore="">The man who invented infinite scroll</div>
+        <div data-hf-id="hf-9mgn" class="vo-cap clip" data-start="34.546" data-duration="1.76" data-track-index="2" data-layout-ignore="">calls it “behavioral cocaine.”</div>
+        <div data-hf-id="hf-4ig6" class="vo-cap clip" data-start="37.126" data-duration="1.77" data-track-index="2" data-layout-ignore="">The engineer who built pull-to-refresh</div>
+        <div data-hf-id="hf-t1zf" class="vo-cap clip" data-start="38.946" data-duration="0.74" data-track-index="2" data-layout-ignore="">said, simply:</div>
+        <div data-hf-id="hf-7qlh" class="vo-cap clip" data-start="40.046" data-duration="1.08" data-track-index="2" data-layout-ignore="">“These are not good things.”</div>
+        <div data-hf-id="hf-h1y1" class="vo-cap clip" data-start="41.406" data-duration="1.5" data-track-index="2" data-layout-ignore="">They know exactly what they built.</div>
+        <div data-hf-id="hf-220c" class="vo-cap clip" data-start="43.627" data-duration="1.3" data-track-index="2" data-layout-ignore="">And the cost isn't just time.</div>
+        <div data-hf-id="hf-r325" class="vo-cap clip" data-start="45.227" data-duration="0.55" data-track-index="2" data-layout-ignore="">It's your attention,</div>
+        <div data-hf-id="hf-oo8a" class="vo-cap clip" data-start="45.827" data-duration="1.44" data-track-index="2" data-layout-ignore="">sliced into confetti.</div>
+        <div data-hf-id="hf-0ume" class="vo-cap clip" data-start="47.847" data-duration="1.25" data-track-index="2" data-layout-ignore="">It's measuring your real life</div>
+        <div data-hf-id="hf-7vv5" class="vo-cap clip" data-start="49.147" data-duration="2.06" data-track-index="2" data-layout-ignore="">against everyone else's highlight reel.</div>
+        <div data-hf-id="hf-94fy" class="vo-cap clip" data-start="51.647" data-duration="0.93" data-track-index="2" data-layout-ignore="">The feed profits when</div>
+        <div data-hf-id="hf-z34y" class="vo-cap clip" data-start="52.627" data-duration="1.02" data-track-index="2" data-layout-ignore="">you feel like you're not enough.</div>
+        <div data-hf-id="hf-2d92" class="vo-cap clip" data-start="54.443" data-duration="1.44" data-track-index="2" data-layout-ignore="">So stop blaming your willpower.</div>
+        <div data-hf-id="hf-d5s8" class="vo-cap clip" data-start="56.083" data-duration="0.58" data-track-index="2" data-layout-ignore="">You're not weak —</div>
+        <div data-hf-id="hf-p80i" class="vo-cap clip" data-start="56.703" data-duration="0.90" data-track-index="2" data-layout-ignore="">you're outgunned.</div>
+        <div data-hf-id="hf-yni7" class="vo-cap clip" data-start="57.643" data-duration="1.17" data-track-index="2" data-layout-ignore="">In twenty twenty-six,</div>
+        <div data-hf-id="hf-htaa" class="vo-cap clip" data-start="58.863" data-duration="2.01" data-track-index="2" data-layout-ignore="">juries found Meta and Google negligent</div>
+        <div data-hf-id="hf-2m9c" class="vo-cap clip" data-start="60.923" data-duration="1.6" data-track-index="2" data-layout-ignore="">for designing this to hook kids.</div>
+        <div data-hf-id="hf-9pfy" class="vo-cap clip" data-start="62.983" data-duration="1.12" data-track-index="2" data-layout-ignore="">The companies are appealing.</div>
+        <div data-hf-id="hf-hla0" class="vo-cap clip" data-start="64.483" data-duration="1.18" data-track-index="2" data-layout-ignore="">But the verdict on the design?</div>
+        <div data-hf-id="hf-ne4q" class="vo-cap clip" data-start="65.883" data-duration="1.05" data-track-index="2" data-layout-ignore="">It's in.</div>
+        <div data-hf-id="hf-16au" class="vo-cap clip" data-start="67.008" data-duration="0.75" data-track-index="2" data-layout-ignore="">You can fight back.</div>
+        <div data-hf-id="hf-bbp8" class="vo-cap clip" data-start="67.808" data-duration="1.36" data-track-index="2" data-layout-ignore="">And it's not deleting everything.</div>
+        <div data-hf-id="hf-37j1" class="vo-cap clip" data-start="69.488" data-duration="0.96" data-track-index="2" data-layout-ignore="">Kill the red badges.</div>
+        <div data-hf-id="hf-7xsa" class="vo-cap clip" data-start="70.808" data-duration="1.46" data-track-index="2" data-layout-ignore="">Switch your screen to grayscale —</div>
+        <div data-hf-id="hf-x0tb" class="vo-cap clip" data-start="72.428" data-duration="0.94" data-track-index="2" data-layout-ignore="">no color, no hook.</div>
+        <div data-hf-id="hf-x3ee" class="vo-cap clip" data-start="73.608" data-duration="1.01" data-track-index="2" data-layout-ignore="">Pick two windows a day.</div>
+        <div data-hf-id="hf-8tkp" class="vo-cap clip" data-start="74.668" data-duration="1.22" data-track-index="2" data-layout-ignore="">And let yourself be bored.</div>
+        <div data-hf-id="hf-93sf" class="vo-cap clip" data-start="76.228" data-duration="1.3" data-track-index="2" data-layout-ignore="">Boredom is where you come back.</div>
+        <div data-hf-id="hf-laog" class="vo-cap clip" data-start="78.315" data-duration="1.07" data-track-index="2" data-layout-ignore="">The algorithm doesn't care</div>
+        <div data-hf-id="hf-371b" class="vo-cap clip" data-start="79.435" data-duration="0.80" data-track-index="2" data-layout-ignore="">about your peace.</div>
+        <div data-hf-id="hf-kf57" class="vo-cap clip" data-start="80.275" data-duration="0.96" data-track-index="2" data-layout-ignore="">So protect it yourself.</div>
+        <div data-hf-id="hf-5n50" class="vo-cap clip" data-start="81.735" data-duration="1.06" data-track-index="2" data-layout-ignore="">Log off. Breathe.</div>
+        <div data-hf-id="hf-ic9v" class="vo-cap clip" data-start="83.055" data-duration="1.50" data-track-index="2" data-layout-ignore="">Live real.</div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      // Inject the poster's decorative metadata into every scene (deterministic).
+      document.querySelectorAll("#root .scene").forEach((sc, i) => {
+        const n = String(i + 1).padStart(2, "0");
+
+        const vtag = document.createElement("div");
+        vtag.className = "v-tag mono";
+        vtag.textContent = "AR/17—20 · SPECIMEN · DARK TRUTH BEHIND THE SOCIAL MEDIA";
+        sc.appendChild(vtag);
+
+        const ticks = document.createElement("div");
+        ticks.className = "reg-ticks";
+        ticks.innerHTML =
+          '<svg width="58" height="58" viewBox="0 0 58 58" fill="none" stroke="currentColor" stroke-width="1.25">' +
+          '<line x1="29" y1="5" x2="29" y2="22"/><line x1="29" y1="36" x2="29" y2="53"/>' +
+          '<line x1="5" y1="29" x2="22" y2="29"/><line x1="36" y1="29" x2="53" y2="29"/>' +
+          '<circle cx="29" cy="29" r="9"/></svg>';
+        sc.appendChild(ticks);
+
+        const credit = document.createElement("div");
+        credit.className = "credit mono";
+        credit.innerHTML =
+          '<span class="l">© AR/17—20 // FIELD REPORT</span>' +
+          '<span class="l">SPECIMEN — NOT FOR DISTRIBUTION</span>' +
+          '<span class="l">FIG. ' + n + " · PLATE .0610</span>";
+        sc.appendChild(credit);
+      });
+
+      const tlReal = gsap.timeline({ paused: true });
+
+      // ============================================================
+      // VO-DRIVEN RE-TIMER (Prompt 5.x): every authored tween below was written
+      // against the ORIGINAL 240s scene grid. This proxy remaps each tween's
+      // position + scales its duration into the NEW, shorter VO-driven window,
+      // so all per-scene choreography auto-fits with zero dead air. Transitions
+      // and the ticker are authored on tlReal directly (real new-timeline times).
+      // ============================================================
+      const OS = [0, 18, 32, 60, 92, 128, 162, 188, 220]; // old scene starts
+      const OD = [18, 14, 28, 32, 36, 34, 26, 32, 20]; // old scene durations
+      const NS = [0, 5.867, 9.259, 20.246, 31.446, 43.627, 54.443, 67.008, 78.315]; // new starts
+      const ND = [6.267, 3.792, 11.387, 11.6, 12.581, 11.216, 12.965, 11.707, 6.544]; // new durations
+      const SCALE = ND.map((d, i) => d / OD[i]);
+      const sceneOf = (t) => {
+        for (let n = 8; n >= 0; n--) if (t >= OS[n]) return n;
+        return 0;
+      };
+      const RT = (t) => {
+        const n = sceneOf(t);
+        return +(NS[n] + (t - OS[n]) * SCALE[n]).toFixed(4);
+      };
+      const scaleVars = (v, n) => {
+        if (!v || typeof v !== "object" || v.nodeType) return;
+        if (typeof v.duration === "number") v.duration *= SCALE[n];
+        if (typeof v.stagger === "number") v.stagger *= SCALE[n];
+        if (Array.isArray(v.keyframes)) v.keyframes.forEach((k) => { if (k && typeof k.duration === "number") k.duration *= SCALE[n]; });
+      };
+      const wrap = (method) => (...args) => {
+        const pos = args[args.length - 1];
+        if (typeof pos === "number") {
+          const n = sceneOf(pos);
+          for (let i = 0; i < args.length - 1; i++) scaleVars(args[i], n);
+          args[args.length - 1] = RT(pos);
+        }
+        return tlReal[method](...args);
+      };
+      // `tl` is the remapping proxy used by ALL the authored choreography below.
+      const tl = { to: wrap("to"), from: wrap("from"), fromTo: wrap("fromTo"), set: wrap("set") };
+
+      // ---- Kinetic typography: split hero lines into word units ----
+      // Text nodes -> .word spans; inline emphasis (.em / .mark) kept as one unit;
+      // <br> preserved. Deterministic, runs on load.
+      function splitWords(el) {
+        if (!el) return [];
+        const units = [];
+        const frag = document.createDocumentFragment();
+        Array.from(el.childNodes).forEach((node) => {
+          if (node.nodeType === 3) {
+            node.textContent.split(/(\s+)/).forEach((tok) => {
+              if (tok.length === 0) return;
+              if (/^\s+$/.test(tok)) {
+                frag.appendChild(document.createTextNode(" "));
+              } else {
+                const w = document.createElement("span");
+                w.className = "word";
+                w.textContent = tok;
+                frag.appendChild(w);
+                units.push(w);
+              }
+            });
+          } else if (node.nodeName === "BR") {
+            frag.appendChild(node);
+          } else {
+            node.classList.add("word");
+            frag.appendChild(node);
+            units.push(node);
+          }
+        });
+        // Original text nodes were left in place (we rebuilt them as word spans);
+        // replace ALL children with the new fragment so nothing is duplicated.
+        el.replaceChildren(frag);
+        return units;
+      }
+
+      // Hero line -> reveal time (absolute). Each word does a left-to-right spray-on
+      // wipe (clip-path) with the spray-rough edge, power3.out, ~0.08s stagger.
+      const HERO = [
+        ["#s1 .lead", 0.3],
+        ["#s2 .l-dark", 18.4],
+        ["#s2 .l-behind", 19.1],
+        ["#s2 .l-social", 19.8],
+        ["#s3 .kicker", 32.4],
+        ["#s4 .lead", 60.4],
+        ["#s5 .kicker", 92.4],
+        ["#s6 .lead", 128.4],
+        ["#s7 .lead", 162.4],
+        ["#s8 .kicker", 188.4],
+        ["#s9 .lead", 220.4],
+      ];
+      HERO.forEach(([sel, t]) => {
+        splitWords(document.querySelector(sel)).forEach((w, i) => {
+          tl.fromTo(
+            w,
+            { clipPath: "inset(0% 100% 0% 0%)", opacity: 0, y: 12 },
+            { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+            t + i * 0.08
+          );
+        });
+      });
+
+      // Supporting elements (labels, cards, stats, phones, glyphs) rise in per scene.
+      const restEase = ["power2.out", "sine.out", "power3.out", "expo.out"];
+      [
+        { id: "s1", t: 0 },
+        { id: "s3", t: 32 },
+        { id: "s4", t: 60 },
+        { id: "s5", t: 92 },
+        { id: "s6", t: 128 },
+        { id: "s7", t: 162 },
+        { id: "s8", t: 188 },
+        { id: "s9", t: 220 },
+      ].forEach((s, i) => {
+        tl.from(
+          `#${s.id} .anim`,
+          { y: 44, opacity: 0, duration: 0.6, stagger: 0.1, ease: restEase[i % restEase.length] },
+          s.t + 0.55
+        );
+      });
+
+      // ===================== SCENE 2 (bespoke) =====================
+      // Pre-calc icon orbit geometry (stage coords; head center = 350,300).
+      (function setupS2Icons() {
+        const HEAD = { x: 350, y: 300 };
+        const R = 205;
+        const SIZE = 60;
+        const GAP = 38;
+        const N = 5;
+        const angles = [-90, -18, 54, 126, 198]; // degrees, evenly spaced
+        const rowW = N * SIZE + (N - 1) * GAP;
+        const rowStartX = (700 - rowW) / 2;
+        const rowCenterY = 588;
+        document.querySelectorAll("#s2 .brand-icon").forEach((el, i) => {
+          const rowCx = rowStartX + i * (SIZE + GAP) + SIZE / 2;
+          const rowCy = rowCenterY;
+          el.style.left = rowCx - SIZE / 2 + "px";
+          el.style.top = rowCy - SIZE / 2 + "px";
+          const a = (angles[i] * Math.PI) / 180;
+          el.dataset.dx = HEAD.x + R * Math.cos(a) - rowCx;
+          el.dataset.dy = HEAD.y + R * Math.sin(a) - rowCy;
+        });
+      })();
+
+      const S2 = 18;
+      // Portrait fades/scales in; spray outline draws itself on.
+      tl.from("#s2 .portrait-img", { opacity: 0, scale: 1.04, duration: 0.9, ease: "power2.out" }, S2 + 0.2);
+      // The #halftone filter renders a solid ink rectangle on an empty source, and a
+      // CSS filter still paints through the runtime's visibility:hidden. Zero the image
+      // opacity at the cut so it can't bleed into later scenes.
+      tl.set("#s2 .portrait-img", { opacity: 0 }, 32);
+      tl.fromTo(
+        "#s2 .outline-path",
+        { strokeDashoffset: 1, strokeDasharray: 1 },
+        { strokeDashoffset: 0, duration: 1.7, ease: "power1.inOut" },
+        S2 + 0.6
+      );
+      // (Title lines reveal word-by-word via the HERO loop above.)
+      tl.from("#s2 .vmono", { opacity: 0, duration: 0.6, ease: "sine.out" }, S2 + 2.2);
+
+      // Icons: appear orbiting around the head, hover, then settle into a row under the chin.
+      document.querySelectorAll("#s2 .brand-icon").forEach((el, i) => {
+        const dx = parseFloat(el.dataset.dx);
+        const dy = parseFloat(el.dataset.dy);
+        // appear at orbit position
+        tl.fromTo(
+          el,
+          { x: dx, y: dy, scale: 0, opacity: 0, rotation: -120 },
+          { x: dx, y: dy, scale: 1, opacity: 1, rotation: 0, duration: 0.55, ease: "back.out(1.6)" },
+          S2 + 2.4 + i * 0.08
+        );
+        // settle to the row
+        tl.to(
+          el,
+          { x: 0, y: 0, duration: 0.9, ease: "back.out(1.3)" },
+          S2 + 4.6 + i * 0.07
+        );
+      });
+      // Cluster orbits slightly during the hover, unwinds to 0 as icons settle.
+      tl.to("#s2 .icon-cluster", { rotation: 32, duration: 1.2, ease: "sine.inOut" }, S2 + 3.1);
+      tl.to("#s2 .icon-cluster", { rotation: 0, duration: 0.9, ease: "power2.inOut" }, S2 + 4.6);
+
+      // ===================== SCENE 5 highlighter swipes =====================
+      // --spray marker sweep under each key phrase. Timed to reading beats for now;
+      // re-sync to VO word timings once narration audio is added.
+      tl.fromTo(
+        "#s5 .card-a .swipe",
+        { scaleX: 0, rotation: -1.2 },
+        { scaleX: 1, rotation: -1.2, duration: 0.5, ease: "power2.inOut" },
+        96.6
+      );
+      tl.fromTo(
+        "#s5 .card-b .swipe",
+        { scaleX: 0, rotation: -1.2 },
+        { scaleX: 1, rotation: -1.2, duration: 0.5, ease: "power2.inOut" },
+        100.2
+      );
+
+      // ===================== Hand-drawn green accents =====================
+      // Decorative spray accents intentionally overlap neighbouring words; exclude
+      // them from the layout audit (they are pointer-events:none overlays).
+      document.querySelectorAll(".accent, .sig-flourish").forEach((a) => a.setAttribute("data-layout-ignore", ""));
+      document.querySelectorAll(".mark, .sig-wrap").forEach((m) => m.setAttribute("data-layout-allow-overlap", ""));
+      // Every .accent-draw path draws itself on (stroke-dashoffset 1 -> 0) at data-draw.
+      document.querySelectorAll(".accent-draw").forEach((p) => {
+        const at = parseFloat(p.dataset.draw);
+        const dur = parseFloat(p.dataset.dur || "0.7");
+        tl.fromTo(
+          p,
+          { strokeDashoffset: 1, strokeDasharray: 1 },
+          { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" },
+          at
+        );
+      });
+
+      // ===================== S6 shatter bar =====================
+      // The focus bar shatters into drifting shards, then keeps drifting slowly so
+      // the frame never freezes.
+      document.querySelectorAll("#s6 .s6-shard").forEach((sh, i) => {
+        const dir = i - 1.5;
+        const dx = dir * 46;
+        // bias the burst downward so shards never rise into the "REEL" headline
+        const dy = (i % 2 === 0 ? 14 : 34) + Math.abs(dir) * 8;
+        const dr = dir * 9;
+        // shatter burst
+        tl.to(sh, { x: dx, y: dy, rotation: dr, duration: 0.6, ease: "power3.out" }, 131 + i * 0.05);
+        // slow continued drift (kept shallow so shards stay centred and never sink
+        // into the lifted "NOT ENOUGH" stamp / lower caption band)
+        tl.to(sh, { x: dx + dir * 20, y: dy + 24, rotation: dr + dir * 5, duration: 27, ease: "sine.inOut" }, 132);
+      });
+
+      // Grain "alive": slow drift + a breathing density pulse + subtle scale breathe.
+      tl.to(".grain", { x: 70, y: -45, duration: 240, ease: "none" }, 0);
+      tl.to(
+        ".grain",
+        { opacity: 0.105, duration: 3.6, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(240 / 3.6) },
+        0
+      );
+      tl.to(
+        ".grain",
+        { scale: 1.035, duration: 5.2, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(240 / 5.2), transformOrigin: "50% 50%" },
+        0
+      );
+
+      // Metadata registration ticks subtly flicker (deterministic hard-cut pattern,
+      // phase-offset per scene so they don't pulse in unison).
+      document.querySelectorAll(".reg-ticks").forEach((tk, i) => {
+        const phase = (i % 6) * 0.21;
+        tl.to(
+          tk,
+          {
+            keyframes: [
+              { opacity: 0.55, duration: 0.09 },
+              { opacity: 0.92, duration: 0.05 },
+              { opacity: 0.66, duration: 0.13 },
+              { opacity: 1.0, duration: 0.04 },
+              { opacity: 0.5, duration: 0.1 },
+              { opacity: 0.85, duration: 0.17 },
+            ],
+            ease: "steps(1)",
+            repeat: Math.ceil(240 / 0.58),
+          },
+          phase
+        );
+      });
+
+      // (Old per-act flash transitions removed — replaced by the news-intro
+      // transition system authored on tlReal at the end of this script.)
+
+      // ============================================================
+      // SIMULATED-INTERACTION MOTION — synced to per-scene timings.
+      // Deterministic (no Math.random / Date.now); transforms + color/opacity.
+      // ============================================================
+      const stripIds = (root) => {
+        if (root.removeAttribute) root.removeAttribute("data-hf-id");
+        if (root.querySelectorAll)
+          root.querySelectorAll("[data-hf-id]").forEach((n) => n.removeAttribute("data-hf-id"));
+      };
+
+      // ---------- S1 (0–18): bell ring + badge pop + "96" count-up ----------
+      (function s1Interaction() {
+        const slab = document.querySelector("#s1 .em.slab"); // the "4" in "4 MORE TIMES"
+        if (slab) {
+          const o = { v: 0 };
+          slab.textContent = "0";
+          tl.to(
+            o,
+            {
+              v: 4,
+              duration: 1.05,
+              ease: "power2.out",
+              snap: { v: 1 }, // integer "ticks"
+              onUpdate: () => {
+                slab.textContent = String(Math.round(o.v));
+              },
+            },
+            1.0,
+          );
+          // settle pop as it lands
+          tl.fromTo(slab, { scale: 1 }, { scale: 1.14, duration: 0.12, ease: "power2.out", transformOrigin: "50% 60%" }, 2.0);
+          tl.to(slab, { scale: 1, duration: 0.26, ease: "back.out(2.2)" }, 2.12);
+        }
+        // notification badge pops in
+        tl.fromTo(
+          "#s1 .s1-badge",
+          { scale: 0, rotation: -20 },
+          { scale: 1, rotation: 0, duration: 0.42, ease: "back.out(2.6)" },
+          0.8,
+        );
+        // bell rings — decaying swing (Lottie-style, built in GSAP/SVG)
+        tl.fromTo(
+          "#s1 .bell-pivot",
+          { rotation: 0 },
+          {
+            keyframes: [
+              { rotation: 17, duration: 0.12 },
+              { rotation: -13, duration: 0.16 },
+              { rotation: 9, duration: 0.14 },
+              { rotation: -6, duration: 0.13 },
+              { rotation: 3, duration: 0.12 },
+              { rotation: 0, duration: 0.13 },
+            ],
+            ease: "sine.inOut",
+          },
+          0.85,
+        );
+        // notifications keep arriving through the hold — periodic re-rings + badge
+        // pulses fill the dead air and reinforce "96 times a day"
+        [5.5, 9.5, 13.5].forEach((t) => {
+          tl.to(
+            "#s1 .bell-pivot",
+            {
+              keyframes: [
+                { rotation: 13, duration: 0.1 },
+                { rotation: -10, duration: 0.13 },
+                { rotation: 7, duration: 0.12 },
+                { rotation: -4, duration: 0.11 },
+                { rotation: 0, duration: 0.12 },
+              ],
+              ease: "sine.inOut",
+            },
+            t,
+          );
+          tl.to("#s1 .s1-badge", { scale: 1.34, duration: 0.14, ease: "back.out(3)", yoyo: true, repeat: 1 }, t);
+        });
+      })();
+
+      // S1 beat B reveals after the "4 more times" beat lands — authored at old-grid
+      // 9.6 (→ new ~3.36s via the re-timer), matching the "You won't decide to" VO line.
+      tl.from("#s1 .s1-beatB", { opacity: 0, y: 34, duration: 0.55, ease: "power3.out" }, 9.6);
+
+      // ---------- S2 (18–32): settled brand icons keep a gentle idle bob ----------
+      (function s2Interaction() {
+        document.querySelectorAll("#s2 .brand-icon").forEach((el, i) => {
+          tl.to(el, { y: -8, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: 4 }, 24.5 + i * 0.16);
+        });
+      })();
+
+      // ---------- S3 (32–60): stat ticks + orbit cluster + calendar ----------
+      (function s3Interaction() {
+        // stat counters — count up with a "tick" and a landing pop
+        document.querySelectorAll("#s3 .stat-num").forEach((el, i) => {
+          const target = parseFloat(el.dataset.count);
+          const dec = parseInt(el.dataset.dec, 10);
+          const suf = el.dataset.suffix || "";
+          const o = { v: 0 };
+          const fmt = (v) => (dec > 0 ? v.toFixed(dec) : String(Math.round(v)));
+          el.textContent = fmt(0) + suf;
+          const at = 33.0 + i * 0.18;
+          tl.to(
+            o,
+            {
+              v: target,
+              duration: 1.6,
+              ease: "power2.out",
+              snap: { v: dec > 0 ? 0.01 : 1 },
+              onUpdate: () => {
+                el.textContent = fmt(o.v) + suf;
+              },
+            },
+            at,
+          );
+          tl.fromTo(el, { scale: 1 }, { scale: 1.16, duration: 0.1, ease: "power2.out", transformOrigin: "50% 60%" }, at + 1.6);
+          tl.to(el, { scale: 1, duration: 0.28, ease: "back.out(2.2)" }, at + 1.7);
+        });
+
+        // icon cluster orbits a center dot
+        const ring = document.querySelector("#s3 .s3-orbit-ring");
+        if (ring) {
+          const PATHS = [
+            "M12 21s-7-4.35-9.5-8.5C1 9.5 3 5.5 6.5 5.5c2 0 3.4 1.4 5.5 3 2.1-1.6 3.5-3 5.5-3 3.5 0 5.5 4 4 7C19 16.65 12 21 12 21z", // heart
+            "M7 4v16l13-8z", // play
+            "M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6z", // star
+            "M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z", // chat
+            "M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7zm0 4.5A2.5 2.5 0 1 0 12 11.5 2.5 2.5 0 0 0 12 6.5z", // pin
+          ];
+          const N = 5;
+          const R = 80;
+          for (let i = 0; i < N; i++) {
+            const a = (i / N) * Math.PI * 2 - Math.PI / 2;
+            const node = document.createElement("div");
+            node.className = "s3-orbit-node";
+            node.style.transform =
+              "translate(" + (R * Math.cos(a)).toFixed(2) + "px, " + (R * Math.sin(a)).toFixed(2) + "px)";
+            node.innerHTML = '<div class="ico"><svg viewBox="0 0 24 24">' + '<path d="' + PATHS[i] + '"/></svg></div>';
+            ring.appendChild(node);
+          }
+          tl.from("#s3 .s3-orbit", { opacity: 0, scale: 0.82, duration: 0.6, ease: "power2.out", transformOrigin: "50% 50%" }, 32.6);
+          // continuous orbit; inner icons counter-rotate to stay upright
+          tl.to(ring, { rotation: 360, duration: 26, ease: "none", transformOrigin: "50% 50%" }, 33.0);
+          ring.querySelectorAll(".s3-orbit-node .ico").forEach((ico) => {
+            tl.to(ico, { rotation: -360, duration: 26, ease: "none" }, 33.0);
+          });
+        }
+
+        // calendar grid fills green cell-by-cell on "36 days", then crumbles to grain
+        const cal = document.querySelector("#s3 .s3-cal");
+        if (cal) {
+          for (let i = 0; i < 36; i++) {
+            const c = document.createElement("div");
+            c.className = "s3-cal-cell";
+            cal.appendChild(c);
+          }
+          const cells = cal.querySelectorAll(".s3-cal-cell");
+          tl.from("#s3 .s3-cal", { opacity: 0, duration: 0.5, ease: "power2.out" }, 38.0);
+          tl.from("#s3 .s3-cal-cap", { opacity: 0, y: 10, duration: 0.5, ease: "power2.out" }, 38.2);
+          cells.forEach((c, i) => {
+            tl.to(c, { backgroundColor: "#2e5e1f", borderColor: "#1a5614", duration: 0.16, ease: "none" }, 39.2 + i * 0.13);
+          });
+          const fillEnd = 39.2 + 35 * 0.13; // ~43.75
+          cells.forEach((c, i) => {
+            // scatter sideways + fall hard + spin, fading fast so it reads as
+            // disintegrating into grain rather than collapsing into bars
+            const dx = (((i * 53) % 100) / 100 - 0.5) * 90;
+            const dy = 120 + (((i * 31) % 100) / 100) * 90;
+            const rot = ((i * 47) % 160) - 80;
+            tl.to(c, { x: dx, y: dy, rotation: rot, opacity: 0, scale: 0.3, duration: 0.6, ease: "power2.in" }, fillEnd + 1.4 + i * 0.022);
+          });
+          tl.to("#s3 .s3-cal-cap", { opacity: 0, duration: 0.6, ease: "power2.in" }, fillEnd + 1.7);
+        }
+      })();
+
+      // ---------- S4 (60–92): infinite feed + cursor + reels + SCROLL ----------
+      (function s4Interaction() {
+        const ROW_H = 60;
+        const scroll = document.querySelector("#s4 .feed-scroll");
+        if (scroll) {
+          const base = Array.from(scroll.children); // 5 rows
+          const TOTAL = 34;
+          for (let i = base.length; i < TOTAL; i++) {
+            const clone = base[i % base.length].cloneNode(true);
+            stripIds(clone);
+            scroll.appendChild(clone);
+          }
+          const dist = (TOTAL - 5) * ROW_H; // long enough to never bottom out
+          tl.fromTo(scroll, { y: 0 }, { y: -dist, duration: 30, ease: "none" }, 60.6);
+        }
+
+        // fake cursor: enters, then periodic flick gestures
+        const cur = "#s4 .s4-cursor";
+        tl.fromTo(cur, { x: 40, y: 70, opacity: 0 }, { x: 0, y: 40, opacity: 1, duration: 0.6, ease: "power2.out" }, 61.0);
+        for (let k = 0; k < 7; k++) {
+          const t = 62.2 + k * 3.6;
+          tl.to(cur, { y: 150, duration: 0.22, ease: "power3.in", overwrite: "auto" }, t);
+          tl.to(cur, { scale: 0.88, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.in" }, t);
+          tl.to(cur, { y: 40, duration: 0.5, ease: "power1.out", overwrite: "auto" }, t + 0.34);
+        }
+
+        // pull-to-refresh spinner spins like a slot reel, then a slow idle spin
+        tl.fromTo("#s4 .s4-spinner", { rotation: 0 }, { rotation: 360 * 9, duration: 4.5, ease: "power2.out" }, 60.8);
+        tl.to("#s4 .s4-spinner", { rotation: "+=720", duration: 24, ease: "none" }, 65.5);
+
+        // glyph-chips roll like slot reels and land on their icon
+        const chips = document.querySelectorAll("#s4 .glyph-chip");
+        const pool = Array.from(chips).map((ch) => ch.querySelector(".g-icon").outerHTML);
+        chips.forEach((chip, ci) => {
+          const finalIcon = chip.querySelector(".g-icon").outerHTML;
+          const STEPS = 8;
+          const ITEM = 114;
+          const seq = [];
+          for (let s = 0; s < STEPS; s++) seq.push(pool[(ci + s) % pool.length]);
+          seq.push(finalIcon); // landing slot
+          const reel = document.createElement("div");
+          reel.className = "reel";
+          reel.innerHTML = seq.join("");
+          stripIds(reel);
+          chip.replaceChildren(reel);
+          tl.fromTo(reel, { y: 0 }, { y: -STEPS * ITEM, duration: 1.5 + ci * 0.15, ease: "back.out(1.05)" }, 62.0 + ci * 0.5);
+        });
+
+        // SCROLL column stacks outline -> solid, x5, accelerating
+        let t = 63.0;
+        let gap = 0.55;
+        const scrollSpans = document.querySelectorAll("#s4 .scroll-col span");
+        scrollSpans.forEach((sp) => {
+          tl.to(sp, { color: "rgba(46,94,31,1)", duration: 0.28, ease: "power2.out" }, t);
+          tl.fromTo(sp, { scale: 1 }, { scale: 1.08, duration: 0.12, ease: "power2.out", transformOrigin: "100% 50%" }, t);
+          tl.to(sp, { scale: 1, duration: 0.2, ease: "back.out(2)" }, t + 0.12);
+          t += gap;
+          gap *= 0.72; // accelerate
+        });
+        // once solid, the column keeps "scrolling" — a staggered vertical wave so
+        // the dominant right side never freezes for the rest of the scene
+        scrollSpans.forEach((sp, i) => {
+          tl.to(sp, { y: 12, duration: 1.15, ease: "sine.inOut", yoyo: true, repeat: 22 }, 65.2 + i * 0.14);
+        });
+
+        // variable-reward chips periodically "ding" (pulse) — keeps the centre alive
+        const chipEls = document.querySelectorAll("#s4 .glyph-chip");
+        [[69, 0], [73.5, 2], [79, 1], [85, 0], [90, 2]].forEach(([at, ci]) => {
+          if (chipEls[ci])
+            tl.to(chipEls[ci], { scale: 1.13, duration: 0.16, ease: "back.out(3)", yoyo: true, repeat: 1, transformOrigin: "50% 50%" }, at);
+        });
+      })();
+
+      // ---------- S5 (92–128): sustained life on the engineer cards ----------
+      (function s5Interaction() {
+        // the ∞ watermark slowly turns + breathes — the infinite-scroll motif,
+        // finally in motion, fills the long static hold behind the cards
+        tl.to("#s5 .watermark-inf", { rotation: 200, duration: 36, ease: "none", transformOrigin: "50% 50%" }, 92.5);
+        tl.to("#s5 .watermark-inf", { scale: 1.06, duration: 5.4, ease: "sine.inOut", yoyo: true, repeat: 6, transformOrigin: "50% 50%" }, 93);
+        // quote cards float in slow parallax, opposite phases (DESIGN.md §parallax)
+        tl.to("#s5 .card-a", { y: -14, rotation: -0.8, duration: 4.6, ease: "sine.inOut", yoyo: true, repeat: 7 }, 97);
+        tl.to("#s5 .card-b", { y: 12, rotation: 0.8, duration: 5.2, ease: "sine.inOut", yoyo: true, repeat: 6 }, 98);
+        // Late-scene re-stamp: the two damning phrases pop once more so the long
+        // two-card hold keeps a visible beat on a muted feed (scale the inline-block
+        // .hl unit, not the inline .hl-text — inline scale is a no-op).
+        tl.fromTo("#s5 .card-a .hl", { scale: 1 }, { scale: 1.07, duration: 0.2, ease: "back.out(3)", yoyo: true, repeat: 1, transformOrigin: "50% 60%" }, 111);
+        tl.fromTo("#s5 .card-b .hl", { scale: 1 }, { scale: 1.07, duration: 0.2, ease: "back.out(3)", yoyo: true, repeat: 1, transformOrigin: "50% 60%" }, 118);
+      })();
+
+      // ---------- S6 (128–162): highlight-reel grid + RGB-split glitch ----------
+      (function s6Interaction() {
+        const grid = document.querySelector("#s6 .s6-reelgrid");
+        if (grid) {
+          for (let i = 0; i < 96; i++) {
+            const c = document.createElement("div");
+            c.className = "s6-reelcell";
+            grid.appendChild(c);
+          }
+          tl.from("#s6 .s6-reelgrid", { opacity: 0, duration: 1.0, ease: "power2.out" }, 128.3);
+          tl.fromTo(grid, { y: 0 }, { y: -640, duration: 34, ease: "none" }, 128.3);
+        }
+
+        // RGB-split glitch hits on "NOT ENOUGH": red/cyan ghosts split apart and
+        // flicker (stepped `set`s — bulletproof under frame-seek), then the word
+        // resolves out of the glitch.
+        const base = "#s6 .s6-glitch .g-base";
+        const rl = "#s6 .s6-glitch .g-r";
+        const cl = "#s6 .s6-glitch .g-c";
+        const hit = 146.0;
+        tl.set([base, rl, cl], { opacity: 0, x: 0, y: 0 }, 128);
+        const flick = [
+          { t: 0.0, rx: -17, ry: 3, cx: 17, cy: -3, o: 0.95 },
+          { t: 0.05, rx: -9, ry: -4, cx: 9, cy: 4, o: 0.7 },
+          { t: 0.1, rx: -22, ry: 2, cx: 22, cy: -2, o: 0.95 },
+          { t: 0.15, rx: -7, ry: 4, cx: 7, cy: -3, o: 0.6 },
+          { t: 0.2, rx: -13, ry: 0, cx: 13, cy: 0, o: 0.9 },
+        ];
+        flick.forEach((s) => {
+          tl.set(rl, { x: s.rx, y: s.ry, opacity: s.o }, hit + s.t);
+          tl.set(cl, { x: s.cx, y: s.cy, opacity: s.o }, hit + s.t);
+        });
+        // ghosts converge and clear; the solid word resolves in with a final shudder
+        tl.set([rl, cl], { opacity: 0, x: 0, y: 0 }, hit + 0.25);
+        tl.set(base, { opacity: 1, x: 6 }, hit + 0.25);
+        tl.set(base, { x: -4 }, hit + 0.29);
+        tl.set(base, { x: 3 }, hit + 0.33);
+        tl.set(base, { x: 0 }, hit + 0.37);
+        // hold briefly, then fade out
+        tl.to(base, { opacity: 0, duration: 0.5, ease: "power2.in" }, hit + 1.9);
+      })();
+
+      // ---------- S7 (162–188): keep the thesis line breathing ----------
+      (function s7Interaction() {
+        // "DESIGNED" — the whole point of the scene — breathes so the 23s hold lives
+        tl.to("#s7 .lead .em", { scale: 1.05, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: 8, transformOrigin: "50% 60%" }, 166);
+        // the strike on "DISCIPLINE" pulses faintly, like a verdict being re-stamped
+        tl.to("#s7 .accent.strike", { opacity: 0.65, duration: 1.9, ease: "sine.inOut", yoyo: true, repeat: 10 }, 166.5);
+      })();
+
+      // ---------- S8 (188–220): checks draw in sequence + phone grayscale ----------
+      (function s8Interaction() {
+        document.querySelectorAll("#s8 .wb-item").forEach((row, i) => {
+          const parts = row.querySelectorAll(".wb-check svg circle, .wb-check svg path");
+          const at = 190.4 + i * 1.4;
+          parts.forEach((p, j) => {
+            p.setAttribute("pathLength", "1");
+            tl.fromTo(
+              p,
+              { strokeDashoffset: 1, strokeDasharray: 1 },
+              { strokeDashoffset: 0, duration: 0.5, ease: "power1.inOut" },
+              at + j * 0.32,
+            );
+          });
+          tl.fromTo(row, { x: -10 }, { x: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, at);
+        });
+        // phone mock drains from color to grayscale
+        const phone = document.querySelector("#s8 .s8-phone");
+        if (phone) {
+          const o = { g: 0 };
+          tl.to(
+            o,
+            {
+              g: 1,
+              duration: 12,
+              ease: "power1.inOut",
+              onUpdate: () => {
+                phone.style.filter = "grayscale(" + o.g.toFixed(3) + ") saturate(" + (1 - o.g * 0.85).toFixed(3) + ")";
+              },
+            },
+            198.5,
+          );
+        }
+      })();
+
+      // ---------- S9 (220–240): keep the outro alive before the fade ----------
+      (function s9Interaction() {
+        tl.to("#s9 .lead .em", { scale: 1.06, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: 5, transformOrigin: "50% 60%" }, 223);
+        tl.to("#s9 .signature", { y: -8, duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: 4 }, 223);
+        tl.to("#s9 .handle-row span", { y: -5, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 9, stagger: 0.18 }, 224);
+      })();
+
+      // Final scene ONLY: fade out near the end (remapped into the new S9 window).
+      tl.to("#s9 .scene-content", { opacity: 0, duration: 1.0, ease: "power2.in" }, 238.5);
+
+      // ============================================================
+      // NEWS-INTRO TRANSITION SYSTEM (authored on tlReal — real new-timeline
+      // times, NOT remapped). Every boundary overlaps the cut so no static frame
+      // ever sits between scenes. Boundary b = between scene b and b+1; the
+      // incoming scene's window starts at NS[b], overlapping the outgoing tail.
+      // ============================================================
+      const swipe = document.querySelector(".tx-swipe");
+      const flash = document.querySelector(".tx-flash");
+      const paper = document.querySelector(".tx-paper");
+
+      const greenSwipe = (t, dur) => {
+        tlReal.fromTo(swipe, { xPercent: -170, opacity: 1 }, { xPercent: 270, duration: dur, ease: "power2.inOut", immediateRender: false }, t - 0.02);
+        tlReal.set(swipe, { opacity: 0 }, t + dur - 0.02); // hard kill
+      };
+      // T-PUSH: outgoing slides left off-frame, incoming slides in from the right,
+      // green spray swipe bar covers the seam.
+      const txPush = (b) => {
+        const t = NS[b];
+        tlReal.fromTo("#s" + b, { xPercent: 0 }, { xPercent: -106, duration: 0.34, ease: "power3.in" }, t);
+        tlReal.fromTo("#s" + (b + 1), { xPercent: 106 }, { xPercent: 0, duration: 0.34, ease: "power3.out" }, t);
+        greenSwipe(t, 0.4);
+      };
+      // T-TILE: outgoing lifts/fades out, incoming tiles up into frame; swipe accent.
+      const txTile = (b) => {
+        const t = NS[b];
+        tlReal.fromTo("#s" + b, { yPercent: 0, opacity: 1 }, { yPercent: -10, opacity: 0, duration: 0.28, ease: "power3.in" }, t);
+        tlReal.fromTo("#s" + (b + 1), { yPercent: 12, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, t);
+        greenSwipe(t, 0.4);
+      };
+      // T-WHIP: fast blurred whip-push into a white flash (installed flash overlay).
+      const txWhip = (b) => {
+        const t = NS[b];
+        tlReal.fromTo("#s" + b, { xPercent: 0 }, { xPercent: -34, duration: 0.18, ease: "power3.in" }, t);
+        tlReal.fromTo("#s" + (b + 1), { xPercent: 44 }, { xPercent: 0, duration: 0.26, ease: "power3.out" }, t + 0.05);
+        tlReal.to(flash, { opacity: 1, duration: 0.12, ease: "power2.in", immediateRender: false }, t - 0.02);
+        tlReal.to(flash, { opacity: 0, duration: 0.22, ease: "power2.out" }, t + 0.12);
+        tlReal.set(flash, { opacity: 0 }, t + 0.35); // hard kill
+      };
+      // T-CUT: hard cut on the beat, masked by a single-frame paper flash; optional
+      // quick RGB-split glitch shudder on the incoming scene.
+      const txCut = (b, glitch) => {
+        const t = NS[b];
+        tlReal.to(paper, { opacity: 0.92, duration: 0.05, ease: "steps(1)", immediateRender: false }, t - 0.04);
+        tlReal.to(paper, { opacity: 0, duration: 0.13, ease: "power2.out" }, t + 0.02);
+        tlReal.set(paper, { opacity: 0 }, t + 0.16); // hard kill
+        if (glitch) {
+          tlReal.fromTo(
+            "#s" + (b + 1),
+            { x: 9 },
+            { keyframes: [{ x: -7, duration: 0.04 }, { x: 5, duration: 0.04 }, { x: -3, duration: 0.04 }, { x: 0, duration: 0.05 }], ease: "steps(1)", immediateRender: false },
+            t,
+          );
+        }
+      };
+
+      // Boundary map (Prompt 5.2):
+      txWhip(1);          // 1→2  whip into the title
+      txPush(2);          // 2→3  conveyor push
+      txCut(3, false);    // 3→4  hard cut on "no one says out loud"
+      txPush(4);          // 4→5  match-cut push into the quote cards
+      txTile(5);          // 5→6  cards out, S6 grid tiles in
+      txCut(6, true);     // 6→7  cut with a quick RGB-split glitch
+      txPush(7);          // 7→8  energy-lift push
+      txWhip(8);          // 8→9  whip into the outro
+
+      // ============================================================
+      // CONTINUOUS NEWS TICKER — a thin mono band scrolls leftward across every
+      // scene, the through-line that gives the news-conveyor feel.
+      // ============================================================
+      (function ticker() {
+        const track = document.querySelector(".ticker-track");
+        if (!track) return;
+        const labels = ["HOOK", "TITLE", "SCALE", "MACHINE", "ENGINEERS", "COST", "WILLPOWER", "TAKEBACK", "OUTRO"];
+        const unit = labels
+          .map((l) => '<span class="tk">AR/17—20 <b>// LIVE //</b> FIELD REPORT <b>//</b> ' + l + "</span>")
+          .join("");
+        track.innerHTML = unit + unit; // 2× for a seamless leftward loop
+        // scroll one full copy width across the whole runtime (continuous, no freeze)
+        tlReal.to(track, { xPercent: -50, duration: 85, ease: "none" }, 0);
+      })();
+
+      window.__timelines["dark-truth"] = tlReal;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Emergency Fund</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --target: #f59e0b;
+        --pop: #ff5c39;
+        --font: "Arial Black", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .scene {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        padding: 120px 160px; background: var(--bg); color: var(--ink); text-align: center;
+        overflow: hidden;
+      }
+      /* photographic background system — one consistent grade so 9 photos read as one film */
+      .bg {
+        position: absolute; inset: -8%; z-index: 0; background-size: cover; background-position: center;
+        filter: grayscale(0.32) brightness(0.62) contrast(1.05);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+          radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13, 16, 23, 0.46), transparent 80%),
+          radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13, 16, 23, 0.14), rgba(13, 16, 23, 0.58)),
+          linear-gradient(180deg, rgba(13, 16, 23, 0.40), rgba(13, 16, 23, 0.10) 46%, rgba(13, 16, 23, 0.52));
+      }
+      /* text legibility now comes from a shadow, not a heavy scrim — so photos stay visible */
+      .kicker, .huge, .mega, .sub, .foot, .collabel, .counter, .head2 {
+        text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.55);
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background-image: url(assets/img/grain.png); background-size: cover; opacity: 0.05; mix-blend-mode: overlay;
+      }
+      .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 34px; width: 100%; }
+      .row { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+      .cols { display: flex; align-items: flex-start; justify-content: center; gap: 80px; }
+      .col { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+      .kicker { font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); font-weight: 800; margin: 0; }
+      .huge { font-size: 122px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px; }
+      .mega { font-size: 300px; line-height: 0.9; font-weight: 900; margin: 0; letter-spacing: -6px; color: var(--fund); }
+      .sub { font-size: 40px; color: var(--muted); font-weight: 800; margin: 0; }
+      .foot { font-size: 26px; color: var(--muted); font-weight: 700; letter-spacing: 2px; margin: 0; }
+      .collabel { font-size: 28px; font-weight: 900; letter-spacing: 3px; margin: 0; }
+      .lbl-yes { color: var(--fund); }
+      .lbl-no { color: var(--warn); }
+      .warn { color: var(--warn); }
+      .fundc { color: var(--fund); }
+      .targetc { color: var(--target); }
+
+      .chip {
+        font-size: 32px; font-weight: 800; letter-spacing: 1px; padding: 18px 32px;
+        border-radius: 999px; background: var(--panel); border: 3px solid #2a3241; color: var(--ink);
+      }
+      .chip.fund { border-color: var(--fund); }
+      .chip.warn { border-color: var(--warn); }
+      .chip.target { border-color: var(--target); }
+
+      .stamp {
+        font-size: 44px; font-weight: 900; letter-spacing: 3px; padding: 18px 40px; border-radius: 16px;
+        color: #0d1017; transform: rotate(-4deg);
+      }
+      .stamp.fund { background: var(--fund); }
+      .stamp.pop  { background: var(--pop); }
+
+      .block {
+        display: flex; align-items: center; justify-content: center;
+        width: 300px; height: 220px; border-radius: 22px; background: var(--panel);
+        border: 5px solid var(--fund); font-size: 46px; font-weight: 900; color: var(--fund);
+      }
+
+      /* coin row */
+      .coin { width: 74px; height: 74px; border-radius: 999px; background: var(--fund); border: 4px solid #0d1017; }
+
+      /* milestone bar — 20 ticks = 20 weekly $50 transfers */
+      .head2 { font-size: 64px; font-weight: 900; margin: 0; }
+      .track2 { position: relative; width: 1400px; height: 74px; background: var(--panel); border: 3px solid #2a3241; border-radius: 14px; overflow: hidden; }
+      .fill2 { position: absolute; inset: 0; background: var(--fund); transform: scaleX(0); transform-origin: left center; }
+      .ticks { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 20 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 20 - 2px), rgba(13, 16, 23, 0.55) calc(100% / 20)); }
+      .counter { font-size: 104px; font-weight: 900; color: var(--fund); margin: 0; }
+
+      .arrow { font-size: 84px; font-weight: 900; color: var(--muted); }
+      .cta { font-size: 46px; font-weight: 900; letter-spacing: 2px; padding: 24px 56px; border-radius: 14px; background: var(--pop); color: #0d1017; }
+      .glow { text-shadow: 0 0 60px currentColor; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-pfs4" id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="166.3" style="position: relative; width: 1920px; height: 1080px; overflow: hidden;">
+
+      <!-- 1 · HOOK -->
+      <section data-hf-id="hf-4wft" id="s1" class="scene clip" data-start="0" data-duration="21.6" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s1.jpg)"></div>
+        <div class="bg" id="s1bgA" style="background-image: url(assets/img/s1-car.jpg); opacity: 0"></div>
+        <div class="bg" id="s1bgB" style="background-image: url(assets/img/s3-job.jpg); opacity: 0"></div>
+        <div class="bg" id="s1bgC" style="background-image: url(assets/img/s1-bill.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.16)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-d1zs" class="stack">
+          <p data-hf-id="hf-x3h6" id="s1k" class="kicker">Quick question — be honest</p>
+          <h1 data-hf-id="hf-rj12" id="s1q" class="huge" style="font-size: 84px">HOW MUCH IS IN YOUR CHECKING ACCOUNT <span data-hf-id="hf-0vry" class="warn">RIGHT NOW?</span></h1>
+          <p data-hf-id="hf-amt1" id="s1amt" class="counter" style="color: var(--muted)">$ ?</p>
+          <p data-hf-id="hf-stat" id="s1stat" class="foot" style="font-size: 30px; letter-spacing: 2px">4 IN 10 AMERICANS CAN'T COVER A $400 SURPRISE IN CASH — FEDERAL RESERVE, 2025</p>
+          <div data-hf-id="hf-thy4" class="row">
+            <div data-hf-id="hf-6q9d" id="s1a" class="chip warn">CAR WON'T START</div>
+            <div data-hf-id="hf-a06d" id="s1b" class="chip warn">LAYOFF EMAIL</div>
+            <div data-hf-id="hf-oeb5" id="s1c" class="chip warn">22% CREDIT CARD</div>
+          </div>
+          <div data-hf-id="hf-t5kx" id="s1fix" class="stamp fund">THE FIX: EMERGENCY FUND</div>
+        </div>
+      </section>
+
+      <!-- 2 · PROMISE -->
+      <section data-hf-id="hf-aage" id="s2" class="scene clip" data-start="21.6" data-duration="9.3" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s2.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(120, 150, 200, 0.10)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-g2wg" class="stack">
+          <p data-hf-id="hf-kgvs" id="s2k" class="kicker">By the end you'll know</p>
+          <div data-hf-id="hf-lt04" class="row">
+            <div data-hf-id="hf-j7hp" id="s2a" class="chip">WHAT IT IS</div>
+            <div data-hf-id="hf-0ub9" id="s2b" class="chip">HOW BIG</div>
+            <div data-hf-id="hf-n9yd" id="s2c" class="chip">WHERE TO PARK IT</div>
+            <div data-hf-id="hf-fgmi" id="s2d" class="chip">HOW TO START</div>
+          </div>
+          <p data-hf-id="hf-tcvx" id="s2sub" class="sub">No six-figure salary required</p>
+        </div>
+      </section>
+
+      <!-- 3 · WHAT IT IS -->
+      <section data-hf-id="hf-8cn6" id="s3" class="scene clip" data-start="30.9" data-duration="18.4" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s3.jpg)"></div>
+        <div class="bg" id="s3bgA" style="background-image: url(assets/img/s3-medical.jpg); opacity: 0"></div>
+        <div class="bg" id="s3bgB" style="background-image: url(assets/img/s3-job.jpg); opacity: 0"></div>
+        <div class="bg" id="s3bgC" style="background-image: url(assets/img/s3-car.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-evzd" class="stack">
+          <p data-hf-id="hf-sy3c" id="s3k" class="kicker">Cash for real emergencies</p>
+          <div data-hf-id="hf-6ra9" class="cols">
+            <div data-hf-id="hf-7s1i" class="col">
+              <p data-hf-id="hf-ymmb" id="s3yl" class="collabel lbl-yes">FOR</p>
+              <div data-hf-id="hf-58d0" id="s3a" class="chip fund">ER VISIT</div>
+              <div data-hf-id="hf-97f5" id="s3b" class="chip fund">LAYOFF</div>
+              <div data-hf-id="hf-90vk" id="s3c" class="chip fund">TRANSMISSION</div>
+            </div>
+            <div data-hf-id="hf-vmze" class="col">
+              <p data-hf-id="hf-lpp9" id="s3nl" class="collabel lbl-no">NOT FOR</p>
+              <div data-hf-id="hf-v3is" id="s3x" class="chip warn">BLACK FRIDAY</div>
+              <div data-hf-id="hf-z44t" id="s3y" class="chip warn">A VACATION</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-1zqp" id="s3stamp" class="stamp fund">STOPS CREDIT CARD DEBT</div>
+        </div>
+      </section>
+
+      <!-- 4 · HOW BIG -->
+      <section data-hf-id="hf-ikg8" id="s4" class="scene clip" data-start="49.3" data-duration="18.9" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s4.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-faae" class="stack">
+          <h1 data-hf-id="hf-v3sl" id="s4num" class="mega glow">3</h1>
+          <p data-hf-id="hf-fr3p" id="s4l" class="huge" style="font-size: 68px">MONTHS OF EXPENSES</p>
+          <p data-hf-id="hf-58me" id="s4f" class="foot">NOT INCOME — EXPENSES · RENT · GROCERIES · INSURANCE · GAS</p>
+          <div data-hf-id="hf-km31" class="row">
+            <div data-hf-id="hf-4o36" id="s4b1" class="block">1</div>
+            <div data-hf-id="hf-eg9m" id="s4b2" class="block">2</div>
+            <div data-hf-id="hf-w5ci" id="s4b3" class="block">3</div>
+          </div>
+          <div data-hf-id="hf-s4st" id="s4stamp" class="stamp pop">FIRST TARGET: $1,000</div>
+        </div>
+      </section>
+
+      <!-- 5 · WHERE TO KEEP IT -->
+      <section data-hf-id="hf-ewsb" id="s5" class="scene clip" data-start="68.2" data-duration="21.4" data-track-index="1">
+        <!-- the dollar-bill shots are far brighter than the other 7 photos — graded down to match the film -->
+        <div class="bg" style="background-image: url(assets/img/s5.jpg); filter: grayscale(0.32) brightness(0.40) contrast(1.05)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.11)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-e3db" class="stack">
+          <p data-hf-id="hf-6pz1" id="s5k" class="kicker">Reachable — but not tempting</p>
+          <div data-hf-id="hf-l0e2" class="row">
+            <div data-hf-id="hf-772g" id="s5a" class="chip fund">HIGH-YIELD SAVINGS</div>
+            <div data-hf-id="hf-b2da" id="s5b" class="chip fund">A DIFFERENT BANK</div>
+            <div data-hf-id="hf-s5c1" id="s5c" class="chip fund">FDIC INSURED</div>
+          </div>
+          <p data-hf-id="hf-s5ft" id="s5foot" class="foot">EARNING REAL INTEREST — INSTEAD OF NOTHING</p>
+          <div data-hf-id="hf-mzx7" class="row">
+            <div data-hf-id="hf-kpbu" id="s5x" class="chip warn">NO CDs</div>
+            <div data-hf-id="hf-fnfk" id="s5y" class="chip warn">NO STOCKS</div>
+            <div data-hf-id="hf-wrhx" id="s5z" class="chip warn">NO CRYPTO</div>
+          </div>
+          <div data-hf-id="hf-ylf0" id="s5stamp" class="stamp fund">1–2 DAYS AWAY, NOT INSTANT</div>
+        </div>
+      </section>
+
+      <!-- 6 · START SMALL + AUTOMATE -->
+      <section data-hf-id="hf-tvuq" id="s6" class="scene clip" data-start="89.6" data-duration="22.3" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s6.jpg); filter: grayscale(0.32) brightness(0.42) contrast(1.05)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-ehoc" class="stack">
+          <h1 data-hf-id="hf-8kif" id="s6amt" class="huge"><span data-hf-id="hf-ip6v" class="fundc">$50</span> / week</h1>
+          <p data-hf-id="hf-5d9i" id="s6sub" class="sub">= 2 DoorDash orders</p>
+          <div data-hf-id="hf-s6au" id="s6auto" class="chip fund">AUTO-TRANSFER · THE DAY AFTER PAYDAY</div>
+          <div data-hf-id="hf-w7gj" class="row" style="gap: 16px">
+            <div data-hf-id="hf-t2jt" id="c1" class="coin"></div><div data-hf-id="hf-x0nu" id="c2" class="coin"></div><div data-hf-id="hf-0yrv" id="c3" class="coin"></div>
+            <div data-hf-id="hf-dhac" id="c4" class="coin"></div><div data-hf-id="hf-e8y5" id="c5" class="coin"></div><div data-hf-id="hf-i726" id="c6" class="coin"></div>
+            <div data-hf-id="hf-ocrz" id="c7" class="coin"></div><div data-hf-id="hf-jqhk" id="c8" class="coin"></div>
+          </div>
+          <div data-hf-id="hf-7398" id="s6stamp" class="stamp fund">AUTOMATIC BEATS HEROIC</div>
+        </div>
+      </section>
+
+      <!-- 7 · WORKED EXAMPLE -->
+      <section data-hf-id="hf-9vf3" id="s7" class="scene clip" data-start="111.9" data-duration="23" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s7.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-84s6" class="stack" style="gap: 26px">
+          <h1 data-hf-id="hf-qz3l" id="s7head" class="head2">$3,000/mo → 3-month target <span data-hf-id="hf-5c7n" class="targetc" style="opacity: 0">$9,000</span></h1>
+          <p data-hf-id="hf-g62f" id="s7mile" class="sub" style="color: var(--ink)">First milestone: <span data-hf-id="hf-3xdd" class="fundc" style="opacity: 0">$1,000</span></p>
+          <p data-hf-id="hf-01n6" id="s7counter" class="counter">$<span data-hf-id="hf-vycg" id="s7c">0</span></p>
+          <div data-hf-id="hf-2t0t" class="track2">
+            <div data-hf-id="hf-2hxo" id="s7fill" class="fill2"></div>
+            <div data-hf-id="hf-895q" class="ticks"></div>
+          </div>
+          <p data-hf-id="hf-r68l" id="s7cap" class="foot">$50 × 20 WEEKS = $1,000</p>
+        </div>
+      </section>
+
+      <!-- 8 · ACTION STEP -->
+      <section data-hf-id="hf-ib0s" id="s8" class="scene clip" data-start="134.9" data-duration="17.4" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s8.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(255, 92, 57, 0.15)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-dar9" class="stack">
+          <div data-hf-id="hf-bjxu" id="s8stamp" class="stamp pop">DO THIS TODAY</div>
+          <div data-hf-id="hf-ne88" class="row">
+            <div data-hf-id="hf-jxr8" id="s8a" class="chip">OPEN A HIGH-YIELD SAVINGS</div>
+            <div data-hf-id="hf-fch3" id="s8arrow" class="arrow">→</div>
+            <div data-hf-id="hf-j8xo" id="s8b" class="chip fund">MOVE $50 IN</div>
+            <div data-hf-id="hf-ar2" id="s8arrow2" class="arrow">→</div>
+            <div data-hf-id="hf-s8c1" id="s8c" class="chip target">AUTOMATE IT</div>
+          </div>
+          <h1 data-hf-id="hf-onp7" id="s8t" class="huge" style="font-size: 84px">someday → <span data-hf-id="hf-fz40" class="fundc">STARTED</span></h1>
+        </div>
+      </section>
+
+      <!-- 9 · RECAP + CTA -->
+      <section data-hf-id="hf-zpdo" id="s9" class="scene clip" data-start="152.3" data-duration="14" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s9.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div data-hf-id="hf-dp2a" class="stack">
+          <div data-hf-id="hf-m7b5" class="row">
+            <div data-hf-id="hf-76s6" id="s9a" class="chip fund">3 MONTHS OF EXPENSES</div>
+            <div data-hf-id="hf-8viz" id="s9b" class="chip">SEPARATE HIGH-YIELD</div>
+            <div data-hf-id="hf-p5n1" id="s9c" class="chip target">$50 THIS WEEK</div>
+          </div>
+          <div data-hf-id="hf-1z0k" id="s9cta" class="cta">▶ SUBSCRIBE</div>
+          <p data-hf-id="hf-6sj0" id="s9sub" class="sub">money basics that actually make sense</p>
+        </div>
+      </section>
+
+      <!-- voiceover (ElevenLabs "Brian", US English) — one clip per scene, direct root children -->
+      <audio data-hf-id="hf-ovd2" id="vo1" src="assets/voice/en1.mp3" data-start="0.4" data-duration="20.74" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-0svg" id="vo2" src="assets/voice/en2.mp3" data-start="22" data-duration="8.54" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-cjuo" id="vo3" src="assets/voice/en3.mp3" data-start="31.3" data-duration="17.63" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-42z8" id="vo4" src="assets/voice/en4.mp3" data-start="49.7" data-duration="18.15" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-3ycf" id="vo5" src="assets/voice/en5.mp3" data-start="68.6" data-duration="20.66" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-dyv2" id="vo6" src="assets/voice/en6.mp3" data-start="90" data-duration="21.55" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-dykg" id="vo7" src="assets/voice/en7.mp3" data-start="112.3" data-duration="22.41" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-mmia" id="vo8" src="assets/voice/en8.mp3" data-start="135.3" data-duration="16.61" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-66us" id="vo9" src="assets/voice/en9.mp3" data-start="152.7" data-duration="12.3" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // scene start times (s) — visuals follow the US-English VO clips.
+      // every cue below is (scene start + 0.4 VO lead-in + the word's timestamp inside its clip,
+      // from faster-whisper word timings) so text lands on the word that says it.
+      var S = { s1: 0, s2: 21.6, s3: 30.9, s4: 49.3, s5: 68.2, s6: 89.6, s7: 111.9, s8: 134.9, s9: 152.3 };
+
+      function rise(sel, at, dur, y) {
+        tl.fromTo(sel, { opacity: 0, y: y == null ? 40 : y }, { opacity: 1, y: 0, duration: dur == null ? 0.7 : dur, ease: "expo.out" }, at);
+      }
+      function pop(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.6 : dur, ease: "back.out(1.7)" }, at);
+      }
+      function popEach(sels, at, step) {
+        for (var i = 0; i < sels.length; i++) pop(sels[i], at + i * step, 0.45);
+      }
+      function countUp(id, from, to, at, dur) {
+        var el = document.getElementById(id);
+        var p = { v: from };
+        tl.fromTo(p, { v: from }, {
+          v: to, duration: dur == null ? 1.2 : dur, ease: "power1.out",
+          onUpdate: function () { el.textContent = Math.round(p.v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+        }, at);
+      }
+      function fill(sel, at, dur, to) {
+        tl.fromTo(sel, { scaleX: 0 }, { scaleX: to == null ? 1 : to, duration: dur == null ? 0.8 : dur, ease: "power2.out" }, at);
+      }
+      // opacity-only reveal — safe for inline spans / containers where scale/y don't apply
+      function fade(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: dur == null ? 0.5 : dur, ease: "power1.out" }, at);
+      }
+      // quick emphasis on a spoken word — block elements only (inline spans ignore scale)
+      function pulse(sel, at, s) {
+        tl.to(sel, { scale: s == null ? 1.12 : s, duration: 0.16, ease: "power2.out", repeat: 1, yoyo: true }, at);
+      }
+      // subtle finite "breathing" to fill a would-be-static gap (seek-safe: finite yoyo, never repeat:-1)
+      function breathe(sel, at, dur) {
+        var cyc = 1.5, n = Math.max(1, Math.round(dur / cyc)); if (n % 2 === 0) n += 1; // odd → ends at base scale
+        tl.to(sel, { scale: 1.035, duration: cyc, ease: "sine.inOut", repeat: n, yoyo: true }, at);
+      }
+      // slow Ken-Burns drift on each photo — finite, linear over the whole scene (seek-safe)
+      function ken(sel, at, dur, zoomIn) {
+        tl.fromTo(sel,
+          { scale: zoomIn ? 1.0 : 1.16, xPercent: zoomIn ? -2.5 : 2.5 },
+          { scale: zoomIn ? 1.16 : 1.0, xPercent: zoomIn ? 2.5 : -2.5, duration: dur, ease: "none" }, at);
+      }
+      ken("#s1 .bg", S.s1, 21.6, true);
+      ken("#s2 .bg", S.s2, 9.3, false);
+      ken("#s3 .bg", S.s3, 18.4, true);
+      ken("#s4 .bg", S.s4, 18.9, false);
+      ken("#s5 .bg", S.s5, 21.4, true);
+      ken("#s6 .bg", S.s6, 22.3, false);
+      ken("#s7 .bg", S.s7, 23.0, true);
+      ken("#s8 .bg", S.s8, 17.4, false);
+      ken("#s9 .bg", S.s9, 14.0, true);
+
+      // 1 · HOOK — the question, the blank balance, the Fed stat, the shocks, then the fix
+      rise("#s1k", S.s1 + 0.45, 0.6, 20);          // "Quick question — be honest"
+      pop("#s1q", S.s1 + 2.94, 0.6);               // "How much is actually in your checking account…"
+      pop("#s1amt", S.s1 + 4.92, 0.7);             // the blank "$ ?" on "right now"
+      breathe("#s1amt", S.s1 + 5.70, 3.2);         // it just sits there, taunting
+      rise("#s1stat", S.s1 + 6.12);                // "Because nearly four in ten Americans…"
+      pop("#s1a", S.s1 + 11.02, 0.45);             // "the car won't start tomorrow"
+      fade("#s1bgA", S.s1 + 11.02, 0.7);           // photo → car in the shop
+      pop("#s1b", S.s1 + 12.68, 0.45);             // "or the layoff email lands"
+      fade("#s1bgB", S.s1 + 12.68, 0.7);           // → empty office
+      pulse("#s1amt", S.s1 + 14.54, 1.15);         // "…then what?"
+      pop("#s1c", S.s1 + 16.28, 0.45);             // "it goes on a credit card"
+      fade("#s1bgC", S.s1 + 16.28, 0.7);           // → the bill
+      tl.to("#s1amt", { color: "#ef4444", duration: 0.3 }, S.s1 + 16.90); // "at twenty-two percent" — blank goes red
+      pulse("#s1amt", S.s1 + 16.90, 1.12);
+      pop("#s1fix", S.s1 + 19.86, 0.6);            // "There's one fix: an emergency fund"
+      pulse("#s1fix", S.s1 + 20.70, 1.06);
+
+      // 2 · PROMISE — one item per spoken item
+      rise("#s2k", S.s2 + 0.42);
+      rise("#s2a", S.s2 + 1.46, 0.5, 30);          // "what it is"
+      rise("#s2b", S.s2 + 2.42, 0.5, 30);          // "how big"
+      rise("#s2c", S.s2 + 3.44, 0.5, 30);          // "where to park it"
+      rise("#s2d", S.s2 + 4.20, 0.5, 30);          // "and how to start this week"
+      rise("#s2sub", S.s2 + 6.90);                 // "you don't need a six-figure salary"
+
+      // 3 · WHAT IT IS
+      rise("#s3k", S.s3 + 0.50);
+      rise("#s3yl", S.s3 + 1.00, 0.5, 20);
+      pop("#s3a", S.s3 + 4.86, 0.5);               // "an ER visit"
+      fade("#s3bgA", S.s3 + 4.86, 0.7);
+      pop("#s3b", S.s3 + 6.24, 0.5);               // "a layoff"
+      fade("#s3bgB", S.s3 + 6.24, 0.7);
+      pop("#s3c", S.s3 + 7.40, 0.5);               // "the transmission going out"
+      fade("#s3bgC", S.s3 + 7.40, 0.7);
+      rise("#s3nl", S.s3 + 9.20, 0.5, 20);
+      pop("#s3x", S.s3 + 9.68, 0.5);               // "not a Black Friday deal"
+      pop("#s3y", S.s3 + 11.38, 0.5);              // "not a vacation"
+      pop("#s3stamp", S.s3 + 15.80, 0.5);          // "…credit card debt you carry for years"
+
+      // 4 · HOW BIG
+      pop("#s4num", S.s4 + 1.34, 0.7);
+      countUp("s4num", 0, 3, S.s4 + 1.40, 0.8);
+      rise("#s4l", S.s4 + 1.90);                   // "three months of expenses"
+      rise("#s4f", S.s4 + 3.20);                   // "not income — expenses. Rent, groceries…"
+      breathe("#s4num", S.s4 + 4.20, 5.0);
+      pop("#s4b1", S.s4 + 9.40, 0.5);              // "if your paycheck stopped tomorrow…"
+      pop("#s4b2", S.s4 + 10.00, 0.5);
+      pop("#s4b3", S.s4 + 10.60, 0.5);
+      pop("#s4stamp", S.s4 + 16.40, 0.55);         // "your first target is one thousand dollars"
+      pulse("#s4stamp", S.s4 + 17.30, 1.08);
+
+      // 5 · WHERE
+      rise("#s5k", S.s5 + 0.45);
+      pop("#s5a", S.s5 + 1.88, 0.5);               // "a high-yield savings account"
+      pop("#s5b", S.s5 + 3.80, 0.5);               // "at a bank that isn't your everyday bank"
+      pop("#s5c", S.s5 + 6.54, 0.5);               // "FDIC insured"
+      rise("#s5foot", S.s5 + 7.82);                // "earning real interest instead of nothing"
+      pop("#s5stamp", S.s5 + 12.20, 0.5);          // "a day or two, not instant"
+      pop("#s5x", S.s5 + 18.66, 0.45);             // "no CDs"
+      pop("#s5y", S.s5 + 19.52, 0.45);             // "no stocks"
+      pop("#s5z", S.s5 + 20.10, 0.45);             // "no crypto"
+
+      // 6 · START SMALL + AUTOMATE — coins stack while the auto-transfer is described
+      pop("#s6amt", S.s6 + 3.70, 0.7);             // "fifty dollars a week"
+      breathe("#s6amt", S.s6 + 4.90, 2.5);
+      rise("#s6sub", S.s6 + 5.72);                 // "that's two DoorDash orders"
+      pop("#s6auto", S.s6 + 7.68, 0.55);           // "then automate it"
+      popEach(["#c1", "#c2", "#c3", "#c4", "#c5", "#c6", "#c7", "#c8"], S.s6 + 9.00, 0.42);
+      pulse("#s6amt", S.s6 + 14.26, 1.08);         // "pay yourself first"
+      pop("#s6stamp", S.s6 + 18.60, 0.5);          // "that's how this actually gets done"
+      pulse("#s6stamp", S.s6 + 20.80, 1.08);       // "automatically, not heroically"
+
+      // 7 · WORKED EXAMPLE — count-up runs on "watch it climb, week by week"
+      rise("#s7head", S.s7 + 2.60);                // "say you spend three thousand dollars a month"
+      fade("#s7head .targetc", S.s7 + 6.50, 0.5);  // "nine thousand dollars"
+      rise("#s7mile", S.s7 + 11.50);               // "aim at the first milestone instead"
+      fade("#s7mile .fundc", S.s7 + 14.32, 0.5);   // "one thousand"
+      rise("#s7cap", S.s7 + 15.86);                // "at fifty dollars a week, that's twenty weeks"
+      fade("#s7counter", S.s7 + 18.94, 0.5);       // counter hidden until the climb begins
+      fade(".track2", S.s7 + 18.94, 0.5);
+      fill("#s7fill", S.s7 + 18.94, 2.50, 1);      // "watch it climb — week by week — to your first thousand"
+      countUp("s7c", 0, 1000, S.s7 + 18.94, 2.50);
+
+      // 8 · ACTION
+      pop("#s8stamp", S.s8 + 0.45, 0.5);
+      rise("#s8a", S.s8 + 1.82);                   // "open one high-yield savings account"
+      pop("#s8arrow", S.s8 + 6.50, 0.4);
+      pop("#s8b", S.s8 + 7.20, 0.5);               // "move your first fifty dollars in"
+      pop("#s8arrow2", S.s8 + 8.90, 0.4);
+      pop("#s8c", S.s8 + 9.50, 0.5);               // "then set the automatic transfer"
+      rise("#s8t", S.s8 + 15.22);                  // "turns 'someday' into 'started'"
+      pulse("#s8t", S.s8 + 16.06, 1.08);
+
+      // 9 · RECAP + CTA — recap, cheeky mock-scold beat, then SUBSCRIBE on the word
+      pop("#s9a", S.s9 + 0.62, 0.5);               // "three months of expenses"
+      pop("#s9b", S.s9 + 3.18, 0.5);               // "in a separate high-yield account"
+      pop("#s9c", S.s9 + 4.78, 0.5);               // "start with fifty bucks this week"
+      pulse("#s9a", S.s9 + 6.90); pulse("#s9b", S.s9 + 7.05); pulse("#s9c", S.s9 + 7.20); // "don't say nobody warned you"
+      pop("#s9cta", S.s9 + 11.50, 0.6);            // "hit subscribe"
+      pulse("#s9cta", S.s9 + 12.20, 1.1);
+      rise("#s9sub", S.s9 + 12.40);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
