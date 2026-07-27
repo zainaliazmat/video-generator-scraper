@@ -25,6 +25,10 @@ to sync to: if it matters, it lives in the vault.
 3. **End**: distill what was learned into the right vault note (update, don't
    append-forever). Decisions and status update the relevant note in place —
    full analysis and evidence included; there's nowhere else for it to go.
+4. **`.claude/agents/` is procedure, not memory.** Agent prompts carry *how* a
+   stage works; every *fact* (rates, voices, caps) lives in `tools/format.json`
+   or a vault note, read by path. When a fact changes, change it in its one
+   home — never inside an agent prompt.
 
 ## Post-delivery cleanup (once a video ships to YouTube)
 
