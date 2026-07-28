@@ -34,9 +34,13 @@ You are the storyboard stage. Runs once per cut.
    longer clip goes into holds, never cascades.
 4. Layout rules (format.json): one focal element per scene, kicker first,
    cue spacing ≥0.8s except declared cascades, ≤6 simultaneous elements,
-   something on screen by +0.5s, ≤3 chips/row at ≤22 chars, densest scene gets
-   the calmest background. Declare photo-free scenes up front — at most
-   `photo_free_scene_ratio` × scene count, they use the drift() recipe.
+   something on screen by +0.5s, ≤3 chips/row at ≤22 chars.
+5. **Every scene has a full-bleed background photo — no photo-free scenes**
+   (creator rule 2026-07-28; `photo_free_scene_ratio` is 0). Per scene, list
+   the bg image keyword AND a cut-in slot for each concrete thing the VO names
+   (gym, bill, phone…), each cut-in anchored to its word's cue. Densest scene
+   gets the CALMEST background — a quiet texture reading of the keyword, never
+   no image.
 
 ## The -en pass
 Port the skeleton and element IDs from `storyboard-hi.md` so fixes travel
@@ -48,4 +52,4 @@ that is a translation wearing a layout costume; expect the audit to flag it.
 `vault/videos/<slug>/storyboard-<cut>.md` and
 `studio/videos/<slug>-<cut>/assets/img/manifest.json` (`{"sN.jpg": "query"}`).
 
-Return scene count, image-slot count, and which scenes are photo-free.
+Return scene count and image-slot count (bg + cut-ins per scene).

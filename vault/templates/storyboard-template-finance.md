@@ -34,7 +34,7 @@ colour that argues against the script?*
 - Reveal spacing **≥0.8s**, except a declared cascade (≤5 items @ 0.6–0.7s). Something on screen by scene start **+0.5s**.
 - **≤6 elements** visible at once. **≤3 chips per row, ≤22 chars each** — rows declared explicitly, never left to `flex-wrap`.
 - `ken` direction **alternates**, never two pushes in a row. Photo-free scenes get `drift` instead — **no static frame beyond ~2s**.
-- **Max 2 photo-free scenes**, chosen as density rest beats, declared before sourcing.
+- **Every scene has a full-bleed bg photo** (creator rule 2026-07-28 — photo-free retired); cut-ins per VO keyword, declared before sourcing.
 - Type steps down the ladder (`290 · 112 · 96 · 54 · 46 · 44 · 40 · 32 · 30 · 26`) — never interpolated to fit.
 - **No SFX. No logo outro** (neither finance channel has a wordmark yet) — close on `.cta`.
 
@@ -45,7 +45,7 @@ One row per VO segment. Element IDs map straight into `index.html`.
 | # | Scene purpose | VO segment | Elements (id · class · copy) | Cue table (offset · helper) | Image slot + query | tint |
 |---|---------------|-----------|------------------------------|-----------------------------|--------------------|------|
 | s1 | hook — open the loop | h1 | `s1k .kicker` · `s1q .huge` | `+0.40 rise` · `+…` | `s1.jpg` — <query> | red .12 |
-| s2 | | h2 | | | *(photo-free → `drift`)* | — |
+| s2 | | h2 | | | `s2.jpg` — <bg query> · cut-ins per VO keyword | |
 | … | | | | | | |
 
 **Cue classes.** Mark each cue `anchored` (scales with the clip, lands on its word)

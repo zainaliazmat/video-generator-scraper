@@ -83,6 +83,8 @@ the audit stage checks each coloured element against it. The check that matters:
 s1 red .12   s2 —(photo-free)  s3 green .10   s4 amber .12   s5 green .10
 s6 green .10 s7 —(photo-free)  s8 orange .12  s9 green .13
 ```
+*(Historical reference — needs-vs-wants shipped with photo-free s2/s7. As of
+2026-07-28 every scene carries a `.bg`; the tint ladder still applies.)*
 
 Tint tracks the scene's emotional register, at 0.10-0.13 alpha. Above ~0.15 it
 stops reading as light and starts reading as a colour wash.
@@ -185,14 +187,19 @@ Nine helpers, all on one paused GSAP timeline registered to `window.__timelines`
 
 1. **Alternate `ken` direction.** Never two pushes in a row. Shipped order across
    the photo scenes: `in, out, in, out, in, out, in`.
-2. **Photo-free scenes get `drift`.** They have no `.bg`, so no `ken` — without
-   `drift` the frame is *literally motionless*. Measured on the shipped render
-   before the fix: `s2` was **79% frozen**, `s7` held **7.5s dead** at the
-   count-up payoff. **No scene may hold a static frame beyond ~2s.**
-3. **Cap photo-free scenes at 2 per video**, chosen as density rest beats and
-   declared before sourcing. If an image slot cannot be filled, convert that scene
-   to the photo-free recipe — and fail the build if that would exceed the cap.
-   Four flat scenes and the film unity is gone.
+2. **Every scene carries a full-bleed `.bg` photo under the grade — photo-free
+   scenes are RETIRED** (creator rule 2026-07-28, supersedes the earlier
+   2-per-video rest-beat cap; `format.json photo_free_scene_ratio` is now 0).
+   Every scene therefore gets `ken`; `drift` survives only as the motion for
+   overlay stacks, not as a substitute for a background. **No scene may hold a
+   static frame beyond ~2s.**
+3. **Keyword-matched imagery** (creator rule 2026-07-28): when the VO names a
+   concrete thing (gym, bill, phone, bank, family), the frame shows that thing —
+   either as the scene's `.bg` or as a cut-in timed to the word's cue. The
+   storyboard lists per scene: the bg keyword + each cut-in keyword with the VO
+   word it lands on. Dense scenes still get the *calmest* background (texture
+   reading of the keyword, not a busy literal shot) — density is managed by
+   choosing a quieter image, never by dropping the image.
 4. **One focal element per scene.** Never `.huge` and `.mega` together.
 5. **Reveal spacing ≥0.8s** between consecutive cues, except a declared cascade
    (≤5 items at fixed 0.6-0.7s). Something must be on screen by scene start +0.5s.

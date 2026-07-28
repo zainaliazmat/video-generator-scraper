@@ -358,16 +358,18 @@ def doctor(tier):
 
 # ------------------------------------------------------------------- run.json
 
-def mark(stage, slug, cut, problems, attempt, log):
+def mark(stage, slug, cut, problems, attempt, log, rescue=False):
     """Record the checked result in run.json — {status, reason, log, at} per DX X-3,
-    retry counter as its own field. Atomic; the only writer of `done`."""
+    retry counter as its own field. Atomic; the only writer of `done`.
+    rescue=True records `rescued` (a documented no-artifact rescue path, e.g.
+    research's EmptyStudyPacket) — terminal like done, so --resume skips it."""
     path = os.path.join(vault_dir(slug), "run.json")
     run = {}
     if os.path.exists(path):
         run = json.load(open(path, encoding="utf-8"))
     key = f"fin-{stage}" + (f"-{cut}" if stage in PER_CUT else "")
     entry = {
-        "status": "done" if not problems else "failed",
+        "status": "rescued" if rescue else ("done" if not problems else "failed"),
         "reason": "" if not problems else "; ".join(problems)[:500],
         "attempt": attempt,
         "log": log or "",
@@ -471,6 +473,8 @@ def main(argv=None):
     p.add_argument("--cut", choices=["hi", "en"])
     p.add_argument("--attempt", type=int, default=1)
     p.add_argument("--log", help="path to this attempt's log file, recorded in run.json")
+    p.add_argument("--rescue", action="store_true",
+                   help="record a documented rescue (stage continues without its artifact)")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args(argv)
 
@@ -490,7 +494,11 @@ def main(argv=None):
 
     problems = CHECKS[args.stage](args.slug, args.cut, load_format())
     if args.mode == "mark":
-        mark(args.stage, args.slug, args.cut, problems, args.attempt, args.log)
+        mark(args.stage, args.slug, args.cut, problems, args.attempt, args.log,
+             rescue=args.rescue)
+        if args.rescue:
+            print(f"RESCUED {args.stage}: " + ("; ".join(problems) or "no artifact"))
+            return 0
     if problems:
         print(f"FAIL {args.stage}" + (f"-{args.cut}" if args.cut else ""))
         for pr in problems:

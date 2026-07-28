@@ -38,8 +38,9 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    never interpolate, never shrink a focal below 76 to make it fit
    (restructure instead). Counters use `Intl.NumberFormat` with the cut's
    locale and `tabular-nums`.
-5. Photo-free scenes get `drift()`; ken direction alternates; no scene holds a
-   static frame beyond ~2s.
+5. Every scene has a full-bleed `.bg` (no photo-free scenes — creator rule
+   2026-07-28) and gets `ken` with alternating direction; cut-in images fire on
+   their keyword's cue; no scene holds a static frame beyond ~2s.
 6. **Max-density snapshot pass:** `snapshot --at` each scene's LAST cue time
    and look at the frames — `.stack` must sit inside the safe area, nothing
    overflowing. These deterministic worst-case frames catch what time-spaced

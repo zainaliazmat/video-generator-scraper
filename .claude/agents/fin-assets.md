@@ -45,11 +45,14 @@ Nothing else.
    override note yourself — at most ONE per video (the grade is load-bearing).
 
 ## Authority
-Drop a cut-in rather than fake it — single-photo scenes read fine. A dropped
-slot is REMOVED from the manifest and its scene converts to the photo-free
-recipe. If that conversion would exceed the photo-free cap
-(`photo_free_scene_ratio` × scenes), fail the run instead — four flat scenes
-and the film unity is gone.
+**Replace, never drop a BACKGROUND** (creator rule 2026-07-28: every scene
+ships with a bg photo — photo-free scenes are retired). If a bg slot's query
+keeps failing, walk the retry ladder: `#N` next results → synonym queries → a
+quiet texture that still reads the scene's keyword (calm ≠ flat). A CUT-IN may
+still be dropped rather than faked — remove it from the manifest and note it —
+but the scene keeps its background regardless. The image must match the VO's
+keyword: a generic pretty photo under an unrelated line is a rejection, same
+as a brand mark.
 
 ## Writes
 `assets/img/s*.jpg` (via the tool), the pruned `manifest.json`. CREDITS.txt is

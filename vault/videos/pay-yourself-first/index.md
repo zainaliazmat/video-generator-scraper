@@ -1,5 +1,5 @@
 ---
-summary: Milestone note for the "Pay Yourself First" pair (Hindi/₹ 2:58.9 · US/$ 2:57.8) — both cuts rendered + QA-passed 2026-07-28, publish packs written. Owed — proof-listen (hi, en) · thumbnail pick · upload · competitor scrape for this lane · analytics after 28 days.
+summary: Milestone note for the "Pay Yourself First" pair (Hindi/₹ 2:58.9 · US/$ 2:57.8) — both cuts rendered + QA-passed 2026-07-28, publish packs written. UPLOADED 2026-07-28 (en youtu.be/mlvp4xZTROg · hi youtu.be/PKU0_TeJ9_c). Owed — thumbnail-pick record · competitor scrape for this lane · analytics after 28 days.
 updated: 2026-07-28
 source: run.json + fin-render/fin-package logs in logs/ (attempt 1, /finance-video pipeline)
 ---
@@ -81,7 +81,8 @@ Owed:
 - **proof-listen (hi, en)**
 - **thumbnail pick** — fill `chosen:` in [[youtube-metadata-hi]] and
   [[youtube-metadata-en]] at upload (fin-archive reads it back next run)
-- **upload** (then record URL + publish date here)
+- ~~upload~~ ✅ **UPLOADED 2026-07-28** — en: https://youtu.be/mlvp4xZTROg · hi: https://youtu.be/PKU0_TeJ9_c
+  (title/thumbnail actually used: not yet recorded — fill the `chosen:` line in each publish pack)
 - **competitor scrape for this lane** (`pay-yourself-first` / saving-first —
   library empty, from run.json `owed`)
 - **analytics after 28 days** (only then may learnings touch best-practices)
