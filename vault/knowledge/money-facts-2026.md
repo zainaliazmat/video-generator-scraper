@@ -81,12 +81,37 @@ the Fed rather than by us. Pair the two rows: **$400 shortfall → 22% APR**.
   Say "**1–2 days away, not instant**" (ACH reality) — the friction is the
   feature. Never "instant access" (that's the India/UPI framing).
 
+## Promoted 2026-07-28 (pay-yourself-first run — HARD rows only; SOFT stayed in the run's facts-staging.md)
+
+| Claim | Figure | Source | Tier |
+|---|---|---|---|
+| US median usual weekly earnings, full-time | **$1,251/wk** (Q2 2026; 120.9M workers, +4.6% YoY vs CPI +3.9%) | BLS release (bls.gov/news.release/wkyeng.nr0.htm; direct fetch 403'd — figure per release text) + FRED LES1252881600Q | HARD |
+| Paycheck-to-paycheck, **spending-data** measure | **~25% of US households** (Nov 2025) | BofA Institute, institute.bankofamerica.com/economic-insights/paycheck-to-paycheck.html (~70M households' card/deposit data) | HARD-leaning |
+| HYSA rate range (context only — never on screen, see Do-not-claim) | Marcus 3.40% · Ally 3.00% · top ~4.00–4.15% · natl avg savings 0.38% (Jul 2026) | marcus.com price card + bankrate.com + forbes.com/advisor | HARD (price cards) |
+| India auto-transfer product names | **Standing Instruction (SI)** and **UPI Autopay** — say both | HDFC/SBI product pages; NPCI (caps in [[subscription-economics-2026]]) | HARD (terminology) |
+
+- **Paycheck-to-paycheck framing rule:** self-report surveys run 66% (PYMNTS
+  Jan 2026, SOFT — definition is "income spoken for", not "broke"). Say
+  "between 1 in 4 and 2 in 3, depending on how you count" or use BofA's 1-in-4
+  as the conservative floor. Never "most Americans" with no source.
+- **Durable HYSA on-screen claim:** "roughly **10×** the typical savings
+  account" (3–4% vs 0.38% natl avg, Jul 2026) — order-of-magnitude holds while
+  APYs move.
+- **No HARD "X% of salaried Indians save first" stat exists** (searched
+  PLFS/RBI/Deloitte/YouGov 2026-07-28). The honest anchor is the RBI 7.0% net
+  financial savings row above. Do not rediscover fintech-PR percentages.
+
 ## Rule provenance (both versions)
 
 50/30/20 comes from **Elizabeth Warren and Amelia Warren Tyagi, *All Your
 Worth: The Ultimate Lifetime Money Plan* (2005)** — popularised, not invented,
 by them. It has always been defined on **after-tax income**. Safe to state on
 screen in both languages.
+
+**"Pay yourself first"** traces to **George S. Clason, *The Richest Man in
+Babylon* (1926)** — "a part of all you earn is yours to keep", start with 10%.
+Safe on screen as "a 100-year-old rule." The payday **auto-transfer** twist is
+modern convention — don't attribute it to Clason.
 
 ## Do not claim
 

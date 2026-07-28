@@ -1,0 +1,158 @@
+{
+  "slug": "pay-yourself-first",
+  "topic": "pay yourself first",
+  "tier": "short",
+  "target_seconds": 165,
+  "started": "2026-07-28",
+  "creator_brief": {
+    "style": "blockframe",
+    "hook": "Why is your account always empty by the 20th?",
+    "core_beats": [
+      "saving-what's-left vs saving-first",
+      "why willpower loses",
+      "the payday-morning auto-transfer",
+      "what that money is for"
+    ],
+    "hero_math_hi": "₹12,000 auto-moved on the 1st of every month → ₹1,44,000 in one year, counter animating month by month",
+    "hero_math_en": "US rewrite — fin-script picks the US-sensible equivalent, sourced independently",
+    "action_step": "set the standing instruction today, even if only 5%"
+  },
+  "budget": {
+    "elevenlabs_calls": 18,
+    "max_elevenlabs_calls": 30,
+    "pixabay_calls": 0
+  },
+  "stages": {
+    "fin-research": {
+      "status": "failed",
+      "reason": "EmptyStudyPacket (rescued): no comparable library videos — scrape owed, run continues on vault knowledge",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-research-1.md",
+      "at": "2026-07-27T22:44:20+00:00"
+    },
+    "fin-facts": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-facts-1.md",
+      "at": "2026-07-27T22:48:55+00:00"
+    },
+    "fin-script-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-script-hi-1.md",
+      "at": "2026-07-27T22:52:42+00:00"
+    },
+    "fin-audit-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-audit-hi-1.md",
+      "at": "2026-07-27T22:57:06+00:00"
+    },
+    "fin-voice-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-voice-hi-1.md",
+      "at": "2026-07-27T23:00:07+00:00",
+      "script_sha256": "469f1b81726670a093d1e752ad840a000928371ca45ac8954545964a9341b8e7"
+    },
+    "fin-storyboard-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-storyboard-hi-1.md",
+      "at": "2026-07-27T23:05:17+00:00"
+    },
+    "fin-assets-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-assets-hi-1.md",
+      "at": "2026-07-27T23:16:35+00:00"
+    },
+    "fin-build-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-build-hi-1.md",
+      "at": "2026-07-27T23:31:30+00:00"
+    },
+    "fin-render-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-render-hi-1.md",
+      "at": "2026-07-28T00:48:56+00:00"
+    },
+    "fin-package-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-package-hi-1.md",
+      "at": "2026-07-28T00:58:44+00:00"
+    },
+    "fin-script-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-script-en-1.md",
+      "at": "2026-07-28T01:01:53+00:00"
+    },
+    "fin-audit-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-audit-en-1.md",
+      "at": "2026-07-28T01:06:52+00:00"
+    },
+    "fin-voice-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-voice-en-1.md",
+      "at": "2026-07-28T01:09:08+00:00",
+      "script_sha256": "493ce046f2b358929964ede39dab63d2a98c7d58cc0d564e65d466d1b31a0f50"
+    },
+    "fin-storyboard-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-storyboard-en-1.md",
+      "at": "2026-07-28T01:13:56+00:00"
+    },
+    "fin-assets-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-assets-en-1.md",
+      "at": "2026-07-28T02:29:42+00:00"
+    },
+    "fin-build-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-build-en-1.md",
+      "at": "2026-07-28T02:40:11+00:00"
+    },
+    "fin-render-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-render-en-1.md",
+      "at": "2026-07-28T02:59:42+00:00"
+    },
+    "fin-package-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/pay-yourself-first/logs/fin-package-en-1.md",
+      "at": "2026-07-28T03:06:28+00:00"
+    }
+  },
+  "owed": [
+    "scrape: pay-yourself-first / saving-first competitor lane (library empty)"
+  ]
+}
