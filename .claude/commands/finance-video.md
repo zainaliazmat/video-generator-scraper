@@ -106,8 +106,12 @@ Hard gates (no retry loops past them):
 - `fin-audit` FAIL ×2 ⇒ stop before any TTS spend.
 - `fin-render` frame-check fail ⇒ one `fin-build` fix pass, then stop.
 
-The render runs INSIDE fin-render backgrounded; poll rather than block. Notify
-on terminal states.
+The render stage is split three ways (a subagent's background task dies when
+the subagent returns — verified 2026-07-28): fin-render invocation 1 does the
+gate-two frame check only; then YOU run the encode as YOUR OWN background task
+(`PRODUCER_ENABLE_CHUNKED_ENCODE=true npm run render -- -q high --resolution
+1080p --video-bitrate 12M` in the project dir); when it completes, fin-render
+invocation 2 does the QA. Notify on terminal states.
 
 ## 4 · Trust rules
 

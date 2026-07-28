@@ -26,10 +26,14 @@ Inside `studio/videos/<slug>-<cut>/` only: `npx hyperframes snapshot …`,
    safe area, contrast, brand marks, wrong-currency imagery, phone screens.
    Anything wrong → `STATUS: fail` with `NEXT: fin-build must fix <finding>`.
    One build retry; a second bad frame set is terminal for the cut.
-2. Render — **run it backgrounded and poll**; an 18-minute foreground command
-   is a timeout:
+2. Render — **you do NOT run the encode.** A subagent's background task dies
+   when the subagent returns (verified 2026-07-28: the encode was killed at
+   frame ~112), and an 18-minute foreground command exceeds the Bash timeout.
+   The ORCHESTRATOR runs
    `PRODUCER_ENABLE_CHUNKED_ENCODE=true npm run render -- -q high --resolution 1080p --video-bitrate 12M`
-   Output must land at `renders/FINAL-1080p-<cut>.mp4`.
+   in its own background between your two invocations. If
+   `renders/FINAL-1080p-<cut>.mp4` does not exist when you are asked for QA,
+   return `STATUS: fail` with `NEXT: orchestrator must run the render`.
 3. QA the master:
    - Re-transcribe with faster-whisper (venv) and diff VO placement against
      the `data-start` table — target ≤0.1s drift.
