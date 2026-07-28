@@ -1,6 +1,6 @@
 ---
 summary: Master catalog of the vault. One line per note — keep current when adding notes.
-updated: 2026-07-27
+updated: 2026-07-28
 ---
 
 # Vault index
@@ -43,6 +43,13 @@ updated: 2026-07-27
 - [[workflows/voiceover-tts]] — VO pipeline: **Rule 0 = one TTS clip per line, join with ≥0.5s pauses (timeline by construction)**; Nastaliq master (proofread) → Devanagari for ElevenLabs (Hindi supported, Urdu not) → per-zone voice settings + nukta-accuracy guard. **First full Rule-0 run 2026-07-19 (Firaun, 56 clips)** added four standing rules: strip cite refs `(28:4)` from engine text (silent failure — the narrator reads them aloud); spell digits out in the engine layer (Latin digits = coin-flip English reading); **narration rate ≈12.0–12.2 chars/s transfers across videos → budget script length before writing (22 min ≈ 16,000 chars)**; make the batch driver resumable + offline `--selftest`.
 
 ## Videos
+- [[videos/pay-yourself-first/index]] — ✅ **RENDERED + PACKAGED 2026-07-28** — "Pay Yourself First" pair milestone note (hi 2:58.9 Harsh · en 2:57.8 Brian, both QA PASS, drift 0.021s). Owed: proof-listen, thumbnail pick, upload, lane scrape, 28-day analytics. Carries the **4th-consecutive-blockframe-9 sameness flag** on both channels.
+- [[videos/pay-yourself-first/youtube-metadata-hi]] — publish pack, **Hindi/₹ cut**: Roman-Hindi titles, Hinglish description + real chapter timestamps, 3 thumbnail variants + `chosen:` line. Research caveat: no fresh autocomplete pull possible — reuses the dated 2026-07-27 evidence from the 50-30-20/needs-vs-wants packs.
+- [[videos/pay-yourself-first/youtube-metadata-en]] — publish pack, **US/$ cut**: title options, description + chapters, tags, 3 thumbnail variants + `chosen:` line. Finding: the payday-routine lane is now cloned across ≥6 near-identical 2026 titles; "pay yourself first" search demand unverified.
+- [[videos/pay-yourself-first/script-hi]] — ✅ Hindi/India edition (9 lines, 2:58.9, ₹, standard Hindi, Harsh). Hero: ₹12,000 on the 1st → ₹1,44,000/yr; "even 5%" ladder answers the PLFS plausibility flag.
+- [[videos/pay-yourself-first/script-en]] — ✅ US edition (9 lines, 2:57.8, $, Brian, independent US sourcing). Hero: $400 every payday → $4,800/yr; HYSA/FDIC/different-bank rails.
+- [[videos/pay-yourself-first/storyboard-hi]] — ✅ RENDERED (spec + build log): scene DOM, cue table, the FLIP-the-formula scene, barn-wood grade override (s8).
+- [[videos/pay-yourself-first/storyboard-en]] — ✅ RENDERED — same skeleton/element IDs as hi so fixes port; s1/s5/s6 diverge (1-in-4 statstrip · $1.00→3¢ · HYSA rails).
 - [[videos/50-30-20-rule/youtube-metadata-hi]] — publish pack, **Hindi/₹ cut**: Roman-Hindi title options, Hinglish description + chapters, autocomplete tags. Carries the **Warikoo warning** (his 65-20-15 video = 507k views on our exact thesis; ours is 65-15-20 — we protect savings, he protects wants).
 - [[videos/50-30-20-rule/youtube-metadata-en]] — publish pack, **US/$ cut**: title options, description + chapters, autocomplete tags. Finding: the bare "50/30/20" keyword is AI-slop-saturated; the live US lane is the **payday routine** (Nick Invests 350k).
 - [[videos/video-hist-01-travel/index]] — ✅ **DELIVERED** — HistoryFramesFilm's first shipped video "A Century of Travel" (youtu.be/qyBqfJGwnEI, publishes 2026-07-11). Milestone note + reusable runbook + learnings; heavy assets removed post-delivery.
