@@ -93,6 +93,14 @@ Else" promises a comparison we didn't make).
 7. Stop Saving What's Left — Pay Yourself First ($400 → $4,800) (59) — hybrid:
    contrast pattern + rule keyword + the US number formula.
 
+8. The $5 Trick That Saves You Thousands Without Thinking (54) — vidIQ 83,
+   **creator pick 2026-07-28.** Honest ONLY with the bridge: "$5" = $5 of
+   every $100 = the script's 5% ladder ($200/mo → $2,400/yr — "thousands" ✓).
+   Pair with **thumbnail-en-v4.png** (built for it: "THE $5 TRICK = $2,400/YR ·
+   $5 of every $100, moved automatically"). If this title is used, keep the
+   description's 5% sentence prominent so the promise is cashed early; the
+   hook VO ("empty by the 20th") still works as the cold open.
+
 **Recommended play: use vidIQ's A/B Testing on option 1 vs option 5** — that
 tests browse-hook vs search-pattern with real CTR instead of a model score.
 The browse-not-search finding (needs-vs-wants) argues for 1; the score argues
