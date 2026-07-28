@@ -77,10 +77,33 @@ competitor scrape) — one day old, same US savings demand cluster — plus a
    rule-name lead for concept search; demand unverified (see caveat), use only
    if the creator wants the rule name discoverable.
 
+### vidIQ round (creator-supplied score, 2026-07-28)
+
+Option 1 scored **56/100** — vidIQ's title model is keyword-weighted and the
+hook contains no searched phrase. Its 81–84 suggestions are pattern templates;
+two are honest restatements of this video's thesis and were adopted below, three
+were rejected ("$5 Trick" misdescribes the content, "Build Emergency Funds
+While You Sleep" cannibalizes our emergency-fund upload, "5% vs Everything
+Else" promises a comparison we didn't make).
+
+5. **Stop Trying to Save What's Left | Start Saving First** (52) — vidIQ 81,
+   verbatim our s3 thesis. ← **new search-side recommendation.**
+6. Why Your Willpower Fails at Saving (The Real Reason) (52) — vidIQ 81,
+   matches s5; curiosity pattern without fabricating anything.
+7. Stop Saving What's Left — Pay Yourself First ($400 → $4,800) (59) — hybrid:
+   contrast pattern + rule keyword + the US number formula.
+
+**Recommended play: use vidIQ's A/B Testing on option 1 vs option 5** — that
+tests browse-hook vs search-pattern with real CTR instead of a model score.
+The browse-not-search finding (needs-vs-wants) argues for 1; the score argues
+for 5; only the test settles it. Thumbnail pairing: v1 (the $400→$4,800 math
+poster) pairs with 5/6/7 — title carries the method, thumb carries the payoff,
+no repeated words. Avoid pairing 7 with v1 (repeats the numbers).
+
 ## Description
 
 ```
-Be honest — why is your account always empty by the 20th? You're not reckless. You save whatever's left, and there's never anything left. Nearly 1 in 4 American households ends the month with nothing.
+Pay yourself first — the automatic savings method that fixes why your account is always empty by the 20th. You're not reckless: you save whatever's left, and there's never anything left. Nearly 1 in 4 American households ends the month with nothing.
 
 The fix is a 100-year-old rule from The Richest Man in Babylon (1926): pay yourself first. Flip the formula — income − savings = expenses — and make it automatic: a transfer that moves a fixed amount into a high-yield savings account (different bank, FDIC insured) the morning after every payday. Money you never see, you never spend.
 
@@ -116,7 +139,7 @@ Chapter times are the render's truth: `scene_start` per line in
 ## Tags (paste as a comma list)
 
 ```
-how much should i save per paycheck, how to split your paycheck, how to split your paycheck for savings, high yield savings account, high yield savings account explained, save 1000 dollars, budgeting for beginners, budgeting for beginners 2026, how to budget your money, how to budget and save in your 20s, how to save money fast, personal finance for beginners, pay yourself first, pay yourself first budgeting, payday routine, automate your savings, emergency fund
+how much should i save per paycheck, how to split your paycheck, how to split your paycheck for savings, high yield savings account, high yield savings account explained, save 1000 dollars, budgeting for beginners, budgeting for beginners 2026, how to budget your money, how to budget and save in your 20s, how to save money fast, personal finance for beginners, pay yourself first, pay yourself first budgeting, payday routine, automate your savings, emergency fund, stop saving whats left, start saving first, automatic savings transfer, why saving money is so hard, pay yourself first method
 ```
 
 The first 12 are autocomplete-verified 2026-07-27 (see caveat above). The last
