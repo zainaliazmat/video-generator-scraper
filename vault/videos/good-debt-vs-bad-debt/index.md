@@ -91,6 +91,13 @@ different length band. A 6th blockframe-9 is an indefensible template run. **Esc
 creator/orchestrator BEFORE the next cut is scripted.** *(the sameness policy is
 enforceable now; whether it actually costs views = unvalidated — no analytics yet)*
 
+> **WHAT ACTUALLY HAPPENED (added 2026-07-29 by fin-archive):** it wasn't. `credit-history`
+> was then researched, scripted, voiced, built, rendered and packaged on the same
+> architecture — **the 6th consecutive blockframe-9 on both channels.** This warning is the
+> third of three that changed nothing, which is itself the finding: the control is in the
+> wrong place. `tier` is chosen in `run.json` *before* fin-script; a milestone note and a
+> publish pack are read *after* the artifact exists. See [[../credit-history/index]].
+
 **HERO-MATH DOCTRINE (worked — reuse for any model-dependent number).** The
 minimum-payment payoff is floor/model-dependent, so the VO speaks ONLY floor-independent
 anchors + round ranges ("17+ years / nearly the whole principal in interest"; "the

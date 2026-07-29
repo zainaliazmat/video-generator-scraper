@@ -53,7 +53,21 @@ Budget: **18 of 30 ElevenLabs calls**, 0 Pixabay calls.
 v1 THE MATH (green, centered, photo-free — recommended pattern-breaker) ·
 v2 THE HOOK (red, money photo, "20 tak khali / empty by the 20th") ·
 v3 THE FLIP (calculator, struck spend-first / green save-first).
-`chosen:` line sits in each publish pack — **unfilled as of 2026-07-28**.
+`chosen:` line sits in each publish pack — **still unfilled as of 2026-07-29, i.e. it
+survived a real upload blank** (read back by fin-archive on the credit-history run).
+
+**But the creator did give feedback — in a different place.** [[youtube-metadata-en]]
+records a **creator title pick, 2026-07-28**: option 8, "The $5 Trick That Saves You
+Thousands Without Thinking" (vidIQ 83), plus a **`thumbnail-en-v4.png`** built for it
+(`studio/videos/pay-yourself-first-thumbs/thumbnail-en-v4.png`, on disk). So by upload
+day the `chosen:` field's own option set (v1/v2/v3) could not express the answer, and
+the pick that matters may well be **v4**. Feedback lands as prose in the section the
+creator was already editing — design the loop around that, not around an empty field.
+
+**Recoverable without asking again:** the chosen thumbnail is the public thumbnail —
+compare the live videos (youtu.be/mlvp4xZTROg · youtu.be/PKU0_TeJ9_c) against the four
+PNGs on disk and record the match here. fin-archive has no network access, so this is
+owed to whoever can open the URLs. Full argument: [[../credit-history/index]].
 
 ## Run events worth keeping
 
@@ -79,8 +93,10 @@ post-delivery cleanup only after upload, on the creator's word.
 
 Owed:
 - **proof-listen (hi, en)**
-- **thumbnail pick** — fill `chosen:` in [[youtube-metadata-hi]] and
-  [[youtube-metadata-en]] at upload (fin-archive reads it back next run)
+- **thumbnail pick** — no longer "fill `chosen:` at upload" (that already failed once
+  on a live upload): **recover it off the two live videos** by comparing the public
+  thumbnail against `thumbnail-{hi,en}-v*.png` (en has four candidates, incl. v4) and
+  record the answer in the Thumbnails section above
 - ~~upload~~ ✅ **UPLOADED 2026-07-28** — en: https://youtu.be/mlvp4xZTROg · hi: https://youtu.be/PKU0_TeJ9_c
   (title/thumbnail actually used: not yet recorded — fill the `chosen:` line in each publish pack)
 - **competitor scrape for this lane** (`pay-yourself-first` / saving-first —
