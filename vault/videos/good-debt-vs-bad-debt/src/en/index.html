@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Good Debt vs Bad Debt — the minimum-payment trap</title>
+    <!-- GSAP is vendored locally (assets/js). No CDN: a slow render-time fetch would
+         leave gsap undefined, register no timeline, and still "succeed" — shipping a
+         fully static video. Font is self-hosted, no network reference of any kind. -->
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      /* Self-hosted variable face. Real weight 100-900 (no synthetic bold). Carries
+         U+20B9; deterministic, no render-time network fetch. */
+      @font-face {
+        font-family: "FinanceSans";
+        src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --target: #f59e0b;
+        --pop: #ff5c39;
+        --font: "FinanceSans", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .scene {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        padding: 110px 150px; background: var(--bg); color: var(--ink); text-align: center;
+        overflow: hidden;
+      }
+      .bg {
+        position: absolute; inset: -8%; z-index: 0; background-size: cover; background-position: center;
+        filter: grayscale(0.32) brightness(0.62) contrast(1.05);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+          radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13, 16, 23, 0.46), transparent 80%),
+          radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13, 16, 23, 0.14), rgba(13, 16, 23, 0.58)),
+          linear-gradient(180deg, rgba(13, 16, 23, 0.40), rgba(13, 16, 23, 0.10) 46%, rgba(13, 16, 23, 0.52));
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background-image: url(assets/img/grain.png); background-size: cover; opacity: 0.05; mix-blend-mode: overlay;
+      }
+      .kicker, .huge, .sub, .foot, .claim, .colhead, .colsub, .tag, .decision, .billrow {
+        text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.55);
+      }
+      .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
+      .row { display: flex; align-items: center; justify-content: center; gap: 22px; }
+      .cols { display: flex; align-items: flex-start; justify-content: center; gap: 70px; }
+
+      .kicker { font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); font-weight: 800; margin: 0; }
+      .huge { font-size: 112px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px; }
+      .sub { font-size: 40px; color: var(--muted); font-weight: 800; margin: 0; }
+      .foot { font-size: 26px; color: var(--muted); font-weight: 700; letter-spacing: 1px; margin: 0; }
+      .warn { color: var(--warn); }
+      .fundc { color: var(--fund); }
+      .targetc { color: var(--target); }
+      .inkc { color: var(--ink); }
+
+      .chip {
+        font-size: 32px; font-weight: 800; letter-spacing: 1px; padding: 18px 32px;
+        border-radius: 999px; background: var(--panel); border: 3px solid #2a3241; color: var(--ink);
+      }
+      .chip.fund { border-color: var(--fund); }
+      .chip.warn { border-color: var(--warn); }
+
+      .stamp {
+        font-size: 44px; font-weight: 900; letter-spacing: 3px; padding: 18px 40px; border-radius: 16px;
+        color: #0d1017; transform: rotate(-4deg);
+      }
+      .stamp.warn { background: var(--warn); }
+      .stamp.pop  { background: var(--pop); }
+
+      /* itemised money block — s1 (month-1 split) + s7 (the hero math). label + value. */
+      .bill { display: flex; flex-direction: column; gap: 16px; width: 820px; }
+      .billrow {
+        display: flex; justify-content: space-between; align-items: center; gap: 40px;
+        font-size: 40px; font-weight: 800; padding: 16px 30px;
+        background: var(--panel); border: 3px solid #2a3241; border-radius: 14px;
+      }
+      .billrow.warn { border-color: var(--warn); color: var(--warn); }
+
+      /* centered statement pill — s3 good/bad claims, s5 mechanism rows. */
+      .claim {
+        display: flex; align-items: center; justify-content: center; gap: 14px;
+        font-size: 40px; font-weight: 800; padding: 14px 34px;
+        background: var(--panel); border: 3px solid #2a3241; border-radius: 14px; color: var(--ink);
+      }
+      .claim.fund { border-color: var(--fund); color: var(--fund); }
+      .claim.warn { border-color: var(--warn); color: var(--warn); }
+
+      /* two-column classifier cards — s4 (one card = one element, tags popEach inside). */
+      .colcard {
+        display: flex; flex-direction: column; align-items: center; gap: 14px;
+        padding: 26px 40px; border-radius: 20px; background: var(--panel);
+        border: 3px solid #2a3241; min-width: 380px;
+      }
+      .colcard.fund { border-color: var(--fund); }
+      .colcard.warn { border-color: var(--warn); }
+      .colhead { font-size: 44px; font-weight: 900; letter-spacing: 1px; margin: 0; }
+      .colcard.fund .colhead { color: var(--fund); }
+      .colcard.warn .colhead { color: var(--warn); }
+      .colsub { font-size: 26px; color: var(--muted); font-weight: 700; margin: 0 0 6px; }
+      .tag { font-size: 32px; font-weight: 800; color: var(--ink); margin: 0; }
+
+      /* s7 scenario header + caveat lines */
+      .setup { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+      /* s8 closing rule (emphatic, ink) */
+      .decision { font-size: 40px; font-weight: 800; color: var(--ink); margin: 0; max-width: 1400px; }
+
+      /* U+2192 arrow and U+25B6 play triangle are absent from the self-hosted subset,
+         so they are drawn in CSS. em-based, so they scale with the host font-size. */
+      .arrow, .arr {
+        display: inline-block; position: relative; vertical-align: middle;
+        width: 0.92em; height: 0.62em; color: inherit;
+      }
+      .arrow { font-size: 72px; font-weight: 900; color: var(--muted); }
+      .arr { width: 0.78em; margin: 0 0.12em; }
+      .arrow::before, .arr::before {
+        content: ""; position: absolute; left: 0; top: 50%;
+        width: 100%; height: 0.09em; background: currentColor; transform: translateY(-50%);
+      }
+      .arrow::after, .arr::after {
+        content: ""; position: absolute; right: 0.02em; top: 50%;
+        width: 0.3em; height: 0.3em;
+        border-top: 0.09em solid currentColor; border-right: 0.09em solid currentColor;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .tri {
+        display: inline-block; width: 0; height: 0; vertical-align: middle; margin-right: 0.34em;
+        border-left: 0.62em solid currentColor;
+        border-top: 0.36em solid transparent; border-bottom: 0.36em solid transparent;
+      }
+      /* U+003E ">" is also absent from the subset — drawn as a chevron so the s7 punch
+         does not fall back to a system font. em-based, inherits the warn colour. */
+      .gt { display: inline-block; position: relative; width: 0.46em; height: 0.62em; vertical-align: middle; margin: 0 0.18em; color: inherit; }
+      .gt::after {
+        content: ""; position: absolute; left: 0.02em; top: 50%;
+        width: 0.34em; height: 0.34em;
+        border-top: 0.1em solid currentColor; border-right: 0.1em solid currentColor;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .cta { font-size: 46px; font-weight: 900; letter-spacing: 2px; padding: 24px 56px; border-radius: 14px; background: var(--pop); color: #0d1017; }
+
+      /* animated / money figures never shimmy */
+      .billrow, .huge { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="178.582" style="position: relative; width: 1920px; height: 1080px; overflow: hidden;">
+
+      <!-- 1 · HOOK — the minimum is a trap (month-1 split is the focal shock) -->
+      <section id="s1" class="scene clip" data-start="0" data-duration="18.771" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s1.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s1k" class="kicker">The most dangerous words on a credit card</p>
+          <h1 id="s1q" class="huge warn" style="font-size: 112px">MINIMUM PAYMENT</h1>
+          <div id="s1bill" class="bill">
+            <div id="s1r1" class="billrow"><span>YOU PAY</span><span id="s1r1v">$170</span></div>
+            <div id="s1r2" class="billrow warn"><span><i class="arr"></i> INTEREST</span><span id="s1r2v">$110</span></div>
+            <div id="s1r3" class="billrow"><span><i class="arr"></i> OFF THE DEBT</span><span id="s1r3v">$60</span></div>
+          </div>
+          <div id="s1stamp" class="stamp warn">IT'S A TRAP</div>
+        </div>
+      </section>
+
+      <!-- 2 · ROADMAP — four things (calm rest beat) -->
+      <section id="s2" class="scene clip" data-start="18.771" data-duration="11.249" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s2.jpg)"></div>
+        <div class="scrim"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s2k" class="kicker">By the end you'll know</p>
+          <div class="row">
+            <div id="s2a" class="chip">WHAT DEBT REALLY IS</div>
+            <div id="s2b" class="chip">GOOD vs BAD DEBT</div>
+          </div>
+          <div class="row">
+            <div id="s2c" class="chip">HOW THE MINIMUM WORKS</div>
+            <div id="s2d" class="chip">COMPOUNDS AGAINST YOU</div>
+          </div>
+          <p id="s2sub" class="sub">Then one move for today</p>
+        </div>
+      </section>
+
+      <!-- 3 · CONCEPT — debt is renting money -->
+      <section id="s3" class="scene clip" data-start="30.02" data-duration="23.081" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s3.jpg)"></div>
+        <div class="bg" id="s3cutA" style="background-image: url(assets/img/s3-cutA.jpg); opacity: 0"></div>
+        <div class="bg" id="s3cutB" style="background-image: url(assets/img/s3-cutB.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 28px">
+          <p id="s3k" class="kicker">First — what debt really is</p>
+          <h1 id="s3h" class="huge" style="font-size: 96px">DEBT = <span class="targetc">RENTING MONEY</span></h1>
+          <p id="s3sub" class="sub">Interest is the rent</p>
+          <div id="s3good" class="claim fund">A TOOL THAT EARNS <i class="arr"></i> RENT WORTH IT</div>
+          <div id="s3bad" class="claim warn">A DINNER, A SALE <i class="arr"></i> RENT ON A GHOST</div>
+        </div>
+      </section>
+
+      <!-- 4 · RULE — good debt vs bad debt (two-column classifier, densest) -->
+      <section id="s4" class="scene clip" data-start="53.101" data-duration="25.642" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s4.jpg)"></div>
+        <div class="bg" id="s4cut" style="background-image: url(assets/img/s4-cut.jpg); opacity: 0"></div>
+        <div class="scrim" style="--tint: rgba(245, 158, 11, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 22px">
+          <p id="s4k" class="kicker">The rule</p>
+          <div class="cols">
+            <div id="s4good" class="colcard fund">
+              <p class="colhead">GOOD DEBT</p>
+              <p class="colsub">value grows</p>
+              <p class="tag">A DEGREE</p>
+              <p class="tag">A SKILL</p>
+              <p class="tag">A BUSINESS</p>
+            </div>
+            <div id="s4bad" class="colcard warn">
+              <p class="colhead">BAD DEBT</p>
+              <p class="colsub">just spending</p>
+              <p class="tag">CLOTHES</p>
+              <p class="tag">GADGETS</p>
+              <p class="tag">VACATIONS</p>
+            </div>
+          </div>
+          <div id="s4stamp" class="stamp warn">CARD BALANCE = WORST</div>
+          <p id="s4f" class="foot">Even good debt is only “good” if the return beats the interest</p>
+        </div>
+      </section>
+
+      <!-- 5 · AUDIT — how the minimum works + compounds against you (dense) -->
+      <section id="s5" class="scene clip" data-start="78.743" data-duration="20.051" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s5.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 24px">
+          <p id="s5k" class="kicker">How the minimum actually works</p>
+          <div id="s5r1" class="claim">MINIMUM = 1% OF BALANCE + INTEREST</div>
+          <div id="s5r2" class="claim warn"><i class="arr"></i> INTEREST IS PAID FIRST</div>
+          <div id="s5r3" class="claim">BANK’S INTEREST COVERED · PRINCIPAL BARELY MOVES</div>
+          <h1 id="s5h" class="huge warn" style="font-size: 96px">INTEREST ON INTEREST</h1>
+          <p id="s5snow" class="sub inkc">Compounding — for you when you invest, against you on a card</p>
+          <p id="s5f" class="foot">US min = 1% + interest · Chase / Capital One · CFPB Reg Z · $35 floor</p>
+        </div>
+      </section>
+
+      <!-- 6 · ACTION — pay more than the minimum -->
+      <section id="s6" class="scene clip" data-start="98.794" data-duration="17.361" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s6.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.10)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 28px">
+          <p id="s6k" class="kicker">The only way out</p>
+          <h1 id="s6h" class="huge" style="font-size: 88px">PAY <span class="fundc">MORE</span> THAN THE MINIMUM</h1>
+          <div class="row">
+            <div id="s6f1" class="chip">MINIMUM</div>
+            <div id="s6ar1" class="arrow" style="font-size: 44px"></div>
+            <div id="s6f2" class="chip fund">+ $20/MO</div>
+            <div id="s6ar2" class="arrow" style="font-size: 44px"></div>
+            <div id="s6f3" class="chip fund">CUTS YEARS OFF</div>
+          </div>
+          <p id="s6sub" class="sub">Every extra dollar hits the principal directly</p>
+        </div>
+      </section>
+
+      <!-- 7 · THE MATH — $6,000 @ ~22%, minimum only (the figures ARE the visual) -->
+      <section id="s7" class="scene clip" data-start="116.155" data-duration="27.967" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s7.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239, 68, 68, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 22px">
+          <p id="s7k" class="kicker">Now the full math</p>
+          <div id="s7setup" class="setup">
+            <p id="s7setup1" class="sub inkc">$6,000 · around 22% APR · minimum only</p>
+            <p id="s7setup2" class="foot">around 22% — illustrative, typical range</p>
+            <p id="s7setup3" class="foot">minimum = 1% of balance + interest (or $35)</p>
+          </div>
+          <div class="bill">
+            <div id="s7r1" class="billrow"><span>AFTER 1 YEAR</span><span id="s7r1v">still $5,318 owed</span></div>
+            <div id="s7r2" class="billrow"><span>TIME TO CLEAR</span><span id="s7r2v">215 MONTHS · 18 YRS</span></div>
+            <div id="s7r3" class="billrow warn"><span>INTEREST PAID</span><span id="s7r3v">$9,506</span></div>
+          </div>
+          <p id="s7f" class="foot">$35-floor model · Fed G.19 / WalletHub 2026 · figures build-computed</p>
+          <h1 id="s7h" class="huge warn" style="font-size: 76px">$<span id="s7hv">9,506</span> INTEREST <i class="gt"></i> $6,000 BORROWED</h1>
+        </div>
+      </section>
+
+      <!-- 8 · DO THIS TODAY -->
+      <section id="s8" class="scene clip" data-start="144.122" data-duration="17.099" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s8.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(255, 92, 57, 0.12)"></div>
+        <div class="grain"></div>
+        <div class="stack" style="gap: 28px">
+          <div id="s8stamp" class="stamp pop">DO THIS TODAY</div>
+          <div class="row">
+            <div id="s8a" class="chip">OPEN YOUR CARD APP</div>
+            <div id="s8ar1" class="arrow" style="font-size: 44px"></div>
+            <div id="s8b" class="chip">PAY MINIMUM + <span class="fundc">$20</span></div>
+            <div id="s8ar2" class="arrow" style="font-size: 44px"></div>
+            <div id="s8c" class="chip">THIS MONTH</div>
+          </div>
+          <p id="s8rule" class="decision">Can't buy it in full? Don't carry it on the card.</p>
+          <p id="s8sub" class="sub">Debt isn't the enemy — thoughtless debt is.</p>
+        </div>
+      </section>
+
+      <!-- 9 · RECAP + CTA -->
+      <section id="s9" class="scene clip" data-start="161.221" data-duration="17.361" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s9.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34, 197, 94, 0.13)"></div>
+        <div class="grain"></div>
+        <div class="stack">
+          <p id="s9k" class="kicker">Straight talk</p>
+          <div class="row">
+            <div id="s9a" class="chip">DEBT = RENTED MONEY</div>
+            <div id="s9b" class="chip">GOOD GROWS, BAD DRAINS</div>
+          </div>
+          <div class="row">
+            <div id="s9c" class="chip warn">THE MINIMUM = A TRAP</div>
+            <div id="s9d" class="chip fund">ALWAYS PAY MORE</div>
+          </div>
+          <div id="s9cta" class="cta"><span class="tri"></span>SUBSCRIBE</div>
+        </div>
+      </section>
+
+      <!-- voiceover (ElevenLabs "Brian", US English) — one clip per scene, direct root children.
+           data-start = scene_start + 0.4 · data-duration = measured clip (timing.json). -->
+      <audio id="vo1" src="assets/voice/en1.mp3" data-start="0.4" data-duration="17.371" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo2" src="assets/voice/en2.mp3" data-start="19.171" data-duration="9.848" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo3" src="assets/voice/en3.mp3" data-start="30.42" data-duration="21.682" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo4" src="assets/voice/en4.mp3" data-start="53.501" data-duration="24.242" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo5" src="assets/voice/en5.mp3" data-start="79.143" data-duration="18.651" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo6" src="assets/voice/en6.mp3" data-start="99.194" data-duration="15.961" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo7" src="assets/voice/en7.mp3" data-start="116.555" data-duration="26.567" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo8" src="assets/voice/en8.mp3" data-start="144.522" data-duration="15.7" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo9" src="assets/voice/en9.mp3" data-start="161.621" data-duration="15.961" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // scene starts (s) — the measured en VO scene_start values (timing.json), the
+      // single source; the <section> attrs, <audio> rows and root duration agree.
+      var S = { s1: 0, s2: 18.771, s3: 30.02, s4: 53.101, s5: 78.743, s6: 98.794, s7: 116.155, s8: 144.122, s9: 161.221 };
+
+      function rise(sel, at, dur, y) {
+        tl.fromTo(sel, { opacity: 0, y: y == null ? 40 : y }, { opacity: 1, y: 0, duration: dur == null ? 0.7 : dur, ease: "expo.out" }, at);
+      }
+      function pop(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.6 : dur, ease: "back.out(1.7)" }, at);
+      }
+      function popEach(sel, at, stagger, dur) {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: dur == null ? 0.4 : dur, ease: "back.out(1.7)", stagger: stagger == null ? 0.14 : stagger }, at);
+      }
+      function fade(sel, at, dur) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: dur == null ? 0.5 : dur, ease: "power1.out" }, at);
+      }
+      function exit(sel, at, dur) {
+        tl.to(sel, { opacity: 0, duration: dur == null ? 0.4 : dur, ease: "power1.out" }, at);
+      }
+      function pulse(sel, at, s) {
+        tl.to(sel, { scale: s == null ? 1.12 : s, duration: 0.16, ease: "power2.out", repeat: 1, yoyo: true }, at);
+      }
+      // odd repeat count so a breathe ends exactly where it began (no residual scale).
+      function breathe(sel, at, dur) {
+        var cyc = 1.5, n = Math.max(1, Math.round(dur / cyc)); if (n % 2 === 0) n += 1;
+        tl.to(sel, { scale: 1.035, duration: cyc, ease: "sine.inOut", repeat: n, yoyo: true }, at);
+      }
+      function ken(sel, at, dur, zoomIn) {
+        tl.fromTo(sel,
+          { scale: zoomIn ? 1.0 : 1.16, xPercent: zoomIn ? -2.5 : 2.5 },
+          { scale: zoomIn ? 1.16 : 1.0, xPercent: zoomIn ? 2.5 : -2.5, duration: dur, ease: "none" }, at);
+      }
+
+      // ---- hero integers: computed on screen from the $ amortization model, then
+      // Intl.NumberFormat("en-US") grouped. Build-verified against the locked check:
+      // months=215, interest=$9,506, 12-month balance=$5,318, month-1 split $170/$110/$60.
+      var NUMFMT = new Intl.NumberFormat("en-US");
+      function amort() {
+        var B = 6000, i = 0.22 / 12, floor = 35;
+        var months = 0, totalInterest = 0, bal12 = 0, pay1 = 0, int1 = 0, prin1 = 0;
+        while (B > 0 && months < 100000) {
+          var interest = i * B;                       // this month's interest
+          var statement = B + interest;               // monthly compounding
+          var pay = Math.max(0.01 * B + interest, floor); // 1% of pre-interest balance + interest, $35 floor
+          if (pay >= statement) pay = statement;      // final payment clears the remainder
+          var next = statement - pay;
+          months++; totalInterest += interest;
+          if (months === 1) { pay1 = Math.round(pay); int1 = Math.round(interest); prin1 = Math.round(B - next); }
+          if (months === 12) bal12 = next;
+          B = next;
+        }
+        return { months: months, interest: Math.round(totalInterest), bal12: Math.round(bal12), pay1: pay1, int1: int1, prin1: prin1 };
+      }
+      (function setFigures() {
+        var A = amort();
+        function set(id, s) { var el = document.getElementById(id); if (el) el.textContent = s; }
+        set("s1r1v", "$" + NUMFMT.format(A.pay1));
+        set("s1r2v", "$" + NUMFMT.format(A.int1));
+        set("s1r3v", "$" + NUMFMT.format(A.prin1));
+        set("s7r1v", "still $" + NUMFMT.format(A.bal12) + " owed");
+        set("s7r2v", NUMFMT.format(A.months) + " MONTHS · 18 YRS");
+        set("s7r3v", "$" + NUMFMT.format(A.interest));
+        set("s7hv", NUMFMT.format(A.interest));
+      })();
+
+      // backgrounds — ken alternates in/out across the video (no two pushes in a row).
+      ken("#s1 .bg", S.s1, 18.771, true);
+      ken("#s2 .bg", S.s2, 11.249, false);
+      ken("#s3 .bg", S.s3, 23.081, true);
+      ken("#s4 .bg", S.s4, 25.642, false);
+      ken("#s5 .bg", S.s5, 20.051, true);
+      ken("#s6 .bg", S.s6, 17.361, false);
+      ken("#s7 .bg", S.s7, 27.967, true);
+      ken("#s8 .bg", S.s8, 17.099, false);
+      ken("#s9 .bg", S.s9, 17.361, true);
+
+      // 1 · HOOK — huge exits before the bill (focal handoff); interest row lands <15s.
+      rise("#s1k", S.s1 + 0.40, 0.6, 20);
+      pop("#s1q", S.s1 + 3.30, 0.7);
+      breathe("#s1q", S.s1 + 5.50, 3.0);
+      exit("#s1q", S.s1 + 8.90, 0.4);
+      rise("#s1r1", S.s1 + 9.50, 0.4);
+      pop("#s1r2", S.s1 + 13.10, 0.5);
+      pulse("#s1r2", S.s1 + 13.60, 1.08);
+      rise("#s1r3", S.s1 + 14.30, 0.4);
+      pop("#s1stamp", S.s1 + 15.80, 0.6);
+      pulse("#s1stamp", S.s1 + 16.60, 1.06);
+
+      // 2 · ROADMAP
+      rise("#s2k", S.s2 + 0.40);
+      pop("#s2a", S.s2 + 1.20, 0.45);
+      pop("#s2b", S.s2 + 2.60, 0.45);
+      pop("#s2c", S.s2 + 4.40, 0.45);
+      pop("#s2d", S.s2 + 7.00, 0.45);
+      rise("#s2sub", S.s2 + 8.40);
+
+      // 3 · CONCEPT — debt = renting money
+      rise("#s3k", S.s3 + 0.40);
+      pop("#s3h", S.s3 + 2.60, 0.7);
+      rise("#s3sub", S.s3 + 4.90);
+      breathe("#s3h", S.s3 + 6.50, 4.0);
+      exit("#s3h", S.s3 + 11.30, 0.4);
+      exit("#s3sub", S.s3 + 11.30, 0.4);
+      pop("#s3good", S.s3 + 12.10, 0.5);
+      pop("#s3bad", S.s3 + 16.60, 0.5);
+      fade("#s3cutA", S.s3 + 16.60, 0.7);
+      fade("#s3cutB", S.s3 + 17.50, 0.7);
+      pulse("#s3bad", S.s3 + 20.80, 1.06);
+
+      // 4 · RULE — two-column classifier (tags popEach inside each card)
+      rise("#s4k", S.s4 + 0.40);
+      pop("#s4good", S.s4 + 4.90, 0.6);
+      popEach("#s4good .tag", S.s4 + 5.30);
+      breathe("#s4good", S.s4 + 7.50, 3.0);
+      pop("#s4bad", S.s4 + 10.60, 0.6);
+      popEach("#s4bad .tag", S.s4 + 11.00);
+      fade("#s4cut", S.s4 + 13.00, 0.7);
+      exit("#s4k", S.s4 + 15.00, 0.4);
+      pop("#s4stamp", S.s4 + 17.70, 0.6);
+      pulse("#s4stamp", S.s4 + 18.50, 1.06);
+      rise("#s4f", S.s4 + 20.40);
+
+      // 5 · AUDIT — mechanism block exits, then the compounding focal
+      rise("#s5k", S.s5 + 0.40);
+      rise("#s5r1", S.s5 + 3.80, 0.4);
+      pop("#s5r2", S.s5 + 6.90, 0.5);
+      pulse("#s5r2", S.s5 + 7.40, 1.08);
+      rise("#s5r3", S.s5 + 10.10, 0.4);
+      exit("#s5k", S.s5 + 12.30, 0.4);
+      exit("#s5r1", S.s5 + 12.30, 0.4);
+      exit("#s5r2", S.s5 + 12.30, 0.4);
+      exit("#s5r3", S.s5 + 12.30, 0.4);
+      pop("#s5h", S.s5 + 13.00, 0.7);
+      rise("#s5snow", S.s5 + 14.70);
+      fade("#s5f", S.s5 + 16.00, 0.5);
+      pulse("#s5snow", S.s5 + 17.30, 1.06);
+
+      // 6 · ACTION — green on MORE and the escape nodes, never MINIMUM
+      rise("#s6k", S.s6 + 0.40);
+      pop("#s6h", S.s6 + 1.80, 0.7);
+      breathe("#s6h", S.s6 + 4.00, 3.0);
+      exit("#s6k", S.s6 + 8.00, 0.4);
+      exit("#s6h", S.s6 + 8.00, 0.4);
+      pop("#s6f1", S.s6 + 8.50, 0.5);
+      fade("#s6ar1", S.s6 + 9.10, 0.3);
+      pop("#s6f2", S.s6 + 9.70, 0.5);
+      fade("#s6ar2", S.s6 + 10.30, 0.3);
+      pop("#s6f3", S.s6 + 11.00, 0.5);
+      pulse("#s6f3", S.s6 + 11.60, 1.08);
+      rise("#s6sub", S.s6 + 13.30);
+
+      // 7 · THE MATH — caveats fade, rows build, everything clears for the punch
+      rise("#s7k", S.s7 + 0.40);
+      rise("#s7setup1", S.s7 + 1.60);
+      fade("#s7setup2", S.s7 + 4.00, 0.5);
+      fade("#s7setup3", S.s7 + 7.70, 0.5);
+      exit("#s7setup2", S.s7 + 9.30, 0.4);
+      exit("#s7setup3", S.s7 + 9.30, 0.4);
+      rise("#s7r1", S.s7 + 11.50, 0.4);
+      rise("#s7r2", S.s7 + 18.50, 0.4);
+      pop("#s7r3", S.s7 + 21.80, 0.5);
+      pulse("#s7r3", S.s7 + 22.30, 1.08);
+      fade("#s7f", S.s7 + 22.80, 0.5);
+      exit("#s7k", S.s7 + 24.00, 0.4);
+      exit("#s7setup1", S.s7 + 24.00, 0.4);
+      exit("#s7r1", S.s7 + 24.00, 0.4);
+      exit("#s7r2", S.s7 + 24.00, 0.4);
+      pop("#s7h", S.s7 + 24.30, 0.7);
+      pulse("#s7h", S.s7 + 25.10, 1.05);
+
+      // 8 · DO THIS TODAY
+      pop("#s8stamp", S.s8 + 0.40, 0.6);
+      pulse("#s8stamp", S.s8 + 1.10, 1.06);
+      pop("#s8a", S.s8 + 2.00, 0.5);
+      fade("#s8ar1", S.s8 + 2.60, 0.3);
+      pop("#s8b", S.s8 + 3.60, 0.5);
+      fade("#s8ar2", S.s8 + 5.60, 0.3);
+      pop("#s8c", S.s8 + 6.20, 0.5);
+      exit("#s8stamp", S.s8 + 8.00, 0.4);
+      exit("#s8a", S.s8 + 8.00, 0.4);
+      exit("#s8ar1", S.s8 + 8.00, 0.4);
+      exit("#s8b", S.s8 + 8.00, 0.4);
+      exit("#s8ar2", S.s8 + 8.00, 0.4);
+      exit("#s8c", S.s8 + 8.00, 0.4);
+      rise("#s8rule", S.s8 + 8.90);
+      rise("#s8sub", S.s8 + 12.60);
+
+      // 9 · RECAP + CTA
+      rise("#s9k", S.s9 + 0.40);
+      pop("#s9a", S.s9 + 1.80, 0.45);
+      pop("#s9b", S.s9 + 3.40, 0.45);
+      pop("#s9c", S.s9 + 7.10, 0.45);
+      pop("#s9d", S.s9 + 8.80, 0.45);
+      exit("#s9k", S.s9 + 11.00, 0.4);
+      pop("#s9cta", S.s9 + 15.40, 0.6);
+      pulse("#s9cta", S.s9 + 16.00, 1.06);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+s1.jpg	https://pixabay.com/photos/dollar-dollar-bill-finance-funds-943738/	by TBIT	Pixabay Content License
+s2.jpg	https://pixabay.com/photos/money-dollar-bill-banknotes-860128/	by falco	Pixabay Content License
+s3.jpg	https://pixabay.com/photos/us-dollars-american-background-bank-84594/	by PublicDomainPictures	Pixabay Content License
+s3-cutA.jpg	https://pixabay.com/photos/wine-wine-glasses-vino-party-happy-6174460/	by elle_kh	Pixabay Content License
+s3-cutB.jpg	https://pixabay.com/photos/bag-paper-bag-purchasing-3836460/	by ulleo	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/books-stack-literature-knowledge-5937823/	by Hermann	Pixabay Content License
+s4-cut.jpg	https://pixabay.com/photos/man-person-people-together-two-3244702/	by MabelAmber	Pixabay Content License
+s5.jpg	https://pixabay.com/photos/calculator-paperclip-ballpoint-pen-178127/	by AlexanderStein	Pixabay Content License
+s6.jpg	https://pixabay.com/photos/dollar-dollars-money-hundred-100-5360047/	by benscripps	Pixabay Content License
+s7.jpg	https://pixabay.com/photos/fountain-pen-note-notebook-page-1851096/	by Pexels	Pixabay Content License
+s8.jpg	https://pixabay.com/photos/us-dollar-dollar-dollar-bill-3759490/	by nadjadonauer	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/utah-highway-route-66-nevada-4272944/	by crispy-fotografie	Pixabay Content License

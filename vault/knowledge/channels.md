@@ -70,26 +70,35 @@ positioning + audience before locking its niche note.
 partial (mid-RPM, no affiliates — volume/brand play). Evidence:
 [[niches/cinematic-history]]. First topic locked: **Pompeii — The Last Day**.
 
-## D — CashGuruGuides (@cashguruguides) — LIVE, 3 videos uploaded + scheduled
+## D — CashGuruGuides (@cashguruguides) — LIVE, 5 videos uploaded + scheduled
 The **India / Hindi / ₹** finance channel. Studio:
 https://studio.youtube.com/channel/UCHbj4hVEud49Sy2e9-V9gcg
 
-| Video | URL | State |
-|---|---|---|
-| Har Saal ₹24,564 Chup-Chaap Gayab — Aapke Subscriptions Ka Sach | https://youtu.be/I9cxxhcdfg0 | uploaded + scheduled |
-| ₹30,000 Salary Kaise Manage Kare \| 50-30-20 Rule Ka India Version | https://youtu.be/FstXhGwOCjo | uploaded + scheduled |
-| One Repair From Broke — Emergency Fund Explained in Haryanvi \| Start With ₹2,500 | https://youtu.be/vZG7fkPwpzI | uploaded + scheduled |
+| Video | Slug | URL | State |
+|---|---|---|---|
+| Har Saal ₹24,564 Chup-Chaap Gayab — Aapke Subscriptions Ka Sach | needs-vs-wants | https://youtu.be/I9cxxhcdfg0 | live · archived |
+| ₹30,000 Salary Kaise Manage Kare \| 50-30-20 Rule Ka India Version | 50-30-20-rule | https://youtu.be/FstXhGwOCjo | live · archived |
+| One Repair From Broke — Emergency Fund Explained in Haryanvi \| Start With ₹2,500 | emergency-fund | https://youtu.be/vZG7fkPwpzI | live · archived |
+| Good Debt vs Bad Debt / minimum-payment trap (₹ cut) | good-debt-vs-bad-debt | https://youtu.be/f-doI5d0NRk | live · archived |
+| Pay Yourself First (₹ cut) | pay-yourself-first | https://youtu.be/PKU0_TeJ9_c | live · archived |
 
-## E — moneymavens101 (@moneymavens101) — LIVE, 3 videos uploaded + scheduled
+`archived` = source moved to `../videos/<slug>/src/hi/`, studio dir deleted per
+the finished-video rule ([[CLAUDE]]).
+
+## E — moneymavens101 (@moneymavens101) — LIVE, 5 videos uploaded + scheduled
 The **US / English / $** finance channel. The `-en` cuts are a US rewrite, not a
 translation ([[us-english-script-style]]). Studio:
 https://studio.youtube.com/channel/UChNmDWhioyD5S_08AI6cSaA
 
-| Video | URL | State |
-|---|---|---|
-| You Think You Spend $86 a Month on Subscriptions. It's $219. | https://youtu.be/4DimmIqnxSM | uploaded + scheduled |
-| The 50/30/20 Budget Rule Doesn't Survive 2026 Rent (Here's the Fix) | https://youtu.be/-qrvQMrETn0 | uploaded + scheduled |
-| Emergency Fund 2026: How Much, Where to Keep It, How to Start | https://youtu.be/6dFBciWSs0o | uploaded + scheduled |
+| Video | Slug | URL | State |
+|---|---|---|---|
+| You Think You Spend $86 a Month on Subscriptions. It's $219. | needs-vs-wants | https://youtu.be/4DimmIqnxSM | live · archived |
+| The 50/30/20 Budget Rule Doesn't Survive 2026 Rent (Here's the Fix) | 50-30-20-rule | https://youtu.be/-qrvQMrETn0 | live · archived |
+| Emergency Fund 2026: How Much, Where to Keep It, How to Start | emergency-fund | https://youtu.be/6dFBciWSs0o | live · archived |
+| The Credit Card Minimum-Payment Trap ($ cut) | good-debt-vs-bad-debt | https://youtu.be/gC2QlQiLqhw | live · archived |
+| Pay Yourself First ($ cut) | pay-yourself-first | https://youtu.be/mlvp4xZTROg | live · archived |
+
+Only **credit-history** is still unshipped — its cuts remain in `studio/videos/`.
 
 **Why this matters structurally (2026-07-28):** the ₹/$ pair is not two cuts of
 one upload — it is one upload each to **two separate channels**, each of which

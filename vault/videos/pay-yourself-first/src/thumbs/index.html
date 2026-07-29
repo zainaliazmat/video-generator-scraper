@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Pay Yourself First — Thumbnails (hi + en)</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      /* Same design system as the video (design-finance-blockframe):
+         self-hosted variable font + palette from tools/format.json. */
+      @font-face {
+        font-family: "FinanceSans";
+        src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --pos: #22c55e;
+        --warn: #ef4444;
+        --accent: #f59e0b;
+        --font: "FinanceSans", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .thumb {
+        position: absolute; inset: 0; overflow: hidden;
+        background: var(--bg); color: var(--ink);
+        display: flex; align-items: center; padding: 0 60px;
+      }
+      .bg {
+        position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center right;
+        filter: grayscale(0.3) brightness(0.55) contrast(1.08);
+      }
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          linear-gradient(90deg, rgba(13,16,23,0.96) 0%, rgba(13,16,23,0.88) 42%, rgba(13,16,23,0.30) 78%, rgba(13,16,23,0.15) 100%),
+          radial-gradient(ellipse 80% 90% at 28% 50%, var(--tint, rgba(239,68,68,0.20)), transparent 70%),
+          linear-gradient(180deg, rgba(13,16,23,0.35), transparent 40%, rgba(13,16,23,0.55));
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url(assets/img/grain.png); background-size: cover;
+      }
+      .inner { position: relative; z-index: 2; width: 82%; }
+
+      .tag {
+        display: inline-block; font-size: 30px; font-weight: 900; letter-spacing: 3px;
+        text-transform: uppercase; padding: 10px 24px; border-radius: 999px;
+        background: var(--warn); color: #0d1017; margin: 0 0 22px 0;
+      }
+      .tag.green { background: var(--pos); }
+      .tag.amber { background: var(--accent); }
+      .line {
+        font-size: 128px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px;
+        text-shadow: 0 4px 30px rgba(0,0,0,0.85), 0 2px 6px rgba(0,0,0,0.7);
+        font-variant-numeric: tabular-nums;
+      }
+      .line.red { color: var(--warn); }
+      .line.green { color: var(--pos); }
+      .line.struck { position: relative; color: var(--muted); }
+      .line.struck::after {
+        content: ""; position: absolute; left: -1%; right: -1%; top: 50%; height: 12px;
+        background: var(--warn); transform: rotate(-2.5deg); border-radius: 6px;
+      }
+      .sub {
+        margin: 24px 0 0 0; font-size: 34px; font-weight: 900; letter-spacing: 1px; color: var(--ink);
+        text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+      }
+      .sub .w { color: var(--warn); }
+      .sub .g { color: var(--pos); }
+      .sub .a { color: var(--accent); }
+
+      /* the 12-tick month strip — carries the series brand (needs-vs-wants used it too) */
+      .mini { position: relative; width: 100%; height: 28px; margin-top: 26px;
+              border-radius: 7px; border: 3px solid var(--c, var(--pos)); background: var(--fillbg, rgba(34,197,94,0.30)); overflow: hidden; }
+      .mini .ticks {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 12 - 3px),
+          rgba(13,16,23,0.65) calc(100% / 12 - 3px), rgba(13,16,23,0.65) calc(100% / 12));
+      }
+      /* v2: draining variant — filled 1→20, empty after */
+      .mini.drain { --c: var(--warn); --fillbg: transparent; }
+      .mini.drain .fill { position: absolute; inset: 0; width: 66%; background: rgba(239,68,68,0.45); }
+
+      /* v1 is a centered, photo-free block scene (like s7 in the video) */
+      .center { justify-content: center; text-align: center; }
+      .center .inner { width: 88%; }
+      .arrowline { font-size: 60px; font-weight: 900; color: var(--muted); margin: 0 0 6px 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1280" data-height="720" data-start="0" data-duration="14"
+         style="position: relative; width: 1280px; height: 720px; overflow: hidden;">
+
+      <!-- ===================== HI CUT (shipped, do not touch) ===================== -->
+
+      <!-- V1 — THE MATH. Photo-free centered block (the s7 counter scene as a poster).
+           Deliberately breaks the channel's last-3 composition (photo + left text + red). -->
+      <section id="v1" class="thumb center clip" data-start="0" data-duration="2" data-track-index="1">
+        <div class="scrim" style="--tint: rgba(34,197,94,0.16)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag amber">Auto-Save</p>
+          <p class="arrowline">&#8377;12,000 <span style="color:var(--accent)">&#8595;</span> har mahine</p>
+          <h1 class="line green" style="font-size: 210px">&#8377;1,44,000</h1>
+          <p class="sub">12 mahine &middot; <span class="g">apne aap</span></p>
+          <div class="mini"><div class="ticks"></div></div>
+        </div>
+      </section>
+
+      <!-- V2 — THE HOOK. Empty-wallet photo, red, left text (continuity with the channel look). -->
+      <section id="v2" class="thumb clip" data-start="2" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s1-c.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239,68,68,0.22)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag">Aapka Account</p>
+          <h1 class="line" style="font-size: 186px">20 TAK</h1>
+          <h1 class="line red" style="font-size: 186px">KHALI?</h1>
+          <p class="sub">Galti aapki nahi — <span class="w">system ki hai</span></p>
+          <div class="mini drain"><div class="fill"></div><div class="ticks"></div></div>
+        </div>
+      </section>
+
+      <!-- V3 — THE FLIP. Payslip photo, the formula flip: expense-first struck, savings-first green. -->
+      <section id="v3" class="thumb clip" data-start="4" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s3.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34,197,94,0.18)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag green">100 Saal Purana Rule</p>
+          <h1 class="line struck" style="font-size: 108px; white-space: nowrap">KHARCH PEHLE</h1>
+          <h1 class="line green" style="font-size: 118px; white-space: nowrap">BACHAT PEHLE</h1>
+          <p class="sub">Salary aate hi &middot; <span class="g">5% se shuru</span></p>
+        </div>
+      </section>
+
+      <!-- ===================== EN CUT (@moneymavens101, US) =====================
+           Numeral discipline: every numeral below appears in script-en.md
+           ($400/$4,800/12 → en7 · 20 → en1 · 100 → en4 · 5% → en2/en8). -->
+
+      <!-- EN-V1 — THE MATH. Photo-free centered green block (the en7 counter as a poster).
+           First-ever green/centered thumb on @moneymavens101 — pattern breaker
+           (last 3 en thumbs are all photo + left text). -->
+      <section id="ev1" class="thumb center clip" data-start="6" data-duration="2" data-track-index="1">
+        <div class="scrim" style="--tint: rgba(34,197,94,0.16)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag amber">Auto-Save</p>
+          <p class="arrowline">$400 <span style="color:var(--accent)">&#8595;</span> every payday</p>
+          <h1 class="line green" style="font-size: 250px">$4,800</h1>
+          <p class="sub">12 months &middot; <span class="g">automatic</span></p>
+          <div class="mini"><div class="ticks"></div></div>
+        </div>
+      </section>
+
+      <!-- EN-V2 — THE HOOK. Empty-pocket photo, red, left text (channel continuity). -->
+      <section id="ev2" class="thumb clip" data-start="8" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/en-s1a.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(239,68,68,0.22)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag">Be Honest</p>
+          <h1 class="line" style="font-size: 158px; white-space: nowrap">EMPTY BY</h1>
+          <h1 class="line red" style="font-size: 158px; white-space: nowrap">THE 20TH?</h1>
+          <p class="sub">Saving what's left? <span class="w">Nothing's left.</span></p>
+          <div class="mini drain"><div class="fill"></div><div class="ticks"></div></div>
+        </div>
+      </section>
+
+      <!-- EN-V3 — THE FLIP. Paycheck-stub photo, spend-first struck, save-first green. -->
+      <section id="ev3" class="thumb clip" data-start="10" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/en-s3.jpg)"></div>
+        <div class="scrim" style="--tint: rgba(34,197,94,0.18)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag green">100-Year-Old Rule</p>
+          <h1 class="line struck" style="font-size: 122px; white-space: nowrap">SPEND FIRST</h1>
+          <h1 class="line green" style="font-size: 132px; white-space: nowrap">SAVE FIRST</h1>
+          <p class="sub">Every payday &middot; <span class="g">even 5% works</span></p>
+        </div>
+      </section>
+
+      <!-- EN-V4 — THE $5 TRICK (creator title pick, vidIQ 83). Bridges the title
+           to the real content: $5 of every $100 IS the script's 5% ladder.
+           Numerals traced: 5% → en2/en8 (×8) · $2,400 → en8 · 100 → en4. -->
+      <section id="ev4" class="thumb center clip" data-start="12" data-duration="2" data-track-index="1">
+        <div class="scrim" style="--tint: rgba(34,197,94,0.16)"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="tag amber">Without Thinking</p>
+          <h1 class="line" style="font-size: 148px; white-space: nowrap">THE $5 TRICK</h1>
+          <h1 class="line green" style="font-size: 160px; white-space: nowrap">= $2,400/YR</h1>
+          <p class="sub">$5 of every $100 &middot; <span class="g">moved automatically</span></p>
+          <div class="mini"><div class="ticks"></div></div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // static thumbnails — a registered empty paused timeline satisfies the runtime contract
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+s1.jpg	https://pixabay.com/photos/man-black-man-mobile-phone-person-1868730/	by Pexels	Pixabay Content License
+s1-wallet.jpg	https://pixabay.com/photos/wallet-empty-poverty-bankrupt-3548021/	by Chronomarchie	Pixabay Content License
+s1-upi.jpg	https://pixabay.com/photos/phone-iphone-mobile-green-8594571/	by rmartinr	Pixabay Content License
+s1-commute.jpg	https://pixabay.com/photos/people-train-commuter-passenger-4807330/	by binmassam	Pixabay Content License
+s2.jpg	https://pixabay.com/photos/rupee-indian-india-money-bank-note-4395462/	by rupixen	Pixabay Content License
+s3.jpg	https://pixabay.com/photos/mathematics-maths-computer-laptop-3821034/	by ArtsyBee	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/apartments-pool-architecture-delhi-5433298/	by freesearcher	Pixabay Content License
+s4-commute.jpg	https://pixabay.com/photos/man-bus-transport-urban-vietnam-7819801/	by Nyatto	Pixabay Content License
+s5.jpg	https://pixabay.com/photos/business-businessman-closing-couch-3047316/	by igorovsyannykov	Pixabay Content License
+s6.jpg	https://pixabay.com/photos/five-swiss-francs-swiss-francs-coin-6792024/	by makabera	Pixabay Content License
+s6-sip.jpg	https://pixabay.com/photos/stock-market-chart-phone-stocks-6693060/	by sergeitokmakov	Pixabay Content License
+s7.jpg	https://pixabay.com/photos/money-dollars-usd-financial-loan-3488345/	by QuinceCreative	Pixabay Content License
+s8.jpg	https://pixabay.com/photos/iphone-smartphone-apps-apple-inc-410324/	by JESHOOTS-com	Pixabay Content License
+s8-cal.jpg	https://pixabay.com/photos/planner-march-calendar-schedule-4884740/	by hudsoncrafted	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/landscape-city-morning-cityscape-5298395/	by kong_khawlhring	Pixabay Content License

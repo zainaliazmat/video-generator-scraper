@@ -78,3 +78,10 @@ demand cluster is a different set of search strings entirely.
   cleanup in [[../CLAUDE]] (delete renders/audio, keep text + thumbnails).
 - The superseded rupee-era `-en` render is still in `renders/` — delete on the
   creator's word.
+
+## Published + archived (2026-07-29)
+
+- **en** (@moneymavens101): https://youtu.be/6dFBciWSs0o
+- **hi** (@cashguruguides): https://youtu.be/vZG7fkPwpzI
+
+Finished per the finished-video rule (`vault/CLAUDE.md`): source archived to `src/`, `studio/videos/emergency-fund*` deleted.

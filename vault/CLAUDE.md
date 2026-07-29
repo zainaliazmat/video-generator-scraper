@@ -30,23 +30,46 @@ to sync to: if it matters, it lives in the vault.
    or a vault note, read by path. When a fact changes, change it in its one
    home — never inside an agent prompt.
 
-## Post-delivery cleanup (once a video ships to YouTube)
+## The finished-video rule (a URL means done)
 
-Standing rule (creator, 2026-07-10): **a delivered video's home is YouTube, not
-this disk.** The moment a project is uploaded + scheduled, reclaim the space:
+Standing rule (creator, 2026-07-29, extending 2026-07-10): **a video is finished
+the moment its YouTube URL exists.** Handing over the URL is the signal — nothing
+else is. From then on it has two homes and no third: the **video** lives on
+YouTube, its **source + knowledge** live here. `studio/` holds work in progress
+only, never a shipped video.
 
-1. **Distill first, delete second.** Capture every durable learning into the vault
-   (a `videos/<id>/index.md` milestone note + any reusable runbook/design/script)
-   BEFORE removing anything. The render is about to be the only place some of this
-   lived — text it into the vault or it's lost.
-2. **Delete the heavy, regenerable assets:** the final `*.mp4` render, extracted
-   frame PNGs / snapshots, audio (`*.wav`/`*.mp3`), waveform/thumbnail caches, and
-   `work-*/` temp dirs. These are large and are either on YouTube now or rebuildable
-   from the kept source.
-3. **Keep the light text:** scripts, `DESIGN.md`, runbook, `index.html` + scene
-   source, JSON meta, and the final thumbnail PNG (the deliverable). Text is tiny and
-   is what future projects start from.
-4. **Record the URL + publish date** in the milestone note.
+One command per finished video:
+
+```bash
+tools/archive_cut.py <slug> --hi <url> --en <url>     # --dry-run to preview
+```
+
+It copies the reproducing text into `vault/videos/<slug>/src/{hi,en,thumbs}/`,
+byte-verifies every file, records the URLs in the milestone note, then deletes
+`studio/videos/<slug>*`. Copy → verify → delete, in that order, because
+**nothing under `studio/videos/` is tracked by any git** — a bad copy is
+unrecoverable. It refuses to delete anything without a URL.
+
+1. **Distill first, archive second.** Capture every durable learning into the
+   milestone note (`videos/<slug>/index.md`) + any reusable runbook/design BEFORE
+   running it. The render is about to be the only place some of this lived.
+2. **Kept** (~1–5 MB per video): `index.html`, `meta.json`, `hyperframes.json`,
+   `package.json`, `gen_vo_*.sh`, `gen_timing.mjs`, `*.md`, `assets/voice/*.txt`
+   (the VO lines), `assets/img/*.src` (the image prompts), `CREDITS.txt` (stock
+   attribution), `thumbnail*.png` (the shipped deliverable).
+3. **Dropped**: renders, `*.jpg`/`*.mp3`/`*.wav`, fonts, `gsap.min.js`,
+   `package-lock.json`, `node_modules/`, `snapshots/`, `grain.png` — regenerable.
+4. **The trade this makes:** the archive is *reproducible*, not *free*. Prompts
+   and VO lines survive; the generated images and audio do not, so a re-render
+   re-pays ElevenLabs + image credits. That is the accepted price of a delivered
+   video's home being YouTube.
+
+Channel is implied by the cut, not by the path: `hi/` = @cashguruguides,
+`en/` = @moneymavens101 ([[knowledge/channels]]).
+
+⚠️ The history/AI-tools cuts still in `studio/videos/` are mirrored text-only in
+`../compositions/` — the only git-tracked copy of their code. Do not delete that
+mirror until each of those videos goes through this rule.
 
 **The point (creator's framing):** each shipped video is a **milestone**, not a
 throwaway. The next one starts FROM its runbook + design system + learnings and must

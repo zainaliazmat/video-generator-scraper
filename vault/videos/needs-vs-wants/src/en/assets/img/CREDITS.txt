@@ -1,0 +1,11 @@
+s1-gym.jpg	https://pixabay.com/photos/fitness-dumbbells-training-gym-594143/	by markusspiske	Pixabay Content License
+s1-phone.jpg	https://pixabay.com/photos/man-black-man-mobile-phone-person-1868730/	by Pexels	Pixabay Content License
+s1-bill.jpg	https://pixabay.com/photos/credit-card-bill-bank-statement-1104961/	by lcb	Pixabay Content License
+s3-need.jpg	https://pixabay.com/photos/shop-supermarket-grocery-cart-4527402/	by Sunriseforever	Pixabay Content License
+s3-want.jpg	https://pixabay.com/photos/boxes-corrugated-pizza-boxes-pizza-406272/	by sovereignpartners	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/payment-online-payment-card-payment-4334491/	by rupixen	Pixabay Content License
+s5-bank.jpg	https://pixabay.com/photos/bookkeeping-accounting-taxes-615384/	by Firmbee	Pixabay Content License
+s5-phone.jpg	https://pixabay.com/photos/iphone-x-iphone-x-mobile-4038013/	by BiljaST	Pixabay Content License
+s6.jpg	https://pixabay.com/photos/new-year-children-tv-child-403582/	by mojzagrebinfo	Pixabay Content License
+s8.jpg	https://pixabay.com/photos/samsung-smartphone-hand-holding-1283938/	by Pexels	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/dog-adorable-animal-cute-happiness-3344414/	by 8777334	Pixabay Content License

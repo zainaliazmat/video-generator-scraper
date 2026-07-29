@@ -1,0 +1,15 @@
+s1.jpg	https://pixabay.com/photos/man-boy-young-the-person-on-6763876/	by Surprising_Media	Pixabay Content License
+s1-card.jpg	https://pixabay.com/photos/credit-card-machine-4577767/	by AhmadArdity	Pixabay Content License
+s1-gas.jpg	https://pixabay.com/photos/gas-station-gas-pump-refuel-diesel-4978824/	by planet_fox	Pixabay Content License
+s1-wallet.jpg	https://pixabay.com/photos/wallet-empty-poverty-bankrupt-3548021/	by Chronomarchie	Pixabay Content License
+s2.jpg	https://pixabay.com/photos/moneybag-money-dollars-currency-8727680/	by muqadastalib	Pixabay Content License
+s3.jpg	https://pixabay.com/photos/laptop-workstaion-office-work-4906312/	by Deeezy	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/real-estate-for-rent-rented-3297625/	by ArtisticOperations	Pixabay Content License
+s4-grocery.jpg	https://pixabay.com/photos/shopping-carts-store-shop-buy-2077841/	by paulbr75	Pixabay Content License
+s5.jpg	https://pixabay.com/photos/ice-cocktail-glass-drink-alcohol-681549/	by 453169	Pixabay Content License
+s6.jpg	https://pixabay.com/photos/pennies-coin-coins-money-jar-15727/	by PublicDomainPictures	Pixabay Content License
+s6-card.jpg	https://pixabay.com/photos/ec-cash-card-payment-money-cashless-1750490/	by flyerwerk	Pixabay Content License
+s7.jpg	https://pixabay.com/photos/laptop-office-hand-writing-3196481/	by AymaneJed	Pixabay Content License
+s8.jpg	https://pixabay.com/photos/social-media-facebook-smartphone-763731/	by Firmbee	Pixabay Content License
+s8-cal.jpg	https://pixabay.com/photos/meeting-calendar-saturday-weekend-273857/	by Basti93	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/city-buildings-sunrise-skyline-7510927/	by 南风不竞	Pixabay Content License

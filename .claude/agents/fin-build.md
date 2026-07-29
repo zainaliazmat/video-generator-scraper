@@ -20,11 +20,14 @@ You are the composition-build stage. Runs once per cut.
 the project dir. Nothing else — no render (that is fin-render's stage).
 
 ## Procedure
-1. Scaffold `studio/videos/<slug>-<cut>/` from the reference implementation
-   `studio/videos/needs-vs-wants/` (`-en` from `needs-vs-wants-en/`):
-   package.json pinning the same hyperframes version via a committed lockfile
-   (`npm i -D`, never bare `npx --yes`), meta.json, the vendored
-   `assets/js/gsap.min.js`, the self-hosted `FinanceSans` font, grain.png.
+1. Scaffold `studio/videos/<slug>-<cut>/` by copying **`tools/scaffold/`** —
+   package.json pinning the hyperframes version via its committed lockfile
+   (`npm i -D`, never bare `npx --yes`), the vendored `assets/js/gsap.min.js`,
+   the self-hosted `FinanceSans` font, `assets/img/grain.png`. These are
+   git-tracked and permanent; do **not** scaffold from a sibling video — shipped
+   videos get deleted from `studio/` (finished-video rule, `vault/CLAUDE.md`).
+   For the composition itself, read the newest archived
+   `vault/videos/<slug>/src/{hi,en}/index.html` as the reference implementation.
    **No CDN or network reference of any kind** — a slow fetch past first paint
    renders a fully static video with green checks.
 2. Write `index.html` from the storyboard. Every scene's

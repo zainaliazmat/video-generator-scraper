@@ -1,0 +1,11 @@
+s1-gym.jpg	https://pixabay.com/photos/home-workout-gym-exercise-fitness-5031689/	by lewisgoodphotos	Pixabay Content License
+s1-phone.jpg	https://pixabay.com/photos/businessman-talking-phone-mobile-1010507/	by ravadosa	Pixabay Content License
+s1-bill.jpg	https://pixabay.com/photos/a-book-read-relax-lilac-bank-old-759873/	by congerdesign	Pixabay Content License
+s3-need.jpg	https://pixabay.com/photos/ginger-vegetables-vegetable-market-1356601/	by KRiemer	Pixabay Content License
+s3-want.jpg	https://pixabay.com/photos/man-bicycle-food-delivery-6917326/	by Surprising_Media	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/holiday-shopping-smartphone-1921658/	by AS_Photography	Pixabay Content License
+s5-bank.jpg	https://pixabay.com/photos/bookkeeping-accounting-taxes-615384/	by Firmbee	Pixabay Content License
+s5-phone.jpg	https://pixabay.com/photos/iphone-x-iphone-x-mobile-4038013/	by BiljaST	Pixabay Content License
+s6.jpg	https://pixabay.com/photos/new-year-children-tv-child-403582/	by mojzagrebinfo	Pixabay Content License
+s8.jpg	https://pixabay.com/photos/smartphone-cellphone-touchscreen-1894723/	by stevepb	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/man-young-model-indian-fashion-4992776/	by Virat_Maurya	Pixabay Content License
