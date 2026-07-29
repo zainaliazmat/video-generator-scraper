@@ -153,6 +153,9 @@
     }
   },
   "owed": [
-    "scrape: good-debt-vs-bad-debt / debt & credit-card explainer lane (library.db empty — no comparable videos >=100 views >=240s)"
+    "scrape: good-debt-vs-bad-debt / debt & credit-card explainer lane (library.db empty — no comparable videos >=100 views >=240s)",
+    "loudness: masters are quiet (hi -22.0 LUFS / en -21.0 LUFS, EBU R128 broadcast-safe but ~8 LU under YouTube's -14 ref, which won't boost quiet audio); optional pre-upload loudnorm to ~-14 LUFS — ffmpeg -i FINAL-1080p-<cut>.mp4 -af loudnorm=I=-14:TP=-1:LRA=11 -c:v copy out.mp4",
+    "proof-listen (hi + en) · fill chosen: thumbnail in both packs · upload · analytics @ 28 days before any best-practices write",
+    "next finance cut MUST change architecture — 5th consecutive blockframe-9 on both channels (Gate-2 sameness crossed)"
   ]
 }

@@ -1,6 +1,6 @@
 ---
 summary: Master catalog of the vault. One line per note — keep current when adding notes.
-updated: 2026-07-28
+updated: 2026-07-29
 ---
 
 # Vault index
@@ -43,6 +43,13 @@ updated: 2026-07-28
 - [[workflows/voiceover-tts]] — VO pipeline: **Rule 0 = one TTS clip per line, join with ≥0.5s pauses (timeline by construction)**; Nastaliq master (proofread) → Devanagari for ElevenLabs (Hindi supported, Urdu not) → per-zone voice settings + nukta-accuracy guard. **First full Rule-0 run 2026-07-19 (Firaun, 56 clips)** added four standing rules: strip cite refs `(28:4)` from engine text (silent failure — the narrator reads them aloud); spell digits out in the engine layer (Latin digits = coin-flip English reading); **narration rate ≈12.0–12.2 chars/s transfers across videos → budget script length before writing (22 min ≈ 16,000 chars)**; make the batch driver resumable + offline `--selftest`.
 
 ## Videos
+- [[videos/good-debt-vs-bad-debt/index]] — ✅ **RENDERED + PACKAGED + COMMITTED 2026-07-28/29** — «Good Debt vs Bad Debt / the minimum-payment trap» pair (hi 3:15 Harsh · en 2:59 Brian, both MASTER QA PASS). Hero: hi ₹50k @ ~40% → 208 mo / ₹88,614 · en $6k @ ~22% → 215 mo / $9,506 (exact integers on-screen ONLY, never spoken). Owed: proof-listen, thumbnail pick, upload, lane scrape, 28-day analytics. ⛔ **HARD sameness flag — 5th consecutive blockframe-9 on BOTH channels; the next cut MUST change architecture.**
+- [[videos/good-debt-vs-bad-debt/youtube-metadata-hi]] — publish pack, **Hindi/₹ cut**: Roman-Hindi title options (rec. "Credit Card Minimum Payment: Ek Jaal — ₹50,000 par ₹88,614 Byaj"), Hinglish description + real chapters, autocomplete-verified tags (**FRESH pull 2026-07-28, gl=in**), 3 thumbnails + `chosen:`. Warikoo owns the generic `credit card trap` — we title the minimum-payment math instead.
+- [[videos/good-debt-vs-bad-debt/youtube-metadata-en]] — publish pack, **US/$ cut**: title options (rec. "The Credit Card Minimum-Payment Trap: $6,000 Costs You $9,506"), description + chapters, autocomplete-verified tags (**FRESH 2026-07-29, gl=us**), 3 thumbnails + `chosen:`. `good debt vs bad debt` IS a live US string but Kiyosaki/Ramsey own it — differentiate on the trap math.
+- [[videos/good-debt-vs-bad-debt/script-hi]] — ✅ Hindi/India edition (9 lines, 3:15, ₹, Devanagari Standard Hindi, Harsh). On-screen hero: ₹50,000 @ ~40%, 5% min → 208 mo / ₹88,614; VO speaks only the round anchors (17+ yrs / ~₹90k).
+- [[videos/good-debt-vs-bad-debt/script-en]] — ✅ US edition (9 lines, 2:59, $, Brian, independent US sourcing). On-screen hero: $6,000 @ ~22% → 215 mo / $9,506 (build-calc value, not the script's earlier $9,496 estimate); VO speaks "the better part of two decades / more than you borrowed".
+- [[videos/good-debt-vs-bad-debt/storyboard-hi]] — ✅ RENDERED (spec + build log): blockframe-9 scene DOM, cue table, the s7 amortization counter; frame-gate re-source of 5 backgrounds (deity-coin revered-figure violation fixed).
+- [[videos/good-debt-vs-bad-debt/storyboard-en]] — ✅ RENDERED — same skeleton/element IDs as hi so fixes port; the `.gt` CSS chevron (FinanceSans subset lacks `>`), $9,506 build-calc lock.
 - [[videos/pay-yourself-first/index]] — ✅ **RENDERED + PACKAGED 2026-07-28** — "Pay Yourself First" pair milestone note (hi 2:58.9 Harsh · en 2:57.8 Brian, both QA PASS, drift 0.021s). Owed: proof-listen, thumbnail pick, upload, lane scrape, 28-day analytics. Carries the **4th-consecutive-blockframe-9 sameness flag** on both channels.
 - [[videos/pay-yourself-first/youtube-metadata-hi]] — publish pack, **Hindi/₹ cut**: Roman-Hindi titles, Hinglish description + real chapter timestamps, 3 thumbnail variants + `chosen:` line. Research caveat: no fresh autocomplete pull possible — reuses the dated 2026-07-27 evidence from the 50-30-20/needs-vs-wants packs.
 - [[videos/pay-yourself-first/youtube-metadata-en]] — publish pack, **US/$ cut**: title options, description + chapters, tags, 3 thumbnail variants + `chosen:` line. Finding: the payday-routine lane is now cloned across ≥6 near-identical 2026 titles; "pay yourself first" search demand unverified.
