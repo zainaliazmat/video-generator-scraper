@@ -339,7 +339,7 @@ def doctor(tier):
             if "=" in line and not line.strip().startswith("#"):
                 k, _, v = line.partition("=")
                 env[k.strip()] = v.strip().strip('"').strip("'")
-    for key in ("ELEVENLABS_API_KEY", "PIXABAY_API_KEY"):
+    for key in ("ELEVENLABS_API_KEY", "PIXABAY_API_KEY", "PEXELS_API_KEY"):
         if not (os.environ.get(key) or env.get(key)):
             problems.append(f"{key} missing — add it to .env")
     whisper = subprocess.run(
