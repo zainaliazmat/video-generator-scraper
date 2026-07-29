@@ -1,5 +1,5 @@
 ---
-summary: Milestone note for «Good Debt vs Bad Debt — the minimum-payment trap» pair (Hindi/₹ 3:15 · US/$ 2:59) — both cuts rendered, MASTER QA PASS, committed 2026-07-28/29; publish packs written. NOT uploaded. Owed — proof-listen (hi, en) · thumbnail pick · upload · lane scrape · analytics after 28 days. ⛔ HARD flag: 5th consecutive blockframe-9 on BOTH channels — the sameness enforcement line is crossed; the NEXT finance cut MUST change architecture.
+summary: Milestone note for «Good Debt vs Bad Debt — the minimum-payment trap» pair (Hindi/₹ 3:15 · US/$ 2:59) — both cuts rendered, MASTER QA PASS, committed 2026-07-28/29; **UPLOADED 2026-07-29** (hi youtu.be/f-doI5d0NRk · en youtu.be/gC2QlQiLqhw); heavy assets cleaned. Owed — thumbnail-pick readback (`chosen:` still unfilled) · lane scrape · analytics after 28 days. ⛔ HARD flag: 5th consecutive blockframe-9 on BOTH channels — the sameness enforcement line is crossed; the NEXT finance cut MUST change architecture.
 updated: 2026-07-29
 source: run.json + the fin-render / fin-build / fin-assets / fin-package logs in logs/ (the /finance-video pipeline)
 ---
@@ -75,8 +75,8 @@ allows it) — orchestrator's call, not a gate fail.
 
 Red is the trap throughout; green is deliberately absent (the thumbnail sells the
 trap, not the escape). Backgrounds are the video's OWN re-graded scene photos — no
-new/cross-video images, no AI-collage, no shocked-face. `chosen:` line sits in each
-publish pack — **unfilled as of close-out**.
+new/cross-video images, no AI-collage, no shocked-face. **Chosen: v2 for both cuts**
+(creator pick, 2026-07-29). **New creator rule: one v2-style thumbnail from now on, not three.**
 
 ## Run events + learnings worth keeping
 
@@ -146,18 +146,22 @@ denomination-free coin stacks.
 re-graded scene photo) is a fresh composition vs the channel's red/left-text-over-money-photo
 streak — a genuine v1↔v2 A/B if the creator wants one. *(unvalidated — no analytics yet)*
 
-## Current state + what is owed
+## Published + cleanup (2026-07-29)
 
-**State: RENDERED + PACKAGED + COMMITTED, not uploaded.** Renders and assets are KEPT —
-post-delivery cleanup (deleting renders / audio / frames) runs ONLY after upload, on the
-creator's word ([[../../CLAUDE]]). Nothing was deleted this stage.
+**State: SCHEDULED on YouTube (both cuts), heavy assets reclaimed.**
+- **hi** (@cashguruguides): https://youtu.be/f-doI5d0NRk
+- **en** (@moneymavens101): https://youtu.be/gC2QlQiLqhw
+- **Thumbnail chosen: v2** for both cuts (the time-trap / red-left family; `chosen:` filled
+  in both packs). **New creator rule 2026-07-29: make ONE thumbnail (the v2 style) from now
+  on, not three** — pipeline updated (fin-package + check_package).
 
-Owed:
-- **proof-listen (hi, en)**
-- **thumbnail pick** — fill `chosen:` in [[youtube-metadata-hi]] + [[youtube-metadata-en]]
-  at upload (fin-archive reads it back next run — this is how the thumbnail loop learns;
-  it is still unfilled for pay-yourself-first, so the loop has no recorded pick yet)
-- **upload** (both cuts; cross-link each other in end screen / pinned comment)
+Post-delivery cleanup ran 2026-07-29 (scheduled upload = the trigger): deleted the two
+masters (~539 MB), both `node_modules` (~1.48 GB — `npm install` restores), and the QA
+snapshots (~131 MB) — **~2.15 GB freed**. KEPT (rebuildable source): `index.html` + scene
+assets, `gen_vo_*.sh`, the VO mp3s (tiny, API-costly to regenerate), the kept scene photos,
+package/meta JSON, and the thumbnail PNGs. Re-render = `npm install && npm run render`.
+
+Still owed:
 - **lane scrape** — `library.db` has **NO comparable videos** for the debt /
   credit-card-explainer lane (≥100 views, ≥240 s); from run.json `owed`. Orchestrator's step.
 - **analytics after 28 days** — only then may any learning here touch

@@ -16,7 +16,7 @@ source: Chapter times = scene_start per line in studio/videos/good-debt-vs-bad-d
 | v2 | THE TIME TRAP — left, white "208 MAHINE" + red mega "17 SAAL" over the ledger-under-magnifier (s5). "MINIMUM = JAAL" tag. The channel-continuity option (closest to the last-3 family). | 208 · 17 · ₹50,000 (s7) |
 | v3 | THE SPLIT — left, red mega `₹1,667` over the desk flat-lay (s1). "MINIMUM ₹2,583" tag, sub "sirf byaj · debt sirf ₹916 kam". The month-1 anatomy. | ₹2,583 · ₹1,667 · ₹916 (s1) |
 
-**chosen:** _(creator fills at upload — v1 / v2 / v3; fin-archive reads this back)_
+**chosen:** v2 _(creator pick, scheduled 2026-07-29 — youtu.be/f-doI5d0NRk; fin-archive reads this back)_
 
 Legibility: all three clear the assert (largest line ≥40% of width at 320×180 — v1 ₹88,614 ~60%, v2 "17 SAAL" ~55%, v3 ₹1,667 ~49%). `npm run check` = 22/22 WCAG AA, 0 layout/motion/runtime issues. Backgrounds are the video's OWN scene photos (s7/s5/s1) re-graded under the design scrim — no new/cross-video images, no AI-collage, no shocked-face. Red is the trap throughout (this video's colour thesis); green is deliberately absent — the thumbnail sells the trap, not the escape.
 

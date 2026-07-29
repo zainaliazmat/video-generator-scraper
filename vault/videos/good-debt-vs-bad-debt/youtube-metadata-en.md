@@ -16,7 +16,7 @@ source: Chapter times = scene_start per line in studio/videos/good-debt-vs-bad-d
 | v2 | THE TIME TRAP — left, white "215 MONTHS" + red mega "18 YEARS" over the en statement texture (en s5). "MINIMUM = TRAP" tag. The channel-continuity option (closest to the last-3 family). | 215 · 18 · $6,000 (s7) |
 | v3 | THE SPLIT — left, red mega **$110** over the en $1-bill texture (en s1). "MINIMUM $170" tag, sub "is just interest · debt drops only $60". The month-1 anatomy. | $170 · $110 · $60 (s1) |
 
-**chosen:** _(creator fills at upload — v1 / v2 / v3; fin-archive reads this back)_
+**chosen:** v2 _(creator pick, scheduled 2026-07-29 — youtu.be/gC2QlQiLqhw; fin-archive reads this back)_
 
 Legibility: all three clear the assert (largest line ≥40% of width at 320×180 — v1 `$9,506` ~55%, v2 `18 YEARS` ~65%, v3 `$110` ~42%; v3's mega was sized to 240px specifically to clear 40% with a 4-glyph string). `npm run check` = **21/21 WCAG AA, 0 runtime/layout/motion issues** (one cosmetic `timeline_track_too_dense` warning — the cost of co-hosting hi+en in one project file, per the "one HyperFrames project" contract). Backgrounds are the en video's OWN scene photos (en s7/s5/s1, re-graded under the design scrim) — distinct md5s from the hi thumbnails, no new/cross-video images, no AI-collage, no shocked-face. Red is the trap throughout (this video's colour thesis); green is deliberately absent — the thumbnail sells the trap, not the escape.
 
