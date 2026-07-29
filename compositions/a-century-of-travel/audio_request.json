@@ -1,0 +1,62 @@
+{
+  "provider": "kokoro",
+  "voice": "bm_george",
+  "lang": "en",
+  "speed": 0.9,
+  "bgm": { "mode": "none" },
+  "lines": [
+    {
+      "id": "00",
+      "text": "For most of history, the world was impossibly large. This is the story of how we learned to cross it — and how, for a while, the journey itself became the destination."
+    },
+    {
+      "id": "01",
+      "text": "It begins, improbably, at a temperance rally. In 1841 Thomas Cook charters a train for a day trip — and accidentally invents the package tour. Travel starts to belong to everyone."
+    },
+    {
+      "id": "02",
+      "text": "In 1869 the Suez Canal opens, slicing thousands of miles from the route to the East. Suddenly the world is smaller, and the age of global travel has truly begun."
+    },
+    {
+      "id": "03",
+      "text": "1883: the Orient Express departs Paris for the edge of Europe. Velvet, mahogany, candlelit dining — proof that a journey could be as glamorous as any destination."
+    },
+    {
+      "id": "04",
+      "text": "By the turn of the century, steam and steel turn the Atlantic into a stage. Great liners race between continents, and crossing the ocean becomes a spectacle of luxury."
+    },
+    {
+      "id": "05",
+      "text": "In 1907 the Mauretania crosses the Atlantic in just four and a half days — a record that will stand for thirty years. The true queens of the sea."
+    },
+    {
+      "id": "06",
+      "text": "The new century builds the grandest ships ever seen — floating cities of ambition and elegance. Their story is also a reminder that progress always carries risk."
+    },
+    {
+      "id": "07",
+      "text": "Then we look up. In 1927 a lone pilot flies nonstop across the Atlantic, and the world senses the future of travel might not float at all — it might fly."
+    },
+    {
+      "id": "08",
+      "text": "The 1930s are the golden twilight of the liner. Ships like the Queen Mary carry ballrooms and grand staircases across the sea — luxury at full steam, just as the skies begin to beckon."
+    },
+    {
+      "id": "09",
+      "text": "1939: great flying boats lift the first paying passengers across the ocean. Days at sea become hours in the air. The age of the airliner has arrived."
+    },
+    {
+      "id": "10",
+      "text": "In 1952 the world's first jet airliner enters service. Travel gets faster, higher, impossibly modern — and the distances that once took weeks begin to vanish."
+    },
+    {
+      "id": "11",
+      "text": "And in 1970 the jumbo jet opens the skies to everyone. What was once the privilege of the wealthy becomes a ticket within reach of millions."
+    },
+    {
+      "id": "12",
+      "text": "Today the whole world is barely a day away. We cross oceans before lunch and forget how astonishing that is — yet every journey still carries the romance of those first travelers."
+    },
+    { "id": "13", "text": "A century of travel. The journey continues. Where will you go next?" }
+  ]
+}

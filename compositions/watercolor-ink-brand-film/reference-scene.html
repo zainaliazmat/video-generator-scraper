@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Watercolor-Ink Scene — Technique Reference</title>
+
+<!--
+  ============================================================================
+  WHAT THIS IS
+  ----------------------------------------------------------------------------
+  A SELF-CONTAINED, runnable demonstration of the watercolor-ink "paint-in"
+  scene technique. Open it in a browser to SEE the target look. It is the
+  visual reference for Claude Code to adapt into the real Hyperframes
+  composition.
+
+  It uses CSS stand-ins so it runs with ZERO external assets. Every stand-in
+  is labelled with what to replace it with in production.
+
+  HOW THIS MAPS TO HYPERFRAMES (read before adapting):
+  - DEMO: animation loops via a GSAP timeline with repeat:-1 and autoplay.
+    HYPERFRAMES: the master GSAP timeline must be PAUSED and registered to
+    window.__timelines so the renderer can scrub it. Remove repeat/autoplay.
+    NO CSS @keyframes, NO requestAnimationFrame, NO timers — deterministic only.
+  - DEMO: fonts loaded from Google Fonts CDN (convenient for viewing).
+    HYPERFRAMES: self-host the .woff2 files via @font-face so the headless
+    render has them. Do NOT rely on a remote CDN at render time.
+  - DEMO: the "photo" is a CSS gradient; the ink mask is a radial-gradient.
+    HYPERFRAMES: swap the gradient for assets/images/NN-*.jpg, and (optionally)
+    swap the radial-gradient mask for a real ink-splatter PNG mask
+    (mask-image:url(assets/textures/ink-splatter-1.png); animate mask-size)
+    for a more organic ink SHAPE. The SVG turbulence edge filter stays.
+  - DEMO: paper + grain are inline SVG/CSS.
+    HYPERFRAMES: swap for assets/textures/paper.jpg and grain.png.
+
+  THE SIGNATURE EFFECT = a circular/blob reveal mask whose edge is warped by an
+  SVG feTurbulence + feDisplacementMap filter, so the photo appears to be
+  "painted in" with bleeding watercolor/ink edges. That filter is the trick.
+  ============================================================================
+-->
+
+<!-- DEMO ONLY: self-host these in production (assets/fonts/*.woff2) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Pinyon+Script&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* === DESIGN TOKENS (warm sepia / heritage) === */
+    --paper:#efe7d6;
+    --ink:#2b2622;
+    --ink-soft:#5a5048;
+    --accent:#8c5a3c;
+    --accent-dim:#c9a87f;
+    --bleed-warm:#b5762e;
+    --bleed-cool:#4a6a78;
+
+    --font-script:"Pinyon Script", cursive;
+    --font-label:"Marcellus SC", serif;
+    --font-body:"Spectral", serif;
+
+    /* animated by GSAP (proxy → CSS var) */
+    --reveal:0;        /* 0 = hidden, ~85 = fully painted in */
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; background:#111; }
+
+  /* 16:9 stage, letterboxed to fit the window */
+  .stage-wrap{
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    background:#0c0b0a;
+  }
+  .scene{
+    position:relative;
+    width:min(100vw, 177.78vh);   /* keep 16:9 */
+    aspect-ratio:16/9;
+    overflow:hidden;
+    background:var(--paper);
+    font-family:var(--font-body);
+  }
+
+  /* ---------- LAYER 1: PAPER CANVAS (always visible) ---------- */
+  /* Production: assets/textures/paper.jpg */
+  .paper-bg{
+    position:absolute; inset:0;
+    background-color:var(--paper);
+    /* faint paper fibre via inline SVG noise */
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.06'/%3E%3C/svg%3E");
+    /* subtle uneven tint like aged paper */
+    box-shadow:inset 0 0 320px rgba(120,92,60,0.18);
+  }
+
+  /* ---------- LAYER 2: PHOTO that "paints in" ---------- */
+  .photo-wrap{
+    position:absolute;
+    inset:6% 6% 6% 6%;
+    /* THE WATERY EDGE: SVG turbulence warps the mask boundary */
+    filter:url(#watercolor-edge);
+    /* THE PAINT-IN MASK: a soft circle that grows (driven by --reveal).
+       Production tip: replace with mask-image:url(ink-splatter.png) +
+       animate mask-size for an organic ink SHAPE. */
+    -webkit-mask-image:radial-gradient(circle at 52% 56%, #000 calc(var(--reveal) * 1%), rgba(0,0,0,0) calc(var(--reveal) * 1% + 16%));
+            mask-image:radial-gradient(circle at 52% 56%, #000 calc(var(--reveal) * 1%), rgba(0,0,0,0) calc(var(--reveal) * 1% + 16%));
+    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  }
+  .photo{
+    position:absolute; inset:0;
+    transform-origin:55% 60%;
+    /* DEMO STAND-IN for assets/images/01-highlands.jpg:
+       a layered gradient suggesting misty green highlands at altitude. */
+    background:
+      radial-gradient(120% 80% at 50% 120%, #3c4a32 0%, #4f5d3e 30%, rgba(79,93,62,0) 70%),
+      linear-gradient(180deg, #c9cdb6 0%, #aeb697 26%, #8f9a73 52%, #6f7a52 74%, #515c38 100%);
+  }
+  /* base layer = desaturated / aged */
+  .photo-base{
+    filter:grayscale(.55) sepia(.25) contrast(1.05) brightness(.96);
+  }
+  /* color layer = full colour bleeding through (selective colour) */
+  .photo-color{
+    mix-blend-mode:multiply;
+    opacity:.7;
+  }
+  /* watercolour wash tint drifting over the photo (mid-scene life) */
+  /* Production: assets/textures/watercolor-1.png */
+  .watercolor-tex{
+    position:absolute; inset:-6%;
+    mix-blend-mode:multiply; opacity:.5;
+    background:
+      radial-gradient(40% 50% at 30% 35%, var(--bleed-warm) 0%, rgba(181,118,46,0) 60%),
+      radial-gradient(45% 55% at 72% 68%, var(--bleed-cool) 0%, rgba(74,106,120,0) 62%),
+      radial-gradient(60% 60% at 55% 50%, rgba(120,92,60,.25) 0%, rgba(120,92,60,0) 70%);
+  }
+
+  /* ---------- LAYER 3: TEXT BLOCK (lower-left third) ---------- */
+  .text-block{
+    position:absolute; left:8%; bottom:11%;
+    max-width:60%;
+  }
+  .title{
+    font-family:var(--font-script);
+    font-size:clamp(40px, 9vw, 120px);
+    line-height:.9; color:var(--ink);
+    margin-bottom:.12em;
+    text-shadow:0 1px 0 rgba(239,231,214,.5);
+  }
+  .subtitle{
+    font-family:var(--font-label);
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:clamp(13px, 1.9vw, 30px);
+    color:var(--ink-soft);
+    margin-bottom:.5em;
+  }
+  .line{
+    font-family:var(--font-body);
+    font-style:italic; font-weight:400;
+    font-size:clamp(12px, 1.4vw, 22px);
+    color:var(--ink-soft);
+  }
+  /* faint decorative latin fragment in negative space */
+  .latin-deco{
+    position:absolute; right:9%; top:14%;
+    width:26%; transform:rotate(-3deg);
+    font-family:var(--font-body); font-style:italic;
+    font-size:clamp(9px,1.1vw,15px); line-height:1.5;
+    color:var(--ink); opacity:.12; text-align:justify;
+    pointer-events:none;
+  }
+
+  /* ---------- LAYER 4: GRAIN (always on top) ---------- */
+  /* Production: assets/textures/grain.png, mix-blend-mode:overlay */
+  .grain{
+    position:absolute; inset:0; pointer-events:none;
+    mix-blend-mode:overlay; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size:300px 300px;
+  }
+
+  /* ---------- LAYER 5: VIGNETTE ---------- */
+  .vignette{
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(120% 120% at 50% 45%, rgba(20,15,10,0) 52%, rgba(20,15,10,.45) 100%);
+  }
+
+  /* tiny replay hint, demo only */
+  .hint{
+    position:absolute; left:8px; bottom:6px; z-index:5;
+    font:11px/1 system-ui, sans-serif; color:rgba(255,255,255,.35);
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG FILTERS (the watery-edge engine). Lives once in the document. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Warps the mask edge into an irregular, bleeding watercolour border.
+         Tune feDisplacementMap scale (12–28) and baseFrequency for the look. -->
+    <filter id="watercolor-edge" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="stage-wrap">
+  <div class="scene" id="scene">
+
+    <!-- 1: paper -->
+    <div class="paper-bg"></div>
+
+    <!-- 2: photo that paints in -->
+    <div class="photo-wrap" id="photoWrap">
+      <div class="photo photo-base"></div>
+      <div class="photo photo-color"></div>
+      <div class="watercolor-tex" id="wash"></div>
+    </div>
+
+    <!-- decorative latin fragment -->
+    <div class="latin-deco">
+      Inter montes editos, ubi aer tenuis et matutina frigora morantur, arbor silvestris
+      per mille annos crevit — umbra et altitudine nata.
+    </div>
+
+    <!-- 3: text -->
+    <div class="text-block">
+      <h1 class="title" id="t-title">Where It Begins</h1>
+      <p class="subtitle" id="t-sub">Ethiopian Highlands</p>
+      <p class="line" id="t-line">1,500 metres above the sea</p>
+    </div>
+
+    <!-- 4 + 5: grain + vignette -->
+    <div class="grain"></div>
+    <div class="vignette"></div>
+
+    <div class="hint">reference loop — in Hyperframes this timeline is PAUSED &amp; scrubbed</div>
+  </div>
+</div>
+
+<!-- DEMO ONLY: GSAP from CDN to make the technique visible in a browser. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+  /* ==========================================================================
+     DEMO TIMELINE
+     In Hyperframes: build this as a PAUSED master timeline, register it to
+     window.__timelines, and let the renderer scrub it. Remove repeat/yoyo,
+     remove the auto-play, and gate any image/font loading before capture.
+     ========================================================================== */
+  const wrap = document.getElementById('photoWrap');
+  const proxy = { reveal: 0 };
+
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6, defaults: { ease: 'power3.out' } });
+
+  // initial state
+  gsap.set('.photo', { scale: 1.0, xPercent: 0, yPercent: 0 });
+  gsap.set(['#t-title', '#t-sub', '#t-line'], { opacity: 0, y: 26 });
+  proxy.reveal = 0; wrap.style.setProperty('--reveal', '0');
+
+  // (a) THE PAINT-IN: ink mask spreads open (0 → ~85)
+  tl.to(proxy, {
+    reveal: 85, duration: 1.8, ease: 'power2.out',
+    onUpdate: () => wrap.style.setProperty('--reveal', proxy.reveal.toFixed(2))
+  }, 0);
+
+  // (b) KEN BURNS: slow push-in across the whole 9s scene
+  tl.to('.photo', { scale: 1.08, xPercent: -1.5, yPercent: -1, duration: 9, ease: 'none' }, 0);
+
+  // (c) MID-SCENE LIFE: watercolour wash drifts faintly
+  tl.to('#wash', { xPercent: 4, yPercent: -3, duration: 9, ease: 'sine.inOut' }, 0);
+
+  // (d) TEXT rises, staggered, after the reveal starts
+  tl.to('#t-title', { opacity: 1, y: 0, duration: 1.5 }, 0.9);
+  tl.to('#t-sub',   { opacity: 1, y: 0, duration: 1.4 }, 1.3);
+  tl.to('#t-line',  { opacity: 1, y: 0, duration: 1.3 }, 1.6);
+
+  // (e) settle, then gentle text fade to prep the transition
+  tl.to(['#t-title', '#t-sub', '#t-line'], { opacity: 0.0, duration: 1.2, ease: 'power1.in' }, 7.6);
+
+  // total scene ~9s
+</script>
+</body>
+</html>

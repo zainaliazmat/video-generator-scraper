@@ -1,0 +1,14 @@
+# Python deps for the VIDEO PIPELINE (tools/ + the /finance-video agents).
+# Deliberately separate from backend/requirements.txt: ytauto's ./run.sh must
+# stay a light install, and faster-whisper drags in ctranslate2 + av + a
+# HuggingFace model download (hundreds of MB).
+#
+#   venv/bin/pip install -r tools/requirements.txt
+#
+# Everything else under tools/ is stdlib only (urllib, sqlite3, json) — no
+# requests, no SDKs. Keep it that way.
+
+# Render QA: re-transcribes the finished master and diffs VO placement against
+# the composition's data-start table. tools/pipeline_check.py probes for it and
+# .claude/agents/fin-render.md requires it.
+faster-whisper>=1.2

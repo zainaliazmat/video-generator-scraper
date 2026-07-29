@@ -1,0 +1,32 @@
+{
+  "provider": "kokoro",
+  "voice": "bm_george",
+  "lang": "en-gb",
+  "speed": 0.95,
+  "bgm": { "mode": "none" },
+  "lines": [
+    { "id": "intro", "text": "Before the cup. Before the café. There was a forest, a red berry, and a story that would circle the earth." },
+    { "id": "s1", "text": "High in the Ethiopian highlands, in cool mountain air, the coffee tree first took root — wild and forgotten." },
+    { "id": "s2", "text": "Coffea arabica. A single delicate species that today fills more cups than any other." },
+    { "id": "s3", "text": "Legend tells of Kaldi, a young herder, who watched his goats dance through the night after eating a bright red cherry. Curious, he tasted it too." },
+    { "id": "s4", "text": "Carried across the Red Sea to Yemen, the roasted bean found its name — qahwa. Sufi mystics drank it to stay awake through nights of prayer. From the port of Mocha, it sailed to the world." },
+    { "id": "s5", "text": "Months later, the cherries ripen to deep crimson — and only the reddest are ready to be picked." },
+    { "id": "s6", "text": "The finest coffee is still gathered the oldest way — by hand, one ripe cherry at a time." },
+    { "id": "s7", "text": "A single tree gives only about a pound of roasted coffee a year." },
+    { "id": "s8", "text": "Spread on raised beds, the cherries dry for weeks under the sun, turned again and again." },
+    { "id": "s9", "text": "Inside every cherry, a pale green seed — the bean, still holding all its flavour in silence." },
+    { "id": "s10", "text": "Then, fire. In the roaster's drum, heat begins to wake the sleeping bean." },
+    { "id": "s11", "text": "It swells, browns, and near two hundred degrees — cracks open, releasing the aroma we know as coffee." },
+    { "id": "s12", "text": "Seconds decide everything. The roaster reads colour and scent, and pulls the beans at the perfect moment." },
+    { "id": "s13", "text": "Ground too soon, the aroma fades — so it waits until the last moment." },
+    { "id": "s14", "text": "The first splash of water, and the grounds bloom — releasing gas, and proof the coffee is fresh." },
+    { "id": "s15", "text": "In Ethiopia, where it all began, coffee returns home — poured from the clay jebena in a ceremony centuries old." },
+    { "id": "s16", "text": "Elsewhere, the same patience — water circling slowly, drawing the flavour out in a spiral." },
+    { "id": "s17", "text": "And at last, the cup — the whole long journey, held in your hands." },
+    { "id": "s18", "text": "For six hundred years, coffee has done one quiet thing best — it brings people to the same table." },
+    { "id": "s20", "text": "A warmth in the palms on a cold morning — small, and somehow enough." },
+    { "id": "s21", "text": "From a wild forest berry to the cup in your hand — every step, remembered in the taste." },
+    { "id": "s22", "text": "And behind every good cup, a pair of hands — and a craft, passed on with care." },
+    { "id": "outro", "text": "From the highlands of Ethiopia to your morning cup — this is the soul of coffee. Thank you for watching History Frames Film." }
+  ]
+}

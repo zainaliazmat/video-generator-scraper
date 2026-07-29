@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # What reproduces the video. Globs are relative to a cut dir and non-recursive,
 # so node_modules/, assets/img/*.jpg, assets/voice/*.mp3 and the fonts never match.
 KEEP = (
-    "*.html", "*.json", "*.sh", "*.mjs", "*.py", "*.md",
+    "*.html", "*.json", "*.sh", "*.mjs", "*.py", "*.md", "*.css",
     "thumbnail*.png",
     "assets/voice/*.txt",
     "assets/img/*.src", "assets/img/CREDITS.txt",

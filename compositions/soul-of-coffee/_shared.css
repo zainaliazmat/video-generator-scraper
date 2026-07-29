@@ -1,0 +1,161 @@
+      /* ===== SELF-HOSTED FONTS (assets/fonts/*.woff2) ===== */
+      @font-face {
+        font-family: "Pinyon Script";
+        src: url("assets/fonts/Pinyon_Script/PinyonScript-Regular.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Marcellus SC";
+        src: url("assets/fonts/Marcellus_SC/MarcellusSC-Regular.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Spectral";
+        src: url("assets/fonts/Spectral/Spectral-Regular.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Spectral";
+        src: url("assets/fonts/Spectral/Spectral-Medium.woff2") format("woff2");
+        font-weight: 500; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Spectral";
+        src: url("assets/fonts/Spectral/Spectral-Italic.woff2") format("woff2");
+        font-weight: 400; font-style: italic; font-display: block;
+      }
+
+      /* ===== DESIGN TOKENS ===== */
+      :root {
+        --paper: #efe7d6;
+        --ink: #2b2622;
+        --ink-soft: #5a5048;
+        --accent: #8c5a3c;
+        --accent-dim: #c9a87f;
+        --bleed-warm: #b5762e;
+        --bleed-cool: #4a6a78;
+        --font-script: "Pinyon Script", cursive;
+        --font-label: "Marcellus SC", serif;
+        --font-body: "Spectral", serif;
+      }
+
+      html, body { margin: 0; padding: 0; background: var(--ink); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+      .svg-defs { position: absolute; width: 0; height: 0; }
+
+      /* ===== shared scene scaffold ===== */
+      .scene.clip { position: absolute; inset: 0; }
+      .scene-content { position: absolute; inset: 0; overflow: hidden; background: var(--paper); }
+
+      /* LAYER 1 : paper ground */
+      .paper-bg {
+        position: absolute; inset: 0;
+        background-color: var(--paper);
+        background-image: url("assets/textures/paper.jpg");
+        background-size: cover; background-position: center;
+      }
+
+      /* LAYER 2 : photo panel that paints in (per-scene inset/paint/source generated) */
+      .photo-wrap {
+        position: absolute; overflow: hidden;
+        filter: url(#watercolor-edge);
+        --paint: 10%;
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-position: center; mask-position: center;
+        -webkit-mask-size: var(--paint); mask-size: var(--paint);
+      }
+      .photo-inner {
+        position: absolute; inset: 0;
+        isolation: isolate;
+        background: linear-gradient(160deg, #6f7d3f 0%, #4f6a39 45%, #38502c 100%);
+        will-change: transform;
+      }
+      .photo-base {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        object-fit: cover; display: block;
+        filter: grayscale(0.55) sepia(0.25) contrast(1.05) brightness(0.96);
+      }
+      .photo-color {
+        position: absolute; inset: 0;
+        background-size: cover; background-position: center;
+        mix-blend-mode: multiply; opacity: 0.7;
+      }
+      .watercolor-tex {
+        position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(181, 118, 46, 0.25), rgba(181, 118, 46, 0.25)),
+          url("assets/textures/watercolor-1.png");
+        background-size: cover, cover; background-position: center, center;
+        mix-blend-mode: multiply; opacity: 0.5;
+      }
+      .photo-feather {
+        position: absolute; inset: 0; pointer-events: none;
+        box-shadow: inset 0 0 90px 36px var(--paper);
+      }
+
+      /* paper veil — cream glow behind centred title cards */
+      .paper-veil {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(62% 52% at 50% 50%,
+          rgba(239, 231, 214, 0.92) 0%, rgba(239, 231, 214, 0.55) 40%, rgba(239, 231, 214, 0) 72%);
+      }
+
+      /* LAYER 3 : text */
+      .text-block { position: absolute; left: 150px; bottom: 110px; max-width: 520px; }
+      .text-center {
+        position: absolute; left: 0; right: 0; top: 50%;
+        transform: translateY(-50%);
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        padding: 0 220px; box-sizing: border-box;
+      }
+      /* soft paper halo keeps dark ink type legible over any image edge it overlaps */
+      .title { margin: 0; font-family: "Pinyon Script", cursive; font-size: 112px; line-height: 0.95; color: var(--ink); font-weight: 400; text-shadow: 0 1px 2px rgba(239, 231, 214, 0.6), 0 0 26px rgba(239, 231, 214, 0.5); }
+      .text-center .title { font-size: 150px; line-height: 0.9; }
+      .subtitle { margin: 18px 0 0; font-family: "Marcellus SC", serif; font-size: 30px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); font-weight: 400; text-shadow: 0 1px 12px rgba(239, 231, 214, 0.7); }
+      .text-center .subtitle { letter-spacing: 0.22em; }
+      .line { margin: 12px 0 0; font-family: "Spectral", serif; font-style: italic; font-size: 22px; letter-spacing: 0.01em; color: var(--ink-soft); text-shadow: 0 1px 10px rgba(239, 231, 214, 0.7); }
+
+      /* brand logo — inks in via its own mask wipe */
+      .brand-logo {
+        position: relative; width: 300px; height: 64px; margin: 30px 0 6px;
+        --logo-paint: 0%;
+        -webkit-mask-image: url("assets/textures/ink-splatter-1.png");
+        mask-image: url("assets/textures/ink-splatter-1.png");
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-position: center; mask-position: center;
+        -webkit-mask-size: var(--logo-paint); mask-size: var(--logo-paint);
+      }
+      .brand-logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+      .logo-fallback {
+        position: absolute; inset: 0; display: grid; place-items: center;
+        border: 1px solid rgba(43, 38, 34, 0.45);
+        font-family: "Marcellus SC", serif; font-size: 16px; letter-spacing: 0.34em; color: var(--ink-soft);
+      }
+
+      /* LAYER 5/6 : grain + vignette */
+      .grain {
+        position: absolute; inset: 0; pointer-events: none;
+        background-image: url("assets/textures/grain.png");
+        background-size: cover; mix-blend-mode: overlay; opacity: 0.34;
+      }
+      .vignette {
+        position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 120% at 50% 45%, rgba(20, 15, 10, 0) 55%, rgba(20, 15, 10, 0.45) 100%);
+      }
+
+      /* ===== ink-wipe transition overlays (per-transition mask generated) ===== */
+      .ink-transition { position: absolute; inset: 0; }
+      .ink-fill {
+        position: absolute; inset: 0;
+        background: var(--ink);
+        filter: url(#watercolor-edge);
+        --tx-paint: 0%;
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-size: var(--tx-paint); mask-size: var(--tx-paint);
+      }
+
+      /* ===== constant intro / outro overrides (full-frame bloom, centred card) ===== */
+      #intro .photo-wrap, #outro .photo-wrap { inset: 40px; --paint: 8%; }
+      #intro .photo-color { background-image: url("assets/images/00-hills-dawn.jpg"); }
+      #outro .photo-color { background-image: url("assets/images/23-cup-on-wood.jpg"); }

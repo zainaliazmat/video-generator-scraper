@@ -1,0 +1,290 @@
+{
+  "tts_provider": "creator-recorded",
+  "voice_id": "zain-ali",
+  "bgm": null,
+  "bgm_pending": false,
+  "voices": [
+    {
+      "id": "01",
+      "path": "assets/voice-ur/01.wav",
+      "duration_s": 17.525,
+      "words": []
+    },
+    {
+      "id": "02",
+      "path": "assets/voice-ur/02.wav",
+      "duration_s": 15.989,
+      "words": []
+    },
+    {
+      "id": "03",
+      "path": "assets/voice-ur/03.wav",
+      "duration_s": 18.976,
+      "words": []
+    },
+    {
+      "id": "04",
+      "path": "assets/voice-ur/04.wav",
+      "duration_s": 16.245,
+      "words": []
+    },
+    {
+      "id": "05",
+      "path": "assets/voice-ur/05.wav",
+      "duration_s": 14.453,
+      "words": []
+    },
+    {
+      "id": "06",
+      "path": "assets/voice-ur/06.wav",
+      "duration_s": 23.755,
+      "words": []
+    },
+    {
+      "id": "07",
+      "path": "assets/voice-ur/07.wav",
+      "duration_s": 11.04,
+      "words": []
+    },
+    {
+      "id": "08",
+      "path": "assets/voice-ur/08.wav",
+      "duration_s": 19.573,
+      "words": []
+    },
+    {
+      "id": "10",
+      "path": "assets/voice-ur/10.wav",
+      "duration_s": 9.248,
+      "words": []
+    },
+    {
+      "id": "11",
+      "path": "assets/voice-ur/11.wav",
+      "duration_s": 10.699,
+      "words": []
+    },
+    {
+      "id": "12",
+      "path": "assets/voice-ur/12.wav",
+      "duration_s": 16.075,
+      "words": []
+    },
+    {
+      "id": "13",
+      "path": "assets/voice-ur/13.wav",
+      "duration_s": 9.589,
+      "words": []
+    },
+    {
+      "id": "14",
+      "path": "assets/voice-ur/14.wav",
+      "duration_s": 20.768,
+      "words": []
+    },
+    {
+      "id": "15",
+      "path": "assets/voice-ur/15.wav",
+      "duration_s": 18.635,
+      "words": []
+    },
+    {
+      "id": "16",
+      "path": "assets/voice-ur/16.wav",
+      "duration_s": 15.392,
+      "words": []
+    },
+    {
+      "id": "17",
+      "path": "assets/voice-ur/17.wav",
+      "duration_s": 15.819,
+      "words": []
+    },
+    {
+      "id": "18",
+      "path": "assets/voice-ur/18.wav",
+      "duration_s": 10.613,
+      "words": []
+    },
+    {
+      "id": "19",
+      "path": "assets/voice-ur/19.wav",
+      "duration_s": 20.853,
+      "words": []
+    },
+    {
+      "id": "20",
+      "path": "assets/voice-ur/20.wav",
+      "duration_s": 16.331,
+      "words": []
+    },
+    {
+      "id": "21",
+      "path": "assets/voice-ur/21.wav",
+      "duration_s": 27.595,
+      "words": []
+    },
+    {
+      "id": "22",
+      "path": "assets/voice-ur/22.wav",
+      "duration_s": 21.536,
+      "words": []
+    },
+    {
+      "id": "23",
+      "path": "assets/voice-ur/23.wav",
+      "duration_s": 19.403,
+      "words": []
+    },
+    {
+      "id": "24",
+      "path": "assets/voice-ur/24.wav",
+      "duration_s": 12.405,
+      "words": []
+    },
+    {
+      "id": "25",
+      "path": "assets/voice-ur/25.wav",
+      "duration_s": 17.269,
+      "words": []
+    },
+    {
+      "id": "26",
+      "path": "assets/voice-ur/26.wav",
+      "duration_s": 19.915,
+      "words": []
+    },
+    {
+      "id": "27",
+      "path": "assets/voice-ur/27.wav",
+      "duration_s": 16.672,
+      "words": []
+    },
+    {
+      "id": "28",
+      "path": "assets/voice-ur/28.wav",
+      "duration_s": 10.016,
+      "words": []
+    },
+    {
+      "id": "29",
+      "path": "assets/voice-ur/29.wav",
+      "duration_s": 17.013,
+      "words": []
+    },
+    {
+      "id": "30",
+      "path": "assets/voice-ur/30.wav",
+      "duration_s": 14.283,
+      "words": []
+    },
+    {
+      "id": "31",
+      "path": "assets/voice-ur/31.wav",
+      "duration_s": 4.555,
+      "words": []
+    },
+    {
+      "id": "32",
+      "path": "assets/voice-ur/32.wav",
+      "duration_s": 9.675,
+      "words": []
+    },
+    {
+      "id": "33",
+      "path": "assets/voice-ur/33.wav",
+      "duration_s": 19.317,
+      "words": []
+    },
+    {
+      "id": "34",
+      "path": "assets/voice-ur/34.wav",
+      "duration_s": 19.147,
+      "words": []
+    },
+    {
+      "id": "35",
+      "path": "assets/voice-ur/35.wav",
+      "duration_s": 14.539,
+      "words": []
+    },
+    {
+      "id": "36",
+      "path": "assets/voice-ur/36.wav",
+      "duration_s": 19.061,
+      "words": []
+    },
+    {
+      "id": "39",
+      "path": "assets/voice-ur/39.wav",
+      "duration_s": 9.163,
+      "words": []
+    },
+    {
+      "id": "40",
+      "path": "assets/voice-ur/40.wav",
+      "duration_s": 11.04,
+      "words": []
+    },
+    {
+      "id": "41",
+      "path": "assets/voice-ur/41.wav",
+      "duration_s": 10.528,
+      "words": []
+    },
+    {
+      "id": "42",
+      "path": "assets/voice-ur/42.wav",
+      "duration_s": 15.136,
+      "words": []
+    },
+    {
+      "id": "43",
+      "path": "assets/voice-ur/43.wav",
+      "duration_s": 3.189,
+      "words": []
+    },
+    {
+      "id": "44",
+      "path": "assets/voice-ur/44.wav",
+      "duration_s": 12.149,
+      "words": []
+    },
+    {
+      "id": "45",
+      "path": "assets/voice-ur/45.wav",
+      "duration_s": 18.208,
+      "words": []
+    },
+    {
+      "id": "46",
+      "path": "assets/voice-ur/46.wav",
+      "duration_s": 4.64,
+      "words": []
+    },
+    {
+      "id": "47",
+      "path": "assets/voice-ur/47.wav",
+      "duration_s": 9.333,
+      "words": []
+    },
+    {
+      "id": "48",
+      "path": "assets/voice-ur/48.wav",
+      "duration_s": 11.808,
+      "words": []
+    },
+    {
+      "id": "49",
+      "path": "assets/voice-ur/49.wav",
+      "duration_s": 17.611,
+      "words": []
+    },
+    {
+      "id": "50",
+      "path": "assets/voice-ur/50.wav",
+      "duration_s": 10.187,
+      "words": []
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "tts_provider": "kokoro",
+  "voice_id": "bm_george",
+  "bgm": null,
+  "bgm_pending": false,
+  "bgm_provider": null,
+  "bgm_pid": null,
+  "bgm_log": null,
+  "bgm_mode": null,
+  "bgm_target_duration_s": null,
+  "bgm_seed_duration_s": null,
+  "bgm_loop_count": null,
+  "voices": [
+    {
+      "id": "00",
+      "path": "assets/voice/00.wav",
+      "duration_s": 10.56,
+      "words": []
+    },
+    {
+      "id": "01",
+      "path": "assets/voice/01.wav",
+      "duration_s": 14.016,
+      "words": []
+    },
+    {
+      "id": "02",
+      "path": "assets/voice/02.wav",
+      "duration_s": 13.312,
+      "words": []
+    },
+    {
+      "id": "03",
+      "path": "assets/voice/03.wav",
+      "duration_s": 13.227,
+      "words": []
+    },
+    {
+      "id": "04",
+      "path": "assets/voice/04.wav",
+      "duration_s": 10.944,
+      "words": []
+    },
+    {
+      "id": "05",
+      "path": "assets/voice/05.wav",
+      "duration_s": 10.944,
+      "words": []
+    },
+    {
+      "id": "06",
+      "path": "assets/voice/06.wav",
+      "duration_s": 11.093,
+      "words": []
+    },
+    {
+      "id": "07",
+      "path": "assets/voice/07.wav",
+      "duration_s": 11.925,
+      "words": []
+    },
+    {
+      "id": "08",
+      "path": "assets/voice/08.wav",
+      "duration_s": 13.355,
+      "words": []
+    },
+    {
+      "id": "09",
+      "path": "assets/voice/09.wav",
+      "duration_s": 11.883,
+      "words": []
+    },
+    {
+      "id": "10",
+      "path": "assets/voice/10.wav",
+      "duration_s": 11.968,
+      "words": []
+    },
+    {
+      "id": "11",
+      "path": "assets/voice/11.wav",
+      "duration_s": 10.901,
+      "words": []
+    },
+    {
+      "id": "12",
+      "path": "assets/voice/12.wav",
+      "duration_s": 11.904,
+      "words": []
+    },
+    {
+      "id": "13",
+      "path": "assets/voice/13.wav",
+      "duration_s": 4.459,
+      "words": []
+    }
+  ],
+  "sfx": [],
+  "total_duration_s": 160.491
+}
