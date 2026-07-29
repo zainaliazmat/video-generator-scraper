@@ -1,0 +1,155 @@
+{
+  "slug": "credit-history",
+  "topic": "your credit history",
+  "tier": "short",
+  "target_seconds": 165,
+  "started": "2026-07-29",
+  "creator_brief": {
+    "style": "signal",
+    "hook": "An invisible record decides whether you get a loan.",
+    "core_beats": [
+      "what a credit history is (verify terminology per market)",
+      "what builds it — on-time payments, low utilization",
+      "what destroys it — missed payments, defaults",
+      "why it matters before you ever need it"
+    ],
+    "hero_example_hi": "one missed payment stays visible for years — timeline animation; India terminology (CIBIL / credit report), figures sourced independently",
+    "hero_example_en": "one missed payment stays visible for years — timeline animation; US terminology (FICO / credit report), figures sourced independently",
+    "action_step": "set every due date on auto-pay or calendar alerts"
+  },
+  "budget": {
+    "elevenlabs_calls": 18,
+    "max_elevenlabs_calls": 30,
+    "pixabay_calls": 0
+  },
+  "stages": {
+    "fin-research": {
+      "status": "rescued",
+      "reason": "missing study note: /home/zain-ali/Documents/YoutubeScraper/vault/knowledge/video-studies/credit-history.md",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-research-1.md",
+      "at": "2026-07-28T19:31:09+00:00"
+    },
+    "fin-facts": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/credit-history/logs/fin-facts-2.md",
+      "at": "2026-07-29T06:50:36+00:00"
+    },
+    "fin-script-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/credit-history/logs/fin-script-hi-2.md",
+      "at": "2026-07-29T07:05:13+00:00"
+    },
+    "fin-audit-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-audit-hi-1.md",
+      "at": "2026-07-29T07:26:54+00:00"
+    },
+    "fin-voice-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-voice-hi-1.md",
+      "at": "2026-07-29T07:31:08+00:00",
+      "script_sha256": "c45cfe51f577239fcdf32d1f61ae89f710b8a25853a73eb6444b2fd547f37590"
+    },
+    "fin-storyboard-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-storyboard-hi-1.md",
+      "at": "2026-07-29T07:44:15+00:00"
+    },
+    "fin-assets-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-assets-hi-1.md",
+      "at": "2026-07-29T08:06:06+00:00"
+    },
+    "fin-build-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/credit-history/logs/fin-build-hi-2.md",
+      "at": "2026-07-29T08:56:15+00:00"
+    },
+    "fin-render-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/credit-history/logs/fin-render-hi-2.md",
+      "at": "2026-07-29T09:54:21+00:00"
+    },
+    "fin-script-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-script-en-1.md",
+      "at": "2026-07-29T09:12:10+00:00"
+    },
+    "fin-audit-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-audit-en-1.md",
+      "at": "2026-07-29T09:22:37+00:00"
+    },
+    "fin-voice-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-voice-en-1.md",
+      "at": "2026-07-29T09:28:05+00:00",
+      "script_sha256": "69a05d2173ed7c47b4f23bcd54286c02343e1ff62b0bdea219eb26b684304f50"
+    },
+    "fin-storyboard-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-storyboard-en-1.md",
+      "at": "2026-07-29T09:40:36+00:00"
+    },
+    "fin-assets-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-assets-en-1.md",
+      "at": "2026-07-29T10:10:29+00:00"
+    },
+    "fin-package-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-package-hi-1.md",
+      "at": "2026-07-29T10:10:36+00:00"
+    },
+    "fin-build-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-build-en-1.md",
+      "at": "2026-07-29T10:38:45+00:00"
+    },
+    "fin-render-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/credit-history/logs/fin-render-en-2.md",
+      "at": "2026-07-29T11:33:08+00:00"
+    },
+    "fin-package-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/credit-history/logs/fin-package-en-1.md",
+      "at": "2026-07-29T11:38:14+00:00"
+    }
+  }
+}

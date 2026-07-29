@@ -1,6 +1,6 @@
 ---
 summary: Verified consumer-money numbers for the India (₹) and USA ($) finance videos — salaries, rent, savings rates, debt. Every figure carries its source. This is the pool scripts draw from; nothing goes on screen unless it's here.
-updated: 2026-07-29 (good-debt-vs-bad-debt pass — credit-card APR + minimum-payment conventions)
+updated: 2026-07-29 (credit-history pass — credit-score ranges, FICO weights, FCRA 7-year rule, risk-based pricing spreads)
 source: RBI Annual Report (via Business Standard, May 2026), PLFS Annual Report 2025 (PIB), AMFI, US Census P60-286, BEA Personal Income & Outlays May 2026, Harvard JCHS America's Rental Housing 2026, NY Fed HHDC Q1 2026, TransUnion via Forbes/WalletHub. Researched 2026-07-27 for the 50-30-20 video pair. + Federal Reserve SHED 2025 (rel. May 2026), Fed G.19 / LendingTree Q2 2026, FDIC — added 2026-07-27 for emergency-fund-en.
 ---
 
@@ -115,6 +115,25 @@ Credit-card cost + minimum-payment conventions, sourced independently per market
 - **The minimum-payment-trap mechanism (load-bearing debt-video insight):** a minimum that is a *percentage of the balance* decays it geometrically toward zero but **never reaches it** — the floor (₹100 / $25–40) is the only reason payoff is finite. Paying only the minimum runs **~17 years** and costs **more in interest than the original principal** in both markets (India 5%-of-due @ ~40%; US 1%+interest @ ~22%). Any months-to-clear / total-interest integer is floor- and model-dependent → compute it in build code, label "illustrative", never speak a false-precise figure (on screen only). The two mechanisms differ — **never reuse one market's math for the other.**
 - Blog-tier min-payment calculators (WalletHub/NerdWallet/National Debt Relief) were found and rejected — use the issuer agreements + CFPB Reg Z / RBI direction instead.
 
+## Promoted 2026-07-29 (credit-history run — HARD rows only; every India regulator figure stayed SOFT in the run's facts-staging.md)
+
+Credit-history terminology and mechanics, sourced independently per market. **The two markets' retention rules are different in kind and must never be swapped** — see the Do-not-claim entry below, which is the most important line this run produced.
+
+| Claim | Figure | Source | Tier |
+|---|---|---|---|
+| US — FICO score range and bands | **300–850**; "good" = **670–739**; **800+** = exceptional | myFICO (score owner) myfico.com/credit-education/credit-scores + fico.com/blogs/perfect-credit-score-understanding-850-fico-score + CFPB poster (files.consumerfinance.gov) | HARD |
+| US — what the FICO score is made of | **Payment history 35%** · **amounts owed / utilisation 30%** — together **65%** of the score | myFICO whats-in-your-credit-score (primary) + Federal Reserve Board *Report to Congress on Credit Scoring* (federalreserve.gov/boarddocs/rptcongress/creditscore/general.htm) + CFPB ask-cfpb/what-is-a-fico-score-en-1883 | HARD for **35/30 only** |
+| US — how long a missed payment stays **(the strongest claim in the file)** | **7 years** for most negative info; **10 years** bankruptcy; collections run 7 years **from the original delinquency, not from payment** | **15 U.S.C. §1681c(a)** via law.cornell.edu/uscode/text/15/1681c (statute, read directly) + CFPB ask-cfpb/…-en-323 (regulator, read directly) | HARD |
+| US — what bad credit costs, **shape only** | Super-prime used-car money ≈ **6%**, deep-subprime ≈ **22%** — Experian's own framing is deep-subprime used rates are "**three times higher**" than super prime | Experian ask-experian/average-car-loan-interest-rates-by-credit-score + LendingTree + Bankrate (independent, same band structure) | HARD on shape · **SOFT on every decimal** |
+| India — CIBIL score range | **300–900**; above ~**700** generally treated as good | TransUnion CIBIL cibil.com/blog/what-is-cibil-score (403 to direct fetch; via domain-restricted search of cibil.com) + two lenders' rate cards using the same scale | HARD |
+| India — what CIBIL says drives the score | **Payment history · credit utilisation · age of credit · credit enquiries** (+ credit mix). **CIBIL publishes NO percentage weights.** | TransUnion CIBIL cibil.com/blog/all-you-need-to-know-about-cibil-score + /faq/understand-your-credit-score-and-report | HARD (terminology) |
+| India — what a low score costs, **spread only** | The same home loan at the same bank is priced roughly **0.75–1.00 percentage point** apart purely on the CIBIL band | Union Bank of India retail_roi.pdf + Bank of Maharashtra retail rate card — two independent published lender price cards (neither PDF fetched directly; via search index of the banks' own documents) | HARD on the spread · **SOFT on every specific rate** |
+
+- **The 35/30 rule is US-only and the 15/10/10 tail is not promotable.** Those weights are single-sourced to myFICO, and the Fed report corroborating the top three is from **2007**. Only 35 and 30 go on screen, and only in a $ cut.
+- **"Upper 700s = the best offers" was killed by fin-audit, not promoted.** myFICO backs the band *names* only, and Experian's tier grid is **VantageScore**-based — pairing a FICO band number with those APRs is a cross-model conflation. Standing rule: **never put a FICO band number next to the Experian APR table**, in script or on screen.
+- **India retention has no statutory auto-delete.** CIBIL's own wording is that a missed payment sits in the 36-month month-by-month history and the account history behind it "will always be a part of your credit history". The 36-month figure itself stayed **SOFT** (single-sourced via search index) and is not promoted.
+- **No India regulator figure was verifiable this run.** rbi.org.in (403), cibil.com (403), indiacode.nic.in and both bank domains (refused / DNS failure) were all unreachable. The RBI ₹100/day compensation, the fortnightly 15th/last-day reporting rule and the free annual report right are real-looking but **unread** — they stay in facts-staging.md until someone verifies them from a network path that can reach rbi.org.in.
+
 ## Rule provenance (both versions)
 
 50/30/20 comes from **Elizabeth Warren and Amelia Warren Tyagi, *All Your
@@ -134,3 +153,16 @@ modern convention — don't attribute it to Clason.
 - A specific fund, bank, app or product recommendation, in either market.
 - **A high-yield savings APY.** Rates move monthly; "earning real interest instead
   of nothing" is the durable claim. A number dates the video.
+- **"CICRA 2005 requires negative entries to be deleted after 7 years" — FABRICATED.
+  Never say this in an India cut.** Nine Indian blogs assert it (zetapp, gocredit,
+  freed.care, bajajhousingfinance, loansparadise, srfc, airtel, paytm and others);
+  **no primary supports it**, and the statute appears to say the opposite — CICRA
+  sets a seven-year **minimum** preservation with **no maximum**, which is why some
+  agencies were reporting data up to 25 years old (BIIA, 2015; RBI consulted on a
+  maximum and reached no conclusion). This is the **US FCRA 7-year rule imported
+  into India** by content farms. Scripting an India credit cut from search results
+  will reproduce it. The US 7-year rule (15 U.S.C. §1681c(a)) is real — **in the $
+  cut only**. Caught 2026-07-29, credit-history run.
+- **A FICO band number beside the Experian auto-APR tiers.** Different models
+  (FICO vs VantageScore); pairing them on screen invents a relationship neither
+  source states. See the credit-history promoted block above.
