@@ -8,7 +8,7 @@ source: Chapter times = scene_start values in studio/videos/pay-yourself-first-e
 
 **Channel:** @moneymavens101
 **Video:** `studio/videos/pay-yourself-first-en/renders/FINAL-1080p-en.mp4` (2:57.8, 1080p, 12.85 Mbps, QA PASS)
-**Thumbnails (creator picks at upload):** `studio/videos/pay-yourself-first-thumbs/thumbnail-en-v1.png` · `-v2.png` · `-v3.png` (source: `studio/videos/pay-yourself-first-thumbs/index.html` §ev1/§ev2/§ev3)
+**Thumbnails (creator picks at upload):** `vault/videos/pay-yourself-first/src/thumbs/thumbnail-en-v1.png` · `-v2.png` · `-v3.png` (source: `vault/videos/pay-yourself-first/src/thumbs/index.html` §ev1/§ev2/§ev3)
 
 | Variant | Composition | Numerals (all in script-en.md) |
 |---|---|---|

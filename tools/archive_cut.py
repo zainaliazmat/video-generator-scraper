@@ -72,13 +72,29 @@ def record_urls(root, slug, urls, today):
         f"---\nsummary: Milestone note for {slug}.\nupdated: {today}\n"
         f"source: tools/archive_cut.py\n---\n\n# {slug}\n"
     )
-    new = [f"- **{cut}** ({CHANNEL[cut]}): {url}"
-           for cut, url in sorted(urls.items()) if url and url not in text]
-    if new:
-        text = text.rstrip() + f"\n\n## Published + archived ({today})\n\n" + "\n".join(new) + (
-            f"\n\nFinished per the finished-video rule (`vault/CLAUDE.md`): source archived to"
-            f" `src/`, `studio/videos/{slug}*` deleted.\n")
-        note.write_text(text)
+    if all(url in text for url in urls.values() if url):
+        return note  # already recorded — don't append a second block
+    rows = "\n".join(f"| {cut} | {CHANNEL[cut]} | {url} | |"
+                     for cut, url in sorted(urls.items()) if url)
+    note.write_text(text.rstrip() + f"""
+
+## Published + archived ({today})
+
+**State: LIVE on YouTube · source archived · studio dir deleted.**
+
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+{rows}
+
+**Source: `src/`** — composition, meta/package JSON, `gen_vo_*.sh`, the VO lines
+(`assets/voice/*.txt`), the image prompts (`assets/img/*.src`), stock CREDITS and the
+thumbnail PNGs. `studio/videos/{slug}*` is **deleted** per the finished-video rule
+(`vault/CLAUDE.md`). **Re-render is reproducible, not free** — the scene photos and VO
+mp3s are gone, so a rebuild re-pays image gens + ElevenLabs off the archived prompts
+and lines. `gen_vo_*.sh` still `cd`s into the deleted studio path — repoint it first.
+
+Still owed: thumbnail-pick readback · analytics after 28 days.
+""")
     return note
 
 

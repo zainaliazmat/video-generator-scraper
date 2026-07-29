@@ -6,7 +6,7 @@ source: videos/good-debt-vs-bad-debt/script-en.md ($ SET, audit-approved) + stud
 
 # STORYBOARD — «Good Debt vs Bad Debt» · en cut (USA)
 
-**Project:** `studio/videos/good-debt-vs-bad-debt-en/` · **Script:** `script-en.md`
+**Project:** `vault/videos/good-debt-vs-bad-debt/src/en/` · **Script:** `script-en.md`
 **Design:** [[../../knowledge/design-finance-blockframe]] — the **dark** system.
 Do **not** use `design-techtooltester` (bright, non-finance) for this format.
 **Channel:** @moneymavens101 $ · **Tier:** SHORT 9-segment blockframe

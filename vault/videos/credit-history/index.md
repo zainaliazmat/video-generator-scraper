@@ -145,9 +145,18 @@ Read back this run (procedure step 3), directly from the files:
 
 | Pack | `chosen:` | Upload |
 |---|---|---|
-| pay-yourself-first hi / en | **blank** | **UPLOADED 2026-07-28** — youtu.be/PKU0_TeJ9_c · youtu.be/mlvp4xZTROg |
-| good-debt-vs-bad-debt hi / en | **blank** | not uploaded |
+| pay-yourself-first hi / en | **blank** | **LIVE 2026-07-28** — youtu.be/PKU0_TeJ9_c · youtu.be/mlvp4xZTROg |
+| good-debt-vs-bad-debt hi / en | **v2** ✅ filled 2026-07-29 | **LIVE 2026-07-29** — youtu.be/f-doI5d0NRk · youtu.be/gC2QlQiLqhw |
 | credit-history hi / en | **blank** | not uploaded |
+
+> **Update 2026-07-29 — the row above changed after this was written.** good-debt's
+> `chosen:` came back **filled** ("v2 _(creator pick, scheduled 2026-07-29)_", both
+> packs), so "the field survived a real upload unfilled" is now true of
+> pay-yourself-first only, not of the field as such. And the creator's **one-thumbnail
+> rule** (2026-07-29 — make ONE v2-style thumbnail, not three) removes the pick from
+> the loop entirely for every future video: with a single candidate there is nothing
+> to choose. Point 1 below still stands for pay-yourself-first, whose two picks remain
+> recoverable off the live videos.
 
 **The field survived a real upload unfilled.** So it is not "the upload hasn't happened
 yet", and a seventh request in a seventh pack will not work either. Two things follow:

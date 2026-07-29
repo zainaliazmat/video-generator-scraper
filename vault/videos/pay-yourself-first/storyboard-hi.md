@@ -6,7 +6,7 @@ source: videos/pay-yourself-first/script-hi.md + assets/voice/timing.json (measu
 
 # STORYBOARD — «Pay Yourself First» · hi cut
 
-**Project:** `studio/videos/pay-yourself-first-hi/` · **Script:** `script-hi.md`
+**Project:** `vault/videos/pay-yourself-first/src/hi/` · **Script:** `script-hi.md`
 **Design:** [[../../knowledge/design-finance-blockframe]] — the **dark** system.
 Do **not** use `design-techtooltester` (bright, non-finance) for this format.
 **Channel:** @cashguruguides ₹ · **Tier:** SHORT 9-segment blockframe

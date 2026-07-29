@@ -6,7 +6,7 @@ source: creator brief (run.json 2026-07-28) + facts-staging.md attempt 1 ($ SET)
 
 # «Good Debt vs Bad Debt» — English / USA edition
 
-**Studio project (to build):** `studio/videos/good-debt-vs-bad-debt-en`
+**Studio project (to build):** `vault/videos/good-debt-vs-bad-debt/src/en`
 **Language:** US English, en-US. **Voice:** ElevenLabs **Brian** `nPczCjzI2devNBz1zQrb`, `eleven_multilingual_v2`, style 0.
 **On-screen text:** English. **Titles + description:** English.
 **Style:** blockframe-9 motion graphics, 16:9, target 165s. Educational only — no host

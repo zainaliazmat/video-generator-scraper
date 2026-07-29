@@ -1,6 +1,6 @@
 ---
-summary: Milestone note for the "Pay Yourself First" pair (Hindi/₹ 2:58.9 · US/$ 2:57.8) — both cuts rendered + QA-passed 2026-07-28, publish packs written. UPLOADED 2026-07-28 (en youtu.be/mlvp4xZTROg · hi youtu.be/PKU0_TeJ9_c). Owed — thumbnail-pick record · competitor scrape for this lane · analytics after 28 days.
-updated: 2026-07-28
+summary: Milestone note for the "Pay Yourself First" pair (Hindi/₹ 2:58.9 · US/$ 2:57.8) — both cuts rendered + QA-passed 2026-07-28, publish packs written. **LIVE on YouTube 2026-07-28** (hi youtu.be/PKU0_TeJ9_c · en youtu.be/mlvp4xZTROg); source archived to `src/`, studio dir deleted 2026-07-29. Owed — thumbnail-pick readback off the live videos · competitor scrape for this lane · analytics after 28 days.
+updated: 2026-07-29
 source: run.json + fin-render/fin-package logs in logs/ (attempt 1, /finance-video pipeline)
 ---
 
@@ -14,7 +14,8 @@ Budget: **18 of 30 ElevenLabs calls**, 0 Pixabay calls.
 
 | | Hindi / India (@cashguruguides) | US / English (@moneymavens101) |
 |---|---|---|
-| Master | `studio/videos/pay-yourself-first-hi/renders/FINAL-1080p-hi.mp4` | `studio/videos/pay-yourself-first-en/renders/FINAL-1080p-en.mp4` |
+| Master *(deleted on archive — now on YouTube)* | was `…-hi/renders/FINAL-1080p-hi.mp4` | was `…-en/renders/FINAL-1080p-en.mp4` |
+| Archived source | `src/hi/` | `src/en/` |
 | Runtime | **178.9 s (2:58.9)** · 12.89 Mb/s | **177.8 s (2:57.8)** · 12.85 Mb/s |
 | Voice | ElevenLabs **Harsh** (standard Hindi) | ElevenLabs **Brian** |
 | Script | [[script-hi]] (9 lines h1–h9) | [[script-en]] (9 lines en1–en9, US rewrite not translation) |
@@ -49,7 +50,7 @@ Budget: **18 of 30 ElevenLabs calls**, 0 Pixabay calls.
 
 ## Thumbnails (3 variants per cut, creator picks at upload)
 
-`studio/videos/pay-yourself-first-thumbs/thumbnail-{hi,en}-v{1,2,3}.png` —
+`vault/videos/pay-yourself-first/src/thumbs/thumbnail-{hi,en}-v{1,2,3}.png` —
 v1 THE MATH (green, centered, photo-free — recommended pattern-breaker) ·
 v2 THE HOOK (red, money photo, "20 tak khali / empty by the 20th") ·
 v3 THE FLIP (calculator, struck spend-first / green save-first).
@@ -59,7 +60,7 @@ survived a real upload blank** (read back by fin-archive on the credit-history r
 **But the creator did give feedback — in a different place.** [[youtube-metadata-en]]
 records a **creator title pick, 2026-07-28**: option 8, "The $5 Trick That Saves You
 Thousands Without Thinking" (vidIQ 83), plus a **`thumbnail-en-v4.png`** built for it
-(`studio/videos/pay-yourself-first-thumbs/thumbnail-en-v4.png`, on disk). So by upload
+(`vault/videos/pay-yourself-first/src/thumbs/thumbnail-en-v4.png`, on disk). So by upload
 day the `chosen:` field's own option set (v1/v2/v3) could not express the answer, and
 the pick that matters may well be **v4**. Feedback lands as prose in the section the
 creator was already editing — design the loop around that, not around an empty field.
@@ -86,19 +87,28 @@ owed to whoever can open the URLs. Full argument: [[../credit-history/index]].
   thumb on either channel; last 3 on both are red/left-text/money-photo.
   *(unvalidated — no analytics yet)*
 
-## Current state + what is owed
+## Published + archived (uploaded 2026-07-28 · archived 2026-07-29)
 
-**State: RENDERED + PACKAGED, not uploaded.** Renders and assets kept —
-post-delivery cleanup only after upload, on the creator's word.
+**State: LIVE on YouTube (both cuts) · source archived · studio dir deleted.**
 
-Owed:
-- **proof-listen (hi, en)**
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| hi | @cashguruguides | https://youtu.be/PKU0_TeJ9_c | not recorded |
+| en | @moneymavens101 | https://youtu.be/mlvp4xZTROg | not recorded |
+
+**Source: `src/{hi,en,thumbs}/`** — composition, meta/package JSON, `gen_vo_*.sh`, the VO
+lines (`assets/voice/*.txt`), the image prompts (`assets/img/*.src`), stock CREDITS and the
+seven thumbnail PNGs. `studio/videos/pay-yourself-first*` is **deleted** per the
+finished-video rule ([[../../CLAUDE]]). **Re-render is reproducible, not free** — scene
+photos and VO mp3s are gone; a rebuild re-pays image gens + ElevenLabs.
+
+Still owed:
 - **thumbnail pick** — no longer "fill `chosen:` at upload" (that already failed once
   on a live upload): **recover it off the two live videos** by comparing the public
-  thumbnail against `thumbnail-{hi,en}-v*.png` (en has four candidates, incl. v4) and
-  record the answer in the Thumbnails section above
-- ~~upload~~ ✅ **UPLOADED 2026-07-28** — en: https://youtu.be/mlvp4xZTROg · hi: https://youtu.be/PKU0_TeJ9_c
-  (title/thumbnail actually used: not yet recorded — fill the `chosen:` line in each publish pack)
+  thumbnail against the archived `src/thumbs/thumbnail-{hi,en}-v*.png` (en has four
+  candidates, incl. v4) and record the answer in the Thumbnails section above
 - **competitor scrape for this lane** (`pay-yourself-first` / saving-first —
   library empty, from run.json `owed`)
 - **analytics after 28 days** (only then may learnings touch best-practices)
+
+~~proof-listen (hi, en)~~ · ~~upload~~ — both cuts went live 2026-07-28.

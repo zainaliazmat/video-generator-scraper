@@ -1,7 +1,7 @@
 ---
-summary: Finance video "The Emergency Fund" — the pair (Haryanvi/₹ + US-English/$). State, the numbers each cut uses, and the localization rebuild of the English cut on 2026-07-27.
-updated: 2026-07-27
-source: studio/videos/emergency-fund (hi) + emergency-fund-en (en) + emergency-fund-thumbs. Numbers from [[../knowledge/money-facts-2026]].
+summary: Finance video "The Emergency Fund" — the pair (Haryanvi/₹ 2:24 + US-English/$ 2:46). **LIVE on YouTube** (hi youtu.be/vZG7fkPwpzI · en youtu.be/6dFBciWSs0o); source archived to `src/`, studio dir deleted 2026-07-29 — the thinnest archive of the five (no image prompts, no stock CREDITS). The numbers each cut uses, and the localization rebuild of the English cut on 2026-07-27. Owed — analytics after 28 days.
+updated: 2026-07-29
+source: the archived compositions in `src/{hi,en,thumbs}/` (originally studio/videos/emergency-fund, -en, -thumbs). Numbers from [[../knowledge/money-facts-2026]].
 ---
 
 # Emergency Fund — video pair
@@ -11,10 +11,10 @@ backgrounds under a single grade, chip/stamp motion language, ~2.5 min.
 
 | Cut | Project | Runtime | Voice | State |
 |---|---|---|---|---|
-| Haryanvi / ₹ | `studio/videos/emergency-fund` | 2:24 | Prayan `9BHT…` | rendered 2026-07-23, upload pending |
-| US-English / $ | `studio/videos/emergency-fund-en` | **2:46** | Brian `nPczC…` | **rebuilt 2026-07-27**, final 1080p rendered + creator-approved, publish pack written — **ready to upload** |
+| Haryanvi / ₹ | `src/hi/` | 2:24 | `9BHTbeEKC5ZqMmvZfLW6` (Haryanvi — pre-dates the standard-Hindi switch) | **LIVE** youtu.be/vZG7fkPwpzI |
+| US-English / $ | `src/en/` | **2:46** | Brian `nPczCjzI2devNBz1zQrb` | **rebuilt 2026-07-27** (creator-approved), **LIVE** youtu.be/6dFBciWSs0o |
 
-Thumbnails for both live in `studio/videos/emergency-fund-thumbs` (one HTML,
+Thumbnails for both live in `vault/videos/emergency-fund/src/thumbs` (one HTML,
 two sections, `snapshot --at` → PNG).
 
 ## The English cut was rebuilt, not re-priced (2026-07-27)
@@ -52,7 +52,8 @@ What the US cut says now (numbers sourced in [[../knowledge/money-facts-2026]]):
   `gen_vo_haryanvi.sh` both `cd` into the **hi** project — don't reuse them for
   the `-en` cut).
 
-**Final US master:** `renders/emergency-fund-en-US-FINAL-1080p.mp4` — 2:46,
+**Final US master** *(render deleted on archive — it is on YouTube now)* — was
+`renders/emergency-fund-en-US-FINAL-1080p.mp4`, 2:46,
 1920×1080 H.264 30 fps, AAC 48 kHz stereo, 6.9 Mbps, 137 MB. Rendered
 `-q high --resolution 1080p` with `PRODUCER_ENABLE_CHUNKED_ENCODE=true`
 (18m 13s). QA: peak −2.5 dBTP, 0 black segments, VO placement verified by
@@ -70,18 +71,29 @@ scoreboard behind it is promoted into
 The ₹ cut still needs its own pack — **do not reuse this one**: the Hindi
 demand cluster is a different set of search strings entirely.
 
-## Owed
-
-- Proof-listen of the Brian read (generated blind; "two DoorDash orders" may
-  read as "two-door dash").
-- Upload both cuts; record URLs + publish dates here, then run the post-delivery
-  cleanup in [[../CLAUDE]] (delete renders/audio, keep text + thumbnails).
-- The superseded rupee-era `-en` render is still in `renders/` — delete on the
-  creator's word.
-
 ## Published + archived (2026-07-29)
 
-- **en** (@moneymavens101): https://youtu.be/6dFBciWSs0o
-- **hi** (@cashguruguides): https://youtu.be/vZG7fkPwpzI
+**State: LIVE on YouTube (both cuts) · source archived · studio dir deleted.**
 
-Finished per the finished-video rule (`vault/CLAUDE.md`): source archived to `src/`, `studio/videos/emergency-fund*` deleted.
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| hi | @cashguruguides | https://youtu.be/vZG7fkPwpzI | `thumbnail-hi.png` (single) |
+| en | @moneymavens101 | https://youtu.be/6dFBciWSs0o | `thumbnail-en.png` (single) |
+
+**Source: `src/{hi,en,thumbs}/`** — composition, meta/package JSON, `gen_vo*.sh`, the 45
+VO lines (`assets/voice/*.txt`) and the thumbnail PNGs. `studio/videos/emergency-fund*`
+is **deleted** per the finished-video rule ([[../../CLAUDE]]) — including the two masters
+and the superseded rupee-era `-en` render that was owed a deletion.
+
+⚠️ **The thinnest archive of the five.** It predates both the `.src` image-prompt
+convention *and* the stock-`CREDITS.txt` convention, so neither the image prompts nor the
+stock attribution survive. VO is fully reproducible (lines + voice IDs + `gen_vo*.sh`;
+note the hi cut used the **Haryanvi** voice `9BHTbeEKC5ZqMmvZfLW6`, from before the
+standard-Hindi switch) — the photography is not. Rebuild from [[youtube-metadata-en]] and
+the Build notes above.
+
+Still owed:
+- **analytics after 28 days** (only then may learnings touch best-practices)
+
+~~proof-listen of the Brian read~~ (generated blind; "two DoorDash orders" risked reading
+as "two-door dash") · ~~upload both cuts~~ · ~~delete the superseded rupee-era render~~.

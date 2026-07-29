@@ -6,7 +6,7 @@ source: creator brief (run.json 2026-07-28) + facts-staging.md attempt 1; struct
 
 # «Pay Yourself First» — English / USA edition
 
-**Studio project (to build):** `studio/videos/pay-yourself-first-en`
+**Studio project (to build):** `vault/videos/pay-yourself-first/src/en`
 **Voice:** ElevenLabs **Brian** `nPczCjzI2devNBz1zQrb`, `eleven_multilingual_v2`, style 0.
 **Style:** blockframe motion graphics, 16:9, target 165s. Educational only — no host
 persona, no product recommendation; HYSA/FDIC named generically, never a specific

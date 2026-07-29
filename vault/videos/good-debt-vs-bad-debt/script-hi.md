@@ -6,7 +6,7 @@ source: creator brief (run.json 2026-07-28) + facts-staging.md attempt 1; struct
 
 # «Good Debt vs Bad Debt» — Hindi / India edition
 
-**Studio project (to build):** `studio/videos/good-debt-vs-bad-debt`
+**Studio project (to build):** `vault/videos/good-debt-vs-bad-debt/src/hi`
 **Language:** Standard Hindi, **Devanagari** — channel voice locked 2026-07-28.
 **Voice:** ElevenLabs **Harsh** `HTUuC7OeeEt6OL5fViVe`, `eleven_multilingual_v2`, style 0.
 **On-screen text:** English / Hinglish. **Titles + description:** English (Roman/Latin script).

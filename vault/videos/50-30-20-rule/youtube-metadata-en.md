@@ -7,7 +7,7 @@ source: YouTube autocomplete (suggestqueries ds=yt, hl=en gl=US) + competitor sc
 # YouTube publish pack — 50/30/20 Rule (US-English cut)
 
 **Video:** `studio/videos/50-30-20-rule-en/renders/50-30-20-rule-EN-1080p-youtube.mp4` (3:43, 1080p, 12.2 Mbps)
-**Thumbnail:** `studio/videos/50-30-20-rule-en/thumbnail-en.png` — "RENT EATS YOUR **ENTIRE 50%**" over US townhouses, with the 50/30/20 meter strip. Source: `studio/videos/50-30-20-thumbs/index.html` §tEn.
+**Thumbnail:** `vault/videos/50-30-20-rule/src/en/thumbnail-en.png` — "RENT EATS YOUR **ENTIRE 50%**" over US townhouses, with the 50/30/20 meter strip. Source: `vault/videos/50-30-20-rule/src/thumbs/index.html` §tEn.
 
 ## Search research (2026-07-27)
 

@@ -7,7 +7,7 @@ source: YouTube autocomplete (suggestqueries ds=yt) + competitor scrape via back
 # YouTube publish pack — Emergency Fund (US-English cut)
 
 **Video:** `studio/videos/emergency-fund-en/renders/emergency-fund-en-US-FINAL-1080p.mp4` (2:46)
-**Thumbnail:** `studio/videos/emergency-fund-en/thumbnail-en.png` — "ONE REPAIR FROM BROKE / fix it with **$50** a week" over a car in the shop. Source: `studio/videos/emergency-fund-thumbs/index.html` §tEn.
+**Thumbnail:** `vault/videos/emergency-fund/src/en/thumbnail-en.png` — "ONE REPAIR FROM BROKE / fix it with **$50** a week" over a car in the shop. Source: `vault/videos/emergency-fund/src/thumbs/index.html` §tEn.
 
 ## Search research (2026-07-27)
 

@@ -8,7 +8,7 @@ source: Chapter times = scene_start per line in studio/videos/good-debt-vs-bad-d
 
 **Channel:** @cashguruguides
 **Video:** `studio/videos/good-debt-vs-bad-debt-hi/renders/FINAL-1080p-hi.mp4` (3:15.2 · 1920×1080 · ~11.93 Mbps · 195.20s)
-**Thumbnails (creator picks at upload):** `studio/videos/good-debt-vs-bad-debt-thumbs/thumbnail-hi-v1.png` · `-v2.png` · `-v3.png` (source: `studio/videos/good-debt-vs-bad-debt-thumbs/index.html` §v1/§v2/§v3)
+**Thumbnails (creator picks at upload):** `vault/videos/good-debt-vs-bad-debt/src/thumbs/thumbnail-hi-v1.png` · `-v2.png` · `-v3.png` (source: `vault/videos/good-debt-vs-bad-debt/src/thumbs/index.html` §v1/§v2/§v3)
 
 | Variant | Composition | Numerals (all in script-hi.md) |
 |---|---|---|
@@ -156,7 +156,7 @@ tag (discovery), never the title lead.
   the creator/orchestrator before the next cut is scripted.**
 - **Category:** Education. **Language:** Hindi. **Audience:** not made for kids.
 - **End screen / pinned comment:** cross-link the `-en` cut (@moneymavens101) when it
-  ships (project `studio/videos/good-debt-vs-bad-debt-en` exists; en pack not yet written).
+  ships (project `vault/videos/good-debt-vs-bad-debt/src/en` exists; en pack not yet written).
 - **Pinned comment suggestion:** «Aaj apne card ka bill kholo — minimum se ₹1,000
   zyada bharo. Comment mein sirf apni card APR likho (aandaaz bhi chalega).» (asks for
   the one number everyone can answer.)

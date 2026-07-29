@@ -1,12 +1,12 @@
 ---
 summary: Hindi/India script for video #3 «Needs vs Wants — the subscription leak». 9 VO segments (~2:40), blockframe style, INR, standard Hindi (NOT Haryanvi) narrated by Vikram S. On-screen text stays English. Every number sourced from knowledge/subscription-economics-2026.
 updated: 2026-07-27
-source: creator brief 2026-07-27 + [[knowledge/subscription-economics-2026]]; structure mirrors studio/videos/emergency-fund
+source: creator brief 2026-07-27 + [[knowledge/subscription-economics-2026]]; structure mirrors vault/videos/emergency-fund/src/hi
 ---
 
 # «Needs vs Wants» — Hindi / India edition
 
-**Studio project (to build):** `studio/videos/needs-vs-wants`
+**Studio project (to build):** `vault/videos/needs-vs-wants/src/hi`
 **Language:** Standard Hindi, Devanagari. **Not Haryanvi** — creator direction 2026-07-27.
 **Voice:** ElevenLabs **Harsh** `HTUuC7OeeEt6OL5fViVe`, `eleven_multilingual_v2` — creator direction 2026-07-27.
 **On-screen text:** English / Hinglish (unchanged rule). **Titles + description:** English.

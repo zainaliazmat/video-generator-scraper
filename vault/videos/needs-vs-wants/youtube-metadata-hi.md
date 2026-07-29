@@ -7,7 +7,7 @@ source: YouTube autocomplete (suggestqueries ds=yt, hl=hi gl=IN) + competitor sc
 # YouTube publish pack — Needs vs Wants (Hindi / India cut)
 
 **Video:** `studio/videos/needs-vs-wants/renders/FINAL-1080p-hi.mp4` (2:58.7, 1080p, 12.29 Mbps)
-**Thumbnail:** `studio/videos/needs-vs-wants/thumbnail-hi.png` — "HAR SAAL **₹24,564 GAYAB**" over current-series ₹100 notes, with the 12-tick leak strip. Source: `studio/videos/needs-vs-wants-thumbs/index.html` §tHi.
+**Thumbnail:** `vault/videos/needs-vs-wants/src/hi/thumbnail-hi.png` — "HAR SAAL **₹24,564 GAYAB**" over current-series ₹100 notes, with the 12-tick leak strip. Source: `vault/videos/needs-vs-wants/src/thumbs/index.html` §tHi.
 **Title language:** **Roman Hindi (Hinglish)** — creator rule, so non-Devanagari readers can read it too.
 
 ## ⚠ Read this first: this topic is BROWSE-led, not SEARCH-led

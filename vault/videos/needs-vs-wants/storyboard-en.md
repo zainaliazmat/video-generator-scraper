@@ -6,7 +6,7 @@ source: [[videos/needs-vs-wants/script-en]] + the shipped emergency-fund-en comp
 
 # STORYBOARD — «Needs vs Wants» · English / USA
 
-**Project:** `studio/videos/needs-vs-wants-en/` · **Script:** [[videos/needs-vs-wants/script-en]] · **Research:** [[knowledge/subscription-economics-2026]]
+**Project:** `vault/videos/needs-vs-wants/src/en/` · **Script:** [[videos/needs-vs-wants/script-en]] · **Research:** [[knowledge/subscription-economics-2026]]
 **Runtime target:** ~2:24 · **VO:** ElevenLabs Brian `nPczCjzI2devNBz1zQrb` · **Grade:** emergency-fund-en dark blockframe
 **Canvas:** 1920×1080 · **Timeline:** single paused GSAP timeline on `window.__timelines["main"]`
 

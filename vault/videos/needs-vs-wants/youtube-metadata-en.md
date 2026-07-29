@@ -7,7 +7,7 @@ source: YouTube autocomplete (suggestqueries ds=yt, hl=en gl=US) + competitor sc
 # YouTube publish pack — Needs vs Wants (English / USA cut)
 
 **Video:** `studio/videos/needs-vs-wants-en/renders/FINAL-1080p-en.mp4` (2:49.6, 1080p, 12.22 Mbps)
-**Thumbnail:** `studio/videos/needs-vs-wants-en/thumbnail-en.png` — "YOU THINK $86. **IT'S $219.**" over US $100 bills, with the 12-tick leak strip. Source: `studio/videos/needs-vs-wants-thumbs/index.html` §tEn.
+**Thumbnail:** `vault/videos/needs-vs-wants/src/en/thumbnail-en.png` — "YOU THINK $86. **IT'S $219.**" over US $100 bills, with the 12-tick leak strip. Source: `vault/videos/needs-vs-wants/src/thumbs/index.html` §tEn.
 
 ## ⚠ Read this first: the lane is empty, and so is the demand
 

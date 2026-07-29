@@ -7,7 +7,7 @@ source: YouTube autocomplete (suggestqueries ds=yt, hl=hi gl=IN) + competitor sc
 # YouTube publish pack — 50-30-20 Rule (Hindi / India cut)
 
 **Video:** `studio/videos/50-30-20-rule-hi/renders/50-30-20-rule-HI-1080p-youtube.mp4` (3:13, 1080p, 12.1 Mbps)
-**Thumbnail:** `studio/videos/50-30-20-rule-hi/thumbnail-hi.png` — "SALARY AATE HI **KHATAM?**" over ₹500 notes + coins, with the 50/30/20 meter strip. Source: `studio/videos/50-30-20-thumbs/index.html` §tHi.
+**Thumbnail:** `vault/videos/50-30-20-rule/src/hi/thumbnail-hi.png` — "SALARY AATE HI **KHATAM?**" over ₹500 notes + coins, with the 50/30/20 meter strip. Source: `vault/videos/50-30-20-rule/src/thumbs/index.html` §tHi.
 **Title language:** **Roman Hindi (Hinglish)** — creator rule change 2026-07-27, so non-Devanagari readers can read it too. See [[../../knowledge/english-titles-descriptions-rule]] note in memory; the older "always English titles" rule now applies to the `-en` cuts only.
 
 ## ⚠ Read this before publishing: Warikoo already owns this thesis

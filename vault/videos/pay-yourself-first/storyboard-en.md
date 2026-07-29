@@ -6,7 +6,7 @@ source: videos/pay-yourself-first/script-en.md + studio/videos/pay-yourself-firs
 
 # STORYBOARD — «Pay Yourself First» · en cut
 
-**Project:** `studio/videos/pay-yourself-first-en/` · **Script:** `script-en.md`
+**Project:** `vault/videos/pay-yourself-first/src/en/` · **Script:** `script-en.md`
 **Design:** [[../../knowledge/design-finance-blockframe]] — the **dark** system.
 Do **not** use `design-techtooltester` (bright, non-finance) for this format.
 **Channel:** @moneymavens101 $ · **Tier:** SHORT 9-segment blockframe

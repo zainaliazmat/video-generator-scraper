@@ -1,14 +1,14 @@
 ---
 summary: Publish pack for the US/English ($) cut of «Good Debt vs Bad Debt — the minimum-payment trap». Title options (US English), description with real chapter timestamps from timing.json, verified-autocomplete tags, 3 thumbnail variants + chosen line, Gate 2 compliance. Fresh YouTube-autocomplete pull was possible this run (tools/autocomplete.py, 2026-07-29, gl=us hl=en) — both `credit card minimum payment trap` and `good debt vs bad debt` are verified live US strings. Channel-sameness: this is the 5th consecutive blockframe-9 on @moneymavens101 — enforcement line crossed.
 updated: 2026-07-29
-source: Chapter times = scene_start per line in studio/videos/good-debt-vs-bad-debt-en/assets/voice/timing.json (total 178.582s; master FINAL-1080p-en.mp4 = 2:59). On-screen numerals verified against the built render studio/videos/good-debt-vs-bad-debt-en/index.html (build-calculator locked). Search evidence = fresh tools/autocomplete.py pulls 2026-07-29 (gl=us, hl=en), recorded below. Numerals traced to [[script-en]] fact-trace + the s7 build output.
+source: Chapter times = scene_start per line in studio/videos/good-debt-vs-bad-debt-en/assets/voice/timing.json (total 178.582s; master FINAL-1080p-en.mp4 = 2:59). On-screen numerals verified against the built render vault/videos/good-debt-vs-bad-debt/src/en/index.html (build-calculator locked). Search evidence = fresh tools/autocomplete.py pulls 2026-07-29 (gl=us, hl=en), recorded below. Numerals traced to [[script-en]] fact-trace + the s7 build output.
 ---
 
 # YouTube publish pack — Good Debt vs Bad Debt (English / USA cut)
 
 **Channel:** @moneymavens101
 **Video:** `studio/videos/good-debt-vs-bad-debt-en/renders/FINAL-1080p-en.mp4` (2:59 · 1920×1080 · 178.6s)
-**Thumbnails (creator picks at upload):** `studio/videos/good-debt-vs-bad-debt-thumbs/thumbnail-en-v1.png` · `-v2.png` · `-v3.png` (source: `studio/videos/good-debt-vs-bad-debt-thumbs/index.html` §env1/§env2/§env3 — the hi §v1/v2/v3 sections are untouched in the same project)
+**Thumbnails (creator picks at upload):** `vault/videos/good-debt-vs-bad-debt/src/thumbs/thumbnail-en-v1.png` · `-v2.png` · `-v3.png` (source: `vault/videos/good-debt-vs-bad-debt/src/thumbs/index.html` §env1/§env2/§env3 — the hi §v1/v2/v3 sections are untouched in the same project)
 
 | Variant | Composition | Numerals (all on-screen in the en render) |
 |---|---|---|

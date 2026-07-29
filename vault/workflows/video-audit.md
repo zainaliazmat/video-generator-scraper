@@ -19,7 +19,8 @@ interesting, more engaging, and better at holding a viewer to the end —
 then tell me, plainly and specifically.
 
 THE VIDEO
-- Project: studio/videos/emergency-fund   (swap for any videos/<slug>)
+- Project: studio/videos/<slug>-hi   (a cut still IN production — an archived
+  video has no render left to audit; see the finished-video rule in vault/CLAUDE.md)
 - Rendered draft: newest file in that project's renders/*.mp4
 - Composition (the actual visuals + timing + animation): index.html
 - Narration: the Haryanvi-Hindi VO in assets/voice/ (script text in

@@ -63,6 +63,21 @@ unrecoverable. It refuses to delete anything without a URL.
    and VO lines survive; the generated images and audio do not, so a re-render
    re-pays ElevenLabs + image credits. That is the accepted price of a delivered
    video's home being YouTube.
+5. **Two gotchas a re-render hits** (found archiving the first five):
+   - `gen_vo_*.sh` hardcodes an absolute `cd` into the now-deleted studio dir.
+     Repoint it before running.
+   - **VO is always reproducible; photography often is not.** The `.src`
+     image-prompt convention starts at **pay-yourself-first** — anything older
+     (50-30-20-rule, needs-vs-wants, emergency-fund) archived *no* prompts, and
+     emergency-fund has no stock `CREDITS.txt` either. For those, the storyboard
+     note and the archived `index.html` are the only record of what a scene
+     showed. Every new cut must write `.src` prompts + CREDITS so this stops
+     being true.
+
+**Note format.** Every archived video's milestone note ends with one
+`## Published + archived (<date>)` section: state line, a `| Cut | Channel | URL |
+Thumbnail |` table, what `src/` holds, and what is still owed. `archive_cut.py`
+writes it; keep the shape when editing by hand.
 
 Channel is implied by the cut, not by the path: `hi/` = @cashguruguides,
 `en/` = @moneymavens101 ([[knowledge/channels]]).

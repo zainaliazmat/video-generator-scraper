@@ -6,7 +6,7 @@ source: [[videos/needs-vs-wants/script-hi]] + the shipped emergency-fund composi
 
 # STORYBOARD — «Needs vs Wants» · Hindi / India
 
-**Project:** `studio/videos/needs-vs-wants/` · **Script:** [[videos/needs-vs-wants/script-hi]] · **Research:** [[knowledge/subscription-economics-2026]]
+**Project:** `vault/videos/needs-vs-wants/src/hi/` · **Script:** [[videos/needs-vs-wants/script-hi]] · **Research:** [[knowledge/subscription-economics-2026]]
 **Runtime target:** ~2:35 · **VO:** ElevenLabs Vikram S `st8o4LADtfxckX2PH08x` · **Grade:** emergency-fund dark blockframe
 **Canvas:** 1920×1080 · **Timeline:** single paused GSAP timeline on `window.__timelines["main"]`
 

@@ -1,5 +1,5 @@
 ---
-summary: Milestone note for «Good Debt vs Bad Debt — the minimum-payment trap» pair (Hindi/₹ 3:15 · US/$ 2:59) — both cuts rendered, MASTER QA PASS, committed 2026-07-28/29; **UPLOADED 2026-07-29** (hi youtu.be/f-doI5d0NRk · en youtu.be/gC2QlQiLqhw); heavy assets cleaned. Owed — thumbnail-pick readback (`chosen:` still unfilled) · lane scrape · analytics after 28 days. ⛔ HARD flag: 5th consecutive blockframe-9 on BOTH channels — the sameness enforcement line is crossed; the NEXT finance cut MUST change architecture.
+summary: Milestone note for «Good Debt vs Bad Debt — the minimum-payment trap» pair (Hindi/₹ 3:15 · US/$ 2:59) — both cuts rendered, MASTER QA PASS, committed 2026-07-28/29; **LIVE on YouTube 2026-07-29** (hi youtu.be/f-doI5d0NRk · en youtu.be/gC2QlQiLqhw); source archived to `src/`, studio dir deleted. Thumbnail chosen: v2 both cuts. Owed — lane scrape · analytics after 28 days. ⛔ HARD flag: 5th consecutive blockframe-9 on BOTH channels — the sameness enforcement line is crossed; the NEXT finance cut MUST change architecture.
 updated: 2026-07-29
 source: run.json + the fin-render / fin-build / fin-assets / fin-package logs in logs/ (the /finance-video pipeline)
 ---
@@ -17,7 +17,8 @@ clips per cut); **144 Pixabay calls** (hi 48 + 30 frame-gate re-source, en 66).
 
 | | Hindi / India (@cashguruguides) | US / English (@moneymavens101) |
 |---|---|---|
-| Master | `studio/videos/good-debt-vs-bad-debt-hi/renders/FINAL-1080p-hi.mp4` | `studio/videos/good-debt-vs-bad-debt-en/renders/FINAL-1080p-en.mp4` |
+| Master *(deleted on archive — now on YouTube)* | was `…-hi/renders/FINAL-1080p-hi.mp4` | was `…-en/renders/FINAL-1080p-en.mp4` |
+| Archived source | `src/hi/` | `src/en/` |
 | Runtime | **195.20 s (3:15)** · 11.75 Mb/s video (~11.93 overall) | **178.60 s (2:59)** · 12.2 Mb/s video |
 | Voice | ElevenLabs **Harsh** — **Devanagari Standard Hindi** (NOT Nastaliq) | ElevenLabs **Brian** |
 | Script | [[script-hi]] (9 lines h1–h9) | [[script-en]] (9 lines en1–en9, US rewrite not a translation) |
@@ -65,7 +66,7 @@ allows it) — orchestrator's call, not a gate fail.
 
 ## Thumbnails (3 variants per cut, creator picks at upload)
 
-`studio/videos/good-debt-vs-bad-debt-thumbs/thumbnail-{hi,en}-v{1,2,3}.png` (source:
+`vault/videos/good-debt-vs-bad-debt/src/thumbs/thumbnail-{hi,en}-v{1,2,3}.png` (source:
 `…-thumbs/index.html` — hi §v1/v2/v3, en §env1/env2/env3, one shared project).
 - **v1 — recommended** THE PUNCH: centred red mega **₹88,614 / $9,506** over the
   calculator texture. Centred → breaks the channel's left-aligned streak.
@@ -146,20 +147,26 @@ denomination-free coin stacks.
 re-graded scene photo) is a fresh composition vs the channel's red/left-text-over-money-photo
 streak — a genuine v1↔v2 A/B if the creator wants one. *(unvalidated — no analytics yet)*
 
-## Published + cleanup (2026-07-29)
+## Published + archived (2026-07-29)
 
-**State: SCHEDULED on YouTube (both cuts), heavy assets reclaimed.**
-- **hi** (@cashguruguides): https://youtu.be/f-doI5d0NRk
-- **en** (@moneymavens101): https://youtu.be/gC2QlQiLqhw
-- **Thumbnail chosen: v2** for both cuts (the time-trap / red-left family; `chosen:` filled
-  in both packs). **New creator rule 2026-07-29: make ONE thumbnail (the v2 style) from now
-  on, not three** — pipeline updated (fin-package + check_package).
+**State: LIVE on YouTube (both cuts) · source archived · studio dir deleted.**
 
-Post-delivery cleanup ran 2026-07-29 (scheduled upload = the trigger): deleted the two
-masters (~539 MB), both `node_modules` (~1.48 GB — `npm install` restores), and the QA
-snapshots (~131 MB) — **~2.15 GB freed**. KEPT (rebuildable source): `index.html` + scene
-assets, `gen_vo_*.sh`, the VO mp3s (tiny, API-costly to regenerate), the kept scene photos,
-package/meta JSON, and the thumbnail PNGs. Re-render = `npm install && npm run render`.
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| hi | @cashguruguides | https://youtu.be/f-doI5d0NRk | v2 |
+| en | @moneymavens101 | https://youtu.be/gC2QlQiLqhw | v2 |
+
+**Thumbnail chosen: v2** for both cuts (the time-trap / red-left family; `chosen:` filled
+in both packs). **New creator rule 2026-07-29: make ONE thumbnail (the v2 style) from now
+on, not three** — pipeline updated (fin-package + check_package).
+
+**Source: `src/{hi,en,thumbs}/`** — composition, meta/package JSON, `gen_vo_*.sh`, the VO
+lines (`assets/voice/*.txt`), the image prompts (`assets/img/*.src`), stock CREDITS and the
+six thumbnail PNGs. `studio/videos/good-debt-vs-bad-debt*` is **deleted** per the
+finished-video rule ([[../../CLAUDE]]): first the two masters, both `node_modules` and the
+QA snapshots (~2.15 GB, on the scheduled upload), then the whole tree once the URLs landed.
+**Re-render is reproducible, not free** — the scene photos and VO mp3s are gone, so a
+rebuild re-pays image gens + ElevenLabs off the archived prompts and lines.
 
 Still owed:
 - **lane scrape** — `library.db` has **NO comparable videos** for the debt /

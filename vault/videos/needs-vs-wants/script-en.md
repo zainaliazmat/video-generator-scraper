@@ -1,12 +1,12 @@
 ---
 summary: US/English script for video #3 «Needs vs Wants — the subscription leak». 9 VO segments (~2:35), blockframe style, USD, narrated by ElevenLabs "Brian". Built on the C+R $86-vs-$219 gap and Deloitte 2026 streaming data.
 updated: 2026-07-27
-source: creator brief 2026-07-27 + [[knowledge/subscription-economics-2026]]; structure mirrors studio/videos/emergency-fund-en
+source: creator brief 2026-07-27 + [[knowledge/subscription-economics-2026]]; structure mirrors vault/videos/emergency-fund/src/en
 ---
 
 # «Needs vs Wants» — English / USA edition
 
-**Studio project (to build):** `studio/videos/needs-vs-wants-en`
+**Studio project (to build):** `vault/videos/needs-vs-wants/src/en`
 **Voice:** ElevenLabs **Brian** `nPczCjzI2devNBz1zQrb` (American male narrator — same as `emergency-fund-en`).
 **Style:** blockframe motion graphics, 16:9, ~2:35. Educational only — no product recommended; platforms appear only as evidence.
 **Engine rule:** numbers spelled out in the VO text; on-screen numerals carry the exact figures.

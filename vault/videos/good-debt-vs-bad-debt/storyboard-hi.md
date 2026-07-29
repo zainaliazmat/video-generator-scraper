@@ -6,7 +6,7 @@ source: videos/good-debt-vs-bad-debt/script-hi.md (audit-PASS) + assets/voice/ti
 
 # STORYBOARD — «Good Debt vs Bad Debt» · hi cut
 
-**Project:** `studio/videos/good-debt-vs-bad-debt-hi/` · **Script:** `script-hi.md`
+**Project:** `vault/videos/good-debt-vs-bad-debt/src/hi/` · **Script:** `script-hi.md`
 **Design:** [[../../knowledge/design-finance-blockframe]] — the **dark** system.
 Do **not** use `design-techtooltester` (bright, non-finance) for this format.
 **Channel:** @cashguruguides ₹ · **Tier:** SHORT 9-segment blockframe
