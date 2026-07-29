@@ -113,6 +113,49 @@ gate-two frame check only; then YOU run the encode as YOUR OWN background task
 1080p --video-bitrate 12M` in the project dir); when it completes, fin-render
 invocation 2 does the QA. Notify on terminal states.
 
+## 3a · Pipeline the two cuts (overlap safely — where the wall-clock is won)
+
+Phase 1 is sequential (shared vault paths). Phase 2 (hi) and Phase 3 (en) write
+SEPARATE paths (`studio/videos/<slug>-{hi,en}/`, `*-{hi,en}.md`), so **pipeline
+them** — do not finish all of hi before starting en. The gain comes ONLY from
+overlapping stages that use different resources, never from running the same
+heavy stage twice at once.
+
+Classify each stage:
+- **Model-bound** (LLM inference, light local, independent files): `script`,
+  `audit`, `storyboard`, `package`, `voice`. Overlap these freely.
+- **Machine-bound** (saturate your CPU/GPU, already multi-core internally):
+  `assets` (fetch + vision), `build` (headless Chrome), the **encode**, and
+  `render` frame-check / QA (whisper).
+
+Rule: **overlap one cut's machine-bound stage with the other cut's model-bound
+stages** (e.g. write `fin-script-en` while the hi encode runs). NEVER run the
+same machine-bound stage for both cuts at once — two encodes / two builds / two
+whisper-QAs on one box split the same cores: no wall-clock gain, and memory
+thrash that can make it slower.
+
+Guardrails that make overlap safe (MUST):
+- **`fin-assets` never runs for both cuts at once.** Both dedupe against every
+  image on disk; concurrently they keep the SAME photo before either lands it (a
+  cross-cut dup slips the check), and they double the peak Pixabay/Pexels rate
+  (Pexels free tier = 200/hr → 429s). Start en-assets only after hi-assets has
+  written its images.
+- **Serialize `run.json`:** only you write it, and you process
+  task-notifications ONE AT A TIME, so every `mark` read-modify-write stays
+  atomic even with parallel agents in flight.
+- **Budget is shared:** before a spend stage (`voice`/`assets`) on either cut,
+  check the `budget` ceiling against BOTH cuts' in-flight spend, not just this
+  cut's.
+- **Hard gates are per-cut:** an `audit`-×2 or frame-check stop on one cut never
+  stops the other; a finished hi cut still ships if en fails (§3.5).
+
+Canonical shape: `fin-script-en` during the hi encode; `fin-audit-en` /
+`fin-voice-en` during hi render-QA; `fin-package-hi` during en voice/storyboard;
+the two `fin-assets` and the two encodes always staggered. The machine-bound
+stages are the floor — pipelining hides the model-bound work inside them but
+cannot beat the core count; going below it needs cloud/Lambda encode, not more
+orchestration.
+
 ## 4 · Trust rules
 
 - Verify agent claims against the repo when they matter: subagent output is
