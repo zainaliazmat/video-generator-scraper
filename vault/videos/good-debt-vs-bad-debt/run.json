@@ -1,0 +1,158 @@
+{
+  "slug": "good-debt-vs-bad-debt",
+  "topic": "good debt vs bad debt",
+  "tier": "short",
+  "target_seconds": 165,
+  "started": "2026-07-28",
+  "creator_brief": {
+    "style": "signal",
+    "hook": "The minimum payment is a trap. Here's the actual math.",
+    "core_beats": [
+      "debt is renting money",
+      "good debt (builds value: education, business) vs bad debt (consumption)",
+      "how minimum payments work",
+      "what compounding interest does against you"
+    ],
+    "hero_math_hi": "Rs. 50,000 card balance at 40% APR (label: illustrative - typical range), paying 5% minimum only: compute months-to-clear and total interest paid; both numbers large on screen",
+    "hero_math_en": "US rewrite — fin-script picks the US-sensible $ equivalent (typical US card APR), sourced independently; same minimum-payment-trap math, both numbers large on screen",
+    "action_step": "always pay more than the minimum, even Rs. 1,000 more (en: even $20 more)"
+  },
+  "budget": {
+    "elevenlabs_calls": 18,
+    "max_elevenlabs_calls": 30,
+    "pixabay_calls": 144
+  },
+  "stages": {
+    "fin-research": {
+      "status": "rescued",
+      "reason": "missing study note: /home/zain-ali/Documents/YoutubeScraper/vault/knowledge/video-studies/good-debt-vs-bad-debt.md",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-research-1.md",
+      "at": "2026-07-28T14:03:46+00:00"
+    },
+    "fin-facts": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-facts-1.md",
+      "at": "2026-07-28T14:17:07+00:00"
+    },
+    "fin-script-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-script-hi-2.md",
+      "at": "2026-07-28T14:40:11+00:00"
+    },
+    "fin-audit-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-audit-hi-1.md",
+      "at": "2026-07-28T14:52:59+00:00"
+    },
+    "fin-voice-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-voice-hi-1.md",
+      "at": "2026-07-28T15:01:02+00:00",
+      "script_sha256": "d3cdf5e5ad4bc16fb21388bd6e6536fc814194662be14bcdbaba99523c99e93b"
+    },
+    "fin-storyboard-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-storyboard-hi-1.md",
+      "at": "2026-07-28T15:16:09+00:00"
+    },
+    "fin-assets-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-assets-hi-2.md",
+      "at": "2026-07-28T17:33:08+00:00"
+    },
+    "fin-build-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-build-hi-1.md",
+      "at": "2026-07-28T16:33:01+00:00"
+    },
+    "fin-script-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-script-en-1.md",
+      "at": "2026-07-28T18:02:26+00:00"
+    },
+    "fin-audit-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-audit-en-1.md",
+      "at": "2026-07-28T18:13:16+00:00"
+    },
+    "fin-render-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 3,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-render-hi-3.md",
+      "at": "2026-07-28T18:25:52+00:00"
+    },
+    "fin-voice-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-voice-en-1.md",
+      "at": "2026-07-28T18:26:39+00:00",
+      "script_sha256": "58d9ee0a03fc367ef5bb8e9c6d5fa0ad7f8391acbf45a2c9db569f3cfc35316a"
+    },
+    "fin-storyboard-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-storyboard-en-1.md",
+      "at": "2026-07-28T18:41:17+00:00"
+    },
+    "fin-package-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-package-hi-1.md",
+      "at": "2026-07-28T18:41:58+00:00"
+    },
+    "fin-assets-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-assets-en-1.md",
+      "at": "2026-07-28T19:24:53+00:00"
+    },
+    "fin-build-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-build-en-1.md",
+      "at": "2026-07-29T06:44:07+00:00"
+    },
+    "fin-render-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 3,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-render-en-3.md",
+      "at": "2026-07-29T07:17:42+00:00"
+    },
+    "fin-package-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-package-en-1.md",
+      "at": "2026-07-29T07:23:44+00:00"
+    }
+  },
+  "owed": [
+    "scrape: good-debt-vs-bad-debt / debt & credit-card explainer lane (library.db empty — no comparable videos >=100 views >=240s)"
+  ]
+}

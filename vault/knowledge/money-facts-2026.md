@@ -1,6 +1,6 @@
 ---
 summary: Verified consumer-money numbers for the India (₹) and USA ($) finance videos — salaries, rent, savings rates, debt. Every figure carries its source. This is the pool scripts draw from; nothing goes on screen unless it's here.
-updated: 2026-07-27 (emergency-fund-en pass)
+updated: 2026-07-29 (good-debt-vs-bad-debt pass — credit-card APR + minimum-payment conventions)
 source: RBI Annual Report (via Business Standard, May 2026), PLFS Annual Report 2025 (PIB), AMFI, US Census P60-286, BEA Personal Income & Outlays May 2026, Harvard JCHS America's Rental Housing 2026, NY Fed HHDC Q1 2026, TransUnion via Forbes/WalletHub. Researched 2026-07-27 for the 50-30-20 video pair. + Federal Reserve SHED 2025 (rel. May 2026), Fed G.19 / LendingTree Q2 2026, FDIC — added 2026-07-27 for emergency-fund-en.
 ---
 
@@ -100,6 +100,20 @@ the Fed rather than by us. Pair the two rows: **$400 shortfall → 22% APR**.
 - **No HARD "X% of salaried Indians save first" stat exists** (searched
   PLFS/RBI/Deloitte/YouGov 2026-07-28). The honest anchor is the RBI 7.0% net
   financial savings row above. Do not rediscover fintech-PR percentages.
+
+## Promoted 2026-07-29 (good-debt-vs-bad-debt run — HARD rows only; COMPUTED amortization figures stayed in the run's facts-staging.md)
+
+Credit-card cost + minimum-payment conventions, sourced independently per market. APR and minimum-due mechanics are HARD; the amortization *results* (months-to-clear / total interest) are model-dependent illustrations that live in the run's facts-staging.md, never promoted as statistics.
+
+| Claim | Figure | Source | Tier |
+|---|---|---|---|
+| India retail credit-card APR (revolving) | **~40–45% p.a. (≈3.3–3.75%/mo)**; premium/high-AMB tiers ~24% (1.99%/mo) | Federal Bank MITC 3.75%/mo = 45% p.a. (eff. 2026-01-10, federal.bank.in/credit-cards-mitc) + ICICI 45% p.a. (icici.bank.in) + HDFC band 23.88–45% | HARD (two issuer primaries agree at 45% top retail) |
+| India minimum amount due (MAD) | **5% of total outstanding, floor ₹100** (+ EMIs/past-due/fees/GST); RBI mandates MAD cover **100% of interest** → no negative amortization | RBI Master Direction (Credit Card & Debit Card — Issuance and Conduct Directions; reaffirmed NBFC Credit Card Directions 2025) + Federal Bank MITC | HARD (regulator + issuer primary) |
+| US credit-card APR (accounts assessed interest) | **~22%** (22.15% assessed / 20.94% all accounts, May 2026; band 20–24%) — re-verified live 2026-07-28, corroborates the existing G.19 row above | Fed G.19 (federalreserve.gov/releases/g19) + WalletHub 22.21% + Forbes ~23.79% | HARD |
+| US minimum payment | **greater of (1% of balance + that month's interest + fees) or a $25–$40 floor** (Chase $40, Capital One $25; if balance < floor, pay full) | Chase cardmember education/agreement + Capital One agreement (CFPB-filed) + CFPB Reg Z Appendix M ("2% or $20" illustrative) | HARD (two issuer primaries + regulator) |
+
+- **The minimum-payment-trap mechanism (load-bearing debt-video insight):** a minimum that is a *percentage of the balance* decays it geometrically toward zero but **never reaches it** — the floor (₹100 / $25–40) is the only reason payoff is finite. Paying only the minimum runs **~17 years** and costs **more in interest than the original principal** in both markets (India 5%-of-due @ ~40%; US 1%+interest @ ~22%). Any months-to-clear / total-interest integer is floor- and model-dependent → compute it in build code, label "illustrative", never speak a false-precise figure (on screen only). The two mechanisms differ — **never reuse one market's math for the other.**
+- Blog-tier min-payment calculators (WalletHub/NerdWallet/National Debt Relief) were found and rejected — use the issuer agreements + CFPB Reg Z / RBI direction instead.
 
 ## Rule provenance (both versions)
 
