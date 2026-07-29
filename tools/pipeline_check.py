@@ -308,8 +308,8 @@ def check_package(slug, cut, fmt):
         problems.append(f"missing publish pack: {meta}")
     thumbs = glob.glob(os.path.join(ROOT, "studio", "videos", f"{slug}-thumbs",
                                     f"thumbnail-{cut}*.png"))
-    if len(thumbs) < 3:
-        problems.append(f"expected 3 thumbnail variants for -{cut}, found {len(thumbs)}")
+    if len(thumbs) < 1:
+        problems.append(f"expected at least 1 thumbnail for -{cut}, found {len(thumbs)}")
     return problems
 
 

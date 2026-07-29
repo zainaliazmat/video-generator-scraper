@@ -24,9 +24,13 @@ for title/tag evidence (fetch each candidate seed; an empty result is recorded
 as evidence, never papered over), and `venv/bin/python backend/…` scrapers if a
 competitor scoreboard pull is needed. Nothing else.
 
-## Thumbnails — 3 variants per cut, creator picks at upload
-- One HyperFrames project `studio/videos/<slug>-thumbs/`, a section per
-  variant, exported via `snapshot --at` → `thumbnail-<cut>-v1.png` … `-v3.png`.
+## Thumbnail — ONE per cut (creator rule 2026-07-29: the v2 style, not three)
+- One HyperFrames project `studio/videos/<slug>-thumbs/`, one section, exported
+  via `snapshot --at` → `thumbnail-<cut>.png`. Build **ONE** — the creator
+  retired the 3-variant A/B (they consistently pick the v2 family), so build
+  that style directly: **red left-aligned hook text (a number / time-trap
+  framing) over the video's OWN re-graded scene photo** — the channel's
+  established composition. No centred-mega-number or bare-split alternates.
 - Match the video's own design system (design-finance-blockframe) — never
   AI-collage, shocked-face or red-box styles.
 - **≤12 chars per line, ≤2 lines**, one focal colour, one accent. Legibility
@@ -34,7 +38,9 @@ competitor scoreboard pull is needed. Nothing else.
 - **Every numeral on the thumbnail must appear in the script** — the thumbnail
   is the one artifact everyone sees; it gets the same fact discipline.
 - Sameness check: compare against the channel's last 3 thumbnails (vault
-  milestone notes record them); a near-duplicate composition is a finding.
+  milestone notes record them). Keeping the v2 family is intended, but a
+  near-identical repeat of a specific prior thumbnail is still a finding — vary
+  the number and the scene photo.
 - Language: `hi` thumbnails use Roman-script Hindi; `en` stays English.
 
 ## Publish pack — researched per market, never invented
@@ -44,8 +50,8 @@ competitor scoreboard pull is needed. Nothing else.
   **If autocomplete returns nothing, say so — never invent evidence.**
 - Description with REAL chapter timestamps read from the render, on-screen
   source citations, verified-autocomplete tags.
-- A `chosen:` line the creator fills at upload with the winning thumbnail —
-  fin-archive reads it back; without it the thumbnail loop never learns.
+- A `chosen:` line recording the shipped thumbnail — one per cut now, so it's a
+  record, not an A/B pick; fin-archive still reads it back to keep the trail complete.
 
 ## Gate 2 compliance (record in the pack)
 - The altered-content disclosure toggle: state the required setting and WHERE
@@ -58,6 +64,6 @@ competitor scoreboard pull is needed. Nothing else.
   one enforcement category that is channel-level.
 
 ## Writes
-`vault/videos/<slug>/youtube-metadata-<cut>.md`, the 3 thumbnail PNGs.
+`vault/videos/<slug>/youtube-metadata-<cut>.md`, the thumbnail PNG.
 
 Return the recommended title and thumbnail paths.
