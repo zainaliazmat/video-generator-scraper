@@ -1,6 +1,6 @@
 ---
-summary: Milestone note for «Your Credit History» pair (Hindi/₹ 2:57.7 · US/$ 2:53.2) — both cuts rendered, MASTER QA PASS, facts promoted, committed 2026-07-29; publish packs written. NOT uploaded. Owed — proof-listen (hi, en) · thumbnail pick · upload · analytics after 28 days (+ finance-lane scrape, + the architecture decision below). ⛔ 6th consecutive blockframe-9 on BOTH channels: the flag itself is no longer the finding — the finding is that three written warnings changed nothing, because `tier` is chosen in run.json BEFORE fin-script while the pack that warns is read at upload AFTER the artifact exists.
-updated: 2026-07-29
+summary: Milestone note for «Your Credit History» pair (Hindi/₹ 2:57.7 · US/$ 2:53.2) — both cuts rendered, MASTER QA PASS, facts promoted; **LIVE on YouTube 2026-07-31, source archived to `src/`, studio dir deleted** (§ Published + archived). Owed — thumbnail-pick readback · analytics after 28 days (+ finance-lane scrape, + the architecture decision below). ⛔ 6th consecutive blockframe-9 on BOTH channels: the flag itself is no longer the finding — the finding is that three written warnings changed nothing, because `tier` is chosen in run.json BEFORE fin-script while the pack that warns is read at upload AFTER the artifact exists. **RESOLVED 2026-07-30 — control moved into code, then blockframe-9 was chosen and locked (design-finance-blockframe §0); do not vary the layout to satisfy this note.**
+updated: 2026-07-31
 source: run.json + the fin-render / fin-build / fin-assets / fin-facts / fin-package logs in logs/ (the /finance-video pipeline) + the two publish packs; prior-run `chosen:` lines read back from vault/videos/{pay-yourself-first,good-debt-vs-bad-debt}/youtube-metadata-{hi,en}.md
 ---
 
@@ -147,7 +147,7 @@ Read back this run (procedure step 3), directly from the files:
 |---|---|---|
 | pay-yourself-first hi / en | **blank** | **LIVE 2026-07-28** — youtu.be/PKU0_TeJ9_c · youtu.be/mlvp4xZTROg |
 | good-debt-vs-bad-debt hi / en | **v2** ✅ filled 2026-07-29 | **LIVE 2026-07-29** — youtu.be/f-doI5d0NRk · youtu.be/gC2QlQiLqhw |
-| credit-history hi / en | **blank** | not uploaded |
+| credit-history hi / en | **blank** | **LIVE 2026-07-31** — youtu.be/j_YM-im4qz4 · youtu.be/yoN-gAATN6Y |
 
 > **Update 2026-07-29 — the row above changed after this was written.** good-debt's
 > `chosen:` came back **filled** ("v2 _(creator pick, scheduled 2026-07-29)_", both
@@ -178,6 +178,15 @@ yet", and a seventh request in a seventh pack will not work either. Two things f
 ## Run events + learnings worth keeping
 
 ### ⛔ Architecture sameness — the headline finding (channel-level, both channels)
+
+> **RESOLVED 2026-07-30.** The diagnosis below is correct and the fix landed — the control
+> moved into `pipeline_check.next_architecture()`, where a *default* can actually change
+> behaviour. Then the creator answered the underlying question: thirteen candidate styles
+> were mocked up at 16:9 and compared, and **blockframe-9 was chosen on its merits.**
+> `tools/format.json` now carries `architecture_lock: "blockframe-9"` — so from here,
+> blockframe-9 repeating is a recorded decision, not the drift described below. Never vary
+> the layout to satisfy this section. Sameness is now carried by the non-layout levers.
+> Full record: [[../../knowledge/design-finance-blockframe]] §0.
 
 This is the **6th consecutive blockframe-9 ~3-minute cut on EACH channel.**
 @moneymavens101's own record: 50-30-20 (3:43) → emergency-fund (2:46) → needs-vs-wants
@@ -218,10 +227,10 @@ retroactively). Scripting a 7th on the same architecture is not. *(that sameness
 views on YouTube specifically is **unvalidated — no analytics yet**; the Gate 2 policy
 position is enforceable regardless)*
 
-**Recording gap that makes the count ambiguous and is cheap to close:** only
-pay-yourself-first has a confirmed upload URL in the vault, so the sequences above are
-the **production** order. Either reading crosses the line, but **record upload dates and
-URLs in the milestone notes** and the ambiguity disappears.
+**Recording gap — closed 2026-07-31.** All three finance pairs now carry their upload
+date + URLs in their milestone notes (pay-yourself-first 07-28, good-debt 07-29,
+this pair 07-31), so the sequences above read the same in production and in upload
+order. Keep recording the URL at archive time and it stays closed.
 
 ### `library.db` has no finance lane (channel-wide, 2nd rescue for this reason)
 
@@ -302,21 +311,15 @@ glyph.*)
 
 ## Current state + what is owed
 
-**State: RENDERED + PACKAGED + FACTS PROMOTED + COMMITTED 2026-07-29. Not uploaded.**
-Renders, audio, frames and assets are **KEPT** — post-delivery cleanup runs only after
-upload, on the creator's word ([[../../CLAUDE]]). Nothing was deleted this stage.
+State is one section: **§ Published + archived (2026-07-31)** at the foot of this note.
+Still owed beyond the two items listed there:
 
-Owed:
-
-- **proof-listen (hi, en)**
-- **thumbnail pick** — fill `chosen:` in [[youtube-metadata-hi]] + [[youtube-metadata-en]]
-  at upload; and separately, **recover the two pay-yourself-first picks off the live
-  videos** (youtu.be/PKU0_TeJ9_c · youtu.be/mlvp4xZTROg) by comparing against the PNGs
-  on disk, since asking a seventh time demonstrably does not work
-- **upload** (both cuts; cross-link each other in end screen / pinned comment) — and
-  **record the URL + date here**, which is what makes the sameness count unambiguous
-- **analytics after 28 days** — only then may anything here touch
-  [[../../knowledge/best-practices]]
+- **thumbnail-pick readback (this pair + pay-yourself-first)** — the chosen thumbnail is
+  the public thumbnail, so compare each live video against the PNGs now in
+  `src/thumbs/` and record the match; same for pay-yourself-first
+  (youtu.be/PKU0_TeJ9_c · youtu.be/mlvp4xZTROg, recorded in
+  [[../pay-yourself-first/index]]). Asking a seventh time in a pack demonstrably
+  does not work
 - **architecture decision before the next run is created** — `tier` in `run.json`, not a
   seventh warning in a seventh pack (orchestrator's; see the sameness section)
 - **finance-lane scrape into `library.db`** — channel-wide, blocks fin-research and every
@@ -333,3 +336,21 @@ Related: [[script-hi]] · [[script-en]] · [[storyboard-hi]] · [[storyboard-en]
 [[youtube-metadata-en]] · [[../../knowledge/design-finance-blockframe]] ·
 [[../../knowledge/money-facts-2026]] · [[../good-debt-vs-bad-debt/index]] ·
 [[../pay-yourself-first/index]]
+
+## Published + archived (2026-07-31)
+
+**State: LIVE on YouTube · source archived · studio dir deleted.**
+
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| en | @moneymavens101 | https://youtu.be/yoN-gAATN6Y | |
+| hi | @cashguruguides | https://youtu.be/j_YM-im4qz4 | |
+
+**Source: `src/`** — composition, meta/package JSON, `gen_vo_*.sh`, the VO lines
+(`assets/voice/*.txt`), the image prompts (`assets/img/*.src`), stock CREDITS and the
+thumbnail PNGs. `studio/videos/credit-history*` is **deleted** per the finished-video rule
+(`vault/CLAUDE.md`). **Re-render is reproducible, not free** — the scene photos and VO
+mp3s are gone, so a rebuild re-pays image gens + ElevenLabs off the archived prompts
+and lines. `gen_vo_*.sh` still `cd`s into the deleted studio path — repoint it first.
+
+Still owed: thumbnail-pick readback · analytics after 28 days.
