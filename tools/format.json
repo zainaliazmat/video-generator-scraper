@@ -21,7 +21,8 @@
    "voice_id": "nPczCjzI2devNBz1zQrb",
    "voice_name": "Brian",
    "_chars_per_second_note": "16.1 measured across the shipped en cuts (16.11, 16.64). Was 15.0 — an estimate that budgeted every en script ~7% long.",
-   "chars_per_second": 16.1
+   "chars_per_second": 16.1,
+   "_chars_per_second_trap": "first-lakh-first-thousand-en measured 17.73 c/s flat (7,657 chars / 432.0s), not 16.1 — but DO NOT raise this key on its own. fin-script budgets chars as target_seconds x rate, which ignores the scene padding that is not audio; at MEDIUM that padding is 73.6s of the 510s, so the true char budget is (510-73.6) x 17.73 = 7,737, and the 16.1 x 510 = 8,211 formula only lands because two errors cancel. Both cuts hit target here. Fix the budget formula FIRST, then the rate, or scripts get ~17% long."
   }
  },
  "tts": {

@@ -170,10 +170,19 @@ def expected_seconds(text, rate, tts):
 
     Safe in the truncation direction: the tolerance is symmetric, so raising the
     estimate for a pause-heavy line makes a SHORT clip easier to catch, not harder.
+
+    Trailing punctuation is charged NOTHING: the engine trims silence off the end
+    of a clip, so a line-final full stop buys real pause between scenes (that is
+    what scene_padding is for) but no audio. Charging it flagged two -en lines as
+    truncated while an unflagged sibling was measurably faster — 244 wpm against
+    239 — i.e. the flag was tracking punctuation, not delivery.
     """
+    pauses = tts.get("pause_seconds", {})
+    body = text.strip()
+    while body and body[-1] in pauses:
+        body = body[:-1].rstrip()
     return len(text) / rate + sum(
-        text.count(mark) * secs
-        for mark, secs in tts.get("pause_seconds", {}).items())
+        body.count(mark) * secs for mark, secs in pauses.items())
 
 
 def check_voice(slug, cut, fmt):
