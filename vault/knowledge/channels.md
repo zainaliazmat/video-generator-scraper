@@ -6,15 +6,20 @@ source: creator, 2026-07-05 (channel created); niche evidence per [[niches/ai-to
 
 # Channels
 
-## A — TechToolTester (@techtooltester) — LIVE, the locked niche
+## A — TechToolTester (@techtooltester) — LIVE, 1 video uploaded
 Channel created 2026-07-05. Brand is deliberately generic (all tech tools /
 experiments, no product names) but the **content lane stays niched**: AI tools
 & workflows for creators — honest reviews, comparisons, tutorials. Faceless,
 screen recordings. Money: affiliates + sponsors + ads.
-See [[niches/ai-tools-creator-video]]. Next up: Video #2 launch piece
-([[../videos/video-02-claude-edits-video/script-v2-tts]]) → upload here and
-track performance; then the faceless-stack money video (Video #1, capture
-pending).
+See [[niches/ai-tools-creator-video]].
+
+| Video | Slug | URL | State |
+|---|---|---|---|
+| Claude AI Made This Entire Video — No Premiere, No Timeline (100% Free) | video-02-claude-edits-video | https://youtu.be/iB39QrexQ8c | live · archived |
+
+`archived` = source moved to `../videos/<slug>/src/`, studio dir deleted per the
+finished-video rule ([[CLAUDE]]). Next up: the faceless-stack money video (Video #1,
+capture pending).
 
 ### Channel About description (finalized 2026-07-05 — SEO pass: keywords in first
 ### 100 chars, ≤1,000-char limit, CTA + cadence per current best practice)
@@ -33,13 +38,17 @@ pending).
 >
 > 📩 Business: zainaliazmat1@gmail.com
 
-## B — HistoryFramesFilm (@historyframesfilm) — LIVE, 1 video uploaded
+## B — HistoryFramesFilm (@historyframesfilm) — LIVE, 2 videos uploaded
 Cinematic historical videos in varied styles — catchy, editing-forward. Built with
 Claude Code + HyperFrames; production method = the exact workflow Video #2 teaches.
 
 | Video | Slug | URL | State |
 |---|---|---|---|
 | A Century of Travel (4:00 vintage parallax documentary) | video-hist-01-travel | https://www.youtube.com/watch?v=qyBqfJGwnEI | live (sched. 2026-07-11) · archived |
+| Pompeii City History in Urdu Hindi — The Last Day of the Lost City (19:56, Roman-Urdu VO) | video-hist-01-pompeii | https://youtu.be/XaIuExXBW9Q | live 2026-07-31 · archived |
+
+**The channel carries both languages.** The Urdu Pompeii shipped *here*, not on the
+separate Urdu channel §C plans — so B is bilingual in practice and §C is unbuilt.
 
 `archived` = source moved to `../videos/<slug>/src/`, studio dir deleted per the
 finished-video rule ([[CLAUDE]]). Full milestone record, reusable runbook +
@@ -115,7 +124,11 @@ synthetic-narration finance content in one repeating 9-segment template.
 [[niches/us-market-2026]] records the 2026 AI-expert carve-out for finance and
 that enforcement is **channel-level**. Gate 2 has not been run on either channel.
 
-## C — Urdu history channel (decided 2026-07-07, creation pending)
+## C — Urdu history channel (decided 2026-07-07, **never created — superseded**)
+> **2026-07-31:** the first Urdu history video (Pompeii) shipped on **B
+> (@historyframesfilm)** instead. The separate-channel plan below was never executed;
+> treat it as an open option, not the current state.
+
 Creator decision: history videos ship in BOTH languages, **Urdu-first** on a
 separate new channel (name/handle TBD — creator creates it). Workflow per
 video: Urdu script → Urdu video ships → THEN the English version for B.

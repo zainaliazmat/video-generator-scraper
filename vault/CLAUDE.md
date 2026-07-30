@@ -82,9 +82,12 @@ writes it; keep the shape when editing by hand.
 Channel is implied by the cut, not by the path: `hi/` = @cashguruguides,
 `en/` = @moneymavens101 ([[knowledge/channels]]).
 
-⚠️ The history/AI-tools cuts still in `studio/videos/` are mirrored text-only in
-`../compositions/` — the only git-tracked copy of their code. Do not delete that
-mirror until each of those videos goes through this rule.
+⚠️ `../compositions/` is the text-only mirror — the only git-tracked copy of the code
+for anything not archived under `vault/videos/<slug>/src/`. As of **2026-07-31** it holds
+`firaun-ka-anjaam` (still in production) and the four practice builds that will never ship
+([[knowledge/unshipped-experiments]]). A video's mirror is deleted when the video goes
+through this rule and its source lands in `src/`; a practice build's mirror is permanent,
+because it is the only copy there will ever be.
 
 **The point (creator's framing):** each shipped video is a **milestone**, not a
 throwaway. The next one starts FROM its runbook + design system + learnings and must

@@ -1,18 +1,18 @@
 ---
-summary: Pompeii Ka Akhri Din (Roman-Urdu history video) — ✅ VIDEO FINALIZED 2026-07-18 (creator sign-off). Deliverables kept — pompeii-ka-akhri-din-FINAL-1080p.mp4 (19:56, 736 MB) + THUMBNAIL-pompeii-last-morning.png + [[youtube-metadata]]; all draft/chapter renders deleted (~3.9 GB). Learnings distilled to skills/workflows (per-line TTS rule, chapter-wise production, music sourcing). Upload + URL still pending.
-updated: 2026-07-18
-source: HyperFrames build in studio/videos/pompeii-ka-akhri-din/
+summary: Pompeii Ka Akhri Din (Roman-Urdu history video, 19:56) — ✅ **LIVE on @historyframesfilm 2026-07-31** as "Pompeii City History in Urdu Hindi — The Last Day of the Lost City" (youtu.be/XaIuExXBW9Q); source archived to `src/`, studio dir deleted. Learnings distilled to skills/workflows (per-line TTS rule, chapter-wise production, music sourcing).
+updated: 2026-07-31
+source: HyperFrames build, archived to `src/` in this folder 2026-07-31
 ---
 
 # Pompeii Ka Akhri Din — build status
 
 Roman-Urdu faceless history video, ~21 min target. Built in the local HyperFrames
 studio. Design/script/storyboard notes in this folder; the buildable copies
-(index.html, frame.md, design.md, storyboard.md) live in
-`studio/videos/pompeii-ka-akhri-din/`.
+(index.html, frame.md, design.md, storyboard.md, build.py, assemble.py) live in
+`src/`.
 
 ## How the film is assembled — `build.py` (source of truth)
-The full composition is **generated**, not hand-written. `studio/videos/pompeii-ka-akhri-din/build.py`
+The full composition is **generated**, not hand-written. `src/build.py`
 holds the entire EDL (104 scenes) + ~23 card/overlay fragments and emits a static,
 deterministic `index.html`. Re-run `python3 build.py` after editing the EDL. Reuses the
 Hook's proven determinism contract (one paused gsap timeline on `window.__timelines["main"]`,
@@ -153,3 +153,30 @@ OPEN. Chapter renders are deleted; a re-fix now means re-rendering from build.py
 - **Known cosmetic nits (draft-acceptable):** the C-08/C-38 maps are stylised label
   cards, not relief maps; one big single-file composition trips HyperFrames' file-size /
   track-density style warnings (could split into per-chapter sub-comps later).
+
+## Published + archived (2026-07-31)
+
+**State: LIVE on YouTube · source archived · studio dir deleted.**
+
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| single (Roman-Urdu) | @historyframesfilm | https://youtu.be/XaIuExXBW9Q | `src/THUMBNAIL-pompeii-last-morning.png` |
+
+Shipped title: **"Pompeii City History in Urdu Hindi — The Last Day of the Lost City"**.
+**It shipped on channel B, not on the pending Urdu channel C** — the Urdu-first history
+lane that [[../../knowledge/channels]] §C describes never got its own channel, so the
+Urdu cut went out on HistoryFramesFilm alongside the English «A Century of Travel».
+
+**Source: `src/`** — `build.py` (the generator that IS the film: 104-scene EDL + the VO
+relock), `assemble.py`, `index.html` (its 1.4 MB output), `frame.md`, `design.md`,
+`storyboard.md`, `INDEX.md`, `CREDITS-evidence.md`, `concat-list.txt` and the shipped
+thumbnail. `studio/videos/pompeii-ka-akhri-din` and its `compositions/` text mirror are
+**deleted** per the finished-video rule ([[../../CLAUDE]]).
+
+**Re-render is not free:** the 736 MB master, the 10 chapter VO clips, the ambient drone
+bed and every scene image are gone — `assets` was a symlink into `studio/library/projects/`,
+which no longer exists. `build.py` + the storyboard + [[image-prompts]] are what a rebuild
+starts from, and it re-pays the TTS and the image generations.
+
+Still owed: the CC-BY music credit line in the YouTube description (Kevin MacLeod /
+incompetech, if a music slot shipped) · analytics after 28 days.

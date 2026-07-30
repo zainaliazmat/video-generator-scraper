@@ -187,6 +187,7 @@ only for a final continuity watch.
 
 Distilled gotchas — read before building so we don't pay the same tax twice. (New gotchas append here, dated; this is the production analog of [[../knowledge/best-practices]].)
 
+- **2026-07-31** — **Four practice builds were retired without shipping; their techniques are in [[../knowledge/unshipped-experiments]]** — template-first scene construction, uniform-scene timing arithmetic (zero dissolve drift), the one-caveat-per-image sourcing table, the contact-sheet/before-after critique pass, and an unused grunge motion-graphics design register. Read it before starting a new non-finance format; the code is text-only in `compositions/`.
 - **2026-07-05** — Renderer `tl.seek(t, true)` suppresses events → `onUpdate` callbacks no-op in renders. Keep sync declarative. (§1a)
 - **2026-07-05** — GSAP `power2` is cubic; sample eased curves on the real ease or keyframes lag ~50px. (§1a)
 - **2026-07-05** — Scene chrome stacks above root videos; a filled mat paints over the recording. Hollow ring only. (§1)

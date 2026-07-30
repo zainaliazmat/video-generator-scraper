@@ -1,12 +1,16 @@
 ---
-summary: Final YouTube publish metadata for Pompeii Ka Akhri Din — title options, description (with real chapter timestamps from the ch1–10 renders), tags. Thumbnail finalized 2026-07-18.
-updated: 2026-07-18
+summary: **SHIPPED 2026-07-31** as "Pompeii City History in Urdu Hindi — The Last Day of the Lost City" (youtu.be/XaIuExXBW9Q, @historyframesfilm). Final YouTube publish metadata — title options, description (with real chapter timestamps from the ch1–10 renders), tags. Thumbnail finalized 2026-07-18.
+updated: 2026-07-31
 source: chapter timestamps ffprobe'd from studio/videos/pompeii-ka-akhri-din/pompeii-ch{1..10}-fixed-timeline-1080p.mp4; music credits per index.md assemble notes
 ---
 
 # YouTube publish metadata — Pompeii Ka Akhri Din
 
-**Thumbnail (FINAL):** `studio/videos/pompeii-ka-akhri-din/thumbnails/THUMBNAIL-pompeii-last-morning.png`
+**Live:** https://youtu.be/XaIuExXBW9Q — the shipped title is *"Pompeii City History in
+Urdu Hindi — The Last Day of the Lost City"* (none of the options below verbatim; it
+leads with the Urdu/Hindi language signal, which the options did not).
+
+**Thumbnail (FINAL, shipped):** `src/THUMBNAIL-pompeii-last-morning.png`
 (man + erupting Vesuvius base, Playfair "THE LAST MORNING of Pompeii", 79 AD · Vesuvius kicker.
 Style rule: [[../../knowledge/design-cinematic-history]] → Thumbnails. Rejected v1–v8, v10 deleted.)
 

@@ -154,5 +154,6 @@
   },
   "owed": [
     "scrape: pay-yourself-first / saving-first competitor lane (library empty)"
-  ]
+  ],
+  "architecture": "blockframe-9"
 }

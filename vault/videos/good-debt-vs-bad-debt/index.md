@@ -1,5 +1,5 @@
 ---
-summary: Milestone note for «Good Debt vs Bad Debt — the minimum-payment trap» pair (Hindi/₹ 3:15 · US/$ 2:59) — both cuts rendered, MASTER QA PASS, committed 2026-07-28/29; **LIVE on YouTube 2026-07-29** (hi youtu.be/f-doI5d0NRk · en youtu.be/gC2QlQiLqhw); source archived to `src/`, studio dir deleted. Thumbnail chosen: v2 both cuts. Owed — lane scrape · analytics after 28 days. ⛔ HARD flag: 5th consecutive blockframe-9 on BOTH channels — the sameness enforcement line is crossed; the NEXT finance cut MUST change architecture.
+summary: Milestone note for «Good Debt vs Bad Debt — the minimum-payment trap» pair (Hindi/₹ 3:15 · US/$ 2:59) — both cuts rendered, MASTER QA PASS, committed 2026-07-28/29; **LIVE on YouTube 2026-07-29** (hi youtu.be/f-doI5d0NRk · en youtu.be/gC2QlQiLqhw); source archived to `src/`, studio dir deleted. Thumbnail chosen: v2 both cuts. Owed — lane scrape · analytics after 28 days. ⛔ HARD flag: 5th consecutive blockframe-9 on BOTH channels — **SUPERSEDED 2026-07-30: blockframe-9 was reviewed against twelve alternatives and chosen; it is now locked in `tools/format.json`. See [[../../knowledge/design-finance-blockframe]] §0. Do not act on the "MUST change architecture" instruction below.**
 updated: 2026-07-29
 source: run.json + the fin-render / fin-build / fin-assets / fin-package logs in logs/ (the /finance-video pipeline)
 ---
@@ -98,6 +98,15 @@ enforceable now; whether it actually costs views = unvalidated — no analytics 
 > third of three that changed nothing, which is itself the finding: the control is in the
 > wrong place. `tier` is chosen in `run.json` *before* fin-script; a milestone note and a
 > publish pack are read *after* the artifact exists. See [[../credit-history/index]].
+
+> **CLOSED 2026-07-30 — do not act on the flag above.** The control did move into code
+> (`pipeline_check.next_architecture()` rotating the default), and then the creator made the
+> decision the flag was demanding: thirteen styles were mocked up and compared side by side,
+> and **blockframe-9 was chosen deliberately.** `tools/format.json` now carries
+> `architecture_lock: "blockframe-9"`, so repetition here is a decision, not drift — and
+> varying the layout "to be safe" now contradicts the creator. The sameness budget moved to
+> the non-layout levers (transitions live, SFX kit present, music bed owed).
+> Full record: [[../../knowledge/design-finance-blockframe]] §0.
 
 **HERO-MATH DOCTRINE (worked — reuse for any model-dependent number).** The
 minimum-payment payoff is floor/model-dependent, so the VO speaks ONLY floor-independent

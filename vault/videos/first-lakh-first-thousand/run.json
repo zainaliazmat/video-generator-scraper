@@ -1,0 +1,32 @@
+{
+ "slug": "first-lakh-first-thousand",
+ "topic": "The first Rs. 1 lakh / first $10,000 is the hardest — why the first savings milestone is the hardest one and how to actually cross it",
+ "tier": "medium",
+ "target_seconds": 510,
+ "architecture": "swiss-band",
+ "architecture_note": "Creator pick 2026-07-31. DIFFERS from the default: pipeline_check architecture returned blockframe-9 (LOCKED, creator decision 2026-07-30). Creator was offered the menu per the 2026-07-30 'ask style like you ask length' instruction and chose swiss-band. NOTE: the swiss-band entry declares tier:short/lines:9 — that is a SHORT-tier constant and does NOT apply here (fin-script.md: at MEDIUM/LONG 'none of the 9-segment constants apply'). First swiss-band build at MEDIUM length; if fin-build struggles, blockframe-9 is the fallback.",
+ "started": "2026-07-31",
+ "evidence": "vault/knowledge/niches/finance-topics-2026-07-31.md topic #1 — 226,845 views at 48x subs on a 4,660-sub faceless Hindi channel (21:50); Nischa 'first $20k' 306,463; Mark Tilbury 233,125.",
+ "creator_brief": {
+  "style": "signal",
+  "hook": "The first one lakh is the hardest one you will ever save. After it, the money starts helping.",
+  "core_beats": [
+   "the first milestone is hardest because ZERO of it comes from returns — 100% is your own savings rate",
+   "the crossover: the point where your money earns more in a year than you can save in a year",
+   "why chasing the perfect fund early is wasted effort — early on, savings RATE dominates return RATE",
+   "what actually gets you there: automate it, raise the rate with every raise, don't touch it",
+   "the realistic timeline at ordinary salaries — how long the first milestone takes vs the second"
+  ],
+  "hero_math_hi": "Rs. 1,00,000 built from a fixed monthly amount (fin-script picks the figure that fits a 20-28yo Indian salary from facts-staging) — show months-to-first-lakh, then months-to-SECOND-lakh at the same monthly amount plus returns. The gap between those two numbers IS the video.",
+  "hero_math_en": "US rewrite, NOT a currency conversion: the emotionally equivalent first milestone is $10,000, not $1,200. Same two-number structure — time to the first $10k vs time to the second. Munger's 'the first $100,000 is a bitch' is the authority quote if it verifies; fin-facts sources the wording and date.",
+  "action_step": "automate one transfer on salary day and raise it by the whole of your next raise (en: same, sized in $)",
+  "positioning": "This is the channel's first OFFENSE video — the six shipped so far are all defense (budgeting, emergency fund, debt). It should feel like the sequel to pay-yourself-first, not a repeat of it."
+ },
+ "budget": {
+  "elevenlabs_calls": 0,
+  "_max_note": "MEDIUM is ~78 single-sentence lines per cut = ~156 calls for the pair; SHORT's ceiling of 30 would refuse fin-voice outright. 200 leaves retry headroom.",
+  "max_elevenlabs_calls": 200,
+  "pixabay_calls": 0
+ },
+ "stages": {}
+}

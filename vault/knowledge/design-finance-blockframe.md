@@ -1,10 +1,24 @@
 ---
-summary: The durable design system for the finance channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, photographic backgrounds under a single grade, heavy type, chip/stamp motion language. Extracted from the shipped needs-vs-wants pair. Copy into each video's DESIGN.md.
-updated: 2026-07-28
+summary: The durable design system for the finance channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, photographic backgrounds under a single grade, heavy type, chip/stamp motion language. Extracted from the shipped needs-vs-wants pair. Copy into each video's DESIGN.md. **§0 — blockframe-9 is LOCKED by creator decision 2026-07-30 (thirteen styles reviewed side by side); this supersedes every "next cut MUST change architecture" flag in the vault, and moves the sameness budget onto the non-layout levers.**
+updated: 2026-07-30
 source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-wants-en/index.html (both shipped) and vault/videos/needs-vs-wants/storyboard-hi.md · verified against the rendered output 2026-07-28
 ---
 
 # DESIGN — Finance blockframe (dark grade)
+
+> **The system now has a code home (2026-07-29). This file is the rationale;
+> the implementation is two files and they are linked, never copied:**
+>
+> - `tools/scaffold/assets/css/blockframe.css` — tokens, grade, scrim, type
+>   ladder, every component, and the `.rail` architecture variant.
+> - `tools/scaffold/assets/js/motion.js` — every motion helper, including the
+>   scene transitions this doc used to have no answer for.
+>
+> Where they disagree with the prose below, **the files win** — they are what
+> renders. Until now each cut was scaffolded by copying the previous cut's
+> `index.html`, which produced five divergent stylesheets, five different motion
+> vocabularies, and four cuts that silently lost `@font-face` and rendered in
+> Arial Black. Full evidence: [[finance-audit-2026-07-29/index]].
 
 > **This file supersedes [[design-techtooltester]] for all finance work.**
 > That note is the **bright** TechToolTester system — white/pastel gradient,
@@ -14,6 +28,92 @@ source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-
 
 The channel's visual register: **dark, dense, confident.** Money facts stated
 plainly in heavy type over photographic texture. Nothing decorative, nothing cute.
+
+---
+
+## 0. The architecture decision — blockframe-9 is LOCKED (creator, 2026-07-30)
+
+**Standing decision. This supersedes every "the next cut MUST change
+architecture" flag in the vault** ([[../videos/good-debt-vs-bad-debt/index]],
+[[../videos/credit-history/index]], [[../index]]) — those were written when the
+sameness had never been *chosen*, only defaulted into six times.
+
+The creator reviewed thirteen candidate styles side by side as rendered 16:9
+mockups — the three costed layout alternatives (`ledger-rail`, `statement-card`,
+`split-register`) plus nine new directions backed by real HyperFrames registry
+blocks (`data-chart`/`nyt-graph`, `news-ticker`, `kinetic-type`, `swiss-grid`/
+`vignelli`, `world-map`, `flowchart`, `x-post`/`reddit-post`, terminal, liquid
+glass) — and **chose to keep blockframe-9.**
+
+Mechanically: `tools/format.json` now carries `architecture_lock:
+"blockframe-9"`. `pipeline_check.next_architecture()` returns it and the
+`architecture` CLI prints `LOCKED`; `doctor` refuses a lock naming an
+architecture that does not exist, so a typo cannot degrade to silent rotation.
+The rotation code stays — delete the key to resume cycling.
+
+**Why a lock and not just a preference.** The rotation was built because a
+warning written in four places changed nothing — only the *default* is a real
+control. That argument is symmetric: once a layout is genuinely chosen, a
+rotation that varies away from it is the pipeline overriding its owner. So the
+decision goes where code reads it.
+
+**What now carries the sameness risk** (real — YouTube's inauthentic-content
+policy is about templating, and all ten thumbnails are still one layout):
+layout is no longer the variance axis, so the non-layout levers are. Live
+already: scene transitions (`dissolve`/`shove`/`sceneTransitions` in
+`tools/scaffold/assets/js/motion.js`, asserted by `check_build`) and the
+seven-sound SFX kit. **Owed: the music bed** — fully specced in
+`tools/audio/kit.json` (two beds, prompts, levels) and mixed by
+`tools/audio/mix.py`, but `studio/library/music/` is empty because ElevenLabs
+music generation needs the `music_generation` permission on the key. Either add
+that permission and run `tools/audio/sfx.py --kit --music`, or drop two mp3s in
+by hand from the YouTube Audio Library. **Still open and NOT settled by this
+decision: runtime.** The 90–300 s band is the worst-performing one in both
+markets ([[finance-audit-2026-07-29/01-performance]]); locking the layout says
+nothing about the tier.
+
+### 0a. Style verdicts and the image rule (creator, 2026-07-30, after review)
+
+Having seen the thirteen mockups rendered, the creator gave per-style feedback.
+**The rejection was mostly one thing:** *"most of them are without images i dont
+want that. images are compulsury even in future i want to use stock videos too."*
+
+| Style | Verdict |
+|---|---|
+| **blockframe-9** | **Kept** — the lock above |
+| `news-ticker` | ✗ *"we are not making news videos so this is irrelevant to finance education videos"* |
+| `code-snippet`, `code-typing` | ✗ *"we are not making coding videos"* |
+| `x-post` / `reddit-post` | ✓ **as a component, not an architecture** — usable when a real, topical social post exists |
+| `swiss-grid` / `vignelli` | ✓ **pursue** — *"lets try this one add this style as a new style"*, pending research |
+| the rest | ✗ for now — carried no photograph; any that can be re-cut to carry one may return |
+
+**The image rule is now machine-enforced.** Every entry in `format.json`
+`architectures` must declare `image_per_scene: true`, and `doctor` refuses one
+that does not. A style that renders type on flat colour cannot be added, however
+good it looks in a mockup. This is the "unrepresentable wrong state" tier of
+[[../../CLAUDE|fix-defaults-not-gates]] rather than a note somebody has to
+remember — which is the whole lesson of §0.
+
+**Style is now ASKED at intake**, as a second question beside the tier (creator:
+*"ask when i start a new finance video run as you ask question for length as for
+style"*). The lock is the pre-selected default, not an imposition — see
+`.claude/commands/finance-video.md` §2 step 2a.
+
+**Two open threads**, both under research 2026-07-30:
+- **Swiss/Vignelli with compulsory photography.** The tension is real: that
+  tradition as popularly imitated is image-sparse, which is exactly what got the
+  other styles rejected. The research question is how the tradition *actually*
+  places photographs in a grid (Müller-Brockmann's photographic posters,
+  Vignelli's Knoll and Rizzoli work), and whether that yields a direction here.
+- **Stock video behind the frames.** Wanted "even in future"; blocked on whether
+  the deterministic frame-walking renderer can seek a `<video>` element per
+  frame. Do not put `<video>` in a composition until `format.json`
+  `_stock_video_note` says it is proven.
+
+**`social-quote` rules** (`format.json _components`): a real post only — an
+invented one is a fabricated fact and breaks the never-invent rule. Prefer
+institutional or public accounts; do not put a private individual's handle in a
+monetised video that criticises their money decisions.
 
 ---
 
@@ -160,7 +260,32 @@ A plain `\B(?=(\d{3})+(?!\d))` regex is **wrong for India** and prints `124,564`
 - **`.arrow` / `.arr` / `.tri`** — `→` and `▶` are **drawn in CSS**, not typed.
   Both are absent from the subset; em-based so they scale with the host font-size.
 
-**No SFX.** The finance format is voice + motion only.
+**Audio: one bed + a seven-sound kit** (creator rule 2026-07-30, supersedes
+"No SFX — voice + motion only", which the audit found was a fork artefact from
+the bright TechToolTester system rather than a tested decision, and which never
+mentioned music at all).
+
+- Kit + prompts: `tools/audio/kit.json`. Generate once with
+  `tools/audio/sfx.py --kit` — cached by name, so it costs ~7 API calls **ever**,
+  not per video. Files land in `studio/library/sfx/`, peak-normalised to the
+  level named in the kit.
+- Seven sounds, each bound to ONE motion helper: `chip`→pop · `reveal`→rise ·
+  `tick`→pulse · `stamp`→the verdict slam · `hero`→the big number ·
+  `transition`→a scene boundary · `cta`→the closing block. **A sound with no
+  helper does not belong in the kit.** Budget ≤10 cues per short cut; a sound is
+  punctuation, and if every reveal has one then none of them means anything.
+- One music bed per video, ducked ~6 dB under speech (≈18 LU below the voice).
+  Deliberately featureless — anything with a melody competes with a spoken number.
+- **Mixed in post, never in the composition.** `tools/audio/mix.py` reads the
+  cue list at `assets/audio.json` and mixes with ffmpeg's sidechain compressor;
+  `tools/loudnorm.py` then takes the result to −14 LUFS. The renderer does not
+  guarantee in-page volume automation, and a bed that silently fails to duck
+  would bury the voice in a video that passes every check. The composition stays
+  voice-only: one `<audio>` row per line.
+- ⚠️ ElevenLabs **music** generation needs the `music_generation` permission on
+  the API key; the SFX endpoint does not. Until that is enabled, `mix.py` runs
+  SFX-only and says so. Free fallback with no channel-count limit: the YouTube
+  Audio Library — drop a file at `studio/library/music/<bed-name>.mp3`.
 **No logo outro.** Neither finance channel has a brand mark yet
 ([[channels]] D/E) — the video closes on the `.cta` block. Build the wordmarks
 before reinstating the standing logo rule.
@@ -169,7 +294,18 @@ before reinstating the standing logo rule.
 
 ## 5. Motion
 
-Nine helpers, all on one paused GSAP timeline registered to `window.__timelines`:
+**Implemented in `tools/scaffold/assets/js/motion.js`** — that file is the list.
+The table below is the intent; it drifted from what shipped (the newest cut was
+missing `fill`, `countUp` and `drift`, and leaned on `exit` and `popEach`, which
+appear nowhere here). `countDown`, `dissolve`, `shove` and `sceneTransitions`
+are also in the file.
+
+> ⚠️ `breathe(sel, at, dur)` used to run for **2× `dur`**. Fixed 2026-07-29 —
+> `dur` is now the real total, quantised to whole out-and-back pairs so the
+> element always ends where it began. Shipped cuts were built against the old
+> behaviour; do not "correct" their timings.
+
+All helpers live on one paused GSAP timeline registered to `window.__timelines`:
 
 | Helper | Motion | Default |
 |---|---|---|
@@ -185,6 +321,22 @@ Nine helpers, all on one paused GSAP timeline registered to `window.__timelines`
 
 ### Rules
 
+0. **Every boundary is a transition** (2026-07-29). The first six videos hard-cut
+   between all nine scenes — measured on a real master with `ffmpeg scdet`, the
+   boundary frame-delta was 5.85–10.72 against a mid-scene 0.053–0.377, and five
+   of eight boundaries tripped a generic cut detector. `dissolve` (0.45s) is the
+   default; `shove` is for at most two real turns in the argument.
+   The mechanism has **two** parts, both asserted by `pipeline_check check_build`:
+   (i) every scene but the last carries
+   `data-duration = scene_duration + scene.transition_seconds`, so it stays on
+   screen while the next fades in over it (root duration unchanged) — without it
+   the dissolve plays against black and every other check still passes; and
+   (ii) **adjacent scenes alternate `data-track-index` 1/2**, because
+   `hyperframes check` rejects two overlapping clips on one track. Verified
+   2026-07-30 on the real `credit-history-en` composition: butt-joined → check
+   passes; +0.45s overlap on one track → **8 × `overlapping_clips_same_track`**;
+   +0.45s overlap with alternating tracks → **check passes, 22/22 contrast**.
+   Track index is a timing lane, not paint order, so z-order is unaffected.
 1. **Alternate `ken` direction.** Never two pushes in a row. Shipped order across
    the photo scenes: `in, out, in, out, in, out, in`.
 2. **Every scene carries a full-bleed `.bg` photo under the grade — photo-free

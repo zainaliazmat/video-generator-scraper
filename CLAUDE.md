@@ -14,7 +14,8 @@ Two things live here:
    is backed up). A video with a YouTube URL is finished: `tools/archive_cut.py`
    moves its source to `vault/videos/<slug>/src/{hi,en,thumbs}/` and deletes it
    from studio — see the finished-video rule in `vault/CLAUDE.md`.
-   (`compositions/` is the older text-only mirror, now holding history cuts only.)
+   (`compositions/` is the text-only, git-tracked mirror — now the permanent home of
+   the practice builds that will never ship, per `vault/knowledge/unshipped-experiments.md`.)
    The finance channels are produced by
    **`/finance-video`** (agents in `.claude/agents/fin-*.md`, mechanics in
    `tools/`, constants in `tools/format.json`) — human doc:

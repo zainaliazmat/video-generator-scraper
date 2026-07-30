@@ -151,5 +151,6 @@
       "log": "vault/videos/credit-history/logs/fin-package-en-1.md",
       "at": "2026-07-29T11:38:14+00:00"
     }
-  }
+  },
+  "architecture": "blockframe-9"
 }

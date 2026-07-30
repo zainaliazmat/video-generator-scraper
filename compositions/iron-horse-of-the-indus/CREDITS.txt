@@ -1,0 +1,49 @@
+The Iron Horse of the Indus — Image & Asset Credits
+====================================================
+Licenses below were read from Wikimedia Commons file metadata at sourcing time.
+PD/CC0 = copyright-free, no attribution required. CC BY / CC BY-SA = FREE TO USE but
+ATTRIBUTION REQUIRED (credit the author + license, link the file) — keep these lines with the deliverable.
+Verify each file's page before publishing; re-confirm the refugee-train image (s22) date/side per the ethics note.
+
+--- IMAGES: sourced & embedded (verified free) ---
+s00 — NWR 2-8-2 Bolan locomotive engraving (1907) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:2-8-2_tank_locomotive_for_Bolan_Pass,_North_Western_Railway_of_India_(Howden,_Boys%27_Book_of_Locomotives,_1907).jpg
+s02 — Scinde Railway & the Punjaub (map/plate) — Wikimedia Commons — CC BY-SA 4.0 [ATTRIBUTION REQUIRED, author: NearEMPTiness] — https://commons.wikimedia.org/wiki/File:Scinde_Railway_and_the_Punjaub.jpg
+s04 — Lahore station fortifications (1895) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:Fortifications_of_Railway_Station_1895.jpg
+s05 — British Indian Empire map (Imperial Gazetteer 1909) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:British_Indian_Empire_1909_Imperial_Gazetteer_of_India.jpg
+s07 — Fortified NWR bridge over the Indus at Attock — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:Fortified_Northwestern_Railway_bridge_over_the_Indus_at_Attock_LCCN2004707360.jpg
+s08 — Pakistan Railways network map — Wikimedia Commons — CC BY-SA 3.0 [ATTRIBUTION REQUIRED, author: Adnanrail] — https://commons.wikimedia.org/wiki/File:Pakistan_Railways_Network_Map.png
+s09 — Bolan Pass (1842 lithograph) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:Bolan_Pass_1842.jpg
+s11 — Gulistan Station at the Khojak Tunnel entrance — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:Gulistan_Station_on_the_Great_Military_Railway,_at_entrance_to_Kojak_Tunnel_LCCN2004707355.jpg
+s12 — Lansdowne Bridge, Sukkur (1897) — Wikimedia Commons — CC0 — https://commons.wikimedia.org/wiki/File:Lansdowne-Bridge_Sukkur_-1897.jpg
+s13 — Quetta Railway station (1894) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:Quetta_Railway_station_(1894).jpg
+s15 — Karachi Cantonment Railway Station — Wikimedia Commons — CC BY-SA 4.0 [ATTRIBUTION REQUIRED, author: Sam4u1w] — https://commons.wikimedia.org/wiki/File:Karachi_Cantonment_Railway_Station.jpg
+s16 — North Western Railway (general) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:North_Western_Railway.jpg
+s18 — Khyber Pass Railway — Wikimedia Commons — CC BY-SA 3.0 [ATTRIBUTION REQUIRED, author: MaltaGC] — https://commons.wikimedia.org/wiki/File:KhyberRailway_02.jpg
+s19 — Steam locomotive, Pindi station — Wikimedia Commons — CC BY-SA 3.0 [ATTRIBUTION REQUIRED, author: TheFranek2] — https://commons.wikimedia.org/wiki/File:Steam_locomotive_in_Pindi_station.jpg
+s21 — How India is to be split up (1947 map) — Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:How_India_be_split_up_(1947).jpg
+s25 — reuse of s00 (bookend) — Wikimedia Commons — Public domain — bookend reuse
+
+--- IMAGES: identified-free, download pending (Commons rate-limited my IP; grab from the file page) ---
+s22 — Refugee special train at Ambala, 1947 (PD) — download pending (rate-limit)
+s23 — Pakistan locomotive RGE-24 (CC BY-SA 4.0) — download pending
+s24 — Golra Railway Museum heritage loco (CC BY-SA 4.0) — download pending
+
+--- IMAGES: need manual sourcing (no suitable free Commons image via the reachable API) ---
+s01 — Indus Steam Flotilla / early river steamer — see ASSET_SHORTCUTS.md for archive links
+s03 — Karachi–Kotri first line / early Karachi terminus — see ASSET_SHORTCUTS.md for archive links
+s06 — Empress Bridge over the Sutlej (1878) — see ASSET_SHORTCUTS.md for archive links
+s10 — Chappar Rift / Louise Margaret Bridge — see ASSET_SHORTCUTS.md for archive links
+s14 — Mughalpura Workshops, Lahore — see ASSET_SHORTCUTS.md for archive links
+s17 — NWR in WWI — troop/supply train — see ASSET_SHORTCUTS.md for archive links
+s20 — Chappar Rift line (intact, pre-1942) — see ASSET_SHORTCUTS.md for archive links
+
+--- AUDIO ---
+score.mp3 — period cinematic bed (~9 min) — TODO — <source> — <license> — <url>
+vo_s00..vo_s25 — narration — generated locally with HyperFrames TTS (Kokoro, voice bm_george) — synthesized, no license needed
+
+--- TEXTURE ---
+paper.png — aged paper / newspaper scan — TODO — <source> — <license> — <url>
+
+--- FONTS ---
+Archivo Black — Google Fonts — OFL 1.1 — https://fonts.google.com/specimen/Archivo+Black
+Playfair Display — Google Fonts — OFL 1.1 — https://fonts.google.com/specimen/Playfair+Display

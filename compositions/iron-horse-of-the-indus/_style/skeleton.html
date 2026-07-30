@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>{{PROJECT_TITLE}} — composition</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --ink:#f4f1ea; --paper:#0d0f12; --ink-soft:rgba(244,241,234,0.82);
+        --band:rgba(15,19,24,0.55); --grade-overlay:rgba(28,40,56,0.18); --accent-warm:#c9a86a;
+      }
+      body{margin:0;background:#000;font-family:"Playfair Display",Georgia,serif;}
+      #root{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper);}
+      .scene{position:absolute;inset:0;}
+      .scene-inner{position:absolute;inset:0;will-change:opacity;}
+      .photo{position:absolute;inset:-6%;background:radial-gradient(120% 90% at 50% 35%,#3a4047 0%,#23282e 55%,#15191e 100%);display:grid;place-items:center;filter:grayscale(1) contrast(1.08) brightness(0.92) sepia(0.12);will-change:transform;}
+      .photo img{width:100%;height:100%;object-fit:cover;}
+      .slot-label{font-family:"Archivo Black",system-ui,sans-serif;font-size:30px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,241,234,.32);text-align:center;line-height:1.5;padding:0 80px;filter:none;}
+      .grade{position:absolute;inset:0;background:var(--grade-overlay);mix-blend-mode:multiply;pointer-events:none;}
+      .text{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 200px;box-sizing:border-box;will-change:transform;}
+      .kicker{font-family:"Archivo Black",system-ui,sans-serif;font-size:22px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-warm);margin:0 0 14px 2px;opacity:.92;}
+      .year{font-family:"Archivo Black",system-ui,sans-serif;font-size:150px;line-height:.9;color:var(--ink);margin:0 0 10px 0;text-shadow:0 6px 40px rgba(0,0,0,.55);letter-spacing:-0.01em;}
+      .rule{width:120px;height:3px;background:var(--accent-warm);border:0;margin:0 0 18px 4px;opacity:.85;}
+      .title-band{display:inline-block;background:var(--band);padding:14px 26px;backdrop-filter:blur(1px);}
+      .title{font-family:"Playfair Display",serif;font-weight:500;font-size:62px;line-height:1.05;color:var(--ink);margin:0;}
+      .caption{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:30px;color:var(--ink-soft);margin:26px 0 0 4px;max-width:760px;}
+      .text.center{align-items:center;text-align:center;padding:0 160px;}
+      .text.center .title{font-size:110px;font-weight:700;}
+      .text.center .caption{font-size:36px;margin-top:28px;}
+      .vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 110% at 50% 46%,rgba(0,0,0,0) 52%,rgba(0,0,0,.32) 82%,rgba(0,0,0,.62) 100%);}
+      .grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.5;}
+      .grain svg{width:100%;height:100%;}
+      .paper-tex{position:absolute;inset:0;pointer-events:none;background-repeat:no-repeat;background-position:right bottom;background-size:cover;opacity:.10;mix-blend-mode:multiply;}
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-duration="{{TOTAL_DURATION}}" data-fps="30">
+
+      <!-- GENERATED SCENES: BEGIN
+           One <section class="scene clip"> per beat, DIRECT child of #root. Alternate data-track-index 1/2.
+           Consecutive scenes OVERLAP by ~1s so the cross-dissolve works.
+           Content-scene pattern:
+             <section id="sNN" class="scene clip" data-start="START" data-duration="DUR" data-track-index="1">
+               <div class="scene-inner" id="sNN-inner">
+                 <div class="photo" id="sNN-photo"><div class="slot-label">PHOTO PLATE · {beat} · {search hint}</div></div>
+                 <!-- when assets/images/sNN_*.jpg exists, swap the slot for: <img src="assets/images/sNN_xxx.jpg" alt=""> -->
+                 <div class="grade"></div>
+                 <div class="text" id="sNN-text">
+                   <p class="kicker" id="sNN-kicker">№ NN</p>
+                   <h1 class="year" id="sNN-year">YEAR</h1>
+                   <hr class="rule" id="sNN-rule"/>
+                   <div class="title-band"><h2 class="title" id="sNN-title">TITLE</h2></div>
+                   <p class="caption" id="sNN-cap">CAPTION</p>
+                 </div>
+               </div>
+             </section>
+           Title card (s00) + outro: <div class="text center"> with kicker + title + caption, NO band, NO year/rule.
+           GENERATED SCENES: END -->
+
+      <!-- Persistent overlays (constant) -->
+      <div id="ov-vignette" class="scene clip vignette" data-start="0" data-duration="{{TOTAL_DURATION}}" data-track-index="20"></div>
+      <div id="ov-grain" class="scene clip grain" data-start="0" data-duration="{{TOTAL_DURATION}}" data-track-index="21">
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <filter id="grainFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#grainFilter)" opacity="0.45" />
+        </svg>
+      </div>
+      <!-- Optional paper (only if assets/textures/paper.png exists):
+        <div id="ov-paper" class="scene clip paper-tex" style="background-image:url('assets/textures/paper.png')" data-start="0" data-duration="{{TOTAL_DURATION}}" data-track-index="19"></div> -->
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const has = s => !!document.querySelector(s);
+
+      function enterText(prefix, at){
+        if (has(`#${prefix}-kicker`)) tl.from(`#${prefix}-kicker`, { y:30, opacity:0, duration:0.6, ease:"power3.out" }, at);
+        const ny = [`#${prefix}-year`,`#${prefix}-rule`].filter(has).join(",");
+        if (ny) tl.from(ny, { y:40, opacity:0, duration:0.7, ease:"power3.out" }, at+0.05);
+        if (has(`#${prefix}-title`)) tl.from(`#${prefix}-title`, { y:36, opacity:0, duration:0.7, ease:"power3.out" }, at+0.17);
+        if (has(`#${prefix}-cap`)) tl.from(`#${prefix}-cap`, { y:24, opacity:0, duration:0.7, ease:"power2.out" }, at+0.33);
+      }
+      function kenBurns(photoSel, textSel, start, dur, dir){
+        tl.fromTo(photoSel, { scale:1.0, xPercent:0, yPercent:0 },
+          { scale:1.14, xPercent:2.5*dir, yPercent:-1.5, duration:dur, ease:"sine.inOut" }, start);
+        tl.fromTo(textSel, { xPercent:0 }, { xPercent:0.8*dir, duration:dur, ease:"sine.inOut" }, start);
+      }
+      function crossDissolve(outInner, inInner, at, d){
+        if (outInner && has(outInner)) tl.to(outInner, { opacity:0, duration:d, ease:"power1.inOut" }, at);
+        if (inInner && has(inInner)) tl.from(inInner, { opacity:0, duration:d, ease:"power1.inOut" }, at);
+      }
+
+      // GENERATED TIMELINE: BEGIN
+      // Per scene:  kenBurns("#sNN-photo","#sNN-text",START,DUR,±1); enterText("sNN",START+0.4);
+      // Each overlap point T between scene PREV and NN:  crossDissolve("#sPREV-inner","#sNN-inner",T,1.0);
+      // GENERATED TIMELINE: END
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
