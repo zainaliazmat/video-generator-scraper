@@ -1,7 +1,7 @@
 ---
 summary: First SHIPPED video on the HistoryFramesFilm (cinematic-history) channel — "A Century of Travel". The delivered milestone + the durable learnings future history videos start FROM, not from scratch.
-updated: 2026-07-10
-source: studio/videos/a-century-of-travel/ (production runbook, DESIGN.md, shipped render + thumbnail)
+updated: 2026-07-31
+source: `src/` in this folder (production runbook, DESIGN.md, composition, thumbnail) — archived out of studio/videos/a-century-of-travel/ on 2026-07-31
 url: https://www.youtube.com/watch?v=qyBqfJGwnEI
 status: DELIVERED — scheduled to publish 2026-07-11 02:00 PKT (≈ prior-evening US primetime, ~5pm ET)
 ---
@@ -26,7 +26,7 @@ knowledge lives here.
 - [[production-runbook]] — the **staged-prompt production playbook** (Prompt 0 → 1 → 2 → 2A/2B → 3). This pipeline shipped a finished 4-min film end-to-end. Copy it; swap topic/assets.
 - [[asset-sourcing]] — public-domain sourcing workflow (Library of Congress, Wikimedia Commons, NYPL) — the one thing the pipeline can't do for you.
 - [[../../knowledge/design-cinematic-history]] — the durable design system (blue-sepia grade, Archivo Black + Playfair Display, motion language). Copy into each new history video's `DESIGN.md`, exactly like [[../../knowledge/design-techtooltester]] does for the AI-tools channel.
-- Thumbnail (kept): `studio/videos/a-century-of-travel/renders/THUMBNAIL-a-century-weeks-vs-hours.png` + editable Canva `DAHO62hSEPA`.
+- Thumbnail (kept): `src/THUMBNAIL-a-century-weeks-vs-hours.png` + editable Canva `DAHO62hSEPA`.
 
 ## Verified timeline (the script spine — reuse for any "history of X" compressed piece)
 1841 first organized tour (Thomas Cook) · 1869 Suez Canal · 1883 Orient Express ·
@@ -49,3 +49,25 @@ hook in the first 0:15 (per [[../../knowledge/best-practices#Hooks]] — ordinar
 cold open + dramatic irony from the Pompeii study), (b) add the Islamic/religious POV
 angle where a topic authentically carries one ([[islamic-pov-in-stories]]), (c) measure
 CTR/AVD once live and feed it back into [[../../knowledge/best-practices]].
+
+## Published + archived (2026-07-31)
+
+**State: LIVE on YouTube · source archived · studio dir deleted.**
+
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| single (EN) | @historyframesfilm | https://www.youtube.com/watch?v=qyBqfJGwnEI | `src/THUMBNAIL-a-century-weeks-vs-hours.png` |
+
+**Source: `src/`** — `index.html` (the whole 14-scene composition), `DESIGN.md`,
+`PRODUCTION_RUNBOOK.md`, `ASSET_SHORTCUTS.md`, the audio request/meta JSON, the
+`scenes/s05-1907/` sub-composition and the shipped thumbnail PNG. Both
+`studio/videos/a-century-of-travel` and its text mirror `compositions/a-century-of-travel`
+are **deleted** — the mirror existed only until this video went through the
+finished-video rule ([[../../CLAUDE]]).
+
+**Re-render is not free**, and this one is thinner than the finance archives: the render,
+the 12 voice WAVs, the score and 8 of the 13 archival photos were already removed at
+delivery (2026-07-10) and the `assets` symlink into `studio/library/projects/` is dangling —
+that library is gone. A rebuild re-sources the public-domain photos off
+[[asset-sourcing]] and re-cuts the VO. Only `s05_1907_mauretania.jpg` survives, inside
+the scene sub-composition.

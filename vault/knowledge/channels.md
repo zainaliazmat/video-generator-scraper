@@ -33,15 +33,17 @@ pending).
 >
 > 📩 Business: zainaliazmat1@gmail.com
 
-## B — HistoryFramesFilm (@historyframesfilm) — LIVE, first video shipped
-Cinematic historical videos in varied styles — catchy, editing-forward.
-**✅ FIRST VIDEO DELIVERED: "A Century of Travel"** (4:00 vintage parallax
-documentary) — uploaded + scheduled to publish **2026-07-11 02:00 PKT**:
-https://www.youtube.com/watch?v=qyBqfJGwnEI. Built with Claude Code + HyperFrames;
-production method = the exact workflow Video #2 teaches. Full milestone record,
-reusable runbook + learnings: [[../videos/video-hist-01-travel/index]]. Heavy
-render/assets removed post-delivery per [[CLAUDE#post-delivery-cleanup]] — the
-video lives on YouTube, the knowledge in the vault.
+## B — HistoryFramesFilm (@historyframesfilm) — LIVE, 1 video uploaded
+Cinematic historical videos in varied styles — catchy, editing-forward. Built with
+Claude Code + HyperFrames; production method = the exact workflow Video #2 teaches.
+
+| Video | Slug | URL | State |
+|---|---|---|---|
+| A Century of Travel (4:00 vintage parallax documentary) | video-hist-01-travel | https://www.youtube.com/watch?v=qyBqfJGwnEI | live (sched. 2026-07-11) · archived |
+
+`archived` = source moved to `../videos/<slug>/src/`, studio dir deleted per the
+finished-video rule ([[CLAUDE]]). Full milestone record, reusable runbook +
+learnings: [[../videos/video-hist-01-travel/index]].
 > Note: the **compressed-entire-history** format shipped FIRST (not the day-in-the-life
 > Pompeii that the niche note had locked as first topic — Pompeii is drafted, not yet shipped).
 
@@ -70,7 +72,7 @@ positioning + audience before locking its niche note.
 partial (mid-RPM, no affiliates — volume/brand play). Evidence:
 [[niches/cinematic-history]]. First topic locked: **Pompeii — The Last Day**.
 
-## D — CashGuruGuides (@cashguruguides) — LIVE, 5 videos uploaded + scheduled
+## D — CashGuruGuides (@cashguruguides) — LIVE, 6 videos uploaded + scheduled
 The **India / Hindi / ₹** finance channel. Studio:
 https://studio.youtube.com/channel/UCHbj4hVEud49Sy2e9-V9gcg
 
@@ -81,11 +83,12 @@ https://studio.youtube.com/channel/UCHbj4hVEud49Sy2e9-V9gcg
 | One Repair From Broke — Emergency Fund Explained in Haryanvi \| Start With ₹2,500 | emergency-fund | https://youtu.be/vZG7fkPwpzI | live · archived |
 | Good Debt vs Bad Debt / minimum-payment trap (₹ cut) | good-debt-vs-bad-debt | https://youtu.be/f-doI5d0NRk | live · archived |
 | Pay Yourself First (₹ cut) | pay-yourself-first | https://youtu.be/PKU0_TeJ9_c | live · archived |
+| CIBIL Score / one missed EMI = 36 mahine (₹ cut) | credit-history | https://youtu.be/j_YM-im4qz4 | live · archived |
 
 `archived` = source moved to `../videos/<slug>/src/hi/`, studio dir deleted per
 the finished-video rule ([[CLAUDE]]).
 
-## E — moneymavens101 (@moneymavens101) — LIVE, 5 videos uploaded + scheduled
+## E — moneymavens101 (@moneymavens101) — LIVE, 6 videos uploaded + scheduled
 The **US / English / $** finance channel. The `-en` cuts are a US rewrite, not a
 translation ([[us-english-script-style]]). Studio:
 https://studio.youtube.com/channel/UChNmDWhioyD5S_08AI6cSaA
@@ -97,8 +100,10 @@ https://studio.youtube.com/channel/UChNmDWhioyD5S_08AI6cSaA
 | Emergency Fund 2026: How Much, Where to Keep It, How to Start | emergency-fund | https://youtu.be/6dFBciWSs0o | live · archived |
 | The Credit Card Minimum-Payment Trap ($ cut) | good-debt-vs-bad-debt | https://youtu.be/gC2QlQiLqhw | live · archived |
 | Pay Yourself First ($ cut) | pay-yourself-first | https://youtu.be/mlvp4xZTROg | live · archived |
+| How long late payments stay on your report — 7 years ($ cut) | credit-history | https://youtu.be/yoN-gAATN6Y | live · archived |
 
-Only **credit-history** is still unshipped — its cuts remain in `studio/videos/`.
+**All six pairs are shipped and archived** (credit-history closed 2026-07-31); no finance
+cut remains in `studio/videos/`.
 
 **Why this matters structurally (2026-07-28):** the ₹/$ pair is not two cuts of
 one upload — it is one upload each to **two separate channels**, each of which
