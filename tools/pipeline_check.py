@@ -134,11 +134,54 @@ def check_audit(slug, cut, fmt):
     return []
 
 
+def scene_padding(fmt, slug=None):
+    """(lead_in, tail) seconds per scene, with the run's tier allowed to override.
+
+    These are charged PER LINE, so their total scales with line count and a value
+    tuned at SHORT's 9 lines is simply wrong at MEDIUM's ~86 — at 0.4+1.0 the first
+    MEDIUM cut spent 120.4s of 566s on inter-line padding. The tier owns the value;
+    `scene` keeps the SHORT default so an unknown tier still works.
+    """
+    sc = fmt["scene"]
+    lead, tail = sc["lead_in_seconds"], sc["tail_seconds"]
+    if slug:
+        try:
+            tier = json.load(open(os.path.join(vault_dir(slug), "run.json"),
+                                  encoding="utf-8")).get("tier")
+            t = fmt.get("tiers", {}).get(tier, {})
+            lead, tail = t.get("lead_in_seconds", lead), t.get("tail_seconds", tail)
+        except (OSError, ValueError):
+            pass
+    return lead, tail
+
+
+def expected_seconds(text, rate, tts):
+    """Predicted clip length for `text` at `rate` chars/sec, plus the silence the
+    voice actually takes at pause punctuation.
+
+    A flat chars/rate estimate models speech as uniform, so it under-predicts any
+    line built out of fragments and over-flags it as "wrong text or truncated".
+    The cold-open hook is the worst case by construction — the winning format in
+    this niche puts the payoff number at 0:00 in short punched clauses, e.g.
+    "पाँच हज़ार रुपये महीना। पहला एक लाख — बीस महीने।" measured 5.88s against a
+    3.84s flat estimate (+53%) purely because ElevenLabs honours the danda and the
+    em-dash. Charging each mark its pause makes the estimate match the delivery
+    the script is deliberately asking for.
+
+    Safe in the truncation direction: the tolerance is symmetric, so raising the
+    estimate for a pause-heavy line makes a SHORT clip easier to catch, not harder.
+    """
+    return len(text) / rate + sum(
+        text.count(mark) * secs
+        for mark, secs in tts.get("pause_seconds", {}).items())
+
+
 def check_voice(slug, cut, fmt):
-    return check_voice_dir(os.path.join(studio_dir(slug, cut), "assets", "voice"), cut, fmt)
+    return check_voice_dir(os.path.join(studio_dir(slug, cut), "assets", "voice"),
+                           cut, fmt, slug)
 
 
-def check_voice_dir(vdir, cut, fmt):
+def check_voice_dir(vdir, cut, fmt, slug=None):
     problems = []
     for name in ("lines.json", "timing.json"):
         if not os.path.exists(os.path.join(vdir, name)):
@@ -156,7 +199,7 @@ def check_voice_dir(vdir, cut, fmt):
 
     tts = fmt["tts"]
     rate = fmt["cuts"][cut]["chars_per_second"]
-    lead, tail = fmt["scene"]["lead_in_seconds"], fmt["scene"]["tail_seconds"]
+    lead, tail = scene_padding(fmt, slug)
     expect_start = 0.0
     for line, t in zip(lines, tlines):
         lid, text = line["id"], line["text"]
@@ -172,7 +215,7 @@ def check_voice_dir(vdir, cut, fmt):
         # R-3: timing.json must carry MEASURED durations, not a char estimate.
         if abs(t.get("duration", -1) - real) > tts["timing_ffprobe_tolerance_s"]:
             problems.append(f"{lid}: timing.json says {t.get('duration')}s, ffprobe says {real:.2f}s")
-        expected = len(text) / rate
+        expected = expected_seconds(text, rate, tts)
         if expected > 0 and abs(real - expected) / expected > tts["duration_tolerance_pct"] / 100:
             problems.append(f"{lid}: duration {real:.2f}s is >{tts['duration_tolerance_pct']}% off "
                             f"chars/rate estimate {expected:.2f}s — wrong text or truncated clip")
@@ -519,7 +562,7 @@ def _selftest():
 
         # voice fixtures: two audible clips whose length matches chars/rate
         rate = fmt["cuts"][cut]["chars_per_second"]
-        lead, tail = fmt["scene"]["lead_in_seconds"], fmt["scene"]["tail_seconds"]
+        lead, tail = scene_padding(fmt, slug)
         lines, tlines, start = [], [], 0.0
         for i, dur in enumerate((3.0, 4.0), 1):
             lid = f"h{i}"

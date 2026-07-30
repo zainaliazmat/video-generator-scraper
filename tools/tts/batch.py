@@ -30,6 +30,8 @@ def run(project, cut, voice=None, model=None, seed=None, force=False):
     voice = voice or cutcfg["voice_id"]
     model = model or fmt["tts"]["model"]
     vdir = os.path.join(project, "assets", "voice")
+    # studio/videos/<slug>-<cut> -> <slug>; lets scene_padding read the run's tier
+    slug = os.path.basename(project.rstrip("/")).rsplit("-", 1)[0]
     lines = pc.load_lines(vdir)
 
     fake = os.environ.get("FIN_FAKE_APIS") == "1"
@@ -50,8 +52,9 @@ def run(project, cut, voice=None, model=None, seed=None, force=False):
                        stability=0.5, similarity=0.75,
                        style=fmt["tts"]["style"], seed=seed)
 
-    lead = fmt["scene"]["lead_in_seconds"]
-    tail = fmt["scene"]["tail_seconds"]
+    # tier-aware: this padding is charged per line, so SHORT's value overpays at
+    # MEDIUM/LONG line counts. pipeline_check.scene_padding is the same rule.
+    lead, tail = pc.scene_padding(fmt, slug)
     entries, start = [], 0.0
     for line in lines:
         dur = pc.ffprobe_duration(os.path.join(vdir, f"{line['id']}.mp3"))
@@ -68,7 +71,7 @@ def run(project, cut, voice=None, model=None, seed=None, force=False):
                           "lines": entries, "total": round(start, 3)})
     print(f"timing.json: {len(entries)} lines, total {start:.2f}s")
 
-    problems = pc.check_voice_dir(vdir, cut, fmt)
+    problems = pc.check_voice_dir(vdir, cut, fmt, slug)
     for p in problems:
         print(f"  ✗ {p}")
     return 1 if problems else 0

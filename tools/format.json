@@ -10,7 +10,8 @@
    "locale": "en-IN",
    "voice_id": "HTUuC7OeeEt6OL5fViVe",
    "voice_name": "Harsh",
-   "chars_per_second": 12.5
+   "chars_per_second": 13.03,
+   "_chars_per_second_note": "13.03 measured across the 86 clips of first-lakh-first-thousand-hi (5,812 chars / 446.0s of audio). Was 12.5 — an estimate that budgeted every hi script ~4% long. Note this is the FLAT delivered rate including pause silence, which is what script budgeting needs; pipeline_check adds tts.pause_seconds on top of it per line for the drift check."
   },
   "en": {
    "channel": "@moneymavens101",
@@ -31,7 +32,19 @@
   "min_clip_seconds": 1.0,
   "duration_tolerance_pct": 35,
   "silence_mean_volume_db": -50.0,
-  "timing_ffprobe_tolerance_s": 0.05
+  "timing_ffprobe_tolerance_s": 0.05,
+  "pause_seconds": {
+   "।": 0.55,
+   ".": 0.55,
+   "?": 0.55,
+   "!": 0.55,
+   "—": 0.45,
+   "–": 0.45,
+   "…": 0.45,
+   ",": 0.15,
+   "،": 0.15
+  },
+  "_pause_seconds_note": "Silence the voice actually takes at each mark, added to the flat chars/rate estimate in pipeline_check.expected_seconds. Without it the cold-open hook — short punched clauses, the winning format in this niche — self-flags as truncated: first-lakh-first-thousand line 1.1 measured 5.88s against a 3.84s flat estimate (+53%) purely from one danda and one em-dash. Symmetric tolerance means this makes genuinely SHORT clips easier to catch, not harder."
  },
  "tiers": {
   "short": {
@@ -51,14 +64,18 @@
    "reference": "studio/videos/firaun-ka-anjaam/build.py",
    "disk_gb_per_pair": 6.0,
    "_disk_note": "6.0 extrapolated from the measured SHORT figure at ~2.9x the runtime (fin, 2026-07-30). Was 3.0.",
-   "lines": 78
+   "lines": 78,
+   "lead_in_seconds": 0.25,
+   "tail_seconds": 0.55
   },
   "long": {
    "min_seconds": 600,
    "architecture": "per-line-chapters",
    "reference": "studio/videos/firaun-ka-anjaam/build.py",
    "disk_gb_per_pair": 8.0,
-   "lines": 92
+   "lines": 92,
+   "lead_in_seconds": 0.25,
+   "tail_seconds": 0.55
   }
  },
  "scene": {
@@ -69,7 +86,8 @@
   "transition_seconds": 0.45,
   "target_scene_seconds": 6.5,
   "max_scene_seconds": 9.0,
-  "_scene_seconds_note": "One VO line = one clip = one scene, so scene COUNT is emergent from the script, never a constant. These bound the felt pace instead: aim ~6.5s per scene, and check_build FAILS any scene holding one photo past max_scene_seconds. Creator 2026-07-31: '9 scenes are too low for medium size video ... looks professional and engaging not dead.' The `lines: 9` on the SHORT tier and on the architecture entries is a SHORT-tier constant — fin-script.md is explicit that at MEDIUM/LONG 'none of the 9-segment constants apply'."
+  "_scene_seconds_note": "One VO line = one clip = one scene, so scene COUNT is emergent from the script, never a constant. These bound the felt pace instead: aim ~6.5s per scene, and check_build FAILS any scene holding one photo past max_scene_seconds. Creator 2026-07-31: '9 scenes are too low for medium size video ... looks professional and engaging not dead.' The `lines: 9` on the SHORT tier and on the architecture entries is a SHORT-tier constant — fin-script.md is explicit that at MEDIUM/LONG 'none of the 9-segment constants apply'.",
+  "_lead_tail_tier_note": "lead_in/tail are charged PER LINE, so they scale with line count and a value tuned at SHORT's 9 lines is wrong at MEDIUM's ~86. At 0.4+1.0 the hi cut spent 120.4s of its 566s on inter-line padding; with tts.pause_seconds already buying 80.5s of in-line pause that is 35% of the video in silence. MEDIUM/LONG override to 0.25+0.55 (68.8s), landing 514.8s against the 510s target. Creator 2026-07-31: 'looks professional and engaging not dead.'"
  },
  "_architectures_note": "The pipeline ROTATES these — `pipeline_check.py architecture` returns the one least recently used, and the orchestrator writes it into run.json before fin-script runs. Six consecutive blockframe-9 cuts shipped because the only control was a warning written into notes that no code read; the fix is that the default now varies by construction rather than being flagged after the fact. Add an entry here to put a new layout into the rotation.",
  "_architecture_lock_note": "When set, this WINS over the rotation above and every run uses it — no per-run override, nothing to remember. Creator decision 2026-07-30: the creator reviewed all thirteen candidate styles side by side (nine of them registry-backed) and chose to keep blockframe-9, so the rotation would otherwise hand the next run ledger-rail and silently contradict a decision that was actually made. A lock is the honest representation of 'we picked one'. Delete this key to resume rotating; `doctor` refuses a lock that names an architecture that does not exist, so a typo cannot degrade to silent rotation. The sameness risk this rotation existed to manage is now carried by the non-layout levers instead — transitions (live), the SFX kit (present), and the music bed (see tools/audio/kit.json).",
