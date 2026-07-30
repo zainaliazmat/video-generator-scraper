@@ -280,8 +280,52 @@ def check_build(slug, cut, fmt):
         n = len(timing.get("lines", []))
         if len(scenes) != n:
             problems.append(f"{len(scenes)} scenes but timing.json has {n} lines")
+    # Dead-frame guard (creator, 2026-07-31: "9 scenes are too low for medium
+    # size video ... not dead"). Scene count is emergent — one VO line is one
+    # scene — so the thing to bound is how long a single photograph is allowed to
+    # sit on screen, not the count. A tier's `lines` figure is guidance an agent
+    # can miss; this makes a 57-second held still unrepresentable instead.
+    max_hold = fmt.get("scene", {}).get("max_scene_seconds", 0)
+    if max_hold and scenes:
+        T = fmt.get("scene", {}).get("transition_seconds", 0)
+        for i, (start, dur) in enumerate(scenes):
+            # every scene but the last is padded by the cross-dissolve overlap
+            own = float(dur) - (T if i < len(scenes) - 1 else 0)
+            if own > max_hold:
+                problems.append(
+                    f"scene {i + 1} holds {own:.1f}s (max {max_hold}s) — split the "
+                    f"VO line; one photo on screen this long reads as a dead frame")
         if abs(float(root.group(1)) - timing.get("total", -1)) > 0.5:
             problems.append(f"root data-duration {root.group(1)} ≠ timing.json total {timing.get('total')}")
+    # Transitions: every scene but the last is held `transition_seconds` past its
+    # own end, so the incoming scene cross-dissolves over a live frame instead of
+    # fading up from black. The overlap IS the transition — if the build writes a
+    # bare scene duration the fade still runs and still passes every other check,
+    # it just plays against nothing. See tools/scaffold/assets/js/motion.js.
+    T = fmt.get("scene", {}).get("transition_seconds", 0)
+    if T and len(scenes) > 1:
+        for i in range(len(scenes) - 1):
+            gap = (float(scenes[i][0]) + float(scenes[i][1])) - float(scenes[i + 1][0])
+            if abs(gap - T) > 0.05:
+                problems.append(
+                    f"scene {i + 1} overlaps the next by {gap:.3f}s, expected {T}s — "
+                    f"data-duration must be the scene's duration + transition_seconds")
+        # The overlap is only legal if adjacent scenes sit on DIFFERENT tracks.
+        # `hyperframes check` fails with `overlapping_clips_same_track` otherwise
+        # — verified: 8 errors on a real composition with every scene on track 1,
+        # clean once they alternate. Non-adjacent scenes may share a lane; they
+        # are nowhere near each other in time.
+        tracks = re.findall(r'<section[^>]*data-track-index="(\d+)"', html)
+        if len(tracks) == len(scenes):
+            for i in range(len(tracks) - 1):
+                if tracks[i] == tracks[i + 1]:
+                    problems.append(
+                        f"scenes {i + 1} and {i + 2} are both on data-track-index="
+                        f"{tracks[i]} but overlap by {T}s — alternate 1/2 down the "
+                        f"video or `hyperframes check` fails overlapping_clips_same_track")
+        else:
+            problems.append(f"{len(scenes)} scenes but {len(tracks)} data-track-index "
+                            f"attributes — every <section> needs one")
     return problems
 
 
@@ -298,6 +342,13 @@ def check_render(slug, cut, fmt):
         real = ffprobe_duration(mp4)
         if abs(real - total) > 1.0:
             problems.append(f"render runs {real:.1f}s, timing.json total is {total:.1f}s")
+    # The master is not the upload. ElevenLabs returns clips near -24 LUFS and
+    # nothing stages gain, so an un-normalised master ships 7-8 dB under the feed
+    # — YouTube attenuates loud uploads but never lifts quiet ones. PUBLISH is the
+    # master run through tools/loudnorm.py; it is the file that gets uploaded.
+    pub = os.path.join(studio_dir(slug, cut), "renders", f"PUBLISH-1080p-{cut}.mp4")
+    if not os.path.exists(pub):
+        problems.append(f"missing {os.path.basename(pub)} — run: tools/loudnorm.py {mp4}")
     return problems
 
 
@@ -320,6 +371,73 @@ CHECKS = {
     "package": check_package,
 }
 PER_CUT = set(CHECKS) - {"research", "facts"}
+
+
+# -------------------------------------------------------------- architecture
+
+def recent_architectures(limit=8):
+    """Architectures of the most recent runs, newest first."""
+    runs = []
+    for path in glob.glob(os.path.join(ROOT, "vault", "videos", "*", "run.json")):
+        try:
+            name = json.load(open(path, encoding="utf-8")).get("architecture")
+        except (ValueError, OSError):
+            continue
+        if name:
+            runs.append((os.path.getmtime(path), name))
+    return [name for _, name in sorted(runs, reverse=True)][:limit]
+
+
+def architecture_lock_problems(fmt):
+    """A lock that names nothing real would silently degrade to rotation — i.e.
+    quietly ship the layout the creator did NOT pick. Surfaced by `doctor`, so a
+    typo costs five seconds at preflight instead of a whole run."""
+    problems = []
+    lock = fmt.get("architecture_lock")
+    arches = fmt.get("architectures", {})
+    if lock and lock not in arches:
+        problems.append(f"architecture_lock '{lock}' is not in format.json "
+                        f"`architectures` — fix the name or delete the lock")
+    # HARD creator rule, 2026-07-30: "images are compulsury". Most of the
+    # thirteen candidate styles were rejected for rendering type on flat colour.
+    # Requiring the flag here means a new style CANNOT be added that quietly
+    # drops the photograph — the wrong state is unrepresentable rather than
+    # merely discouraged.
+    for name, spec in arches.items():
+        if spec.get("image_per_scene") is not True:
+            problems.append(
+                f"architecture '{name}' does not declare image_per_scene: true — "
+                f"every frame must carry a photograph (creator rule 2026-07-30)")
+    return problems
+
+
+def next_architecture(fmt=None):
+    """The architecture the NEXT run should use: the least recently used one,
+    unless format.json pins one with `architecture_lock`.
+
+    Six consecutive blockframe-9 cuts shipped on both channels. The warning had
+    been written four times — three milestone notes and a structured `owed` entry
+    in run.json — and no code read any of them. A note cannot change what the
+    next run does; the DEFAULT can. So the rotation lives here, the orchestrator
+    writes the answer into run.json before fin-script, and varying costs nobody
+    a decision. Add an entry to format.json `architectures` to widen the cycle.
+
+    The lock is the same principle pointed the other way: once the creator has
+    actually chosen a layout, rotating away from it is the pipeline overriding a
+    decision. `doctor` rejects a lock naming an unknown architecture, so a typo
+    fails at preflight instead of quietly falling through to rotation.
+    """
+    fmt = fmt or load_format()
+    names = list(fmt.get("architectures", {}))
+    if not names:
+        return None
+    if fmt.get("architecture_lock") in names:
+        return fmt["architecture_lock"]
+    recent = recent_architectures(len(names))
+    unused = [n for n in names if n not in recent]
+    if unused:
+        return unused[0]
+    return max(names, key=recent.index)   # the one used longest ago
 
 
 # --------------------------------------------------------------------- doctor
@@ -348,6 +466,7 @@ def doctor(tier):
     if whisper.returncode != 0:
         problems.append("faster-whisper not importable in venv — "
                         "fix: venv/bin/pip install faster-whisper")
+    problems += architecture_lock_problems(fmt)
     need_gb = 2 * fmt["tiers"][tier]["disk_gb_per_pair"]  # R-9: 2× headroom
     free_gb = shutil.disk_usage(ROOT).free / 1e9
     if free_gb < need_gb:
@@ -453,6 +572,48 @@ def _selftest():
                                                 "status": "done", "attempt": 2}
         assert run["stages"]["fin-voice-hi"]["script_sha256"]
 
+        # transitions: a scene must be held `transition_seconds` past its own end,
+        # or the incoming cross-dissolve fades up from black instead of from the
+        # previous frame — and every other check still passes.
+        T = fmt["scene"]["transition_seconds"]
+        sdir, total = studio_dir(slug, cut), round(start, 3)
+
+        def write_html(first_duration, tracks=(1, 2)):
+            open(os.path.join(sdir, "index.html"), "w", encoding="utf-8").write(
+                f'<div id="root" data-composition-id="main" data-duration="{total}">'
+                f'<section data-start="{tlines[0]["scene_start"]}" data-duration="{first_duration}"'
+                f' data-track-index="{tracks[0]}"></section>'
+                f'<section data-start="{tlines[1]["scene_start"]}" data-duration="{tlines[1]["scene_duration"]}"'
+                f' data-track-index="{tracks[1]}"></section>'
+                f'</div>')
+
+        write_html(round(tlines[0]["scene_duration"] + T, 3))
+        assert check_build(slug, cut, fmt) == [], check_build(slug, cut, fmt)
+        write_html(tlines[0]["scene_duration"])   # the pre-2026-07-29 hard-cut build
+        assert any("overlaps" in p for p in check_build(slug, cut, fmt))
+        # overlapping scenes on ONE track is what `hyperframes check` rejects
+        write_html(round(tlines[0]["scene_duration"] + T, 3), tracks=(1, 1))
+        assert any("same_track" in p or "both on data-track-index" in p
+                   for p in check_build(slug, cut, fmt)), check_build(slug, cut, fmt)
+
+        # rotation: the next run must not repeat the architecture just used
+        assert next_architecture() in load_format()["architectures"]
+
+        # the lock beats the rotation, and a lock naming nothing real fails
+        # preflight instead of falling through to rotation (which would ship a
+        # layout the creator did not choose). Pure — FORMAT_PATH is absolute, so
+        # writing a fixture here would edit the real repo config.
+        names = list(fmt["architectures"])
+        assert len(names) > 1, "need ≥2 architectures to prove the lock beats rotation"
+        for pinned in names:
+            locked = dict(fmt, architecture_lock=pinned)
+            assert next_architecture(locked) == pinned, f"lock '{pinned}' lost to rotation"
+            assert architecture_lock_problems(locked) == []
+        bogus = dict(fmt, architecture_lock="no-such-layout")
+        assert architecture_lock_problems(bogus), "unknown lock must fail doctor"
+        assert next_architecture(bogus) in names, "bogus lock must not return itself"
+        assert next_architecture(dict(fmt, architecture_lock=None)) in names
+
         # X-8: editing the script after voice ran must invalidate downstream stages
         assert stale_script_problems(slug, cut) == []
         with open(os.path.join(vault_dir(slug), "script-hi.md"), "a", encoding="utf-8") as fh:
@@ -466,7 +627,7 @@ def _selftest():
 
 def main(argv=None):
     p = argparse.ArgumentParser(description="finance-pipeline stage postconditions")
-    p.add_argument("mode", nargs="?", choices=["check", "mark", "doctor"])
+    p.add_argument("mode", nargs="?", choices=["check", "mark", "doctor", "architecture"])
     p.add_argument("stage", nargs="?", choices=sorted(CHECKS))
     p.add_argument("--tier", default="short", choices=["short", "medium", "long"])
     p.add_argument("--slug")
@@ -480,6 +641,22 @@ def main(argv=None):
 
     if args.selftest:
         _selftest()
+        return 0
+    if args.mode == "architecture":
+        name = next_architecture()
+        if not name:
+            print("no architectures defined in tools/format.json")
+            return 1
+        fmt = load_format()
+        arch = fmt["architectures"][name]
+        print(name)
+        if fmt.get("architecture_lock") == name:
+            print("  LOCKED — rotation is off (creator decision 2026-07-30). "
+                  "Delete `architecture_lock` in tools/format.json to resume rotating.")
+        print(f"  body_class: {arch.get('body_class') or '(none — the default centred stack)'}")
+        print(f"  {arch.get('summary', '')}")
+        print(f"  spec: {arch.get('reference', '')}")
+        print(f"  recent runs (newest first): {', '.join(recent_architectures()) or '(none)'}")
         return 0
     if args.mode == "doctor":
         problems = doctor(args.tier)

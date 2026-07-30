@@ -1,91 +1,174 @@
 {
-  "_comment": "Single machine-readable home for finance-pipeline constants (spec T6/T30/T32/T36). Prose/design rationale lives in vault/knowledge/design-finance-blockframe.md — never duplicate it here.",
-  "design_doc": "vault/knowledge/design-finance-blockframe.md",
-  "hyperframes_pin": "0.7.66",
-
-  "cuts": {
-    "hi": {
-      "channel": "@cashguruguides",
-      "currency": "₹",
-      "forbidden_currency": "$",
-      "locale": "en-IN",
-      "voice_id": "HTUuC7OeeEt6OL5fViVe",
-      "voice_name": "Harsh",
-      "chars_per_second": 12.5
-    },
-    "en": {
-      "channel": "@moneymavens101",
-      "currency": "$",
-      "forbidden_currency": "₹",
-      "locale": "en-US",
-      "voice_id": "nPczCjzI2devNBz1zQrb",
-      "voice_name": "Brian",
-      "chars_per_second": 15.0
-    }
+ "_comment": "Single machine-readable home for finance-pipeline constants (spec T6/T30/T32/T36). Prose/design rationale lives in vault/knowledge/design-finance-blockframe.md — never duplicate it here.",
+ "design_doc": "vault/knowledge/design-finance-blockframe.md",
+ "hyperframes_pin": "0.7.66",
+ "cuts": {
+  "hi": {
+   "channel": "@cashguruguides",
+   "currency": "₹",
+   "forbidden_currency": "$",
+   "locale": "en-IN",
+   "voice_id": "HTUuC7OeeEt6OL5fViVe",
+   "voice_name": "Harsh",
+   "chars_per_second": 12.5
   },
-
-  "tts": {
-    "model": "eleven_multilingual_v2",
-    "style": 0.0,
-    "tool": "tools/tts/elevenlabs_tts.py",
-    "min_clip_bytes": 10240,
-    "min_clip_seconds": 1.0,
-    "duration_tolerance_pct": 35,
-    "silence_mean_volume_db": -50.0,
-    "timing_ffprobe_tolerance_s": 0.05
+  "en": {
+   "channel": "@moneymavens101",
+   "currency": "$",
+   "forbidden_currency": "₹",
+   "locale": "en-US",
+   "voice_id": "nPczCjzI2devNBz1zQrb",
+   "voice_name": "Brian",
+   "_chars_per_second_note": "16.1 measured across the shipped en cuts (16.11, 16.64). Was 15.0 — an estimate that budgeted every en script ~7% long.",
+   "chars_per_second": 16.1
+  }
+ },
+ "tts": {
+  "model": "eleven_multilingual_v2",
+  "style": 0.0,
+  "tool": "tools/tts/elevenlabs_tts.py",
+  "min_clip_bytes": 10240,
+  "min_clip_seconds": 1.0,
+  "duration_tolerance_pct": 35,
+  "silence_mean_volume_db": -50.0,
+  "timing_ffprobe_tolerance_s": 0.05
+ },
+ "tiers": {
+  "short": {
+   "range_seconds": [
+    60,
+    300
+   ],
+   "default_target_seconds": 165,
+   "architecture": "blockframe-9",
+   "lines": 9,
+   "disk_gb_per_pair": 3.0,
+   "_disk_note": "3.0 measured, not estimated: the good-debt/credit-history pairs came in at 2.81 GB stills-only (fin, 2026-07-30). Was 1.0. Add ~3 GB more per pair if the run uses footage — see video_scene.disk_gb_per_cut_extraction. doctor reserves 2x this."
   },
-
-  "tiers": {
-    "short": {
-      "range_seconds": [60, 300],
-      "default_target_seconds": 165,
-      "architecture": "blockframe-9",
-      "lines": 9,
-      "disk_gb_per_pair": 1.0
-    },
-    "medium": {
-      "target_seconds": 510,
-      "architecture": "per-line-chapters",
-      "reference": "studio/videos/firaun-ka-anjaam/build.py",
-      "disk_gb_per_pair": 3.0
-    },
-    "long": {
-      "min_seconds": 600,
-      "architecture": "per-line-chapters",
-      "reference": "studio/videos/firaun-ka-anjaam/build.py",
-      "disk_gb_per_pair": 4.0
-    }
+  "medium": {
+   "target_seconds": 510,
+   "architecture": "per-line-chapters",
+   "reference": "studio/videos/firaun-ka-anjaam/build.py",
+   "disk_gb_per_pair": 6.0,
+   "_disk_note": "6.0 extrapolated from the measured SHORT figure at ~2.9x the runtime (fin, 2026-07-30). Was 3.0.",
+   "lines": 78
   },
-
-  "scene": {
-    "lead_in_seconds": 0.4,
-    "tail_seconds": 1.0,
-    "max_static_hold_seconds": 2.0
+  "long": {
+   "min_seconds": 600,
+   "architecture": "per-line-chapters",
+   "reference": "studio/videos/firaun-ka-anjaam/build.py",
+   "disk_gb_per_pair": 8.0,
+   "lines": 92
+  }
+ },
+ "scene": {
+  "lead_in_seconds": 0.4,
+  "tail_seconds": 1.0,
+  "max_static_hold_seconds": 2.0,
+  "_transition_note": "Cross-dissolve length. EVERY scene but the last carries data-duration = its duration + this, so the outgoing scene is still on screen while the incoming one fades in. Root duration is unaffected. See tools/scaffold/assets/js/motion.js.",
+  "transition_seconds": 0.45,
+  "target_scene_seconds": 6.5,
+  "max_scene_seconds": 9.0,
+  "_scene_seconds_note": "One VO line = one clip = one scene, so scene COUNT is emergent from the script, never a constant. These bound the felt pace instead: aim ~6.5s per scene, and check_build FAILS any scene holding one photo past max_scene_seconds. Creator 2026-07-31: '9 scenes are too low for medium size video ... looks professional and engaging not dead.' The `lines: 9` on the SHORT tier and on the architecture entries is a SHORT-tier constant — fin-script.md is explicit that at MEDIUM/LONG 'none of the 9-segment constants apply'."
+ },
+ "_architectures_note": "The pipeline ROTATES these — `pipeline_check.py architecture` returns the one least recently used, and the orchestrator writes it into run.json before fin-script runs. Six consecutive blockframe-9 cuts shipped because the only control was a warning written into notes that no code read; the fix is that the default now varies by construction rather than being flagged after the fact. Add an entry here to put a new layout into the rotation.",
+ "_architecture_lock_note": "When set, this WINS over the rotation above and every run uses it — no per-run override, nothing to remember. Creator decision 2026-07-30: the creator reviewed all thirteen candidate styles side by side (nine of them registry-backed) and chose to keep blockframe-9, so the rotation would otherwise hand the next run ledger-rail and silently contradict a decision that was actually made. A lock is the honest representation of 'we picked one'. Delete this key to resume rotating; `doctor` refuses a lock that names an architecture that does not exist, so a typo cannot degrade to silent rotation. The sameness risk this rotation existed to manage is now carried by the non-layout levers instead — transitions (live), the SFX kit (present), and the music bed (see tools/audio/kit.json).",
+ "architecture_lock": "blockframe-9",
+ "_image_per_scene_note": "HARD creator rule, restated 2026-07-30 while rejecting most of the thirteen candidate styles: 'images are compulsury'. Every architecture MUST declare image_per_scene: true and actually carry a photograph in EVERY frame — a style that renders type on flat colour is out of scope no matter how good it looks. `doctor` refuses an architecture without the flag, so a new style cannot be added that quietly drops the image. Pairs with layout.photo_free_scene_ratio = 0.",
+ "_styles_rejected_note": "Reviewed and rejected 2026-07-30 — do not re-propose without new reason. 'news-ticker': we are not making news videos, irrelevant to finance education. 'code-snippet' and 'code-typing': we are not making coding videos. The other registry directions were rejected for carrying no photograph; the ones that can be re-cut to carry one may return. 'x-post'/'reddit-post' was ACCEPTED as an occasional component (not an architecture) — usable only when a real, topical social post exists; see _components.",
+ "_components": {
+  "social-quote": {
+   "status": "approved 2026-07-30",
+   "use": "Quote a REAL, topical social post (X or Reddit) inside a scene when one genuinely relates to the video's argument. A component, never a whole architecture, and never fabricated — an invented post is a fabricated fact and breaks the never-invent rule.",
+   "caution": "Real posts mean real usernames and real people on screen. Prefer posts from institutional or public accounts; do not put a private individual's handle in a monetised video criticising their money decisions."
+  }
+ },
+ "_stock_video_note": "SUPPORTED — corrected 2026-07-30 (an earlier version of this note said the opposite; it was wrong). HyperFrames does not play video in real time: it pre-extracts the clip to frames with ffmpeg and injects the right one as an <img> before each capture (studio/packages/engine/src/services/videoFrameInjector.ts), so rendering stays deterministic. We have already shipped it — compositions/video-02-claude-edits-video/index.html has eight root <video> clips. The grade survives: `filter` and `transform` are in MEDIA_VISUAL_STYLE_PROPERTIES and are copied onto the injected frame.",
+ "video_scene": {
+  "_note": "Load-bearing rules for footage behind a scene. The first one is the trap: it renders BLACK and no linter catches it.",
+  "must_be_root_child": "A <video> MUST be a direct child of #root. Our .bg is a div inside <section class='scene'> — a <video> placed there renders black. Hoist footage to root siblings and give that scene's .scene background: transparent, or its opaque --bg paints over the footage.",
+  "track_indices": [
+   5,
+   6
+  ],
+  "alternate_tracks": true,
+  "no_ken_on_video": "Never apply `ken` to footage — real camera motion and a Ken Burns push fight each other.",
+  "min_clip_seconds_over_scene": 0.45,
+  "_duration_note": "A clip shorter than its scene freezes on its last frame. Scenes run 11-28s and stock clips 8-20s, so pre-loop at fetch time with ffmpeg rather than discovering it at render.",
+  "local_file_only": true,
+  "disk_gb_per_cut_extraction": 1.5
+ },
+ "architectures": {
+  "blockframe-9": {
+   "tier": "short",
+   "lines": 9,
+   "body_class": "",
+   "image_per_scene": true,
+   "summary": "Centred stack over a full-bleed graded photo. The original system.",
+   "reference": "vault/videos/good-debt-vs-bad-debt/src/en/index.html"
   },
-
-  "layout": {
-    "type_ladder_px": [290, 240, 112, 96, 88, 76, 72, 54, 50, 46, 44, 40, 32, 30, 28, 26],
-    "one_focal_per_scene": true,
-    "cue_min_gap_seconds": 0.8,
-    "cascade": { "max_items": 5, "gap_seconds": [0.6, 0.7] },
-    "first_cue_by_seconds": 0.5,
-    "max_simultaneous_elements": 6,
-    "max_chips_per_row": 3,
-    "max_chip_chars": 22,
-    "photo_free_scene_ratio": 0.0,
-    "keyword_images": true
+  "swiss-band": {
+   "tier": "short",
+   "lines": 9,
+   "body_class": "swiss-band",
+   "image_per_scene": true,
+   "summary": "Swiss/Vignelli. A fixed 1920x600 photographic band on a 12-column grid, black title bar above, statement hung from a rule below. Flush left, squared corners, no scrim, no text-shadow, TWO type sizes per scene.",
+   "reference": "vault/knowledge/finance-audit-2026-07-29/11-swiss-vignelli.md",
+   "notes": "The band is a fixed aperture — identical geometry every scene — which unifies nine unrelated photos geometrically instead of with a filter. Dense beats (chip rows, four-row bills, the two-column classifier) must be RESTRUCTURED to fit the 240px statement zone, not shrunk: two type sizes per scene is the rule, from the Vignelli Canon. Vary the aperture across the nine scenes as a sequence, never the same window nine times — that is the anti-sameness engine. Retire the per-scene --tint here: colour is a signifier, not pictorial."
   },
-
-  "colors": {
-    "bg": "#0d1017",
-    "panel": "#161b25",
-    "ink": "#f5f3ec",
-    "muted": "#98a2b3",
-    "positive": "#22c55e",
-    "danger": "#ef4444",
-    "accent": "#f59e0b",
-    "cta": "#ff5c39"
+  "ledger-rail": {
+   "tier": "short",
+   "lines": 9,
+   "body_class": "rail",
+   "image_per_scene": true,
+   "summary": "300px left rail carrying the scene index (thin weight) + beat label; content left-aligned and ragged right; photo confined to a hard-edged right panel, so no scrim and no text-shadow are needed.",
+   "reference": "vault/knowledge/finance-audit-2026-07-29/03-design.md"
+  }
+ },
+ "layout": {
+  "type_ladder_px": [
+   290,
+   240,
+   112,
+   96,
+   88,
+   76,
+   72,
+   54,
+   50,
+   46,
+   44,
+   40,
+   32,
+   30,
+   28,
+   26
+  ],
+  "one_focal_per_scene": true,
+  "cue_min_gap_seconds": 0.8,
+  "cascade": {
+   "max_items": 5,
+   "gap_seconds": [
+    0.6,
+    0.7
+   ]
   },
-
-  "known_benign": []
+  "first_cue_by_seconds": 0.5,
+  "max_simultaneous_elements": 6,
+  "max_chips_per_row": 3,
+  "max_chip_chars": 22,
+  "photo_free_scene_ratio": 0.0,
+  "keyword_images": true
+ },
+ "colors": {
+  "bg": "#0d1017",
+  "panel": "#161b25",
+  "ink": "#f5f3ec",
+  "muted": "#98a2b3",
+  "positive": "#22c55e",
+  "danger": "#ef4444",
+  "accent": "#f59e0b",
+  "cta": "#ff5c39"
+ },
+ "known_benign": []
 }
