@@ -284,11 +284,20 @@ def cmd_candidates(manifest_path, n):
     missing = []
     for slot, raw in manifest.items():
         base = os.path.splitext(slot)[0]
-        provider, query, _ = parse_query(raw)
+        provider, query, want = parse_query(raw)
         hits = ([{"dl": f"FAKE:{query}#{i}", "preview": None, "page": "",
                   "author": "nobody", "license": "no licence", "w": 0, "h": 0}
-                 for i in range(1, n + 1)] if fake
-                else provider_hits(provider, query, n))
+                 for i in range(1, want + n + 1)] if fake
+                else provider_hits(provider, query, want + n))
+        # '#N' is a START OFFSET for the sheet, not just for --query. Without
+        # this the sheet for 'rupee notes#3' was byte-identical to 'rupee notes'
+        # (want was parsed and thrown away), so a deterministic bad top hit — the
+        # demonetised ₹500 pile that owns every rupee query — could not be
+        # escaped on the path fin-assets actually uses.
+        if want:
+            hits = hits[want:] if want < len(hits) else []
+            if not hits:
+                print(f"  ! fewer than {want + 1} hits ({provider}) for '{query}' -> {slot}")
         if not hits:
             print(f"  ! NO RESULTS ({provider}) for '{query}' -> {slot}")
             missing.append(slot)
@@ -299,7 +308,7 @@ def cmd_candidates(manifest_path, n):
             for i, h in enumerate(hits, 1):
                 pv = os.path.join(td, f"p{i:02d}.jpg")
                 if fake:
-                    fake_flat(f"{query}#{i}", pv)
+                    fake_flat(h["dl"].replace("FAKE:", ""), pv)  # true query#N, post-offset
                 else:
                     download(h["preview"] or h["dl"], pv)
                 previews.append(pv)
@@ -312,7 +321,8 @@ def cmd_candidates(manifest_path, n):
         json.dump({"slot": slot, "query": raw, "provider": provider, "cands": cands},
                   open(os.path.join(cdir, f"{base}.json"), "w", encoding="utf-8"),
                   ensure_ascii=False, indent=2)
-        print(f"SHEET _cand/{base}.jpg  {len(cands)} candidates  [{provider}] '{query}'")
+        off = f" from #{want + 1}" if want else ""
+        print(f"SHEET _cand/{base}.jpg  {len(cands)} candidates  [{provider}] '{query}'{off}")
     if missing:
         sys.exit(f"ERROR: {len(missing)} slot(s) returned no candidates: {', '.join(missing)}")
 
@@ -448,6 +458,18 @@ def _selftest():
             assert os.path.getsize(os.path.join(mdir, slot)) > 1000, f"{slot} not promoted"
         credits = open(os.path.join(mdir, "CREDITS.txt"), encoding="utf-8").read()
         assert "a.jpg" in credits and "b.jpg" in credits
+
+        # --- '#N' offsets the SHEET too (it used to be parsed and dropped here,
+        #     so 'q#3' and 'q' produced byte-identical candidates) ---
+        m2 = os.path.join(mdir, "manifest2.json")
+        json.dump({"c.jpg": "bank statement", "d.jpg": "bank statement#3"}, open(m2, "w"))
+        cmd_candidates(m2, 4)
+        c0 = json.load(open(os.path.join(mdir, "_cand", "c.json")))["cands"]
+        d0 = json.load(open(os.path.join(mdir, "_cand", "d.json")))["cands"]
+        assert len(d0) == 4, f"offset sheet should still hold 4 cells, got {len(d0)}"
+        assert c0[0]["full"] != d0[0]["full"], "'#N' ignored on the contact-sheet path"
+        assert d0[0]["full"].endswith("#3"), d0[0]["full"]
+        assert c0[0]["full"].endswith("#1"), c0[0]["full"]
         # a later plain --manifest run must SKIP the picked slots (no clobber)
         picked = open(os.path.join(mdir, "a.jpg"), "rb").read()
         for name, q in json.load(open(mpath)).items():

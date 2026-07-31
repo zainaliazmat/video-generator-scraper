@@ -46,8 +46,32 @@ slug". Never silently overwrite a run.
 ## 2 · Intake — one input + one confirm
 
 1. Topic = the argument. Derive `slug` (kebab-case).
-2. Ask ONE question — the tier — with the default pre-filled:
+2. Ask the **tier**, default pre-filled:
    SHORT (default, target 2:45) · MEDIUM (8:30, mid-roll) · LONG (>10 min).
+2a. **Ask the STYLE too — a second question, exactly like the tier**
+   (creator instruction 2026-07-30: *"ask when i start a new finance video run
+   as you ask question for length as for style"*). Run
+   `python3 tools/pipeline_check.py architecture` to get the **default**, then
+   offer every entry in format.json `architectures` by name with its one-line
+   `summary`, default pre-selected. Write the answer into `run.json` as a
+   top-level `architecture` **before fin-script runs**, and show it in the
+   confirm block. fin-storyboard and fin-build both read it.
+
+   How the default is computed, and why it is only a default: normally the
+   command rotates, returning the least recently used entry; if
+   `architecture_lock` is set it returns that and prints `LOCKED`. The lock
+   records that **blockframe-9 is a decision the creator made on 2026-07-30
+   after reviewing thirteen styles side by side** — so it is the right thing to
+   pre-select, and the wrong thing to impose now that the creator has asked to
+   choose per run. Never "helpfully" vary the layout yourself because the last
+   runs look alike; offer the choice and take the answer. Record in the run log
+   whenever the pick differs from the default.
+
+   **Every architecture carries a photograph in every frame.** That is a hard
+   creator rule — *"images are compulsury"* — and `doctor` refuses any entry
+   that does not declare `image_per_scene: true`, so a style cannot be offered
+   that quietly drops the image. Do not invent a style at intake: the menu is
+   whatever is in `architectures`, nothing else.
 3. Whether fresh numbers are needed is a **grep, not a question**: during
    Phase 1, `fin-facts` verify-only mode applies when
    `vault/knowledge/money-facts-2026.md` already covers the topic's figures.
@@ -56,7 +80,8 @@ slug". Never silently overwrite a run.
 ```
 slug            <slug>
 tier            SHORT · target 2:45
-char budgets    hi ~2,060 (12.5 c/s) · en ~2,475 (15 c/s)   ← from tools/format.json
+style           <name>  (default was <default>[ LOCKED])    ← asked, question 2
+char budgets    hi ~2,060 (12.5 c/s) · en ~2,656 (16.1 c/s) ← from tools/format.json
 voices          hi Harsh HTUuC7OeeEt6OL5fViVe · en Brian nPczCjzI2devNBz1zQrb
 est. TTS chars  ~4,500 across both cuts
 est. wall clock ~2h–3h (≈36 min of that is ffmpeg)
@@ -110,8 +135,36 @@ The render stage is split three ways (a subagent's background task dies when
 the subagent returns — verified 2026-07-28): fin-render invocation 1 does the
 gate-two frame check only; then YOU run the encode as YOUR OWN background task
 (`PRODUCER_ENABLE_CHUNKED_ENCODE=true npm run render -- -q high --resolution
-1080p --video-bitrate 12M` in the project dir); when it completes, fin-render
-invocation 2 does the QA. Notify on terminal states.
+1080p --video-bitrate 12M -o renders/FINAL-1080p-<cut>.mp4` in the project
+dir); when it completes, fin-render invocation 2 does the QA. Notify on
+terminal states.
+
+**Then finish the audio — this is yours, not fin-render's** (its ffmpeg
+allowlist is analysis-only). Both steps must happen before you mark `render`
+done, because `check_render` requires the final file:
+
+```
+tools/audio/mix.py     studio/videos/<slug>-<cut>/renders/FINAL-1080p-<cut>.mp4
+tools/loudnorm.py      studio/videos/<slug>-<cut>/renders/MIXED-1080p-<cut>.mp4 \
+                       studio/videos/<slug>-<cut>/renders/PUBLISH-1080p-<cut>.mp4
+```
+
+`mix.py` lays the music bed and SFX under the voice from the cue list `fin-build`
+wrote to `assets/audio.json`, ducking the bed about 6 dB under speech. It is a
+no-op if there is no cue list and skips any asset that isn't on disk — a missing
+sound never blocks a video. **If it prints "nothing to mix", run `loudnorm.py` on
+`FINAL-` directly** (its default output name handles that case).
+
+`loudnorm.py` then takes the mix to −14 LUFS / −1.5 dBTP true peak.
+**`PUBLISH-…` is the file that gets uploaded**; `FINAL-` stays as the archive
+master. Every cut shipped so far sat at −21 to −22 LUFS against YouTube's −14
+target, and YouTube attenuates loud uploads but never lifts quiet ones — so
+those videos play about 8 dB under everything around them. Both steps are video
+stream-copies: ~30 s total, no re-encode.
+
+**The SFX kit is generated once, not per video.** `tools/audio/sfx.py --kit` is
+cached by name, so a run where all seven exist makes zero API calls. Include it
+in preflight; it is free after the first time.
 
 ## 3a · Pipeline the two cuts (overlap safely — where the wall-clock is won)
 
