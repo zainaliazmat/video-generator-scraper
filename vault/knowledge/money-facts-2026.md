@@ -1,6 +1,6 @@
 ---
 summary: Verified consumer-money numbers for the India (₹) and USA ($) finance videos — salaries, rent, savings rates, debt. Every figure carries its source. This is the pool scripts draw from; nothing goes on screen unless it's here.
-updated: 2026-07-29 (credit-history pass — credit-score ranges, FICO weights, FCRA 7-year rule, risk-based pricing spreads)
+updated: 2026-07-31 (first-lakh-first-thousand pass — India small-savings rates; BEA saving rate corrected to 2.7%)
 source: RBI Annual Report (via Business Standard, May 2026), PLFS Annual Report 2025 (PIB), AMFI, US Census P60-286, BEA Personal Income & Outlays May 2026, Harvard JCHS America's Rental Housing 2026, NY Fed HHDC Q1 2026, TransUnion via Forbes/WalletHub. Researched 2026-07-27 for the 50-30-20 video pair. + Federal Reserve SHED 2025 (rel. May 2026), Fed G.19 / LendingTree Q2 2026, FDIC — added 2026-07-27 for emergency-fund-en.
 ---
 
@@ -46,7 +46,7 @@ video's differentiator vs every translated-from-American finance channel.
 | Fact | Figure | Source / tier |
 |---|---|---|
 | Real median household income | **$83,730 (2024)** | US Census P60-286, rel. 2025-09-09 — **official** |
-| Personal saving rate | **3.0% (May 2026)**, 2.6% April | BEA Personal Income & Outlays — **official** |
+| Personal saving rate | **2.7% (June 2026)**, personal saving $646.1bn | BEA Personal Income & Outlays, rel. 2026-07-30 — **official**, read direct. Supersedes the 3.0% May 2026 figure (first-lakh-first-thousand run, 2026-07-31) |
 | Cost-burdened renters (>30% on rent+utilities) | **22.7M households = 49% of renters** (2024) | Harvard JCHS *America's Rental Housing 2026* — **official-tier** |
 | Severely burdened (>50%) | 12.1M households | JCHS, same |
 | Renters earning $30k–45k who are burdened | 72% | JCHS, same |
@@ -133,6 +133,32 @@ Credit-history terminology and mechanics, sourced independently per market. **Th
 - **"Upper 700s = the best offers" was killed by fin-audit, not promoted.** myFICO backs the band *names* only, and Experian's tier grid is **VantageScore**-based — pairing a FICO band number with those APRs is a cross-model conflation. Standing rule: **never put a FICO band number next to the Experian APR table**, in script or on screen.
 - **India retention has no statutory auto-delete.** CIBIL's own wording is that a missed payment sits in the 36-month month-by-month history and the account history behind it "will always be a part of your credit history". The 36-month figure itself stayed **SOFT** (single-sourced via search index) and is not promoted.
 - **No India regulator figure was verifiable this run.** rbi.org.in (403), cibil.com (403), indiacode.nic.in and both bank domains (refused / DNS failure) were all unreachable. The RBI ₹100/day compensation, the fortnightly 15th/last-day reporting rule and the free annual report right are real-looking but **unread** — they stay in facts-staging.md until someone verifies them from a network path that can reach rbi.org.in.
+
+## Promoted 2026-07-31 (first-lakh-first-thousand run — HARD rows only; SOFT and COMPUTED rows stayed in the run's facts-staging.md)
+
+Small-savings rates are the load-bearing India numbers for any "where do I put
+it" claim, and none of them were in this note before. Every row below is the
+Q2 FY2026-27 notification (1 Jul – 30 Sep 2026), notified 2026-06-30.
+
+| Fact | Figure | Source / tier |
+|---|---|---|
+| Small-savings rates **unchanged for Q2 FY2026-27** — ninth consecutive quarter | — | Dept. of Economic Affairs notification via [Business Today](https://www.businesstoday.in/personal-finance/investment/story/govt-keeps-small-savings-interest-rates-unchanged-for-july-september-quarter-check-latest-ppf-scss-ssy-rates-540090-2026-06-30) + [Business Standard](https://www.business-standard.com/finance/news/small-savings-scheme-interest-rates-unchanged-for-second-quarter-finmin-126063000945_1.html) — **official** (two independent, same notification). ⚠ Say **nine**, not ten: the ministry's own count. |
+| **PPF** | **7.1% p.a.** | Both of the above agree — **official** |
+| Post Office **Savings Account** | **4.0% p.a.** | Business Standard + Business Today — **official** |
+| Post Office **5-yr Recurring Deposit** | **6.7% p.a.** | Business Today table + [Upstox](https://upstox.com/news/personal-finance/investing/recurring-deposit-interest-rate-in-july-2026-sbi-post-offic/article-196456/) — **official** |
+| Post Office **3-yr Time Deposit** | **7.1% p.a.** | Business Today + Business Standard — **official**. 1-yr 6.9% / 2-yr 7.0% / 5-yr 7.5% are **single-source, stayed SOFT** |
+| Fed funds target range | **3.50–3.75%**, last *changed* 2025-12-11 | [federalreserve.gov](https://www.federalreserve.gov/monetarypolicy/openmarket.htm) — **official**, read direct; no change at the 2026-07-29 FOMC |
+| S&P 500 long-run return | **≈10% nominal / ≈7% real** since 1957 — **shape only, never a decimal** | Cited decimals *conflict* across sources (10.69/6.81 Shiller vs 10.33 / 10.59 / 10.3 elsewhere). Say "about ten percent a year"; show `~10%/yr` |
+
+**Re-verified, not re-listed** (already in the tables above, confirmed direct
+2026-07-31): FDIC national savings rate **0.38%** as of 2026-07-20 (money market
+0.65%, rate cap 4.38%); PLFS ₹24,217/₹18,353; RBI 7.0% of GNDI; AMFI ₹500 / ₹250.
+The BEA personal-saving-rate row was **corrected in place** to 2.7% (June 2026).
+
+**Did NOT survive, do not reach for it:** Munger's "the first $100,000 is a
+bitch" has **no reachable primary** — every path is circular secondary blogs, no
+year or venue. It stayed SOFT and off screen. The arithmetic gets there without
+him: at $800/mo and ~10%, the crossover lands ≈$96,000.
 
 ## Rule provenance (both versions)
 
