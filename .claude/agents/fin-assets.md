@@ -95,6 +95,14 @@ works for a one-off, but sheets are the default — viewing six at once is where
 Also note `build_sheet` silently tiles only the previews that downloaded — a
 sheet can come back 1-of-6 without saying so. Count the cells you actually got.
 
+5. **Repeated serial numbers across notes = reproduction / prop money. Reject.**
+   Caught on this run: every note in both stacks read `LB45440078L`. There is no
+   licence problem, but it is the demonetised-₹500 failure in another currency's
+   clothes — money that isn't money, on a money channel. Invisible at
+   contact-sheet size *by construction*, since spotting it needs two notes
+   legible in one frame, which is exactly what the full-resolution read gives you.
+   Same read catches denominations that no US coin carries (a bare `20`, `50 SEN`).
+
 Apply your rejections CONSISTENTLY across the cut. On this run bitcoin props were
 refused on two slots as off-brand and then accepted on scene 1.2, inside the
 cold-open hook — the highest-stakes frames in the video.
