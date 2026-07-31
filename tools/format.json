@@ -189,5 +189,13 @@
   "accent": "#f59e0b",
   "cta": "#ff5c39"
  },
- "known_benign": []
+ "known_benign": [
+  {
+   "finding": "invalid_parent_traversal_in_asset_path",
+   "origin": "tools/scaffold/assets/css/blockframe.css lines 24 and 79 (../fonts/, ../img/)",
+   "why_benign": "Static-analysis false positive about relative urls that resolve correctly at render time. Proven by rendered output on four consecutive cuts: FinanceSans 900 renders including the rupee glyph, and the grain layer is visible in snapshots. No stage that may write this file can reach it.",
+   "preferred_fix": "Structural, not a suppression: move the stylesheet to <project>/assets/blockframe.css and rewrite the urls as fonts/... and img/... . Deliberately NOT done mid-run on 2026-07-31 — the en cut was built and passing hours before encode, and re-pathing the shared scaffold to silence a proven-cosmetic error is the wrong risk. Do it between runs, then delete this entry.",
+   "recorded": "2026-07-31, after fin-build-en flagged it as the fourth consecutive cut reporting it with known_benign still empty"
+  }
+ ]
 }
