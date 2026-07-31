@@ -81,11 +81,16 @@ works for a one-off, but sheets are the default — viewing six at once is where
    paper at 1:1, though vector type stays sharp. Cheap to honour at fetch time,
    impossible to fix afterwards.
 
-3. **Name the currency IN the query — this is the root-cause fix for rule 1.**
+3. **Name the DENOMINATION in the query — the root-cause fix for rule 1.**
    `coin tray`, `coin pile`, `jar of coins` are country-blind, and both pools
-   answer them with whatever was in the photographer's pocket. Measured on this
-   run: the country-blind sheets for s36 and s59 failed all six cells, while
-   `one dollar bill macro@pexels` returned six usable US cells out of six.
+   answer them with whatever was in the photographer's pocket: the sheets for s36
+   and s59 failed all six cells. Naming the currency helps, but naming the
+   denomination is what actually works, because a generic money flatlay is where
+   stock crypto props live — `few dollar bills and coins on a table@pexels`
+   returned **two of six cells carrying gold bitcoin props from a query that
+   never mentions crypto**. `two dollar bill on wooden table`, `one dollar bill
+   macro`, `hundred dollar bills` name an object with no crypto equivalent and
+   returned six clean cells each, no props in any of the three sheets.
    Filtering after the fetch is the expensive way to do what the query does free.
 
 4. **Prefer `@pexels` for any slot with a zoom or a hero number.** Pexels
