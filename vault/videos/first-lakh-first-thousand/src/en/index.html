@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The First $10,000 Is The Hardest — first-lakh-first-thousand (en)</title>
+<link rel="stylesheet" href="assets/css/blockframe.css">
+<style>
+/* ---------------------------------------------------------------------------
+   One-off components for THIS cut only. Everything else is the system.
+   Named .v-* so it is visibly not blockframe.css. Identical to the hi cut's
+   block — storyboard-en.md §3 ports that DOM verbatim, so a fix travels.
+
+   WHY these exist: blockframe.css ships the swiss-band BAND aperture only.
+   The storyboard's aperture programme (§5) needs three more Unigrid picture
+   methods — picture column, reversed field, mosaic. Each is an UNTRANSFORMED
+   wrapper with overflow:hidden, so the window stays a fixed aperture while
+   "ken" moves the photograph inside it, and the wrapper gives the photo the
+   horizontal bleed the system's inset:0 band does not have (without it the
+   ken xPercent exposes a 48px strip of --bg at one edge).
+
+   The window is the wrapper's own box + overflow:hidden, NOT a clip-path:
+   "hyperframes check" warns that ~40 clip-path/blur/radial-gradient elements
+   make the capture layer emit solid black for half a render, and 92 scenes
+   would have carried 100 of them. */
+.v-ap        { position: absolute; z-index: 0; overflow: hidden; }
+.v-ap > .bg  { inset: 0; top: 0; height: 100%; left: -3%; width: 106%; right: auto; }
+.v-ap-b      { top: 180px; height: 600px; left: 0; right: 0; }        /* band      */
+.v-ap-m      { top: 180px; height: 600px; left: 0; right: 650px; }    /* mosaic major */
+.v-ap-min    { top: 180px; height: 600px; left: 1290px; right: 0; }   /* mosaic minor */
+.v-ap-cr     { top: 0; bottom: 0; left: 1290px; right: 0; }           /* picture column R */
+.v-ap-cl     { top: 0; bottom: 0; left: 0; right: 1290px; }           /* picture column L */
+.v-ap-r      { inset: 0; }                                            /* reversed field   */
+
+/* reversed field: a hard-edged tone block on a column line, in place of the
+   four-layer radial scrim the swiss variant deletes */
+.v-tone { position: absolute; left: 0; top: 0; width: 1155px; height: 100%;
+          background: rgba(13, 16, 23, 0.74); z-index: 1; }
+
+/* the type column moves out of the way of the photograph */
+.v-cr .swissbar, .v-cr .swissrule { margin-right: 680px; }
+.v-cr .stack                      { padding-right: 680px; }
+.v-cl .swissbar                   { margin-left: 630px; padding-left: 100px; }
+.v-cl .swissrule                  { margin-left: 730px; }
+.v-cl .stack                      { padding-left: 730px; }
+.v-r  .swissbar, .v-r  .swissrule { margin-right: 765px; }
+.v-r  .stack                      { padding-right: 765px; }
+
+/* blockframe.css puts .swissbar (row 2), .swissrule (row 4) and .stack (row 4)
+   in the same one-column grid but never names a COLUMN. Two items declaring only
+   grid-row 4 are auto-placed into two implicit COLUMNS, so the rule and the
+   statement end up side by side, the black title bar stops mid-frame and every
+   bar wraps. Pinning the column is a layout correction, not a token change.
+   (System defect, reported by the hi build; still unfixed in tools/scaffold.) */
+.v-col1     { grid-column: 1; }
+
+.v-fit      { max-width: 100%; }         /* .stack is a flex column: without a
+                                            cap a long line sizes to max-content
+                                            and runs off the frame            */
+.v-stmt     { line-height: 1.06; }
+.v-ruledraw { transform-origin: left center; }   /* so "fill" draws the rule   */
+.v-stamp-ink{ background: var(--ink); }          /* the one verdict with no
+                                                    role colour (s29)          */
+/* A class list of stamp+warn IS .stamp.warn, so the fill modifier also matches the
+   .warn TEXT-colour modifier — which is declared after .stamp in
+   blockframe.css and wins, painting the verdict red on red. Restore the stamp's
+   dark ink at a specificity the role class cannot beat. (System defect too.) */
+.stamp.v-stamp { color: #0d1017; }
+</style>
+</head>
+<body>
+<div id="root" class="swiss-band" data-composition-id="main" data-start="0" data-duration="505.561" data-width="1920" data-height="1080" style="position:relative;width:1920px;height:1080px;overflow:hidden">
+
+  <section class="scene clip" id="s1" data-track-index="1" data-start="0.000" data-duration="5.691">
+    <div class="v-ap v-ap-b"><div class="bg" id="s1-img" style="background-image:url(assets/img/s1.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s1-bar" style="font-size:96px">THE FIRST $10,000</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s1-rule">
+    <div class="stack v-col1">
+      <p class="huge warn v-fit" id="s1-focal" style="font-size:112px">12.5 MONTHS</p>
+      <p class="foot v-fit" id="s1-foot">CH 1 · 1 / 92 · ILLUSTRATIVE · $800/mo · 0% return · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s2" data-track-index="2" data-start="5.241" data-duration="5.795">
+    <div class="v-ap v-ap-b"><div class="bg" id="s2-img" style="background-image:url(assets/img/s2.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s2-bar" style="font-size:96px">THE TENTH $10,000</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s2-rule">
+    <div class="stack v-col1">
+      <p class="huge fundc v-fit" id="s2-focal" style="font-size:112px">6 MONTHS</p>
+      <p class="foot v-fit" id="s2-foot">CH 1 · 2 / 92 · ILLUSTRATIVE · $800/mo · around 10%/yr · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s3" data-track-index="1" data-start="10.586" data-duration="6.501">
+    <div class="v-ap v-ap-m"><div class="bg" id="s3-img" style="background-image:url(assets/img/s3.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s3-min" style="background-image:url(assets/img/s3m.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s3-bar" style="font-size:96px">SAME $800</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s3-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s3-focal">12.5 months <span class="arr"></span> 6 months</p>
+      <p class="foot v-fit" id="s3-foot">CH 1 · 3 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s4" data-track-index="2" data-start="16.637" data-duration="7.101">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s4-img" style="background-image:url(assets/img/s4.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s4-bar" style="font-size:96px">WHAT CHANGED</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s4-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s4-focal">The second time, $90,000 was already standing behind it</p>
+      <p class="foot v-fit" id="s4-foot">CH 1 · 4 / 92 · Illustrative model — same monthly amount, same rate</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s5" data-track-index="1" data-start="23.288" data-duration="6.030">
+    <div class="v-ap v-ap-r"><div class="bg" id="s5-img" style="background-image:url(assets/img/s5.jpg)"></div></div>
+    <div class="v-tone" id="s5-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s5-bar" style="font-size:96px">THE HARDEST ONE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s5-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s5-focal">The first $10,000 is the hardest money you will ever save</p>
+      <p class="foot v-fit" id="s5-foot">CH 1 · 5 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s6" data-track-index="2" data-start="28.869" data-duration="3.758">
+    <div class="v-ap v-ap-b"><div class="bg" id="s6-img" style="background-image:url(assets/img/s6.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s6-bar" style="font-size:96px">AFTER THAT</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s6-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s6-focal">The money starts doing some of the work</p>
+      <p class="foot v-fit" id="s6-foot">CH 1 · 6 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s7" data-track-index="1" data-start="32.176" data-duration="5.665">
+    <div class="v-ap v-ap-b"><div class="bg" id="s7-img" style="background-image:url(assets/img/s7.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s7-bar" style="font-size:96px">QUESTION ONE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s7-rule">
+    <div class="stack v-col1">
+      <p class="head2 targetc v-fit v-stmt" id="s7-focal">When does that help actually show up?</p>
+      <p class="foot v-fit" id="s7-foot">CH 1 · 7 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s8" data-track-index="2" data-start="37.391" data-duration="4.855">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s8-img" style="background-image:url(assets/img/s8.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s8-bar" style="font-size:96px">QUESTION TWO</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s8-rule">
+    <div class="stack v-col1">
+      <p class="head2 targetc v-fit v-stmt" id="s8-focal">How much does picking the right account change it?</p>
+      <p class="foot v-fit" id="s8-foot">CH 1 · 8 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s9" data-track-index="1" data-start="41.796" data-duration="5.508">
+    <div class="v-ap v-ap-b"><div class="bg" id="s9-img" style="background-image:url(assets/img/s9.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s9-bar" style="font-size:96px">QUESTION THREE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s9-rule">
+    <div class="stack v-col1">
+      <p class="head2 targetc v-fit v-stmt" id="s9-focal">And if $800 a month isn't there?</p>
+      <p class="foot v-fit" id="s9-foot">CH 1 · 9 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s10" data-track-index="2" data-start="46.854" data-duration="5.848">
+    <div class="v-ap v-ap-b"><div class="bg" id="s10-img" style="background-image:url(assets/img/s10.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s10-bar" style="font-size:96px">FIRST, THE ARITHMETIC</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s10-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s10-focal">The sum nobody does at the start</p>
+      <p class="foot v-fit" id="s10-foot">CH 1 · 10 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s11" data-track-index="1" data-start="52.251" data-duration="5.848">
+    <div class="v-ap v-ap-b"><div class="bg" id="s11-img" style="background-image:url(assets/img/s11.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s11-bar" style="font-size:96px">THE EXAMPLE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s11-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s11-focal">$4,000 take-home · $800 set aside</p>
+      <p class="foot v-fit" id="s11-foot">CH 2 · 11 / 92 · Channel worked-example convention — not a national average</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s12" data-track-index="2" data-start="57.649" data-duration="5.612">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s12-img" style="background-image:url(assets/img/s12.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s12-bar" style="font-size:96px">PER YEAR</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s12-rule">
+    <div class="stack v-col1">
+      <p class="huge  v-fit" id="s12-focal" style="font-size:112px">$9,600</p>
+      <p class="foot v-fit" id="s12-foot">CH 2 · 12 / 92 · $800 a month for 12 months — deposits only, no return</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s13" data-track-index="1" data-start="62.811" data-duration="5.612">
+    <div class="v-ap v-ap-b"><div class="bg" id="s13-img" style="background-image:url(assets/img/s13.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s13-bar" style="font-size:96px">AT 0%</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s13-rule">
+    <div class="stack v-col1">
+      <p class="huge warn v-fit" id="s13-focal" style="font-size:112px">12.5 MONTHS</p>
+      <p class="foot v-fit" id="s13-foot">CH 2 · 13 / 92 · ILLUSTRATIVE · $800/mo · 0% · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s14" data-track-index="2" data-start="67.974" data-duration="7.781">
+    <div class="v-ap v-ap-b"><div class="bg" id="s14-img" style="background-image:url(assets/img/s14.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s14-bar" style="font-size:96px">AT AROUND 10%/YR</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s14-rule">
+    <div class="stack v-col1">
+      <p class="head2 targetc v-fit v-stmt" id="s14-focal">The long-run shape of the US market</p>
+      <p class="foot v-fit" id="s14-foot">CH 2 · 14 / 92 · S&amp;P 500 around 10% nominal / around 7% after inflation since 1957 — a shape, never a decimal</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s15" data-track-index="1" data-start="75.304" data-duration="3.601">
+    <div class="v-ap v-ap-b"><div class="bg" id="s15-img" style="background-image:url(assets/img/s15.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s15-bar" style="font-size:96px">AT AROUND 10%</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s15-rule">
+    <div class="stack v-col1">
+      <p class="huge  v-fit" id="s15-focal" style="font-size:112px">12 MONTHS</p>
+      <p class="foot v-fit" id="s15-foot">CH 2 · 15 / 92 · ILLUSTRATIVE · $800/mo · around 10%/yr · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s16" data-track-index="2" data-start="78.456" data-duration="8.381">
+    <div class="v-ap v-ap-m"><div class="bg" id="s16-img" style="background-image:url(assets/img/s16.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s16-min" style="background-image:url(assets/img/s15.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s16-bar" style="font-size:96px">WHAT THE MARKET BOUGHT YOU</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s16-rule">
+    <div class="stack v-col1">
+      <p class="huge warn v-fit" id="s16-focal" style="font-size:112px">0.5 MONTHS</p>
+      <p class="foot v-fit" id="s16-foot">CH 2 · 16 / 92 · 12.5 months <span class="arr"></span> 12 months, on the first $10,000</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s17" data-track-index="1" data-start="86.387" data-duration="5.430">
+    <div class="v-ap v-ap-b"><div class="bg" id="s17-img" style="background-image:url(assets/img/s17.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s17-bar" style="font-size:96px">WHY</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s17-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s17-focal">There is no balance for a return to act on yet</p>
+      <p class="foot v-fit" id="s17-foot">CH 2 · 17 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s18" data-track-index="2" data-start="91.367" data-duration="5.926">
+    <div class="v-ap v-ap-b"><div class="bg" id="s18-img" style="background-image:url(assets/img/s18.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s18-bar" style="font-size:96px">SAY IT PLAINLY</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s18-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s18-focal">Model output — not a statistic, not a promise</p>
+      <p class="foot v-fit" id="s18-foot">CH 2 · 18 / 92 · Every math frame in this video carries its monthly amount and its rate</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s19" data-track-index="1" data-start="96.842" data-duration="6.710">
+    <div class="v-ap v-ap-r"><div class="bg" id="s19-img" style="background-image:url(assets/img/s19.jpg)"></div></div>
+    <div class="v-tone" id="s19-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s19-bar" style="font-size:96px">THE FIRST $10,000</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s19-rule">
+    <div class="stack v-col1">
+      <p class="stamp v-stamp warn v-fit" id="s19-focal" style="font-size:44px">100% savings · 0% returns</p>
+      <p class="foot v-fit" id="s19-foot">CH 2 · 19 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s20" data-track-index="2" data-start="103.102" data-duration="5.978">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s20-img" style="background-image:url(assets/img/s20.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s20-bar" style="font-size:76px">NOT AN ACCOUNT PROBLEM</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s20-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s20-focal">Nothing you can open fixes this part</p>
+      <p class="foot v-fit" id="s20-foot">CH 2 · 20 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s21" data-track-index="1" data-start="108.630" data-duration="6.161">
+    <div class="v-ap v-ap-b"><div class="bg" id="s21-img" style="background-image:url(assets/img/s21.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s21-bar" style="font-size:96px">SAME INPUT</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s21-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s21-focal">$800 a month · nothing else changes</p>
+      <p class="foot v-fit" id="s21-foot">CH 3 · 21 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s22" data-track-index="2" data-start="114.341" data-duration="6.866">
+    <div class="v-ap v-ap-m"><div class="bg" id="s22-img" style="background-image:url(assets/img/s22.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s22-min" style="background-image:url(assets/img/s22m.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s22-bar" style="font-size:96px">THE SECOND $10,000</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s22-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s22-focal">0% <span class="arr"></span> 12.5 months · around 10% <span class="arr"></span> 11 months</p>
+      <p class="foot v-fit" id="s22-foot">CH 3 · 22 / 92 · ILLUSTRATIVE · $800/mo · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s23" data-track-index="1" data-start="120.758" data-duration="4.411">
+    <div class="v-ap v-ap-b"><div class="bg" id="s23-img" style="background-image:url(assets/img/s23.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s23-bar" style="font-size:96px">THE GAP GROWS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s23-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s23-focal">0.5 months <span class="arr"></span> 1.5 months</p>
+      <p class="foot v-fit" id="s23-foot">CH 3 · 23 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s24" data-track-index="2" data-start="124.718" data-duration="5.691">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s24-img" style="background-image:url(assets/img/s24.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s24-bar" style="font-size:96px">THE TENTH $10,000</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s24-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s24-focal">$90,000 <span class="arr"></span> $100,000</p>
+      <p class="foot v-fit" id="s24-foot">CH 3 · 24 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s25" data-track-index="1" data-start="129.959" data-duration="6.292">
+    <div class="v-ap v-ap-b"><div class="bg" id="s25-img" style="background-image:url(assets/img/s25.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s25-bar" style="font-size:96px">STILL AT 0%</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s25-rule">
+    <div class="stack v-col1">
+      <p class="huge warn v-fit" id="s25-focal" style="font-size:112px">12.5 MONTHS</p>
+      <p class="foot v-fit" id="s25-foot">CH 3 · 25 / 92 · ILLUSTRATIVE · $800/mo · 0% — the interval never shortens</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s26" data-track-index="2" data-start="135.801" data-duration="5.691">
+    <div class="v-ap v-ap-b"><div class="bg" id="s26-img" style="background-image:url(assets/img/s26.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s26-bar" style="font-size:96px">WITH RETURNS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s26-rule">
+    <div class="stack v-col1">
+      <p class="huge fundc v-fit" id="s26-focal" style="font-size:112px">6 MONTHS</p>
+      <p class="foot v-fit" id="s26-foot">CH 3 · 26 / 92 · ILLUSTRATIVE · $800/mo · around 10%/yr · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s27" data-track-index="1" data-start="141.042" data-duration="6.030">
+    <div class="v-ap v-ap-b"><div class="bg" id="s27-img" style="background-image:url(assets/img/s27.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s27-bar" style="font-size:96px">WHY</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s27-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s27-focal">The market didn't change. The balance did.</p>
+      <p class="foot v-fit" id="s27-foot">CH 3 · 27 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s28" data-track-index="2" data-start="146.622" data-duration="7.128">
+    <div class="v-ap v-ap-r"><div class="bg" id="s28-img" style="background-image:url(assets/img/s28.jpg)"></div></div>
+    <div class="v-tone" id="s28-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s28-bar" style="font-size:96px">0.5 vs 6.5</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s28-rule">
+    <div class="stack v-col1">
+      <p class="huge fundc v-fit" id="s28-focal" style="font-size:112px">6.5 MONTHS</p>
+      <p class="foot v-fit" id="s28-foot">CH 3 · 28 / 92 · The same return, on the tenth $10,000 instead of the first</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s29" data-track-index="1" data-start="153.300" data-duration="6.501">
+    <div class="v-ap v-ap-m"><div class="bg" id="s29-img" style="background-image:url(assets/img/s29.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s29-min" style="background-image:url(assets/img/s28.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s29-bar" style="font-size:96px">THIS IS THE VIDEO</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s29-rule">
+    <div class="stack v-col1">
+      <p class="stamp v-stamp v-stamp-ink v-fit" id="s29-focal" style="font-size:44px">0.5 months at the start. 6.5 at the tenth.</p>
+      <p class="foot v-fit" id="s29-foot">CH 3 · 29 / 92 · ILLUSTRATIVE — figures rounded to the nearest month</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s30" data-track-index="2" data-start="159.350" data-duration="4.437">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s30-img" style="background-image:url(assets/img/s30.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s30-bar" style="font-size:76px">THE PART NOBODY SAYS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s30-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s30-focal">Nobody runs this sum for you at the start</p>
+      <p class="foot v-fit" id="s30-foot">CH 3 · 30 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s31" data-track-index="1" data-start="163.337" data-duration="5.430">
+    <div class="v-ap v-ap-b"><div class="bg" id="s31-img" style="background-image:url(assets/img/s31.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s31-bar" style="font-size:96px">WHERE THE TIME GOES</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s31-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s31-focal">What do people spend the first months on?</p>
+      <p class="foot v-fit" id="s31-foot">CH 4 · 31 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s32" data-track-index="2" data-start="168.317" data-duration="6.866">
+    <div class="v-ap v-ap-b"><div class="bg" id="s32-img" style="background-image:url(assets/img/s32.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s32-bar" style="font-size:96px">THE SEARCH</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s32-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s32-focal">The right app. The right rate. The right fund.</p>
+      <p class="foot v-fit" id="s32-foot">CH 4 · 32 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s33" data-track-index="1" data-start="174.733" data-duration="7.781">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s33-img" style="background-image:url(assets/img/s33.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s33-bar" style="font-size:96px">WHAT IT WAS WORTH</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s33-rule">
+    <div class="stack v-col1">
+      <p class="huge  v-fit" id="s33-focal" style="font-size:112px">0.5 MONTHS</p>
+      <p class="foot v-fit" id="s33-foot">CH 4 · 33 / 92 · ILLUSTRATIVE — the entire gap between 0% and around 10%/yr on the first $10,000</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s34" data-track-index="2" data-start="182.064" data-duration="5.665">
+    <div class="v-ap v-ap-b"><div class="bg" id="s34-img" style="background-image:url(assets/img/s34.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s34-bar" style="font-size:96px">THE REAL COST</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s34-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s34-focal">Six months not starting, to win half of one</p>
+      <p class="foot v-fit" id="s34-foot">CH 4 · 34 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s35" data-track-index="1" data-start="187.278" data-duration="5.508">
+    <div class="v-ap v-ap-b"><div class="bg" id="s35-img" style="background-image:url(assets/img/s35.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s35-bar" style="font-size:96px">THE DECIDING NUMBER</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s35-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s35-focal">And this one is published, not modelled</p>
+      <p class="foot v-fit" id="s35-foot">CH 4 · 35 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s36" data-track-index="2" data-start="192.336" data-duration="4.907">
+    <div class="v-ap v-ap-b"><div class="bg" id="s36-img" style="background-image:url(assets/img/s36.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s36-bar" style="font-size:96px">NATIONAL SAVING RATE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s36-rule">
+    <div class="stack v-col1">
+      <p class="huge warn v-fit" id="s36-focal" style="font-size:112px">2.7%</p>
+      <p class="foot v-fit" id="s36-foot">CH 4 · 36 / 92 · BEA, Personal Income and Outlays, June 2026 (released 30 Jul 2026)</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s37" data-track-index="1" data-start="196.793" data-duration="5.508">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s37-img" style="background-image:url(assets/img/s37.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s37-bar" style="font-size:96px">WHAT THAT IS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s37-rule">
+    <div class="stack v-col1">
+      <p class="huge  v-fit" id="s37-focal" style="font-size:112px">$108/mo</p>
+      <p class="foot v-fit" id="s37-foot">CH 4 · 37 / 92 · 2.7% of the $4,000 worked example — illustrative arithmetic on a published rate</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s38" data-track-index="2" data-start="201.851" data-duration="7.180">
+    <div class="v-ap v-ap-m"><div class="bg" id="s38-img" style="background-image:url(assets/img/s38.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s38-min" style="background-image:url(assets/img/s13.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s38-bar" style="font-size:96px">AT 2.7%</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s38-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s38-focal">7.7 years · 5.7 years with the market</p>
+      <p class="foot v-fit" id="s38-foot">CH 4 · 38 / 92 · ILLUSTRATIVE · $108/mo · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s39" data-track-index="1" data-start="208.581" data-duration="6.762">
+    <div class="v-ap v-ap-r"><div class="bg" id="s39-img" style="background-image:url(assets/img/s39.jpg)"></div></div>
+    <div class="v-tone" id="s39-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s39-bar" style="font-size:96px">THE ONLY VARIABLE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s39-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s39-focal">Not the return rate. The savings rate.</p>
+      <p class="foot v-fit" id="s39-foot">CH 4 · 39 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s40" data-track-index="2" data-start="214.893" data-duration="7.049">
+    <div class="v-ap v-ap-b"><div class="bg" id="s40-img" style="background-image:url(assets/img/s40.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s40-bar" style="font-size:96px">NOT WORTH WAITING FOR</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s40-rule">
+    <div class="stack v-col1">
+      <p class="head2 targetc v-fit v-stmt" id="s40-focal">The federal funds target range: unchanged</p>
+      <p class="foot v-fit" id="s40-foot">CH 4 · 40 / 92 · Federal Reserve, open market operations — 3.50–3.75%, last changed 11 Dec 2025</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s41" data-track-index="1" data-start="221.492" data-duration="4.489">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s41-img" style="background-image:url(assets/img/s41.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s41-bar" style="font-size:96px">YOURS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s41-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s41-focal">The only number fully in your control</p>
+      <p class="foot v-fit" id="s41-foot">CH 4 · 41 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s42" data-track-index="2" data-start="225.531" data-duration="4.620">
+    <div class="v-ap v-ap-b"><div class="bg" id="s42-img" style="background-image:url(assets/img/s42.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s42-bar" style="font-size:96px">QUESTION ONE, ANSWERED</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s42-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s42-focal">When does the money start helping?</p>
+      <p class="foot v-fit" id="s42-foot">CH 5 · 42 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s43" data-track-index="1" data-start="229.701" data-duration="5.247">
+    <div class="v-ap v-ap-b"><div class="bg" id="s43-img" style="background-image:url(assets/img/s43.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s43-bar" style="font-size:96px">THE POINT</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s43-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s43-focal">The year your money earns what you save</p>
+      <p class="foot v-fit" id="s43-foot">CH 5 · 43 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s44" data-track-index="2" data-start="234.498" data-duration="2.634">
+    <div class="v-ap v-ap-b"><div class="bg" id="s44-img" style="background-image:url(assets/img/s43.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s44-bar" style="font-size:96px">THE WORD</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s44-rule">
+    <div class="stack v-col1">
+      <p class="huge targetc v-fit" id="s44-focal" style="font-size:112px">CROSSOVER</p>
+      <p class="foot v-fit" id="s44-foot">CH 5 · 44 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s45" data-track-index="1" data-start="236.682" data-duration="7.519">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s45-img" style="background-image:url(assets/img/s45.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s45-bar" style="font-size:96px">THE TEST</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s45-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s45-focal">When does the balance earn $9,600 in a year?</p>
+      <p class="foot v-fit" id="s45-foot">CH 5 · 45 / 92 · $800/mo for 12 months = $9,600 a year in</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s46" data-track-index="2" data-start="243.752" data-duration="5.456">
+    <div class="v-ap v-ap-m"><div class="bg" id="s46-img" style="background-image:url(assets/img/s46.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s46-min" style="background-image:url(assets/img/s43.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s46-bar" style="font-size:96px">WHERE IT LANDS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s46-rule">
+    <div class="stack v-col1">
+      <p class="huge targetc v-fit" id="s46-focal" style="font-size:112px">NEAR $96,000</p>
+      <p class="foot v-fit" id="s46-foot">CH 5 · 46 / 92 · ILLUSTRATIVE · $9,600/yr contribution · around 10%/yr · monthly compounding</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s47" data-track-index="1" data-start="248.758" data-duration="7.180">
+    <div class="v-ap v-ap-r"><div class="bg" id="s47-img" style="background-image:url(assets/img/s47.jpg)"></div></div>
+    <div class="v-tone" id="s47-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s47-bar" style="font-size:96px">THE REAL TURN</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s47-rule">
+    <div class="stack v-col1">
+      <p class="huge targetc v-fit" id="s47-focal" style="font-size:112px">NEAR $100,000</p>
+      <p class="foot v-fit" id="s47-foot">CH 5 · 47 / 92 · Not $10,000 — the crossover sits roughly ten times further out</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s48" data-track-index="2" data-start="255.487" data-duration="4.489">
+    <div class="v-ap v-ap-b"><div class="bg" id="s48-img" style="background-image:url(assets/img/s48.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s48-bar" style="font-size:96px">THE LINE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s48-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s48-focal">A number a lot of people have heard before</p>
+      <p class="foot v-fit" id="s48-foot">CH 5 · 48 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s49" data-track-index="1" data-start="259.527" data-duration="8.068">
+    <div class="v-ap v-ap-b"><div class="bg" id="s49-img" style="background-image:url(assets/img/s49.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s49-bar" style="font-size:96px">WIDELY REPORTED</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s49-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s49-focal">Munger's line: the first $100,000 is the hardest — after that, ease off the gas</p>
+      <p class="foot v-fit" id="s49-foot">CH 5 · 49 / 92 · Charlie Munger, as widely reported. PARAPHRASE — no quotation marks, no year, no venue: no primary source is reachable</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s50" data-track-index="2" data-start="267.144" data-duration="5.795">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s50-img" style="background-image:url(assets/img/s50.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s50-bar" style="font-size:96px">NOT A SLOGAN</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s50-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s50-focal">The quote and the sum land on the same number</p>
+      <p class="foot v-fit" id="s50-foot">CH 5 · 50 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s51" data-track-index="1" data-start="272.490" data-duration="6.814">
+    <div class="v-ap v-ap-r"><div class="bg" id="s51-img" style="background-image:url(assets/img/s51.jpg)"></div></div>
+    <div class="v-tone" id="s51-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s51-bar" style="font-size:96px">THIS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s51-rule">
+    <div class="stack v-col1">
+      <p class="stamp v-stamp fund v-fit" id="s51-focal" style="font-size:40px">The first $10,000 is where the HABIT takes over</p>
+      <p class="foot v-fit" id="s51-foot">CH 5 · 51 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s52" data-track-index="2" data-start="278.854" data-duration="4.855">
+    <div class="v-ap v-ap-b"><div class="bg" id="s52-img" style="background-image:url(assets/img/s52.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s52-bar" style="font-size:96px">THE ONLY ROUTE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s52-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s52-focal">There is no path to $100,000 that skips it</p>
+      <p class="foot v-fit" id="s52-foot">CH 5 · 52 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s53" data-track-index="1" data-start="283.259" data-duration="5.012">
+    <div class="v-ap v-ap-b"><div class="bg" id="s53-img" style="background-image:url(assets/img/s53.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s53-bar" style="font-size:96px">QUESTION THREE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s53-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s53-focal">And if $800 a month simply isn't there?</p>
+      <p class="foot v-fit" id="s53-foot">CH 6 · 53 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s54" data-track-index="2" data-start="287.820" data-duration="6.579">
+    <div class="v-ap v-ap-b"><div class="bg" id="s54-img" style="background-image:url(assets/img/s54.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s54-bar" style="font-size:96px">THE REAL SPREAD</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s54-rule">
+    <div class="stack v-col1">
+      <p class="huge  v-fit" id="s54-focal" style="font-size:112px">$1,251/wk</p>
+      <p class="foot v-fit" id="s54-foot">CH 6 · 54 / 92 · BLS, median usual weekly earnings, full-time wage and salary workers, Q2 2026</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s55" data-track-index="1" data-start="293.949" data-duration="6.762">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s55-img" style="background-image:url(assets/img/s55.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s55-bar" style="font-size:96px">THE MARGIN</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s55-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s55-focal">Around 4 in 10 couldn't cover $400 in cash or its equivalent</p>
+      <p class="foot v-fit" id="s55-foot">CH 6 · 55 / 92 · Federal Reserve, Survey of Household Economics and Decisionmaking 2025 — 63% could, using cash, savings or a card paid in full</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s56" data-track-index="2" data-start="300.261" data-duration="6.083">
+    <div class="v-ap v-ap-b"><div class="bg" id="s56-img" style="background-image:url(assets/img/s56.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s56-bar" style="font-size:96px">NOT AN AVERAGE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s56-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s56-focal">$800 is the output of a split</p>
+      <p class="foot v-fit" id="s56-foot">CH 6 · 56 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s57" data-track-index="1" data-start="305.894" data-duration="7.284">
+    <div class="v-ap v-ap-b"><div class="bg" id="s57-img" style="background-image:url(assets/img/s57.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s57-bar" style="font-size:96px">20% OF $4,000</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s57-rule">
+    <div class="stack v-col1">
+      <p class="huge  v-fit" id="s57-focal" style="font-size:112px">$800</p>
+      <p class="foot v-fit" id="s57-foot">CH 6 · 57 / 92 · Every figure in this video runs on this one input</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s58" data-track-index="2" data-start="312.728" data-duration="6.919">
+    <div class="v-ap v-ap-b"><div class="bg" id="s58-img" style="background-image:url(assets/img/s58.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s58-bar" style="font-size:96px">BE HONEST ABOUT IT</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s58-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s58-focal">A target for the math — not a statistic</p>
+      <p class="foot v-fit" id="s58-foot">CH 6 · 58 / 92 · Compare: the actual national saving rate is 2.7% (BEA, June 2026)</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s59" data-track-index="1" data-start="319.197" data-duration="5.795">
+    <div class="v-ap v-ap-m"><div class="bg" id="s59-img" style="background-image:url(assets/img/s59.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s59-min" style="background-image:url(assets/img/s11.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s59-bar" style="font-size:96px">YOUR 20%</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s59-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s59-focal">If yours is $200, you start at $200</p>
+      <p class="foot v-fit" id="s59-foot">CH 6 · 59 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s60" data-track-index="2" data-start="324.542" data-duration="5.795">
+    <div class="v-ap v-ap-b"><div class="bg" id="s60-img" style="background-image:url(assets/img/s60.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s60-bar" style="font-size:96px">HONESTLY</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s60-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s60-focal">Then the first $10,000 is further away. That's the truth.</p>
+      <p class="foot v-fit" id="s60-foot">CH 6 · 60 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s61" data-track-index="1" data-start="329.887" data-duration="5.430">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s61-img" style="background-image:url(assets/img/s61.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s61-bar" style="font-size:96px">THE REAL BLOCKER</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s61-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s61-focal">Not the amount. The date that never arrives.</p>
+      <p class="foot v-fit" id="s61-foot">CH 6 · 61 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s62" data-track-index="2" data-start="334.867" data-duration="6.292">
+    <div class="v-ap v-ap-b"><div class="bg" id="s62-img" style="background-image:url(assets/img/s62.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s62-bar" style="font-size:96px">THE COMPARISON THAT MATTERS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s62-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s62-focal">Small and running beats perfect and unbuilt</p>
+      <p class="foot v-fit" id="s62-foot">CH 6 · 62 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s63" data-track-index="1" data-start="340.709" data-duration="4.202">
+    <div class="v-ap v-ap-b"><div class="bg" id="s63-img" style="background-image:url(assets/img/s63.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s63-bar" style="font-size:96px">PICTURE THIS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s63-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s63-focal">A cold fire pit and a cold morning</p>
+      <p class="foot v-fit" id="s63-foot">CH 7 · 63 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s64" data-track-index="2" data-start="344.460" data-duration="4.306">
+    <div class="v-ap v-ap-b"><div class="bg" id="s64-img" style="background-image:url(assets/img/s64.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s64-bar" style="font-size:96px">WHAT YOU HAVE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s64-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s64-focal">Matches. Kindling. That's it.</p>
+      <p class="foot v-fit" id="s64-foot">CH 7 · 64 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s65" data-track-index="1" data-start="348.317" data-duration="6.866">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s65-img" style="background-image:url(assets/img/s65.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s65-bar" style="font-size:96px">THE ONLY WAY</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s65-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s65-focal">The first heat is you, kneeling, one stick at a time</p>
+      <p class="foot v-fit" id="s65-foot">CH 7 · 65 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s66" data-track-index="2" data-start="354.733" data-duration="5.612">
+    <div class="v-ap v-ap-b"><div class="bg" id="s66-img" style="background-image:url(assets/img/s66.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s66-bar" style="font-size:96px">WHY IT GIVES NOTHING BACK</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s66-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s66-focal">There is nothing there yet to hold heat</p>
+      <p class="foot v-fit" id="s66-foot">CH 7 · 66 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s67" data-track-index="1" data-start="359.896" data-duration="5.456">
+    <div class="v-ap v-ap-b"><div class="bg" id="s67-img" style="background-image:url(assets/img/s67.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s67-bar" style="font-size:96px">AS IT BUILDS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s67-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s67-focal">The coals start doing the lighting</p>
+      <p class="foot v-fit" id="s67-foot">CH 7 · 67 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s68" data-track-index="2" data-start="364.901" data-duration="5.508">
+    <div class="v-ap v-ap-b"><div class="bg" id="s68-img" style="background-image:url(assets/img/s68.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s68-bar" style="font-size:96px">ONE LOG, LATER</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s68-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s68-focal">The same log. Far more heat.</p>
+      <p class="foot v-fit" id="s68-foot">CH 7 · 68 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s69" data-track-index="1" data-start="369.959" data-duration="8.590">
+    <div class="v-ap v-ap-b"><div class="bg" id="s69-img" style="background-image:url(assets/img/s69.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s69-bar" style="font-size:88px">THAT MOMENT IS THE CROSSOVER</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s69-rule">
+    <div class="stack v-col1">
+      <p class="stamp v-stamp target v-fit" id="s69-focal" style="font-size:44px">It comes long AFTER the first armful — never in it</p>
+      <p class="foot v-fit" id="s69-foot">CH 7 · 69 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s70" data-track-index="2" data-start="378.100" data-duration="6.213">
+    <div class="v-ap v-ap-b"><div class="bg" id="s70-img" style="background-image:url(assets/img/s70.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s70-bar" style="font-size:96px">WHERE THE ANALOGY BREAKS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s70-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s70-focal">Fires go out. Markets have bad years.</p>
+      <p class="foot v-fit" id="s70-foot">CH 7 · 70 / 92 · Long-run market returns are a historical shape, not a promise</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s71" data-track-index="1" data-start="383.863" data-duration="5.325">
+    <div class="v-ap v-ap-b"><div class="bg" id="s71-img" style="background-image:url(assets/img/s71.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s71-bar" style="font-size:96px">THREE THINGS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s71-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s71-focal">All three are boring</p>
+      <p class="foot v-fit" id="s71-foot">CH 8 · 71 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s72" data-track-index="2" data-start="388.738" data-duration="6.396">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s72-img" style="background-image:url(assets/img/s72.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s72-bar" style="font-size:96px">ONE — PICK A DATE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s72-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s72-focal">A date, not an intention. The day after payday.</p>
+      <p class="foot v-fit" id="s72-foot">CH 8 · 72 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s73" data-track-index="1" data-start="394.684" data-duration="6.083">
+    <div class="v-ap v-ap-b"><div class="bg" id="s73-img" style="background-image:url(assets/img/s73.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s73-bar" style="font-size:96px">WHY NOT LATER</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s73-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s73-focal">What's left at month end is always zero</p>
+      <p class="foot v-fit" id="s73-foot">CH 8 · 73 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s74" data-track-index="2" data-start="400.317" data-duration="4.855">
+    <div class="v-ap v-ap-b"><div class="bg" id="s74-img" style="background-image:url(assets/img/s74.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s74-bar" style="font-size:96px">TWO — THE ESCALATOR</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s74-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s74-focal">Raise the saving, not the spending</p>
+      <p class="foot v-fit" id="s74-foot">CH 8 · 74 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s75" data-track-index="1" data-start="404.722" data-duration="5.560">
+    <div class="v-ap v-ap-b"><div class="bg" id="s75-img" style="background-image:url(assets/img/s75.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s75-bar" style="font-size:96px">THE WHOLE RAISE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s75-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s75-focal">Add all of the next raise to the same transfer</p>
+      <p class="foot v-fit" id="s75-foot">CH 8 · 75 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s76" data-track-index="2" data-start="409.832" data-duration="6.683">
+    <div class="v-ap v-ap-b"><div class="bg" id="s76-img" style="background-image:url(assets/img/s76.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s76-bar" style="font-size:96px">NOTHING CHANGES</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s76-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s76-focal">Your life stays yesterday's. The rate quietly climbs.</p>
+      <p class="foot v-fit" id="s76-foot">CH 8 · 76 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s77" data-track-index="1" data-start="416.065" data-duration="6.083">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s77-img" style="background-image:url(assets/img/s77.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s77-bar" style="font-size:76px">THREE — MAKE IT HARD</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s77-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s77-focal">A different bank. No debit card. A day or two away.</p>
+      <p class="foot v-fit" id="s77-foot">CH 8 · 77 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s78" data-track-index="2" data-start="421.698" data-duration="7.963">
+    <div class="v-ap v-ap-b"><div class="bg" id="s78-img" style="background-image:url(assets/img/s78.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s78-bar" style="font-size:96px">THE ACCOUNT QUESTION</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s78-rule">
+    <div class="stack v-col1">
+      <p class="huge targetc v-fit" id="s78-focal" style="font-size:112px">0.38%</p>
+      <p class="foot v-fit" id="s78-foot">CH 8 · 78 / 92 · FDIC national rate, savings deposits, as of 20 Jul 2026. Price evidence, not a recommendation — no product APY appears in this video</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s79" data-track-index="1" data-start="429.211" data-duration="5.691">
+    <div class="v-ap v-ap-b"><div class="bg" id="s79-img" style="background-image:url(assets/img/s79.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s79-bar" style="font-size:96px">FIVE MINUTES</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s79-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s79-focal">That's the whole account question</p>
+      <p class="foot v-fit" id="s79-foot">CH 8 · 79 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s80" data-track-index="2" data-start="434.452" data-duration="4.594">
+    <div class="v-ap v-ap-b"><div class="bg" id="s80-img" style="background-image:url(assets/img/s80.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s80-bar" style="font-size:96px">THE ORDER</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s80-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s80-focal">Safety <span class="arr"></span> stability <span class="arr"></span> growth</p>
+      <p class="foot v-fit" id="s80-foot">CH 8 · 80 / 92 · An ordering, not a product pick</p>
+    </div>
+  </section>
+  <section class="scene clip v-cr" id="s81" data-track-index="1" data-start="438.596" data-duration="6.448">
+    <div class="v-ap v-ap-cr"><div class="bg" id="s81-img" style="background-image:url(assets/img/s81.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s81-bar" style="font-size:96px">RUNG ONE FIRST</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s81-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s81-focal">A few months of expenses, one day away</p>
+      <p class="foot v-fit" id="s81-foot">CH 8 · 81 / 92 · FDIC-insured, ordinary transfer speed — a category, not a product</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s82" data-track-index="2" data-start="444.594" data-duration="7.232">
+    <div class="v-ap v-ap-r"><div class="bg" id="s82-img" style="background-image:url(assets/img/s82.jpg)"></div></div>
+    <div class="v-tone" id="s82-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s82-bar" style="font-size:72px">HOW IT ACTUALLY BREAKS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s82-rule">
+    <div class="stack v-col1">
+      <p class="stamp v-stamp warn v-fit" id="s82-focal" style="font-size:40px">Not by under-saving. By one emergency.</p>
+      <p class="foot v-fit" id="s82-foot">CH 8 · 82 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s83" data-track-index="1" data-start="451.376" data-duration="4.176">
+    <div class="v-ap v-ap-b"><div class="bg" id="s83-img" style="background-image:url(assets/img/s83.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s83-bar" style="font-size:96px">TODAY</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s83-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s83-focal">One job. Five minutes.</p>
+      <p class="foot v-fit" id="s83-foot">CH 9 · 83 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-cl" id="s84" data-track-index="2" data-start="455.102" data-duration="6.631">
+    <div class="v-ap v-ap-cl"><div class="bg" id="s84-img" style="background-image:url(assets/img/s84.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s84-bar" style="font-size:96px">DO THIS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s84-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s84-focal">One automatic transfer, dated the day after payday</p>
+      <p class="foot v-fit" id="s84-foot">CH 9 · 84 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s85" data-track-index="1" data-start="461.283" data-duration="7.337">
+    <div class="v-ap v-ap-b"><div class="bg" id="s85-img" style="background-image:url(assets/img/s85.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s85-bar" style="font-size:96px">THE AMOUNT</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s85-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s85-focal">$200 works. So does less.</p>
+      <p class="foot v-fit" id="s85-foot">CH 9 · 85 / 92 · $200 = the twenty-percent example from Chapter 6. The size is not the point — the standing instruction is</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s86" data-track-index="2" data-start="468.170" data-duration="4.306">
+    <div class="v-ap v-ap-b"><div class="bg" id="s86-img" style="background-image:url(assets/img/s86.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s86-bar" style="font-size:96px">WHY IT WORKS</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s86-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s86-focal">You never make the decision again</p>
+      <p class="foot v-fit" id="s86-foot">CH 9 · 86 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s87" data-track-index="1" data-start="472.026" data-duration="7.546">
+    <div class="v-ap v-ap-b"><div class="bg" id="s87-img" style="background-image:url(assets/img/s87.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s87-bar" style="font-size:96px">RECAP ONE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s87-rule">
+    <div class="stack v-col1">
+      <p class="head2 warn v-fit v-stmt" id="s87-focal">The first $10,000: 100% you · the market buys 0.5 months</p>
+      <p class="foot v-fit" id="s87-foot">CH 9 · 87 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s88" data-track-index="2" data-start="479.122" data-duration="5.012">
+    <div class="v-ap v-ap-m"><div class="bg" id="s88-img" style="background-image:url(assets/img/s88.jpg)"></div></div>
+    <div class="v-ap v-ap-min"><div class="bg" id="s88-min" style="background-image:url(assets/img/s28.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s88-bar" style="font-size:96px">RECAP TWO</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s88-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s88-focal">The tenth $10,000: the same market buys 6.5</p>
+      <p class="foot v-fit" id="s88-foot">CH 9 · 88 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s89" data-track-index="1" data-start="483.683" data-duration="6.997">
+    <div class="v-ap v-ap-b"><div class="bg" id="s89-img" style="background-image:url(assets/img/s89.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s89-bar" style="font-size:96px">RECAP THREE</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s89-rule">
+    <div class="stack v-col1">
+      <p class="head2 targetc v-fit v-stmt" id="s89-focal">The crossover is near $100,000 — not $10,000</p>
+      <p class="foot v-fit" id="s89-foot">CH 9 · 89 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip v-r" id="s90" data-track-index="2" data-start="490.230" data-duration="6.527">
+    <div class="v-ap v-ap-r"><div class="bg" id="s90-img" style="background-image:url(assets/img/s90.jpg);filter:grayscale(.85) brightness(1.25) contrast(1.15)"></div></div>
+    <div class="v-tone" id="s90-tone"></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s90-bar" style="font-size:96px">THE WHOLE VIDEO</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s90-rule">
+    <div class="stack v-col1">
+      <p class="head2 fundc v-fit v-stmt" id="s90-focal">Hard because it's all you. After that, the money pulls.</p>
+      <p class="foot v-fit" id="s90-foot">CH 9 · 90 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s91" data-track-index="1" data-start="496.307" data-duration="3.941">
+    <div class="v-ap v-ap-b"><div class="bg" id="s91-img" style="background-image:url(assets/img/s91.jpg)"></div></div>
+    <div class="grain"></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s91-rule">
+    <div class="stack v-col1">
+      <p class="cta v-fit" id="s91-focal">SUBSCRIBE</p>
+      <p class="foot v-fit" id="s91-foot">CH 9 · 91 / 92</p>
+    </div>
+  </section>
+  <section class="scene clip" id="s92" data-track-index="2" data-start="499.798" data-duration="5.763">
+    <div class="v-ap v-ap-b"><div class="bg" id="s92-img" style="background-image:url(assets/img/s92.jpg)"></div></div>
+    <div class="grain"></div>
+    <div class="swissbar v-col1"><h2 class="huge v-fit" id="s92-bar" style="font-size:96px">NEXT</h2></div>
+    <hr class="swissrule v-ruledraw v-col1" id="s92-rule">
+    <div class="stack v-col1">
+      <p class="head2  v-fit v-stmt" id="s92-focal">Past $100,000 — and the speed after it</p>
+      <p class="foot v-fit" id="s92-foot">CH 9 · 92 / 92</p>
+    </div>
+  </section>
+
+  <audio preload="none" id="vo-1-1" class="clip" data-track-index="10" data-start="0.250" data-duration="4.441" src="assets/voice/1.1.mp3"></audio>
+  <audio preload="none" id="vo-1-2" class="clip" data-track-index="10" data-start="5.491" data-duration="4.545" src="assets/voice/1.2.mp3"></audio>
+  <audio preload="none" id="vo-1-3" class="clip" data-track-index="10" data-start="10.836" data-duration="5.251" src="assets/voice/1.3.mp3"></audio>
+  <audio preload="none" id="vo-1-4" class="clip" data-track-index="10" data-start="16.887" data-duration="5.851" src="assets/voice/1.4.mp3"></audio>
+  <audio preload="none" id="vo-1-5" class="clip" data-track-index="10" data-start="23.538" data-duration="4.780" src="assets/voice/1.5.mp3"></audio>
+  <audio preload="none" id="vo-1-6" class="clip" data-track-index="10" data-start="29.119" data-duration="2.508" src="assets/voice/1.6.mp3"></audio>
+  <audio preload="none" id="vo-1-7" class="clip" data-track-index="10" data-start="32.426" data-duration="4.415" src="assets/voice/1.7.mp3"></audio>
+  <audio preload="none" id="vo-1-8" class="clip" data-track-index="10" data-start="37.641" data-duration="3.605" src="assets/voice/1.8.mp3"></audio>
+  <audio preload="none" id="vo-1-9" class="clip" data-track-index="10" data-start="42.046" data-duration="4.258" src="assets/voice/1.9.mp3"></audio>
+  <audio preload="none" id="vo-1-10" class="clip" data-track-index="10" data-start="47.104" data-duration="4.598" src="assets/voice/1.10.mp3"></audio>
+  <audio preload="none" id="vo-2-1" class="clip" data-track-index="10" data-start="52.501" data-duration="4.598" src="assets/voice/2.1.mp3"></audio>
+  <audio preload="none" id="vo-2-2" class="clip" data-track-index="10" data-start="57.899" data-duration="4.362" src="assets/voice/2.2.mp3"></audio>
+  <audio preload="none" id="vo-2-3" class="clip" data-track-index="10" data-start="63.061" data-duration="4.362" src="assets/voice/2.3.mp3"></audio>
+  <audio preload="none" id="vo-2-4" class="clip" data-track-index="10" data-start="68.224" data-duration="6.531" src="assets/voice/2.4.mp3"></audio>
+  <audio preload="none" id="vo-2-5" class="clip" data-track-index="10" data-start="75.554" data-duration="2.351" src="assets/voice/2.5.mp3"></audio>
+  <audio preload="none" id="vo-2-6" class="clip" data-track-index="10" data-start="78.706" data-duration="7.131" src="assets/voice/2.6.mp3"></audio>
+  <audio preload="none" id="vo-2-7" class="clip" data-track-index="10" data-start="86.637" data-duration="4.180" src="assets/voice/2.7.mp3"></audio>
+  <audio preload="none" id="vo-2-8" class="clip" data-track-index="10" data-start="91.617" data-duration="4.676" src="assets/voice/2.8.mp3"></audio>
+  <audio preload="none" id="vo-2-9" class="clip" data-track-index="10" data-start="97.092" data-duration="5.460" src="assets/voice/2.9.mp3"></audio>
+  <audio preload="none" id="vo-2-10" class="clip" data-track-index="10" data-start="103.352" data-duration="4.728" src="assets/voice/2.10.mp3"></audio>
+  <audio preload="none" id="vo-3-1" class="clip" data-track-index="10" data-start="108.880" data-duration="4.911" src="assets/voice/3.1.mp3"></audio>
+  <audio preload="none" id="vo-3-2" class="clip" data-track-index="10" data-start="114.591" data-duration="5.616" src="assets/voice/3.2.mp3"></audio>
+  <audio preload="none" id="vo-3-3" class="clip" data-track-index="10" data-start="121.008" data-duration="3.161" src="assets/voice/3.3.mp3"></audio>
+  <audio preload="none" id="vo-3-4" class="clip" data-track-index="10" data-start="124.968" data-duration="4.441" src="assets/voice/3.4.mp3"></audio>
+  <audio preload="none" id="vo-3-5" class="clip" data-track-index="10" data-start="130.209" data-duration="5.042" src="assets/voice/3.5.mp3"></audio>
+  <audio preload="none" id="vo-3-6" class="clip" data-track-index="10" data-start="136.051" data-duration="4.441" src="assets/voice/3.6.mp3"></audio>
+  <audio preload="none" id="vo-3-7" class="clip" data-track-index="10" data-start="141.292" data-duration="4.780" src="assets/voice/3.7.mp3"></audio>
+  <audio preload="none" id="vo-3-8" class="clip" data-track-index="10" data-start="146.872" data-duration="5.878" src="assets/voice/3.8.mp3"></audio>
+  <audio preload="none" id="vo-3-9" class="clip" data-track-index="10" data-start="153.550" data-duration="5.251" src="assets/voice/3.9.mp3"></audio>
+  <audio preload="none" id="vo-3-10" class="clip" data-track-index="10" data-start="159.600" data-duration="3.187" src="assets/voice/3.10.mp3"></audio>
+  <audio preload="none" id="vo-4-1" class="clip" data-track-index="10" data-start="163.587" data-duration="4.180" src="assets/voice/4.1.mp3"></audio>
+  <audio preload="none" id="vo-4-2" class="clip" data-track-index="10" data-start="168.567" data-duration="5.616" src="assets/voice/4.2.mp3"></audio>
+  <audio preload="none" id="vo-4-3" class="clip" data-track-index="10" data-start="174.983" data-duration="6.531" src="assets/voice/4.3.mp3"></audio>
+  <audio preload="none" id="vo-4-4" class="clip" data-track-index="10" data-start="182.314" data-duration="4.415" src="assets/voice/4.4.mp3"></audio>
+  <audio preload="none" id="vo-4-5" class="clip" data-track-index="10" data-start="187.528" data-duration="4.258" src="assets/voice/4.5.mp3"></audio>
+  <audio preload="none" id="vo-4-6" class="clip" data-track-index="10" data-start="192.586" data-duration="3.657" src="assets/voice/4.6.mp3"></audio>
+  <audio preload="none" id="vo-4-7" class="clip" data-track-index="10" data-start="197.043" data-duration="4.258" src="assets/voice/4.7.mp3"></audio>
+  <audio preload="none" id="vo-4-8" class="clip" data-track-index="10" data-start="202.101" data-duration="5.930" src="assets/voice/4.8.mp3"></audio>
+  <audio preload="none" id="vo-4-9" class="clip" data-track-index="10" data-start="208.831" data-duration="5.512" src="assets/voice/4.9.mp3"></audio>
+  <audio preload="none" id="vo-4-10" class="clip" data-track-index="10" data-start="215.143" data-duration="5.799" src="assets/voice/4.10.mp3"></audio>
+  <audio preload="none" id="vo-4-11" class="clip" data-track-index="10" data-start="221.742" data-duration="3.239" src="assets/voice/4.11.mp3"></audio>
+  <audio preload="none" id="vo-5-1" class="clip" data-track-index="10" data-start="225.781" data-duration="3.370" src="assets/voice/5.1.mp3"></audio>
+  <audio preload="none" id="vo-5-2" class="clip" data-track-index="10" data-start="229.951" data-duration="3.997" src="assets/voice/5.2.mp3"></audio>
+  <audio preload="none" id="vo-5-3" class="clip" data-track-index="10" data-start="234.748" data-duration="1.384" src="assets/voice/5.3.mp3"></audio>
+  <audio preload="none" id="vo-5-4" class="clip" data-track-index="10" data-start="236.932" data-duration="6.269" src="assets/voice/5.4.mp3"></audio>
+  <audio preload="none" id="vo-5-5" class="clip" data-track-index="10" data-start="244.002" data-duration="4.206" src="assets/voice/5.5.mp3"></audio>
+  <audio preload="none" id="vo-5-6" class="clip" data-track-index="10" data-start="249.008" data-duration="5.930" src="assets/voice/5.6.mp3"></audio>
+  <audio preload="none" id="vo-5-7" class="clip" data-track-index="10" data-start="255.737" data-duration="3.239" src="assets/voice/5.7.mp3"></audio>
+  <audio preload="none" id="vo-5-8" class="clip" data-track-index="10" data-start="259.777" data-duration="6.818" src="assets/voice/5.8.mp3"></audio>
+  <audio preload="none" id="vo-5-9" class="clip" data-track-index="10" data-start="267.394" data-duration="4.545" src="assets/voice/5.9.mp3"></audio>
+  <audio preload="none" id="vo-5-10" class="clip" data-track-index="10" data-start="272.740" data-duration="5.564" src="assets/voice/5.10.mp3"></audio>
+  <audio preload="none" id="vo-5-11" class="clip" data-track-index="10" data-start="279.104" data-duration="3.605" src="assets/voice/5.11.mp3"></audio>
+  <audio preload="none" id="vo-6-1" class="clip" data-track-index="10" data-start="283.509" data-duration="3.762" src="assets/voice/6.1.mp3"></audio>
+  <audio preload="none" id="vo-6-2" class="clip" data-track-index="10" data-start="288.070" data-duration="5.329" src="assets/voice/6.2.mp3"></audio>
+  <audio preload="none" id="vo-6-3" class="clip" data-track-index="10" data-start="294.199" data-duration="5.512" src="assets/voice/6.3.mp3"></audio>
+  <audio preload="none" id="vo-6-4" class="clip" data-track-index="10" data-start="300.511" data-duration="4.833" src="assets/voice/6.4.mp3"></audio>
+  <audio preload="none" id="vo-6-5" class="clip" data-track-index="10" data-start="306.144" data-duration="6.034" src="assets/voice/6.5.mp3"></audio>
+  <audio preload="none" id="vo-6-6" class="clip" data-track-index="10" data-start="312.978" data-duration="5.669" src="assets/voice/6.6.mp3"></audio>
+  <audio preload="none" id="vo-6-7" class="clip" data-track-index="10" data-start="319.447" data-duration="4.545" src="assets/voice/6.7.mp3"></audio>
+  <audio preload="none" id="vo-6-8" class="clip" data-track-index="10" data-start="324.792" data-duration="4.545" src="assets/voice/6.8.mp3"></audio>
+  <audio preload="none" id="vo-6-9" class="clip" data-track-index="10" data-start="330.137" data-duration="4.180" src="assets/voice/6.9.mp3"></audio>
+  <audio preload="none" id="vo-6-10" class="clip" data-track-index="10" data-start="335.117" data-duration="5.042" src="assets/voice/6.10.mp3"></audio>
+  <audio preload="none" id="vo-7-1" class="clip" data-track-index="10" data-start="340.959" data-duration="2.952" src="assets/voice/7.1.mp3"></audio>
+  <audio preload="none" id="vo-7-2" class="clip" data-track-index="10" data-start="344.710" data-duration="3.056" src="assets/voice/7.2.mp3"></audio>
+  <audio preload="none" id="vo-7-3" class="clip" data-track-index="10" data-start="348.567" data-duration="5.616" src="assets/voice/7.3.mp3"></audio>
+  <audio preload="none" id="vo-7-4" class="clip" data-track-index="10" data-start="354.983" data-duration="4.362" src="assets/voice/7.4.mp3"></audio>
+  <audio preload="none" id="vo-7-5" class="clip" data-track-index="10" data-start="360.146" data-duration="4.206" src="assets/voice/7.5.mp3"></audio>
+  <audio preload="none" id="vo-7-6" class="clip" data-track-index="10" data-start="365.151" data-duration="4.258" src="assets/voice/7.6.mp3"></audio>
+  <audio preload="none" id="vo-7-7" class="clip" data-track-index="10" data-start="370.209" data-duration="7.340" src="assets/voice/7.7.mp3"></audio>
+  <audio preload="none" id="vo-7-8" class="clip" data-track-index="10" data-start="378.350" data-duration="4.963" src="assets/voice/7.8.mp3"></audio>
+  <audio preload="none" id="vo-8-1" class="clip" data-track-index="10" data-start="384.113" data-duration="4.075" src="assets/voice/8.1.mp3"></audio>
+  <audio preload="none" id="vo-8-2" class="clip" data-track-index="10" data-start="388.988" data-duration="5.146" src="assets/voice/8.2.mp3"></audio>
+  <audio preload="none" id="vo-8-3" class="clip" data-track-index="10" data-start="394.934" data-duration="4.833" src="assets/voice/8.3.mp3"></audio>
+  <audio preload="none" id="vo-8-4" class="clip" data-track-index="10" data-start="400.567" data-duration="3.605" src="assets/voice/8.4.mp3"></audio>
+  <audio preload="none" id="vo-8-5" class="clip" data-track-index="10" data-start="404.972" data-duration="4.310" src="assets/voice/8.5.mp3"></audio>
+  <audio preload="none" id="vo-8-6" class="clip" data-track-index="10" data-start="410.082" data-duration="5.433" src="assets/voice/8.6.mp3"></audio>
+  <audio preload="none" id="vo-8-7" class="clip" data-track-index="10" data-start="416.315" data-duration="4.833" src="assets/voice/8.7.mp3"></audio>
+  <audio preload="none" id="vo-8-8" class="clip" data-track-index="10" data-start="421.948" data-duration="6.713" src="assets/voice/8.8.mp3"></audio>
+  <audio preload="none" id="vo-8-9" class="clip" data-track-index="10" data-start="429.461" data-duration="4.441" src="assets/voice/8.9.mp3"></audio>
+  <audio preload="none" id="vo-8-10" class="clip" data-track-index="10" data-start="434.702" data-duration="3.344" src="assets/voice/8.10.mp3"></audio>
+  <audio preload="none" id="vo-8-11" class="clip" data-track-index="10" data-start="438.846" data-duration="5.198" src="assets/voice/8.11.mp3"></audio>
+  <audio preload="none" id="vo-8-12" class="clip" data-track-index="10" data-start="444.844" data-duration="5.982" src="assets/voice/8.12.mp3"></audio>
+  <audio preload="none" id="vo-9-1" class="clip" data-track-index="10" data-start="451.626" data-duration="2.926" src="assets/voice/9.1.mp3"></audio>
+  <audio preload="none" id="vo-9-2" class="clip" data-track-index="10" data-start="455.352" data-duration="5.381" src="assets/voice/9.2.mp3"></audio>
+  <audio preload="none" id="vo-9-3" class="clip" data-track-index="10" data-start="461.533" data-duration="6.087" src="assets/voice/9.3.mp3"></audio>
+  <audio preload="none" id="vo-9-4" class="clip" data-track-index="10" data-start="468.420" data-duration="3.056" src="assets/voice/9.4.mp3"></audio>
+  <audio preload="none" id="vo-9-5" class="clip" data-track-index="10" data-start="472.276" data-duration="6.296" src="assets/voice/9.5.mp3"></audio>
+  <audio preload="none" id="vo-9-6" class="clip" data-track-index="10" data-start="479.372" data-duration="3.762" src="assets/voice/9.6.mp3"></audio>
+  <audio preload="none" id="vo-9-7" class="clip" data-track-index="10" data-start="483.933" data-duration="5.747" src="assets/voice/9.7.mp3"></audio>
+  <audio preload="none" id="vo-9-8" class="clip" data-track-index="10" data-start="490.480" data-duration="5.277" src="assets/voice/9.8.mp3"></audio>
+  <audio preload="none" id="vo-9-9" class="clip" data-track-index="10" data-start="496.557" data-duration="2.691" src="assets/voice/9.9.mp3"></audio>
+  <audio preload="none" id="vo-9-10" class="clip" data-track-index="10" data-start="500.048" data-duration="4.963" src="assets/voice/9.10.mp3"></audio>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/motion.js"></script>
+<script>
+// Generated by build.mjs from assets/voice/timing.json — do not hand-edit.
+// Figures on screen are pre-formatted for en-US ($100,000, $9,600) and the
+// system puts tabular-nums on .huge/.head2, so no counter tween is needed here.
+var S = {"s1":0,"s2":5.241,"s3":10.586,"s4":16.637,"s5":23.288,"s6":28.869,"s7":32.176,"s8":37.391,"s9":41.796,"s10":46.854,"s11":52.251,"s12":57.649,"s13":62.811,"s14":67.974,"s15":75.304,"s16":78.456,"s17":86.387,"s18":91.367,"s19":96.842,"s20":103.102,"s21":108.63,"s22":114.341,"s23":120.758,"s24":124.718,"s25":129.959,"s26":135.801,"s27":141.042,"s28":146.622,"s29":153.3,"s30":159.35,"s31":163.337,"s32":168.317,"s33":174.733,"s34":182.064,"s35":187.278,"s36":192.336,"s37":196.793,"s38":201.851,"s39":208.581,"s40":214.893,"s41":221.492,"s42":225.531,"s43":229.701,"s44":234.498,"s45":236.682,"s46":243.752,"s47":248.758,"s48":255.487,"s49":259.527,"s50":267.144,"s51":272.49,"s52":278.854,"s53":283.259,"s54":287.82,"s55":293.949,"s56":300.261,"s57":305.894,"s58":312.728,"s59":319.197,"s60":324.542,"s61":329.887,"s62":334.867,"s63":340.709,"s64":344.46,"s65":348.317,"s66":354.733,"s67":359.896,"s68":364.901,"s69":369.959,"s70":378.1,"s71":383.863,"s72":388.738,"s73":394.684,"s74":400.317,"s75":404.722,"s76":409.832,"s77":416.065,"s78":421.698,"s79":429.211,"s80":434.452,"s81":438.596,"s82":444.594,"s83":451.376,"s84":455.102,"s85":461.283,"s86":468.17,"s87":472.026,"s88":479.122,"s89":483.683,"s90":490.23,"s91":496.307,"s92":499.798};
+
+sceneTransitions(["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18","s19","s20","s21","s22","s23","s24","s25","s26","s27","s28","s29","s30","s31","s32","s33","s34","s35","s36","s37","s38","s39","s40","s41","s42","s43","s44","s45","s46","s47","s48","s49","s50","s51","s52","s53","s54","s55","s56","s57","s58","s59","s60","s61","s62","s63","s64","s65","s66","s67","s68","s69","s70","s71","s72","s73","s74","s75","s76","s77","s78","s79","s80","s81","s82","s83","s84","s85","s86","s87","s88","s89","s90","s91","s92"], S, { acts: ["s51","s63"] });
+
+  // s1 — 1.1 · B
+  rise("#s1-bar", S.s1 + 0.15, 0.45, 16);
+  fill("#s1-rule", S.s1 + 0.55, 0.45);
+  rise("#s1-focal", 3.360, 0.40, 12);
+  fade("#s1-foot", S.s1 + 1.10, 0.40);
+  ken("#s1-img", 0.000, 5.241, true);
+
+  // s2 — 1.2 · B
+  rise("#s2-bar", S.s2 + 0.15, 0.45, 16);
+  fill("#s2-rule", S.s2 + 0.55, 0.45);
+  rise("#s2-focal", 9.470, 0.40, 12);
+  fade("#s2-foot", S.s2 + 1.10, 0.40);
+  ken("#s2-img", 5.241, 5.345, false);
+
+  // s3 — 1.3 · M
+  rise("#s3-bar", S.s3 + 0.15, 0.45, 16);
+  fill("#s3-rule", S.s3 + 0.55, 0.45);
+  rise("#s3-focal", 11.286, 0.40, 12);
+  fade("#s3-foot", S.s3 + 1.10, 0.40);
+  fade("#s3-min", S.s3 + 0.85, 0.40);
+  ken("#s3-img", 10.586, 6.051, true);
+
+  // s4 — 1.4 · C-R
+  rise("#s4-bar", S.s4 + 0.15, 0.45, 16);
+  fill("#s4-rule", S.s4 + 0.55, 0.45);
+  rise("#s4-focal", 17.337, 0.40, 12);
+  fade("#s4-foot", S.s4 + 1.10, 0.40);
+  ken("#s4-img", 16.637, 6.651, false);
+
+  // s5 — 1.5 · R
+  rise("#s5-bar", S.s5 + 0.15, 0.45, 16);
+  fill("#s5-rule", S.s5 + 0.55, 0.45);
+  rise("#s5-focal", 23.988, 0.40, 12);
+  fade("#s5-foot", S.s5 + 1.10, 0.40);
+  fade("#s5-tone", S.s5 + 0.05, 0.50);
+  ken("#s5-img", 23.288, 5.580, true);
+
+  // s6 — 1.6 · B
+  rise("#s6-bar", S.s6 + 0.15, 0.45, 16);
+  fill("#s6-rule", S.s6 + 0.55, 0.45);
+  rise("#s6-focal", 29.569, 0.40, 12);
+  fade("#s6-foot", S.s6 + 1.10, 0.40);
+  ken("#s6-img", 28.869, 3.308, false);
+
+  // s7 — 1.7 · B
+  rise("#s7-bar", S.s7 + 0.15, 0.45, 16);
+  fill("#s7-rule", S.s7 + 0.55, 0.45);
+  rise("#s7-focal", 32.876, 0.40, 12);
+  fade("#s7-foot", S.s7 + 1.10, 0.40);
+  ken("#s7-img", 32.176, 5.215, true);
+
+  // s8 — 1.8 · C-L
+  rise("#s8-bar", S.s8 + 0.15, 0.45, 16);
+  fill("#s8-rule", S.s8 + 0.55, 0.45);
+  rise("#s8-focal", 38.091, 0.40, 12);
+  fade("#s8-foot", S.s8 + 1.10, 0.40);
+  ken("#s8-img", 37.391, 4.405, false);
+
+  // s9 — 1.9 · B
+  rise("#s9-bar", S.s9 + 0.15, 0.45, 16);
+  fill("#s9-rule", S.s9 + 0.55, 0.45);
+  rise("#s9-focal", 42.496, 0.40, 12);
+  fade("#s9-foot", S.s9 + 1.10, 0.40);
+  ken("#s9-img", 41.796, 5.058, true);
+
+  // s10 — 1.10 · B
+  rise("#s10-bar", S.s10 + 0.15, 0.45, 16);
+  fill("#s10-rule", S.s10 + 0.55, 0.45);
+  rise("#s10-focal", 47.554, 0.40, 12);
+  fade("#s10-foot", S.s10 + 1.10, 0.40);
+  ken("#s10-img", 46.854, 5.398, false);
+
+  // s11 — 2.1 · B
+  rise("#s11-bar", S.s11 + 0.15, 0.45, 16);
+  fill("#s11-rule", S.s11 + 0.55, 0.45);
+  rise("#s11-focal", 52.951, 0.40, 12);
+  fade("#s11-foot", S.s11 + 1.10, 0.40);
+  ken("#s11-img", 52.251, 5.398, true);
+
+  // s12 — 2.2 · C-R
+  rise("#s12-bar", S.s12 + 0.15, 0.45, 16);
+  fill("#s12-rule", S.s12 + 0.55, 0.45);
+  rise("#s12-focal", 58.630, 0.40, 12);
+  fade("#s12-foot", S.s12 + 1.10, 0.40);
+  ken("#s12-img", 57.649, 5.162, false);
+
+  // s13 — 2.3 · B
+  rise("#s13-bar", S.s13 + 0.15, 0.45, 16);
+  fill("#s13-rule", S.s13 + 0.55, 0.45);
+  rise("#s13-focal", 66.110, 0.40, 12);
+  fade("#s13-foot", S.s13 + 1.10, 0.40);
+  ken("#s13-img", 62.811, 5.162, true);
+
+  // s14 — 2.4 · B
+  rise("#s14-bar", S.s14 + 0.15, 0.45, 16);
+  fill("#s14-rule", S.s14 + 0.55, 0.45);
+  rise("#s14-focal", 68.674, 0.40, 12);
+  fade("#s14-foot", S.s14 + 1.10, 0.40);
+  ken("#s14-img", 67.974, 7.331, false);
+
+  // s15 — 2.5 · B
+  rise("#s15-bar", S.s15 + 0.15, 0.45, 16);
+  fill("#s15-rule", S.s15 + 0.55, 0.45);
+  rise("#s15-focal", 77.550, 0.40, 12);
+  fade("#s15-foot", S.s15 + 1.10, 0.40);
+  ken("#s15-img", 75.304, 3.151, true);
+
+  // s16 — 2.6 · M
+  rise("#s16-bar", S.s16 + 0.15, 0.45, 16);
+  fill("#s16-rule", S.s16 + 0.55, 0.45);
+  rise("#s16-focal", 84.720, 0.40, 12);
+  fade("#s16-foot", S.s16 + 1.10, 0.40);
+  fade("#s16-min", S.s16 + 0.85, 0.40);
+  ken("#s16-img", 78.456, 7.931, false);
+
+  // s17 — 2.7 · B
+  rise("#s17-bar", S.s17 + 0.15, 0.45, 16);
+  fill("#s17-rule", S.s17 + 0.55, 0.45);
+  rise("#s17-focal", 87.087, 0.40, 12);
+  fade("#s17-foot", S.s17 + 1.10, 0.40);
+  ken("#s17-img", 86.387, 4.980, true);
+
+  // s18 — 2.8 · B
+  rise("#s18-bar", S.s18 + 0.15, 0.45, 16);
+  fill("#s18-rule", S.s18 + 0.55, 0.45);
+  rise("#s18-focal", 92.067, 0.40, 12);
+  fade("#s18-foot", S.s18 + 1.10, 0.40);
+  ken("#s18-img", 91.367, 5.476, false);
+
+  // s19 — 2.9 · R
+  rise("#s19-bar", S.s19 + 0.15, 0.45, 16);
+  fill("#s19-rule", S.s19 + 0.55, 0.45);
+  rise("#s19-focal", 100.870, 0.40, 12);
+  fade("#s19-foot", S.s19 + 1.10, 0.40);
+  fade("#s19-tone", S.s19 + 0.05, 0.50);
+  ken("#s19-img", 96.842, 6.260, true);
+
+  // s20 — 2.10 · C-L
+  rise("#s20-bar", S.s20 + 0.15, 0.45, 16);
+  fill("#s20-rule", S.s20 + 0.55, 0.45);
+  rise("#s20-focal", 103.802, 0.40, 12);
+  fade("#s20-foot", S.s20 + 1.10, 0.40);
+  ken("#s20-img", 103.102, 5.528, false);
+
+  // s21 — 3.1 · B
+  rise("#s21-bar", S.s21 + 0.15, 0.45, 16);
+  fill("#s21-rule", S.s21 + 0.55, 0.45);
+  rise("#s21-focal", 109.330, 0.40, 12);
+  fade("#s21-foot", S.s21 + 1.10, 0.40);
+  ken("#s21-img", 108.630, 5.711, true);
+
+  // s22 — 3.2 · M
+  rise("#s22-bar", S.s22 + 0.15, 0.45, 16);
+  fill("#s22-rule", S.s22 + 0.55, 0.45);
+  rise("#s22-focal", 115.041, 0.40, 12);
+  fade("#s22-foot", S.s22 + 1.10, 0.40);
+  fade("#s22-min", S.s22 + 0.85, 0.40);
+  ken("#s22-img", 114.341, 6.416, false);
+
+  // s23 — 3.3 · B
+  rise("#s23-bar", S.s23 + 0.15, 0.45, 16);
+  fill("#s23-rule", S.s23 + 0.55, 0.45);
+  rise("#s23-focal", 121.458, 0.40, 12);
+  fade("#s23-foot", S.s23 + 1.10, 0.40);
+  ken("#s23-img", 120.758, 3.961, true);
+
+  // s24 — 3.4 · C-R
+  rise("#s24-bar", S.s24 + 0.15, 0.45, 16);
+  fill("#s24-rule", S.s24 + 0.55, 0.45);
+  rise("#s24-focal", 125.418, 0.40, 12);
+  fade("#s24-foot", S.s24 + 1.10, 0.40);
+  ken("#s24-img", 124.718, 5.241, false);
+
+  // s25 — 3.5 · B
+  rise("#s25-bar", S.s25 + 0.15, 0.45, 16);
+  fill("#s25-rule", S.s25 + 0.55, 0.45);
+  rise("#s25-focal", 131.830, 0.40, 12);
+  fade("#s25-foot", S.s25 + 1.10, 0.40);
+  ken("#s25-img", 129.959, 5.842, true);
+
+  // s26 — 3.6 · B
+  rise("#s26-bar", S.s26 + 0.15, 0.45, 16);
+  fill("#s26-rule", S.s26 + 0.55, 0.45);
+  rise("#s26-focal", 139.840, 0.40, 12);
+  fade("#s26-foot", S.s26 + 1.10, 0.40);
+  ken("#s26-img", 135.801, 5.241, false);
+
+  // s27 — 3.7 · B
+  rise("#s27-bar", S.s27 + 0.15, 0.45, 16);
+  fill("#s27-rule", S.s27 + 0.55, 0.45);
+  rise("#s27-focal", 141.742, 0.40, 12);
+  fade("#s27-foot", S.s27 + 1.10, 0.40);
+  ken("#s27-img", 141.042, 5.580, true);
+
+  // s28 — 3.8 · R
+  rise("#s28-bar", S.s28 + 0.15, 0.45, 16);
+  fill("#s28-rule", S.s28 + 0.55, 0.45);
+  rise("#s28-focal", 151.730, 0.40, 12);
+  fade("#s28-foot", S.s28 + 1.10, 0.40);
+  fade("#s28-tone", S.s28 + 0.05, 0.50);
+  ken("#s28-img", 146.622, 6.678, false);
+
+  // s29 — 3.9 · M
+  rise("#s29-bar", S.s29 + 0.15, 0.45, 16);
+  fill("#s29-rule", S.s29 + 0.55, 0.45);
+  rise("#s29-focal", 157.440, 0.40, 12);
+  fade("#s29-foot", S.s29 + 1.10, 0.40);
+  fade("#s29-min", S.s29 + 0.85, 0.40);
+  ken("#s29-img", 153.300, 6.051, true);
+
+  // s30 — 3.10 · C-L
+  rise("#s30-bar", S.s30 + 0.15, 0.45, 16);
+  fill("#s30-rule", S.s30 + 0.55, 0.45);
+  rise("#s30-focal", 160.050, 0.40, 12);
+  fade("#s30-foot", S.s30 + 1.10, 0.40);
+  ken("#s30-img", 159.350, 3.987, false);
+
+  // s31 — 4.1 · B
+  rise("#s31-bar", S.s31 + 0.15, 0.45, 16);
+  fill("#s31-rule", S.s31 + 0.55, 0.45);
+  rise("#s31-focal", 164.037, 0.40, 12);
+  fade("#s31-foot", S.s31 + 1.10, 0.40);
+  ken("#s31-img", 163.337, 4.980, true);
+
+  // s32 — 4.2 · B
+  rise("#s32-bar", S.s32 + 0.15, 0.45, 16);
+  fill("#s32-rule", S.s32 + 0.55, 0.45);
+  rise("#s32-focal", 169.017, 0.40, 12);
+  fade("#s32-foot", S.s32 + 1.10, 0.40);
+  ken("#s32-img", 168.317, 6.416, false);
+
+  // s33 — 4.3 · C-R
+  rise("#s33-bar", S.s33 + 0.15, 0.45, 16);
+  fill("#s33-rule", S.s33 + 0.55, 0.45);
+  rise("#s33-focal", 180.760, 0.40, 12);
+  fade("#s33-foot", S.s33 + 1.10, 0.40);
+  ken("#s33-img", 174.733, 7.331, true);
+
+  // s34 — 4.4 · B
+  rise("#s34-bar", S.s34 + 0.15, 0.45, 16);
+  fill("#s34-rule", S.s34 + 0.55, 0.45);
+  rise("#s34-focal", 182.764, 0.40, 12);
+  fade("#s34-foot", S.s34 + 1.10, 0.40);
+  ken("#s34-img", 182.064, 5.215, false);
+
+  // s35 — 4.5 · B
+  rise("#s35-bar", S.s35 + 0.15, 0.45, 16);
+  fill("#s35-rule", S.s35 + 0.55, 0.45);
+  rise("#s35-focal", 187.978, 0.40, 12);
+  fade("#s35-foot", S.s35 + 1.10, 0.40);
+  ken("#s35-img", 187.278, 5.058, true);
+
+  // s36 — 4.6 · B
+  rise("#s36-bar", S.s36 + 0.15, 0.45, 16);
+  fill("#s36-rule", S.s36 + 0.55, 0.45);
+  rise("#s36-focal", 194.210, 0.40, 12);
+  fade("#s36-foot", S.s36 + 1.10, 0.40);
+  ken("#s36-img", 192.336, 4.457, false);
+
+  // s37 — 4.7 · C-L
+  rise("#s37-bar", S.s37 + 0.15, 0.45, 16);
+  fill("#s37-rule", S.s37 + 0.55, 0.45);
+  rise("#s37-focal", 199.380, 0.40, 12);
+  fade("#s37-foot", S.s37 + 1.10, 0.40);
+  ken("#s37-img", 196.793, 5.058, true);
+
+  // s38 — 4.8 · M
+  rise("#s38-bar", S.s38 + 0.15, 0.45, 16);
+  fill("#s38-rule", S.s38 + 0.55, 0.45);
+  rise("#s38-focal", 202.551, 0.40, 12);
+  fade("#s38-foot", S.s38 + 1.10, 0.40);
+  fade("#s38-min", S.s38 + 0.85, 0.40);
+  ken("#s38-img", 201.851, 6.730, false);
+
+  // s39 — 4.9 · R
+  rise("#s39-bar", S.s39 + 0.15, 0.45, 16);
+  fill("#s39-rule", S.s39 + 0.55, 0.45);
+  rise("#s39-focal", 213.100, 0.40, 12);
+  fade("#s39-foot", S.s39 + 1.10, 0.40);
+  fade("#s39-tone", S.s39 + 0.05, 0.50);
+  ken("#s39-img", 208.581, 6.312, true);
+
+  // s40 — 4.10 · B
+  rise("#s40-bar", S.s40 + 0.15, 0.45, 16);
+  fill("#s40-rule", S.s40 + 0.55, 0.45);
+  rise("#s40-focal", 215.593, 0.40, 12);
+  fade("#s40-foot", S.s40 + 1.10, 0.40);
+  ken("#s40-img", 214.893, 6.599, false);
+
+  // s41 — 4.11 · C-R
+  rise("#s41-bar", S.s41 + 0.15, 0.45, 16);
+  fill("#s41-rule", S.s41 + 0.55, 0.45);
+  rise("#s41-focal", 222.192, 0.40, 12);
+  fade("#s41-foot", S.s41 + 1.10, 0.40);
+  ken("#s41-img", 221.492, 4.039, true);
+
+  // s42 — 5.1 · B
+  rise("#s42-bar", S.s42 + 0.15, 0.45, 16);
+  fill("#s42-rule", S.s42 + 0.55, 0.45);
+  rise("#s42-focal", 226.231, 0.40, 12);
+  fade("#s42-foot", S.s42 + 1.10, 0.40);
+  ken("#s42-img", 225.531, 4.170, false);
+
+  // s43 — 5.2 · B
+  rise("#s43-bar", S.s43 + 0.15, 0.45, 16);
+  fill("#s43-rule", S.s43 + 0.55, 0.45);
+  rise("#s43-focal", 230.401, 0.40, 12);
+  fade("#s43-foot", S.s43 + 1.10, 0.40);
+
+  // s44 — 5.3 · B
+  rise("#s44-bar", S.s44 + 0.15, 0.45, 16);
+  fill("#s44-rule", S.s44 + 0.55, 0.45);
+  rise("#s44-focal", 235.500, 0.40, 12);
+  fade("#s44-foot", S.s44 + 1.10, 0.40);
+  ken("#s43-img, #s44-img", 229.701, 6.981, true);
+
+  // s45 — 5.4 · C-L
+  rise("#s45-bar", S.s45 + 0.15, 0.45, 16);
+  fill("#s45-rule", S.s45 + 0.55, 0.45);
+  rise("#s45-focal", 237.382, 0.40, 12);
+  fade("#s45-foot", S.s45 + 1.10, 0.40);
+  ken("#s45-img", 236.682, 7.069, false);
+
+  // s46 — 5.5 · M
+  rise("#s46-bar", S.s46 + 0.15, 0.45, 16);
+  fill("#s46-rule", S.s46 + 0.55, 0.45);
+  rise("#s46-focal", 246.790, 0.40, 12);
+  fade("#s46-foot", S.s46 + 1.10, 0.40);
+  fade("#s46-min", S.s46 + 0.85, 0.40);
+  ken("#s46-img", 243.752, 5.006, true);
+
+  // s47 — 5.6 · R
+  rise("#s47-bar", S.s47 + 0.15, 0.45, 16);
+  fill("#s47-rule", S.s47 + 0.55, 0.45);
+  rise("#s47-focal", 249.970, 0.40, 12);
+  fade("#s47-foot", S.s47 + 1.10, 0.40);
+  fade("#s47-tone", S.s47 + 0.05, 0.50);
+  ken("#s47-img", 248.758, 6.730, false);
+
+  // s48 — 5.7 · B
+  rise("#s48-bar", S.s48 + 0.15, 0.45, 16);
+  fill("#s48-rule", S.s48 + 0.55, 0.45);
+  rise("#s48-focal", 256.187, 0.40, 12);
+  fade("#s48-foot", S.s48 + 1.10, 0.40);
+  ken("#s48-img", 255.487, 4.039, true);
+
+  // s49 — 5.8 · B
+  rise("#s49-bar", S.s49 + 0.15, 0.45, 16);
+  fill("#s49-rule", S.s49 + 0.55, 0.45);
+  rise("#s49-focal", 260.227, 0.40, 12);
+  fade("#s49-foot", S.s49 + 1.10, 0.40);
+  ken("#s49-img", 259.527, 7.618, false);
+
+  // s50 — 5.9 · C-R
+  rise("#s50-bar", S.s50 + 0.15, 0.45, 16);
+  fill("#s50-rule", S.s50 + 0.55, 0.45);
+  rise("#s50-focal", 267.844, 0.40, 12);
+  fade("#s50-foot", S.s50 + 1.10, 0.40);
+  ken("#s50-img", 267.144, 5.345, true);
+
+  // s51 — 5.10 · R
+  rise("#s51-bar", S.s51 + 0.15, 0.45, 16);
+  fill("#s51-rule", S.s51 + 0.55, 0.45);
+  rise("#s51-focal", 277.050, 0.40, 12);
+  fade("#s51-foot", S.s51 + 1.10, 0.40);
+  fade("#s51-tone", S.s51 + 0.05, 0.50);
+  ken("#s51-img", 272.490, 6.364, false);
+
+  // s52 — 5.11 · B
+  rise("#s52-bar", S.s52 + 0.15, 0.45, 16);
+  fill("#s52-rule", S.s52 + 0.55, 0.45);
+  rise("#s52-focal", 279.554, 0.40, 12);
+  fade("#s52-foot", S.s52 + 1.10, 0.40);
+  ken("#s52-img", 278.854, 4.405, true);
+
+  // s53 — 6.1 · B
+  rise("#s53-bar", S.s53 + 0.15, 0.45, 16);
+  fill("#s53-rule", S.s53 + 0.55, 0.45);
+  rise("#s53-focal", 283.959, 0.40, 12);
+  fade("#s53-foot", S.s53 + 1.10, 0.40);
+  ken("#s53-img", 283.259, 4.562, false);
+
+  // s54 — 6.2 · B
+  rise("#s54-bar", S.s54 + 0.15, 0.45, 16);
+  fill("#s54-rule", S.s54 + 0.55, 0.45);
+  rise("#s54-focal", 291.360, 0.40, 12);
+  fade("#s54-foot", S.s54 + 1.10, 0.40);
+  ken("#s54-img", 287.820, 6.129, true);
+
+  // s55 — 6.3 · C-L
+  rise("#s55-bar", S.s55 + 0.15, 0.45, 16);
+  fill("#s55-rule", S.s55 + 0.55, 0.45);
+  rise("#s55-focal", 294.649, 0.40, 12);
+  fade("#s55-foot", S.s55 + 1.10, 0.40);
+  ken("#s55-img", 293.949, 6.312, false);
+
+  // s56 — 6.4 · B
+  rise("#s56-bar", S.s56 + 0.15, 0.45, 16);
+  fill("#s56-rule", S.s56 + 0.55, 0.45);
+  rise("#s56-focal", 300.961, 0.40, 12);
+  fade("#s56-foot", S.s56 + 1.10, 0.40);
+  ken("#s56-img", 300.261, 5.633, true);
+
+  // s57 — 6.5 · B
+  rise("#s57-bar", S.s57 + 0.15, 0.45, 16);
+  fill("#s57-rule", S.s57 + 0.55, 0.45);
+  rise("#s57-focal", 309.160, 0.40, 12);
+  fade("#s57-foot", S.s57 + 1.10, 0.40);
+  ken("#s57-img", 305.894, 6.834, false);
+
+  // s58 — 6.6 · B
+  rise("#s58-bar", S.s58 + 0.15, 0.45, 16);
+  fill("#s58-rule", S.s58 + 0.55, 0.45);
+  rise("#s58-focal", 313.428, 0.40, 12);
+  fade("#s58-foot", S.s58 + 1.10, 0.40);
+  ken("#s58-img", 312.728, 6.469, true);
+
+  // s59 — 6.7 · M
+  rise("#s59-bar", S.s59 + 0.15, 0.45, 16);
+  fill("#s59-rule", S.s59 + 0.55, 0.45);
+  rise("#s59-focal", 319.897, 0.40, 12);
+  fade("#s59-foot", S.s59 + 1.10, 0.40);
+  fade("#s59-min", S.s59 + 0.85, 0.40);
+  ken("#s59-img", 319.197, 5.345, false);
+
+  // s60 — 6.8 · B
+  rise("#s60-bar", S.s60 + 0.15, 0.45, 16);
+  fill("#s60-rule", S.s60 + 0.55, 0.45);
+  rise("#s60-focal", 325.242, 0.40, 12);
+  fade("#s60-foot", S.s60 + 1.10, 0.40);
+  ken("#s60-img", 324.542, 5.345, true);
+
+  // s61 — 6.9 · C-R
+  rise("#s61-bar", S.s61 + 0.15, 0.45, 16);
+  fill("#s61-rule", S.s61 + 0.55, 0.45);
+  rise("#s61-focal", 330.587, 0.40, 12);
+  fade("#s61-foot", S.s61 + 1.10, 0.40);
+  ken("#s61-img", 329.887, 4.980, false);
+
+  // s62 — 6.10 · B
+  rise("#s62-bar", S.s62 + 0.15, 0.45, 16);
+  fill("#s62-rule", S.s62 + 0.55, 0.45);
+  rise("#s62-focal", 335.567, 0.40, 12);
+  fade("#s62-foot", S.s62 + 1.10, 0.40);
+  ken("#s62-img", 334.867, 5.842, true);
+
+  // s63 — 7.1 · B
+  rise("#s63-bar", S.s63 + 0.15, 0.45, 16);
+  fill("#s63-rule", S.s63 + 0.55, 0.45);
+  rise("#s63-focal", 341.409, 0.40, 12);
+  fade("#s63-foot", S.s63 + 1.10, 0.40);
+  ken("#s63-img", 340.709, 3.752, false);
+
+  // s64 — 7.2 · B
+  rise("#s64-bar", S.s64 + 0.15, 0.45, 16);
+  fill("#s64-rule", S.s64 + 0.55, 0.45);
+  rise("#s64-focal", 345.160, 0.40, 12);
+  fade("#s64-foot", S.s64 + 1.10, 0.40);
+  ken("#s64-img", 344.460, 3.856, true);
+
+  // s65 — 7.3 · C-L
+  rise("#s65-bar", S.s65 + 0.15, 0.45, 16);
+  fill("#s65-rule", S.s65 + 0.55, 0.45);
+  rise("#s65-focal", 349.017, 0.40, 12);
+  fade("#s65-foot", S.s65 + 1.10, 0.40);
+  ken("#s65-img", 348.317, 6.416, false);
+
+  // s66 — 7.4 · B
+  rise("#s66-bar", S.s66 + 0.15, 0.45, 16);
+  fill("#s66-rule", S.s66 + 0.55, 0.45);
+  rise("#s66-focal", 355.433, 0.40, 12);
+  fade("#s66-foot", S.s66 + 1.10, 0.40);
+  ken("#s66-img", 354.733, 5.162, true);
+
+  // s67 — 7.5 · B
+  rise("#s67-bar", S.s67 + 0.15, 0.45, 16);
+  fill("#s67-rule", S.s67 + 0.55, 0.45);
+  rise("#s67-focal", 360.596, 0.40, 12);
+  fade("#s67-foot", S.s67 + 1.10, 0.40);
+  ken("#s67-img", 359.896, 5.006, false);
+
+  // s68 — 7.6 · B
+  rise("#s68-bar", S.s68 + 0.15, 0.45, 16);
+  fill("#s68-rule", S.s68 + 0.55, 0.45);
+  rise("#s68-focal", 367.330, 0.40, 12);
+  fade("#s68-foot", S.s68 + 1.10, 0.40);
+  ken("#s68-img", 364.901, 5.058, true);
+
+  // s69 — 7.7 · B
+  rise("#s69-bar", S.s69 + 0.15, 0.45, 16);
+  fill("#s69-rule", S.s69 + 0.55, 0.45);
+  rise("#s69-focal", 375.990, 0.40, 12);
+  fade("#s69-foot", S.s69 + 1.10, 0.40);
+  ken("#s69-img", 369.959, 8.140, false);
+
+  // s70 — 7.8 · B
+  rise("#s70-bar", S.s70 + 0.15, 0.45, 16);
+  fill("#s70-rule", S.s70 + 0.55, 0.45);
+  rise("#s70-focal", 378.800, 0.40, 12);
+  fade("#s70-foot", S.s70 + 1.10, 0.40);
+  ken("#s70-img", 378.100, 5.763, true);
+
+  // s71 — 8.1 · B
+  rise("#s71-bar", S.s71 + 0.15, 0.45, 16);
+  fill("#s71-rule", S.s71 + 0.55, 0.45);
+  rise("#s71-focal", 384.563, 0.40, 12);
+  fade("#s71-foot", S.s71 + 1.10, 0.40);
+  ken("#s71-img", 383.863, 4.875, false);
+
+  // s72 — 8.2 · C-R
+  rise("#s72-bar", S.s72 + 0.15, 0.45, 16);
+  fill("#s72-rule", S.s72 + 0.55, 0.45);
+  rise("#s72-focal", 389.438, 0.40, 12);
+  fade("#s72-foot", S.s72 + 1.10, 0.40);
+  ken("#s72-img", 388.738, 5.946, true);
+
+  // s73 — 8.3 · B
+  rise("#s73-bar", S.s73 + 0.15, 0.45, 16);
+  fill("#s73-rule", S.s73 + 0.55, 0.45);
+  rise("#s73-focal", 395.384, 0.40, 12);
+  fade("#s73-foot", S.s73 + 1.10, 0.40);
+  ken("#s73-img", 394.684, 5.633, false);
+
+  // s74 — 8.4 · B
+  rise("#s74-bar", S.s74 + 0.15, 0.45, 16);
+  fill("#s74-rule", S.s74 + 0.55, 0.45);
+  rise("#s74-focal", 401.017, 0.40, 12);
+  fade("#s74-foot", S.s74 + 1.10, 0.40);
+  ken("#s74-img", 400.317, 4.405, true);
+
+  // s75 — 8.5 · B
+  rise("#s75-bar", S.s75 + 0.15, 0.45, 16);
+  fill("#s75-rule", S.s75 + 0.55, 0.45);
+  rise("#s75-focal", 405.422, 0.40, 12);
+  fade("#s75-foot", S.s75 + 1.10, 0.40);
+  ken("#s75-img", 404.722, 5.110, false);
+
+  // s76 — 8.6 · B
+  rise("#s76-bar", S.s76 + 0.15, 0.45, 16);
+  fill("#s76-rule", S.s76 + 0.55, 0.45);
+  rise("#s76-focal", 410.532, 0.40, 12);
+  fade("#s76-foot", S.s76 + 1.10, 0.40);
+  ken("#s76-img", 409.832, 6.233, true);
+
+  // s77 — 8.7 · C-L
+  rise("#s77-bar", S.s77 + 0.15, 0.45, 16);
+  fill("#s77-rule", S.s77 + 0.55, 0.45);
+  rise("#s77-focal", 416.765, 0.40, 12);
+  fade("#s77-foot", S.s77 + 1.10, 0.40);
+  ken("#s77-img", 416.065, 5.633, false);
+
+  // s78 — 8.8 · B
+  rise("#s78-bar", S.s78 + 0.15, 0.45, 16);
+  fill("#s78-rule", S.s78 + 0.55, 0.45);
+  rise("#s78-focal", 424.450, 0.40, 12);
+  fade("#s78-foot", S.s78 + 1.10, 0.40);
+  ken("#s78-img", 421.698, 7.513, true);
+
+  // s79 — 8.9 · B
+  rise("#s79-bar", S.s79 + 0.15, 0.45, 16);
+  fill("#s79-rule", S.s79 + 0.55, 0.45);
+  rise("#s79-focal", 429.911, 0.40, 12);
+  fade("#s79-foot", S.s79 + 1.10, 0.40);
+  ken("#s79-img", 429.211, 5.241, false);
+
+  // s80 — 8.10 · B
+  rise("#s80-bar", S.s80 + 0.15, 0.45, 16);
+  fill("#s80-rule", S.s80 + 0.55, 0.45);
+  rise("#s80-focal", 435.152, 0.40, 12);
+  fade("#s80-foot", S.s80 + 1.10, 0.40);
+  ken("#s80-img", 434.452, 4.144, true);
+
+  // s81 — 8.11 · C-R
+  rise("#s81-bar", S.s81 + 0.15, 0.45, 16);
+  fill("#s81-rule", S.s81 + 0.55, 0.45);
+  rise("#s81-focal", 439.296, 0.40, 12);
+  fade("#s81-foot", S.s81 + 1.10, 0.40);
+  ken("#s81-img", 438.596, 5.998, false);
+
+  // s82 — 8.12 · R
+  rise("#s82-bar", S.s82 + 0.15, 0.45, 16);
+  fill("#s82-rule", S.s82 + 0.55, 0.45);
+  rise("#s82-focal", 449.850, 0.40, 12);
+  fade("#s82-foot", S.s82 + 1.10, 0.40);
+  fade("#s82-tone", S.s82 + 0.05, 0.50);
+  ken("#s82-img", 444.594, 6.782, true);
+
+  // s83 — 9.1 · B
+  rise("#s83-bar", S.s83 + 0.15, 0.45, 16);
+  fill("#s83-rule", S.s83 + 0.55, 0.45);
+  rise("#s83-focal", 452.076, 0.40, 12);
+  fade("#s83-foot", S.s83 + 1.10, 0.40);
+  ken("#s83-img", 451.376, 3.726, false);
+
+  // s84 — 9.2 · C-L
+  rise("#s84-bar", S.s84 + 0.15, 0.45, 16);
+  fill("#s84-rule", S.s84 + 0.55, 0.45);
+  rise("#s84-focal", 455.802, 0.40, 12);
+  fade("#s84-foot", S.s84 + 1.10, 0.40);
+  ken("#s84-img", 455.102, 6.181, true);
+
+  // s85 — 9.3 · B
+  rise("#s85-bar", S.s85 + 0.15, 0.45, 16);
+  fill("#s85-rule", S.s85 + 0.55, 0.45);
+  rise("#s85-focal", 461.983, 0.40, 12);
+  fade("#s85-foot", S.s85 + 1.10, 0.40);
+  ken("#s85-img", 461.283, 6.887, false);
+
+  // s86 — 9.4 · B
+  rise("#s86-bar", S.s86 + 0.15, 0.45, 16);
+  fill("#s86-rule", S.s86 + 0.55, 0.45);
+  rise("#s86-focal", 468.870, 0.40, 12);
+  fade("#s86-foot", S.s86 + 1.10, 0.40);
+  ken("#s86-img", 468.170, 3.856, true);
+
+  // s87 — 9.5 · B
+  rise("#s87-bar", S.s87 + 0.15, 0.45, 16);
+  fill("#s87-rule", S.s87 + 0.55, 0.45);
+  rise("#s87-focal", 472.726, 0.40, 12);
+  fade("#s87-foot", S.s87 + 1.10, 0.40);
+  ken("#s87-img", 472.026, 7.096, false);
+
+  // s88 — 9.6 · M
+  rise("#s88-bar", S.s88 + 0.15, 0.45, 16);
+  fill("#s88-rule", S.s88 + 0.55, 0.45);
+  rise("#s88-focal", 479.822, 0.40, 12);
+  fade("#s88-foot", S.s88 + 1.10, 0.40);
+  fade("#s88-min", S.s88 + 0.85, 0.40);
+  ken("#s88-img", 479.122, 4.562, true);
+
+  // s89 — 9.7 · B
+  rise("#s89-bar", S.s89 + 0.15, 0.45, 16);
+  fill("#s89-rule", S.s89 + 0.55, 0.45);
+  rise("#s89-focal", 484.383, 0.40, 12);
+  fade("#s89-foot", S.s89 + 1.10, 0.40);
+  ken("#s89-img", 483.683, 6.547, false);
+
+  // s90 — 9.8 · R
+  rise("#s90-bar", S.s90 + 0.15, 0.45, 16);
+  fill("#s90-rule", S.s90 + 0.55, 0.45);
+  rise("#s90-focal", 493.850, 0.40, 12);
+  fade("#s90-foot", S.s90 + 1.10, 0.40);
+  fade("#s90-tone", S.s90 + 0.05, 0.50);
+  ken("#s90-img", 490.230, 6.077, true);
+
+  // s91 — 9.9 · B
+  fill("#s91-rule", S.s91 + 0.55, 0.45);
+  rise("#s91-focal", 496.690, 0.40, 12);
+  fade("#s91-foot", S.s91 + 1.10, 0.40);
+  ken("#s91-img", 496.307, 3.491, false);
+
+  // s92 — 9.10 · B
+  rise("#s92-bar", S.s92 + 0.15, 0.45, 16);
+  fill("#s92-rule", S.s92 + 0.55, 0.45);
+  rise("#s92-focal", 500.498, 0.40, 12);
+  fade("#s92-foot", S.s92 + 1.10, 0.40);
+  ken("#s92-img", 499.798, 5.763, true);
+
+register();
+// motion.js's register() already runs window.__timelines["main"] = tl. Restating
+// it here is not redundancy: "hyperframes check" fails missing_timeline_registry
+// when the assignment lives in a linked file, and an unregistered timeline renders
+// every element static from frame 0 while still passing every other check.
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>First Lakh / First Thousand — Thumbnails</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      /* Design system: vault/knowledge/design-finance-blockframe.md (the DARK system),
+         with the `.swiss-band` divergences this video's render actually uses
+         (finance-audit-2026-07-29/11-swiss-vignelli): flush left, SQUARED corners,
+         no rounded pill, colour as a filled module or a rule — never as coloured
+         text on the photograph.
+
+         Colour thesis of THIS video (storyboard-hi §1):
+           red   = the stretch nobody helps you with (the first lakh, the 20 months)
+           green = the mechanism that works once it exists (the tenth lakh, 7 months)
+           amber = a rate/threshold under examination
+         One focal colour (red) + one accent (green). Amber is unused here on purpose. */
+      @font-face {
+        font-family: "FinanceSans";
+        src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --accent: #f59e0b;
+        --font: "FinanceSans", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      .thumb {
+        position: absolute; inset: 0; overflow: hidden;
+        background: var(--bg); color: var(--ink);
+        display: flex; align-items: center; padding: 0 64px;
+      }
+      .bg {
+        position: absolute; inset: 0; z-index: 0;
+        background-size: cover; background-position: center right;
+        /* s5 is already a low-key monochrome plate, so the standard 0.62 brightness
+           pull-down would bury the coin. Graded up, contrast held. */
+        filter: grayscale(0.32) brightness(1.28) contrast(1.16);
+      }
+      /* left-heavy scrim — the channel's proven left-text pattern */
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          linear-gradient(90deg, rgba(13,16,23,0.97) 0%, rgba(13,16,23,0.90) 44%, rgba(13,16,23,0.34) 70%, rgba(13,16,23,0.04) 100%),
+          linear-gradient(180deg, rgba(13,16,23,0.34), transparent 42%, rgba(13,16,23,0.55));
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url(assets/img/grain.png); background-size: cover;
+      }
+      .inner { position: relative; z-index: 2; }
+
+      /* SWISS: a squared filled module, not a rounded pill. This is the one
+         deliberate break from the credit-history/good-debt v2 markup — it matches
+         the architecture this video actually rendered in. */
+      .block {
+        display: inline-block; font-size: 30px; font-weight: 900; letter-spacing: 3px;
+        text-transform: uppercase; padding: 11px 22px; border-radius: 0;
+        background: var(--ink); color: #0d1017; margin: 0 0 26px 0;
+      }
+      .line {
+        font-size: 128px; line-height: 0.96; font-weight: 900; margin: 0; letter-spacing: -2px;
+        text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.75);
+        font-variant-numeric: tabular-nums;
+      }
+      .line.red { color: var(--warn); }
+      .line.ink { color: var(--ink); }
+      /* SWISS: the statement hangs from a rule, squared, flush left */
+      .rule { height: 5px; background: var(--warn); width: 300px; margin: 22px 0 0 0; }
+      .sub {
+        margin: 20px 0 0 0; font-size: 34px; font-weight: 900; letter-spacing: 0.4px; color: var(--ink);
+        text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+      }
+      .sub .g { color: var(--fund); }
+      /* en plate (en-s1.jpg) is a warm, mid-key wood/bills photo, not the low-key
+         monochrome coin of the hi plate — so it takes its own grade: desaturate
+         harder, lift less. Same design system, different source material. */
+      .bg.en { filter: grayscale(0.46) brightness(1.10) contrast(1.12); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1280" data-height="720" data-start="0" data-duration="4"
+         style="position: relative; width: 1280px; height: 720px; overflow: hidden;">
+
+      <!-- ============ HI (@cashguruguides · Roman-script Hindi · ₹) ============
+           ONE thumbnail per cut — creator rule 2026-07-29. The 3-variant A/B is
+           retired; this IS the v2 family (red left-aligned hook over the video's
+           own re-graded scene photo), built directly.
+
+           Numeral discipline — every numeral below is spoken in script-hi.md and
+           on screen in the render:
+             20      -> line 1.1 / 2.3  (`num: 20 MONTHS`, "पहला एक लाख — बीस महीने")
+             7       -> line 1.2        (`num: 7 MONTHS`,  "नौ लाख से दस लाख — सात महीने")
+             1 LAKH  -> line 1.1/1.5    (₹1,00,000, "पहला एक लाख")
+             5,000   -> line 1.1/2.1    ("पाँच हज़ार रुपये महीना")
+           ₹ only. A dollar glyph in a hi cut is a hard fail; there is none here.
+
+           Photo: assets/img/s5.jpg — the video's OWN scene photo for line 1.5
+           ("the first ₹1,00,000 is the hardest money you will ever save"), regraded.
+           Subject sits right, so the left half is free for the type by construction. -->
+      <section id="v2" class="thumb clip" data-start="0" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/s5.jpg)"></div>
+        <div class="scrim"></div>
+        <div class="grain"></div>
+        <div class="inner" style="width: 92%">
+          <p class="block">&#8377;5,000 / mahina</p>
+          <h1 class="line ink" style="font-size: 92px">PEHLA LAKH</h1>
+          <h1 class="line red" style="font-size: 150px; margin-top: 10px; white-space: nowrap">20 MAHINE</h1>
+          <div class="rule"></div>
+          <p class="sub">dasva lakh &mdash; wahi &#8377;5,000, sirf <span class="g">7 mahine</span></p>
+        </div>
+      </section>
+
+      <!-- ============ EN (@moneymavens101 · US English · $) ============
+           ONE thumbnail per cut — creator rule 2026-07-29. Built directly in the
+           v2 family (red left-aligned time-trap over the video's OWN re-graded
+           scene photo); no alternates.
+
+           Numeral discipline — every numeral below is spoken in script-en.md and
+           on screen in the en render:
+             $10,000     -> 1.1 bar `THE FIRST $10,000`, 1.5 stmt, 9.5 recap
+             $800        -> 1.1/1.2/1.3 (`SAME $800`), 6.5 `num: $800`, foot on s1
+             12.5 MONTHS -> 1.1 focal (`12.5 MONTHS`), 1.3 (`12.5 months -> 6 months`)
+             6 months    -> 1.2 focal (`6 MONTHS`), 1.3, 3.5/3.6
+           $ only. A rupee glyph in an en cut is a hard fail; there is none here.
+
+           Photo: assets/img/en-s1.jpg = the en render's OWN scene 1 image
+           (`s1.jpg`, worn $1 bills on a plank, hard side light) — the exact frame
+           that carries `THE FIRST $10,000 / 12.5 MONTHS` in the video. Deliberately
+           NOT the quarter macro (en s5), which would clone the hi cut's coin plate.
+           Subject sits right of centre, so the left half is free for the type. -->
+      <section id="env2" class="thumb clip" data-start="2" data-duration="2" data-track-index="2">
+        <div class="bg en" style="background-image: url(assets/img/en-s1.jpg)"></div>
+        <div class="scrim"></div>
+        <div class="grain"></div>
+        <div class="inner" style="width: 92%">
+          <p class="block">THE FIRST $10,000</p>
+          <h1 class="line ink" style="font-size: 92px">$800 / MONTH</h1>
+          <h1 class="line red" style="font-size: 150px; margin-top: 10px; white-space: nowrap">12.5 MONTHS</h1>
+          <div class="rule"></div>
+          <p class="sub">the tenth $10,000 &mdash; same $800, just <span class="g">6 months</span></p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // static thumbnails — a registered empty paused timeline satisfies the runtime contract
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

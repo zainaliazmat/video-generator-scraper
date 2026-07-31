@@ -304,3 +304,21 @@ Related: [[script-hi]] · [[script-en]] · [[storyboard-hi]] · [[storyboard-en]
 [[../../knowledge/niches/finance-topics-2026-07-31]] ·
 [[../../knowledge/stock-photo-sourcing]] · [[../credit-history/index]] ·
 [[../../workflows/finance-video]]
+
+## Published + archived (2026-08-01)
+
+**State: LIVE on YouTube · source archived · studio dir deleted.**
+
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| en | @moneymavens101 | https://youtu.be/UF350uxHlqU | `src/thumbs/thumbnail-en.png` |
+| hi | @cashguruguides | https://youtu.be/TxAANc0_7lQ | `src/thumbs/thumbnail-hi.png` |
+
+**Source: `src/`** — composition, meta/package JSON, `gen_vo_*.sh`, the VO lines
+(`assets/voice/*.txt`), the image prompts (`assets/img/*.src`), stock CREDITS and the
+thumbnail PNGs. `studio/videos/first-lakh-first-thousand*` is **deleted** per the finished-video rule
+(`vault/CLAUDE.md`). **Re-render is reproducible, not free** — the scene photos and VO
+mp3s are gone, so a rebuild re-pays image gens + ElevenLabs off the archived prompts
+and lines. `gen_vo_*.sh` still `cd`s into the deleted studio path — repoint it first.
+
+Still owed: analytics after 28 days.

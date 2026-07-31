@@ -78,7 +78,12 @@ def record_urls(root, slug, urls, today):
     )
     if all(url in text for url in urls.values() if url):
         return note  # already recorded — don't append a second block
-    rows = "\n".join(f"| {cut} | {CHANNEL[cut]} | {url} | |"
+    # the shipped thumbnail is already copied by the time this runs (copy → verify → note)
+    thumbs = root / "vault" / "videos" / slug / "src" / "thumbs"
+    def thumb(cut):
+        hit = sorted(thumbs.glob(f"thumbnail-{cut}*.png"))
+        return f"`src/thumbs/{hit[0].name}`" if hit else ""
+    rows = "\n".join(f"| {cut} | {CHANNEL[cut]} | {url} | {thumb(cut)} |"
                      for cut, url in sorted(urls.items()) if url)
     note.write_text(text.rstrip() + f"""
 
@@ -97,7 +102,7 @@ thumbnail PNGs. `studio/videos/{slug}*` is **deleted** per the finished-video ru
 mp3s are gone, so a rebuild re-pays image gens + ElevenLabs off the archived prompts
 and lines. `gen_vo_*.sh` still `cd`s into the deleted studio path — repoint it first.
 
-Still owed: thumbnail-pick readback · analytics after 28 days.
+Still owed: analytics after 28 days.
 """)
     return note
 
@@ -164,6 +169,7 @@ def self_check():
         assert not cut.exists() and not thumbs.exists(), "studio dirs not deleted"
         note = (root / "vault" / "videos" / "demo" / "index.md").read_text()
         assert "https://youtu.be/X" in note and "@cashguruguides" in note, note
+        assert "`src/thumbs/thumbnail-hi-v2.png`" in note, note
 
         # a URL is mandatory: no URL, no deletion
         cut.mkdir(parents=True)
