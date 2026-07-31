@@ -1,6 +1,6 @@
 ---
 summary: The durable design system for the finance channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, photographic backgrounds under a single grade, heavy type, chip/stamp motion language. Extracted from the shipped needs-vs-wants pair. Copy into each video's DESIGN.md. **§0 — blockframe-9 is LOCKED by creator decision 2026-07-30 (thirteen styles reviewed side by side); this supersedes every "next cut MUST change architecture" flag in the vault, and moves the sameness budget onto the non-layout levers.**
-updated: 2026-07-30
+updated: 2026-08-01
 source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-wants-en/index.html (both shipped) and vault/videos/needs-vs-wants/storyboard-hi.md · verified against the rendered output 2026-07-28
 ---
 
@@ -128,11 +128,33 @@ monetised video that criticises their money decisions.
 | **The grade** | `filter: grayscale(0.32) brightness(0.62) contrast(1.05)` |
 | Grain | `.grain`, opacity `0.05`, `mix-blend-mode: overlay` |
 | Track index | scenes `1`, audio `10` |
+| Watermark | `#root::after`, avatar bottom-right, `84px`, `right: 64px / bottom: 40px`, opacity `0.5` |
 
 **The grade is load-bearing.** It is the single reason nine unrelated stock photos
 read as one film. A per-scene `filter:` override is permitted only for a near-black
 texture that the grade crushes flat, and **never more than once per video** — past
 that the unity is gone.
+
+### The watermark (creator, 2026-08-01)
+
+The channel avatar rides the bottom-right corner for the **whole** video, every
+cut, every architecture. Three decisions worth keeping:
+
+- **It hangs off `#root`, not off a scene.** A mark inside `.scene` dissolves
+  with the scene it lives in and has to be repeated ~86 times. As a `::after` on
+  the root it is painted once, above every scene, and a build cannot forget it
+  on scene 43. The composition's entire share of the work is the `cut-<cut>`
+  class on `#root` — which `check build` asserts, because the failure mode is a
+  fully green run that ships an unbranded video.
+- **Alpha, not `border-radius`.** The avatars are circles on a *white* JPEG
+  field; CSS rounding cannot clip the source's own corners on a dark frame. The
+  circle is cut into the PNG (`tools/make_watermark.py`, originals in
+  `assets/brand/`), so the derivative is a real transparent disc.
+- **Bottom-right is also where YouTube paints its own branding watermark.**
+  Leave that channel feature switched off, or the corner carries two marks.
+
+`hi` ⇒ `wm-hi.png` (@cashguruguides, green) · `en` ⇒ `wm-en.png`
+(@moneymavens101, pink) — [[channels]].
 
 ### The scrim (four layers, in order)
 

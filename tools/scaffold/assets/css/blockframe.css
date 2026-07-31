@@ -80,6 +80,22 @@ body { margin: 0; background: #000; }
   opacity: 0.05; mix-blend-mode: overlay;
 }
 
+/* THE CHANNEL WATERMARK. Bottom-right, every frame of every cut, all
+   architectures. It hangs off #root rather than off a scene so it survives
+   every cross-dissolve, is impossible to forget on scene 43, and costs the
+   build nothing — the only thing a composition owes it is the `cut-<cut>`
+   class on #root. Missing that class renders nothing (a transparent 84px box),
+   which is what `pipeline_check check build` asserts against.
+   Bottom-right is where YouTube's own branding watermark sits, so leave that
+   feature off for these channels — two marks in one corner. */
+#root::after {
+  content: ""; position: absolute; right: 64px; bottom: 40px;
+  width: 84px; height: 84px; z-index: 50; pointer-events: none;
+  opacity: 0.5; background: center / contain no-repeat;
+}
+#root.cut-hi::after { background-image: url(../img/wm-hi.png); }  /* @cashguruguides */
+#root.cut-en::after { background-image: url(../img/wm-en.png); }  /* @moneymavens101 */
+
 .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
 .row   { display: flex; align-items: center; justify-content: center; gap: 22px; }
 .cols  { display: flex; align-items: flex-start; justify-content: center; gap: 70px; }

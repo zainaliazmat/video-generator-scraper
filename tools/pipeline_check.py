@@ -317,6 +317,16 @@ def check_build(slug, cut, fmt):
     # determinism: no render-time network fetches (E-3 class of silent corruption)
     for m in re.finditer(r'(?:src|href)="(https?://[^"]+)"', html):
         problems.append(f"network fetch in composition: {m.group(1)}")
+    # Channel watermark. blockframe.css paints it on #root::after, keyed off the
+    # `cut-<cut>` class — so the whole video carries the mark for the price of
+    # one class, and a build that forgets it renders an invisible empty box
+    # rather than an obviously broken frame. Hence the assert.
+    root_tag = re.search(r'<div id="root"[^>]*>', html)
+    if root_tag and f"cut-{cut}" not in root_tag.group(0):
+        problems.append(
+            f'#root is missing the `cut-{cut}` class — that is what selects the '
+            f'channel watermark in blockframe.css, and without it the video '
+            f'ships unbranded with every other check green')
     root = re.search(r'data-composition-id="main"[^>]*data-duration="([\d.]+)"', html)
     scenes = re.findall(r'<section[^>]*data-start="([\d.]+)"[^>]*data-duration="([\d.]+)"', html)
     if not root:
@@ -332,6 +342,8 @@ def check_build(slug, cut, fmt):
         n = len(timing.get("lines", []))
         if len(scenes) != n:
             problems.append(f"{len(scenes)} scenes but timing.json has {n} lines")
+        if abs(float(root.group(1)) - timing.get("total", -1)) > 0.5:
+            problems.append(f"root data-duration {root.group(1)} ≠ timing.json total {timing.get('total')}")
     # Dead-frame guard (creator, 2026-07-31: "9 scenes are too low for medium
     # size video ... not dead"). Scene count is emergent — one VO line is one
     # scene — so the thing to bound is how long a single photograph is allowed to
@@ -347,8 +359,6 @@ def check_build(slug, cut, fmt):
                 problems.append(
                     f"scene {i + 1} holds {own:.1f}s (max {max_hold}s) — split the "
                     f"VO line; one photo on screen this long reads as a dead frame")
-        if abs(float(root.group(1)) - timing.get("total", -1)) > 0.5:
-            problems.append(f"root data-duration {root.group(1)} ≠ timing.json total {timing.get('total')}")
     # Transitions: every scene but the last is held `transition_seconds` past its
     # own end, so the incoming scene cross-dissolves over a live frame instead of
     # fading up from black. The overlap IS the transition — if the build writes a

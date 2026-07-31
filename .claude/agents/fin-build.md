@@ -61,6 +61,13 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    `body_class` is the default centred stack. It is not yours to override or to
    "improve" because the last few videos looked alike.
 
+   **Watermark.** `#root` also carries `cut-<cut>` — `<div id="root"
+   class="rail cut-hi" …>`. That one class is the whole channel watermark:
+   `blockframe.css` paints the avatar bottom-right on `#root::after`, so it
+   rides above every scene for the full duration and there is nothing to add
+   per scene. `check build` fails without it. Never place a mark inside a
+   `.scene` — it would dissolve with the scene it lives in.
+
    **Footage (optional, per scene).** Supported and already shipped
    (`compositions/video-02-claude-edits-video/index.html`) — the renderer
    pre-extracts frames with ffmpeg and injects them, so it stays deterministic.

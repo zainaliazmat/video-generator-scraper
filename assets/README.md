@@ -13,6 +13,7 @@ assets/lottie/<name>.json     the PRISTINE animation, exactly as downloaded
 assets/lottie/<name>.png      a still preview — how the next video sees it without rendering
 assets/lottie/index.json      tags, source, author, licence, frames/fps/seconds, used_in
 assets/icons/<name>.svg       reusable inline-SVG icons
+assets/brand/<channel>.jpg    the channel avatars, as supplied by the creator
 assets/tts-samples/           voice reference clips (mp3s are gitignored)
 ```
 
@@ -46,3 +47,12 @@ this descriptive, a JSON catalogue would be a second home for the same fact.
 
 The full rationale, the traps, and how a cut consumes both:
 `vault/knowledge/design-icons-emoji-lottie.md`.
+
+## Brand
+
+The originals only. Every cut renders the on-video watermark from the circular,
+transparent 256px derivatives already inside the scaffold
+(`tools/scaffold/assets/img/wm-{hi,en}.png`), so no build reads this directory —
+it exists so the next thing that needs the mark at full size (a thumbnail, a
+banner, an end card) does not have to ask the creator for the file again.
+Regenerate a derivative with `tools/make_watermark.py`.

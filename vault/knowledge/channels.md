@@ -1,6 +1,6 @@
 ---
 summary: The two-channel plan — Channel A "TechToolTester" (AI-tools, locked niche, LIVE) and Channel B (cinematic history, planned). How they cross-feed.
-updated: 2026-07-05
+updated: 2026-08-01
 source: creator, 2026-07-05 (channel created); niche evidence per [[niches/ai-tools-creator-video]]
 ---
 
@@ -84,6 +84,8 @@ partial (mid-RPM, no affiliates — volume/brand play). Evidence:
 ## D — CashGuruGuides (@cashguruguides) — LIVE, 6 videos uploaded + scheduled
 The **India / Hindi / ₹** finance channel. Studio:
 https://studio.youtube.com/channel/UCHbj4hVEud49Sy2e9-V9gcg
+Avatar (green coin-face): `assets/brand/cashguruguides.jpg` — watermarked onto
+every `-hi` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
 
 | Video | Slug | URL | State |
 |---|---|---|---|
@@ -101,6 +103,8 @@ the finished-video rule ([[CLAUDE]]).
 The **US / English / $** finance channel. The `-en` cuts are a US rewrite, not a
 translation ([[us-english-script-style]]). Studio:
 https://studio.youtube.com/channel/UChNmDWhioyD5S_08AI6cSaA
+Avatar (pink coin-face): `assets/brand/moneymavens101.jpg` — watermarked onto
+every `-en` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
 
 | Video | Slug | URL | State |
 |---|---|---|---|
