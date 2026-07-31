@@ -23,10 +23,121 @@
   "positioning": "This is the channel's first OFFENSE video — the six shipped so far are all defense (budgeting, emergency fund, debt). It should feel like the sequel to pay-yourself-first, not a repeat of it."
  },
  "budget": {
-  "elevenlabs_calls": 0,
+  "elevenlabs_calls": 178,
   "_max_note": "MEDIUM is ~78 single-sentence lines per cut = ~156 calls for the pair; SHORT's ceiling of 30 would refuse fin-voice outright. 200 leaves retry headroom.",
   "max_elevenlabs_calls": 200,
   "pixabay_calls": 0
  },
- "stages": {}
+ "stages": {
+  "fin-research": {
+   "status": "done",
+   "reason": "",
+   "attempt": 2,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-research-2.md",
+   "at": "2026-07-30T21:38:05+00:00"
+  },
+  "fin-facts": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-facts-1.md",
+   "at": "2026-07-30T21:53:13+00:00"
+  },
+  "fin-script-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-script-hi-1.md",
+   "at": "2026-07-30T22:11:50+00:00"
+  },
+  "fin-audit-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-audit-hi-1.md",
+   "at": "2026-07-30T22:20:25+00:00"
+  },
+  "fin-voice-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-voice-hi-1.md",
+   "at": "2026-07-30T22:37:29+00:00",
+   "script_sha256": "49a3853ee8214e943eeb958bdc2bf7f545dc79dd40ee812fb19251bb31625bcc"
+  },
+  "fin-script-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-script-en-1.md",
+   "at": "2026-07-30T22:38:08+00:00"
+  },
+  "fin-storyboard-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-storyboard-hi-1.md",
+   "at": "2026-07-30T22:48:03+00:00"
+  },
+  "fin-audit-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-audit-en-1.md",
+   "at": "2026-07-30T22:48:03+00:00"
+  },
+  "fin-voice-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-voice-en-1.md",
+   "at": "2026-07-30T23:39:39+00:00",
+   "script_sha256": "634fd26b9c1aa91c195954078ec25e783d8b359fc3fd31e11aa64d6a12637e8b"
+  },
+  "fin-assets-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-assets-hi-1.md",
+   "at": "2026-07-30T23:39:39+00:00"
+  },
+  "fin-build-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-build-hi-1.md",
+   "at": "2026-07-31T00:28:39+00:00"
+  },
+  "fin-storyboard-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-storyboard-en-1.md",
+   "at": "2026-07-31T00:28:40+00:00"
+  },
+  "fin-assets-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-assets-en-1.md",
+   "at": "2026-07-31T01:09:32+00:00"
+  },
+  "fin-render-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 3,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-render-hi-3.md",
+   "at": "2026-07-31T03:02:14+00:00"
+  },
+  "fin-package-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/first-lakh-first-thousand/logs/fin-package-hi-1.md",
+   "at": "2026-07-31T03:16:47+00:00"
+  }
+ },
+ "owed_before_mix": "bed-resolve is 248s against a 514.789s cut — mix.py stream-loops, so audible dips land at ~248s (s42, the crossover figure) and ~496s (s83, recap three). Trim+crossfade the loop or source a >=520s bed re-normalised to -20 LUFS. NEVER run sfx.py --kit --music --force: the beds are creator-supplied and not regenerable. (fin-storyboard-hi, 2026-07-31)",
+ "owed_rescrape": "study.py 'Story of Success' --skip-video — fQyN80dLDpQ 429'd; the topic's own 48x-subs proof is not in the study packet.",
+ "owed_creator_decision": "format.json `architecture_lock: blockframe-9` now contradicts the 2026-07-30 instruction to ASK the style every run: the lock says 'rotation is off' while the command asks and takes the answer, so every run resolves the disagreement by hand (this one picked swiss-band over the locked default). Two coherent options: (a) keep the lock as the pre-selected DEFAULT and reword its note to say it is a default, not an override, or (b) delete the lock and let rotation supply the default. Creator's call — not changed here because the lock records a decision made after a thirteen-style review. Raised by fin-package-hi."
 }
