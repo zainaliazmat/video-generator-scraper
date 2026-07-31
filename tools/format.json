@@ -117,6 +117,24 @@
   "local_file_only": true,
   "disk_gb_per_cut_extraction": 1.5
  },
+ "vector_art": {
+  "_note": "Icons and flat-illustration Lotties. Both sit ON the graded photograph, never instead of it (image_per_scene is a hard rule). Rationale, licence and the two silent-blank traps: vault/knowledge/design-icons-emoji-lottie.md. Components: .icon / .lottie / .aside in blockframe.css. Motion: draw / loadLottie / playLottie in motion.js.",
+  "library": "assets/ — git-tracked, OUTSIDE studio/ (which is gitignored and deleted per cut). REUSE BEFORE YOU FETCH: search the library first, and save back anything you had to fetch or draw, so the next video finds it locally. assets/lottie/<name>.json (pristine, untinted) + <name>.png (preview) + index.json (tags/source/licence/used_in); assets/icons/<name>.svg. See assets/README.md.",
+  "icon_first": "An icon, arrow, chart mark or currency glyph is an inline <svg class='icon'> animated with draw() — no player, no asset, and the stroke takes a palette colour via currentColor. Reach for Lottie only when the graphic is a real illustration that would take an hour to rebuild.",
+  "emoji": "Not the icon system. A colour emoji renders correctly but is an OS font (tofu on a machine without one) and sits outside the grade, so it reads as a sticker on a film. Deliberate tonal break only.",
+  "lottie": {
+   "search": "tools/lottie/search.py \"<phrase>\" --sheet — prints the LIBRARY matches first (with their own contact sheet) and only then the remote candidates. Fetching something the library already holds is the failure mode this exists to prevent.",
+   "save_back": "tools/lottie/search.py --save \"<cell>=<name>\" --tags \"a,b,c\" — writes the pristine asset into assets/lottie/. Do this BEFORE tinting: the library never stores a pre-coloured file, and an asset that skips this step is one the next video has to find again.",
+   "license": "Lottie Simple License (free catalogue only): commercial use ok, modification ok, NO attribution required, must not redistribute the raw file. The premium marketplace needs a paid plan and is not used.",
+   "vector_only": "Reject any asset whose assets[] carry a \"p\" (embedded bitmap) — it cannot be re-tinted and it will not scale to 1080p.",
+   "tint": "tools/lottie/tint.py <library-name> studio/videos/<slug>-<cut>/assets/lottie/<n>.js <accent-hex> — REQUIRED. Stock art arrives in someone else's colours and lands on the grade as clip-art; the tint maps it onto a panel->accent->ink ramp by luminance. Accent = the scene's role colour (fund/target/warn).",
+   "tint_required": true,
+   "loader": "loadLottie() + playLottie() from motion.js. Never lottie.loadAnimation() directly, never window.__hfLottie, never a path: URL — each of those renders a blank scene that passes every check.",
+   "inline_as_js": "assets/lottie/<name>.js assigning window.L_<name> = {...}. A .json fetched at runtime resolves after the runtime has inspected the page.",
+   "max_per_video": 3,
+   "_cost_note": "lottie-web redraws the whole illustration every frame: two heavy ones took a 20s 1080p render from 1m27 to 3m56 (2.7x). The cap is about render time AND about not turning the cut into a template deck."
+  }
+ },
  "architectures": {
   "blockframe-9": {
    "tier": "short",

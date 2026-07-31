@@ -1,0 +1,423 @@
+/* ===========================================================================
+   BLOCKFRAME — the finance design system, as ONE file.
+   Channels: @cashguruguides (₹) · @moneymavens101 ($)
+
+   This file is the implementation. `vault/knowledge/design-finance-blockframe.md`
+   is the rationale — read it for WHY, read this for WHAT.
+
+   Every cut links this file. Nothing here is per-video. A video that needs a
+   one-off component declares it in its own inline <style>, AFTER this link, and
+   names it `.v-<thing>` so it is obvious at a glance that it is not the system.
+
+   Why this file exists (audit 2026-07-29): fin-build used to scaffold each new
+   cut by copying the PREVIOUS cut's index.html. Five videos of copy-of-a-copy
+   produced five divergent stylesheets, a `.decision` that meant two different
+   components inside one run, an `.gt` chevron fix that reached `en` but never
+   `hi`, and four cuts that silently lost @font-face and rendered in Arial Black.
+   One file, linked not copied, is the fix.
+   =========================================================================== */
+
+/* Self-hosted variable face. Real weight 100-900 (no synthetic bold). Carries
+   U+20B9 ₹. Deterministic — no render-time network fetch, ever. */
+@font-face {
+  font-family: "FinanceSans";
+  src: url(../fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --bg: #0d1017;
+  --panel: #161b25;
+  --ink: #f5f3ec;
+  --muted: #98a2b3;
+  --fund: #22c55e;    /* the good outcome, the kept thing, the safe path */
+  --warn: #ef4444;    /* the loss, the leak, the trap being exposed       */
+  --target: #f59e0b;  /* the thing under examination, the decision point  */
+  --pop: #ff5c39;     /* the call to action, the do-this-now stamp        */
+  --font: "FinanceSans", system-ui, sans-serif;
+  --edge: #2a3241;    /* the neutral component border                     */
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #000; }
+#root { font-family: var(--font); }
+
+/* --------------------------------------------------------------- the stage */
+
+.scene {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  padding: 110px 150px; background: var(--bg); color: var(--ink);
+  text-align: center; overflow: hidden;
+}
+
+/* THE GRADE. Load-bearing: it is the single reason nine unrelated stock photos
+   read as one film. Lock grayscale + contrast. Brightness may be calibrated
+   per image (a near-black texture crushes flat at 0.62) — set it inline on that
+   one .bg, and say so in the storyboard. */
+.bg {
+  position: absolute; inset: -8%; z-index: 0;
+  background-size: cover; background-position: center;
+  filter: grayscale(0.32) brightness(0.62) contrast(1.05);
+}
+
+/* Four layers. Layer 1 carries the per-scene --tint (0.10–0.13 alpha; above
+   ~0.15 it stops reading as light and starts reading as a colour wash).
+   Layers 2-4 are fixed: pull the centre down so type reads, then vignette. */
+.scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+    radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13, 16, 23, 0.46), transparent 80%),
+    radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13, 16, 23, 0.14), rgba(13, 16, 23, 0.58)),
+    linear-gradient(180deg, rgba(13, 16, 23, 0.40), rgba(13, 16, 23, 0.10) 46%, rgba(13, 16, 23, 0.52));
+}
+
+.grain {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url(../img/grain.png); background-size: cover;
+  opacity: 0.05; mix-blend-mode: overlay;
+}
+
+.stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
+.row   { display: flex; align-items: center; justify-content: center; gap: 22px; }
+.cols  { display: flex; align-items: flex-start; justify-content: center; gap: 70px; }
+
+/* ------------------------------------------------------------ the type ladder
+   Step DOWN it, never interpolate. Overriding inline is allowed only to another
+   value already on the ladder. Shrinking a focal element below 76 to make it fit
+   is a layout failure, not a type decision — restructure the scene instead. */
+
+.mega    { font-size: 290px; line-height: 0.9;  font-weight: 900; margin: 0; letter-spacing: -6px; }
+.huge    { font-size: 112px; line-height: 0.98; font-weight: 900; margin: 0; letter-spacing: -2px; }
+.counter { font-size: 96px;  line-height: 1;    font-weight: 900; margin: 0; letter-spacing: -2px; }
+.head2   { font-size: 54px;  font-weight: 900;  margin: 0; letter-spacing: -1px; }
+.cta     { font-size: 46px;  font-weight: 900;  letter-spacing: 2px; padding: 24px 56px; border-radius: 14px; background: var(--pop); color: #0d1017; }
+.stamp   { font-size: 44px;  font-weight: 900;  letter-spacing: 3px; padding: 18px 40px; border-radius: 16px; color: #0d1017; transform: rotate(-4deg); }
+.sub, .decision, .claim, .billrow { font-size: 40px; font-weight: 800; margin: 0; }
+.chip, .tag, .statstrip { font-size: 32px; font-weight: 800; }
+.kicker  { font-size: 30px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); font-weight: 800; margin: 0; }
+.colhead { font-size: 44px; font-weight: 900; letter-spacing: 1px; margin: 0; }
+.colsub  { font-size: 26px; color: var(--muted); font-weight: 700; margin: 0 0 6px; }
+.foot    { font-size: 26px; color: var(--muted); font-weight: 700; letter-spacing: 1px; margin: 0; }
+
+.sub { color: var(--muted); }
+.decision { color: var(--ink); max-width: 1400px; }
+
+/* Role colours as modifiers. Semantics are per-video and derived from the
+   thesis — but green=kept / red=loss is a channel constant. Amber is the free
+   variable: it is whatever THIS video is putting under examination. */
+.warn    { color: var(--warn); }
+.fundc   { color: var(--fund); }
+.targetc { color: var(--target); }
+.inkc    { color: var(--ink); }
+
+/* Type over photography needs this on every text class or it dissolves into a
+   light patch of the background. */
+.kicker, .mega, .huge, .counter, .head2, .sub, .foot, .claim, .colhead,
+.colsub, .tag, .decision, .billrow, .statstrip {
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
+/* Animated and money figures must never shimmy as digits change. Grouping is
+   locale-bound and set in JS: Intl.NumberFormat("en-IN") for -hi (1,24,564),
+   "en-US" for -en. A \B(?=(\d{3})+(?!\d)) regex is WRONG for India. */
+.mega, .huge, .counter, .head2, .billrow, .statstrip {
+  font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
+}
+
+/* --------------------------------------------------------------- components */
+
+/* Pill. Border colour carries the role. Max 3 per row, ≤22 chars each — .row
+   wraps, so a 4th long chip silently orphans onto its own line. */
+.chip {
+  letter-spacing: 1px; padding: 18px 32px; border-radius: 999px;
+  background: var(--panel); border: 3px solid var(--edge); color: var(--ink);
+}
+.chip.fund   { border-color: var(--fund); }
+.chip.warn   { border-color: var(--warn); }
+.chip.target { border-color: var(--target); }
+
+/* The verdict. Solid role fill, dark text, rotated. One per scene at most.
+   NOTE: this construct reports a FALSE contrast failure in `npm run check` when
+   it sits on a bright fill. Do NOT fix it by lightening the text — that degrades
+   the signature element on every future video. It belongs in known_benign. */
+.stamp.warn   { background: var(--warn); }
+.stamp.fund   { background: var(--fund); }
+.stamp.target { background: var(--target); }
+.stamp.pop    { background: var(--pop); }
+
+/* The itemised money block. */
+.bill { display: flex; flex-direction: column; gap: 16px; width: 820px; }
+.billrow {
+  display: flex; justify-content: space-between; align-items: center; gap: 40px;
+  padding: 16px 30px; background: var(--panel);
+  border: 3px solid var(--edge); border-radius: 14px;
+}
+.billrow.warn  { border-color: var(--warn); color: var(--warn); }
+.billrow.fund  { border-color: var(--fund); color: var(--fund); }
+.billrow.total { border-color: var(--warn); }
+
+/* Centred statement pill — a claim, a mechanism step. */
+.claim {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 14px 34px; background: var(--panel);
+  border: 3px solid var(--edge); border-radius: 14px; color: var(--ink);
+}
+.claim.fund { border-color: var(--fund); color: var(--fund); }
+.claim.warn { border-color: var(--warn); color: var(--warn); }
+
+/* Two-column classifier card. One card = one animated element; its .tag rows
+   stagger inside it. */
+.colcard {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 26px 40px; border-radius: 20px; background: var(--panel);
+  border: 3px solid var(--edge); min-width: 380px;
+}
+.colcard.fund { border-color: var(--fund); }
+.colcard.warn { border-color: var(--warn); }
+.colcard.fund .colhead { color: var(--fund); }
+.colcard.warn .colhead { color: var(--warn); }
+.tag { color: var(--ink); margin: 0; }
+
+/* A cited statistic on a translucent bed. */
+.statstrip {
+  padding: 14px 30px; border-radius: 12px;
+  background: rgba(239, 68, 68, 0.14); border: 2px solid rgba(239, 68, 68, 0.5);
+  color: var(--ink);
+}
+
+/* Progress bar. Ticks are a repeating gradient at 100%/12 for a twelve-month read. */
+.track2 { position: relative; width: 740px; height: 26px; border-radius: 13px; background: var(--panel); border: 3px solid var(--edge); overflow: hidden; }
+.fill2  { position: absolute; inset: 0; transform-origin: left center; background: var(--fund); }
+.ticks  { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 12 - 2px), rgba(13,16,23,.55) calc(100% / 12 - 2px), rgba(13,16,23,.55) calc(100% / 12)); }
+
+/* Scenario header + caveat lines. */
+.setup { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+/* ---------------------------------------------------------- vector art
+   An icon or an illustration sits ON the graded photograph, never instead of
+   it — `image_per_scene` is a hard creator rule. Motion for both lives in
+   motion.js (`draw`, `loadLottie`, `playLottie`); sourcing and the licence
+   live in vault/knowledge/design-icons-emoji-lottie.md. */
+
+/* Inline <svg>. Stroke is currentColor, so a role class recolours the whole
+   icon: <svg class="icon fundc">. Animate it with draw("#id", at). */
+/* No `color` here on purpose: .scene already sets --ink and a colour declared
+   on .icon would out-order .fundc/.warnc/.targetc (same specificity, later in
+   the file) and silently paint every icon white. */
+.icon    { display: block; width: 220px; height: 220px; }
+.icon.sm { width: 130px; height: 130px; }
+.icon path, .icon circle, .icon line, .icon polyline, .icon rect, .icon ellipse {
+  fill: none; stroke: currentColor; stroke-width: 6;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.icon .solid { fill: currentColor; stroke: none; }
+
+/* Lottie stage. A FIXED box: the player writes its own <svg> in here and a
+   box that sizes to content would reflow the scene mid-render. */
+.lottie    { position: relative; z-index: 2; width: 700px; height: 580px; }
+.lottie.sm { width: 460px; height: 340px; }
+.lottie svg { display: block; }
+
+/* Art beside type. `.scene` is grid + place-items:center, so a width:100%
+   child sizes against an AUTO column and lands off-centre — the cell has to be
+   stretched. (Cost one render to find.) */
+.aside { display: flex; align-items: center; justify-content: center; gap: 80px;
+         width: 100%; justify-self: stretch; position: relative; z-index: 2; }
+.aside .stack { align-items: flex-start; text-align: left; width: auto; }
+
+/* ------------------------------------------------------- glyphs drawn in CSS
+   The self-hosted subset is 97 codepoints. These are NOT in it, and typing one
+   literally silently falls back to a system font — which broke a 76px hero on a
+   shipped cut. Drawn instead, em-based so they scale with the host font-size.
+   Absent and therefore forbidden as literals:  →  ▶  >  ~  ×  ≈  ¢
+   Write "around 22%", not "~22%". (Not yet linted — this list is the only
+   guard, so read it before typing a symbol.) */
+.arrow, .arr {
+  display: inline-block; position: relative; vertical-align: middle;
+  width: 0.92em; height: 0.62em; color: inherit;
+}
+.arrow { font-size: 72px; font-weight: 900; color: var(--muted); }
+.arr   { width: 0.78em; margin: 0 0.12em; }
+.arrow::before, .arr::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 100%; height: 0.09em; background: currentColor; transform: translateY(-50%);
+}
+.arrow::after, .arr::after {
+  content: ""; position: absolute; right: 0.02em; top: 50%;
+  width: 0.3em; height: 0.3em;
+  border-top: 0.09em solid currentColor; border-right: 0.09em solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+.tri {
+  display: inline-block; width: 0; height: 0; vertical-align: middle; margin-right: 0.34em;
+  border-left: 0.62em solid currentColor;
+  border-top: 0.36em solid transparent; border-bottom: 0.36em solid transparent;
+}
+
+/* =====================================================================
+   ARCHITECTURE: swiss-band           <div id="root" class="swiss-band">
+
+   Swiss / International Typographic Style, in the one variant Vignelli
+   actually wrote a production spec for: the NPS Unigrid Design
+   Specifications (Vignelli Associates, 1977) — a template-driven,
+   photograph-heavy, mass-produced system, which is the closest historical
+   analogue to this pipeline. Research: finance-audit-2026-07-29/11-swiss-vignelli.md
+
+   Unigrid names three ways a photograph enters a grid. This is the first:
+   "a band, or toned panel, in which pictures are clustered to set them off
+   from text." The band is a FIXED APERTURE — identical geometry every scene.
+   That does the job our grade does, but geometrically: nine unrelated stock
+   photos read as one film because they arrive through the same window, which
+   is more robust than a CSS filter.
+
+   THE GRID (verified to the pixel, no remainder):
+     12 columns · margin 100 · column 125 · gutter 20
+       12×125 + 11×20 + 2×100 = 1920 ✓
+     rows: trim 60 · title 120 · band 600 · statement 240 · trim 60
+       60 + 120 + 600 + 240 + 60 = 1080 ✓
+
+   WHAT THIS VARIANT DELIBERATELY TURNS OFF, and why it is not drift:
+   type never sits on ungoverned photography here, so the four-layer scrim and
+   every text-shadow are DELETED rather than tuned; the per-scene --tint is
+   retired (Canon p.78 — colour is "a Signifier, or an Identifier… not used in
+   a pictorial manner"); radii go to 0 and the stamp's rotation to 0.
+   Type hangs FROM a rule (Canon p.70) and is flush left (p.66).
+
+   THE HARD RULE: two type sizes per scene, maximum (Canon p.68/p.72). The
+   240px statement zone enforces it physically — a scene that needs chip rows
+   or a four-row bill has to be restructured, not shrunk. That is the style
+   working, not the style failing.
+   ===================================================================== */
+
+.swiss-band .scene {
+  display: grid;
+  grid-template-rows: 60px 120px 600px 240px 60px;
+  place-items: stretch;
+  padding: 0;
+  text-align: left;
+}
+
+/* row 2 — the title bar. Black for maximum contrast, per Unigrid. */
+.swiss-band .swissbar {
+  display: flex; align-items: flex-start;
+  grid-row: 2; position: relative; z-index: 3;
+  background: #000; padding: 26px 0 0 100px;   /* type hangs 26px from the top edge */
+}
+.swiss-band .swissbar .kicker { color: var(--ink); opacity: .78; }
+
+/* row 3 — the aperture. Full-bleed width, fixed 1920×600 (3.2:1), every scene.
+   A 3.2:1 window over a 16:9 source shows only the middle ~55%, which is also
+   where stock footage is least incriminating. */
+.swiss-band .bg {
+  inset: auto 0 auto 0; top: 180px; height: 600px; width: 100%;
+}
+.swiss-band .scrim { display: none; }
+
+/* the rule the statement hangs from */
+.swiss-band .swissrule {
+  display: block; grid-row: 4; position: relative; z-index: 3;
+  height: 3px; background: var(--ink); margin: 0 100px;
+  align-self: start;
+}
+
+/* row 4 — the statement. Flush left, hung below the rule. */
+.swiss-band .stack {
+  grid-row: 4; align-items: flex-start; justify-content: flex-start;
+  padding: 30px 100px 0; gap: 16px; text-align: left; width: 100%;
+}
+.swiss-band .row, .swiss-band .cols { justify-content: flex-start; }
+.swiss-band .cols { gap: 40px; align-items: stretch; }
+
+/* type is never over a photograph in this variant */
+.swiss-band .kicker, .swiss-band .mega, .swiss-band .huge, .swiss-band .counter,
+.swiss-band .head2, .swiss-band .sub, .swiss-band .foot, .swiss-band .claim,
+.swiss-band .colhead, .swiss-band .colsub, .swiss-band .tag,
+.swiss-band .decision, .swiss-band .billrow, .swiss-band .statstrip {
+  text-shadow: none;
+}
+
+/* no ornament: squared corners, no rotation, colour as a signifier only */
+.swiss-band .chip, .swiss-band .claim, .swiss-band .billrow,
+.swiss-band .colcard, .swiss-band .statstrip, .swiss-band .cta,
+.swiss-band .stamp, .swiss-band .track2 { border-radius: 0; }
+.swiss-band .stamp { transform: none; }
+.swiss-band .chip { border-radius: 0; }
+
+/* the money number sits ON the rule, reversed out of the band once per video */
+.swiss-band .huge { font-size: 112px; letter-spacing: -3px; }
+.swiss-band .swissbar .huge { font-size: 96px; }
+
+/* 240px is the constraint. These fit; anything denser gets restructured. */
+.swiss-band .billrow { font-size: 32px; padding: 8px 20px; border-width: 2px; }
+.swiss-band .bill { gap: 6px; width: 1100px; }
+.swiss-band .colcard { padding: 12px 24px; gap: 6px; border-width: 2px; min-width: 340px; }
+.swiss-band .colhead { font-size: 32px; }
+.swiss-band .tag { font-size: 26px; }
+.swiss-band .sub { font-size: 32px; }
+
+/* =====================================================================
+   ARCHITECTURE: ledger-rail          <div id="root" class="rail">
+   The second layout in the rotation (tools/format.json → architectures).
+   Everything above is shared; this only changes where things sit.
+
+   108 of 108 shipped scenes were a centred column over a graded photo.
+   Here the photo is confined to a right panel with a hard edge and the
+   type sits on flat --bg — which means the four-layer scrim and every
+   text-shadow switch OFF, because nothing is over a photo any more.
+   That is the whole trick: it reads as a different channel, and it is
+   less machinery, not more.
+   ===================================================================== */
+
+.rail .scene {
+  display: grid; place-items: stretch;
+  grid-template-columns: 300px 1fr;
+  padding: 0; text-align: left;
+}
+
+/* left rail — flat, no photo, carries the scene index + beat label */
+.rail .railcol {
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 110px 0 110px 100px; background: var(--bg);
+}
+.rail .railno {
+  font-size: 96px; font-weight: 200; line-height: 1;
+  color: var(--muted); opacity: 0.55; letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
+}
+.rail .raillabel {
+  font-size: 26px; font-weight: 800; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--muted);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
+
+/* content column — left aligned, ragged right, over flat bg */
+.rail .stack {
+  align-items: flex-start; justify-content: center;
+  padding: 110px 150px 110px 0; text-align: left;
+}
+.rail .row, .rail .cols { justify-content: flex-start; }
+.rail .claim, .rail .chip { text-align: left; }
+
+/* the photo is a panel, not a wash — hard left edge, no bleed past it */
+.rail .bg {
+  inset: 0 0 0 auto; width: 740px;
+  filter: grayscale(0.32) brightness(0.52) contrast(1.05);
+}
+/* nothing sits on the photo here, so the scrim and the shadows are off */
+.rail .scrim { display: none; }
+.rail .kicker, .rail .mega, .rail .huge, .rail .counter, .rail .head2,
+.rail .sub, .rail .foot, .rail .claim, .rail .colhead, .rail .colsub,
+.rail .tag, .rail .decision, .rail .billrow, .rail .statstrip {
+  text-shadow: none;
+}
+.gt { display: inline-block; position: relative; width: 0.46em; height: 0.62em; vertical-align: middle; margin: 0 0.18em; color: inherit; }
+.gt::after {
+  content: ""; position: absolute; left: 0.02em; top: 50%;
+  width: 0.34em; height: 0.34em;
+  border-top: 0.1em solid currentColor; border-right: 0.1em solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}

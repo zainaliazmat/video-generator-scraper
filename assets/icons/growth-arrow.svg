@@ -1,0 +1,6 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- rising line with an arrowhead. draw() the two paths, pop() the dot. -->
+  <path id="i-line" d="M8 82 L34 54 L56 66 L92 20"/>
+  <path id="i-head" d="M74 20 L92 20 L92 38"/>
+  <circle id="i-dot" class="solid" cx="92" cy="20" r="5"/>
+</svg>

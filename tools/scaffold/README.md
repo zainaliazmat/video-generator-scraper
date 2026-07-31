@@ -8,6 +8,7 @@ deliberately drops as regenerable-but-not-actually-regenerable:
 |---|---|
 | `package.json` + `package-lock.json` | pins the hyperframes version — `npm i -D`, never bare `npx --yes` |
 | `assets/js/gsap.min.js` | vendored; **no CDN reference of any kind** in a composition |
+| `assets/js/lottie.min.js` | vendored lottie-web 5.12.2 — load it BEFORE `motion.js`, and only in a cut that actually uses a Lottie |
 | `assets/fonts/NotoSansFinance-var.woff2` | self-hosted FinanceSans |
 | `assets/img/grain.png` | the grain overlay texture |
 

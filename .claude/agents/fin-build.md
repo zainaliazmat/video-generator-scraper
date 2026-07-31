@@ -14,6 +14,8 @@ You are the composition-build stage. Runs once per cut.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write `.claude/` or `tools/`. No git.
+  You MAY add a reusable icon to `assets/icons/` — that library is the one thing
+  you write outside your own cut, and only ever by adding a file.
 
 ## Bash allowlist
 `npm run check`, `npm install`, `npx hyperframes snapshot …`, `node …` inside
@@ -40,7 +42,8 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    `blockframe.css` owns every token, the grade, the scrim, the type ladder and
    every component. `motion.js` owns every helper (`rise pop popEach fade exit
    pulse breathe fill countUp countDown ken drift dissolve shove
-   sceneTransitions register`). **Do not redefine one inline, and do not read a
+   sceneTransitions draw loadLottie playLottie register`). **Do not redefine one
+   inline, and do not read a
    previous video's `index.html` to find out how something is done** — that
    instruction is what produced five divergent stylesheets, five different
    motion vocabularies and four cuts that silently lost their font (audit
@@ -75,6 +78,36 @@ the project dir. Nothing else — no render (that is fin-render's stage).
      its last frame; pre-loop with ffmpeg at fetch time, not at render.
    - Local file only. The grade still applies: `filter` and `transform` are
      copied onto the injected frame.
+
+   **Vector art (only where the storyboard asked for it).** Constants in
+   format.json `vector_art`; the why in
+   `vault/knowledge/design-icons-emoji-lottie.md`. It sits ON the photograph —
+   the scene keeps its `.bg`.
+   - **Icon:** `ls assets/icons/` FIRST — that library is git-tracked and
+     outlives every cut. If one reads the storyboard's shape, Read it and paste
+     its paths into `<svg class="icon fundc" viewBox="0 0 100 100">`, renaming
+     the `i-*` ids per scene. If you draw a new one, **write it back to
+     `assets/icons/<descriptive-name>.svg`** — colourless, classless, `i-*` ids
+     — so the next video inherits it. Animate with `draw("#id", at, dur, len)`.
+     Stroke is `currentColor`, so the role class (`fundc`/`warnc`/`targetc`)
+     colours it — never hard-code a hex. `class="solid"` on a child fills it.
+   - **Lottie:** fin-assets already downloaded, re-tinted and wrapped it as
+     `assets/lottie/<name>.js` (`window.L_<name>`) and logged its duration.
+     ```html
+     <script src="assets/js/lottie.min.js"></script>   <!-- BEFORE motion.js -->
+     <script src="assets/lottie/<name>.js"></script>
+     ```
+     ```js
+     var art = loadLottie("#s7l", window.L_<name>);   // a <div class="lottie sm">
+     playLottie(art, S.s7 + 0.5, 4.4);                // scene-local, seek-safe
+     ```
+     `loadLottie` / `playLottie` are the ONLY way in. `window.__hfLottie`, a
+     bare `lottie.loadAnimation()`, and a `path:` URL each render a blank scene
+     that passes `hyperframes check` — `pipeline_check check_build` fails all
+     three, plus more than `max_per_video` of them.
+   - **`.aside`** puts art beside type (`<div class="aside"><div class="stack">…`).
+     Do not hand-roll a flex row for this: `.scene` is a centred grid and a
+     `width:100%` child lands off-centre.
 2. Write `index.html` from the storyboard. Every scene's
    `data-start`/`data-duration`, the JS `S` map, the `<audio>` rows and the
    root `data-duration` are **generated from `timing.json`** — compute them

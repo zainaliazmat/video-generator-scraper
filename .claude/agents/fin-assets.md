@@ -14,12 +14,17 @@ defect source on record — your job is to LOOK at every image, not to fetch.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write `.claude/` or `tools/`. No git.
+  `assets/lottie/` (the shared library) is written only through
+  `tools/lottie/search.py --save` — never by hand.
 
 ## Bash allowlist
 Only these:
 - `python3 tools/stock/pixabay_fetch.py --manifest … [--candidates N | --pick "s1=2,…"]`
   (also `--query/--out` for a one-off)
 - `md5sum …` (the dedupe ledger check)
+- `python3 tools/lottie/search.py "<phrase>" …` and
+  `python3 tools/lottie/tint.py <jsonUrl> <out.js> "#<accent>"` — only when the
+  storyboard asks for a lottie (see below)
 Nothing else.
 
 ## Procedure — contact-sheet flow (default: ~1 vision pass per slot, not N)
@@ -111,6 +116,49 @@ sheet can come back 1-of-6 without saying so. Count the cells you actually got.
 Apply your rejections CONSISTENTLY across the cut. On this run bitcoin props were
 refused on two slots as off-brand and then accepted on scene 1.2, inside the
 cold-open hook — the highest-stakes frames in the video.
+
+## Lottie slots (only if the storyboard asked for one)
+
+Same job as a photo — LOOK before you take it. Constants: format.json
+`vector_art.lottie`; the why: `vault/knowledge/design-icons-emoji-lottie.md`.
+
+**Reuse before you fetch.** `assets/lottie/` is a git-tracked library that
+outlives every cut — `studio/` does not. An asset already in it costs nothing,
+and the library only compounds if every run both reads from it and writes back
+to it.
+
+1. `tools/lottie/search.py "<the storyboard's phrase>" --sheet` — prints the
+   **library** matches first, with their own contact sheet, then the remote
+   candidates with `cell → name → author → jsonUrl` and one numbered sheet.
+   Remote results are the **free** catalogue only (Lottie Simple License:
+   commercial use, no attribution, don't redistribute the raw file). The paid
+   marketplace is out of scope — never pay, never scrape it.
+2. **Read the library sheet first.** If one of ours reads the scene, use it —
+   skip to step 3 with its name and fetch nothing. Only when nothing local fits
+   do you Read the remote sheet: one vision pass over twelve, same as the photo
+   flow. It prints how many cells it actually got (`9/12`), so a preview that
+   failed to download cannot pass as a rejected candidate. Reject on the
+   same trap list plus: wrong currency symbol drawn into the artwork ($ in a ₹
+   cut is the commonest), a readable brand mark, and any asset whose people
+   carry a different illustration style from the one already chosen for this
+   video — style consistency across the cut beats any single asset.
+3. **Save a new asset into the library before using it:**
+   `search.py --save "<cell>=<descriptive-name>" --tags "a,b,c"`. Tags are what
+   the next video searches on — write the words someone would actually type, not
+   the LottieFiles title. This step is the whole point; skipping it means the
+   next cut pays for this search again.
+4. `tools/lottie/tint.py <library-name> studio/videos/<slug>-<cut>/assets/lottie/<name>.js
+   "#<accent>"` — re-tints a copy to the palette and writes the loadable
+   `window.L_<name>` wrapper (the library keeps the original untinted, because
+   the accent belongs to the scene, not the asset). It refuses an asset with an
+   embedded bitmap, records the cut in the library's `used_in`, and prints the
+   frame count and seconds — **put both in your log**, fin-build needs the
+   duration for `playLottie`. If it warns that this asset is now in several
+   cuts, say so in your log: reuse is the point, but the same illustration in
+   four videos is sameness.
+5. Note the library name in `CREDITS.txt` next to the photo lines. Source URL,
+   author and licence are already in `assets/lottie/index.json` — one home per
+   fact; don't copy them.
 
 ## Authority
 **Replace, never drop a BACKGROUND** (creator rule 2026-07-28: every scene

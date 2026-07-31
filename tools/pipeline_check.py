@@ -378,6 +378,31 @@ def check_build(slug, cut, fmt):
         else:
             problems.append(f"{len(scenes)} scenes but {len(tracks)} data-track-index "
                             f"attributes — every <section> needs one")
+    # Lottie. Three ways to render a blank scene with every check green, so they
+    # are checked here rather than trusted to a prose rule. `loadLottie` and
+    # `playLottie` (motion.js) do the right thing; these catch a build that went
+    # around them. See vault/knowledge/design-icons-emoji-lottie.md.
+    if "lottie.min.js" in html:
+        va = fmt.get("vector_art", {}).get("lottie", {})
+        if "__hfLottie" in html:
+            problems.append(
+                "composition registers on window.__hfLottie — the runtime adapter "
+                "seeks it to ABSOLUTE composition time, so anything past its own "
+                "length draws nothing. Use playLottie() instead")
+        if re.search(r"loadAnimation\s*\(", html):
+            problems.append(
+                "calls lottie.loadAnimation() directly — use loadLottie() from "
+                "motion.js, which pins the global registry the adapter sweeps")
+        if re.search(r"path\s*:\s*['\"][^'\"]*\.json", html):
+            problems.append(
+                "loads a Lottie by path: — that fetch resolves after the runtime "
+                "has inspected the page. Inline the JSON as assets/lottie/<n>.js")
+        cap = va.get("max_per_video", 0)
+        n = len(re.findall(r"loadLottie\s*\(", html))
+        if cap and n > cap:
+            problems.append(
+                f"{n} Lotties in one cut (max {cap}) — lottie-web redraws the whole "
+                f"illustration every frame and it starts reading as a template deck")
     return problems
 
 
@@ -630,8 +655,9 @@ def _selftest():
         T = fmt["scene"]["transition_seconds"]
         sdir, total = studio_dir(slug, cut), round(start, 3)
 
-        def write_html(first_duration, tracks=(1, 2)):
+        def write_html(first_duration, tracks=(1, 2), extra=""):
             open(os.path.join(sdir, "index.html"), "w", encoding="utf-8").write(
+                extra +
                 f'<div id="root" data-composition-id="main" data-duration="{total}">'
                 f'<section data-start="{tlines[0]["scene_start"]}" data-duration="{first_duration}"'
                 f' data-track-index="{tracks[0]}"></section>'
@@ -647,6 +673,22 @@ def _selftest():
         write_html(round(tlines[0]["scene_duration"] + T, 3), tracks=(1, 1))
         assert any("same_track" in p or "both on data-track-index" in p
                    for p in check_build(slug, cut, fmt)), check_build(slug, cut, fmt)
+
+        # Lottie: each trap renders a blank scene that passes every other check.
+        good = round(tlines[0]["scene_duration"] + T, 3)
+        ok = '<script src="assets/js/lottie.min.js"></script><script>loadLottie("#a", L_x);</script>'
+        write_html(good, extra=ok)
+        assert check_build(slug, cut, fmt) == [], check_build(slug, cut, fmt)
+        for bad, want in [
+                ('<script>window.__hfLottie = [a];</script>', "__hfLottie"),
+                ('<script>lottie.loadAnimation({});</script>', "loadAnimation"),
+                ('<script>loadLottie("#a", {path: "assets/x.json"});</script>', "path:"),
+                ('<script>' + 'loadLottie("#a", L_x);' * 9 + '</script>', "max")]:
+            write_html(good, extra='<script src="assets/js/lottie.min.js"></script>' + bad)
+            assert any(want in p for p in check_build(slug, cut, fmt)), (want, check_build(slug, cut, fmt))
+        # …and none of it fires for a cut that never loads lottie at all
+        write_html(good, extra='<script>window.__hfLottie = [a];</script>')
+        assert check_build(slug, cut, fmt) == [], check_build(slug, cut, fmt)
 
         # rotation: the next run must not repeat the architecture just used
         assert next_architecture() in load_format()["architectures"]

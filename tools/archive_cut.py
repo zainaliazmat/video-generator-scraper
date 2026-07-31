@@ -30,6 +30,10 @@ KEEP = (
     "thumbnail*.png",
     "assets/voice/*.txt",
     "assets/img/*.src", "assets/img/CREDITS.txt",
+    # the re-tinted Lottie, ~400 KB each, capped at 3 per cut. Kept rather than
+    # dropped as regenerable: a LottieFiles asset URL can rotate, and the tint is
+    # a derivative of whatever tools/lottie/tint.py did that day.
+    "assets/lottie/*.js",
 )
 DROP = {"package-lock.json"}  # regenerable, and big
 

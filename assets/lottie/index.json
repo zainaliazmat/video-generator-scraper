@@ -1,0 +1,42 @@
+{
+ "analyst-on-coin-stacks": {
+  "tags": [
+   "growth",
+   "chart",
+   "person",
+   "coins",
+   "investing",
+   "analysis"
+  ],
+  "source": "https://assets-v2.lottiefiles.com/a/6e55457e-116d-11ee-a091-ef1bd4874750/haqa8jbgYV.json",
+  "author": "/shturma",
+  "license": "Lottie Simple License (LottieFiles free catalogue)",
+  "frames": 150,
+  "fps": 30,
+  "seconds": 5.0,
+  "w": 750,
+  "h": 500,
+  "added": "2026-07-31",
+  "used_in": []
+ },
+ "bar-chart-rising-arrow": {
+  "tags": [
+   "growth",
+   "chart",
+   "bars",
+   "arrow",
+   "increase",
+   "returns"
+  ],
+  "source": "https://assets-v2.lottiefiles.com/a/61771d6a-1176-11ee-bd03-f3bcfe6a4cb3/NF770I1o3I.json",
+  "author": "/j1e8tthfpk4sn2st",
+  "license": "Lottie Simple License (LottieFiles free catalogue)",
+  "frames": 80,
+  "fps": 30,
+  "seconds": 2.67,
+  "w": 1080,
+  "h": 1080,
+  "added": "2026-07-31",
+  "used_in": []
+ }
+}

@@ -36,6 +36,7 @@ Hindi, Harsh voice ([[knowledge/niches/india-finance-market]]).
 | Stage postconditions + run.json writer + doctor | `tools/pipeline_check.py` |
 | TTS batch → measured `timing.json` | `tools/tts/batch.py` |
 | Stock images (query-keyed skip, incremental credits) | `tools/stock/pixabay_fetch.py` |
+| Stock Lottie: search + contact sheet, download + re-tint | `tools/lottie/{search,tint}.py` — [[knowledge/design-icons-emoji-lottie]] |
 | Pre/post-run vault commits (explicit paths only) | `tools/vault_commit.py` |
 | The eleven agents | `.claude/agents/fin-*.md` |
 | The orchestrator | `.claude/commands/finance-video.md` |
