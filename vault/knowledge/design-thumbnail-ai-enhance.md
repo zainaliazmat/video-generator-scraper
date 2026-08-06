@@ -261,7 +261,7 @@ test against a known baseline.
 | needs-vs-wants | 2 | `src/thumbs/thumbnail-from-youtube-1280.png` | ⚠️ same |
 | credit-history | 6 (v1/v2/v3 × 2) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bb) · `chosen:` v2/v2 · enhanced PNGs not in repo, assert unrun |
 | good-debt-vs-bad-debt | 6 | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bc) · `chosen:` was already v2/v2 · enhanced PNGs not in repo, assert unrun |
-| pay-yourself-first | 7 (en has a v4) | archive | 🔴 `chosen:` unfilled on both |
+| pay-yourself-first | 7 (en has a v4) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **prompts written** 2026-08-06 (§5bd) · `chosen:` v2/v2 — **v4 was never used** |
 
 **The blocker that matters:** the pre-2026-07-29 videos shipped **3–4 variants per
 cut and their packs never recorded which one was uploaded.** You cannot enhance a
@@ -289,6 +289,46 @@ creator.** Ask for the screenshot first, not the URL.
 
 **Do not enhance a multi-variant video until its `chosen:` is filled.** Enhancing
 the wrong variant produces a tile that does not match what is on YouTube.
+
+✅ **All three 🔴 blockers are cleared as of 2026-08-06** — credit-history v2/v2,
+good-debt v2/v2 (already filled at upload), pay-yourself-first v2/v2. Every one came
+from a creator screenshot, none from the CDN. **The creator picked v2 on all three
+videos, six tiles, unanimously** — which is worth more than the field itself: v2 was the
+*continuity* option each time, described in its own pack as "the safe continuity pick"
+and flagged as a near-duplicate of the house style. The packs kept offering a
+pattern-breaker (v1 centred, v3 the flip/gauge) and it was never once taken. **The
+one-thumbnail rule the creator set on 2026-07-29 — build only the v2 style — was not a
+simplification of the pipeline; it was a description of what they had already been
+choosing.**
+
+## 5bd · Fifth application — pay-yourself-first (2026-08-06)
+
+Prompts written; generation not yet run. Two things make this pair different from the
+four tiles before it.
+
+**a) The retro-enhance backlog is also a rule-compliance sweep.** `thumbnail-en-v2.png`
+is built on a stock photo of **a person** — hand, wrist, sleeve, torso, pulling out an
+empty pocket. §4.6's *no people, no faces, no hands* postdates it (tile shipped
+2026-07-28, rule written 2026-08-06). So on this video the enhance does not add depth to
+a compliant tile, it **replaces the hero subject of a non-compliant one**, and the en
+prompt carries an explicit `REMOVE THE PERSON` block above the scene description.
+Expect more of this the further back the backlog goes — **check every remaining tile
+against today's rules before writing its prompt, not just against its own pack.**
+
+**b) First non-type element ever put through the preserve block.** Both tiles carry a
+**draining progress bar** — red outline, ~66 % translucent fill, 12 tick divisions. Every
+preserved element so far has been type or a solid panel. A bar has a *value*, and a model
+that decides to "finish" the fill silently changes what the tile claims. It is named in
+the preserve block with its fill width, its ticks and an explicit *do not extend the
+fill*, and it gets its own post-generation check. **If this survives, the technique
+extends to any rendered UI; if it does not, preserved elements must stay type-only.**
+
+**Deliberately breaking the still-life.** Acting on §5bc's convergence flag, this pair
+moves to **cool flat overcast daylight** with the source off-frame, on **domestic
+surfaces** — a cotton bedsheet on hi, a laminate kitchen counter on en. No lamp, no wooden
+desk, no night. It is also the better read of the claim: *empty by the 20th* is flat and
+deflating, and a moody warm lamp would flatter it. **Breaking the frame worked out to be a
+content decision, not just a variety one** — which is the same shape as §5b's tone rule.
 
 ## 6 · What this does NOT change
 

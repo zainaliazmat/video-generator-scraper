@@ -16,7 +16,7 @@ source: Chapter times = scene_start values in studio/videos/pay-yourself-first-e
 | v2 | THE HOOK — empty-pocket photo, red, left text. "EMPTY BY / THE 20TH?" + draining 1→20 bar | 20 (en1) |
 | v3 | THE FLIP — calculator photo, "SPEND FIRST" struck / "SAVE FIRST" green. "even 5% works" | 100 (en4) · 5% (en2/en8) |
 
-**chosen:** _(creator fills at upload — v1 / v2 / v3; fin-archive reads this back)_
+**chosen: v2** _(read back 2026-08-06 from the creator's own screenshot of the live tile — exact match to `src/thumbs/thumbnail-en-v2.png`. **v4 was NOT used**, and neither was the title it was built for — the live title is "Why Your Account Is Empty by the 20th (Pay Yourself First)". AI-enhance prompt: [[index]] §AI-enhance prompts.)_
 
 **Thumbnail sameness finding (last 3 on this channel — vault packs):**
 needs-vs-wants ("YOU THINK $86. IT'S $219." over $100 bills), 50-30-20 ("RENT EATS

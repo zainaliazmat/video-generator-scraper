@@ -16,7 +16,7 @@ source: Chapter times = scene_start values in studio/videos/pay-yourself-first-h
 | v2 | THE HOOK — rupee-note photo, red, left text. "20 TAK / KHALI?" + draining 1→20 bar | 20 |
 | v3 | THE FLIP — calculator photo, "KHARCH PEHLE" struck / "BACHAT PEHLE" green. "5% se shuru" | 100 · 5% |
 
-**chosen:** _(creator fills at upload — v1 / v2 / v3; fin-archive reads this back)_
+**chosen: v2** _(read back 2026-08-06 from the creator's own screenshot of the live tile — exact match to `src/thumbs/thumbnail-hi-v2.png`. AI-enhance prompt: [[index]] §AI-enhance prompts.)_
 
 **Thumbnail sameness finding (last 3 on this channel — vault packs):** 50-30-20
 ("SALARY AATE HI KHATAM?"), emergency-fund ("एक झटका / अर तू कंगाल"), needs-vs-wants
