@@ -55,7 +55,7 @@ video's differentiator vs every translated-from-American finance channel.
 | Avg balance among revolvers (~49% of cardholders) | **$10,870** | TransUnion/WalletHub |
 | Total US household debt | **$18.8T (Q1 2026)** — record | NY Fed HHDC |
 | Adults who could cover a **$400** emergency with cash or equivalent | **63% (2025)** — so **~4 in 10 could not** | Federal Reserve SHED, *Economic Well-Being of U.S. Households in 2025*, released May 2026 — **official** |
-| Avg APR on card accounts **assessed interest** | **22.15% (Q2 2026)** (21.52% Q1; 22.75% late-2023 peak) | Fed G.19 via LendingTree — **official-tier**. Say "22%" or "north of 20%", never a decimal |
+| Avg APR on card accounts **assessed interest** | **22.15% (May 2026 monthly)** (21.52% Q1 2026; 22.30% Q4 2025; 22.89% 2024 annual peak) | Fed G.19 current release, re-fetched direct 2026-08-01 — **official-tier**. Say "22%" or "north of 20%", never a decimal. ⚠️ Corrected 2026-08-01: this row previously labelled 22.15% as "Q2 2026" — G.19 marks 2026 Q2 n.a. and the figure is the May 2026 *monthly* print. The mislabel propagated into a video script before it was caught |
 | FDIC deposit insurance limit | **$250,000** per depositor, per insured bank, per ownership category | FDIC — **official** |
 | Starter emergency fund | **$1,000 first, then 3 months of expenses** | US **convention** (Ramsey Baby Step 1), not a statistic — frame as the standard advice |
 
