@@ -16,7 +16,7 @@ source: Chapter times = scene_start per line in studio/videos/credit-history-en/
 | v2 | **THE PRICE.** Left type over the car key (en7): green pill `SAME CAR, LOWER SCORE`, white `EXTRA COST`, red mega **$12,400**, then the two-tier rate rows (`TOP CREDIT TIER · ~6% → $418/mo` green-barred / `SUBPRIME · ~19% → $590/mo` red-barred) and the caption `$25,000 used car · 72 months`. Focal red, accent green. | 12,400 · 6 · 418 · 19 · 590 · 25,000 · 72 (en7) |
 | v3 | **THE SCALE.** Centred over the gauge bank (en3 — a dial *is* a score): red pill `WHAT'S A GOOD SCORE?`, white `CREDIT SCORE`, green mega **670+** over a 300→850 bar split at the true 670 mark (67.3%), sub `670+ = generally called "good"`. Focal green, accent red. | 670 · 300 · 850 (en3) |
 
-**chosen:** _(creator fills at upload — v1 / v2 / v3; fin-archive reads this back)_
+**chosen: v2** _(read back 2026-08-06 from the creator's own screenshot of the live tile — exact match to `src/thumbs/thumbnail-en-v2.png`. The cross-channel v3 twin risk did not materialise: neither cut shipped v3. AI-enhance prompt: [[index#AI-enhance prompts 2026-08-06 — chosen v2 on both cuts|index]].)_
 
 Legibility assert (largest line ≥40% of frame width, measured on the actual PNG downscaled to 320×180): **v1 `7 YEARS` 50.9%** · **v2 `$12,400` 42.8%** · **v3 `670+` 45.3%** — all pass. `npm run check` = **0 lint errors · 0 runtime · 0 layout issues across 9 samples · 0 motion · 36/36 WCAG AA**. One cosmetic warning remains — `timeline_track_too_dense` (6 timed elements on track 1), the known cost of co-hosting the hi and en variants in one project file per the "one HyperFrames project per slug" contract; identical to the good-debt-vs-bad-debt thumbs project.
 

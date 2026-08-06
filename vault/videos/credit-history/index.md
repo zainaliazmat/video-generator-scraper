@@ -309,14 +309,192 @@ glyph.*)
 > ≥28 days of real analytics, and zero-view "evidence" beside five dated confirmations
 > saying the opposite would poison the one file that compounds.
 
+## AI-enhance prompts (2026-08-06) — `chosen:` **v2 on both cuts**
+
+The creator supplied the two live tiles as screenshots this session. They match
+`src/thumbs/thumbnail-hi-v2.png` and `thumbnail-en-v2.png` exactly — layout, strings,
+colours and background photo. **That closes the thumbnail-pick readback for this pair
+without needing the CDN** ([[../../knowledge/design-thumbnail-ai-enhance]] §5c route 2),
+and it is the first recorded pick on @cashguruguides that is *not* v1. Both packs'
+`chosen:` lines are now filled.
+
+⚠️ Both screenshots read `CashGuruGuides · 0 views · 1 minute ago` — including the en
+tile, which belongs to @moneymavens101 (youtu.be/yoN-gAATN6Y, live 2026-07-31). Either
+the en cut was re-uploaded to the hi channel or the screenshots are a Studio view. Worth
+one line of confirmation before the swap; it does not change either prompt. The live en
+title also differs from the pack's recommendation — shipped as *"Your Credit Report
+Remembers Every Late Payment for 7 Years"*, not *"How Long Do Late Payments Stay…"*.
+
+Both prompts are plate-only per §2 of the design note. The scene each one builds is
+chosen so the **image alone says the claim** (`format.json layout.image_relevance`, and
+§5b's rule to run the sound-off test on the prompt): hi = the home-loan paperwork that
+the ₹4.5 lakh is charged on, en = the used-car key the $12,400 is charged on. Neither
+scene is allowed to read as wealth — the video's thesis is a *cost you don't see*, so a
+triumphant plate would argue with it.
+
+### hi — `thumbnail-hi-v2.png` → @cashguruguides
+
+```
+Enhance this 16:9 YouTube thumbnail. Rebuild ONLY the photograph behind and around the
+existing type. This is a photo-retouch task, not a redesign.
+
+ABSOLUTE RULE — PRESERVE ALL EXISTING TEXT PIXEL-FOR-PIXEL. Do not re-render,
+re-letter, restyle, translate, transliterate, move, resize or re-space ANY text or its
+container shapes. Every glyph must return byte-identical:
+  • "SCORE KAM" — near-black letters on a rounded amber pill (#f59e0b), upper left
+  • "EXTRA BYAJ" — cream (#f5f3ec) heavy caps
+  • "₹4.5 LAKH" — red (#ef4444) mega line, the largest element in the frame
+  • "₹30 lakh ke home loan par · ₹3.3–4.5 lakh" — cream, with the span
+    "₹3.3–4.5 lakh" in amber (#f59e0b)
+Keep the rupee glyph ₹ exactly as drawn. Add NO new text, numbers, labels, signs,
+handwriting, stamps with words, logos, watermarks or captions anywhere in the image.
+
+REGION: rebuild only the right ~40% of the frame plus the area behind the type. The left
+column must stay in deep shadow so all four text lines keep their contrast.
+
+SCENE: one continuous photoreal scene — a late-evening Indian home-loan desk. ONE hero
+group on the right: a red cloth-tied document folder (the classic Indian office file)
+lying closed on a dark scratched wooden desk, a plain brass house key with a small ring
+resting on top of it, and the existing black pen kept where it is. Shallow depth of
+field, warm single practical light from the left as if from a desk lamp, dust in the
+air, deep falloff to near-black at the frame edges. Photographic, shot on a 50mm at f/2,
+not CGI, not a render, not an illustration.
+
+TONE — this must read as ORDINARY, HEAVY, ADMINISTRATIVE. Worn paper, scuffed wood,
+muted colour. It is the cost of a loan, not the reward of one. No cash piles, no gold,
+no jewellery, no luxury, no glitter, no light rays, no upward arrows, no confetti,
+nothing celebratory.
+
+CURRENCY LOCK: Indian only. No US dollars, no euros, no pounds, no foreign notes or
+coins anywhere. Banknotes are not needed here — if any note appears at all it must be a
+small-denomination Indian rupee note, partially covered and out of focus.
+
+PAPER RULE: any document, folder or ledger surface must show only out-of-focus abstract
+ruled or printed texture. NO legible characters, NO numerals, NO bank name, NO logo, NO
+signature, NO account number, NO Devanagari or Latin words on any prop.
+
+FORBIDDEN CONTENT: no people, no faces, no hands, no body parts (this channel is
+faceless, permanently). No charts, pie graphs, bar graphs, gauges, dials, score meters,
+receipts, bill lists, checklists, progress bars, arrows or infographics of any kind —
+physical props yes, data graphics no. No collage, no panels, no left-to-right sequence:
+ONE hero group that survives at 320×180. No promise imagery and no props implying
+"financial freedom", "no debt stress", "emergency ready", "future secured", guaranteed
+approval, or a fast score fix — this video promises none of those.
+
+OUTPUT: 16:9, 1280×720 framing, photoreal, cinematic.
+```
+
+### en — `thumbnail-en-v2.png` → @moneymavens101
+
+```
+Enhance this 16:9 YouTube thumbnail. Rebuild ONLY the photograph behind and around the
+existing type. This is a photo-retouch task, not a redesign.
+
+ABSOLUTE RULE — PRESERVE ALL EXISTING TEXT AND UI PANELS PIXEL-FOR-PIXEL. Do not
+re-render, re-letter, restyle, move, resize or re-space ANY text, and do not alter the
+two dark rate rows or their coloured left bars. Every glyph must return byte-identical:
+  • "SAME CAR, LOWER SCORE" — near-black letters on a rounded green pill (#22c55e)
+  • "EXTRA COST" — cream (#f5f3ec) heavy caps
+  • "$12,400" — red (#ef4444) mega line, the largest element in the frame
+  • row 1, green left bar: "TOP CREDIT TIER · ~6%" and "$418/mo"
+  • row 2, red left bar: "SUBPRIME · ~19%" and "$590/mo"
+  • "$25,000 used car · 72 months" — cream caption under the rows
+Add NO new text, numbers, labels, signs, price stickers, window stickers, handwriting,
+logos, badges, watermarks or captions anywhere in the image.
+
+REGION: rebuild only the right ~40% of the frame plus the area behind the type. The left
+column and both rate rows must stay in deep shadow so every line keeps its contrast.
+
+SCENE: one continuous photoreal scene — a used-car dealership finance desk after hours.
+ONE hero group on the right: the existing dark car key fob kept where it is, resting on
+a closed manila folder on a dark wood desk, with a plain unbranded metal key ring beside
+it. Shallow depth of field, one warm practical light from the left, deep falloff to
+near-black at the frame edges. Photographic, shot on a 50mm at f/2, not CGI, not a
+render, not an illustration.
+
+TONE — this must read as an ORDINARY used-car purchase, not a luxury one. Worn desk,
+plain folder, muted colour. No showroom, no gleaming chrome, no sports car, no premium
+badge, no celebration, no light rays, no upward arrows.
+
+CURRENCY LOCK: US only. No rupee symbol, no foreign currency, anywhere. **Do NOT render
+banknotes at all** — dollar bills come back with garbled serials and wrong portraits and
+would sink the tile. Cash is not part of this scene.
+
+BRANDING RULE: no manufacturer badge, no logo, no wordmark, no dealership name, no
+license plate, no VIN, no visible car. The key fob must stay generic and unbranded; any
+paperwork shows only out-of-focus abstract printed texture with NO legible characters
+and NO numerals.
+
+FORBIDDEN CONTENT: no people, no faces, no hands, no body parts (this channel is
+faceless, permanently). No charts, pie graphs, bar graphs, gauges, dials, score meters,
+receipts, bill lists, checklists, progress bars, arrows or infographics of any kind —
+physical props yes, data graphics no. No collage, no panels, no left-to-right sequence:
+ONE hero group that survives at 320×180. No promise imagery and no props implying
+"financial freedom", "no debt stress", "emergency ready", "future secured", guaranteed
+approval, or a fast score fix — this video promises none of those.
+
+OUTPUT: 16:9, 1280×720 framing, photoreal, cinematic.
+```
+
+### Result — both returned 2026-08-06, one pass each ✅
+
+Third application of the plate-only technique, **six tiles across three videos now, zero
+garbled letters.**
+
+| | hi | en |
+|---|---|---|
+| Every preserved string | ✅ incl. the `₹` glyph ×3 and the amber sub-span | ✅ incl. both rate rows, their green/red bars and the panel fills |
+| Invented text / promises | none | none |
+| Faces · hands · people | none | none |
+| Charts · gauges · infographics | none | none |
+| Currency lock | ₹ only, no notes rendered | $ only, **no banknotes rendered** — the §3c risk was avoided by forbidding cash outright |
+| Branding | — | no badge, no plate, no dealer name; fob is generic two-button |
+| Scene | red cloth-tied file, brass key, pen, brass desk lamp, scratched wood, warm side light | manila folder, black key fob, dark wood, warm side light |
+| Returned size | 2752×1536 (1.79:1) | 2752×1536 (1.79:1) |
+
+**The tone constraint did its job on both.** Neither plate reads as wealth — the hi tile
+is an administrative desk at night, the en tile is a folder on a worn desk. Both argue
+*for* the claim above them rather than against it, which is the §5b sound-off-on-the-
+prompt test passing at generation time instead of after.
+
+**One deviation, worth writing down: the paperwork rule held on hi and slipped on en.**
+Both prompts said any document surface must show only out-of-focus abstract texture with
+no legible characters. The hi file cover complied — the faint marks on the red cloth are
+illegible embossing. The **en folder came back with a full page of rendered
+lorem-ipsum-style body copy**, sharp enough at 1:1 to read as *text*, even though no word
+is a word. At 320×180 it is grey texture and harmless, so the tile ships. But the rule to
+carry forward is that **"no legible characters" is not a strong enough instruction — the
+model hears it as "unreadable text is fine" and fills the page.** Ask for the *surface*
+instead: *"any paper is blank, or covered by the props, or so far out of focus that no
+line of type is resolvable."*
+
+### ⛔ Still owed — the assert has NOT been run
+
+The returned PNGs are **not on disk**, so the ≥40 % legibility assert has not been
+re-measured on the actual image. It cannot be eyeballed off a paste — that is exactly the
+mistake §5b flags on first-lakh-first-thousand, and it matters more here: `$12,400`
+entered at **42.8 %**, the thinnest margin of any tile in the catalogue, and the enhanced
+frame is 1.79:1 rather than a true 16:9, so the proportion can move.
+
+**Drop both files at these exact paths and the assert can run:**
+
+```
+vault/videos/credit-history/src/thumbs/thumbnail-hi-v2-ai.png
+vault/videos/credit-history/src/thumbs/thumbnail-en-v2-ai.png
+```
+
+Then resize to 1280×720 for upload. **Do this before the tile swap, not after** —
+japanese-money-methods and first-lakh-first-thousand both lost their enhanced PNGs to a
+Google Flow session and neither is recoverable; this pair would be the third.
+
 ## Current state + what is owed
 
 State is one section: **§ Published + archived (2026-07-31)** at the foot of this note.
 Still owed beyond the two items listed there:
 
-- **thumbnail-pick readback (this pair + pay-yourself-first)** — the chosen thumbnail is
-  the public thumbnail, so compare each live video against the PNGs now in
-  `src/thumbs/` and record the match; same for pay-yourself-first
+- ✅ **thumbnail-pick readback — DONE for this pair 2026-08-06 (v2 / v2)**, off creator
+  screenshots, not the CDN. **Still owed for pay-yourself-first** — the chosen thumbnail
+  is the public thumbnail, so compare each live video against the PNGs in `src/thumbs/`
   (youtu.be/PKU0_TeJ9_c · youtu.be/mlvp4xZTROg, recorded in
   [[../pay-yourself-first/index]]). Asking a seventh time in a pack demonstrably
   does not work
@@ -353,4 +531,6 @@ thumbnail PNGs. `studio/videos/credit-history*` is **deleted** per the finished-
 mp3s are gone, so a rebuild re-pays image gens + ElevenLabs off the archived prompts
 and lines. `gen_vo_*.sh` still `cd`s into the deleted studio path — repoint it first.
 
-Still owed: thumbnail-pick readback · analytics after 28 days.
+Still owed: the two enhanced PNGs back into `src/thumbs/` · analytics after 28 days.
+(Thumbnail-pick readback closed 2026-08-06 — **v2 on both cuts**; the Thumbnail column
+above is now answerable and the AI-enhance prompts are in § above.)

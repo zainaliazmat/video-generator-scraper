@@ -16,7 +16,7 @@ source: Chapter times = scene_start per line in studio/videos/credit-history-hi/
 | v2 | **THE PRICE.** Left type over the blueprint (s7, "same house, different number"): amber pill `SCORE KAM`, white `EXTRA BYAJ`, red mega `₹4.5 LAKH`, sub "₹30 lakh ke home loan par · ₹3.3–4.5 lakh". Focal red, accent amber. The channel-continuity pick (closest to the last-3 family). | 4.5 · 30 · 3.3 (s7) |
 | v3 | **THE SCALE.** Centred over the ledger (s3): red pill `KITNA HONA CHAHIYE?`, white `CIBIL SCORE`, **green** mega `700+`, a 300→900 gauge split at the real 700 mark (66.7%), sub "750+ = sabse sasta loan". Focal green, accent red — the first green-focal thumb on this channel. | 700 · 300 · 900 · 750 (s3) |
 
-**chosen:** _(creator fills at upload — v1 / v2 / v3; fin-archive reads this back)_
+**chosen: v2** _(read back 2026-08-06 from the creator's own screenshot of the live tile — exact match to `src/thumbs/thumbnail-hi-v2.png`. So the flagged near-duplicate WAS the pick: the channel's thumbnail language did not move on this upload, as v2 was offered knowing. AI-enhance prompt: [[index#AI-enhance prompts 2026-08-06 — chosen v2 on both cuts|index]].)_
 
 Legibility assert (largest line ≥40% of frame width at 320×180): **v1 `36 MAHINE` ~59%** · **v2 `₹4.5 LAKH` ~58%** · **v3 `700+` ~47%** — all pass. `npm run check` = **0 lint / 0 runtime / 0 layout / 0 motion issues, 29/29 WCAG AA contrast**. Backgrounds are the video's OWN scene photos (s1/s7/s3) under the design grade — no new images, no cross-video reuse, no AI-collage, no shocked-face, no red box. Each variant holds to **one focal colour + one accent**; `--muted` grey is used only for the `36 MONTHS` grid caption. **₹ only — no dollar glyph anywhere** (hard rule for a hi cut).
 
