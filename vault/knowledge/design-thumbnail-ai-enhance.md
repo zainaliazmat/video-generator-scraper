@@ -175,6 +175,32 @@ ship, but the phrasing to use from now on constrains the **surface**, not the le
 > *"Any paper is blank, or covered by the props, or so far out of focus that no line of
 > type is resolvable. No blocks of body copy, no lines of lettering, no filler text."*
 
+## 5bc · Fourth application — good-debt-vs-bad-debt (2026-08-06)
+
+Prompts written; generation not yet run. Three additions, all of which generalise.
+
+**A DO-NOT-USE prop list belongs in every prompt from now on.** The enhance prompt is
+the cheapest place this channel has ever had to control **cross-video visual sameness** —
+the standing open problem in [[../videos/credit-history/index]] §Architecture sameness.
+Naming the props the last video used (hourglass, cloth-tied file, brass key, key fob)
+costs one line and stops the catalogue converging on a house still-life the same way the
+compositions converged on blockframe-9. **Carry the previous video's prop list forward
+into the next video's prompt.**
+
+**Forbid the colour the design decided against, don't just omit it.** This video's pack
+states *green is deliberately absent — the thumbnail sells the trap, not the escape.*
+That is a content decision the render enforces and the model does not inherit; handed
+"credit card debt" it reaches for a green tick or a `PAID` stamp on its own. So the
+prompt carries an explicit `NO GREEN anywhere` plus a named **no-escape-imagery** list
+(scissors, cut card, broken chain, cleared stamp, open lock). Same family as §3b's
+forbidden promises: **the model must be told what the video decided NOT to say.**
+
+**Signal the abstract claim with an aged physical prop.** Both tiles claim *time*
+(17 years / 18 years), which has no obvious object. The prompt asks for a thick paper
+stack **whose bottom sheets have yellowed while the top sheets are fresh** — duration
+made visible with no numeral, axis or label. Third instance of the §5b rule that a
+physical prop beats a data graphic, and the first where the prop encodes a *quantity*.
+
 ## 5c · BACKLOG — retro-enhance every published finance tile
 
 Creator decision 2026-08-06: work back through the catalogue and write an enhance
@@ -191,7 +217,7 @@ test against a known baseline.
 | 50-30-20-rule | 2 | `src/thumbs/thumbnail-from-youtube-1280.png` | ⚠️ one tile only — recovered from the CDN, the build's own PNGs were never archived |
 | needs-vs-wants | 2 | `src/thumbs/thumbnail-from-youtube-1280.png` | ⚠️ same |
 | credit-history | 6 (v1/v2/v3 × 2) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bb) · `chosen:` v2/v2 · enhanced PNGs not in repo, assert unrun |
-| good-debt-vs-bad-debt | 6 | archive | 🔴 `chosen:` partly unfilled |
+| good-debt-vs-bad-debt | 6 | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **prompts written** 2026-08-06 · `chosen:` was **already v2/v2** (filled at upload, never a blocker — the table was wrong) |
 | pay-yourself-first | 7 (en has a v4) | archive | 🔴 `chosen:` unfilled on both |
 
 **The blocker that matters:** the pre-2026-07-29 videos shipped **3–4 variants per

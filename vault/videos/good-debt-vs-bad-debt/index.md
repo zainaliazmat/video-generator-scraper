@@ -79,6 +79,170 @@ trap, not the escape). Backgrounds are the video's OWN re-graded scene photos �
 new/cross-video images, no AI-collage, no shocked-face. **Chosen: v2 for both cuts**
 (creator pick, 2026-07-29). **New creator rule: one v2-style thumbnail from now on, not three.**
 
+## AI-enhance prompts (2026-08-06) — v2 / v2
+
+Fourth video through the plate-only pass ([[../../knowledge/design-thumbnail-ai-enhance]]).
+No blocker here: `chosen:` was filled at upload with **v2 on both cuts**, so the tiles to
+enhance were never in doubt — the only video in the backlog where that was already true.
+
+**The claim on both tiles is TIME, so the plate has to say time.** Not money, not
+disaster. The two enhanced scenes signal duration with **a thick stack of paper whose
+bottom sheets have yellowed and whose top sheets are fresh** — a physical prop that reads
+as *years of this* at browse size, carries no numeral, no axis and no label, and stays on
+the right side of §5b's *physical props yes, data graphics no* line.
+
+Three constraints here that the earlier prompts did not need:
+
+1. **Green is forbidden**, not merely unused. This video's colour thesis is that red is
+   the trap and the tile sells the trap, not the escape. A model handed "credit card
+   debt" will reach for a green tick, a cut-up card or a `PAID` stamp unprompted.
+2. **No escape imagery at all** — no scissors cutting a card, no broken chain, no
+   cleared balance. Same reason. These are named explicitly because they are the single
+   most predictable stock answer to this topic.
+3. **No prop that credit-history already used** — no hourglass, no red cloth-tied file,
+   no brass key, no car key. The two videos publish on the same channels and the enhance
+   prompt is now the cheapest place to control cross-video visual sameness, which is this
+   channel's standing open problem.
+
+Both source plates carry **legible background text** (the hi ledger is covered in
+handwritten figures, the en document reads `busin…`). Both prompts kill it, using the
+surface-level phrasing from §5bb rather than the weaker "no legible characters" that let
+lorem ipsum through on credit-history.
+
+### hi — `thumbnail-hi-v2.png` → @cashguruguides
+
+```
+Enhance this 16:9 YouTube thumbnail. Rebuild ONLY the photograph behind and around the
+existing type. This is a photo-retouch task, not a redesign.
+
+ABSOLUTE RULE — PRESERVE ALL EXISTING TEXT PIXEL-FOR-PIXEL. Do not re-render,
+re-letter, restyle, translate, transliterate, move, resize or re-space ANY text or its
+container shapes. Every glyph must return byte-identical:
+  • "MINIMUM = JAAL" — near-black letters on a rounded red pill (#ef4444), upper left
+  • "208 MAHINE" — cream (#f5f3ec) heavy caps
+  • "17 SAAL" — red (#ef4444) mega line, the largest element in the frame
+  • "₹50,000 ka card clear karne me" — cream, below the mega line
+Keep the rupee glyph ₹ exactly as drawn. Add NO new text, numbers, labels, signs,
+handwriting, figures, stamps with words, logos, watermarks or captions anywhere.
+
+REGION: rebuild only the right ~35% of the frame plus the area behind the type. The left
+column must stay in deep shadow so all four text lines keep their contrast.
+
+SCENE: one continuous photoreal scene — a dark wooden desk at night, lit by one warm
+practical light from the left. ONE hero group on the right: a thick tied stack of folded
+paper statements, the sheets at the bottom yellowed and curling with age while the top
+sheets are white and fresh, with a plain unbranded card lying FACE DOWN on top of the
+stack, and the existing magnifying glass kept where it is, resting on the desk. Shallow
+depth of field, dust in the air, deep falloff to near-black at the frame edges.
+Photographic, 50mm at f/2, not CGI, not a render, not an illustration.
+
+THE IDEA THE IMAGE MUST CARRY: time passing, slowly, on the same debt. The age gradient
+in the paper stack is the whole point — make it unmistakable.
+
+TONE — ordinary, worn, administrative, patient. Scuffed wood, soft paper edges, muted
+colour. No drama, no disaster, no torn or burning paper, no spotlight, no light rays.
+Equally: no wealth, no cash piles, no gold, no luxury, no glitter.
+
+COLOUR LOCK: NO GREEN anywhere — not a plant, not a ledger line, not a tick, not a
+banknote, not a highlight. This tile sells the trap, not the escape. Warm amber, cream,
+deep brown and near-black only.
+
+NO ESCAPE IMAGERY: no scissors, no cut or broken card, no broken chain, no "paid" or
+"cleared" stamp, no tick, no crossing-out, no open lock, no upward arrow.
+
+CURRENCY LOCK: Indian only. No US dollars, no foreign notes or coins. Banknotes are not
+needed here — do not render cash at all.
+
+PAPER RULE: every paper surface is blank, or covered by the props, or so far out of
+focus that no line of type is resolvable. No blocks of body copy, no lines of lettering,
+no filler text, no handwritten figures, no ruled ledger columns with entries in them, no
+printed rows. The card shows NO number, NO name, NO bank logo, NO network mark, NO chip
+detail — it is face down.
+
+DO NOT USE these props (already used on this channel's other videos): hourglass, clock,
+calendar, red cloth-tied document file, brass key, car key, key fob.
+
+FORBIDDEN CONTENT: no people, no faces, no hands, no body parts (this channel is
+faceless, permanently). No charts, pie graphs, bar graphs, gauges, dials, score meters,
+receipts with legible lines, checklists, progress bars, arrows or infographics of any
+kind — physical props yes, data graphics no. No collage, no panels, no left-to-right
+sequence: ONE hero group that survives at 320×180. No props implying "financial
+freedom", "debt free", "no stress" or a fast fix — this video promises none of those.
+
+OUTPUT: 16:9, 1280×720 framing, photoreal, cinematic.
+```
+
+### en — `thumbnail-en-v2.png` → @moneymavens101
+
+```
+Enhance this 16:9 YouTube thumbnail. Rebuild ONLY the photograph behind and around the
+existing type. This is a photo-retouch task, not a redesign.
+
+ABSOLUTE RULE — PRESERVE ALL EXISTING TEXT PIXEL-FOR-PIXEL. Do not re-render,
+re-letter, restyle, move, resize or re-space ANY text or its container shapes. Every
+glyph must return byte-identical:
+  • "MINIMUM = TRAP" — near-black letters on a rounded red pill (#ef4444), upper left
+  • "215 MONTHS" — cream (#f5f3ec) heavy caps
+  • "18 YEARS" — red (#ef4444) mega line, the largest element in the frame
+  • "to clear a $6,000 card on minimum" — cream, below the mega line
+Add NO new text, numbers, labels, signs, handwriting, figures, stamps with words, logos,
+watermarks or captions anywhere.
+
+REGION: rebuild only the right ~30% of the frame plus the area behind the type. "18
+YEARS" runs to roughly two-thirds of the frame width, so the usable clean area is narrow
+— keep the left two-thirds in deep shadow so every line keeps its contrast.
+
+SCENE: one continuous photoreal scene — a dark wooden desk at night, lit by one warm
+practical light from the left. ONE hero group on the right: a thick stack of paper
+statements, the sheets at the bottom yellowed and curling with age while the top sheets
+are white and fresh, with the existing pen resting across them and a plain unbranded
+desk calculator sitting beside the stack, its display dark and blank. Shallow depth of
+field, dust in the air, deep falloff to near-black at the frame edges. Photographic,
+50mm at f/2, not CGI, not a render, not an illustration.
+
+THE IDEA THE IMAGE MUST CARRY: time passing, slowly, on the same debt. The age gradient
+in the paper stack is the whole point — make it unmistakable.
+
+TONE — ordinary, worn, administrative, patient. Scuffed wood, soft paper edges, muted
+colour. No drama, no disaster, no torn or burning paper, no spotlight, no light rays.
+Equally: no wealth, no cash piles, no gold, no luxury, no glitter.
+
+COLOUR LOCK: NO GREEN anywhere — not a plant, not a ledger line, not a tick, not a
+calculator key, not a highlight. This tile sells the trap, not the escape. Warm amber,
+cream, deep brown and near-black only.
+
+NO ESCAPE IMAGERY: no scissors, no cut or broken card, no broken chain, no "paid" or
+"cleared" stamp, no tick, no crossing-out, no open lock, no upward arrow.
+
+CURRENCY LOCK: US only. No rupee symbol, no foreign currency. **Do NOT render banknotes
+at all** — dollar bills come back with garbled serials and wrong portraits. Cash is not
+part of this scene.
+
+PAPER AND DISPLAY RULE: every paper surface is blank, or covered by the props, or so far
+out of focus that no line of type is resolvable. No blocks of body copy, no lines of
+lettering, no filler or lorem-ipsum text, no printed statement rows, no handwritten
+figures. The calculator display is OFF and empty, and its keys carry no legible digits or
+symbols. No brand name on the calculator.
+
+DO NOT USE these props (already used on this channel's other videos): hourglass, clock,
+calendar, manila folder, car key, key fob, credit card shown face up.
+
+FORBIDDEN CONTENT: no people, no faces, no hands, no body parts (this channel is
+faceless, permanently). No charts, pie graphs, bar graphs, gauges, dials, score meters,
+receipts with legible lines, checklists, progress bars, arrows or infographics of any
+kind — physical props yes, data graphics no. No collage, no panels, no left-to-right
+sequence: ONE hero group that survives at 320×180. No props implying "financial
+freedom", "debt free", "no stress" or a fast fix — this video promises none of those.
+
+OUTPUT: 16:9, 1280×720 framing, photoreal, cinematic.
+```
+
+**After generation:** re-measure on the RETURNED image, not on the render — `17 SAAL`
+entered at ~55 % of frame width and `18 YEARS` at ~65 %, so both have comfortable margin,
+but the assert is run on the returned file or it is not run. Save as
+`src/thumbs/thumbnail-{hi,en}-v2-ai.png` **in this repo** before the swap — three videos'
+enhanced PNGs have been lost to Google Flow sessions so far.
+
 ## Run events + learnings worth keeping
 
 **⛔ CHANNEL SAMENESS — HARD flag, enforcement line crossed (both channels).** This is
