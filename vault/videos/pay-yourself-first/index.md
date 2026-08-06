@@ -270,16 +270,70 @@ left-to-right sequence: ONE hero group that survives at 320×180.
 OUTPUT: 16:9, 1280×720 framing, photoreal, cinematic.
 ```
 
-**After generation — two extra checks on this pair, beyond the usual ≥40 % assert:**
+### Result — both returned 2026-08-06, one pass each ✅
 
-1. **Confirm the person is gone from the en tile** and that no stray hand, sleeve or
-   shoulder survived at the frame edge. This is the whole reason the en prompt is more
-   aggressive than the other three.
-2. **Confirm the draining bar came back unmodified** — right fill width, 12 ticks, no
-   added labels. It is the first preserved element in this series that is neither type
-   nor a solid panel, so it is the least tested part of the technique.
+Ten tiles across five videos, **still zero garbled letters.** Every string byte-identical
+on both cuts, including the em-dash in `Galti aapki nahi — system ki hai` and the
+apostrophes in `Saving what's left? Nothing's left.`
 
-Save as `src/thumbs/thumbnail-{hi,en}-v2-ai.png` **in this repo** before the swap.
+**Both extra checks passed.**
+
+1. **The person is gone.** No hand, no wrist, no sleeve, no shoulder, nothing at the frame
+   edge. The `REMOVE THE PERSON` block worked in one pass, and the tile is now compliant
+   with a rule it had been breaching since 2026-07-28.
+2. **The draining bar survived** — outline, tick divisions and position all intact on both
+   cuts, no labels added, no restyle. **So the preserve block extends beyond type to
+   rendered UI**, which was the open question. See the caveat below on fill width.
+
+**And both prompt bugs found on good-debt are fixed — verified, not assumed:**
+
+- **No lamp in either frame.** Describing light as *"from an off-frame window, the source
+  is NOT visible"* stopped the fixture appearing after it had shown up on three
+  consecutive tiles. The fix works; make it the standing phrasing.
+- **No body copy anywhere, on either tile.** Not because the surface rule got stronger —
+  it did not change — but because **neither scene contains a document or a calculator.**
+  That is the cleanest possible confirmation of the *omit type-bearing objects, don't
+  qualify them* rule: with nothing in frame that wants to carry type, the failure mode
+  simply has no host.
+
+**The still-life break landed.** A rumpled bedsheet in a bedroom and a pale kitchen
+counter, both in cool daylight — completely outside the dark-desk-at-night frame the
+previous four tiles had converged on, and a better read of *empty by the 20th* than a
+moody lamp would have been. Both scenes are domestic and ordinary, which is the register
+the claim needs.
+
+### ⚠️ Two things to check on the files before the swap
+
+**1. The hi bar's fill width looks short of 66 %.** Eyeballed off the paste it reads
+closer to ~60 %. **This is the one deviation in the whole series that could change what a
+tile claims** — the bar encodes "the month runs out around the 20th", and a shorter fill
+moves that date. It cannot be settled by eye, which is precisely why it needs the file.
+Measure the filled span against the bar's inner width and compare to 0.66; the en bar
+looks correct. If the hi fill did drift, that is the answer to the §5bd question — **a
+preserved element with a *value* is not safe, and bars must be composited back rather than
+regenerated.**
+
+**2. The en wallet has a visible card window** with something card-like in it, against the
+prompt's *no card visible inside it*. Cosmetic, invisible at browse size, and it does not
+touch a claim — but it is the third time a prop has quietly kept a feature the prompt
+excluded, after the calculator keys and the folder body copy.
+
+Neither blocks the swap. Both tiles ship.
+
+### Owed
+
+The returned PNGs are **not on disk**, so neither the ≥40 % assert nor the bar-fill
+measurement above has actually been run.
+
+```
+vault/videos/pay-yourself-first/src/thumbs/thumbnail-hi-v2-ai.png
+vault/videos/pay-yourself-first/src/thumbs/thumbnail-en-v2-ai.png
+```
+
+**Props now spent across both channels** — carry the whole list into the next video:
+hourglass, clock, calendar, red cloth-tied file, brass key, car key, key fob, manila
+folder, desk lamp, magnifying glass, tied paper stack, calculator, dark scratched wooden
+desk, **open empty wallet, loose coin, rumpled bedsheet, laminate kitchen counter**.
 
 - **fin-research EmptyStudyPacket, rescued**: the library has never been
   scraped for this lane — run continued on vault knowledge; scrape owed (below).

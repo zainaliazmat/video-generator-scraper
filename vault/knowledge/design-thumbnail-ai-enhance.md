@@ -261,7 +261,7 @@ test against a known baseline.
 | needs-vs-wants | 2 | `src/thumbs/thumbnail-from-youtube-1280.png` | ⚠️ same |
 | credit-history | 6 (v1/v2/v3 × 2) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bb) · `chosen:` v2/v2 · enhanced PNGs not in repo, assert unrun |
 | good-debt-vs-bad-debt | 6 | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bc) · `chosen:` was already v2/v2 · enhanced PNGs not in repo, assert unrun |
-| pay-yourself-first | 7 (en has a v4) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **prompts written** 2026-08-06 (§5bd) · `chosen:` v2/v2 — **v4 was never used** |
+| pay-yourself-first | 7 (en has a v4) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bd) · `chosen:` v2/v2, **v4 never used** · enhanced PNGs not in repo; ⚠️ hi bar fill unmeasured |
 
 **The blocker that matters:** the pre-2026-07-29 videos shipped **3–4 variants per
 cut and their packs never recorded which one was uploaded.** You cannot enhance a
@@ -301,10 +301,11 @@ one-thumbnail rule the creator set on 2026-07-29 — build only the v2 style —
 simplification of the pipeline; it was a description of what they had already been
 choosing.**
 
-## 5bd · Fifth application — pay-yourself-first (2026-08-06)
+## 5bd · Fifth application — pay-yourself-first (2026-08-06, generated)
 
-Prompts written; generation not yet run. Two things make this pair different from the
-four tiles before it.
+**Ten tiles, five videos, zero garbled letters.** The most informative round so far,
+because it was the first to *test* fixes rather than only add rules — and both fixes
+held. Two things make this pair different from the four tiles before it.
 
 **a) The retro-enhance backlog is also a rule-compliance sweep.** `thumbnail-en-v2.png`
 is built on a stock photo of **a person** — hand, wrist, sleeve, torso, pulling out an
@@ -329,6 +330,41 @@ surfaces** — a cotton bedsheet on hi, a laminate kitchen counter on en. No lam
 desk, no night. It is also the better read of the claim: *empty by the 20th* is flat and
 deflating, and a moody warm lamp would flatter it. **Breaking the frame worked out to be a
 content decision, not just a variety one** — which is the same shape as §5b's tone rule.
+
+### What came back — both fixes verified, and the UI question half-answered
+
+**a) `REMOVE THE PERSON` worked in one pass.** No hand, wrist, sleeve or shoulder
+survived anywhere, including the frame edges. A non-compliant tile that had been live
+since 2026-07-28 is now compliant. **A rule breach in an old plate is fixable by the
+enhance pass** — which upgrades the whole backlog from a polish job to a remediation
+route.
+
+**b) Naming the light source as invisible stops the fixture appearing.** After a desk lamp
+walked into three consecutive tiles through the lighting clause (§5bc a), this pair used
+*"light from an off-frame window, the source is NOT visible"* and no lamp appeared on
+either cut. **Standing phrasing from now on.**
+
+**c) The strongest confirmation yet of "omit type-bearing objects, don't qualify them."**
+Zero body copy on either tile — and the surface rule was *unchanged* from the round that
+failed. The only difference is that neither scene contains a document or a calculator.
+**Remove the host and the failure mode has nowhere to live.** Contrast this with §5bc b,
+where an explicit ban on legible keys lost to a calculator that was in frame anyway.
+
+**d) Preserved UI: structure survives, but value is not yet proven.** The draining bar —
+red outline, 12 ticks, ~66 % fill — came back with its outline, ticks and position intact
+on both cuts, no labels added. So **the preserve block does extend past type to rendered
+UI.** But the hi bar's fill **looks short of 66 %** on a downscaled paste. If that is real,
+it is the first deviation in the series that **changes what a tile claims** (the bar
+encodes when the month runs out), and the rule becomes: *elements carrying a **value**
+must be composited back over the returned image, not regenerated with it.* It cannot be
+settled without the file — **this is the open question of the series and it stays open
+until someone measures the PNG.**
+
+**e) A third quiet retention.** The en wallet kept a card window against an explicit *no
+card visible inside it* — after the calculator keys and the folder body copy. Cosmetic
+each time, but the pattern is consistent: **a feature that is native to an object survives
+a prompt that excludes it.** Same root as (c). The reliable move is always to change the
+object, never to subtract a feature from it.
 
 ## 6 · What this does NOT change
 
