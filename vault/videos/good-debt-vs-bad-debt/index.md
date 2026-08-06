@@ -237,11 +237,66 @@ freedom", "debt free", "no stress" or a fast fix — this video promises none of
 OUTPUT: 16:9, 1280×720 framing, photoreal, cinematic.
 ```
 
-**After generation:** re-measure on the RETURNED image, not on the render — `17 SAAL`
-entered at ~55 % of frame width and `18 YEARS` at ~65 %, so both have comfortable margin,
-but the assert is run on the returned file or it is not run. Save as
-`src/thumbs/thumbnail-{hi,en}-v2-ai.png` **in this repo** before the swap — three videos'
-enhanced PNGs have been lost to Google Flow sessions so far.
+### Result — both returned 2026-08-06, one pass each ✅
+
+Eight tiles across four videos now, **still zero garbled letters and zero invented
+promises.** Every preserved string came back byte-identical on both cuts, including the
+`₹` glyph and both red pills.
+
+**The age-gradient instruction is the strongest single line written into any prompt so
+far.** Both stacks came back with genuinely yellowed, curling sheets at the bottom and
+clean white ones at the top — the hi stack tied with twine, the en stack loose under the
+pen. It reads as *years of this* at browse size with no numeral, no axis and no label. An
+abstract claim (17/18 years) now has an object. **Reuse this construction whenever the
+claim is a duration or a count.**
+
+Also held on both: no green, no cash, no people or hands, no escape imagery, no charts,
+one hero group, and the card on the hi tile is face-down and completely blank.
+
+### ⚠️ Three deviations — two of them are prompt bugs, not model failures
+
+**1. The desk lamp is now in frame on three consecutive tiles, and the prompt put it
+there.** Both prompts described the lighting as *"one warm practical light from the left"*
+— credit-history's said *"as if from a desk lamp."* The model rendered **the lamp**, not
+just its light, all three times. So the DO-NOT-USE list added in §5bc worked for the props
+it named and was silently defeated by the lighting clause of the same prompt. **Fix:
+describe light as `warm practical light from off-frame left, the source not visible`.**
+Naming a fixture places the fixture.
+
+**2. The calculator keys came back fully legible** — `7 8 9`, `MC MR M− M+`, `AC`, `%`,
+`÷` — against an explicit *"its keys carry no legible digits or symbols."* The display
+obeyed (dark and blank); the keys did not. The lesson is the one the banknote ban already
+proved and this prompt failed to apply: **an object that inherently carries type cannot be
+constrained into not carrying it — leave it out of the scene entirely.** The stack, pen
+and lamp already carried the idea; the calculator earned nothing.
+
+**3. The en top sheet has printed body copy again** — faint paragraphs on the white sheet
+under the pen, the same slip as credit-history's manila folder, despite this prompt using
+the strengthened §5bb surface phrasing. **Second occurrence, both on an `en` tile with a
+document in the hero group.** The stronger wording reduced it (faint and partial here vs a
+full lorem-ipsum page there) but did not eliminate it. Both are harmless at 320×180 and
+both tiles ship.
+
+**Also check at 1:1 before upload:** a couple of the calculator's top-right keys read as
+faintly **teal**. If they are green rather than grey-blue they breach this video's
+`NO GREEN` colour lock. Small enough to be invisible at browse size, but it is a stated
+rule and it should be confirmed, not assumed.
+
+### Owed
+
+Same as credit-history: **the returned PNGs are not on disk**, so the ≥40 % assert is
+unrun. `17 SAAL` entered at ~55 % and `18 YEARS` at ~65 %, the two widest margins in the
+catalogue, so this pair is the least likely to fail it — but unrun is unrun.
+
+```
+vault/videos/good-debt-vs-bad-debt/src/thumbs/thumbnail-hi-v2-ai.png
+vault/videos/good-debt-vs-bad-debt/src/thumbs/thumbnail-en-v2-ai.png
+```
+
+**Props now spent on these two channels** — carry forward into the next video's
+DO-NOT-USE list: hourglass, clock, calendar, red cloth-tied file, brass key, car key,
+key fob, manila folder, **desk lamp, magnifying glass, tied paper stack, calculator,
+dark scratched wooden desk**.
 
 ## Run events + learnings worth keeping
 

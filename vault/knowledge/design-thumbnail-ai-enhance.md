@@ -175,9 +175,11 @@ ship, but the phrasing to use from now on constrains the **surface**, not the le
 > *"Any paper is blank, or covered by the props, or so far out of focus that no line of
 > type is resolvable. No blocks of body copy, no lines of lettering, no filler text."*
 
-## 5bc · Fourth application — good-debt-vs-bad-debt (2026-08-06)
+## 5bc · Fourth application — good-debt-vs-bad-debt (2026-08-06, generated)
 
-Prompts written; generation not yet run. Three additions, all of which generalise.
+**Eight tiles, four videos, zero garbled letters.** Three additions written into the
+prompts, then three deviations found in what came back — and two of the three were
+**bugs in the prompt, not failures of the model.** Everything below generalises.
 
 **A DO-NOT-USE prop list belongs in every prompt from now on.** The enhance prompt is
 the cheapest place this channel has ever had to control **cross-video visual sameness** —
@@ -195,11 +197,52 @@ prompt carries an explicit `NO GREEN anywhere` plus a named **no-escape-imagery*
 (scissors, cut card, broken chain, cleared stamp, open lock). Same family as §3b's
 forbidden promises: **the model must be told what the video decided NOT to say.**
 
-**Signal the abstract claim with an aged physical prop.** Both tiles claim *time*
-(17 years / 18 years), which has no obvious object. The prompt asks for a thick paper
-stack **whose bottom sheets have yellowed while the top sheets are fresh** — duration
-made visible with no numeral, axis or label. Third instance of the §5b rule that a
-physical prop beats a data graphic, and the first where the prop encodes a *quantity*.
+**Signal the abstract claim with an aged physical prop — and this is the best line yet
+written into any of these prompts.** Both tiles claim *time* (17 years / 18 years), which
+has no obvious object. The prompt asked for a thick paper stack **whose bottom sheets have
+yellowed and curled while the top sheets are fresh**, and both came back unmistakable:
+duration visible at browse size with no numeral, axis or label. Third instance of §5b's
+*physical props yes, data graphics no*, and the first where a prop encodes a **quantity**.
+**Reuse this construction for any claim that is a duration or a count.**
+
+### The three deviations — read these before writing the next prompt
+
+**a) Naming a fixture places the fixture in frame.** Both prompts described lighting as
+*"one warm practical light from the left"*; credit-history's added *"as if from a desk
+lamp."* The model rendered **the lamp itself** on three consecutive tiles. So a
+DO-NOT-USE prop list is defeated by the prompt's own lighting clause — the list policed
+the props section while the lamp walked in through the lighting section. **Write
+`warm practical light from off-frame left, the source not visible.`**
+
+**b) An object that inherently carries type cannot be constrained out of carrying it —
+omit the object.** The en prompt said the calculator's *"keys carry no legible digits or
+symbols."* The display obeyed (dark, blank); **the keypad came back fully legible** —
+`7 8 9`, `MC MR M− M+`, `AC`, `%`, `÷`. This is the same lesson as §5bb's banknote ban,
+which the same prompt applied correctly to cash and then failed to apply to a calculator.
+The generalisation: **calculators, keyboards, phone screens, clocks, calendars, banknotes,
+credit cards face-up, signage and branded packaging are all type-bearing objects. Do not
+qualify them — leave them out**, unless the object is genuinely load-bearing for the
+claim. The calculator earned nothing the stack and pen weren't already carrying.
+
+**c) Body copy on paper is a recurring slip, and §5bb's stronger wording only reduced
+it.** The credit-history en folder returned a full lorem-ipsum page under the weak *"no
+legible characters"*. This pair used the strengthened surface phrasing and the en top
+sheet still came back with faint printed paragraphs. **Twice now, both times on an `en`
+tile whose hero group contained a document.** Harmless at 320×180 and both tiles ship, but
+the reliable fix is (b): if a document must appear, specify it face-down, closed, or
+covered by the props — not "blank".
+
+### ⚠️ The still-life is converging — the same problem as blockframe-9, one layer down
+
+All four enhanced tiles are now **a warm-lit hero group on a dark scratched wooden desk
+at night**. That is a defensible house style and it is *also* exactly how the compositions
+arrived at six consecutive blockframe-9s: each individual choice was correct and nobody
+was counting. **Count here.** The DO-NOT-USE list is the control, it works when it is
+specific, and it must carry forward cumulatively rather than naming only the last video's
+props. Spent so far: hourglass, clock, calendar, red cloth-tied file, brass key, car key,
+key fob, manila folder, desk lamp, magnifying glass, tied paper stack, calculator, and
+the dark scratched wooden desk itself. **The desk and the warm side light are the two to
+break first** — they are the frame, not a prop, and nothing has varied them yet.
 
 ## 5c · BACKLOG — retro-enhance every published finance tile
 
@@ -217,7 +260,7 @@ test against a known baseline.
 | 50-30-20-rule | 2 | `src/thumbs/thumbnail-from-youtube-1280.png` | ⚠️ one tile only — recovered from the CDN, the build's own PNGs were never archived |
 | needs-vs-wants | 2 | `src/thumbs/thumbnail-from-youtube-1280.png` | ⚠️ same |
 | credit-history | 6 (v1/v2/v3 × 2) | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bb) · `chosen:` v2/v2 · enhanced PNGs not in repo, assert unrun |
-| good-debt-vs-bad-debt | 6 | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **prompts written** 2026-08-06 · `chosen:` was **already v2/v2** (filled at upload, never a blocker — the table was wrong) |
+| good-debt-vs-bad-debt | 6 | `src/thumbs/thumbnail-{hi,en}-v2.png` | ✅ **done** 2026-08-06 (§5bc) · `chosen:` was already v2/v2 · enhanced PNGs not in repo, assert unrun |
 | pay-yourself-first | 7 (en has a v4) | archive | 🔴 `chosen:` unfilled on both |
 
 **The blocker that matters:** the pre-2026-07-29 videos shipped **3–4 variants per
