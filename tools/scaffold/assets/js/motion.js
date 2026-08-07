@@ -225,6 +225,24 @@ function playLottie(anim, at, dur) {
     onUpdate: function () { anim.goToAndStop(f.v, true); } }, at);
 }
 
+
+/** scaleX between two fractions, linear. The rail's progress fill and B's
+    measure bar both need a partial->partial span; `fill` only does 0->1. */
+function span(sel, at, dur, from, to) {
+  tl.fromTo(sel, { scaleX: from == null ? 0 : from },
+    { scaleX: to == null ? 1 : to, duration: dur, ease: "none" }, at);
+}
+
+/** The plate's push. `ken` has fixed 1.0<->1.16 endpoints and an xPercent drift
+    tuned for a full-bleed photograph; a plate needs EXPLICIT endpoints so a zoom
+    can CONTINUE across a cut — the same image across two lines is one move, not
+    two (creator rule, firaun-video-motion-card-rules). Scene n ends at `to`,
+    scene n+1 starts at exactly that value. */
+function plateKen(sel, at, dur, from, to) {
+  tl.fromTo(sel, { scale: from == null ? 1 : from },
+    { scale: to == null ? 1.08 : to, duration: dur, ease: "none" }, at);
+}
+
 /* --------------------------------------------------------------- register */
 
 /** ALWAYS the last line of the composition's script. */

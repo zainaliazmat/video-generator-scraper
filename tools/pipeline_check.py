@@ -50,10 +50,16 @@ def studio_dir(slug, cut):
 CHAPTER = None
 
 
+def project_dir(slug, cut):
+    """The HyperFrames project being checked — the chapter's, in chapter mode."""
+    if CHAPTER:
+        return os.path.join(ROOT, "studio", "videos", f"{slug}-{cut}-ch{CHAPTER}")
+    return studio_dir(slug, cut)
+
+
 def assets_img_dir(slug, cut):
     if CHAPTER:
-        return os.path.join(ROOT, "studio", "videos", f"{slug}-{cut}-ch{CHAPTER}",
-                            f"assets-ch{CHAPTER}", "final")
+        return os.path.join(project_dir(slug, cut), f"assets-ch{CHAPTER}", "final")
     return os.path.join(studio_dir(slug, cut), "assets", "img")
 
 
@@ -298,6 +304,28 @@ def check_storyboard(slug, cut, fmt):
     return problems
 
 
+# Calibrated on the 20 promoted images of passive-income-number-hi ch1+ch2, not
+# on one bad frame: s4 = 93 (failed by eye TWICE, in both directions), then a
+# 30-point gap to s11b = 123 (looked at and passed), then everything else >= 134.
+# 110 sits in that gap with margin on both sides. ONE-SIDED ON PURPOSE — the
+# opposite failure (a high-key flat TEXTURE reading as a UI panel, e.g. ch2's s16
+# at 242) is real but luma does not predict it: ch2's s10 measures 246 and reads
+# fine, because numerals and red pins give it structure. That one still needs eyes.
+MIN_SOURCE_YHIGH = 110
+
+
+def luma_high(path):
+    """90th-percentile luma of a still. None if ffprobe can't read it."""
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-f", "lavfi", "-i", f"movie={path},signalstats",
+         "-show_entries", "frame_tags=lavfi.signalstats.YHIGH", "-of", "csv=p=0"],
+        capture_output=True, text=True).stdout.strip().splitlines()
+    try:
+        return float(out[0])
+    except (IndexError, ValueError):
+        return None
+
+
 def check_assets(slug, cut, fmt):
     idir = assets_img_dir(slug, cut)
     manifest_path = os.path.join(idir, "manifest.json")
@@ -328,6 +356,23 @@ def check_assets(slug, cut, fmt):
             problems.append(f"{name}: under 10KB, not a usable photo")
         elif name not in credits:
             problems.append(f"{name}: no attribution line in CREDITS.txt (licence requirement)")
+        elif CHAPTER:
+            # Under the chapter archetype layer the grade is locked
+            # (grayscale .32 / brightness .62) and per-scene overrides are
+            # forbidden, so a source with no highlights has nothing for the grade
+            # to leave behind. HIGHLIGHT CEILING predicts survival, not average
+            # brightness: on passive-income-number ch1, s3 (YAVG 56.5, YHIGH 134)
+            # read fine while s4 (YAVG 59.4, YHIGH 93) rendered as a black slab
+            # — s4 was the BRIGHTER of the two on average. Two review rounds and
+            # a re-fetch missed it; one ffprobe call catches it before the render.
+            # Chapter mode only: plain blockframe still permits an inline filter:
+            # override, which is the documented escape hatch for near-black stock.
+            y = luma_high(path)
+            if y is not None and y < MIN_SOURCE_YHIGH:
+                problems.append(
+                    f"{name}: source YHIGH {y:.0f} < {MIN_SOURCE_YHIGH} — no "
+                    f"highlights to survive the locked grade; it will render as a "
+                    f"flat slab. Pick a frame with light falling on the subject.")
 
     # The loop above is anchored on the MANIFEST, and that is the hole: a late image round
     # that writes new files without updating manifest.json does not merely go unlisted, it
@@ -342,10 +387,18 @@ def check_assets(slug, cut, fmt):
     # So assert against the COMPOSITION, which is the artifact that actually carries the
     # licence exposure and cannot go stale the way a side-file can. Rendered images only —
     # `*-original.jpg` and rejected candidates sit on disk on purpose and are not published.
-    index = os.path.join(studio_dir(slug, cut), "index.html")
+    # Chapter mode has to redirect BOTH halves. Redirecting only assets_img_dir()
+    # left this assertion opening a whole-cut index.html that does not exist yet in
+    # a chapter-first run, so it skipped — and its regex could not have matched
+    # `url(assets-ch1/final/sN.jpg)` even if it had opened the right file. The
+    # manifest half above still passed, so the check reported green over exactly the
+    # assertion it exists for. Caught by fin-render on ch1, 2026-08-07, one round
+    # after the chapter flag was added to fix the same shape of blindness.
+    index = os.path.join(project_dir(slug, cut), "index.html")
     if os.path.exists(index):
         html = open(index, encoding="utf-8").read()
-        for name in sorted(set(re.findall(r"url\(assets/img/([^)]+)\)", html))):
+        for name in sorted(set(re.findall(
+                r"url\((?:assets/img|assets-ch\d+/final)/([^)]+)\)", html))):
             if name not in credits:
                 problems.append(f"{name}: rendered by index.html with no attribution line "
                                 "in CREDITS.txt (licence requirement)")

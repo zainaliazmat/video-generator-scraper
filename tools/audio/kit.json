@@ -1,67 +1,71 @@
 {
-  "_comment": "The finance channels' audio kit. Prompts are the reproducing text — the generated mp3s live in studio/library/{sfx,music}/, which is gitignored and regenerable from this file, exactly like image .src prompts and VO .txt lines. Generate with tools/audio/sfx.py --kit. Cached by name, so the cost is ~10 API calls ONCE, not per video.",
-  "_levels": "peak_dbfs is where each file is normalised. SFX sit far under the voice: the VO mix lands at -14 LUFS, so a -20 dBFS peak SFX reads as punctuation, not as an event. Raise a value only if a sound is inaudible in a real render — never to make it 'pop'.",
-  "_discipline": "Seven sounds, each bound to ONE motion helper. A sound with no helper does not belong in the kit. If a scene wants a noise the kit lacks, the answer is usually that the scene wants less.",
-
-  "sfx": {
-    "chip": {
-      "helper": "pop / popEach",
-      "seconds": 0.7,
-      "peak_dbfs": -20,
-      "prompt": "a single short soft muted UI click, dry, close-miked, no reverb tail, no music, no melody"
-    },
-    "reveal": {
-      "helper": "rise",
-      "seconds": 1.0,
-      "peak_dbfs": -22,
-      "prompt": "a very short soft air movement, a quiet cloth swish, dry and dark, no metallic ring, no music"
-    },
-    "tick": {
-      "helper": "pulse",
-      "seconds": 0.6,
-      "peak_dbfs": -21,
-      "prompt": "one clean short high wooden tick, like a pencil tapped once on a hard desk, dry, no reverb, no music"
-    },
-    "stamp": {
-      "helper": "stamp (the verdict slam)",
-      "seconds": 1.2,
-      "peak_dbfs": -16,
-      "prompt": "a single heavy rubber stamp pressed hard onto paper on a wooden desk, deep low thud, tight decay, no reverb, no music"
-    },
-    "hero": {
-      "helper": "the scene's one big number landing",
-      "seconds": 2.0,
-      "peak_dbfs": -15,
-      "prompt": "one deep low cinematic bass impact, dark and clean, short controlled decay, no rise before it, no melody, no music"
-    },
-    "transition": {
-      "helper": "dissolve / shove",
-      "seconds": 1.4,
-      "peak_dbfs": -22,
-      "prompt": "a soft dark low whoosh passing quickly left to right, muffled, no high hiss, no impact at the end, no music"
-    },
-    "cta": {
-      "helper": "the closing CTA block",
-      "seconds": 2.2,
-      "peak_dbfs": -17,
-      "prompt": "a short warm upward cinematic swell resolving to a soft low hit, confident and clean, no melody, no instruments, no music"
-    }
+ "_comment": "The finance channels' audio kit. Prompts are the reproducing text — the generated mp3s live in studio/library/{sfx,music}/, which is gitignored and regenerable from this file, exactly like image .src prompts and VO .txt lines. Generate with tools/audio/sfx.py --kit. Cached by name, so the cost is ~10 API calls ONCE, not per video.",
+ "_levels": "peak_dbfs is where each file is normalised. SFX sit far under the voice: the VO mix lands at -14 LUFS, so a -20 dBFS peak SFX reads as punctuation, not as an event. Raise a value only if a sound is inaudible in a real render — never to make it 'pop'.",
+ "_discipline": "Seven sounds, each bound to ONE motion helper. A sound with no helper does not belong in the kit. If a scene wants a noise the kit lacks, the answer is usually that the scene wants less.",
+ "sfx": {
+  "chip": {
+   "helper": "pop / popEach",
+   "seconds": 0.7,
+   "peak_dbfs": -20,
+   "prompt": "a single short soft muted UI click, dry, close-miked, no reverb tail, no music, no melody"
   },
-
-  "_music": "Two beds per channel register, reused across every video — the bed is not a per-video asset. Kept deliberately featureless: this is a dark, serious money channel, and anything with a melody competes with a spoken number. Mixed at 0.16 and ducked to 0.08 under the voice (18 LU under the VO). If ElevenLabs music is unavailable on the account's plan, the fallback is the YouTube Audio Library — free, no channel-count limit, and the only source with a first-party no-Content-ID-claim guarantee.",
-
-  "_music_on_disk": "WHAT ACTUALLY SHIPPED (2026-07-31): the fallback is what happened — both beds are creator-supplied YouTube Audio Library downloads, NOT ElevenLabs generations, so the `prompt` fields below are the spec they were chosen against rather than a reproducing recipe. Sourced at 320 kbps stereo 44.1 kHz (bed-tension 3:03, bed-resolve 4:08), arriving at -10.8 LUFS as library music does, then two-pass loudnorm'd to I=-20 TP=-3 (measured after: -20.24 / -20.00 LUFS, true peaks -4.98 / -10.05). Untouched originals are in studio/library/music/raw/. That -20 LUFS is load-bearing: mix.py's 0.16 bed gain and 6 dB duck are calibrated against it, so re-import any replacement bed through the same normalise step. `generate()` skips any file already on disk, so the pipeline cannot overwrite these — but `sfx.py --kit --music --force` WOULD destroy them, and they are not regenerable from this file. studio/ is gitignored and backed up by nothing.",
-  "_music_loop_caveat": "Both beds fade in from and out to silence (first/last second measure -70 to -87 dB). Seamless when the video is SHORTER than the bed. mix.py stream-loops, so a video LONGER than its bed gets an audible dip to silence at each loop point — bed-tension at 183 s does that on any cut past ~3:03, which the 3:15 hi cut of good-debt-vs-bad-debt would already have hit. For medium/long tiers either pick the longer bed, source a longer one, or trim the head/tail silence and crossfade the loop.",
-  "music": {
-    "bed-tension": {
-      "seconds": 240,
-      "peak_dbfs": -20,
-      "prompt": "dark minimal cinematic underscore, slow sustained low strings and a soft pulsing sub, no drums, no melody, no resolution, serious documentary tone about money and debt, seamless and featureless enough to sit under a narrator for four minutes"
-    },
-    "bed-resolve": {
-      "seconds": 240,
-      "peak_dbfs": -20,
-      "prompt": "calm minimal cinematic underscore, warm sustained low pads with a slow gentle pulse, hopeful but restrained, no drums, no melody, documentary tone, seamless and featureless enough to sit under a narrator for four minutes"
-    }
+  "reveal": {
+   "helper": "rise",
+   "seconds": 1.0,
+   "peak_dbfs": -22,
+   "prompt": "a very short soft air movement, a quiet cloth swish, dry and dark, no metallic ring, no music"
+  },
+  "tick": {
+   "helper": "pulse",
+   "seconds": 0.6,
+   "peak_dbfs": -21,
+   "prompt": "one clean short high wooden tick, like a pencil tapped once on a hard desk, dry, no reverb, no music"
+  },
+  "stamp": {
+   "helper": "stamp (the verdict slam)",
+   "seconds": 1.2,
+   "peak_dbfs": -16,
+   "prompt": "a single heavy rubber stamp pressed hard onto paper on a wooden desk, deep low thud, tight decay, no reverb, no music"
+  },
+  "hero": {
+   "helper": "the scene's one big number landing",
+   "seconds": 2.0,
+   "peak_dbfs": -15,
+   "prompt": "one deep low cinematic bass impact, dark and clean, short controlled decay, no rise before it, no melody, no music"
+  },
+  "transition": {
+   "helper": "dissolve / shove",
+   "seconds": 1.4,
+   "peak_dbfs": -22,
+   "prompt": "a soft dark low whoosh passing quickly left to right, muffled, no high hiss, no impact at the end, no music"
+  },
+  "cta": {
+   "helper": "the closing CTA block",
+   "seconds": 2.2,
+   "peak_dbfs": -17,
+   "prompt": "a short warm upward cinematic swell resolving to a soft low hit, confident and clean, no melody, no instruments, no music"
+  },
+  "buzz": {
+   "helper": "playLottie — a device or object event the picture actually shows",
+   "seconds": 0.9,
+   "peak_dbfs": -19,
+   "prompt": "a single short phone vibration against a hard wooden surface, two quick low buzzes, dry and muffled, no ring tone, no notification chime, no melody, no music",
+   "_why": "The eighth sound, added 2026-08-03 with the scene-1.1 notification Lottie. It is the kit's only DIEGETIC entry: the other seven punctuate a motion helper, this one is a thing on screen making its own noise. That is also its limit — it is only legal when the frame shows the object buzzing, never as a generic 'something arrived' hit."
   }
+ },
+ "_music": "Two beds per channel register, reused across every video — the bed is not a per-video asset. Kept deliberately featureless: this is a dark, serious money channel, and anything with a melody competes with a spoken number. Mixed at 0.16 and ducked to 0.08 under the voice (18 LU under the VO). If ElevenLabs music is unavailable on the account's plan, the fallback is the YouTube Audio Library — free, no channel-count limit, and the only source with a first-party no-Content-ID-claim guarantee.",
+ "_music_on_disk": "WHAT ACTUALLY SHIPPED (2026-07-31): the fallback is what happened — both beds are creator-supplied YouTube Audio Library downloads, NOT ElevenLabs generations, so the `prompt` fields below are the spec they were chosen against rather than a reproducing recipe. Sourced at 320 kbps stereo 44.1 kHz (bed-tension 3:03, bed-resolve 4:08), arriving at -10.8 LUFS as library music does, then two-pass loudnorm'd to I=-20 TP=-3 (measured after: -20.24 / -20.00 LUFS, true peaks -4.98 / -10.05). Untouched originals are in studio/library/music/raw/. That -20 LUFS is load-bearing: mix.py's 0.16 bed gain and 6 dB duck are calibrated against it, so re-import any replacement bed through the same normalise step. `generate()` skips any file already on disk, so the pipeline cannot overwrite these — but `sfx.py --kit --music --force` WOULD destroy them, and they are not regenerable from this file. studio/ is gitignored and backed up by nothing.",
+ "_music_loop_caveat": "Both beds fade in from and out to silence (first/last second measure -70 to -87 dB). Seamless when the video is SHORTER than the bed. mix.py stream-loops, so a video LONGER than its bed gets an audible dip to silence at each loop point — bed-tension at 183 s does that on any cut past ~3:03, which the 3:15 hi cut of good-debt-vs-bad-debt would already have hit. For medium/long tiers either pick the longer bed, source a longer one, or trim the head/tail silence and crossfade the loop.",
+ "music": {
+  "bed-tension": {
+   "seconds": 240,
+   "peak_dbfs": -20,
+   "prompt": "dark minimal cinematic underscore, slow sustained low strings and a soft pulsing sub, no drums, no melody, no resolution, serious documentary tone about money and debt, seamless and featureless enough to sit under a narrator for four minutes"
+  },
+  "bed-resolve": {
+   "seconds": 240,
+   "peak_dbfs": -20,
+   "prompt": "calm minimal cinematic underscore, warm sustained low pads with a slow gentle pulse, hopeful but restrained, no drums, no melody, documentary tone, seamless and featureless enough to sit under a narrator for four minutes"
+  }
+ }
 }

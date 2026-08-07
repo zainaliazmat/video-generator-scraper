@@ -1,0 +1,264 @@
+/* ===========================================================================
+   CHAPTER-DESIGN — the archetype layer, on top of blockframe.css.
+
+   Load AFTER blockframe.css:
+     <link rel="stylesheet" href="assets/blockframe.css">
+     <link rel="stylesheet" href="assets/chapter-design.css">
+
+   WHY THIS FILE EXISTS. blockframe.css gives every scene ONE layout: the
+   centred `.stack` over a full-bleed background. That is correct for a nine-
+   scene SHORT and it is what makes a long multi-chapter cut read flat — eleven
+   or ninety frames of one geometry, with the photograph supplying all the
+   variance. Remove or weaken the photograph and the repetition is the only
+   thing left (evidence: vault/knowledge/design-vector-only-chapter.md).
+
+   So the centred stack stops being the default and becomes one of FOUR, chosen
+   by what the scene DOES:
+
+     A · plate    centred stack, one oversized motif behind it. Ceremonial —
+                  chapter opens and hand-offs.
+     B · figure   the number owns the frame and sits off-centre; a rule hangs at
+                  the left margin; the art gets a top-right plate; a measure bar
+                  runs under the type.
+     C · ledger   hard vertical split. Type in a left column, the artefact
+                  full-height on the right, cropped by the frame edge — the
+                  difference between a real document and an icon of one.
+     D · band     type compressed under a full-width rule; the mechanism owns
+                  the bottom two-thirds, edge to edge. For scenes where the
+                  MOTION is the argument.
+
+   THE PLATE IS THE LOAD-BEARING IDEA. Art lives inside an explicit rect with
+   `overflow:hidden` and its own ken transform, declared per archetype. The old
+   `.field` was `inset:-8%` and ken scaled it 1.0->1.16, which meant the visible
+   window was only svg x 247-1673 / y 139-941 and NOTHING computed that — art drawn
+   outside it was silently cropped for part or all of a scene and every check
+   still passed. A cut shipped with an "edge-to-edge baseline" that was never
+   once on screen. With a plate the window is declared, so that whole bug class
+   cannot recur.
+
+   Ported from the Claude Design chapter animatics, 2026-08-05 — see
+   vault/knowledge/claude-design-mcp.md §3a/§3b for what was taken and why.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------- the field
+   The ground carries the argument's temperature. `--f1` is the scene's own
+   two-stop ground; unset falls back to flat --bg, so a scene that declares
+   nothing degrades to the old look rather than breaking.
+
+   NOTE we do NOT re-implement the ground cross-fade the animatics use. They
+   hard-cut between scenes and melt the ground over ~0.55s inside the incoming
+   scene. We cross-dissolve whole sections for 0.45s, which blends the two
+   grounds already — the melt is a property of the transition we have, not a
+   thing to add. Adding both would double-fade. */
+.field {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  background: linear-gradient(158deg, var(--f1, var(--bg)) 0%, var(--bg) 64%);
+}
+
+/* A 160px editorial grid. Pure CSS, no asset. It is what gives a drawn field
+   something for the drift to move; without it a vector scene reads as a still. */
+.rules {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(245,243,236,.055) 0 1px, transparent 1px 160px),
+    repeating-linear-gradient(0deg,  rgba(245,243,236,.030) 0 1px, transparent 1px 160px);
+}
+
+/* One soft radial in the scene's role colour — the job the graded photo's light
+   used to do. Role scenes set --gl; no-role scenes get plain ink, correctly. */
+.glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 74% 62% at 50% 46%,
+              var(--gl, rgba(245,243,236,.07)), transparent 72%);
+}
+
+/* ---------------------------------------------------------------- the plate
+   `.plate` is the declared art window; `.plate-in` is what ken moves. Give the
+   plate its rect inline (or take an archetype default below) and animate
+   `.plate-in` with ken() — never the field. */
+.plate    { position: absolute; z-index: 0; overflow: hidden; }
+/* The plate is a LIFTED PANEL, not a transparent window. Ported as a clipped
+   rect first and rendered dead flat: dark art on the raw ground has nothing to
+   read against, and every motif came out invisible. The alpha keeps the scene's
+   ground temperature showing through, so the lift costs no colour. */
+.plate-in { position: absolute; inset: 0;
+            background: linear-gradient(140deg, rgba(30,38,54,.50) 0%, rgba(13,16,23,.15) 100%); }
+.plate.edge { border: 1px solid var(--edge); }
+
+/* A 45-degree hatch at 5%. Reads as material rather than as empty panel, and
+   gives the plate's own ken something to move. One line, free. */
+.plate .hatch {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg,
+    rgba(245,243,236,.05) 0 2px, rgba(245,243,236,0) 2px 15px);
+}
+
+/* Art inside a plate. Opacity 26-58%: below that the scrim and grain eat it in
+   the encode while every check still passes. */
+.art { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* stroke-width lives in CSS here, so a `stroke-width="N"` ATTRIBUTE on an
+   element is a no-op — a CSS rule always beats an SVG presentation attribute.
+   Override per element with inline style="stroke-width:N". */
+.art .st  { fill: none; stroke: var(--ink);    stroke-width: 3; }
+.art .stw { fill: none; stroke: var(--warn);   stroke-width: 3; }
+.art .stf { fill: none; stroke: var(--fund);   stroke-width: 3; }
+.art .stt { fill: none; stroke: var(--target); stroke-width: 3; }
+.art .fl  { fill: var(--ink); }
+.art .flt { fill: var(--target); }
+.art .flf { fill: var(--fund); }
+.art .flw { fill: var(--warn); }
+.art text { font-family: "FinanceSans", system-ui, sans-serif; font-weight: 900; }
+
+/* ====================================================== the four archetypes
+   `.scene` is grid + place-items:center + text-align:center. A width:100% child
+   sizes against an AUTO column and lands off-centre — the cell has to be
+   stretched. blockframe.css documents this against `.aside`; it cost that build
+   a render to find. Every archetype wanting full width sets justify-self. */
+
+/* A · PLATE — the default geometry, unchanged. Nothing to declare. */
+
+/* B · FIGURE */
+.arch-b .stack {
+  justify-self: stretch; align-self: start; margin-top: 54px;
+  align-items: flex-start; text-align: left; gap: 18px;
+  /* The rule hangs at the scene's left padding edge (150px) and the stack used
+     to start there too, so the two were flush and the rule read as part of the
+     type rather than as a margin. Creator, 2026-08-05: "the line on the left
+     side is very close to the text, which looks bad." 62px of air. */
+  padding-left: 62px;
+}
+/* The figure owns the frame. The animatic ran this at 384px against our timid
+   180 and it is the single clearest visual upgrade in the port — a number that
+   is merely large reads as a heading, not as the subject. */
+/* padding-bottom contains the mega's own descenders. At line-height .84 the line
+ * box (252px) ends 9.5px under the baseline while comma ink descends 42.19px, so
+ * 32.7px hangs below the box against a 22px stack gap — whatever follows a mega
+ * gets struck through. THE TRIGGER IS THE COMMA: `3.0%` descends 4.7px and never
+ * collides, `₹10,00,000` does, so it hits every lakh/crore rung and nothing else.
+ * Found on passive-income-number ch2 s15, where both strings stayed legible and
+ * `hyperframes check` reported 11/11 AA straight over the collision. .11em, not
+ * px, so a future change to the mega's size carries its clearance with it. */
+.arch-b .mega { font-size: 300px !important; line-height: .84; letter-spacing: -14px;
+                padding-bottom: .11em; }
+.arch-b .foot { max-width: 900px; margin-top: 4px; }
+.arch-b .huge { max-width: 900px; }
+
+/* C · LEDGER */
+.arch-c .stack {
+  justify-self: start; align-self: center;
+  align-items: flex-start; text-align: left; width: 880px; gap: 28px;
+}
+
+/* D · BAND */
+.arch-d .stack {
+  justify-self: stretch; align-self: start; margin-top: 34px;
+  align-items: flex-start; text-align: left; gap: 18px;
+}
+.arch-d .huge { max-width: 1480px; }
+.arch-d .foot { max-width: 1420px; }
+
+/* The three structural rules the archetypes hang off. z 2 puts them in the
+   type band, so they read as structure rather than as art. */
+.vrule { position: absolute; left: 150px; width: 4px;  z-index: 2; background: var(--ink); opacity: .28; }
+.brule { position: absolute; left: 0; right: 0; height: 3px; z-index: 2; background: var(--ink); opacity: .20; }
+.crule { position: absolute; top: 0; bottom: 0; width: 3px;  z-index: 2; background: var(--ink); opacity: .24; }
+
+/* ------------------------------------------------- re-centring a broken split
+   B and C put the type on one side because the ART was on the other. Once
+   `.art-off` retires a scene's drawn layer the other side is empty, and the
+   split is no longer a layout — it is a hole. Such a scene re-centres: the
+   picture is the photograph and the type belongs over the middle of it.
+   Creator, 2026-08-05: "place the text in the center of the screen, so the
+   right side of the screen won't feel empty." */
+.scene.centred .stack {
+  justify-self: center; align-self: center; margin-top: 0;
+  align-items: center; text-align: center; width: auto; max-width: 1500px;
+}
+.scene.centred .plate,
+.scene.centred .crule,
+.scene.centred .vrule,
+.scene.centred .brule { display: none; }
+
+/* B's measure bar — a labelled track under the type that drains or fills. The
+   animatic's ACCOUNT bar; generalised. */
+.measure     { position: absolute; z-index: 2; height: 3px; background: var(--edge); }
+.measure-lab { position: absolute; z-index: 2; font-size: 22px; font-weight: 800;
+               letter-spacing: 3px; color: var(--muted);
+               /* margin:0 is LOAD-BEARING. <p> keeps its UA 1em margin under
+                  absolute positioning, which shoved the label 22px down onto its
+                  own track — "ACCOUNT"/"BALANCE" struck through by the bar on
+                  every measure scene in both cuts (creator, 2026-08-06). The
+                  line-height pins the gap so a font swap cannot re-close it. */
+               margin: 0; line-height: 1; }
+.measure-fill{ position: absolute; inset: 0; transform-origin: left center; background: var(--ink); }
+.measure-fill.warn   { background: var(--warn); }
+.measure-fill.fund   { background: var(--fund); }
+.measure-fill.target { background: var(--target); }
+
+/* THE RAIL IS GONE. It carried a chapter title and a "1.3 / 1.10" scene counter.
+   Removed at creator request 2026-08-05: the viewer must not be shown that the
+   video is chapter-based or slide-numbered — that reads as courseware, not as a
+   film. Do not reintroduce it. The concern it answered (orientation on a long
+   multi-chapter cut) is real but is the EDIT's job, not a persistent overlay. */
+
+
+/* The band. Darkens the lower third so vector assets authored against a dark
+   half still read. Sized per archetype at the call site. */
+.band {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 54%; z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(13,16,23,0) 0%, rgba(13,16,23,.45) 38%, rgba(13,16,23,.72) 100%);
+}
+
+/* ================================================== a scene with a PHOTOGRAPH
+   `image_per_scene` is a hard creator rule; the vector-only chapters were a
+   deliberate, temporary exception. When a scene carries a graded still, the
+   PHOTOGRAPH is the picture and everything the drawn layer was doing to stand in
+   for one has to step back — otherwise the two compete and the frame reads busy.
+
+   The photo itself uses blockframe's own `.bg` (inset -8%, the locked
+   `grayscale(.32) brightness(.62) contrast(1.05)` grade). It is NEVER darkened
+   per scene to make drawn art readable: that stacks with the base grade and
+   desaturates real photographs into grey mush, which the creator rejected
+   outright on 2026-08-04 ("it fails to black and white"). If something drawn
+   needs a darker field, darken BEHIND IT with `.band`. */
+.has-photo .field    { opacity: .38; }          /* ground becomes a tint, not a fill */
+.has-photo .rules    { opacity: .28; }
+.has-photo .plate-in { background: none; }      /* the plate is an aperture, not a panel */
+.has-photo .hatch    { display: none; }         /* hatch on a photograph is just noise */
+/* The art carries per-scene inline opacity, which beats a class rule — so this
+   one override is deliberate and global. `.art-forward` buys it back for the
+   scenes whose point is a PROPORTION, where the drawn mechanism still wins and
+   the photograph is only there to satisfy the rule (see the hybrid finding in
+   vault/knowledge/design-vector-only-chapter.md). */
+.has-photo .art             { opacity: .30 !important; }
+.has-photo.art-forward .art { opacity: .52 !important; }
+
+/* THE RULE THE PHOTOGRAPHS TAUGHT (2026-08-05). Drawn art over a still must be
+   ADDITIVE — a mechanism, a measurement, a comparison, something the picture
+   cannot assert. It must never DEPICT what the photograph already shows: a
+   ghost envelope over a photograph of an envelope, a drawn noren over a
+   photographed noren, a seal outline over a government building. That reads as
+   a mistake, not as a layer, and it was the single biggest defect of the first
+   photo pass. `.art-off` is how a scene declares its drawn layer redundant. */
+.has-photo.art-off .art { display: none; }
+
+/* ------------------------------------------- keeping the plate's panel lift
+   `.has-photo` turns the plate into an aperture, which is right when the still
+   behind it is dark. Over a BRIGHT photograph — paper bags, a white wardrobe, a
+   sunlit page — an ink-coloured drawn layer is light-on-light and disappears at
+   any opacity, and raising the opacity only makes a brighter invisible thing.
+
+   `.art-lift` gives that scene its panel back. It is the plate-scoped form of
+   rule 9: darken BEHIND the art, never the frame. The whole-frame lever stays
+   forbidden — this one cannot touch the photograph outside the plate rect. */
+.has-photo.art-lift .plate-in {
+  background: linear-gradient(140deg, rgba(13,16,23,.66) 0%, rgba(13,16,23,.34) 100%);
+}
+
+/* B's measure bar sits BELOW the stack, not inside it. At the old y742 it landed
+   on the icon that variant-A scenes carry in their stack (caught on ch4's first
+   sheet: "THE THREE CHECKS" struck through by its own track on three frames in
+   a row). One position, declared here, so it cannot drift per scene. */
+.measure-lab.under { left: calc(50% - 460px); top: 868px; }
+.measure.under     { left: calc(50% - 460px); top: 910px; width: 920px; height: 7px; }

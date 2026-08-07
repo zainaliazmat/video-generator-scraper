@@ -160,21 +160,89 @@ to it.
    author and licence are already in `assets/lottie/index.json` — one home per
    fact; don't copy them.
 
+## The sound-off test — the bar every image has to clear
+
+**Hard creator rule, 2026-08-04** (`format.json` → `layout.image_relevance`):
+with the sound off and the on-screen text stripped, the image alone must tell the
+viewer what the scene is about.
+
+Applied **per line, not per chapter.** Every point in the script got its own line
+because it is its own idea, so it gets its own picture. Before you promote a
+pick, ask of that cell:
+
+1. Covering the words, would I know what this point is?
+2. Does it *argue* with the line? (A balanced scale under "thirty times apart"
+   says *equal*. A calendar reading "Tuesday 8" under "by the 20th" says the
+   wrong date.) A contradicting frame is worse than a bland one.
+3. Is the thing the line NAMES actually in frame? "The internet says" needs a
+   screen, not a book. "Japan's government publishes it" needs a Japanese
+   government building, not a rubber stamp.
+4. **Have I already used this image in this chapter?** One picture per point.
+   Two near-identical cells is a defect even when each is defensible alone.
+5. Is the place, era and currency right? An Indian shopkeeper cannot illustrate
+   Japan's national accounts; a demonetised ₹500 cannot illustrate today's money.
+   That is a factual error, not a taste call.
+
+All five have shipped as defects at least once. They are the reason this section
+exists.
+
+**When a slot cannot be photographed, change the SOURCE — never accept a
+near-miss.** The ladder now has a third rung:
+
+- `@commons` — **Wikimedia Commons, for NAMED things**: a building, monument,
+  institution, agency or landmark. Pixabay and Pexels index moods and objects, so
+  they cannot find these at all: four queries for a Japanese government building
+  returned the Hungarian Parliament twelve times, the Reichstag, Kuala Lumpur and
+  Seattle. Commons finds it first try. ⚠ Most Commons files are CC BY / CC BY-SA
+  where **attribution is a licence condition, not a courtesy** — CREDITS.txt must
+  ship with the cut.
+- **Draw it** — if the beat is an abstraction (a ratio, a subset, a date being
+  circled), no photograph exists and searching harder will not conjure one. See
+  `vector_art.lottie.reach_for_it_when`.
+
 ## Authority
 **Replace, never drop a BACKGROUND** (creator rule 2026-07-28: every scene
 ships with a bg photo — photo-free scenes are retired). If a bg slot's query
 keeps failing, walk the retry ladder: `#N` next results → `@pexels` (a fresh,
 separate pool — reach for it early when Pixabay keeps returning dedupe-dups) →
-synonym queries → a quiet texture that still reads the scene's keyword (calm ≠ flat). A CUT-IN may
-still be dropped rather than faked — remove it from the manifest and note it —
-but the scene keeps its background regardless. The image must match the VO's
-keyword: a generic pretty photo under an unrelated line is a rejection, same
-as a brand mark.
+`@commons` for anything named → synonym queries → a quiet texture that still
+reads the scene's keyword (calm ≠ flat). A CUT-IN may still be dropped rather
+than faked — remove it from the manifest and note it — but the scene keeps its
+background regardless.
+
+⚠ **The contact sheet is lossy.** It renders only a trailing subset when any
+preview fails, with no warning — sheets have shipped showing 4 of 12 cells. The
+`_cand/<slot>.json` always holds all N candidates, so if a sheet looks short,
+read the JSON and pick from it rather than assuming the query failed.
+
+⚠ **A COPY MUST CARRY ITS CREDIT ROW.** The tool writes CREDITS.txt only for what
+it *fetches*. Any image you place by hand — reusing the sibling cut's photograph
+as `sNN-hi.jpg`, promoting a chapter-local fix as `sNN-fix.jpg`, renaming a slot
+— moves the pixels and leaves the attribution behind. That is a licence breach,
+not untidiness. On japanese-money-methods **35 photographs reached a rendered,
+machine-checked master with no credit row** this way (34 in -en, 1 in -hi).
+Copy the original's row and re-key it onto the new filename in the same move.
+
+⚠ **And add it to `manifest.json` in the same move.** A file that is on disk but
+not in the manifest is not merely unlisted — `pipeline_check check assets`
+iterates the manifest, so the licence assertion never reaches it. Before you
+finish, run `python3 tools/pipeline_check.py check assets --slug <slug> --cut
+<cut>`: it now also asserts attribution against every image `index.html`
+actually renders, which is the check that cannot go stale.
+
+**In the chapter loop, add `--chapter <N>`.** Without it the check reads
+`<slug>-<cut>/assets/img/`, which in a chapter-first run does not exist yet — so
+it reports every slot missing and its licence assertion reaches none of your
+images. The flag points it at `<slug>-<cut>-ch<N>/assets-ch<N>/final/` instead.
+It was added 2026-08-07 after the assertion silently covered nothing for two
+consecutive chapters; a checker that cannot see the work is worse than no
+checker, because it reports green.
 
 ## Writes
 `assets/img/s*.jpg` (via the tool), the pruned `manifest.json`. CREDITS.txt is
-written incrementally by the tool — verify every kept image has its line. The
-`assets/img/_cand/` contact sheets are throwaway (not in the manifest, not
-shipped) — leave them; post-delivery cleanup reclaims them.
+written incrementally by the tool — verify every kept image has its line, and
+every hand-placed copy too. The `assets/img/_cand/` contact sheets are throwaway
+(not in the manifest, not shipped) — leave them; post-delivery cleanup reclaims
+them.
 
 Return accepted/rejected counts and what you dropped and why.

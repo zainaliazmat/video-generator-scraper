@@ -140,6 +140,48 @@ Three rules, all cheap to follow at query time and expensive to fix afterwards:
    if the glow is subtle in the raw it is gone in the encode. Buy the brighter
    frame than looks right unlit.
 
+### Measure it: source `YHIGH ≥ 110`, enforced
+
+The predictor is the **highlight ceiling, not average brightness** — and it is
+counter-intuitive enough that two review rounds and a re-fetch missed it. On
+ch1, s3 (YAVG 56.5, YHIGH 134) reads fine while s4 (YAVG 59.4, YHIGH **93**)
+rendered as a black slab: s4 was the *brighter* of the two on average. A frame
+with no highlights has nothing for the grade to leave behind.
+
+```bash
+ffprobe -v error -f lavfi -i "movie=<file>,signalstats" \
+  -show_entries frame_tags=lavfi.signalstats.YHIGH -of csv=p=0
+```
+
+`pipeline_check check assets --chapter <N>` now fails any promoted image under
+110, calibrated on the 20 images of ch1+ch2: s4 = 93, a 30-point gap, s11b = 123
+(looked at and passed), everything else ≥ 134. **One-sided on purpose** — the
+opposite failure, a high-key flat *texture* reading as a UI panel, is real
+(ch2's s16) but luma does not predict it: ch2's s10 measures 246 and reads fine
+because numerals and pins give it structure. That end still needs eyes.
+
+Two things that make the gate cheap instead of annoying:
+
+- **Measure the contact sheet's cells, not the promoted file.** `crop=512:288:x:y,signalstats`
+  per cell is a *pre-fetch* filter — four rejections on s4's third pass cost six
+  ffprobe calls and zero downloads.
+- **Warmth has its own predictor: mean `R−B` on the raw, reject under about +40.**
+  The grade desaturates by a third, so "warm enough by eye" is not warm enough by
+  the time it renders. Measured on ch1: s5 (+61.7) and s7 (+43.6) render warm;
+  s2 (+14.6) and s3 (+3.3) do not — and s2 is instructive, because it is a
+  genuinely warm photograph (a chai glass on a sunlit sill) that simply had too
+  little saturation to survive. Under the chapter archetype no override can
+  rescue it, so the only lever is the candidate. Screen for this at the same time
+  as `YHIGH`, on the same sheet cells.
+- **When a slot fails twice on brightness, change the MATERIAL, not the lighting
+  adjective.** Kraft paper is diffuse: round 1 lit it badly, round 2 lit it well
+  against black, both measured dead. Enamel, glass, glazed ceramic, polished
+  metal and wet stone have a specular ceiling; matte paper, cardboard and
+  unfinished wood do not. s4 was only solved by abandoning the envelope for a
+  white enamel door plaque (YHIGH 203, tonal spread 97 against round 2's 14) —
+  and the best-*looking* candidate on that sheet, brass "505" on brown wood, was
+  killed at 106 as round 1's failure wearing a different prop.
+
 Corollary for anything the pipeline draws rather than fetches: masking a figure
 is not the same as removing every trace of what it is. The ch1 notification
 Lottie masked its amount correctly (the open loop is the point) but carried no

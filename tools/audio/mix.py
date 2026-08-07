@@ -40,7 +40,16 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LIB = os.path.join(ROOT, "studio", "library")
 LOOP_XFADE = 3.0   # seconds of crossfade at each bed loop joint
-BED_GAIN = 0.16
+# Creator-approved balance, 2026-08-06, off an A/B on japanese-money-methods
+# -en ch1. Was 0.16 / 1.0 / 1.0. The bed now sits 3.5 dB further under the voice.
+# VOICE_GAIN does NOT make the narration absolutely louder — loudnorm pins the
+# programme to -14 LUFS and the voice dominates that measurement — it makes the
+# voice stand prouder over the bed. SFX ride WITH the voice on purpose: leaving
+# them at 1.0 while the voice rose would have pushed the kit ~1.6 dB quieter
+# against the narration, which is the one thing the creator asked not to change.
+BED_GAIN = 0.128
+VOICE_GAIN = 1.2
+SFX_GAIN = 1.2
 DUCK = "threshold=0.03:ratio=6:attack=20:release=400"
 
 
@@ -103,7 +112,11 @@ def mix(src, dst=None):
 
     # The voice is both a signal and the ducking control, so it gets split.
     if bed:
-        parts.append("[0:a]asplit=2[vo][ctl]")
+        parts.append("[0:a]asplit=2[vo0][ctl]")
+        # The duck's control tap stays at the ORIGINAL level: threshold=0.03 is
+        # calibrated against the raw voice, so gaining the control would change
+        # how hard the bed ducks as a side effect of a level change.
+        parts.append(f"[vo0]volume={VOICE_GAIN}[vo]")
         # -stream_loop makes the bed cover the whole runtime regardless of its
         # own length, so one 4-minute bed serves an 8-minute video.
         bed_dur = duration(bed)
@@ -134,12 +147,13 @@ def mix(src, dst=None):
         parts.append(f"[bed][ctl]sidechaincompress={DUCK}[duck]")
         mixins = ["[vo]", "[duck]"]
     else:
-        mixins = ["[0:a]"]
+        parts.append(f"[0:a]volume={VOICE_GAIN}[vo]")
+        mixins = ["[vo]"]
 
     for n, (at, path) in enumerate(cues):
         ins += ["-i", path]
         ms = int(round(at * 1000))
-        parts.append(f"[{n_in}:a]adelay={ms}|{ms},apad[s{n}]")
+        parts.append(f"[{n_in}:a]adelay={ms}|{ms},apad,volume={SFX_GAIN}[s{n}]")
         mixins.append(f"[s{n}]")
         n_in += 1
 

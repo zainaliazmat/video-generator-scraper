@@ -57,10 +57,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # -ch<N> off the project path rather than through the chapter's assets/, which
 # §3b describes as a symlink to the cut but which fin-build creates as a real
 # directory of copies. Shape:
-#   {"holds": [["s13","s14"]], "buzz": {"s1": 0.95}, "counted": ["s2"]}
+#   {"holds": [["s13","s14"]], "buzz": {"s1": 0.95}, "counted": ["s2"],
+#    "dry": ["s1","s2"]}
 HOLDS = {"hi": set(), "en": set()}
 BUZZ = {}
 COUNTED = set()
+
+# Scenes that take their JOINT but no CONTENT cue. A chapter can be deliberately
+# quiet — passive-income-number's storyboard §2 declares every statement rise in
+# the cold open silent, so the generator's 7 correct-in-general `reveal`s were 7
+# wrong-here cues, and running --write would have overwritten the hand-correct
+# 7-cue list with 13. Density is the default; silence has to be declarable.
+DRY = set()
 
 
 def load_tables(proj, cut):
@@ -76,6 +84,7 @@ def load_tables(proj, cut):
     HOLDS[cut] = {tuple(pair) for pair in t.get("holds", [])}
     BUZZ.update({(cut, sid): off for sid, off in t.get("buzz", {}).items()})
     COUNTED.update(t.get("counted", []))
+    DRY.update(t.get("dry", []))
 
 CALL = re.compile(r'\b(pop|popEach|rise|fade|span|pulse|countUp|draw|exit|breathe|'
                   r'ken|plateKen|playLottie|dissolve|shove|fill|drift)\('
@@ -147,7 +156,16 @@ def cues(path, cut, first_is_joint):
                          if f == fn and re.fullmatch(pat, s)), None)
 
         pick = None
-        for fn, pat, name, note in (
+        # DRY silences DERIVED cues only. An explicitly declared BUZZ survives it:
+        # `dry` says "this scene's statement rises are silent" (a taste rule about
+        # motion the generator inferred), while `buzz` says "this frame SHOWS the
+        # object making the noise" (a per-scene fact someone wrote down). Killing
+        # the diegetic sound too took ch1 to 6 cues where fin-editor ruled 7.
+        dry = sid in DRY
+        if dry:
+            out.append({"_dry": f"{sid} is DRY — joint (and any declared buzz) "
+                                f"only, no derived content cue"})
+        for fn, pat, name, note in () if dry else (
                 ("pop", rf"#{sid}-cta", "cta", "the closing block"),
                 ("pop", rf"#{sid}-stmt", "stamp", "the verdict slam"),
                 ("pop", rf"#{sid}-num", "hero", "the scene's one big number"),
@@ -164,12 +182,12 @@ def cues(path, cut, first_is_joint):
                     f"{sid} · the frame SHOWS the object making this noise — "
                     f"the kit's one diegetic cue")
 
-        if not pick:
+        if not pick and not dry:
             hit = find("span", rf"#{sid}-mf") or find("pulse", rf"#{sid}-.*")
             if hit:
                 pick = (hit[0], "tick", f"{sid} · {hit[1]}")
 
-        if not pick:
+        if not pick and not dry:
             casc = [(t, s) for f, s, t, _ in mine if f in ("pop", "popEach")]
             if casc:
                 casc.sort()
@@ -194,12 +212,12 @@ def cues(path, cut, first_is_joint):
         # it. A scene that swapped its photograph mid-line HAS had something
         # happen and already carries a cue for it, so it takes no second one —
         # this is the -en ch1 list's own shape at s3 and s5.
-        if not pick and not swaps:
+        if not pick and not swaps and not dry:
             hit = find("fade", rf"#{sid}-band")
             if hit:
                 pick = (hit[0], "reveal", f"{sid} · the band under the drawn layer")
 
-        if not pick and not swaps:
+        if not pick and not swaps and not dry:
             hit = find("rise", rf"#{sid}-stmt")
             if hit:
                 pick = (hit[0], "reveal",

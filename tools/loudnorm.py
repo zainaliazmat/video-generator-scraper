@@ -18,7 +18,12 @@ land near +3.8 dBTP. Two-pass loudnorm redistributes instead of just amplifying.
 
 TP=-1.5, not -1.0. AAC encoding overshoots the limiter slightly; measured, a
 -1.0 target lands at about -0.76 dBTP and fails fin-render's own "below -1 dBTP"
-gate. -1.5 measures -1.26 on the real master.
+gate. -1.5 measured -1.26 on the first real master, but only -0.98 on
+japanese-money-methods-hi (2026-08-01) — a FAIL — because that mix carries 24 SFX
+transients and the AAC overshoot scales with them. -2.0 is the ceiling that holds
+with a music bed and a full SFX kit under the voice. The ceiling costs nothing
+audible: it limits peaks only, while the -14 LUFS integrated target is what
+actually sets perceived loudness.
 
 Video is stream-copied (-c:v copy), so this costs ~20 seconds, not a re-encode,
 and the picture is bit-identical to the master.
@@ -30,7 +35,7 @@ import subprocess
 import sys
 
 TARGET_I = -14.0     # YouTube's normalisation target for spoken-word
-TARGET_TP = -1.5     # ceiling; see module docstring for why not -1.0
+TARGET_TP = -2.0     # ceiling; see module docstring for why not -1.0 or -1.5
 TARGET_LRA = 11.0
 
 
@@ -52,8 +57,14 @@ def measure(src):
 def normalize(src, dst=None):
     if not os.path.exists(src):
         sys.exit(f"missing: {src}")
-    dst = dst or os.path.join(os.path.dirname(src),
-                              os.path.basename(src).replace("FINAL-", "PUBLISH-"))
+    # MIXED- as well as FINAL-: the pipeline order is FINAL -> mix.py -> MIXED ->
+    # here, so MIXED is the NORMAL input and FINAL is only the voice-only case
+    # (no audio.json). Handling only FINAL- made dst == src on every real run and
+    # the tool refused with "refusing to overwrite the master in place" — a
+    # correct guard firing on the correct usage.
+    dst = dst or os.path.join(
+        os.path.dirname(src),
+        re.sub(r"^(FINAL|MIXED)-", "PUBLISH-", os.path.basename(src)))
     if os.path.abspath(dst) == os.path.abspath(src):
         sys.exit("refusing to overwrite the master in place")
 

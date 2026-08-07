@@ -2,6 +2,7 @@
 """Stock-photo fetcher — Pixabay + Pexels, stdlib only, no deps.
 
 Reads PIXABAY_API_KEY and PEXELS_API_KEY from the project-root .env (or the env).
+Wikimedia Commons (@commons) needs no key.
 
 TWO WORKFLOWS
 -------------
@@ -46,14 +47,17 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
 
 PIXABAY_API = "https://pixabay.com/api/"
 PEXELS_API = "https://api.pexels.com/v1/search"
+COMMONS_INFO_API = "https://en.wikipedia.org/w/api.php"   # Commons is enwiki's shared file repo
+COMMONS_UA = "YoutubeScraper-fin-assets/1.0 (+finance-video pipeline)"  # Wikimedia rejects generic UAs
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PROVIDERS = ("pixabay", "pexels")
+PROVIDERS = ("pixabay", "pexels", "commons")
 CELL_W, CELL_H, COLS = 512, 288, 3        # 16:9 contact-sheet cells, 3-wide grid
 
 
@@ -89,10 +93,12 @@ def split_query(raw):
 
 def parse_query(raw):
     """'rupee notes@pexels#3' -> ('pexels', 'rupee notes', 2). Provider suffix
-    (@pixabay/@pexels) and #N may appear in either order; default is pixabay. A
+    (@pixabay/@pexels/@commons) and #N may appear in either order; default is
+    pixabay. Use @commons for NAMED things — a building, monument, institution or
+    agency; the other two index moods and objects and cannot find them. A
     bare '#' with no digits (e.g. 'c# tutorial') is left untouched."""
     provider = "pixabay"
-    m = re.search(r"@(pixabay|pexels)\b", raw)
+    m = re.search(r"@(pixabay|pexels|commons)\b", raw)
     if m:
         provider = m.group(1)
         raw = raw[:m.start()] + raw[m.end():]
@@ -151,7 +157,124 @@ def pexels_hits(query, count):
     return out
 
 
-HITS = {"pixabay": pixabay_hits, "pexels": pexels_hits}
+def commons_hits(query, count):
+    """Wikimedia Commons. No API key — it is a public MediaWiki endpoint.
+
+    Added 2026-08-04 because the two stock providers cannot photograph
+    INSTITUTIONS. Sourcing "Japan's own government publishes it" for
+    japanese-money-methods took four queries and ~48 candidates and returned the
+    Hungarian Parliament twelve times, the Reichstag twice, a Bundestag U-Bahn
+    sign, Kuala Lumpur, Seattle, Istanbul and New York; "japan flag" returned
+    Andorra, Germany, the USA five times, Israel and Spain. Pixabay and Pexels
+    index moods and objects, not named buildings — so any script naming a real
+    ministry, bank, monument or agency was unservable. Commons indexes exactly
+    that, because it exists to illustrate encyclopedia articles.
+
+    Two things differ from the paid providers and both matter:
+
+    1. ATTRIBUTION IS MANDATORY, not courtesy. Pixabay and Pexels licences make
+       credit optional; most Commons files are CC-BY or CC-BY-SA and the licence
+       is VOID without the author line. `write_credit` already records author and
+       licence per slot, so the existing CREDITS.txt satisfies this — but a
+       Commons pick must never be shipped with that file discarded.
+    2. Public-domain-vs-CC varies per FILE. `extmetadata.LicenseShortName` is
+       carried through verbatim rather than flattened to a house string, so the
+       credit line says what the file actually is.
+
+    SVG/TIFF are filtered out: the pipeline hands everything to ffmpeg as a
+    photograph, and Commons is full of diagrams and flags that are neither
+    photographs nor JPEG.
+
+    ARTICLE-FIRST, not file-search. This does not search Commons directly. It
+    finds the Wikipedia ARTICLE for the subject, then takes the Commons files
+    that article uses. Two reasons, one practical and one about quality:
+
+      * Reachability. The direct route (commons.wikimedia.org/w/api.php,
+        generator=search) needs a host that does not resolve everywhere this
+        pipeline runs — it fails here, and commons.m.wikimedia.org resolves but
+        302s straight back to it. The Core REST search on api.wikimedia.org does
+        resolve, but its anonymous rate limit is windowed in hours: two contact
+        sheets in a row return 429 and no amount of backoff inside one run clears
+        it. en.wikipedia.org/w/api.php has neither problem.
+      * Better results anyway. Commons file-search matches filenames and
+        description text, so "Bank of Japan" surfaces scans, logos, maps and
+        museum ephemera. An encyclopedia article about a building is illustrated
+        with photographs OF that building, already chosen by an editor for
+        exactly the job this pipeline needs. Free curation.
+
+    So: list=search finds the article, generator=images pulls its files, and the
+    mime/size filter drops the icons, maps and SVG diagrams that ride along.
+
+    The catch to know: it can only find things Wikipedia has an article about.
+    That is the right constraint — this provider is for NAMED subjects, and
+    anything without an article is a mood or an object, which is what Pixabay and
+    Pexels are already good at."""
+    ua = {"User-Agent": COMMONS_UA}
+
+    def _get(url, tries=4):
+        """Wikimedia's anonymous endpoints rate-limit in bursts, so a 429 here is
+        routine rather than exceptional — a couple of contact sheets in a row will
+        trip it. Back off and retry instead of killing the run: every other
+        provider failure in this file is fatal because it means a bad key or a
+        dead host, but a 429 means "you are early", and the correct response to
+        being early is to wait. Honours Retry-After when the server sends one."""
+        for attempt in range(tries):
+            try:
+                return json.loads(urllib.request.urlopen(
+                    urllib.request.Request(url, headers=ua), timeout=30).read())
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or attempt == tries - 1:
+                    raise
+                wait = int(e.headers.get("Retry-After") or 0) or 2 ** (attempt + 1)
+                print(f"  … Commons rate-limited, retrying in {wait}s")
+                time.sleep(wait)
+
+    def _api(**params):
+        params.setdefault("format", "json")
+        params["action"] = "query"
+        return _get(COMMONS_INFO_API + "?" + urllib.parse.urlencode(params))
+
+    try:
+        # 1. which article is this about? Two, so a near-miss on the first still
+        #    yields photographs (e.g. "National Diet Building" + "National Diet").
+        hits = _api(list="search", srsearch=query, srlimit=2).get(
+            "query", {}).get("search", [])
+        if not hits:
+            return []
+        # 2. every file those articles use, with licence and dimensions.
+        pages = _api(generator="images", titles="|".join(h["title"] for h in hits),
+                     gimlimit=50, prop="imageinfo",
+                     iiprop="url|size|mime|extmetadata",
+                     iiurlwidth=1024).get("query", {}).get("pages", {})
+    except urllib.error.HTTPError as e:
+        sys.exit(f"ERROR {e.code} from Wikimedia: "
+                 f"{e.read().decode('utf-8', 'replace')[:300]}")
+    except urllib.error.URLError as e:
+        sys.exit(f"ERROR: could not reach Wikimedia ({e.reason}).")
+
+    out = []
+    for p in sorted(pages.values(), key=lambda x: x.get("title", "")):
+        info = (p.get("imageinfo") or [{}])[0]
+        meta = info.get("extmetadata", {}) or {}
+        if info.get("mime") not in ("image/jpeg", "image/png"):
+            continue
+        if (info.get("width") or 0) < 1280:
+            continue
+        author = re.sub(r"<[^>]+>", "", meta.get("Artist", {}).get("value", "") or "").strip()
+        out.append({
+            "dl": info.get("url"),
+            "preview": info.get("thumburl") or info.get("url"),
+            "page": info.get("descriptionurl", ""),
+            "author": author or "Wikimedia Commons contributor",
+            "license": meta.get("LicenseShortName", {}).get("value") or "see Commons file page",
+            "w": info.get("width"), "h": info.get("height"),
+        })
+        if len(out) >= count:
+            break
+    return out
+
+
+HITS = {"pixabay": pixabay_hits, "pexels": pexels_hits, "commons": commons_hits}
 
 
 def provider_hits(provider, query, count):
@@ -160,10 +283,26 @@ def provider_hits(provider, query, count):
 
 # ---------------------------------------------------------------- download / credit
 
-def download(url, out):
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        data = resp.read()
+def download(url, out, tries=4):
+    """Wikimedia throttles bulk image fetches behind a generic User-Agent and
+    wants a contactable one, so upload.wikimedia.org 429s a 12-cell contact sheet
+    on the plain `Mozilla/5.0` the stock hosts are happy with. Send the real UA to
+    Wikimedia hosts, and retry a 429 anywhere rather than losing the run — a
+    contact sheet is a dozen images in a burst, which is exactly the shape that
+    trips a rate limiter."""
+    ua = COMMONS_UA if "wikimedia.org" in urllib.parse.urlsplit(url).netloc else "Mozilla/5.0"
+    req = urllib.request.Request(url, headers={"User-Agent": ua})
+    for attempt in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = resp.read()
+            break
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or attempt == tries - 1:
+                raise
+            wait = int(e.headers.get("Retry-After") or 0) or 2 ** (attempt + 1)
+            print(f"  … {urllib.parse.urlsplit(url).netloc} rate-limited, retrying in {wait}s")
+            time.sleep(wait)
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     tmp = out + ".tmp"
     with open(tmp, "wb") as fh:
@@ -173,11 +312,22 @@ def download(url, out):
 
 
 def write_credit(out, line):
-    """Append attribution immediately — an aborted batch must never leave an
-    image on disk without its licence line."""
+    """Write attribution immediately — an aborted batch must never leave an image
+    on disk without its licence line — but REPLACE any existing line for this slot
+    rather than appending a second one. A slot re-picked three times used to leave
+    three credits, only one of which named the photographer actually on disk; that
+    is a licence error, not untidiness. (japanese-money-methods-en s65 carried five,
+    2026-08-01.) Rewrite-in-place keeps the file 1:1 with the images."""
     path = os.path.join(os.path.dirname(os.path.abspath(out)), "CREDITS.txt")
-    with open(path, "a", encoding="utf-8") as fh:
-        fh.write(line + "\n")
+    slot = os.path.basename(out)
+    kept = []
+    if os.path.exists(path):
+        kept = [l for l in open(path, encoding="utf-8").read().splitlines()
+                if l.strip() and l.split("\t")[0].split()[0] != slot]
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(kept + [line]) + "\n")
+    os.replace(tmp, path)          # atomic: a kill mid-write cannot truncate CREDITS
 
 
 # ---------------------------------------------------------------- contact sheet
@@ -273,13 +423,25 @@ def cand_dir_for(manifest_path):
     return os.path.join(os.path.dirname(os.path.abspath(manifest_path)), "_cand")
 
 
-def cmd_candidates(manifest_path, n):
+def cmd_candidates(manifest_path, n, only=None):
     """One API search + N preview downloads per slot → a numbered contact sheet
-    (_cand/<slot>.jpg) + candidate metadata (_cand/<slot>.json)."""
+    (_cand/<slot>.jpg) + candidate metadata (_cand/<slot>.json).
+
+    `only` restricts the sweep to the named slots. Re-sourcing ONE slot is common
+    (five times on japanese-money-methods alone: s65 twice, s77 twice, s32b, s91),
+    and without this the choice is 93 searches or hand-building a scratch manifest
+    and promoting through it — which is what the asset stage resorted to."""
     outdir = os.path.dirname(os.path.abspath(manifest_path))
     cdir = cand_dir_for(manifest_path)
     os.makedirs(cdir, exist_ok=True)
     manifest = json.load(open(manifest_path, encoding="utf-8"))
+    if only:
+        want_slots = {s if s.endswith((".jpg", ".png")) else s + ".jpg" for s in only}
+        unknown = want_slots - set(manifest)
+        if unknown:
+            sys.exit(f"ERROR: --only names slots not in the manifest: {sorted(unknown)}")
+        manifest = {k: v for k, v in manifest.items() if k in want_slots}
+        print(f"--only: {len(manifest)} slot(s): {sorted(manifest)}")
     fake = os.environ.get("FIN_FAKE_APIS") == "1"
     missing = []
     for slot, raw in manifest.items():
@@ -383,6 +545,9 @@ def main(argv=None):
     p.add_argument("--manifest", help="JSON {filename: query} — downloaded next to the manifest")
     p.add_argument("--query", help="single search query (supports @pexels / #N suffixes)")
     p.add_argument("--out", help="output path for --query")
+    p.add_argument("--only", nargs="+", metavar="SLOT",
+                   help="with --candidates: sheet ONLY these slots (e.g. --only s53 s91) "
+                        "instead of every slot in the manifest")
     p.add_argument("--candidates", type=int, metavar="N",
                    help="with --manifest: build an N-candidate contact sheet per slot")
     p.add_argument("--pick", metavar="SPEC",
@@ -399,7 +564,7 @@ def main(argv=None):
         load_env()  # provider keys are read lazily per-provider inside search()
 
     if args.manifest and args.candidates:
-        cmd_candidates(args.manifest, args.candidates)
+        cmd_candidates(args.manifest, args.candidates, args.only)
         return
     if args.manifest and args.pick:
         cmd_pick(args.manifest, args.pick)

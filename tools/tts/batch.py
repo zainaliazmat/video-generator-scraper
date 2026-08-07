@@ -24,7 +24,7 @@ import pipeline_check as pc  # noqa: E402
 import elevenlabs_tts as tts  # noqa: E402
 
 
-def run(project, cut, voice=None, model=None, seed=None, force=False):
+def run(project, cut, voice=None, model=None, seed=None, force=False, only=None):
     fmt = pc.load_format()
     cutcfg = fmt["cuts"][cut]
     voice = voice or cutcfg["voice_id"]
@@ -40,11 +40,41 @@ def run(project, cut, voice=None, model=None, seed=None, force=False):
         tts.load_env()
         key = tts.api_key()
 
-    for line in lines:
+    # --only: regenerate exactly these ids. A one-line re-voice is the NORMAL
+    # outcome of a gate-one audit, and the skip guard is all-or-nothing at the cut
+    # level, so without this the only routes are --force (every clip, every credit)
+    # or an out-of-band `rm` that the voice stage's allowlist cannot perform.
+    # (Blocked fin-voice-en on japanese-money-methods, 2026-08-01.)
+    want = None
+    if only:
+        want = set(only)
+        missing = want - {l["id"] for l in lines}
+        if missing:
+            sys.exit(f"ERROR: --only names ids not in lines.json: {sorted(missing)}")
+        print(f"--only: regenerating {len(want)} clip(s): {sorted(want)}")
+
+    # NOTE: `only` scopes GENERATION, never the timing rebuild below. Filtering
+    # `lines` itself would write a timing.json containing one entry and silently
+    # drop the other 91 — caught by the selftest, 2026-08-01.
+    for line in [l for l in lines if want is None or l["id"] in want]:
         out = os.path.join(vdir, f"{line['id']}.mp3")
-        if os.path.exists(out) and os.path.getsize(out) > 0 and not force:
-            print(f"skip (exists): {out}")
-            continue
+        # "Already generated" means the mp3 exists AND was generated from the text
+        # we are holding now. Existence alone is not enough: an audit rewriting one
+        # line left the new text paired with the old audio SILENTLY, because
+        # check_voice_dir re-derives the expected duration from the NEW chars at
+        # ±35% — a tolerance a one-word edit sails straight through. The <id>.txt
+        # sidecar is written immediately before each call, so it is an exact record
+        # of what this mp3 actually says. (japanese-money-methods, 2026-08-01.)
+        txt = os.path.join(vdir, f"{line['id']}.txt")
+        stale = True
+        if os.path.exists(txt):
+            with open(txt, encoding="utf-8") as fh:
+                stale = fh.read() != line["text"]
+        if os.path.exists(out) and os.path.getsize(out) > 0 and not force and want is None:
+            if not stale:
+                print(f"skip (exists): {out}")
+                continue
+            print(f"REGEN (text changed since last take): {line['id']}")
         with open(os.path.join(vdir, f"{line['id']}.txt"), "w", encoding="utf-8") as fh:
             fh.write(line["text"])
         print(f"=== {line['id']} ({len(line['text'])} chars) ===")
@@ -91,8 +121,30 @@ def _selftest():
         assert len(timing["lines"]) == 2 and timing["total"] > 0
         # resume: a second run must not regenerate anything
         mtime = os.path.getmtime(os.path.join(vdir, "h1.mp3"))
+        mtime2 = os.path.getmtime(os.path.join(vdir, "h2.mp3"))
         assert run(tmp, "hi") == 0
         assert os.path.getmtime(os.path.join(vdir, "h1.mp3")) == mtime, "clip was regenerated"
+        # …but an EDITED line must regenerate, or the new text ships against the old
+        # audio and every downstream check still passes. This is the audit-rewrites-
+        # one-line case, which is the normal outcome of gate one.
+        lines[0]["text"] = "z" * 41
+        pc.atomic_write_json(os.path.join(vdir, "lines.json"), lines)
+        assert run(tmp, "hi") == 0
+        assert os.path.getmtime(os.path.join(vdir, "h1.mp3")) != mtime, \
+            "edited line was NOT regenerated — new text is paired with old audio"
+        assert open(os.path.join(vdir, "h1.txt"), encoding="utf-8").read() == "z" * 41
+        assert os.path.getmtime(os.path.join(vdir, "h2.mp3")) == mtime2, \
+            "an untouched line was regenerated"
+        # --only regenerates just what it names, and rejects an unknown id
+        m1 = os.path.getmtime(os.path.join(vdir, "h1.mp3"))
+        assert run(tmp, "hi", only=["h2"]) == 0
+        assert os.path.getmtime(os.path.join(vdir, "h1.mp3")) == m1, "--only touched another clip"
+        assert os.path.getmtime(os.path.join(vdir, "h2.mp3")) != mtime2, "--only skipped its target"
+        try:
+            run(tmp, "hi", only=["nope"])
+            raise AssertionError("--only accepted an id not in lines.json")
+        except SystemExit:
+            pass
         print("selftest OK")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -106,6 +158,9 @@ def main(argv=None):
     p.add_argument("--model", help="override format.json model")
     p.add_argument("--seed", type=int, help="fixed seed for reproducible takes")
     p.add_argument("--force", action="store_true", help="regenerate clips that already exist")
+    p.add_argument("--only", nargs="+", metavar="ID",
+                   help="regenerate ONLY these line ids (e.g. --only 7.4); ignores the exists-skip "
+                        "for them and leaves every other clip untouched")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args(argv)
     if args.selftest:
@@ -113,7 +168,8 @@ def main(argv=None):
         return 0
     if not (args.project and args.cut):
         p.error("need --project and --cut")
-    return run(args.project, args.cut, args.voice, args.model, args.seed, args.force)
+    return run(args.project, args.cut, args.voice, args.model, args.seed, args.force,
+               args.only)
 
 
 if __name__ == "__main__":

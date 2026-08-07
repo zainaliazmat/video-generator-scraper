@@ -30,6 +30,10 @@ KEEP = (
     "thumbnail*.png",
     "assets/voice/*.txt",
     "assets/img/*.src", "assets/img/CREDITS.txt",
+    # The shipped subtitles. Regenerable by tools/transcript.py from script-<cut>.md
+    # + the composition — but only while BOTH still exist, and this delete is what
+    # removes the composition. Kilobytes; keep them next to the cut they belong to.
+    "renders/*.srt",
     # the re-tinted Lottie, ~400 KB each, capped at 3 per cut. Kept rather than
     # dropped as regenerable: a LottieFiles asset URL can rotate, and the tint is
     # a derivative of whatever tools/lottie/tint.py did that day.
@@ -44,23 +48,38 @@ ALIAS = {"50-30-20-rule": ["50-30-20-thumbs"]}
 
 
 def cut_dirs(root, slug):
-    """studio dirs for this slug -> {dest_name: src_dir}. Bare dir is the hi cut
-    unless an explicit -hi exists, in which case it is an older draft."""
+    """studio dirs for this slug -> [(dest_name, src_dir)], one entry per dir.
+
+    ⚠️ This returned a DICT until 2026-08-06 and that silently lost work. Any dir
+    whose suffix was not exactly -hi/-en/-thumbs mapped to "hi", collided, fell
+    through to the single "legacy" key, and every later collision OVERWROTE it.
+    Archiving japanese-money-methods that way put 4 of its 22 directories in the
+    plan and dropped 18 — including both cuts' eight chapter projects and the -en
+    master — while printing "archived …" and exiting 0. Worse, a chapter project
+    won the "hi" key, so the real -hi cut was filed under `legacy/`.
+
+    The dest is now the suffix itself, so it is unique by construction and a
+    collision is impossible rather than silent. Bare dir = the hi cut.
+    """
     videos = root / "studio" / "videos"
     found = [d for d in videos.glob(f"{slug}*") if d.is_dir()]
     found += [videos / a for a in ALIAS.get(slug, []) if (videos / a).is_dir()]
-    out = {}
-    for d in sorted(found, key=lambda p: len(p.name), reverse=True):
-        suffix = d.name[len(slug):] if d.name.startswith(slug) else "-thumbs"
-        dest = {"-hi": "hi", "-en": "en", "-thumbs": "thumbs"}.get(suffix, "hi")
-        out[dest if dest not in out else "legacy"] = d
+    out = []
+    for d in sorted(found):
+        suffix = d.name[len(slug):].lstrip("-") if d.name.startswith(slug) else "thumbs"
+        out.append((suffix or "hi", d))
     return out
 
 
 def plan(root, slug):
-    """[(src_dir, dest_dir, [(src_file, dest_file)])] — what would be copied."""
+    """[(src_dir, dest_dir, [(src_file, dest_file)])] — what would be copied.
+
+    Every directory the glob finds gets a step. A dir that matches no KEEP
+    pattern still appears, with an empty file list, so it is visible in the
+    dry-run and deleted rather than quietly left behind.
+    """
     steps = []
-    for dest, src in sorted(cut_dirs(root, slug).items()):
+    for dest, src in cut_dirs(root, slug):
         dest_dir = root / "vault" / "videos" / slug / "src" / dest
         files = sorted({f for pat in KEEP for f in src.glob(pat)
                         if f.is_file() and f.name not in DROP})
@@ -180,6 +199,33 @@ def self_check():
         except SystemExit:
             pass
         assert cut.exists(), "deleted a cut that had no URL"
+
+    # REGRESSION (2026-08-06): every studio dir must get its own step. The dict
+    # version of cut_dirs() collapsed these eight to three and deleted nothing it
+    # had not archived, so chapter projects and the -en master were left on disk
+    # while the run reported success.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        names = ["multi-hi", "multi-en", "multi-thumbs", "multi-hi-full",
+                 "multi-en-full", "multi-hi-ch1", "multi-hi-ch2", "multi-en-ch1"]
+        for n in names:
+            d = root / "studio" / "videos" / n
+            d.mkdir(parents=True)
+            (d / "index.html").write_text(f"<html>{n}")
+        steps = plan(root, "multi")
+        assert len(steps) == len(names), f"lost dirs: {len(steps)} steps for {len(names)} dirs"
+        dests = [s[1].name for s in steps]
+        assert len(set(dests)) == len(dests), f"dest collision: {dests}"
+        assert set(dests) == {"hi", "en", "thumbs", "hi-full", "en-full",
+                              "hi-ch1", "hi-ch2", "en-ch1"}, dests
+        archive(root, "multi", {"hi": "https://youtu.be/X", "en": "https://youtu.be/Y"},
+                today="2026-01-01")
+        left = list((root / "studio" / "videos").glob("multi*"))
+        assert not left, f"not deleted: {left}"
+        for n in ("hi", "hi-ch1", "en-full"):
+            got = (root / "vault" / "videos" / "multi" / "src" / n / "index.html").read_text()
+            assert got == f"<html>multi-{n}", got
+
     print("self-check ok")
 
 
