@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- a tied grain sack — the staple-food glyph. Deliberately NOT a jar or a
+       tin: over a photograph of stored food a jar would be a second drawing of
+       the subject (rule 8), a sack is the category. draw() i-sack, then i-ear
+       and i-tie. -->
+  <path id="i-sack" d="M34 34 C22 48 18 66 22 86 h56 c4-20 0-38-12-52 Z"/>
+  <path id="i-ear" d="M34 34 L28 20 c8 4 28 4 36 0 L66 34"/>
+  <path id="i-tie" d="M34 34 c5 6 27 6 32 0"/>
+</svg>

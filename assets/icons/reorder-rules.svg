@@ -1,0 +1,7 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- two rules, the lower one lifting past the upper on a curved arrow. -->
+  <line id="i-upper" x1="12" y1="34" x2="62" y2="34"/>
+  <line id="i-lower" x1="12" y1="70" x2="62" y2="70"/>
+  <path id="i-swap" d="M70 70 C92 70 92 34 74 34"/>
+  <path id="i-head" d="M82 26 L74 34 L82 42"/>
+</svg>

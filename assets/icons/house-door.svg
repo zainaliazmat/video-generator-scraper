@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- a house with its door — the RENT / housing glyph. The wall tops sit just
+       under the roof line at x=22 and x=78 so nothing pokes through.
+       draw() i-roof, i-walls, then i-door. -->
+  <path id="i-roof" d="M12 48 L50 16 L88 48"/>
+  <path id="i-walls" d="M22 42 V86 h56 V42"/>
+  <path id="i-door" d="M42 86 V62 h16 v24"/>
+</svg>

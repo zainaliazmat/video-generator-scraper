@@ -1,0 +1,6 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- a pen nib drawing one straight line to the right. draw() i-rule last. -->
+  <path id="i-nib" d="M18 56 L30 18 L42 56 L30 68 Z"/>
+  <line id="i-slit" x1="30" y1="38" x2="30" y2="60"/>
+  <line id="i-rule" x1="36" y1="76" x2="90" y2="76"/>
+</svg>

@@ -83,6 +83,14 @@ def resolve(spec):
                   f"studio/library/music/. Mixing without it.")
     cues = []
     for c in spec.get("sfx", []):
+        # cues.py interleaves documentation markers into sfx[] so a reader sees
+        # WHERE a cue was deliberately suppressed and why — {"_hold": …} for a
+        # continuous-zoom joint, {"_dry": …} for a scene declared silent. They
+        # carry no "name" and are not cues. Without this guard the generator's own
+        # output crashes its consumer with KeyError: 'name' — and it would have
+        # done so at MIX time, i.e. after every chapter of both cuts was built.
+        if "name" not in c:
+            continue
         cand = os.path.join(LIB, "sfx", f"{c['name']}.mp3")
         if os.path.exists(cand):
             cues.append((float(c["at"]), cand))
