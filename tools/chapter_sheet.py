@@ -44,6 +44,13 @@ import sys
 CELL_W, CELL_H, COLS = 480, 270, 4
 SETTLE = 2.6          # cue ladder is done by here (kicker .30 -> stmt 1.10 -> cue 1.90)
 SETTLE_LOTTIE = 6.0   # a drawn scene is only worth judging once its art has FINISHED
+# A counting number is the same failure as a half-drawn Lottie, and worse in kind:
+# a partial chart looks broken, but a partial count looks like a REAL NUMBER. On
+# passive-income-number ch2 the rung-one corpus counts to Rs 10,00,000 over 1.2s
+# from +1.90, so the +2.6 sample sheeted Rs 8,36,874 — plausible, wrong, and the
+# figure every downstream reviewer and the CEO would have judged the rung on.
+# Five more rungs in ch3-7 would each have shown their own fabricated total.
+SETTLE_COUNTUP = 4.5
 
 
 def scenes(html_path):
@@ -66,11 +73,15 @@ def scenes(html_path):
         fr = re.search(r'data-framings="([\d.,\s]+)"', tag)
         framings = [float(x) for x in fr.group(1).split(",") if x.strip()] if fr else []
         has_lottie = 'class="lottie' in chunk.split("</section>")[0]
-        out.append((sid.group(1), float(st.group(1)), float(du.group(1)), framings, has_lottie))
+        # countUp lives in the <script>, not in the section markup, so look for a
+        # call naming this scene anywhere in the file.
+        has_countup = f'countUp("#{sid.group(1)}-' in html
+        out.append((sid.group(1), float(st.group(1)), float(du.group(1)), framings,
+                    has_lottie, has_countup))
     return out
 
 
-def sample_times(start, duration, framings, has_lottie=False):
+def sample_times(start, duration, framings, has_lottie=False, has_countup=False):
     """One time per framing; settle into each, clamped inside it.
 
     A Lottie scene is sampled LATE. Drawn art typically starts at cue slot 3
@@ -79,7 +90,11 @@ def sample_times(start, duration, framings, has_lottie=False):
     broken frame when the finished chart was fine. Judge the end state; motion
     is what the mp4 is for.
     """
-    settle = SETTLE_LOTTIE if has_lottie else SETTLE
+    settle = SETTLE
+    if has_lottie:
+        settle = SETTLE_LOTTIE
+    elif has_countup:
+        settle = SETTLE_COUNTUP
     spans, t = [], start
     for f in (framings if len(framings) > 1 else [duration]):
         spans.append((t, f))
@@ -119,8 +134,8 @@ def main():
     os.makedirs(tmp, exist_ok=True)
 
     cells, index = [], []
-    for sid, start, dur, framings, has_lottie in scenes(html):
-        for n, t in enumerate(sample_times(start, dur, framings, has_lottie)):
+    for sid, start, dur, framings, has_lottie, has_countup in scenes(html):
+        for n, t in enumerate(sample_times(start, dur, framings, has_lottie, has_countup)):
             # plain ASCII: montage's -label renders an escape sequence literally,
             # so "\u2192" sheeted as the cell name "s19u21922".
             label = sid if n == 0 else f"{sid}.{n + 1}"

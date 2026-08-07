@@ -1,0 +1,187 @@
+{
+  "slug": "passive-income-number",
+  "topic": "How much you actually need invested for your money to pay you every month — the passive-income number. hi/₹ cut: SIP + SWP corpus → monthly income, framed as financial freedom / passive income, and the word 'dividends' is BANNED in the ₹ cut (India search volume: dividends 2,531/mo · live off dividends 2,907 · dividend investing 2,807, vs financial freedom 92,825 · passive income 46,094). en/$ cut: the US 'how much you need invested to live off dividends' framing, which is the phrase the format twins actually rank on.",
+  "tier": "medium",
+  "target_seconds": 510,
+  "architecture": "blockframe-9",
+  "architecture_default": "blockframe-9 (LOCKED)",
+  "architecture_differs_from_default": false,
+  "cuts": [
+    "hi",
+    "en"
+  ],
+  "started": "2026-08-07",
+  "source_note": "vault/knowledge/niches/finance-topics-2026-07-31.md — Revision 2026-08-07 'Replacement A', creator pick 2026-08-07, topic #9. Chosen after a vidIQ R1 re-check demoted the ranked #3 (saved-by-age). Format evidence: the same title cloned per country by six small channels in 3 months, every clone a breakout — Singapore Finance With Jim 5,560 subs→106,210 (19×), Kab Invests 1,870→26,488 (14×), Aussie Finance With Luke 24,900→292,989 (11.8×), Dark Ledger 24,600→231,862 (9.4×), Effortless Investor UK 3,070→26,414 (8.6×), Canadian Finance with David 9,190→68,235 (7.4×). India is the unclaimed slot in that chain. Hindi format proof: Varsha Saini 2,000 subs→37,497 (18.7×) on SIP compounding.",
+  "constraints": {
+    "_note": "Creator constraints set at intake 2026-08-07. fin-facts and fin-audit both enforce these; they are not suggestions.",
+    "no_return_promise": "Never promise or imply a return rate. The corpus number is arithmetic FROM a stated assumption, never a forecast. Say the assumption out loud in the VO the first time a number depends on it.",
+    "withdrawal_rate_on_screen": "Every corpus figure must carry its assumed withdrawal/return rate ON SCREEN in the same frame as the number. A number without its assumption visible is a fabricated promise.",
+    "no_unsourced_retire_early": "No 'retire early', 'quit your job', or financial-freedom-by-age claim that is not sourced and dated in facts-staging.md.",
+    "hi_currency_framing": "₹ cut: SIP/SWP vocabulary, financial freedom / passive income framing. The word 'dividend' (and its Hindi/Devanagari transliterations) must not appear in the hi script, on-screen text, title, or tags.",
+    "market_rewrite_not_translation": "The en cut is a US rewrite (US vehicles, US numbers, Brian voice), not a translation of the hi cut — see vault/knowledge/us-english-script-style.md.",
+    "derived_income_carries_assumption": "EXTENDED 2026-08-07 during ch2 review. `withdrawal_rate_on_screen` was written about CORPUS figures, so the build assert let s17's `WHAT ₹2,500 BUYS` through bare — correctly, by the letter. But ₹2,500/month is the corpus's OUTPUT at 3.0%, i.e. the promise the video actually makes, and `no_return_promise` says a number without its assumption visible is a fabricated promise. So a DERIVED INCOME figure carries the rate in frame or an explicit ILLUSTRATIVE marker, same as a corpus. Every rung has a 'what X buys' beat, so this lives in the build assert, not in per-chapter review."
+  },
+  "stages": {
+    "fin-research": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/passive-income-number/logs/fin-research-2.md",
+      "at": "2026-08-06T22:03:48+00:00"
+    },
+    "fin-facts": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-facts-1.md",
+      "at": "2026-08-06T22:14:21+00:00"
+    },
+    "fin-script-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-script-hi-1.md",
+      "at": "2026-08-06T22:46:31+00:00"
+    },
+    "fin-script-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-script-en-1.md",
+      "at": "2026-08-06T22:58:51+00:00"
+    },
+    "fin-audit-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-audit-hi-1.md",
+      "at": "2026-08-06T22:59:55+00:00"
+    },
+    "fin-voice-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-voice-hi-1.md",
+      "at": "2026-08-06T23:10:56+00:00",
+      "script_sha256": "4d68d2fd5c87491fddea3027d3b22d8eaf3b6f96440fedbc7e11b1f2e12dc2a3"
+    },
+    "fin-audit-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-audit-en-1.md",
+      "at": "2026-08-06T23:11:47+00:00"
+    },
+    "fin-voice-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-voice-en-1.md",
+      "at": "2026-08-06T23:21:52+00:00",
+      "script_sha256": "695aa61a9e560c9f9673b6710b4d3ffb225cb9186ba5758d383575754d998898"
+    },
+    "fin-storyboard-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-storyboard-hi-1.md",
+      "at": "2026-08-06T23:31:06+00:00"
+    },
+    "fin-storyboard-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-storyboard-en-1.md",
+      "at": "2026-08-06T23:49:46+00:00"
+    }
+  },
+  "owed": {
+    "real_study_packet": "fin-research attempt 1 died on a YouTube bot-check (yt-dlp auth wall, not a 429 — it never clears on retry) AND on a thin library: only 2 usable long-form rows in this lane, so no LOW performer existed to autopsy. Attempt 2 was grounded in two BOUGHT transcripts instead (vidIQ R2). Still owed: `venv/bin/python backend/study.py --ids JiuVKaO2a6c Jn3N9OzSY1c` once cookies exist (YTAUTO_COOKIES / YTAUTO_COOKIES_BROWSER, added to study.py 2026-08-07), plus a scrape of this lane so library.db holds a real top/mid/low triple. The visual half of the study (keyframes, hook frames, on-screen text) is recorded MISSING, not faked.",
+    "vidiq_packaging_pass": "Close-out §5.2 budgets ~35 credits for R3 + R3b across both packs; only 13 remain until the 2026-08-29 reset. Ration it or defer the title lock — do not skip it silently."
+  },
+  "vidiq_spend": {
+    "_note": "vidIQ runs AROUND the pipeline (topic selection before, packaging at close-out, autopsy after) — never inside a fin-* stage, which has no credit budget to reason about.",
+    "start_of_run": 53,
+    "topic_verification_2026-08-07": 20,
+    "research_substitute_2026-08-07": 10,
+    "remaining": 13
+  },
+  "hook_gate_hi": {
+    "_decision": "ACCEPTED at ≈15.0s by the orchestrator, 2026-08-07. fin-voice measured the number-naming clause in 1.4 starting 1.618s into its clip (a 0.469s em-dash pause plus four preceding words), putting onset at 14.9–15.1s against the 15s gate — met at its boundary, with no margin. Not re-cut: the fix is one ElevenLabs call but the chain around it is not (script edit → audit-hi goes stale → re-voice → new script hash), and the format twins this video copies land their number at 0:40–0:54 of an 8–11 minute cut, so 15.0s is ~3x ahead of the field it competes with. Recorded rather than swallowed: if retention on this cut falls off before 0:20, this is the first thing to re-test.",
+    "measured_seconds": "14.9-15.1",
+    "gate_seconds": 15
+  },
+  "budget": {
+    "elevenlabs_calls": 156,
+    "max_elevenlabs_calls": 188,
+    "pixabay_calls": 0,
+    "_spend_log": "fin-voice-hi attempt 1 (2026-08-07): exactly 78 calls, one per line, zero retries, zero failures — extracted by line key 1.1…7.8 so none of the ~33 guard blockquotes entered the job. fin-voice-en attempt 1 (2026-08-07): 78 calls, zero failures (that script carries 113 blockquotes against 78 VO lines, so a `^> ` grep would have swept in 35). 156 cumulative, 32 left for any re-voice. Counter said 78 until 2026-08-07 12:19 — the orchestrator bumped it after hi and forgot after en, which would have let a re-voice pass a ceiling check it should have failed.",
+    "_ceiling_note": "78 lines × 2 cuts × 1.2 retry headroom = 187.2 → 188 (MEDIUM tier), derived from tools/format.json tiers.medium.lines per the orchestrator rule — never the old hardcoded 30."
+  },
+  "chapters": {
+    "_note": "Chapter-first production (orchestrator §3b): each chapter is a standalone project at studio/videos/<slug>-<cut>-ch<N>/, timings rebased to play from 0 but relative gaps exact so chapters concatenate frame-exact. hi has 7 chapters, en has 6. A chapter locks only after fin-editor PASS and fin-ceo SHIP; locked chapters are never rebuilt on --resume. The per-cut fin-assets/fin-build stage entries in `stages` are marked once, at the end of that cut's loop — not per chapter — because a per-chapter mark would read as the whole stage being done.",
+    "_carry_forward_from_ch1_assets": "fin-assets could not land a window photograph for s2 (three rounds across both pools returned coffee, book spines and a church rose window), so two LATER briefs must adjust rather than assume: s77's callback should rhyme with the chai GLASS, not the window; and s25 must put its brass weights visibly in frame or it reads as s7 reused. Carried here because the agent that found it does not run again until its own chapter.",
+    "hi": {
+      "1": {
+        "status": "rework",
+        "round": 2,
+        "draft": "studio/videos/passive-income-number-hi-ch1/renders/DRAFT-ch1.mp4",
+        "sheet": "studio/videos/passive-income-number-hi-ch1/renders/SHEET-ch1.jpg",
+        "frames": 1073,
+        "seconds": 35.767,
+        "fps": 30,
+        "scenes": "s1-s7",
+        "editor": "vault/videos/passive-income-number/logs/editor-hi-ch1-1.md",
+        "editor_verdict": "REWORK — 3 blockers, 6 should-fix",
+        "blockers": "s5 office desk shows none of the three named bills · s2 food-blog flat lay with no window · s3 notification card carries no ₹ glyph, so sound-off it says 'a notification arrived', not 'money arrived'",
+        "root_cause": "s2/s4/s5 are all high-key white-background stock under a LOCKED grayscale(.32) brightness(.62) contrast(1.05) grade with no per-scene override permitted — a white-dominant subject can only become flat charcoal. Rule recorded in vault/knowledge/stock-photo-sourcing.md so it stops recurring.",
+        "verified_good": "phone_notify_credit Lottie draws and animates (proven from encoded frames, not from the file reference); frame count exact at ceil(35.745x30)=1073; no rail; corpus/rate assert wired and proven to fail and clear",
+        "editor_verdict_r2": "REWORK — 1 blocker (s5), 2 should-fix",
+        "editor_r2": "vault/videos/passive-income-number/logs/editor-hi-ch1-2.md",
+        "rulings": "s4 statement over the plaque ACCEPTED (blockframe-9 IS a centred stack over a full-bleed photo; spoiler risk checked — ch6 is ₹1,00,00,000/₹25,000 and the plaque has no ₹ and no comma grouping). s2's cool light NOTED, no re-fetch — the raw is warm (R−B +14.6) but too desaturated to survive the locked grade, and §9 permits no override, so no lever exists. Cue count ruled at 7, not the generator's 13: §2 declares every cold-open statement rise silent."
+      },
+      "2": {
+        "status": "rework",
+        "round": 1,
+        "draft": "studio/videos/passive-income-number-hi-ch2/renders/DRAFT-ch2.mp4",
+        "frames": 2328,
+        "seconds": 77.6,
+        "declared": 77.571,
+        "fps": 30,
+        "scenes": "s8-s19",
+        "render_log": "vault/videos/passive-income-number/logs/fin-render-hi-ch2-1.md",
+        "verified_good": "s13→s14 continuous zoom measurably invisible (joint scdet 0.073 vs 0.184/0.214 at the real photo boundaries either side; no luminance step across 36.1–37.2s; crop geometry 0.91755 against the specified 0.91754). Every corpus figure carries its 3.0% rate. 23 cues, s13→s14 joint correctly silent. blackdetect 0 segments.",
+        "defects": "s15 foot struck through by the comma descenders of ₹10,00,000 — COMMA-triggered, so it recurs on every lakh/crore rung in ch3-7; fixed system-side, not per scene. #s16-afunnel at fill-opacity .18, under the ~.2 floor for fills over a graded still, so the chapter's one drawn mechanism is invisible. s16's graph-paper still reads as a UI panel (ch1's high-key failure repeated) — fin-assets re-source, queued.",
+        "frame_count_note": "2328 vs 77.571×30=2327.13: the renderer ceils, +0.029s. Harmless because tools/cut_assemble.py writes ONE rebased index.html — the chapters become a single composition, not a video concat, so the ceil never accumulates. Only chapter_preview.py's stream-concat path would accumulate it.",
+        "editor_verdict": "REWORK — 4 blockers, 4 should-fix",
+        "editor": "vault/videos/passive-income-number/logs/editor-hi-ch2-1.md",
+        "blockers": "s15 the video's FIRST corpus figure sits on DEMONETISED pre-2016 Mahatma Gandhi Series ₹500 notes — storyboard §9 names s15 by number and forbids it, and the vault has warned since 50-30-20. s11 ~30 unsold clay gullaks at a pottery market under 'SIP puts in, SWP takes out'. s19 a brickyard of HUNDREDS of blocks under THE FIRST BRICK / 'this feels small, and it IS small'. s17 a bare RJ45 lead under 'the phone recharge and the home internet' — neither subject present.",
+        "should_fix": "s17→s18→s19 is 20.4s of three flat desaturated textures where the win has to land. s18 asserts a COUNT of twelve over uncountable bundles. s16's funnel reads as a RISING GROWTH CURVE. s10's circled date is sliced off the bottom edge (crop fix, no fetch). s9's card index grades to indistinct brown.",
+        "reference": "s11b was serial-checked and CLEARED — current stone-grey notes with MAHATMA GANDHI microtext. It is the reference s15's replacement must match; do not re-fetch it."
+      }
+    },
+    "en": {}
+  },
+  "paused": {
+    "_why": "Anthropic session limit hit 2026-08-07 ~06:15 PKT (resets 07:30 Asia/Karachi). Two agents were terminated mid-flight by the API, NOT by a pipeline failure. Nothing is corrupt; the exact half-done edges are listed below so --resume does not have to rediscover them.",
+    "resume_with": "/finance-video --resume passive-income-number",
+    "ch1_rework_state": {
+      "done": "s2, s3, s4, s5, s6 replaced in assets-ch1/final/ (05:57-06:06) under the new low-key rule",
+      "not_done_1": "s7 — still the original 04:48 file. Editor should-fix #7: both balance pans empty and level; needs the brass weights in frame or a folded paper slip in one pan.",
+      "not_done_2": "THE s3 LOTTIE BLOCKER IS NOT FIXED. assets/lottie/src/phone-notify-credit.py and assets/lottie/phone-notify-credit.json were regenerated at 06:13, but studio/videos/passive-income-number-hi/assets/lottie/phone_notify_credit.js is STILL THE 04:51 PRE-GLYPH BUILD — verified not identical to the new source. The composition therefore still loads the grey wireframe card with no ₹ glyph. The agent's last words were that it had overlaid two glyphs in a test and was redoing it cleanly, app-mark glyph only, so the 06:13 source is UNVERIFIED: check it renders one ₹ glyph, not two, before re-tinting it into the studio project. Digits must stay masked — the open loop is the declared device."
+    },
+    "ch2_build_state": {
+      "status": "COMPLETE and passing, despite the agent dying at 'Now the generator'",
+      "verified_by_orchestrator": "index.html + build.mjs present; `hyperframes check` passes (11/11 text checks WCAG AA, 0 lint errors); assets/audio.json written 06:09 and confirmed GENERATED by tools/audio/cues.py (not build.mjs) at 23 cues over s8-s19, one per 3.1s, against the -en ch1 reference of 22 in 57.2s; the s13->s14 continuous-zoom joint is correctly carrying NO transition cue, which is the cues-tables.json hold doing its job.",
+      "still_owed": "fin-build never returned its 4-line log, so no logs/fin-build-hi-ch2-1.md exists. The chapter still needs its draft render + sheet, then fin-editor and fin-ceo."
+    },
+    "next_three_actions": [
+      "1. Verify + re-tint the phone-notify-credit Lottie into the hi cut, then re-fetch/re-crop s7 (finishes the ch1 rework).",
+      "2. Draft-render ch1 again (-q draft -f 30) and send it back to fin-editor for round 2 of a maximum 3.",
+      "3. Draft-render ch2 and run it through fin-editor + fin-ceo. Chapters 3-7 of hi, then all 6 of en, are untouched."
+    ]
+  },
+  "tool_fixes_this_run": [
+    "chapter_sheet.py: scenes with a countUp now settle at +4.5s instead of +2.6s. The rung-one corpus counts to ₹10,00,000 over 1.2s from +1.90, so every sheet cell — and therefore every downstream reviewer and the CEO — was shown ₹8,36,874: plausible, wrong, and the figure the rung would have been judged on. Five more rungs in ch3-7 would each have shown their own fabricated total. A partial chart looks broken; a partial count looks like a real number."
+  ]
+}
