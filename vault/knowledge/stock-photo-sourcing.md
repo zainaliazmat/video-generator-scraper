@@ -1,6 +1,6 @@
 ---
-summary: How stock photos get sourced for studio videos — the scripted Pixabay fetcher, the verified hit-rate per market, and the object-led rule that came out of the 50-30-20 build.
-updated: 2026-07-27
+summary: How stock photos get sourced for studio videos — the scripted Pixabay fetcher, the verified hit-rate per market, the object-led rule from the 50-30-20 build, and (2026-08-07) the grade rule: never buy high-key stock, because the locked grayscale/brightness grade turns any white-dominant subject into a flat charcoal slab.
+updated: 2026-08-07
 source: 50-30-20-rule-hi / -en build, 2026-07-27. ~35 fetches, every one eyeballed before it went in a composition.
 ---
 
@@ -78,6 +78,73 @@ Corollaries, all proven on 50-30-20:
 - Faces fight the typography; hands and objects don't.
 - **Drop a cut-in rather than fake it.** Four planned cut-ins were cut from the
   Hindi build because nothing honest existed. Single-photo scenes read fine.
+
+## Standing rejections (restate these to fin-assets every run)
+
+Found 2026-08-01 on japanese-money-methods; each has shipped undetected before.
+
+- **Never a phone or laptop SCREEN as a scene background.** Script beats about apps,
+  subscriptions or "check your statement" pull screen photos by gravity, and a screen
+  in frame dates the video, brands it, and fights the type. Shoot around it: glow only
+  with the handset edge-on, a silhouette, or a **printed** document standing in for the
+  on-screen list. **This defect shipped three times before anyone named it.**
+- **Pixabay tops out at 1280px on this key** (`largeImageURL`; `fullHDURL` and `imageURL`
+  need full API access we do not have — verified against the API 2026-08-01). Pexels
+  `large2x` is 1880px. Under any full-bleed architecture a 1280px file is drawn ~1.63×
+  at `inset:-8%`. **Route every hero, SOLO and closing frame to Pexels**; let Pixabay
+  carry the texture-under-scrim scenes, where the grade plus 5% grain reads as soft
+  focus rather than as an upscale.
+- **Currency must be genuine current notes, never prop money**, and never the other
+  cut's currency.
+- **The contact sheet cannot be trusted.** Across this run, nine images passed their
+  sheet and failed the full-resolution read (a legible price, an IRS table, brand
+  cartons, a Polish receipt total, Halloween pumpkins, an identifiable child, four
+  bitcoin coins, a fake-kanji shopfront, and a Chinese menu board sold as Japanese).
+  One pick even came back byte-identical to another scene in the same cut and only the
+  md5 sweep saw it. **Read every promoted file at full resolution, and md5 it.**
+
+## The grade decides the photo: never buy high-key stock (2026-08-07)
+
+Found on passive-income-number-hi ch1, where three of seven backgrounds looked
+like unrelated defects and had one cause. **The blockframe grade is locked** —
+`filter: grayscale(.32) brightness(.62) contrast(1.05)` in
+`tools/scaffold/assets/blockframe.css`, with per-scene overrides forbidden by the
+storyboard's §9 — so the photograph is chosen *knowing* it will be darkened by
+38% and desaturated by a third.
+
+**A white-dominant subject cannot survive that.** White marble, a pale card on
+pale wood, white paper in a white office all land as the same flat charcoal
+slab. One frame (s4: "a single closed brown envelope on a bare wooden table")
+delivered exactly what its query asked for and still rendered as a grey panel
+with no flap, seam or depth — it satisfied the letter of `image_per_scene` and
+broke its intent, saying nothing sound-off. Checked at both ken extremes, so it
+was the photograph, not the crop.
+
+Three rules, all cheap to follow at query time and expensive to fix afterwards:
+
+1. **Ask for low-key / warm originals: the subject lit against a dark ground.**
+   Add the lighting to the query, not just the object. "Chai glass on a
+   windowsill, warm morning light, dark interior behind" survives the grade;
+   "steel glass of chai tea india" returns an overhead food-blog flat lay on
+   white marble.
+2. **Replacing one white photo with another white photo re-breaks it.** When a
+   frame reads grey, the fix is a differently-lit original, not a re-crop.
+   ⚠ Note the tension with the 50-30-20 corollary above ("near-black textures
+   need a per-scene grade override"): that escape hatch exists under the plain
+   blockframe architecture, but the **chapter archetype layer closes it** —
+   `storyboard-*.md §9` permits no per-scene grade, so under a chapter cut the
+   photograph is the only variable you have. Check which regime you are in
+   before reaching for an inline `filter:`.
+3. **A bright detail that carries the meaning must survive `.62`.** A phone
+   face-down whose screen-glow "spills onto the wood" is the right *idea*, but
+   if the glow is subtle in the raw it is gone in the encode. Buy the brighter
+   frame than looks right unlit.
+
+Corollary for anything the pipeline draws rather than fetches: masking a figure
+is not the same as removing every trace of what it is. The ch1 notification
+Lottie masked its amount correctly (the open loop is the point) but carried no
+currency glyph at all, so sound-off it said "a notification arrived" rather than
+"money arrived" — on the one beat a 35-second cold open exists to deliver.
 
 ## When Pixabay isn't enough
 

@@ -112,7 +112,11 @@ if __name__ == "__main__":
         sys.exit("refusing: this Lottie embeds a bitmap — it cannot be re-tinted "
                  "and will not scale to 1080p. Pick a pure-vector asset.")
     walk(j, accent)
-    name = os.path.splitext(os.path.basename(dst))[0]
+    # A hyphen in the basename emitted `window.L_phone-notify-credit={…}`, which is a
+    # syntax error, so window.L_* stayed undefined and the scene rendered BLANK while
+    # every check passed. Every name in assets/lottie/ is hyphenated, so this was the
+    # default path, not an edge case (found on passive-income-number, 2026-08-07).
+    name = re.sub(r"\W", "_", os.path.splitext(os.path.basename(dst))[0])
     body = json.dumps(j, separators=(",", ":"))
     os.makedirs(os.path.dirname(os.path.abspath(dst)), exist_ok=True)
     open(dst, "w").write(f"window.L_{name}={body};" if dst.endswith(".js") else body)

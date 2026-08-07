@@ -24,6 +24,7 @@ ponytail: transcripts come from YouTube captions only. If a video has none,
 the packet says so - add whisper only when that actually blocks a study.
 """
 import argparse
+import os
 import re
 import statistics
 import subprocess
@@ -104,6 +105,28 @@ def vtt_to_transcript(text):
 # --------------------------------------------------------------------------
 # Download + frames
 # --------------------------------------------------------------------------
+COOKIE_HINT = (
+    "YouTube bot-check? Set YTAUTO_COOKIES=/path/to/cookies.txt (Netscape format) "
+    "or YTAUTO_COOKIES_BROWSER=chrome|chromium|firefox|brave to authenticate yt-dlp."
+)
+
+
+def cookie_opts():
+    """yt-dlp auth, opt-in by env. Unauthenticated fetches get 'Sign in to confirm
+    you're not a bot' and every study dies at 0/N transcripts (2026-08-07).
+    Opt-in rather than auto-reading a browser profile: the cookie jar is the
+    user's logged-in session, not ours to open by default."""
+    jar = os.environ.get("YTAUTO_COOKIES")
+    if jar:
+        return {"cookiefile": jar}
+    browser = os.environ.get("YTAUTO_COOKIES_BROWSER")
+    if browser:
+        # ponytail: browser name only. Add profile/keyring/container members to
+        # this tuple if a multi-profile setup ever needs them.
+        return {"cookiesfrombrowser": (browser,)}
+    return {}
+
+
 def fetch(video_id, dest, skip_video=False):
     """Download <=480p video + English captions into dest. Returns info dict."""
     dest.mkdir(parents=True, exist_ok=True)
@@ -117,6 +140,7 @@ def fetch(video_id, dest, skip_video=False):
         "subtitlesformat": "vtt",
         "skip_download": skip_video,
     }
+    opts.update(cookie_opts())
     with yt_dlp.YoutubeDL(opts) as ydl:
         info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}",
                                 download=True)
@@ -214,7 +238,7 @@ def main(argv=None):
               if (out / f"{rank}-{row['video_id']}" / "transcript.txt").exists())
     if got < min(2, len(picks)):
         sys.exit(f"ERROR: only {got}/{len(picks)} picks produced a transcript — "
-                 "not enough to ground a study note.")
+                 f"not enough to ground a study note.\n{COOKIE_HINT}")
 
 
 if __name__ == "__main__":

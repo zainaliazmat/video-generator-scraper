@@ -45,3 +45,15 @@ and only one survived
     assert "[0:03] eleven AI tools" in lines        # tag stripped, kept once
     assert sum("so today we're testing" in l for l in lines) == 1
     assert lines[-1] == "[0:05] and only one survived"
+
+
+def test_cookie_opts(monkeypatch):
+    monkeypatch.delenv("YTAUTO_COOKIES", raising=False)
+    monkeypatch.delenv("YTAUTO_COOKIES_BROWSER", raising=False)
+    assert study.cookie_opts() == {}                       # opt-in: no jar by default
+
+    monkeypatch.setenv("YTAUTO_COOKIES_BROWSER", "chrome")
+    assert study.cookie_opts() == {"cookiesfrombrowser": ("chrome",)}
+
+    monkeypatch.setenv("YTAUTO_COOKIES", "/tmp/c.txt")     # file wins over browser
+    assert study.cookie_opts() == {"cookiefile": "/tmp/c.txt"}

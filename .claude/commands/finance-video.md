@@ -81,7 +81,7 @@ slug". Never silently overwrite a run.
 slug            <slug>
 tier            SHORT · target 2:45
 style           <name>  (default was <default>[ LOCKED])    ← asked, question 2
-char budgets    hi ~2,060 (12.5 c/s) · en ~2,656 (16.1 c/s) ← from tools/format.json
+char budgets    hi ~1,986 (13.03 c/s) · en ~2,454 (16.1 c/s)  ← SHORT example; formula below
 voices          hi Harsh HTUuC7OeeEt6OL5fViVe · en Brian nPczCjzI2devNBz1zQrb
 est. TTS chars  ~4,500 across both cuts
 est. wall clock ~2h–3h (≈36 min of that is ffmpeg)
@@ -91,8 +91,33 @@ outputs         studio/videos/<slug>-{hi,en}/renders/ · vault/videos/<slug>/
 Both cuts always ship, one per channel (hi → @cashguruguides,
 en → @moneymavens101) — there is nothing to ask.
 
+**Derive the char budget from SPEECH time, not runtime.** `chars_per_second` is
+chars per second *of audio*; a scene also charges non-audio padding, so
+
+```
+budget = (target_seconds − lines × (lead_in_seconds + tail_seconds)) × chars_per_second
+```
+
+reading `lines`, `lead_in_seconds` and `tail_seconds` from `format.json
+tiers.<tier>` (falling back to the `scene` block when the tier omits them), and
+`chars_per_second` from `cuts.<cut>`. SHORT ⇒ `(165 − 9×1.4) × 13.03 ≈ 1,986` hi.
+The naive `target × rate` overshoots by ~12% and invites a script to pad itself
+that much: on passive-income-number (MEDIUM) it printed 6,645 for a cut whose
+real budget is `(510 − 78×0.8) × 13.03 = 5,832`. Both `fin-script` and
+`fin-audit` caught and overrode it independently on 2026-08-07 — do not make
+them; `format.json cuts.en._chars_per_second_trap` has said "fix the budget
+formula FIRST, then the rate" since 2026-07-31.
+
 Initialize `run.json`: intake answers, `started`, an empty `stages` map, and a
-`budget` block `{elevenlabs_calls: 0, max_elevenlabs_calls: 30, pixabay_calls: 0}`.
+`budget` block `{elevenlabs_calls: 0, max_elevenlabs_calls: <derived>, pixabay_calls: 0}`.
+
+**Derive the TTS ceiling from the tier — never hardcode it.** One clip per VO
+line per cut, so `max_elevenlabs_calls = format.json tiers.<tier>.lines × 2 cuts
+× 1.2` (the 20% covers per-line regens). SHORT ⇒ 9×2×1.2 ≈ **22**, MEDIUM ⇒
+78×2×1.2 ≈ **188**, LONG ⇒ 92×2×1.2 ≈ **221**. The old fixed `30` was a SHORT-tier
+number that silently blocked every longer run at the voice stage
+(hit on japanese-money-methods LONG, 2026-08-01, where the two cuts need 184).
+The ceiling exists to catch a runaway loop, not to cap a legitimately long video.
 
 ## 3 · The stage machine
 
@@ -100,10 +125,16 @@ Initialize `run.json`: intake answers, `started`, an empty `stages` map, and a
 Phase 1 (sequential — both edit shared vault paths):
     fin-research → fin-facts
 Phase 2 (hi cut):   fin-script → fin-audit → fin-voice → fin-storyboard
-                    → fin-assets → fin-build → fin-render → fin-package
-Phase 3 (en cut):   the same eight, reusing Phase 1 output
+                    → THE CHAPTER LOOP (§3b) → concat → fin-render → fin-package
+Phase 3 (en cut):   the same, reusing Phase 1 output
 Phase 4:            promote-facts (orchestrator, see §5) → fin-archive
 ```
+
+**Everything visual is built and reviewed one chapter at a time (§3b).** A
+full-length 1080p render is 30–40 minutes; discovering a wrong image in it costs
+that twice. A chapter draft is ~3 minutes and shows the same mistake. The rule
+the creator set on 2026-08-04: *never spend a full render to find out what a
+draft would have told you.*
 
 For each stage:
 
@@ -147,7 +178,14 @@ done, because `check_render` requires the final file:
 tools/audio/mix.py     studio/videos/<slug>-<cut>/renders/FINAL-1080p-<cut>.mp4
 tools/loudnorm.py      studio/videos/<slug>-<cut>/renders/MIXED-1080p-<cut>.mp4 \
                        studio/videos/<slug>-<cut>/renders/PUBLISH-1080p-<cut>.mp4
+tools/transcript.py    <slug> --cut <cut>          # captions + narration
 ```
+
+`transcript.py` is the last of the three and needs only the shipped
+`index.html`, so it can run any time after the build; it writes
+`renders/captions-<cut>.srt` (the subtitle upload) and
+`vault/videos/<slug>/narration-<cut>.md`. **Every video ships subtitles**
+(creator rule 2026-08-06) and `check_package` now fails without both files.
 
 `mix.py` lays the music bed and SFX under the voice from the cue list `fin-build`
 wrote to `assets/audio.json`, ducking the bed about 6 dB under speech. It is a
@@ -165,6 +203,107 @@ stream-copies: ~30 s total, no re-encode.
 **The SFX kit is generated once, not per video.** `tools/audio/sfx.py --kit` is
 cached by name, so a run where all seven exist makes zero API calls. Include it
 in preflight; it is free after the first time.
+
+## 3b · The chapter loop — build, draft, review, lock
+
+Replaces the old single `fin-assets → fin-build → fin-render` pass. Chapters come
+from the script's `## Chapter <N>` headings; a scene belongs to chapter `C` when
+its VO line is `C.x`, so the mapping needs no new bookkeeping.
+
+**Each chapter is a standalone HyperFrames project** —
+`studio/videos/<slug>-<cut>-ch<N>/` — with its own `index.html`, its own
+`assets-ch<N>/` (the ONLY place its new files land) and an `assets/` symlink to
+the cut for shared css/js/fonts/voice. Scene ids, `data-start` values and cue
+offsets stay the shipped cut's, **rebased so the chapter plays from 0**; keep the
+relative gaps exact or the chapters will not concatenate frame-exact.
+
+For chapter N = 1..last:
+
+```
+1  fin-assets  --chapter N     images + Lotties for this chapter only
+2  fin-build   --chapter N     the chapter project (archetype layer, §3c)
+3  hyperframes check           must pass
+4  DRAFT RENDER + SHEET (fin-render --chapter N):
+     hyperframes render -q draft -f <final fps> -o renders/DRAFT-ch<N>.mp4
+     tools/chapter_sheet.py … -o renders/SHEET-ch<N>.jpg
+5  fin-editor  chapter N       -> PASS | REWORK
+     REWORK -> fin-build fix -> re-draft -> fin-editor (max 3 editor rounds)
+6  fin-ceo     chapter N       -> SHIP | REWORK
+     REWORK -> fin-build fix -> re-draft -> fin-editor -> fin-ceo (max 2 CEO rounds)
+7  lock: record in run.json chapters[N] = {status: locked, draft, editor, ceo}
+```
+
+**The creator reviews chapters, not scenes — and they review in batches.** After
+each chapter locks, keep going. Do **not** stop and ask per chapter. When every
+chapter of a cut is locked, build the two review artifacts and hand them over
+together:
+
+```
+tools/frames_sheet.py <slug> --cut <cut>        -> studio/videos/<slug>-<cut>-FRAMES.png
+ffmpeg -f concat -safe 0 -i <list> -c copy      -> studio/videos/<slug>-<cut>-PREVIEW.mp4
+```
+
+`FRAMES.png` is a single numbered PNG — one cell per scene plus one per declared
+`data-framings` change, each with a big index number, the chapter + scene id, and
+two timestamps (into the chapter mp4 and into the concatenated preview). **That
+numbering is the review protocol**: the creator replies "#7 is wrong", and the
+number resolves to exactly one frame. Never renumber between passes for the same
+cut — a note against `#12` must still mean `#12` after a fix round.
+
+The concat is a stream copy (~seconds, no re-encode) and it is a PREVIEW, not the
+master: the chapter joints are hard cuts there, because each chapter's last scene
+carries a bare `data-duration` and its first scene never fades in. The 0.45s
+cross-dissolve returns only in the full assembly. Say this when you hand it over,
+or it gets reported as a defect every time.
+
+Then **stop and wait.** Creator feedback arrives as a list of frame numbers; fix
+them all, re-render only the affected chapters, rebuild both artifacts, hand back.
+
+**`-f <final fps>` is not optional.** Draft at the fps the final will use (the
+composition's `data-fps`, else 30). A draft rendered at 24 to save time produces
+frame counts that do not sum, and the chapters drift at every joint.
+
+Draft render flags: `-q draft` only. Do NOT add `--resolution`, `--gpu`,
+`--video-bitrate` or chunked encode — a draft is for judging images, motion and
+timing, all of which are identical at draft quality. ~3 min for a 70 s chapter.
+
+Escalation: if the editor still says REWORK after three rounds, or the CEO after
+two, **stop and hand the chapter to the creator** with both logs and the latest
+draft path. Do not keep spending renders on a disagreement; two rounds is the
+budget, and a human settles the rest.
+
+When every chapter is locked, concatenate and run the ONE full-quality render
+(§3, the split three-way render stage). `fin-render`'s frame check then runs
+against a video whose every scene has already been seen — it is a safety net, not
+the first look.
+
+**Resume:** `run.json.chapters` is authoritative. `--resume` re-enters at the
+first chapter that is not `locked`; locked chapters are never rebuilt or
+re-reviewed.
+
+## 3c · The archetype layer (MEDIUM/LONG — the standing look since 2026-08-05)
+
+Chapter cuts are built on `tools/scaffold/assets/chapter-design.css` on top of
+`blockframe.css`. Constants: `format.json chapter_design`. Rules and rationale:
+`vault/knowledge/design-chapter-archetypes.md`. Reference implementations,
+creator-approved: `studio/videos/japanese-money-methods-hi-ch{1,2}/index-claudedesign.html`.
+
+You do not design; you make sure the stages did. Four things to verify per
+chapter before you let it lock:
+
+1. **`fin-storyboard` assigned `arch` / `ground` / `art` per scene.** If those
+   columns are missing, the storyboard is incomplete — send it back rather than
+   letting `fin-build` invent a layout.
+2. **Every scene carries `has-photo`** and a real `.bg`. `image_per_scene` is a
+   hard creator rule; the vector-only chapters were a one-off experiment.
+3. **Timing was not touched.** Every `data-start` / `data-duration` /
+   `data-framings` comes from `timing.json`, which is measured from the voice. A
+   layout pass may not re-time a scene. The failure mode to watch for is
+   seductive: durations that sum to exactly the right total while every internal
+   cut drifts (see `vault/knowledge/claude-design-mcp.md` §3b).
+4. **No rail.** A chapter title / scene-counter overlay was built and removed at
+   creator request 2026-08-05 — the viewer must never be shown that the video is
+   chapter-based or slide-numbered. If one appears, reject the chapter.
 
 ## 3a · Pipeline the two cuts (overlap safely — where the wall-clock is won)
 
@@ -223,9 +362,49 @@ orchestration.
    from `vault/videos/<slug>/facts-staging.md` to
    `vault/knowledge/money-facts-2026.md` — dated, with source URLs. SOFT lines
    stay in staging. This happens only now, after both renders passed.
-2. `python3 tools/vault_commit.py commit <slug> -m "finance-video: <slug> — both cuts rendered"`
+2. **The vidIQ packaging pass — YOU run this, not an agent.** Read
+   `.claude/skills/vidiq/SKILL.md` first, then run recipes **R3** (title lock)
+   and **R3b** (tag block) against both packs. Budget ~35 credits for the pair;
+   check `vidiq_balance` first.
+   - It is deliberately **not** a `fin-*` stage: agents have no credit budget to
+     reason about, and a mid-run 402 would fail a stage that has nothing to do
+     with money. vidIQ runs *around* the pipeline — topic selection before,
+     packaging here, autopsy after publication.
+   - Ship a title only when the CTR score and the autocomplete demand **agree**.
+     A high score on a phrase nobody types is a click-through rate on zero
+     impressions; a high-volume phrase that scores below baseline belongs in the
+     tags, not the title.
+   - **If a title changes here, re-run `fin-package`'s thumbnail section.** The
+     thumbnail is downstream of the title and is now stale by definition.
+3. `python3 tools/vault_commit.py commit <slug> -m "finance-video: <slug> — both cuts rendered"`
    (explicit paths only — the tool refuses to touch anything else).
-3. Run `fin-archive`.
-4. Print the completion summary: both render paths, runtimes, QA numbers,
-   thumbnail paths, recommended titles, and — always —
-   `Owed before publish: proof-listen (hi, en) · thumbnail pick · upload.`
+4. Run `fin-archive`.
+5. Print the completion summary: both render paths, runtimes, QA numbers,
+   thumbnail paths **plus the AI-enhance prompt for each cut**, recommended
+   titles with their CTR scores, and — always —
+   `Owed before publish: proof-listen (hi, en) · AI-enhance both thumbnails · upload.`
+
+## 6 · After the URLs arrive
+
+A YouTube URL means finished (`vault/CLAUDE.md`). Do not gate on public
+reachability — uploads are scheduled, so a 403 or an empty channel tab is
+expected, not a failure.
+
+1. **Save the AI-enhanced thumbnails into the thumbs project** as
+   `thumbnail-<cut>-ai.png` *before* archiving. They are the files actually on
+   YouTube; the renders are not. `i.ytimg.com` 404s while an upload is
+   scheduled, so they cannot be recovered later — on japanese-money-methods this
+   was missed and the archive holds only the pre-enhance renders.
+2. **Distill first, archive second.** Every durable learning into the milestone
+   note and the right knowledge note BEFORE `archive_cut.py` — the render is
+   about to become the only place some of it lived. Delete the session files
+   (`HANDOVER.md`, `NEXT-SESSION-PROMPT.md`) once folded; a session file dies
+   with its session, so anything durable in it must move to a knowledge note
+   first.
+3. `tools/archive_cut.py <slug> --hi <url> --en <url>` (`--dry-run` first).
+   **Read its output** — it prints one line per directory, and the count must
+   match `ls -d studio/videos/<slug>*`.
+4. vidIQ post-publish: `score_thumbnail` on both cuts (the first time it is
+   possible — it needs a live `videoId`), then **recipe R5 at 28 days** for the
+   retention curve. ⚠️ Owned-channel tools work only for channels in
+   `vidiq_user_channels`; today that is @moneymavens101 only.

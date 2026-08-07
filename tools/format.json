@@ -20,9 +20,9 @@
    "locale": "en-US",
    "voice_id": "nPczCjzI2devNBz1zQrb",
    "voice_name": "Brian",
-   "_chars_per_second_note": "16.1 measured across the shipped en cuts (16.11, 16.64). Was 15.0 — an estimate that budgeted every en script ~7% long.",
-   "chars_per_second": 16.1,
-   "_chars_per_second_trap": "first-lakh-first-thousand-en measured 17.73 c/s flat (7,657 chars / 432.0s), not 16.1 — but DO NOT raise this key on its own. fin-script budgets chars as target_seconds x rate, which ignores the scene padding that is not audio; at MEDIUM that padding is 73.6s of the 510s, so the true char budget is (510-73.6) x 17.73 = 7,737, and the 16.1 x 510 = 8,211 formula only lands because two errors cancel. Both cuts hit target here. Fix the budget formula FIRST, then the rate, or scripts get ~17% long."
+   "_chars_per_second_note": "17.57 = the mean of three FLAT measurements on the cuts we actually ship (first-lakh-first-thousand-en MEDIUM 17.73 · japanese-money-methods-en LONG 17.39 · passive-income-number-en MEDIUM 17.588). Raised from 16.1 on 2026-08-07, once the both-or-neither precondition below was finally met. ⚠ SHORT CAVEAT: the 16.1 it replaces was itself measured, on SHORT cuts (16.11, 16.64). The gap is mechanical, not noise — SHORT writes shorter lines, so punctuation-pause time is a bigger share of each clip and the flat chars/second comes out lower. This single key is now tuned for MEDIUM/LONG, which is all the channel has shipped since 2026-07-30. If a SHORT cut is ever made again, expect scripts ~9% long and re-measure before trusting this number.",
+   "chars_per_second": 17.57,
+   "_chars_per_second_trap": "RESOLVED 2026-08-07 — kept as the record of how it was resolved, because the ordering rule still applies to the hi key. The bug was never the rate alone: fin-script budgeted chars as target_seconds × rate, which ignores the per-line scene padding that is not audio, so a wrong rate and a wrong formula cancelled and both cuts still hit target. Fixing either one alone breaks that cancellation — raising the rate first would have made every script ~17% long. Order followed: (1) fin-script and fin-audit both derived (target − lines × (lead_in + tail)) × rate independently on passive-income-number and logged the override; (2) the orchestrator's confirm-block formula was corrected in .claude/commands/finance-video.md; (3) only then was chars_per_second raised. Evidence that the key was wrong rather than noisy: across 78 lines of passive-income-number-en, ALL 78 drifted negative against expected_seconds. Noise is two-sided; a wrong key is one-sided."
   }
  },
  "tts": {
@@ -131,8 +131,11 @@
    "tint_required": true,
    "loader": "loadLottie() + playLottie() from motion.js. Never lottie.loadAnimation() directly, never window.__hfLottie, never a path: URL — each of those renders a blank scene that passes every check.",
    "inline_as_js": "assets/lottie/<name>.js assigning window.L_<name> = {...}. A .json fetched at runtime resolves after the runtime has inspected the page.",
-   "max_per_video": 3,
-   "_cost_note": "lottie-web redraws the whole illustration every frame: two heavy ones took a 20s 1080p render from 1m27 to 3m56 (2.7x). The cap is about render time AND about not turning the cut into a template deck."
+   "_cost_note": "lottie-web redraws the whole illustration every frame: two heavy ones took a 20s 1080p render from 1m27 to 3m56 (2.7x). The cap is about render time AND about not turning the cut into a template deck.",
+   "max_per_chapter": 4,
+   "_cap_note": "Was max_per_video: 3. Raised and re-scoped to PER CHAPTER on 2026-08-04: the creator asked for Lotties 'as much as we can', and the pipeline now builds and draft-renders one chapter at a time, so the render-time cost the old cap protected against is discovered in a 3-minute draft instead of a 40-minute final. The cost is still real (see _cost_note) — the cap is the point at which you must justify the next one, not a target to hit.",
+   "reach_for_it_when": "The beat is a NUMBER, COMPARISON, PROCESS, DATE, SHARE or COUNT — anything a photograph cannot state. A ratio (37.8% vs ~1%), a subset inside a set, a date being circled: these are FAILS as flat photos, not missed opportunities. Stock cannot photograph an abstraction; drawing it is the only honest option.",
+   "truth_bar": "Drawn art asserts a measurement, so it carries a higher bar than a photograph. Heights, counts and proportions are computed from facts-staging figures and the generator says so in a comment. Anything reading as a published figure must BE one; a decorative proportion that looks like a statistic is a defect. Never fabricate a source document — no invented agency names, seals or legible figures on a frame cited to a real table."
   }
  },
  "architectures": {
@@ -195,7 +198,9 @@
   "max_chips_per_row": 3,
   "max_chip_chars": 22,
   "photo_free_scene_ratio": 0.0,
-  "keyword_images": true
+  "keyword_images": true,
+  "image_relevance": "THE SOUND-OFF TEST (hard creator rule, 2026-08-04): with the sound off and the on-screen text stripped, the image alone must tell the viewer what the scene is about. Applied PER LINE, not per chapter — every point in the script got its own line because it is its own idea, so it gets its own picture. Three failures, all shipped at least once before this rule was written: (1) an image that argues with its line (a balanced scale under 'thirty times apart'); (2) one image reused across several points (one photo of books behind the internet claim, the survey AND the 30x gap); (3) an image asserting the wrong place or era (an Indian shopkeeper for Japan's national accounts, a demonetised Rs500 for today's money). When a slot cannot be photographed, change the SOURCE or draw it — never accept a near-miss: @commons for named buildings/institutions/monuments, a Lottie for abstractions.",
+  "grade_note": "blockframe.css ships .bg { grayscale(.32) brightness(.62) }. Per-scene overrides that go darker to make drawn art readable stack with it and desaturate real photographs into grey mush — the creator rejected exactly this on 2026-08-04 ('it fails to black and white'). If a Lottie needs a darker field, darken BEHIND THE ART, not the whole frame."
  },
  "colors": {
   "bg": "#0d1017",
@@ -207,13 +212,104 @@
   "accent": "#f59e0b",
   "cta": "#ff5c39"
  },
- "known_benign": [
-  {
-   "finding": "invalid_parent_traversal_in_asset_path",
-   "origin": "tools/scaffold/assets/css/blockframe.css lines 24 and 79 (../fonts/, ../img/)",
-   "why_benign": "Static-analysis false positive about relative urls that resolve correctly at render time. Proven by rendered output on four consecutive cuts: FinanceSans 900 renders including the rupee glyph, and the grain layer is visible in snapshots. No stage that may write this file can reach it.",
-   "preferred_fix": "Structural, not a suppression: move the stylesheet to <project>/assets/blockframe.css and rewrite the urls as fonts/... and img/... . Deliberately NOT done mid-run on 2026-07-31 — the en cut was built and passing hours before encode, and re-pathing the shared scaffold to silence a proven-cosmetic error is the wrong risk. Do it between runs, then delete this entry.",
-   "recorded": "2026-07-31, after fin-build-en flagged it as the fourth consecutive cut reporting it with known_benign still empty"
-  }
- ]
+ "known_benign": [],
+ "_known_benign_note": "Empty is the correct state. The one entry ever added — invalid_parent_traversal_in_asset_path — was WRONG, and cost four cuts their browser checks: it reasoned the ../ urls were a static-analysis false positive because the render looked right, which was true. What it missed is that a lint ERROR makes `hyperframes check` SKIP the layout and contrast passes entirely, so those four cuts shipped with WCAG and layout never actually run. Fixed at the root 2026-08-01 by moving blockframe.css to assets/blockframe.css so the urls need no ../ at all. Lesson: 'the output looks fine' does not establish that a finding is benign — check what the finding SUPPRESSES.",
+ "qa": {
+  "vad_onset_latency_seconds": 0.101,
+  "vad_grid_seconds": 0.032,
+  "_vad_note": "Silero VAD reports speech onset LATE and quantised: every onset lands on a multiple of 0.032s (its 512-sample window), and the detector adds a systematic positive bias measured at +0.101s median across 92 lines (japanese-money-methods-hi, 2026-08-01). Subtract this bias before comparing against the 0.1s drift target — raw VAD max on that cut was +0.167s (a false FAIL) against a true residual of 0.068s. Re-measure the bias if the VAD model or window changes.",
+  "dissolve_sample_offsets": [
+   0.225,
+   0.38
+  ],
+  "_dissolve_note": "Sample transitions at BOTH offsets into the overlap. The incoming .stack rises at start+0.30 of a 0.45s dissolve, so a midpoint frame (start+0.225) lands before the incoming text exists and CANNOT see a double-paint — the exact blind spot that let the missing `.scene` stacking context ship. start+0.38 is inside the only ~0.15s window where both scenes' text can be up.",
+  "_whisper_note": "Do NOT derive per-line drift from Whisper segment starts: `base` merged 92 lines into 173 segments and produced a phantom 7.675s outlier. Use Whisper for COVERAGE (gaps, dropped clips), VAD for onsets."
+ },
+ "chapter_design": {
+  "_note": "The archetype layer for chapter-based (MEDIUM/LONG) cuts. Rationale and the full rule list: vault/knowledge/design-chapter-archetypes.md. Code: tools/scaffold/assets/chapter-design.css. Adopted 2026-08-05 after five draft passes on japanese-money-methods ch1+ch2, creator-approved.",
+  "stylesheet": "assets/chapter-design.css",
+  "design_doc": "vault/knowledge/design-chapter-archetypes.md",
+  "archetypes": {
+   "A": {
+    "class": "arch-a",
+    "plate": [
+     0,
+     0,
+     1920,
+     1080
+    ],
+    "use": "centred stack, motif full-bleed behind — chapter opens, hand-offs"
+   },
+   "B": {
+    "class": "arch-b",
+    "plate": [
+     1120,
+     150,
+     860,
+     610
+    ],
+    "use": "the figure owns the frame; rule at the left margin, measure bar under the type"
+   },
+   "C": {
+    "class": "arch-c",
+    "plate": [
+     1046,
+     -60,
+     934,
+     1200
+    ],
+    "use": "hard vertical split — type left, artefact full-height right, cropped by the frame edge"
+   },
+   "D": {
+    "class": "arch-d",
+    "plate": [
+     0,
+     424,
+     1920,
+     656
+    ],
+    "use": "type under a full-width rule, mechanism owning the bottom two-thirds"
+   }
+  },
+  "scene_modifiers": {
+   "has-photo": "REQUIRED on every scene carrying a graded still. Ground -> 38% tint, plate -> aperture, hatch off.",
+   "art-off": "the scene's drawn layer duplicates the photograph; hide it. See rule 8.",
+   "art-forward": "buy the drawn layer back to 52% — only for scenes whose point is a PROPORTION.",
+   "centred": "the archetype's other side is empty, so the split is a hole; re-centre and drop plate/crule/vrule/brule.",
+   "art-lift": "keep the plate's panel lift on a scene whose drawn layer sits on a BRIGHT still (ruled paper, banknotes, a white wardrobe). `.has-photo` turns the plate into an aperture, which is right over a dark photograph and makes ink art light-on-light over a pale one. This is the plate-scoped form of rule 9 — it darkens BEHIND the art and cannot touch the photograph outside the plate rect."
+  },
+  "ken_safe_zone": {
+   "x": [
+    247,
+    1673
+   ],
+   "y": [
+    139,
+    941
+   ],
+   "_note": "The genuinely-always-visible svg window once ken scales the field 1.0->1.16. Art outside it is cropped silently and every check still passes. A .plate makes this moot by declaring its own window — prefer the plate."
+  },
+  "art_opacity": {
+   "over_bg": [
+    0.26,
+    0.58
+   ],
+   "over_photo": 0.3,
+   "over_photo_forward": 0.52,
+   "_important_note": "`.has-photo .art` and `.has-photo.art-forward .art` both carry !important, so a per-scene inline opacity on the <svg> is a NO-OP. The only levers that reach the screen are the weight and alpha of the elements INSIDE it."
+  },
+  "rail": false,
+  "_rail_note": "A top rail carrying a chapter title and an 'N / total' scene counter was built and REMOVED at creator request 2026-08-05: the viewer must not be shown that the video is chapter-based or slide-numbered. Do not reintroduce it.",
+  "gotchas": [
+   "stroke-width=\"N\" as an SVG ATTRIBUTE is a no-op — .art .st sets it in CSS and a CSS rule always beats a presentation attribute. Use inline style=\"stroke-width:N\".",
+   "A scrolling group needs a clipPath or it rides out of its band into the type.",
+   "breathe(dur) quantises to whole out-and-back pairs and rounds UP as often as down — 4.5 yields 6.0s. Ask for a multiple of 3.",
+   "A plate must be a LIFTED PANEL, not a transparent rect, or dark art has nothing to read against.",
+   "Over a graded still, thin outline scaffolding is not on screen. .30/.52 of a 2-3px stroke at 0.4 alpha survives no encode — draw with SOLID FILLS and strokes of 9px and up, and let the ghost/track shapes be filled rects at ~.2 rather than outlines.",
+   "tools/chapter_sheet.py samples a non-Lottie scene at +2.6s. A drawn layer that finishes at +4.4 sheets as a half-built frame and reads as a defect that is not one — assemble the mechanism by about +3.3, or judge that scene from the mp4."
+  ],
+  "generator": "tools/chapter_project.py — builds a chapter project from the shipped cut + a hand-authored chapter.json. Every data-start / data-duration / data-framings / data-track-index, every on-screen string, every .bg and every <audio> row is lifted VERBATIM and only rebased; the spec owns the DESIGN only. It re-reads what it wrote and asserts the rebase before exiting, so a chapter whose durations sum correctly while its internal cuts drift cannot be produced.",
+  "one_root_html": "A chapter project has exactly ONE root .html and it is index.html. `hyperframes check` only looks for index.html, tools/chapter_sheet.py hardcodes it, and the linter's `multiple_root_compositions` is an ERROR on two root files carrying data-composition-id — so the ch1/ch2 index.html + index-claudedesign.html pair cannot pass a check. In a chapter project index.html is NOT the shipped cut.",
+  "measure_position": "`.measure-lab.under` / `.measure.under` — left calc(50% - 460px), top 868/910, width 920, height 7. Declared in the stylesheet, not per scene: at the old y742 the bar landed on the icon that variant-A scenes carry inside their stack, and struck its own label through on three consecutive frames of ch4."
+ }
 }

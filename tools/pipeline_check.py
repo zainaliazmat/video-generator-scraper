@@ -43,6 +43,20 @@ def studio_dir(slug, cut):
     return os.path.join(ROOT, "studio", "videos", f"{slug}-{cut}")
 
 
+# Set from --chapter. In the chapter loop (command §3b) a chapter is a standalone
+# project whose new files land in <slug>-<cut>-ch<N>/assets-ch<N>/final/, so a
+# checker hard-wired to <slug>-<cut>/assets/img/ reports every slot missing and its
+# licence assertion reaches nothing — i.e. it goes quiet exactly where the work is.
+CHAPTER = None
+
+
+def assets_img_dir(slug, cut):
+    if CHAPTER:
+        return os.path.join(ROOT, "studio", "videos", f"{slug}-{cut}-ch{CHAPTER}",
+                            f"assets-ch{CHAPTER}", "final")
+    return os.path.join(studio_dir(slug, cut), "assets", "img")
+
+
 # ---------------------------------------------------------------- ffmpeg utils
 
 def ffprobe_duration(path):
@@ -285,7 +299,7 @@ def check_storyboard(slug, cut, fmt):
 
 
 def check_assets(slug, cut, fmt):
-    idir = os.path.join(studio_dir(slug, cut), "assets", "img")
+    idir = assets_img_dir(slug, cut)
     manifest_path = os.path.join(idir, "manifest.json")
     if not os.path.exists(manifest_path):
         return [f"missing manifest: {manifest_path}"]
@@ -295,6 +309,16 @@ def check_assets(slug, cut, fmt):
     credits_path = os.path.join(idir, "CREDITS.txt")
     if os.path.exists(credits_path):
         credits = open(credits_path, encoding="utf-8").read()
+    # The manifest is the provenance record, so it must cover the library, not a
+    # prefix of it. Iterating only the manifest means a stage that dies part-way
+    # through writing it leaves a SHORT manifest next to a full img/ dir, and every
+    # unlisted photo goes unchecked while the stage reports green. Hit for real on
+    # japanese-money-methods-en (2026-08-01): 1 manifest entry, 93 images on disk.
+    on_disk = {f for f in os.listdir(idir)
+               if f.startswith("s") and f.endswith((".jpg", ".png"))}
+    for orphan in sorted(on_disk - set(manifest)):
+        problems.append(f"{orphan}: on disk but absent from manifest.json — the "
+                        "manifest must name every image, or it is not provenance")
     for name in manifest:
         path = os.path.join(idir, name)
         if not os.path.exists(path):
@@ -304,6 +328,27 @@ def check_assets(slug, cut, fmt):
             problems.append(f"{name}: under 10KB, not a usable photo")
         elif name not in credits:
             problems.append(f"{name}: no attribution line in CREDITS.txt (licence requirement)")
+
+    # The loop above is anchored on the MANIFEST, and that is the hole: a late image round
+    # that writes new files without updating manifest.json does not merely go unlisted, it
+    # goes UNCHECKED — `for name in manifest` never reaches it, so the licence assertion
+    # silently does not apply to the one thing being shipped. The orphan message above then
+    # reads as bookkeeping ("absent from manifest") rather than as "this photograph is on
+    # screen with no attribution". Hit for real on japanese-money-methods (2026-08-06): the
+    # -en image round reused 34 -hi photographs under new `sNN-hi.jpg` filenames and carried
+    # none of their credit rows, and -hi's own s28-fix.jpg had the same gap; all 35 were on
+    # screen in a rendered master, and every stage reported green.
+    #
+    # So assert against the COMPOSITION, which is the artifact that actually carries the
+    # licence exposure and cannot go stale the way a side-file can. Rendered images only —
+    # `*-original.jpg` and rejected candidates sit on disk on purpose and are not published.
+    index = os.path.join(studio_dir(slug, cut), "index.html")
+    if os.path.exists(index):
+        html = open(index, encoding="utf-8").read()
+        for name in sorted(set(re.findall(r"url\(assets/img/([^)]+)\)", html))):
+            if name not in credits:
+                problems.append(f"{name}: rendered by index.html with no attribution line "
+                                "in CREDITS.txt (licence requirement)")
     return problems
 
 
@@ -329,6 +374,16 @@ def check_build(slug, cut, fmt):
             f'ships unbranded with every other check green')
     root = re.search(r'data-composition-id="main"[^>]*data-duration="([\d.]+)"', html)
     scenes = re.findall(r'<section[^>]*data-start="([\d.]+)"[^>]*data-duration="([\d.]+)"', html)
+    # Per-scene framings, for the dead-frame guard below. A section may declare
+    # `data-framings="5.20,3.99"` — the durations of the successive photographs it
+    # panel-swaps through. The whole <section> tag is captured so a framing list can
+    # be matched back to the scene it belongs to by data-start.
+    framings = {}
+    for tag in re.findall(r"<section[^>]*>", html):
+        st = re.search(r'data-start="([\d.]+)"', tag)
+        fr = re.search(r'data-framings="([\d.,\s]+)"', tag)
+        if st and fr:
+            framings[st.group(1)] = [float(x) for x in fr.group(1).split(",") if x.strip()]
     if not root:
         problems.append("no root data-duration found")
     if not scenes:
@@ -355,10 +410,31 @@ def check_build(slug, cut, fmt):
         for i, (start, dur) in enumerate(scenes):
             # every scene but the last is padded by the cross-dissolve overlap
             own = float(dur) - (T if i < len(scenes) - 1 else 0)
+            # A scene that panel-swaps to a second photograph does not hold ONE
+            # photo for its whole length, so measure the longest framing instead of
+            # the section — that is the quantity this guard's own comment describes.
+            # Added 2026-08-01 after japanese-money-methods-hi resolved three
+            # over-length scenes with declared second framings and s25 still failed
+            # by 0.002s; a gate rejecting a frame for two milliseconds is measuring
+            # the wrong thing. The sum check is what stops a build from declaring
+            # cosmetic framings to duck the guard.
+            fr = framings.get(start)
+            if fr:
+                if abs(sum(fr) - own) > 0.15:
+                    problems.append(
+                        f"scene {i + 1} data-framings sum to {sum(fr):.2f}s but the "
+                        f"scene holds {own:.2f}s — framings must partition the scene")
+                    continue
+                if max(fr) > max_hold:
+                    problems.append(
+                        f"scene {i + 1}'s longest framing is {max(fr):.1f}s (max "
+                        f"{max_hold}s) — the panel swap does not save it; split the VO line")
+                continue
             if own > max_hold:
                 problems.append(
                     f"scene {i + 1} holds {own:.1f}s (max {max_hold}s) — split the "
-                    f"VO line; one photo on screen this long reads as a dead frame")
+                    f"VO line, or declare a real panel swap with data-framings; one "
+                    f"photo on screen this long reads as a dead frame")
     # Transitions: every scene but the last is held `transition_seconds` past its
     # own end, so the incoming scene cross-dissolves over a live frame instead of
     # fading up from black. The overlap IS the transition — if the build writes a
@@ -407,7 +483,7 @@ def check_build(slug, cut, fmt):
             problems.append(
                 "loads a Lottie by path: — that fetch resolves after the runtime "
                 "has inspected the page. Inline the JSON as assets/lottie/<n>.js")
-        cap = va.get("max_per_video", 0)
+        cap = va.get("max_per_chapter", va.get("max_per_video", 0))
         n = len(re.findall(r"loadLottie\s*\(", html))
         if cap and n > cap:
             problems.append(
@@ -448,6 +524,19 @@ def check_package(slug, cut, fmt):
                                     f"thumbnail-{cut}*.png"))
     if len(thumbs) < 1:
         problems.append(f"expected at least 1 thumbnail for -{cut}, found {len(thumbs)}")
+
+    # Captions ship with every video (creator rule 2026-08-06). Both halves are
+    # asserted: the .srt is the upload and the narration .md is the readable
+    # record, and `tools/transcript.py` writes them together — one present without
+    # the other means someone hand-made a file instead of running the tool.
+    srt = os.path.join(studio_dir(slug, cut), "renders", f"captions-{cut}.srt")
+    if not os.path.exists(srt):
+        problems.append(f"missing captions: {srt} — run: "
+                        f"python3 tools/transcript.py {slug} --cut {cut}")
+    narration = os.path.join(vault_dir(slug), f"narration-{cut}.md")
+    if not os.path.exists(narration):
+        problems.append(f"missing narration file: {narration} — run: "
+                        f"python3 tools/transcript.py {slug} --cut {cut}")
     return problems
 
 
@@ -668,7 +757,7 @@ def _selftest():
         def write_html(first_duration, tracks=(1, 2), extra=""):
             open(os.path.join(sdir, "index.html"), "w", encoding="utf-8").write(
                 extra +
-                f'<div id="root" data-composition-id="main" data-duration="{total}">'
+                f'<div id="root" class="cut-{cut}" data-composition-id="main" data-duration="{total}">'
                 f'<section data-start="{tlines[0]["scene_start"]}" data-duration="{first_duration}"'
                 f' data-track-index="{tracks[0]}"></section>'
                 f'<section data-start="{tlines[1]["scene_start"]}" data-duration="{tlines[1]["scene_duration"]}"'
@@ -699,6 +788,34 @@ def _selftest():
         # …and none of it fires for a cut that never loads lottie at all
         write_html(good, extra='<script>window.__hfLottie = [a];</script>')
         assert check_build(slug, cut, fmt) == [], check_build(slug, cut, fmt)
+
+        # data-framings: a panel swap is measured per framing, not per section.
+        # An over-long scene fails; the same scene split into real framings passes;
+        # framings that do not add up to the scene, or that are individually still
+        # too long, both fail — so the attribute cannot be used to duck the guard.
+        max_hold = fmt.get("scene", {}).get("max_scene_seconds", 0)
+        long_own = max_hold + 1.0                      # 1s past the limit
+        def write_framed(framings_attr=""):
+            open(os.path.join(sdir, "index.html"), "w", encoding="utf-8").write(
+                f'<div id="root" class="cut-{cut}" data-composition-id="main" data-duration="{total}">'
+                f'<section data-start="{tlines[0]["scene_start"]}"'
+                f' data-duration="{round(long_own + T, 3)}"'
+                f' data-track-index="{tracks_default[0]}"{framings_attr}></section>'
+                f'<section data-start="{tlines[1]["scene_start"]}"'
+                f' data-duration="{tlines[1]["scene_duration"]}"'
+                f' data-track-index="{tracks_default[1]}"></section>'
+                f'</div>')
+        tracks_default = (0, 1)
+        half = round(long_own / 2, 3)
+        write_framed()
+        assert any("dead frame" in p for p in check_build(slug, cut, fmt))
+        write_framed(f' data-framings="{half},{round(long_own - half, 3)}"')
+        assert not any("dead frame" in p or "framing" in p
+                       for p in check_build(slug, cut, fmt)), check_build(slug, cut, fmt)
+        write_framed(' data-framings="0.5,0.5"')       # cosmetic, does not partition
+        assert any("partition" in p for p in check_build(slug, cut, fmt))
+        write_framed(f' data-framings="{round(long_own - 0.5, 3)},0.5"')   # still too long
+        assert any("longest framing" in p for p in check_build(slug, cut, fmt))
 
         # rotation: the next run must not repeat the architecture just used
         assert next_architecture() in load_format()["architectures"]
@@ -737,6 +854,9 @@ def main(argv=None):
     p.add_argument("--slug")
     p.add_argument("--cut", choices=["hi", "en"])
     p.add_argument("--attempt", type=int, default=1)
+    p.add_argument("--chapter", type=int,
+                   help="chapter-loop mode: check the standalone chapter project "
+                        "<slug>-<cut>-ch<N>/assets-ch<N>/final/ instead of the whole cut")
     p.add_argument("--log", help="path to this attempt's log file, recorded in run.json")
     p.add_argument("--rescue", action="store_true",
                    help="record a documented rescue (stage continues without its artifact)")
@@ -772,6 +892,11 @@ def main(argv=None):
         p.error("need: <check|mark> <stage> --slug <slug> [--cut hi|en]")
     if args.stage in PER_CUT and not args.cut:
         p.error(f"stage '{args.stage}' needs --cut")
+    if args.chapter:
+        if args.stage != "assets":
+            p.error("--chapter is only implemented for 'assets'; the other chapter "
+                    "artifacts are verified by `hyperframes check` and the draft render")
+        globals()["CHAPTER"] = args.chapter
 
     problems = CHECKS[args.stage](args.slug, args.cut, load_format())
     if args.mode == "mark":
