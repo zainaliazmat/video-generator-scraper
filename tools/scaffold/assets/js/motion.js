@@ -51,9 +51,25 @@ function popEach(sel, at, stagger, dur) {
       stagger: stagger == null ? 0.14 : stagger }, at);
 }
 
-/** opacity only. The quietest entrance — cut-in photos, footnotes. */
+/** opacity only. The quietest entrance — cut-in photos, footnotes.
+ *
+ * Fades UP TO THE ELEMENT'S AUTHORED OPACITY, not to 1. This animated to a hardcoded
+ * 1 until 2026-08-08, so a layer authored at `opacity="0.22"` rendered at full strength
+ * from its first frame and the authored value was dead markup. Found on
+ * passive-income-number en ch2 s14, where the reported defect was "the unfilled grey
+ * half is 21.7 luma LOUDER than the amber filled half" — the symptom — and the obvious
+ * fix, "one opacity line", would have edited a number that was never in effect.
+ * A drawn layer over a graded still lives or dies on that value (the ~.2 fill floor),
+ * so silently forcing it to 1 is the loudest possible failure of the quietest helper.
+ */
 function fade(sel, at, dur) {
-  tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: dur == null ? 0.5 : dur, ease: "power1.out" }, at);
+  gsap.utils.toArray(sel).forEach(function (el) {
+    var a = el.getAttribute && el.getAttribute("opacity");
+    var to = a != null && a !== "" ? parseFloat(a) : 1;
+    tl.fromTo(el, { opacity: 0 },
+      { opacity: isNaN(to) ? 1 : to, duration: dur == null ? 0.5 : dur,
+        ease: "power1.out" }, at);
+  });
 }
 
 /* --------------------------------------------------------------- emphasis */
