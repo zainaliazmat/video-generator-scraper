@@ -1,227 +1,313 @@
 ---
-summary: Chapter 2 draft render + contact sheet for passive-income-number-hi. 2328 frames / 77.600s at 30fps. The s13->s14 continuous zoom is confirmed invisible by scdet and by page-luminance continuity; no corpus figure appears without its rate; two real defects found by eye that every static check passed — a foot/mega collision on s15 and an invisible funnel on s16.
-updated: 2026-08-07
-source: renders/DRAFT-ch2.mp4 (encoded frames), ffprobe/ffmpeg signalstats+scdet+ssim, tools/chapter_sheet.py
+summary: Chapter-2 draft render + contact sheet for passive-income-number-hi, style E (s9-s21). Encode measures clean — 2446 frames, CFR, no black, no comma collision, cue list matches — with three timing/composition findings for fin-editor.
+updated: 2026-08-08
+source: measured from studio/videos/passive-income-number-hi-ch2/renders/DRAFT-ch2.mp4 (mtime 2026-08-08 13:02:32)
 ---
 
-# fin-render · passive-income-number · hi · CHAPTER 2 · attempt 1
+# fin-render — passive-income-number-hi ch2, attempt 1
 
-Mode: **chapter draft** (§3b step 4). No gate two, no encode, no QA of a master.
-Build treated as complete but UNREVIEWED — this is its first eye.
+Mode: CHAPTER DRAFT (orchestrator §3b step 4). Gate two and the encode were NOT run;
+this is a draft for judging images, motion and timing.
 
-## Commands run
+## Provenance — what these numbers were measured on
 
-```
-npx hyperframes render . -c index.html -o renders/DRAFT-ch2.mp4 -q draft -f 30
-python3 tools/chapter_sheet.py studio/videos/passive-income-number-hi-ch2 \
-        studio/videos/passive-income-number-hi-ch2/renders/DRAFT-ch2.mp4 \
-        -o studio/videos/passive-income-number-hi-ch2/renders/SHEET-ch2.jpg
-```
+| Artifact | mtime | Note |
+|---|---|---|
+| `renders/DRAFT-ch2.mp4` | 2026-08-08 13:02:32 | 20.2 MB, rendered in 2m 28.7s, this run |
+| `renders/SHEET-ch2.jpg` | 2026-08-08 13:02:51 | 13 cells, built from the mp4 above |
+| `renders/SHEET-ch2.json` | 2026-08-08 13:02:51 | sample-time index |
+| `index.html` / `build.mjs` | 2026-08-08 12:48 | the style-E build these came from |
 
-No `--resolution`, no `--gpu`, no `--video-bitrate`, no chunked encode. `-f 30` as required.
+Retired style-A files still present and NOT reported on: `DRAFT-ch2-v2.mp4`,
+`SHEET-ch2-v2.*`, `SHEET.*`, `SHEET-ch2.json.superseded` — all 2026-08-07, different
+scene numbering. `DRAFT-ch2.mp4` and `SHEET-ch2.jpg` were overwritten.
 
-## Artifacts
+Command: `npx hyperframes render . -c index.html -o renders/DRAFT-ch2.mp4 -q draft -f 30`
+— draft quality only, no `--resolution`, no `--gpu`, no chunked encode.
 
-| Path | What |
+## 1. Frame count, duration, CFR
+
+| Measure | Expected | Measured | Verdict |
+|---|---|---|---|
+| Frames | ceil(81.531 x 30) = 2446 | **2446** (`ffprobe -count_frames`) | PASS |
+| Video stream duration | 81.531s | 81.533333s | PASS |
+| Container duration | — | 81.536000s | PASS |
+| Root `data-duration` | — | 81.531 (s21 73.025 + 8.506) | consistent |
+| fps tag | 30/1 | r_frame_rate 30/1, avg 30/1 | — |
+
+**CFR verified from PACKET TIMESTAMPS, not the fps tag.** 2446 packets, 2445 deltas,
+exactly two values and no third:
+
+    0.033333  x 1630
+    0.033334  x  815
+
+First pts 0.0, last pts 81.5. Same signature as the en ch2 check. Frame counts sum;
+chapters will not drift at the joint.
+
+## 2. Black-segment scan
+
+`blackdetect=d=0.05:pix_th=0.10` → **0 segments**. No dip-to-black at any joint; every
+transition is a true cross-dissolve (confirmed frame-by-frame in §5).
+
+## 3. Luminance — per-scene p90 and the real curve
+
+p90 of luma, sampled at 4 fps over each scene's SETTLED span (start+0.45 to the next
+scene's start, so dissolve frames are excluded and do not flatten the endpoints).
+
+| Scene | Settled span | p90 mean | p90 min | p90 max | frame mean | span s |
+|---|---|---|---|---|---|---|
+| s9  | 0.00-5.29   | 43.6 | 42 | 45 | 32.6 | 5.29 |
+| s10 | 5.74-11.55  | 45.2 | 41 | 46 | 30.8 | 5.81 |
+| s11 | 12.00-17.68 | 55.0 | 55 | 55 | 46.0 | 5.68 |
+| s12 | 18.13-25.54 | 46.0 | 45 | 46 | 36.8 | 7.40 |
+| s13 | 25.98-31.25 | 43.3 | 42 | 44 | 28.0 | 5.26 |
+| s14 | 31.70-37.66 | 59.0 | 59 | 59 | 41.7 | 5.97 |
+| s15 | 38.11-44.73 | 59.0 | 59 | 59 | 43.2 | 6.62 |
+| s16 | 45.18-50.08 | **37.3** | 37 | 38 | 27.2 | 4.89 |
+| s17 | 50.53-55.42 | 48.8 | 47 | 49 | 36.2 | 4.89 |
+| s18 | 55.87-60.06 | 49.9 | 49 | 50 | 34.7 | 4.19 |
+| s19 | 60.51-66.61 | 53.9 | 52 | 55 | 31.8 | 6.10 |
+| s20 | 67.06-73.03 | **38.9** | 38 | 39 | 29.1 | 5.97 |
+| s21 | 73.48-81.53 | 42.9 | 42 | 43 | 38.3 | 8.06 |
+
+**Duration-weighted chapter p90 = 48.0** over 76.13s of settled span.
+Whole-timeline mean p90 including dissolves = 47.9. Open (0-2s) 43.0, close (last 2s) 43.0.
+
+The curve, 4s buckets — this is the shape, not the endpoints:
+
+    0-  4s  43.5
+    4-  8s  43.8
+    8- 12s  46.3
+   12- 16s  55.0   <- s11 pale sky, the first lift
+   16- 20s  50.3
+   20- 24s  46.0
+   24- 28s  44.3
+   28- 32s  45.1
+   32- 36s  59.0   \
+   36- 40s  59.0    >  s14/s15 notebook hold — the chapter's bright plateau, 11.6s
+   40- 44s  59.0   /
+   44- 48s  42.4   <- s16 cash, -21.7 step, the chapter's darkest run
+   48- 52s  41.7
+   52- 56s  49.1
+   56- 60s  49.9
+   60- 64s  53.1
+   64- 68s  49.2
+   68- 72s  39.0   <- s20 textiles, second darkest
+   72- 76s  41.4
+   76- 80s  43.0
+   80- 84s  43.0
+
+Read against the tracked CEO issue: en ch1 ran one band (36-48); en ch2 opened at 57
+but came in duration-weighted at 48.4, i.e. ch1's ceiling. **hi ch2 lands at 48.0 —
+the same ceiling, reached a different way.** It does not open light (43.0) and it does
+not sit in one band either: it has a genuine 21-point range (37.3 to 59.0) and one real
+11.6s bright plateau at s14/s15. The plateau is a HOLD — one photograph under one
+continuous zoom — so the chapter's brightness variety is carried by a single sustained
+image rather than distributed across scenes. Strip the plateau and the other eleven
+scenes average p90 44.9, which IS one band. The open and the close are the same value
+(43.0), so the chapter has no luminance arc end to end.
+
+## 4. Joints — scdet peak, luminance step, and what the joint SHOWS
+
+Peak `lavfi.scd.score` inside each 0.45s overlap window, the settled p90 step across it,
+and a description, because scdet cannot rank these.
+
+| Joint | t | scdet peak | p90 step | Kind | What it shows |
+|---|---|---|---|---|---|
+| s9→s10  | 5.29  | 0.195 | +1.6  | dissolve | Wooden trunk on white brick → desk lamp over paper stacks. No shared object, no shared depth; bridged only by warm tungsten light. Two pictures. |
+| s10→s11 | 11.55 | 0.306 | +9.8  | dissolve | Night interior desk → exterior water tank on a pale dusk sky. Interior→exterior, dark→light, nothing shared. Hardest visual break in the chapter. |
+| s11→s12 | 17.68 | 0.146 | -9.0  | dissolve | Water tank on a stand → brass taps on a wall. Same subject matter (water plumbing), wide→close. Reads as one argument stepping forward. |
+| s12→s13 | 25.54 | 0.173 | -2.7  | dissolve | Brass wall taps → hands holding an old brass hand-pump. Same object class, push to hands. Strongest continuity in the chapter. |
+| s13→s14 | 31.25 | 0.252 | +15.7 | dissolve | Hands with brass tap → notebook and pen on a desk. Largest luminance RISE; the water metaphor ends and the abstraction begins. A deliberate chapter turn, but a hard break. |
+| s14→s15 | 37.66 | **0.063** | +0.0 | **HOLD** | Same notebook; s15.jpg is the 91.74% derived crop. Lowest score in the chapter — confirms no cut is being made. |
+| s15→s16 | 44.73 | 0.193 | **-21.7** | dissolve | Notebook → hands counting current-series ₹500 notes. Biggest luminance DROP (59.0→37.3). Object change is wanted here (rate → corpus). |
+| s16→s17 | 50.08 | 0.228 | +11.5 | dissolve | Hands with notes → adding-machine keys. No shared object; both close-up, hand-scale, dark ground, but light direction differs (notes front-left, keys top). Cash → arithmetic. |
+| s17→s18 | 55.42 | **0.101** | +1.1 | **HOLD** | Same adding machine, derived crop push-in. Second lowest score — the declared s17→s18 push-in reads as one continuous shot, not a cut. |
+| s18→s19 | 60.06 | 0.189 | +4.0  | dissolve | Adding machine (green-tinted) → cable bundle. Both dense repeating-object textures at similar depth; reads as texture-to-texture. s19 is much busier. |
+| s19→s20 | 66.61 | **0.546** | -15.0 | dissolve | Cable bundle → green folded textiles. HIGHEST joint score in the chapter and a -15.0 drop. Two unrelated objects, no shared depth or light. |
+| s20→s21 | 73.03 | 0.138 | +4.0  | dissolve | Green textiles → brick wall. Both flat, frontal, textured surfaces at similar scale. Surface-to-surface; works. |
+
+**scdet cannot rank these, confirmed again on this chapter.** Top in-scene (non-joint)
+peaks:
+
+    t=47.83  0.592   <- s16 countUp landing on ₹10,00,000
+    t= 1.13  0.524   <- s9 statement rise (+1.10)
+    t=75.00  0.520   <- s21 statement rise
+    t=61.20  0.497   <- s19 statement rise
+    t=26.67  0.414
+
+Joint peaks span 0.063-0.546. Two of the chapter's three highest scdet scores are TEXT
+RISES, not cuts, and eleven of the twelve joints score below the top in-scene peak. Any
+gate that ranks joints by scdet would flag s16's number landing and pass s10→s11. The
+two HOLDs are the only joints scdet places correctly, and only because a hold genuinely
+has no cut.
+
+## 5. Dissolve interiors — no double-paint
+
+Sampled at BOTH `format.json` `qa.dissolve_sample_offsets` (0.225 and 0.38) at all twelve
+joints, plus a fine strip at 0.00/0.10/0.20/0.30/0.38/0.44/0.50/0.60 on s10→s11 and a
+full-res text-band crop at 0.20/0.30/0.38/0.44 on s16→s17 (the worst case — both scenes
+carry the string ₹10,00,000, so a double-paint would show as a doubled number).
+
+Result: **the japanese-money-methods stacking-context defect is NOT present.** The
+outgoing `.stack` fades monotonically with its own scene and is composited UNDER the
+incoming background:
+
+    +0.00/+0.10   outgoing at full opacity, incoming not yet visible
+    +0.20/+0.30   outgoing dimming, incoming .bg rising behind it, incoming kicker up at +0.30
+    +0.38         outgoing a faint ghost, incoming kicker legible
+    +0.44         outgoing ink GONE
+    +0.50         clean incoming scene
+
+Observation, not a defect: because the incoming kicker rises at +0.30 and the outgoing
+ink survives to ~+0.42, two centred kickers occupy nearly the same y for roughly 0.10s
+at every joint (clearest at s16→s17, where "RUNG ONE" and "THE SUM" stack). It is faint
+and brief and is inherent to a centred stack under a 0.45s dissolve — flagging it so
+fin-editor rules rather than discovers it.
+
+## 6. Comma-descender clearance — measured from the encode
+
+The scaffold fix is present: `assets/chapter-design.css:141-142`
+`.arch-b .mega { font-size: 300px !important; line-height: .84; letter-spacing: -14px; padding-bottom: .11em; }`
+
+Per-column minimum vertical clearance between ink of one line and ink of the next,
+measured on full-resolution frames from the mp4 (not the browser):
+
+| Scene | String | Pair measured | Min per-column clearance |
+|---|---|---|---|
+| s14 | `3.0%` (`.mega` 300px) | mega → foot | **71px** (row gap 69px) |
+| s16 | `₹10,00,000` (`.huge` 112px) | number → foot | **27px** |
+| s17 | `₹10,00,000 AT 3.0%` / `IS ₹30,000 A YEAR` (`.huge` 88px, two lines) | line 1 commas → line 2 caps | **12px** (at x=712) |
+| s17 | — | line 2 → foot | **33px** |
+| s18 | `₹2,500` (`.huge` 112px) | number → foot | no shared column (unbounded) |
+
+**No comma descender touches the glyph below it anywhere in the chapter.** The tightest
+case is s17's two-line `.huge`, at 12px, which is clear but is the number to watch if
+that line ever grows a digit or the size is raised.
+
+⚠ **One thing the fix does not cover, worth knowing before ch3-7.** The style-A defect
+was `₹10,00,000` in a 300px `.mega`. In style E the lakh/crore rungs are `.huge`
+(112px / 88px), and the only `.mega` in the cut is s14's `3.0%`, which has no comma.
+So `.arch-b .mega { padding-bottom: .11em }` is applied and correct — s14 measures 71px
+of clearance with it — but it is **not what is protecting this chapter's rungs**; the
+smaller `.huge` size is. The clearance ch3-7 depend on is `.huge`'s, which no rule
+guarantees and which is 12px at its tightest today. If a later chapter promotes a
+comma'd figure to `.mega`, the fix will carry it; if one raises `.huge` or adds a digit
+to a two-line rung, nothing will.
+
+## 7. Cue list — `tools/audio/cues.py` read-only diff
+
+    python3 tools/audio/cues.py studio/videos/passive-income-number-hi-ch2
+
+**Exit 0**, empty stderr. No `cue_min_gap_seconds` violation in either the generated or
+the shipped list.
+
+| | Generated | Shipped `assets/audio.json` |
+|---|---|---|
+| Cue count | 17 | 17 |
+| Times | identical | identical |
+| `music` | `bed-resolve` | `bed-resolve` |
+| transition / reveal / hero / tick | 11 / 3 / 2 / 1 | 11 / 4 / 1 / 1 |
+| Minimum gap | 1.100s | 1.100s (limit 0.8s) |
+
+One difference, and it is intentional and documented in the shipped file: the derived
+`hero` at 35.736 (s14 `pop(#s14-num)`) is **downgraded to `reveal` by build.mjs** —
+storyboard §2 rings s16, s62 and s64 and no other rung, and cues.py cannot know which
+number is the one that lands. `_hero` records the downgrade. Every other cue matches
+byte for byte.
+
+Both suppressed joints are correct: s15 (37.662) and s18 (55.422) take no `transition`
+because `assets/cues-tables.json` declares `["s14","s15"]` and `["s17","s18"]` as holds.
+§4 confirms from the encode that neither is a cut (scdet 0.063 and 0.101, the two lowest
+in the chapter), so the suppression matches the picture.
+
+## 8. Audio on the draft
+
+| Measure | Value |
 |---|---|
-| `studio/videos/passive-income-number-hi-ch2/renders/DRAFT-ch2.mp4` | 18.9 MB, h264, 1920x1080, 30/1 |
-| `studio/videos/passive-income-number-hi-ch2/renders/SHEET-ch2.jpg` | 13 cells, 4 cols |
-| `studio/videos/passive-income-number-hi-ch2/renders/SHEET-ch2.json` | index the orchestrator's cross-chapter PNG reads |
+| Stream | aac, 48 kHz, stereo, 81.536s |
+| Sample peak (`astats`) | **-3.80 dB** (limit: below -1 dBTP) |
+| RMS | -26.23 dB |
+| Flat factor | 0.000 |
+| Longest silence (`silencedetect n=-45dB:d=1.2`) | 1.397s at 65.590-66.986 |
 
-## Measured numbers
+Eleven silences, all 1.212-1.397s and all at scene joints — consistent with the MEDIUM
+tier's per-line padding (tail 0.55 + lead_in 0.25 = 0.80) plus the 0.45s transition.
+No dead zone anywhere; every scene carries VO. Music bed and SFX are not in the draft.
 
-| Metric | Value |
-|---|---|
-| Frame count (`-count_frames`) | **2328** |
-| Video stream duration | 77.600 s |
-| Container duration | 77.610667 s |
-| Frame rate | 30/1 |
-| Render wall time | 2 m 40.3 s |
-| Declared chapter root (`index.html` `data-duration`) | 77.571 s |
-| Declared length in frames at 30fps | 77.571 x 30 = **2327.13** |
-| Delta | +0.87 frame / +0.029 s |
-| Audio (VO only, pre-mix) | Peak −5.25 dB, RMS −25.29 dB, flat factor 0 |
-| `blackdetect` d=0.1 pic_th=0.97 | **0** segments |
+## 9. Headline contrast — settled frame, per scene
 
-### Is the frame count exact against the declared length? No — and it cannot be.
+Otsu-separated ink vs local background in the tallest type band, WCAG contrast:
 
-77.571 s is not a whole number of frames at 30fps. The renderer takes `ceil(2327.13) = 2328`,
-so the draft runs 0.029 s long. **This is harmless for the master and dangerous only for the
-preview path.** `tools/cut_assemble.py` writes ONE rebased `index.html` — the seven chapters
-become a single composition, not a video concat, so the per-chapter ceil never accumulates.
-`tools/chapter_preview.py` DOES stream-concat, and its own docstring already records that up to
-eight frames of rounding accumulate there. Nothing to fix; recorded so the next chapter's
-identical +0.9-frame delta is not re-investigated.
+| Scene | contrast | Scene | contrast | Scene | contrast |
+|---|---|---|---|---|---|
+| s9  | 14.23:1 | s13 | 14.52:1 | s18 | 5.74:1 |
+| s10 | 14.84:1 | s14 | 5.27:1 (foot; mega not yet up) | s19 | 14.44:1 |
+| s11 | **6.11:1** | s15 | 5.94:1 | s20 | 5.52:1 |
+| s12 | 6.63:1  | s16 | 15.25:1 | s21 | 13.62:1 |
+|     |         | s17 | 14.20:1 |     |         |
 
-## Check 1 — the s13 -> s14 continuous zoom: **PASS**
+Lowest is s14's foot at 5.27:1. **Every band clears AA for large text (3:1) and normal
+text (4.5:1) with margin.** Notably s11's orange headline on the pale sky — the declared
+caveat — measures 6.11:1 against its local background, so that caveat is compositional,
+not a contrast failure.
 
-Construction: `plateKen("#s13-bg", 30.384, 5.998, 1.000, 1.090)` then
-`plateKen("#s14-bg", 36.382, 8.036, 1.000, 1.065)` on a 91.74% derived crop.
+## 10. Measurements against the five caveats and two deviations (for fin-editor)
 
-**Crop geometry is exact.** s13.jpg 1880x1249, s14.jpg 1725x1146.
-1725/1880 = 0.91755, 1146/1249 = 0.91753 — both the declared 1/1.09, and the two files share an
-aspect ratio to 4 decimal places, so `background-size: cover` maps them onto the identical
-displayed rect and the centres coincide.
-Full-res SSIM of s13's centre crop against s14 = 0.659, which looks alarming and is not: at 1/4
-linear scale (high-frequency JPEG + resample noise removed) SSIM = **0.986**. s14 is sharper than
-a crop of s13 would be because it was re-cropped from the higher-res original (705 KB vs 353 KB) —
-that is the correct way to build this, not a defect.
+Not rulings — numbers and descriptions so fin-editor can rule.
 
-**The joint is invisible in the encode.** `scdet` per-frame scores:
+- **s19 busy frame.** Confirmed dense: the cable bundle is high-frequency black cable
+  edge to edge with no rest area. Headline survives on the scrim at 14.44:1 and p90 is
+  53.9, one of the brighter scenes. It is the busiest frame in the chapter by a wide
+  margin. It does carry both named things (phone cable, network cable), is brand-free
+  and currency-neutral.
+- **s11 pale sky.** p90 55.0 with min=max=55 — a completely flat, even field, the pale
+  sky filling roughly the upper two-thirds. Contrast 6.11:1, so legible. It is the
+  chapter's second-brightest scene and the +9.8 step into it is the second-largest rise.
+- **s17 numeric keys.** The adding-machine keys read `70 50 30 10` on the front row and
+  `80 60 40 20` behind, all clearly legible at full resolution, sitting directly behind
+  a numeric claim (`₹10,00,000 AT 3.0% IS ₹30,000 A YEAR`). No currency, no language, no
+  brand. Two sets of numbers on one frame is the thing to rule on; the green ground and
+  the scrim do separate them.
+- **s10/s17 adding-machine through-line.** Measured: there is no through-line in the
+  pictures. s10 is a white desk lamp over stacks of loose paper; there is no adding
+  machine in the frame. s17/s18 are the adding machine. The two share a warm desk mood
+  and nothing else — no object, no depth, no light direction. If the through-line was
+  meant to be visible, it is not.
+- **s9 chests vs the ch4 trunk.** s9 is a single wooden-and-metal travel trunk with
+  metal banding and a hasp, shot three-quarter against a whitewashed brick wall, warm
+  key from upper-left. That is the same object class as a trunk, so the cross-chapter
+  repetition risk is real and will need the numbered cross-chapter PNG to settle.
+- **s15 "The reason comes later."** Renders exactly as declared, replacing the script's
+  "The reason is in Chapter 5." No chapter reference appears anywhere in the chapter.
+- **s17→s18 push-in.** Works. scdet 0.101 (second lowest of twelve), p90 step +1.1, and
+  the frames show the same adding machine at 91.74% crop. Reads as one continuous shot;
+  the suppressed `transition` cue is right.
 
-| Boundary | What it is | Peak score in the 0.45 s overlap |
-|---|---|---|
-| s12 -> s13 @ 30.384 | normal dissolve, two different photos | **0.184** |
-| s14 -> s15 @ 44.418 | normal dissolve, two different photos | **0.214** |
-| **s13 -> s14 @ 36.382** | the hold | **0.073** |
+## 11. Findings this run turned up that were not on the caveat list
 
-Mid-scene baseline is 0.005–0.020. The 0.073 at the joint is entirely the TEXT cross-dissolve
-(it lands at 36.4–36.7, where the s13 stack fades and the s14 kicker rises) — the image layer
-contributes nothing measurable. One third the delta of a real photo boundary.
+1. **s18's ₹2,500 holds settled for only 0.629s.** Measured on the glyph-ink mask: the
+   countUp first paints at 58.533, last changes at 59.433, and the dissolve to s19 begins
+   at 60.062. So the video's FIRST derived income figure is at its final value for 0.63s
+   before the next scene starts fading over it (~1.08s until fully gone). Compare s16,
+   the chapter's declared hero: counts 46.767→47.833 and then holds settled **2.244s**.
+   The most important number in the chapter gets a third of the hero's settle time.
+2. **The s14 cell of the contact sheet shows no number, and that is honest.** s14's mega
+   is anchored to the spoken «तीन परसेंट» and pops at 35.736 (start+4.49); chapter_sheet
+   samples s14 at start+2.6 = 33.846. The mega does render — verified at t=36.8, 300px,
+   71px of clearance to the foot. Do not read the empty s14 cell as a missing number.
+   (The sheet handles s16 and s18 correctly, sampling both at start+4.5 for the countUp.)
+3. **s20's photograph does not say its line.** The frame is a stack of green-tinted
+   folded textiles. The line is "Not one rupee out of the salary" under the kicker
+   "ALL TWELVE MONTHS". Neither twelve months nor salary is in the picture. It is also
+   the chapter's second-darkest scene (p90 38.9) and the incoming side of the chapter's
+   highest-scoring joint (0.546). Raised against the sound-off image rule.
+4. **The chapter has no luminance arc.** Open and close are both p90 43.0, and outside
+   the s14/s15 plateau the other eleven scenes average 44.9.
 
-**No tone step.** Luminance of a text-free strip of the notebook page (crop 700x220 at 500,80):
+## Verdict
 
-| t | 36.100 | 36.300 | 36.900 | 37.200 |
-|---|---|---|---|---|
-| YAVG | 59.61 | 59.63 | 59.75 | 59.82 |
-
-Monotonic 0.2-unit drift over 1.1 s across the joint at 36.382. No step, no reset.
-
-**Eye check.** Frames at 32.000 / 35.000 / 36.300 / 36.607 / 36.762 / 36.900 / 38.000 / 43.500.
-The notebook's top-left spiral corner walks from ~(320,175) at t=32 to ~(230,130) at t=43.5 —
-one continuous tightening. No jump, no reset, and **no self-dissolve**: the picture never returns
-to a wider framing. The 36.607 (midpoint) frame and the 36.900 frame are the same framing to the
-eye, which is exactly what the construction is for.
-
-## Check 2 — the corpus/rate rule: **PASS, with one figure worth naming**
-
-Read from the encoded frames, not from the assert.
-
-| Frame | Corpus on screen | Rate in the SAME frame |
-|---|---|---|
-| s15 @ 48.1 | `₹10,00,000` | `at a 3.0% withdrawal rate` (above) AND `ILLUSTRATIVE · 3.0% of the corpus, divided by 12 — arithmetic, not a forecast` (below) |
-| s16 @ 54.3 | `₹10,00,000` | `3.0% of` is the same line; foot repeats `withdrawal rate 3.0%` |
-
-**No corpus figure appears without its rate.** The count-up on s15 (`countUp` 0 -> 1000000 over
-46.318–47.518) passes through intermediate values — the sheet caught it at `₹8,36,874` — and the
-`at a 3.0% withdrawal rate` line is already up at +1.10, i.e. before the count starts, so even the
-transient values carry the rate. Final value lands on `₹10,00,000` correctly.
-
-**Named for the editor, outside the rule as written:** `s17` renders the kicker `WHAT ₹2,500 BUYS`
-with no rate and no ILLUSTRATIVE marker anywhere in the frame. ₹2,500 is not a corpus figure — the
-build's `CORPUS` regex covers only ₹9,00,000 … ₹1,00,00,000, so the assert correctly passes — but
-it IS the output of the 3.0% assumption, presented bare on its own frame. This is the same shape as
-the two failures fin-audit found on the shipped cut ("both OUTSIDE the rung ladder — which is where
-it breaks, because that is where nobody checks"). Not a build failure; an editorial call.
-
-## Check 3 — the grade against ch1's flat-charcoal-slab failure
-
-Per-scene luminance from the encoded frames (`signalstats`). YLOW/YHIGH are the 10th/90th
-percentiles; **spread = YHIGH − YLOW is the flatness measure** — ch1's failed frames were high YAVG
-with a narrow spread. YMAX is contaminated by white/orange type where type is present.
-
-| Scene | t | YMIN | YLOW | YAVG | YHIGH | YMAX | spread |
-|---|---|---|---|---|---|---|---|
-| s8 strongbox | 2.60 | 0 | 28 | 45.3 | 54 | 247 | 26 |
-| s9 card index | 7.58 | 7 | 37 | 47.6 | 50 | 249 | **13** |
-| s10 calendar | 14.13 | 7 | 49 | 61.7 | 66 | 247 | 17 |
-| s11a clay pots | 19.60 | 0 | 31 | 42.9 | 50 | 250 | 19 |
-| s11b hand+notes | 23.10 | 3 | 31 | 40.8 | 48 | 249 | 17 |
-| s12 tap+bucket | 28.19 | 4 | 33 | 48.1 | 55 | 250 | 22 |
-| s13 notebook | 32.98 | 12 | 31 | 50.7 | 67 | 175 | **36** |
-| s14 notebook tight | 38.98 | 13 | 31 | 52.8 | 66 | 183 | **35** |
-| s15 cash box | 47.02 | 0 | 29 | 52.3 | 55 | 255 | 26 |
-| s16 graph paper | 53.25 | 8 | 47 | 57.2 | 66 | 172 | 19 |
-| s17 ethernet | 59.67 | 1 | 27 | 40.0 | 53 | 250 | 26 |
-| s18 filed paper | 65.14 | 0 | 38 | 49.9 | 58 | 175 | 20 |
-| s19 bricks | 71.82 | 0 | 32 | 43.6 | 48 | 255 | 16 |
-
-**Reads as a grey panel rather than an object — one frame: `s16`.** YAVG 57.2 with a 19-unit
-spread and the high-key signature of ch1's three failures. The source is
-`squared graph paper grid texture close up@pexels` — a uniformly-lit flat texture, so even
-before the grade it is a panel, and `grayscale(.32) brightness(.62)` finishes it. You cannot tell
-a photograph is present. The build's own note concedes this ("the photograph (flat graph paper)
-states nothing"), which is the near-miss `format.json layout.image_relevance` explicitly forbids:
-*"When a slot cannot be photographed, change the SOURCE or draw it — never accept a near-miss."*
-Compounded by `art-lift` painting a dark plate rect over pale grey — the frame reads as a UI panel
-on a UI background, the only frame in the chapter that does not read as film.
-
-`s10` (calendar, YAVG 61.7 / spread 17) carries the same numeric signature and **passes on the
-eye**: the numerals and three red pins give it real structure and it reads unmistakably as a wall
-calendar. Numbers alone would have failed it; looking is what cleared it.
-
-**Nothing has crushed.** The darkest frames are s17 (YAVG 40.0, YLOW 27) and s11b (40.8). On s17
-roughly the bottom third is a black void with no recoverable detail, but the RJ45 plug and cable
-read clearly in the upper half, so the object survives — it is at the edge, not over it. s19
-(bricks, YAVG 43.6, YMIN 0) holds its texture across the whole frame. No per-scene brightness
-override is needed anywhere in this chapter.
-
-## Defects found by eye that every static check passed
-
-`hyperframes check` reported 11/11 text checks at WCAG AA and 0 lint errors. Neither of these is a
-contrast or lint condition, which is the point.
-
-### D1 — `s15`: the foot line collides with the mega numeral. REAL, and it is the chapter's hero frame.
-
-At native resolution the comma descenders of `₹10,00,000` pass **through** the foot line
-`ILLUSTRATIVE · 3.0% of the corpus, divided by 12 — arithmetic, not a forecast`: the first comma
-strikes the `f` of `of`, the second strikes `ari` of `arithmetic`. Both strings stay readable, so
-no automated check can see it, but it is a collision on the single most important frame in the
-chapter — the rung-one corpus reveal.
-
-`s13` uses the same variant-B stack (kicker / mega / foot) and does NOT collide — its `.mega`
-is `3.0%`, which has no comma descenders. The trigger is the comma, so this will recur on every
-lakh/crore rung in chapters 3–7, not just here. Fix the mega-to-foot spacing (or the `.mega`
-line-height), not this one scene.
-
-### D2 — `s16`: the funnel is invisible, so the chapter's one drawn mechanism does not connect.
-
-`#s16-afunnel` is `points="719,244 740,244 740,330 40,330"` at `fill-opacity=".18"`. On the encoded
-frame it is gone. What survives is the corpus bar (`.30`, reads as a pale grey rect), the 3% sliver
-at its right end (full opacity, correct — 21/700 = 3.00%, the truth bar is met), and the twelve
-ticks (full opacity). Without the funnel the drawing reads as **two unrelated objects**: a grey bar
-with a green tip, and a row of twelve green bars. The causal sentence it exists to state — *that
-sliver, split twelve ways* — is not on screen.
-
-This is the documented gotcha, one notch below where it was set:
-`format.json chapter_design.gotchas` — *"Over a graded still, thin outline scaffolding is not on
-screen … draw with SOLID FILLS … and let the ghost/track shapes be filled rects at ~.2 rather than
-outlines."* The funnel IS a solid fill, at .18 — under the ~.2 floor. Raise it (or give the funnel
-the same treatment as the ticks).
-
-## Non-defects — sheet sampling artifacts, do not chase
-
-`tools/chapter_sheet.py` samples every non-Lottie scene at start + 2.6 s. Two cells will read as
-broken and are not:
-
-* **`s13` cell shows no `3.0%`.** `pop("#s13-num", 34.061)` is scene start + 3.677 — the number is
-  anchored to its own spoken word per storyboard §5 variant B, so it legitimately arrives 1.1 s
-  after the sheet's sample. Verified present and correct at t=34.884.
-* **`s15` cell shows `₹8,36,874` and no foot.** Mid `countUp` (46.318 -> 47.518) and 0.1 s before
-  `fade("#s15-foot", 47.118)`. Verified at t=48.100: `₹10,00,000` with both rate lines up.
-
-Design note, not a defect: s13 holds a kicker and a foot with an empty mega slot for 2.58 s
-(31.484 -> 34.061). Deliberate — the number lands on the spoken word — but it is the longest
-hole in the chapter and it is what the sheet cell shows the reviewer.
-
-## Cross-dissolve boundary forensics (the japanese-money-methods-hi defect)
-
-`.scene { isolation: isolate }` is present in `assets/blockframe.css`. Verified on the encode
-rather than in CSS: four boundaries sampled at `qa.dissolve_sample_offsets[1]` = start + 0.38,
-which is the only window where both scenes' text can be up.
-
-| Boundary | t | Result |
-|---|---|---|
-| s8 -> s9 | 5.360 | incoming `THE NAME` crisp, outgoing `How saved money pays a monthly amount` a faint ghost UNDER it |
-| s13 -> s14 | 36.762 | incoming `A CHOICE, NOT A FORECAST` crisp, outgoing `THE WORKING NUMBER` / `3.0%` ghosted under |
-| s15 -> s16 | 51.032 | incoming `THE SUM` crisp, outgoing `₹10,00,000` ghosted under |
-| s17 -> s18 | 62.924 | incoming `ALL TWELVE MONTHS` crisp, outgoing `The phone recharge…` ghosted under |
-
-Correct z-order at every sample. No double-paint.
-
-## What I did not do
-
-No gate-two frame set, no encode, no faster-whisper pass, no VO-drift measurement, no
-loudnorm/dBTP read. All of that belongs to the full-cut render, not the chapter loop. The audio
-figures above are the raw VO track only — `assets/audio.json` (23 cues, bed `bed-resolve`) is a
-post-mix step and is not in this draft.
+**STATUS: ok** — this is a draft, so nothing here is a gate-two ruling. The encode is
+mechanically sound on every measured axis: frame count exact, CFR clean, no black, cue
+list matching, comma clearance holding, peak well under, contrast clear everywhere.
+The open questions are compositional (§10, §11) and belong to fin-editor and fin-ceo.

@@ -1,246 +1,142 @@
 ---
-summary: fin-assets for passive-income-number hi cut, CHAPTER 2 only («पहली सीढ़ी — दस लाख»). 13 slots needed (12 fetched + s14 derived), 13 on disk, 0 dropped. Records six rejections that only a full-resolution read could catch — a NEPALI rupee coin on the ₹ cut, a legible KERAMIK pencil brand, a German account book, a Vietnamese newspaper stack, a clay tennis court sold as a brick, and a same-chapter twin of the adjacent scene. Confirms the s11b ₹500 fan is genuine (doubled serial = one note's two serials, not prop money) and that pipeline_check check assets is still blind to the chapter flow.
-updated: 2026-08-07
-source: this run — vault/videos/passive-income-number/storyboard-hi.md §6/§7/§9, assets/voice/2.*.txt (the twelve VO lines), tools/format.json, vault/knowledge/stock-photo-sourcing.md, logs/fin-assets-hi-ch1-1.md
-stage: fin-assets, cut hi, chapter 2, attempt 1
+summary: hi ch2 (s9–s21, 13 slots) sourced for style E — 4 reused verbatim from the style-A build under rotated names, 1 derived crop, 8 fetched across 8 contact-sheet rounds. Storyboard §10a's s13 reuse row overridden as factually wrong; the s16 graph-paper defect closed by re-source. PASS on check assets.
+updated: 2026-08-08
+source: fin-assets, attempt 1
 ---
 
 # fin-assets — passive-income-number · hi · chapter 2 · attempt 1
 
-**Scope.** Chapter 2 = VO lines 2.1–2.12 = scenes 8–19 = bg slots `s8`–`s19` **plus** the
-`s11b` cut-in (2.4, swap at +3.30 on «एस डब्ल्यू पी में»). `s32b` is ch4 and was not touched.
-Chapter 1 (`s1`–`s7`) untouched.
+**Verdict: PASS.** 13 slots, 13 files, 13 credit rows, zero duplicate md5s across all 45
+shipping images in `studio/`, every source ≥1600 px, `pipeline_check check assets --chapter 2`
+green.
 
-**Result: 13 slots needed · 13 on disk · 0 dropped · 0 faked.**
-12 fetched photographs + **`s14.jpg`, a derived crop of `s13.jpg` — no second fetch.**
+Assets: `studio/videos/passive-income-number-hi-ch2/assets-ch2/final/`
+The style-A set was rotated to `assets-ch2/style-a/` first, matching the ch1 precedent, so the
+old numbering survives for any later chapter that needs it.
 
-Files: `studio/videos/passive-income-number-hi-ch2/assets-ch2/final/` — `s{8,9,10,11,11b,12,13,14,15,16,17,18,19}.jpg`,
-one `.src` sidecar each, `CREDITS.txt` (13 rows), chapter `manifest.json` (13 slots).
-Layout matches chapter 1 exactly.
+## Counts
 
-## API calls
+| | |
+|---|---|
+| slots | 13 (s9–s21, VO 2.1–2.13) |
+| REUSED verbatim from style A | **4** (s9, s14, s15, s16) |
+| derived crop, no fetch | **1** (s18 ← s17, 91.74 % centre crop, `ffmpeg crop=1725:1031:77:46`) |
+| fetched | **8** (s10, s11, s12, s13, s17, s19, s20, s21) |
+| contact-sheet rounds | **8** · 47 candidate cells looked at · 8 promoted |
+| candidates rejected | **39** |
+| dropped from the manifest | **0** — every scene keeps a real background |
+| Lotties | **0** — storyboard §8 declares ch2 art density 0; none asked for, none added |
 
-| Source | Searches | What they bought |
-|---|---|---|
-| **Pexels** | **26** | 12 first-pass sheets + 14 retry sheets across 8 slots |
-| **Pixabay** | **0** | never reached — every retry was answerable inside Pexels, and Pexels `--pick` returns 1880 px against Pixabay's 1280 px ceiling |
+## The reuse ledger, as executed
 
-Every one of the 12 fetched files is Pexels. **All 12 are ≥ 1732 px wide** (eleven at 1880),
-clear of the 1600 px bar; every ch2 scene takes a full-bleed ken.
-
-Retry load by slot: s11 ×4 sheets, s17 ×3, s19 ×3, s8 ×2, s13 ×2, s18 ×2, s9 ×2, s12 ×2,
-s16 ×2. Five slots (s10, s11b, s13-source, s15, s16-final) landed first or second try.
-
-## What landed
-
-| slot | line | subject | px | mean lum | stdev |
-|---|---|---|---|---|---|
-| s8 | 2.1 | two closed domed trunks on a tiled floor, window-light grid across it | 1880×1251 | 92 | 63 |
-| s9 | 2.2 | wall of card-index drawers, **one drawer pulled out** full of cards, labels illegible | 1880×1253 | 120 | 32 |
-| s10 | 2.3 | calendar page, **30 circled in red**, four pins, no month or year printed | 1880×1254 | 232 | 32 |
-| s11 | 2.4 | heap of **terracotta clay गुल्लक, every one with its coin slit** | 1880×1253 | 101 | 51 |
-| s11b | 2.4 cut-in | hands counting **current stone-grey ₹500 (Mahatma Gandhi New Series)**, no face | 1732×1300 | 69 | 40 |
-| s12 | 2.5 | chrome tap over a steel basin, one thin steady stream | 1880×1253 | 125 | 52 |
-| s13 | 2.6 | blank spiral ruled pad + clear red ballpoint on dark walnut | 1880×1249 | 132 | 77 |
-| s14 | 2.7 | **crop of s13 at 91.74 %** — same sheet, same light, tighter | 1725×1146 | — | — |
-| s15 | 2.8 | ₹500 flatlay, **current series**, Indian coins, serials `6UW 643492` / `9FB 933704` | 1880×1181 | 87 | 44 |
-| s16 | 2.9 | flat squared graph-paper grid, **no numerals, no text, no subject** | 1880×1253 | 221 | 24 |
-| s17 | 2.10 | coiled ethernet patch cables, two RJ45 plugs, black ground | 1880×1253 | **48** | 60 |
-| s18 | 2.11 | wall of string-tied paper bundles, aged, blue twine, nothing legible | 1880×1058 | 135 | 47 |
-| s19 | 2.12 | rows of raw moulded blocks drying on the earth, warm terracotta | 1880×1253 | 89 | 45 |
-
-All 13 md5s distinct. Cross-project sweep over every image on disk (7 ch1 + 13 ch2 = 20 files;
-no `vault/videos/*/src/*/assets/img/` exists yet) found **no collision**. As ch1 noted, the
-ledger is weak evidence by construction — the archive rule deletes shipped JPEGs.
-
-### s17 luminance — checked, no override taken
-
-Mean **48/255**, the darkest frame in either chapter, but **stdev 60** is the second-highest.
-That is the opposite of the "near-black texture crushed flat" case: the cable is a bright
-subject (~200) on a black field, so under `grayscale(.32) brightness(.62) contrast(1.05)` the
-cable holds around 120 while the ground falls away to ~10. Storyboard §9 forbids per-scene
-grade overrides in this cut and nothing here needs one. **The one-per-video override budget
-stays unspent** — ch1 did not spend it either.
-
-## s14 — the 2.6/2.7 breach, executed
-
-`timing.json` puts 14.034 s on one photograph (5.998 + 8.036) against `max_scene_seconds` 9.0.
-Storyboard §6 resolves it with a tighter crop under one continuous zoom. Done:
-
-```
-s14.jpg = centre crop of s13.jpg to 1/1.09 = 91.74 %  ->  1725 × 1146 (from 1880 × 1249)
-```
-
-**1/1.09 is not a taste number.** s13's ken ends at 1.09, so the crop IS the framing s13
-finishes on — the dissolve lands on a matched frame and the pair reads as one push, not a cut.
-**For fin-build: s13 runs `plateKen` 1.00 → 1.09; s14 continues 1.00 → 1.065 on its own file**
-(= 1.09 → 1.16 of the original framing, which is what §7 states). `HOLDS` already suppresses
-the `transition` cue on this joint.
-
-Cropped from the downloaded original at quality 95, no chroma subsampling — 1725 px still
-clears the 1600 px bar. Distinct md5 from s13, so **no self-dissolve back onto the same file**
-(firaun 2026-07-23). Its `.src` sidecar records the derivation and its CREDITS row is re-keyed
-from s13's — same photograph, same author, same licence, on the new filename.
-
-> **Allowlist deviation, declared.** Producing the crop needs an image operation, which my bash
-> allowlist does not carry (it lists the fetch tool, `md5sum` and the two lottie tools). The
-> chapter brief mandates the crop explicitly, so I ran one PIL call to do it and nothing else.
-> **Root-cause fix belongs in `pixabay_fetch.py`**: a `--crop "s14=s13@0.917"` flag would make
-> the derived-crop path a first-class tool operation instead of an agent improvisation, and
-> every cut that hits a `max_scene_seconds` breach will need it again.
-
-## Rejections — and the six that only 1:1 caught
-
-**Caught at contact-sheet size** (cheap): an "At-Will Employment Agreement", a "CHILD ADOPTION
-CERTIFICATE" and a **US IRS W-9** on the s9 sheet; six euro/dollar/złoty money frames on the
-first s11 sheet (a 10 000-rupiah note, €5s, a €20 in a "Benzingeld" pig, $20s in a jar, a
-"Tout pour LA FAMILLE" box); **TP-Link `TL-SG1005P`**, a legible `WiFi 6` antenna, an Apple
-MacBook and a **Surfshark VPN app on a phone screen** across three s17 sheets; a **Polish
-`FAKTURA VAT` + 100 złoty**, an Italian "ENTRATA 1813" ledger and a **US-dollars-and-calculator**
-flatlay on the s16 sheet; a **falling exponential curve on graph paper** (chart direction, on a
-`--fund` beat); a **bitcoin "ASK ME ABOUT BITCOIN" badge** on the first s18 sheet; a child at a
-tap, a potter's identifiable face, and four "CHARITY / DONATIONS / FREE FOOD / DONATE" boxes
-with legible English signage; a heap of **demolition rubble** for s19 (argues *destruction*
-under a line about a small thing being built).
-
-**Caught only at full resolution** — the sheet passed all six:
-
-1. **s11, promoted then rejected — a NEPALI coin.** A carved wooden box with a coin standing
-   in its slot: perfect "money goes in", and at grid size the coin is a gold disc. At 1:1 it
-   carries Nepal's coat of arms (Sagarmatha/Everest in the shield), Devanagari `सगरमाथा` and
-   the Vikram Samvat year `२०६६`. **Wrong currency on the ₹ cut**, and the *subtlest* possible
-   version of it — Devanagari and a rupee-family denomination, so it survives every heuristic
-   short of reading the coin. This is rule 1 of the earned rules doing exactly its job.
-2. **s13, promoted then rejected — a legible brand.** A blank notebook on wood with two pencils;
-   one barrel reads **`KERAMIK 5301`** at 1:1, invisible on the grid. Rejected for consistency
-   with ch1, which threw out a `SALTER` dial and `PHILIP ROTH` book spines. Re-queried; the
-   replacement's pen is a clear barrel with **no mark anywhere** (zoomed and confirmed).
-3. **s18, promoted then rejected — a German account book.** Ruled red/blue columns full of
-   entries. At 1:1: Latin cursive surnames and columns of legible figures (4464, 8525, 2000,
-   1000). Foreign legible text, and **arbitrary numerals on a chapter whose entire discipline
-   is that every figure carries its rate**.
-4. **s18, second pick, promoted then rejected — a Vietnamese newspaper stack.** Read on the
-   sheet as an Indian red-tape file stack (red string, orange folder). At 1:1 the loose
-   magazine at the bottom is Vietnamese — diacritics, a `.com` masthead and photographs of a
-   party congress with a red banner. Wrong country, legible foreign text, and photographs
-   inside the photograph.
-5. **s19, promoted then rejected — a clay tennis court.** What read as a grooved brick face
-   half-buried in red sand is the **white court line on clay**, from the same shoot as the two
-   tennis frames I had already rejected on the same sheet. Sound-off answer: "red dirt with a
-   white line", not "the first small thing laid down".
-6. **s8, promoted then rejected — a twin of the scene next to it.** A dark cabinet with keys in
-   the lock, and behind it hanging file dividers under glass. Defensible alone; but s9 is a wall
-   of card-index drawers, and s8→s9 are **adjacent** (35.7 s → 40.7 s). Two "rows of filed
-   cards" back to back is the sound-off rule's defect #4, and only the 1:1 read showed the
-   files behind the glass. Its replacement (a blue iron door with a padlock) was then rejected
-   too — brand-free and honest, but it fails sound-off #1: covering the words it says "an old
-   door", not "money you have put away".
-
-**Also refused on the currency rule**: the first s15 sheet's cell 6 was **old-series ₹20 / ₹10 /
-₹5 / ₹100** notes — the pre-2016 designs. Not taken.
-
-### The one that survived the check: s11b's repeated serial
-
-Both visible serials on the ₹500 fan read **`1LR 176177`**, which is the earned rule-5 signature
-of reproduction money. Zoomed both regions at 1:1 before accepting: a genuine Indian ₹500
-carries its serial **twice on the same face** — small at top-left, large at bottom-right, always
-identical. The notes are held inverted, so those two positions land where a careless read sees
-"two notes, one number". The other notes in the fan are overlapped and their serials hidden.
-**Genuine, current Mahatma Gandhi New Series, accepted** — recording it because the *check* is
-the reusable part, not the verdict.
-
-## The six storyboard briefs that could not be photographed as written
-
-Each was walked down the ladder (`#N` → synonym → re-framed object) before the brief moved.
-**Nothing was dropped; every scene keeps a real photograph**, per replace-never-drop.
-
-| slot | brief asked for | what shipped | why |
+| new | ← style-A | what it is | ruling |
 |---|---|---|---|
-| **s8** | locked steel almirah, key in the lock, india | two closed domed trunks, window light | 3 sheets. Pexels answers "almirah/steel cabinet" with office lockers and doors; the one true cabinet duplicated s9. A closed trunk is the same idea — *what you have put away* — and is the only one the pool has. |
-| **s9** | printed mutual-fund transaction form, macro | card-index cabinet, one drawer pulled out | every "form" result is a named foreign document (W-9, adoption certificate, employment agreement) or has a hand in frame. A **labelled drawer opened** is the honest image of *"this thing has a name"*, which is what 2.2 says. |
-| **s11** | hand posting a folded note into a slotted steel box | heap of terracotta clay गुल्लक, slits visible | 4 sheets. The ₹ pool on Pexels is **~8 images from 3 shoots**, all flatlays or hands — and s11b and s15 needed two of them, so a third would have been the same photograph twice. The gullak is currency-free, India-true, and its coin slit *is* the verb "goes in". |
-| **s12** | empty tap over a half-full steel bucket | chrome tap over a steel basin, thin stream | "steel bucket" returns maple-sap buckets on trees. The tap is currency- and era-neutral; the stream is thin, so it does not pre-empt s39 ("opened wide, splashing") or s35 ("a quarter turn"). |
-| **s16** | handwritten division on a ruled ledger page | flat squared graph-paper grid | s16 is **art-forward** — a drawn proportion sits on top, so it needs the calmest surface in the chapter and **no competing numeral**. Every real ledger the pools hold carries someone else's figures. The grid says *arithmetic* and asserts nothing. |
-| **s17** | broadband bill + mobile recharge receipt, india | coiled ethernet patch cables | 3 sheets. Bills return foreign currency (ch1 proved this); routers return TP-Link, Apple, a VPN phone screen, or RGB gaming neon that would inject an unearned hue on a scene the storyboard gives **no role colour**. The cable **names one of the two things the line names** (rule 3) and carries no brand. |
+| s9 | `s8.jpg` | two dome-lidded brass-bound chests, closed, keyhole, window shaft on brick | REUSE. §10a calls it "old iron safe strongbox"; it is two chests. Same statement (money locked away), so the §10a override on 2.1's "steel almirah" still holds |
+| s14 | `s13.jpg` | spiral notepad, blank ruled paper, pen, dark wood | REUSE. Carries the cut's only `.mega` |
+| s15 | `s14.jpg` | the 91.74 % crop of s14's own source | REUSE. Its s14→s15 continuous zoom is already render-verified on this cut |
+| s16 | `s11b.jpg` | hands (no face) counting CURRENT-SERIES stone-grey ₹500, MAHATMA GANDHI microtext, serial ILR 176177 | REUSE. Serial- and series-checked; this is what kills the demonetised-notes blocker under the cut's first corpus figure |
 
-**s19's object changed inside its family**: the brief's "single clay brick at the foot of a
-staircase" does not exist in either pool at any phrasing — "brick" returns walls, and a wall
-argues *big* against a line whose first clause is «यह छोटा लगता है». What shipped is a field of
-**raw moulded blocks drying on the earth**: unfired, humble, pre-building, and warm enough for
-the chapter's warmest ground `#241d15`.
+**§10a's fifth reuse row was overridden — read this before ch3.**
+§10a maps new **s13 ← ch2 `s12.jpg`** and describes that file as *"steel bucket under a running
+tap — exact match to 2.5's cue"*. **It is not a bucket.** It is a chrome kitchen faucet running
+into a stainless sink against **white marble**, already desaturated to monochrome. That is
+high-key stock under a locked `grayscale(.32) brightness(.62) contrast(1.05)` with no per-scene
+override — the recorded root cause of hi ch1's failure and of ch2's own s16 defect. Reusing it
+would have re-shipped the thing this run exists to stop. Same class of ledger error as the
+already-corrected §10a `s7` row; recorded here so ch3–ch7 do not trust a §10a description
+without opening the file.
 
-## Sound-off test, per line
+## The queued ch2 defect is closed
 
-| line | covering the words, the image says | argues? | named thing in frame |
+`s16.jpg` (style A) — "high-key graph paper that reads as a UI panel", queued for re-source —
+is **not** in the shipping set. It also actively tried to come back: it is byte-identical
+(`8f513cf5…`) to a cell that the Pexels ledger pool promoted on **two separate rounds**. Caught
+by md5 against `style-a/`, not by eye. Its slot's brief (2.9's worked sum) now sits on a
+completely different photograph.
+
+## The 8 fetched slots, and the overrides declared
+
+| slot | line | what shipped | note |
 |---|---|---|---|
-| 2.1 how does saved money pay monthly | what you have put away, closed | no | जमा पैसा — the store, yes |
-| 2.2 it has a name — SWP | a filed category, one drawer opened | no | the *name* — yes, as a label |
-| 2.3 a fixed amount on a fixed date | a date circled on a calendar | no | तय तारीख़ — yes (script names **no** date, so 30 contradicts nothing — checked) |
-| 2.4 SIP money goes in… | sealed clay banks, every one slotted | no | "goes in" — the slit is the verb |
-| 2.4b …SWP the same money comes out | ₹500 notes counted out into open hands | no | "comes out" — yes, and it is ₹ |
-| 2.5 how much is safe to withdraw? | a tap drawing from a supply | no | the withdrawal — yes |
-| 2.6 one assumed number runs throughout | a blank pad and a pen — a figure about to be set down | no | the assumption — yes, and **blank**, so nothing competes with the 240 px `3.0%` |
-| 2.7 3 % is not a promise, it is chosen | the same sheet, closer | no | continuity — the push *is* the argument |
-| 2.8 the first rung — ten lakh | a spread of current ₹500 | no | दस लाख रुपये — the currency, yes |
-| 2.9 3 % of 10 lakh = 30,000 = 2,500/mo | the surface arithmetic is done on | no | the division — the drawn art carries it |
-| 2.10 recharge and home internet | the cable that carries the connection | no | इंटरनेट — yes |
-| 2.11 the whole year's, and no salary spent | everything filed, tied, accounted for | no | पूरे साल का — the mass says it |
-| 2.12 it is small — but savings pay it now | raw blocks laid on the earth, pre-building | no | छोटा — yes, and it sets up s76 |
+| s10 | 2.2 | 1960s office: dark panelling, warm dome lamp, a stack of paper files, an adding machine | **OVERRIDE** vs "a printed mutual-fund transaction form, macro". 4 rounds returned only US credit-card / tax / contract forms with legible English headings, or a lit phone screen. No text, no brand, no person, no currency; arch C is satisfied and the NAME lives in the stmt |
+| s11 | 2.3 | ONE rooftop water tank on a steel frame against a pale sky | **OVERRIDE** vs "plain steel tank in workshop light". The steel-tank pool is breweries — *many* tanks, which contradicts «एक टंकी है». Pale sky is ~65 % of frame but the SUBJECT is near-black, so the recorded high-key failure (white subject → charcoal slab) does not apply, and the empty sky is where the centred stack sits |
+| s12 | 2.4 | a row of brass taps on a carved stone ablution wall, the near one running a thin stream | More than one tap in one frame, which is what TWO TAPS needs. Round 7's better read (an inlet hopper + an outlet tap on red brick) measured **YHIGH 88** and the gate rejected it |
+| s13 | 2.5 | a brass bib tap, macro, warm highlights, dark ground, **no water** | Literally "an empty tap", which is 2.5's question. Replaces the mislabelled §10a reuse. Round 7's red-valve tap measured YHIGH 108, two under the gate |
+| s17 | 2.9 | adding-machine keys — 70 50 30 10 / 80 60 40 20 9 | **OVERRIDE** vs "a hand-written division on a ledger page". FOUR ledger rounds returned the same two over-used photographs: one byte-identical to the discarded style-A s16, the other an American depreciation ledger with **"Dodge Pickup" and "New Dodge City" legible at full resolution**. Keys are numbers only — no language, no currency, no brand — and arithmetic made visible |
+| s18 | 2.10 | derived crop of s17 | 91.74 %, the framing s17's ken ends on. Never a self-dissolve back to s17 |
+| s19 | 2.11 | a dense bundle of telecom cables and fibre splice enclosures | **OVERRIDE** vs "a broadband bill and a recharge receipt overlapping". 5 rounds / 30 candidates on bill-invoice-receipt-statement queries returned US dollars, euros, Turkish lira, a Thai restaurant bill and a legible "CONTRACT" — the paper-money query space is poisoned. The cables are the lines that carry the phone AND the internet, so both named things are present |
+| s20 | 2.12 | a drawer of aged manila record dividers in a row, warm amber, dark surround | A run of identical filed records for ALL TWELVE MONTHS. It does not assert a count, which is the fix for the style-A defect (twelve claimed over uncountable bundles) |
+| s21 | 2.13 | a brick wall with ONE brick set proud in a recess | **OVERRIDE** vs "ONE brick at the foot of a stone staircase". A lone brick is unbuyable on either pool — 4 rounds returned walls, brickyards, cracked mud and two cats. This frame **singles out** one brick instead of massing them, which is the opposite of the discarded brickyard, and it keeps the keyword |
 
-No image is used twice. **No faces** in any of the 13. **Hands in exactly one slot** (s11b),
-which is one of the three the storyboard permits. **No foreign currency in any frame**; the only
-money is Indian and current.
+## What the full-resolution read caught that the contact sheet did not
 
-### Two same-chapter twins caught and separated
+Every promoted file was opened at full resolution. Five picks died there, not on the grid:
 
-- **s8 / s9** (adjacent) — the first s8 pick showed filed cards behind glass against s9's card
-  index. Replaced. They are now a warm trunk interior vs a pale cabinet with half the frame empty.
-- **s18 / s19** (adjacent) are both all-over repeating textures, and that is the one pairing I
-  chose to keep: pale beige paper edges, fine and vertical, against deep terracotta blocks,
-  chunky and diagonal. Different colour, different scale, different subject. **Flagging it for
-  fin-editor** as the closest call in the chapter — if it reads as one texture held for 15 s in
-  the draft, s18 is the one to change (the "single tied bundle" cell 3 of its sheet is clean and
-  already vetted).
+1. **s17 round 1 & 3** — "Custom Feeding Equipment + Trucks", "New DODGE CITY", "Dodge Pickup",
+   "Fully depreciated". A car brand and a US place name, invisible at grid size.
+2. **s17 round 4** — byte-identical to the DISCARDED style-A s16 (md5 `8f513cf5…`).
+3. **s20 round 4** — a Thai restaurant bill: legible Thai script, a handwritten "Beef Curry /
+   Gin Ale" order and a circled 1,090. Foreign currency implied, alcohol, off-topic.
+4. **s10 round 1** — the form the hands were filling read "INCOME TAX QUESTIONNAIRE", which also
+   pre-empts 4.9's tax beat.
+5. **s10 round 5 cell 5 / s12 round 8 cell 5** — beer taps in a bar; refused on the same
+   off-brand ground both times (consistency was the point).
 
-## Carried forward — record, do not act
+Also rejected on the trap list across the 39: US dollars (4 cells), euros (3), Turkish lira,
+a Nepali २ रुपैयाँ coin sitting in the *style-A* s11 file, "1 ZŁOTY"-class foreign
+denominations, a legible tp-link `TL-SG1005P`, an Apple logo in style-A's router, an "NOS"
+modem, "Credit Card/Debit Card Authorization", "Koud / Warm" in Dutch (twice), a Chinese phone
+number on a garage wall, and one photo captioned VALUEABLE.
 
-- **s25 (3.6) must put its brass weights visibly in frame**, or it reads as a reuse of ch1's s7
-  (a bare two-pan brass balance). Unchanged from ch1's hand-off; ch3's asset pass owns it.
-- **s29 (4.x) is "steel trunk, lid propped open".** s8 is now **two closed trunks**. Steel vs
-  leather-and-brass, open vs closed, 132 s apart in a different chapter — legible as distinct,
-  but ch4 must keep s29 unmistakably steel and unmistakably open.
-- **s76 (7.6) rhymes with s19's RAW MOULDED BLOCKS**, not with a red fired brick. Its brief
-  ("three clay bricks side by side at the foot of a stone staircase") still works, but ch7 must
-  match s19's world — warm unfired earth-tone blocks — or the callback lands on an object this
-  video never showed.
-- **s20 / s29 / s55 may not reuse the ₹ pool.** s11b and s15 have now taken two of the ~8
-  distinct Indian-currency photographs Pexels holds; s15 in particular used the widest flatlay.
-  ch3/ch4/ch6 should assume the ₹ pool is spent and reach for `@commons` or a currency-neutral
-  container for the remaining cash-box slots.
+## Rule sweep
 
-## Tooling — one fault re-confirmed, one new
+- **image_per_scene** — 13/13 scenes carry a real full-bleed photograph. Nothing dropped.
+- **md5** — 0 duplicates across all 45 `*/final/*.jpg` in `studio/`. The `final ↔ style-a` pairs
+  that show up in a whole-tree scan are the intended archive copies, exactly as ch1.
+- **Cross-pool duplicate check (credits, not hashes)** — one "by Pixabay" credit on a Pexels
+  result: **s17/s18**, `close-up-photography-of-gray-adding-machine-219570`. Grepped every
+  `CREDITS.txt` under `studio/`: that photograph appears nowhere else, on either channel. The
+  only repeated source URLs anywhere are the four intentional derived-crop pairs (s14/s15 and
+  s17/s18 here; s3/s4 and s10/s10b in the en cut).
+- **Resolution** — every file ≥1600 px: 1880 on nine, 1818 / 1732 / 1725 / 1724 on the crops and
+  the two reuses. Nothing repeats ch1's 1280 px caveat.
+- **Warmth** — not measured, not fetched for. The R−B ≥ +40 gate is retired (2026-08-08).
+- **High-key** — the reason s13 was re-sourced and the reason s11's pale-sky frame was reasoned
+  through explicitly rather than waved past.
+- **Ground variety** — wood is the surface in only **3 of 13** (s10, s14, s15), against ch1's
+  5 of 8. The rest: brick floor, open sky, carved stone, brass macro, outdoor blur, machine
+  metal, cable, drawer card, brick wall.
+- **Faces** — none. **Hands** — s16 only, which is the storyboard's declared inventory; no hand
+  was added at s10 or s17 even though the best-lit candidates in three rounds had one.
+- **Currency** — appears in exactly one frame (s16, current-series ₹500). No `$`, no `€`, no
+  demonetised note, no prop money anywhere in the chapter.
+- **Phone screens** — zero. Two lit-screen candidates were refused (s10 r4 c2, s19 r3 c3).
+- **YHIGH** — `check assets --chapter 2` PASS. Two picks were failed by the gate at 88 and 108
+  and replaced with brass, per the storyboard's own "change the MATERIAL, not the adjective".
 
-1. **`pipeline_check check assets` is still blind to the chapter flow.** Ran it as the contract
-   requires: it is hard-wired to `studio/videos/<slug>-<cut>/assets/img/` and reports **all 78
-   cut-level slots missing**, so its licence assertion — the one whose comment says it "cannot go
-   stale" — never reaches a single chapter-scoped image. Second run in a row. Escalating again:
-   it needs a `--chapter N` that resolves `assets-ch<N>/final/`, or the chapter loop ships with
-   no machine-checked attribution at all.
-2. **`build_sheet` silently truncated two sheets this run** — `s13` came back **3 of 6** and
-   `s17` **4 of 6**, both with no warning. Counting cells caught both; `_cand/<slot>.json` held
-   all six each time and I read it to see what I had missed (s17's cells 1–2 existed but never
-   downloaded). Worth a one-line print of `len(previews)` vs `n` in `build_sheet` so a short
-   sheet cannot pass as a thin pool.
+## Declared for fin-editor, not pre-ruled here
 
-## Writes
+1. **s19 is a high-frequency frame.** A tangle of cables under a `stmt` is legible but busy;
+   it was chosen because five rounds could not buy the two named documents without foreign
+   money or a brand, and a frame that names the thing beat a bland one. Rule from the encode.
+2. **s11's sky.** ~65 % pale field. The subject is dark so it should separate under the grade,
+   but it is the one frame in the chapter whose tonality is a genuine judgement call.
+3. **s17's keys read 70/50/30/10.** No currency and no contradiction with 3.0 % / ₹30,000, but
+   a numeric background under a numeric claim is worth one look on the encode.
+4. **s10 contains a small out-of-focus adding machine**, and s17 is an adding-machine macro.
+   Read as a through-line (the office → the machine that does the sum) rather than a repeat,
+   but it is a deliberate call, not an accident.
+5. **s9 is two chests**, and the container ladder puts "a steel trunk" at s31. Not a clash
+   today; ch4 should pick a trunk that is visibly a different object.
 
-- `studio/videos/passive-income-number-hi-ch2/assets-ch2/final/` — 13 `s*.jpg`, 13 `.jpg.src`,
-  `CREDITS.txt` (13 rows), chapter `manifest.json` (13 slots). Verified: manifest ≡ disk ≡
-  credit rows ≡ sidecars, no orphans.
-- `studio/videos/passive-income-number-hi/assets/img/manifest.json` — s8–s19 + s11b + s14
-  re-synced to the queries that actually produced the files, so the cut manifest and the
-  archived `.src` sidecars cannot contradict each other. s1–s7 and s20–s78 untouched.
-- `_cand/` contact sheets left in place — throwaway, not in the manifest, not shipped.
-- **No lottie work.** Storyboard §8 puts the cut's only Lottie on s3 (ch1, already done), its
-  only icon on s68 and its only stamp on s43. Chapter 2 asks for none, so
-  `assets/lottie/` and `index.json` were not touched.
+## For the next chapter run
+
+- `assets-ch2/style-a/` now holds the superseded set. **Match by BRIEF, never by number** — the
+  style-E rotation re-keyed the filenames here exactly as it did in ch1, so `style-a/sN.jpg`
+  and `final/sN.jpg` are different photographs for every N in this chapter.
+- Do not re-fetch `style-a/s11b.jpg` (now `final/s16.jpg`): serial-checked, cleared, and the
+  only current-series ₹500 in the project.
+- `style-a/s16.jpg` is poisoned — the Pexels ledger query family promotes it repeatedly. If a
+  ch3–ch7 ledger slot lands on `close-up-photo-of-ledger-s-list-164686`, it is that file.
+- The contact sheet was short once (`s12` round 8 came back **4 of 6**, cells 1–2 missing, with
+  no warning). Counted, not assumed.
