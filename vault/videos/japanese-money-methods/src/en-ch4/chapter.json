@@ -1,0 +1,108 @@
+{
+  "title": "Japanese Money Methods",
+  "note": "     METHOD ONE — MOTTAINAI. The hinge lands on this chapter's first frame; the\n     s33->s34 shove lives on the concat boundary.\n\n     Ground arc: neutral warm on the word -> cool on \"regret, not instruction\"\n     -> warm through the chain that made one shirt -> red on the hours -> GREEN\n     HELD ACROSS THE THREE CHECKS, one third of the bar per check -> red on what\n     they found -> cool -> green on the rule -> neutral for the arithmetic ->\n     warm out.\n\n     Archetypes: A A D A B B B A A D B A A. The bar under the three checks is the\n     only element that carries ACROSS a cut, and it is what breaks the uniform\n     +0.30/+1.10/+1.90 ladder once per chapter.",
+  "scenes": {
+    "s34": {
+      "comment": "4.1 · A · PLATE · no role · neutral warm — MOTTAINAI. A ceramic bowl on\n     wood.",
+      "arch": "a",
+      "f1": "#201b14"
+    },
+    "s35": {
+      "comment": "4.2 · A · PLATE · no role · cool — NOT A SCOLDING. A hand sewing a patch.",
+      "arch": "a",
+      "f1": "#171b21"
+    },
+    "s36": {
+      "comment": "4.3 · D · BAND · no role · warm — ONE SHIRT. Three declared framings and\n     three real photographs: the shirt, the cotton field, the truck. The chain IS\n     the picture three times over.",
+      "arch": "d",
+      "f1": "#241c12"
+    },
+    "s37": {
+      "comment": "4.4 · A · PLATE · warn · red — AND YOURS. An \"hours you worked for it\" bar\n     was drawn and cut: the script names no number, and a bar a viewer can read\n     off is a statistic whether or not one was meant.",
+      "arch": "a",
+      "f1": "#2f1215"
+    },
+    "s38": {
+      "comment": "4.5 · B · FIGURE · fund · green — CHECK ONE. Three checks are one\n     instruction, so B is held and the bar moves a third per scene.",
+      "arch": "b",
+      "f1": "#14261c",
+      "measure": {
+        "label": "THE THREE CHECKS",
+        "role": "fund",
+        "from": 0,
+        "to": 0.3333
+      }
+    },
+    "s39": {
+      "comment": "4.6 · B · FIGURE · fund · green deeper — CHECK TWO; the bar picks up exactly\n     where check one left it.",
+      "arch": "b",
+      "f1": "#16281d",
+      "measure": {
+        "label": "THE THREE CHECKS",
+        "role": "fund",
+        "from": 0.3333,
+        "to": 0.6667
+      }
+    },
+    "s40": {
+      "comment": "4.7 · B · FIGURE · fund · green deepest — CHECK THREE; the bar closes.",
+      "arch": "b",
+      "f1": "#183020",
+      "measure": {
+        "label": "THE THREE CHECKS",
+        "role": "fund",
+        "from": 0.6667,
+        "to": 1
+      }
+    },
+    "s41": {
+      "comment": "4.8 · A · PLATE · warn · red hot — WHAT YOU SAW. Unopened delivery boxes.",
+      "arch": "a",
+      "f1": "#3a1013"
+    },
+    "s42": {
+      "comment": "4.9 · A · PLATE · no role · cool — IT IS ONE QUESTION. A hand picking up a\n     product in a shop: the moment the question belongs to.",
+      "arch": "a",
+      "f1": "#141b24"
+    },
+    "s43": {
+      "comment": "4.10 · D · BAND · fund · green — THE QUESTION, and the chapter's one\n     piece of drawn argument. One path in, two out, the MAYBE branch struck\n     through. No photograph of an object on a table can state a decision rule.",
+      "arch": "d",
+      "f1": "#16281d",
+      "html": [
+        "<div class=\"band\" id=\"s43-band\" style=\"height:52%;z-index:0\"></div>"
+      ],
+      "motion": [
+        "fade(\"#s43-band\", S.s43 + 1.3, 0.6);",
+        "draw(\"#s43-yes\", S.s43 + 1.9, 0.45, 800); draw(\"#s43-no\", S.s43 + 2.1999999999999997, 0.45, 800);",
+        "draw(\"#s43-x1\", S.s43 + 2.65, 0.2, 240); draw(\"#s43-x2\", S.s43 + 2.8, 0.2, 240);"
+      ],
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<path class=\"st\" style=\"stroke-width:4;opacity:.5\" fill=\"none\" d=\"M 260 328 L 880 328\"/>\n<rect class=\"fl\" x=\"866\" y=\"314\" width=\"28\" height=\"28\" opacity=\".7\"/>\n<path id=\"s43-yes\" class=\"stf\" style=\"stroke-width:9\" fill=\"none\" d=\"M 880 328 L 1140 186 L 1600 186\"/>\n<path id=\"s43-no\" class=\"st\" style=\"stroke-width:9;opacity:.45\" fill=\"none\" d=\"M 880 328 L 1140 476 L 1600 476\"/>\n<g class=\"stw\" style=\"stroke-width:12\" stroke-linecap=\"round\">\n  <path id=\"s43-x1\" d=\"M 1300 416 L 1440 536\"/>\n  <path id=\"s43-x2\" d=\"M 1440 416 L 1300 536\"/>\n</g>"
+    },
+    "s44": {
+      "comment": "4.11 · B · FIGURE · no role · neutral — ON $4,000. \"Three or four times a\n     month\" is a COUNT. The fourth stroke arrives faint, because the line says\n     three OR four and a solid fourth would overstate it.",
+      "arch": "b",
+      "f1": "#1e1a15",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".72",
+      "svg": "<g class=\"st\" style=\"stroke-width:21\" stroke-linecap=\"round\">\n  <path id=\"s44-m0\" d=\"M 236 190 L 218 418\"/>\n  <path id=\"s44-m1\" d=\"M 344 200 L 326 424\"/>\n  <path id=\"s44-m2\" d=\"M 452 190 L 434 418\"/>\n  <path id=\"s44-m3\" d=\"M 560 200 L 542 424\" opacity=\".38\"/>\n</g>\n<rect class=\"fl\" x=\"170\" y=\"472\" width=\"540\" height=\"7\" opacity=\".4\"/>",
+      "motion": [
+        "for (var q = 0; q < 3; q++) draw(\"#s44-m\" + q, S.s44 + 1.90 + q * 0.45, 0.28, 320);",
+        "draw(\"#s44-m3\", S.s44 + 3.40, 0.36, 320);"
+      ]
+    },
+    "s45": {
+      "comment": "4.12 · A · PLATE · no role · neutral warm — THE WHOLE POINT. A resoled boot\n     beside a new one in its box.",
+      "arch": "a",
+      "f1": "#221c13"
+    },
+    "s46": {
+      "comment": "4.13 · A · PLATE · no role · warm hand-off — NEXT, to the dinner table.",
+      "arch": "a",
+      "f1": "#2a2114"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+An app reports where the money went. A paper ledger decides where the money is going to go.

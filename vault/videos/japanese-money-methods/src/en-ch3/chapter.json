@@ -1,0 +1,111 @@
+{
+  "title": "Japanese Money Methods",
+  "note": "     THE DEBUNK. Same argument as the -hi chapter 3 and the same four drawn\n     layers, because the claims are identical: a 90/3 split, 51% of a whole,\n     a 25-year window inside eight decades, and a count of five.\n\n     Ground arc: neutral warm -> amber under examination -> red -> amber, held\n     across s25/s26 -> cool on the half nobody shows -> red -> amber on the era\n     -> red hot at the peak -> red on the quote -> neutral paper for the five\n     reasons -> green on the honest line.\n\n     Archetypes: A B A B B A A D B A D A.",
+  "scenes": {
+    "s22": {
+      "comment": "3.1 · A · PLATE · no role · neutral warm — a vintage bank ledger; the survey\n     is the subject and the object is on screen.",
+      "arch": "a",
+      "f1": "#1e1a15"
+    },
+    "s23": {
+      "comment": "3.2 · B · FIGURE · target · amber — WHERE IT LANDS. A bank counter cannot\n     say 90 against 3. One track, split to scale, the securities sliver almost\n     too small to see arrive.",
+      "arch": "b",
+      "f1": "#2e2411",
+      "art": "forward",
+      "opacity": ".62",
+      "svg": "<rect class=\"fl\" x=\"110\" y=\"250\" width=\"640\" height=\"112\" opacity=\".22\"/>\n<rect id=\"s23-dep\" class=\"flt\" x=\"110\" y=\"250\" width=\"576\" height=\"112\" opacity=\".92\"/>\n<rect id=\"s23-sec\" class=\"flt\" x=\"686\" y=\"250\" width=\"19\" height=\"112\"/>\n<rect class=\"fl\" x=\"110\" y=\"396\" width=\"576\" height=\"6\" opacity=\".5\"/>\n<rect class=\"flt\" x=\"686\" y=\"396\" width=\"19\" height=\"6\"/>",
+      "motion": [
+        "tl.fromTo(\"#s23-dep\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 1.10, ease: \"power2.out\" }, S.s23 + 1.60);",
+        "tl.fromTo(\"#s23-sec\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 0.55, ease: \"power2.out\" }, S.s23 + 2.90);"
+      ]
+    },
+    "s24": {
+      "comment": "3.3 · A · PLATE · no role · red-free — SAVING IS NOT INVESTING. The padlock\n     icon is already in the stack, over a row of shut deposit boxes.",
+      "arch": "a",
+      "f1": "#2a1214"
+    },
+    "s25": {
+      "comment": "3.4 · B · FIGURE · target · amber — 51.0%. The bar says HALF OF EVERYTHING\n     THEY HOLD before the figure is read.",
+      "arch": "b",
+      "f1": "#372a0c",
+      "measure": {
+        "label": "HOUSEHOLD FINANCIAL ASSETS",
+        "role": "target",
+        "from": 0,
+        "to": 0.51,
+        "at": 1.4,
+        "dur": 2.6
+      }
+    },
+    "s26": {
+      "comment": "3.5 · B · FIGURE · target · amber deeper — HELD. Same table, next column:\n     two tracks at one scale, US cash against US equity.",
+      "arch": "b",
+      "f1": "#3d2d0a",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".62",
+      "svg": "<rect class=\"fl\" x=\"110\" y=\"186\" width=\"640\" height=\"86\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"110\" y=\"336\" width=\"640\" height=\"86\" opacity=\".2\"/>\n<rect id=\"s26-a\" class=\"flt\" x=\"110\" y=\"186\" width=\"74\" height=\"86\" opacity=\".92\"/>\n<rect id=\"s26-b\" class=\"flt\" x=\"110\" y=\"336\" width=\"266\" height=\"86\" opacity=\".92\"/>\n<rect class=\"fl\" x=\"110\" y=\"452\" width=\"640\" height=\"4\" opacity=\".34\"/>",
+      "motion": [
+        "tl.fromTo(\"#s26-a\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 0.70, ease: \"power2.out\" }, S.s26 + 1.7);",
+        "tl.fromTo(\"#s26-b\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 0.90, ease: \"power2.out\" }, S.s26 + 2.4);"
+      ]
+    },
+    "s27": {
+      "comment": "3.6 · A · PLATE · no role · cool — THE HALF NOBODY SHOWS. A sealed jar,\n     full, lid still on.",
+      "arch": "a",
+      "f1": "#141b24"
+    },
+    "s28": {
+      "comment": "3.7 · A · PLATE · warn · red — a period street photograph; nothing drawn\n     can add to \"was not always\".",
+      "arch": "a",
+      "f1": "#301317"
+    },
+    "s29": {
+      "comment": "3.8 · D · BAND · target · amber — THE POSTWAR HIGH-SAVING ERA. Tree\n     rings show time passing; they cannot show how SMALL twenty-five years is\n     inside the span it sits in. Eight decades as one rule, the era lit.",
+      "arch": "d",
+      "f1": "#332708",
+      "html": [
+        "<div class=\"band\" id=\"s29-band\" style=\"height:44%;z-index:0\"></div>"
+      ],
+      "motion": [
+        "fade(\"#s29-band\", S.s29 + 1.3, 0.6);",
+        "tl.fromTo(\"#s29-era\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 0.95, ease: \"power2.out\" }, S.s29 + 1.90);",
+        "tl.fromTo(\"#s29-l\", { scaleY: 0, transformOrigin: \"50% 50%\" }, { scaleY: 1, duration: 0.4, ease: \"power3.out\" }, S.s29 + 1.90);",
+        "tl.fromTo(\"#s29-r\", { scaleY: 0, transformOrigin: \"50% 50%\" }, { scaleY: 1, duration: 0.4, ease: \"power3.out\" }, S.s29 + 2.60);"
+      ],
+      "art": "forward",
+      "opacity": ".62",
+      "svg": "<rect class=\"fl\" x=\"200\" y=\"356\" width=\"1520\" height=\"8\" opacity=\".5\"/>\n<g class=\"fl\" opacity=\".4\">\n  <rect x=\"196\" y=\"332\" width=\"8\" height=\"56\"/>\n  <rect x=\"391\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"586\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"781\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"976\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"1171\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"1366\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"1561\" y=\"342\" width=\"6\" height=\"36\"/>\n  <rect x=\"1756\" y=\"332\" width=\"8\" height=\"56\"/>\n</g>\n<rect id=\"s29-era\" class=\"flt\" x=\"492\" y=\"306\" width=\"488\" height=\"108\" opacity=\".85\"/>\n<g class=\"flt\">\n  <rect id=\"s29-l\" x=\"484\" y=\"262\" width=\"10\" height=\"196\"/>\n  <rect id=\"s29-r\" x=\"976\" y=\"262\" width=\"10\" height=\"196\"/>\n</g>"
+    },
+    "s30": {
+      "comment": "3.9 · B · FIGURE · warn · red hot — 23.2%. The photograph is already a peak\n     drawn on graph paper; a drawn peak on top of it is the textbook failure.",
+      "arch": "b",
+      "f1": "#3b1013"
+    },
+    "s31": {
+      "comment": "3.10 · A · PLATE · warn · red — NOT CULTURE. The quote sits on the working\n     paper it comes from.",
+      "arch": "a",
+      "f1": "#38151a"
+    },
+    "s32": {
+      "comment": "3.11 · D · BAND · no role · neutral paper — THE ACTUAL REASONS. Five,\n     and the COUNT is the point: not one cause, five separate ones. Two real\n     framings, second photograph at +5.66.",
+      "arch": "d",
+      "f1": "#1c2027",
+      "html": [
+        "<div class=\"band\" id=\"s32-band\" style=\"height:46%;z-index:0\"></div>"
+      ],
+      "motion": [
+        "fade(\"#s32-band\", S.s32 + 1.6, 0.6);",
+        "for (var q = 0; q < 5; q++) draw(\"#s32-m\" + q, S.s32 + 2.10 + q * 1.15, 0.34, 380);"
+      ],
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<rect class=\"fl\" x=\"300\" y=\"500\" width=\"1320\" height=\"5\" opacity=\".34\"/>\n<g class=\"st\" style=\"stroke-width:19\" stroke-linecap=\"round\" opacity=\".95\">\n  <path id=\"s32-m0\" d=\"M 566 232 L 546 472\"/>\n  <path id=\"s32-m1\" d=\"M 706 242 L 692 476\"/>\n  <path id=\"s32-m2\" d=\"M 846 228 L 830 470\"/>\n  <path id=\"s32-m3\" d=\"M 984 244 L 972 478\"/>\n  <path id=\"s32-m4\" d=\"M 1030 452 L 1310 250\"/>\n</g>"
+    },
+    "s33": {
+      "comment": "3.12 · A · PLATE · fund · warm resolve — THE HONEST LINE, the chapter's only\n     green frame and the hinge of the video. One lit lantern.",
+      "arch": "a",
+      "f1": "#16281d"
+    }
+  }
+}

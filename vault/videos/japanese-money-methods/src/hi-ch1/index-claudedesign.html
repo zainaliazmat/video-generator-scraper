@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Japan Ke 3 Paise Wale Tarike — hi · CHAPTER 1 · CLAUDE-DESIGN CUT</title>
+
+<!-- ===========================================================================
+     CHAPTER 1, CLAUDE-DESIGN CUT — «Aapka salary month», ten cuts, 55.909s.
+
+     Built from the architecture the creator liked in the Claude Design chapter-1
+     animatic, ported to HyperFrames. PROVENANCE, so this is not mis-cited: that
+     animatic's own header says it inherits the ch2 architecture — four
+     archetypes, a per-scene ground temperature, the +0.30/+1.10/+1.90 cue
+     ladder — which was written into the Claude Design project by this repo.
+     What the animatic contributed back is EXECUTION, and four things were taken:
+
+       1. THE PLATE. Art lives in a declared, clipped rect with its own push,
+          per archetype — not a full-bleed field. This kills the ken-window bug
+          class structurally (see assets/chapter-design.css for the history).
+       2. THE RAIL. Chapter title, scene counter, tick per scene, role-coloured
+          progress fill. A style commitment, isolated so it is one delete.
+       3. THE BIGGER FIGURE in archetype B, footnote tucked directly beneath.
+       4. THE MEASURE BAR — a labelled track that drains under the type.
+
+     NOT taken: the animatic's timing. Its cuts do not match the voice (its
+     chapter-2 durations sum to the right total and drift up to 1.86s internally
+     — it back-solved the last scene to close the books). Every data-start and
+     data-duration below is VERBATIM from this chapter's shipped index.html,
+     which is generated from timing.json, which is measured from the voice.
+
+     Drawn/vector only — no photograph, consistent with the ch2 design cut. The
+     archetype layer is photo-compatible: a .plate holds a graded still exactly
+     as well as an <svg>, which is the real prize here.
+
+     UNCHANGED, verbatim from index.html, so this concatenates frame-exact:
+       · scene ids s1-s10, every data-start / data-duration / data-framings
+       · the data-track-index 1/2 alternation the cross-dissolve requires
+       · root 55.909s, the ten voice rows, every on-screen string
+     =========================================================================== -->
+
+<link rel="stylesheet" href="assets/blockframe.css">
+<link rel="stylesheet" href="assets/chapter-design.css">
+<style>
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+/* the four plate rects, one per archetype */
+.p-a { left: 0;      top: 0;     width: 1920px; height: 1080px; }
+.p-b { left: 1120px; top: 150px; width: 860px;  height: 610px;  }
+.p-c { left: 1046px; top: -60px; width: 934px;  height: 1200px; }
+.p-d { left: 0;      top: 424px; width: 1920px; height: 656px;  }
+</style>
+</head>
+<body>
+<div id="root" class="cut-hi" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="55.909">
+
+<!-- 1.1 · A · PLATE · no role · cool ============================================
+     THE FIRST. A phone face-up on a counter at night; the notification arrives.
+     Frame 0 of the whole video, so the phone is PRESENT at frame 0 and only the
+     notification bar animates — never open on an empty field or a stroke-draw. -->
+<section class="scene clip arch-a has-photo art-off" id="s1" data-track-index="1" data-start="0" data-duration="4.855" data-framings="4.405">
+  <div class="bg" id="s1-bg" style="background-image:url(assets/img/s1.jpg)"></div>
+  <div class="field" style="--f1:#131b26"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-a" id="s1-plate">
+    <div class="plate-in" id="s1-pin">
+      <div class="hatch"></div>
+      <svg class="art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.66">
+        <defs><radialGradient id="g11" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5f3ec" stop-opacity=".17"/>
+          <stop offset="100%" stop-color="#f5f3ec" stop-opacity="0"/></radialGradient></defs>
+        <ellipse id="s1-glow" cx="960" cy="700" rx="640" ry="330" fill="url(#g11)"/>
+        <path class="st" style="stroke-width:3;opacity:.24" d="M 0 944 L 1920 944"/>
+        <g transform="rotate(-6 960 1130)" opacity=".82">
+          <rect x="740" y="665" width="440" height="930" rx="34" fill="#0f1421" stroke="#98a2b3" style="stroke-width:3"/>
+          <rect x="760" y="685" width="400" height="890" rx="22" fill="#171e2b"/>
+          <rect id="s1-note" class="fl" x="786" y="758" width="348" height="54" rx="9" opacity=".66"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="stack" id="s1-stack">
+    <p class="kicker" id="s1-kick">THE FIRST</p>
+    <p class="huge" id="s1-stmt" style="font-size:112px">Salary is in.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.2 · A · PLATE · fund · green ==============================================
+     TWO SECONDS. The SAME image as 1.1, so this is ONE continuous zoom across
+     the cut (plateKen 1.10 -> 1.24, picking up exactly where 1.1 ended) and the
+     glow decays — the two seconds passing. Three marks arrive for the three
+     methods the line promises. -->
+<section class="scene clip arch-a has-photo art-off" id="s2" data-track-index="2" data-start="4.405" data-duration="7.65" data-framings="7.2">
+  <div class="bg" id="s2-bg" style="background-image:url(assets/img/s1.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div>
+    <div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="plate p-a" id="s2-plate">
+    <div class="plate-in" id="s2-pin">
+      <div class="hatch"></div>
+      <svg class="art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.66">
+        <defs><radialGradient id="g12" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5f3ec" stop-opacity=".17"/>
+          <stop offset="100%" stop-color="#f5f3ec" stop-opacity="0"/></radialGradient></defs>
+        <ellipse id="s2-glow" cx="960" cy="700" rx="640" ry="330" fill="url(#g12)"/>
+        <path class="st" style="stroke-width:3;opacity:.24" d="M 0 944 L 1920 944"/>
+        <g transform="rotate(-6 960 1130)" opacity=".82">
+          <rect x="740" y="665" width="440" height="930" rx="34" fill="#0f1421" stroke="#98a2b3" style="stroke-width:3"/>
+          <rect x="760" y="685" width="400" height="890" rx="22" fill="#171e2b"/>
+          <rect id="s2-note" class="fl" x="786" y="758" width="348" height="54" rx="9" opacity=".66"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="stack" id="s2-stack">
+    <p class="kicker" id="s2-kick">TWO SECONDS</p>
+    <p class="huge fundc" id="s2-stmt" style="font-size:76px">Then the rest of the month. And Japan's three methods.</p>
+    <div class="row" id="s2-marks" style="gap:26px;margin-top:14px">
+      <div class="s2m" style="width:58px;height:58px;border:3px solid var(--fund)"></div>
+      <div class="s2m" style="width:58px;height:58px;border:3px solid var(--fund)"></div>
+      <div class="s2m" style="width:58px;height:58px;border:3px solid var(--fund)"></div>
+    </div>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.3 · C · LEDGER · warn · red ===============================================
+     THEN RENT. Two declared framings (3.400 / 2.912) and they are REAL: framing
+     one is the rent receipt alone; at +3.400 the power bill lands on top of it
+     and its amount bar grows PAST the dashed box marking last time. That is the
+     line's actual claim, drawn. -->
+<section class="scene clip arch-c has-photo" id="s3" data-track-index="1" data-start="11.605" data-duration="6.762" data-framings="3.400,2.912">
+  <div class="bg" id="s3-bg" style="background-image:url(assets-ch1/final/s3.jpg)"></div>
+  <div class="bg" id="s3-bg2" style="background-image:url(assets-ch1/final/s3b.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#2a1214"><div class="rules"></div>
+    <div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="plate p-c edge" id="s3-plate">
+    <div class="plate-in" id="s3-pin">
+      <div class="hatch"></div>
+      <svg class="art" viewBox="0 0 934 1200" preserveAspectRatio="xMidYMid slice" style="opacity:.70">
+        <g id="s3-power" transform="rotate(2.4 470 830)" opacity="0">
+          <rect x="180" y="770" width="600" height="200" fill="rgba(13,16,23,.62)" stroke="#2a3242" style="stroke-width:2"/>
+          <rect x="234" y="812" width="290" height="28" fill="none" stroke="#98a2b3"
+                style="stroke-width:2.5;opacity:.8" stroke-dasharray="9 8"/>
+          <rect id="s3-bar" class="flw" x="234" y="878" width="500" height="28" opacity=".9"/>
+          <path id="s3-tick" class="stw" style="stroke-width:2;opacity:.55" stroke-dasharray="6 7" d="M 524 800 L 524 918"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="crule" id="s3-cr" style="left:980px"></div>
+  <div class="stack" id="s3-stack">
+    <p class="kicker" id="s3-kick">THEN RENT</p>
+    <p class="huge warnc" id="s3-stmt" style="font-size:72px">Then the power bill. Higher than last time.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.4 · C · LEDGER · no role · neutral ========================================
+     THEN THE AUTO-DEBIT. A bank statement printout running the full height of
+     the right column, cropped by the frame edge. One row is heavier than the
+     rest and gets circled BY HAND — two passes of an ellipse, drawn at speed.
+     That is the chapter's first trace: a person went looking for this line. -->
+<section class="scene clip arch-c has-photo art-off centred" id="s4" data-track-index="2" data-start="17.917" data-duration="5.012" data-framings="4.562">
+  <div class="bg" id="s4-bg" style="background-image:url(assets-ch1/final/s4.jpg)"></div>
+  <div class="field" style="--f1:#1d1a15"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-c edge" id="s4-plate">
+    <div class="plate-in" id="s4-pin">
+      <div class="hatch"></div>
+      <svg class="art" viewBox="0 0 934 1200" preserveAspectRatio="xMidYMid slice" style="opacity:.68">
+        <rect x="110" y="40" width="640" height="1130" fill="#1e2634" stroke="#2a3242" style="stroke-width:2" opacity=".9"/>
+        <g class="fl">
+          <rect x="156" y="120" width="360" height="7" opacity=".2"/><rect x="156" y="176" width="470" height="7" opacity=".2"/>
+          <rect x="156" y="232" width="300" height="7" opacity=".2"/><rect x="156" y="288" width="430" height="7" opacity=".2"/>
+          <rect x="156" y="344" width="380" height="7" opacity=".2"/><rect x="156" y="400" width="490" height="7" opacity=".2"/>
+          <rect x="156" y="456" width="330" height="7" opacity=".2"/><rect x="156" y="512" width="450" height="7" opacity=".2"/>
+          <rect x="156" y="568" width="530" height="11" opacity=".82"/>
+          <rect x="156" y="624" width="400" height="7" opacity=".2"/><rect x="156" y="680" width="340" height="7" opacity=".2"/>
+          <rect x="156" y="736" width="470" height="7" opacity=".2"/><rect x="156" y="792" width="360" height="7" opacity=".2"/>
+          <rect x="156" y="848" width="440" height="7" opacity=".2"/><rect x="156" y="904" width="310" height="7" opacity=".2"/>
+          <rect x="156" y="960" width="480" height="7" opacity=".2"/><rect x="156" y="1016" width="390" height="7" opacity=".2"/>
+        </g>
+        <g transform="rotate(-3.5 430 574)" fill="none" stroke-linecap="round">
+          <ellipse id="s4-ring1" class="st" style="stroke-width:14;opacity:.8" cx="430" cy="574" rx="320" ry="72"/>
+          <ellipse id="s4-ring2" class="st" style="stroke-width:10;opacity:.5" cx="424" cy="582" rx="306" ry="60"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="crule" id="s4-cr" style="left:980px"></div>
+  <div class="stack" id="s4-stack">
+    <p class="kicker" id="s4-kick">THEN THE AUTO-DEBIT</p>
+    <p class="huge" id="s4-stmt" style="font-size:88px">The subscription you started last year.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.5 · D · BAND · no role · warm =============================================
+     AND THEN. Three declared framings (2.100 / 1.900 / 1.476) and one item
+     lands in each: the shagun envelope, the two dinners, the delivered order.
+     The framing boundaries are the beats of the line, so the swap is real by
+     construction rather than by a cosmetic re-crop. -->
+<section class="scene clip arch-d has-photo art-off centred" id="s5" data-track-index="1" data-start="22.478" data-duration="5.926" data-framings="2.100,1.900,1.476">
+  <div class="bg" id="s5-bg" style="background-image:url(assets-ch1/final/s5.jpg)"></div>
+  <div class="bg" id="s5-bg2" style="background-image:url(assets-ch1/final/s5b.jpg);opacity:0"></div>
+  <div class="bg" id="s5-bg3" style="background-image:url(assets-ch1/final/s5c.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#241c12"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-d" id="s5-plate">
+    <div class="plate-in" id="s5-pin">
+      <div class="hatch"></div>
+      <svg class="art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.68">
+        <path class="st" style="stroke-width:3;opacity:.26" d="M 0 500 L 1920 500"/>
+        <g id="s5-i1">
+          <rect x="300" y="212" width="344" height="222" fill="#1f2734" stroke="#f59e0b" style="stroke-width:3;opacity:.9"/>
+          <path class="stt" style="stroke-width:3;opacity:.75" d="M 300 212 L 472 322 L 644 212"/>
+        </g>
+        <g id="s5-i2">
+          <rect x="800" y="272" width="212" height="164" fill="#1f2734" stroke="#98a2b3" style="stroke-width:3"/>
+          <rect x="852" y="228" width="212" height="164" fill="#1c2330" stroke="#98a2b3" style="stroke-width:3"/>
+        </g>
+        <g id="s5-i3">
+          <rect x="1240" y="220" width="266" height="214" rx="12" fill="#1f2734" stroke="#98a2b3" style="stroke-width:3"/>
+          <rect class="fl" x="1300" y="182" width="16" height="50" opacity=".7"/>
+          <rect class="fl" x="1430" y="182" width="16" height="50" opacity=".7"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s5-rule" style="top:424px"></div>
+  <div class="stack" id="s5-stack">
+    <p class="kicker" id="s5-kick">AND THEN</p>
+    <p class="huge" id="s5-stmt" style="font-size:88px">One wedding envelope. Two dinners out. One order.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.6 · D · BAND · no role · neutral ==========================================
+     NOTHING WAS BIG. Forty-four small slips arrive in a scattered but FIXED
+     order (i*7 mod 44 — deterministic, no Math.random anywhere near a render),
+     none of them large, filling the band. The picture is the argument: the
+     total is made of things that were each individually fine. -->
+<section class="scene clip arch-d has-photo art-off centred" id="s6" data-track-index="2" data-start="27.954" data-duration="6.945" data-framings="6.495">
+  <div class="bg" id="s6-bg" style="background-image:url(assets-ch1/final/s6.jpg)"></div>
+  <div class="field" style="--f1:#191c21"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-d" id="s6-plate">
+    <div class="plate-in" id="s6-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s6-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.66">
+        <g id="s6-slips" class="fl"></g>
+        <rect x="1530" y="132" width="300" height="264" fill="none" stroke="#2a3242"
+              style="stroke-width:3;opacity:.7" stroke-dasharray="12 10"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s6-rule" style="top:424px"></div>
+  <div class="stack" id="s6-stack">
+    <p class="kicker" id="s6-kick">NOTHING WAS BIG</p>
+    <p class="huge" id="s6-stmt" style="font-size:88px">Every one was small. Every one was fair.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.7 · B · FIGURE · warn · red ===============================================
+     BY THE 20th. Archetype B: the art gets the top-right plate (a month grid
+     with the 20th ringed) and the type gets the left, with the ACCOUNT measure
+     bar draining underneath it to almost nothing. The bar IS the line —
+     "looks like the salary never arrived" — stated before the words are read. -->
+<section class="scene clip arch-b has-photo art-off centred" id="s7" data-track-index="1" data-start="34.449" data-duration="6.266" data-framings="5.816">
+  <div class="bg" id="s7-bg" style="background-image:url(assets/img/s7.jpg)"></div>
+  <div class="field" style="--f1:#2f1215"><div class="rules"></div>
+    <div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="plate p-b edge" id="s7-plate">
+    <div class="plate-in" id="s7-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s7-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.72">
+        <g id="s7-cells"></g>
+        <rect id="s7-hit" class="flw" x="547" y="274" width="62" height="62" opacity="0"/>
+        <circle id="s7-ring" class="stw" style="stroke-width:5" cx="578" cy="305" r="46" fill="none"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="vrule" id="s7-vr" style="top:184px;height:300px"></div>
+  <div class="stack" id="s7-stack">
+    <p class="kicker" id="s7-kick">BY THE 20th</p>
+    <p class="huge warnc" id="s7-stmt" style="font-size:72px">The account looks like the salary never arrived.</p>
+  </div>
+  <p class="measure-lab" id="s7-ml" style="left:calc(50% - 460px);top:742px">ACCOUNT</p>
+  <div class="measure" id="s7-mt" style="left:calc(50% - 460px);top:784px;width:920px">
+    <div class="measure-fill warn" id="s7-mf"></div>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.8 · C · LEDGER · no role · cool ===========================================
+     YOU DO THE SUM. A ruled page with a margin rule, and seven arithmetic
+     strokes written into the margin one after another, each slightly off-level.
+     The chapter's second trace, and the one that carries the line: somebody sat
+     down and added it up. -->
+<section class="scene clip arch-c has-photo art-off centred" id="s8" data-track-index="2" data-start="40.264" data-duration="5.325" data-framings="4.875">
+  <div class="bg" id="s8-bg" style="background-image:url(assets-ch1/final/s8.jpg)"></div>
+  <div class="field" style="--f1:#101822"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-c edge" id="s8-plate">
+    <div class="plate-in" id="s8-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s8-art" viewBox="0 0 934 1200" preserveAspectRatio="xMidYMid slice" style="opacity:.68">
+        <rect x="80" y="40" width="790" height="1130" fill="#1e2634" stroke="#2a3242" style="stroke-width:2" opacity=".92"/>
+        <g id="s8-ruled" class="st" style="stroke-width:2;opacity:.26"></g>
+        <path class="st" style="stroke-width:2.5;opacity:.42" d="M 262 40 L 262 1170"/>
+        <g id="s8-marks" class="st" style="stroke-width:13;opacity:.68" stroke-linecap="round"></g>
+        <path class="st" style="stroke-width:3;opacity:.5" stroke-dasharray="11 9" d="M 700 250 L 700 900"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="crule" id="s8-cr" style="left:980px"></div>
+  <div class="stack" id="s8-stack">
+    <p class="kicker" id="s8-kick">YOU DO THE SUM</p>
+    <p class="huge" id="s8-stmt" style="font-size:88px">And there is no single big expense to blame.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.9 · D · BAND · warn · deep red ============================================
+     WHERE IT WENT. Twenty-four holes in one plate, each leaking a little. No
+     single stream is large — which is exactly the line, and exactly the thing a
+     photograph of a drain could never say. -->
+<section class="scene clip arch-d has-photo art-off centred" id="s9" data-track-index="1" data-start="45.14" data-duration="5.377" data-framings="4.927">
+  <div class="bg" id="s9-bg" style="background-image:url(assets-ch1/final/s9.jpg)"></div>
+  <div class="field" style="--f1:#3a1013"><div class="rules"></div>
+    <div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="plate p-d" id="s9-plate">
+    <div class="plate-in" id="s9-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s9-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.68">
+        <rect x="262" y="70" width="1396" height="122" rx="8" fill="#1d2532" stroke="#98a2b3"
+              style="stroke-width:2;opacity:.8"/>
+        <g id="s9-drain"></g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="brule" id="s9-rule" style="top:424px"></div>
+  <div class="stack" id="s9-stack">
+    <p class="kicker" id="s9-kick">WHERE IT WENT</p>
+    <p class="huge warnc" id="s9-stmt" style="font-size:88px">Not one place. A little everywhere.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 1.10 · A · PLATE · no role · warm ===========================================
+     IS THIS YOURS? Back to the plate, closing on the archetype the chapter
+     opened with. An empty chair at a kitchen table under one lamp — the seat
+     the question is addressed to. The lamp breathes; nothing else moves.
+     Last scene: data-duration is BARE (no +0.45 overlap). The 0.45 comes back
+     on concat with ch2. -->
+<section class="scene clip arch-a has-photo art-off" id="s10" data-track-index="2" data-start="50.067" data-duration="5.842" data-framings="5.842">
+  <div class="bg" id="s10-bg" style="background-image:url(assets-ch1/final/s10.jpg)"></div>
+  <div class="field" style="--f1:#221c13"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-a" id="s10-plate">
+    <div class="plate-in" id="s10-pin">
+      <div class="hatch"></div>
+      <svg class="art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.66">
+        <defs><radialGradient id="g110" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5d9a8" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="#f5d9a8" stop-opacity="0"/></radialGradient></defs>
+        <ellipse id="s10-lamp" cx="1240" cy="860" rx="560" ry="250" fill="url(#g110)"/>
+        <path class="st" style="stroke-width:3;opacity:.26" d="M 0 944 L 1920 944"/>
+        <g opacity=".66">
+          <ellipse cx="1256" cy="956" rx="216" ry="30" fill="#05070b" opacity=".7"/>
+          <rect x="1110" y="812" width="300" height="24" fill="#232c39" stroke="#98a2b3" style="stroke-width:2.5"/>
+          <rect x="1382" y="640" width="26" height="196" fill="#232c39" stroke="#98a2b3" style="stroke-width:2.5"/>
+          <rect class="fl" x="1130" y="836" width="8" height="110" opacity=".55"/>
+          <rect class="fl" x="1382" y="836" width="8" height="110" opacity=".55"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="stack" id="s10-stack">
+    <p class="kicker" id="s10-kick">IS THIS YOURS?</p>
+    <p class="huge" id="s10-stmt" style="font-size:88px">Then this one is for you.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- Voice only. Music and SFX are the post-mix step. Verbatim from index.html. -->
+<audio id="vo-1-1"  class="clip" data-track-index="10" data-start="0.25"   data-duration="3.605" src="assets/voice/1.1.mp3"></audio>
+<audio id="vo-1-2"  class="clip" data-track-index="10" data-start="4.655"  data-duration="6.4"   src="assets/voice/1.2.mp3"></audio>
+<audio id="vo-1-3"  class="clip" data-track-index="10" data-start="11.855" data-duration="5.512" src="assets/voice/1.3.mp3"></audio>
+<audio id="vo-1-4"  class="clip" data-track-index="10" data-start="18.167" data-duration="3.762" src="assets/voice/1.4.mp3"></audio>
+<audio id="vo-1-5"  class="clip" data-track-index="10" data-start="22.728" data-duration="4.676" src="assets/voice/1.5.mp3"></audio>
+<audio id="vo-1-6"  class="clip" data-track-index="10" data-start="28.204" data-duration="5.695" src="assets/voice/1.6.mp3"></audio>
+<audio id="vo-1-7"  class="clip" data-track-index="10" data-start="34.699" data-duration="5.016" src="assets/voice/1.7.mp3"></audio>
+<audio id="vo-1-8"  class="clip" data-track-index="10" data-start="40.514" data-duration="4.075" src="assets/voice/1.8.mp3"></audio>
+<audio id="vo-1-9"  class="clip" data-track-index="10" data-start="45.39"  data-duration="4.127" src="assets/voice/1.9.mp3"></audio>
+<audio id="vo-1-10" class="clip" data-track-index="10" data-start="50.317" data-duration="5.042" src="assets/voice/1.10.mp3"></audio>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/motion.js"></script>
+<script>
+var S = { s1: 0, s2: 4.405, s3: 11.605, s4: 17.917, s5: 22.478,
+          s6: 27.954, s7: 34.449, s8: 40.264, s9: 45.14, s10: 50.067 };
+var D = { s1: 4.405, s2: 7.2, s3: 6.312, s4: 4.562, s5: 5.476,
+          s6: 6.495, s7: 5.816, s8: 4.875, s9: 4.927, s10: 5.842 };
+var IDS = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10"];
+
+/* ------------------------------------------------- generated art, seed-free
+   Built before the timeline so every node exists when the tweens are declared.
+   Ordering is arithmetic (i*7 mod 44), never Math.random — the renderer walks
+   frames and an unseeded shuffle would differ between the check and the encode. */
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  /* 1.6 — 44 slips, 11 x 4 */
+  var slips = document.getElementById("s6-slips");
+  for (var i = 0; i < 44; i++) {
+    slips.appendChild(el("rect", { x: 300 + (i % 11) * 104, y: 120 + Math.floor(i / 11) * 78,
+      width: 27, height: 36, opacity: 0, "data-o": ((i * 7) % 44) / 44 }));
+  }
+  /* 1.7 — a 7 x 5 month grid; the first 19 days are spent */
+  var cells = document.getElementById("s7-cells");
+  for (var j = 0; j < 31; j++) {
+    var c = el("rect", { x: 177 + (j % 7) * 74, y: 126 + Math.floor(j / 7) * 74,
+      width: 62, height: 62, stroke: "#2a3242", "stroke-width": 2,
+      fill: j < 19 ? "#f5f3ec" : "#161e2b", "fill-opacity": j < 19 ? 0.13 : 1 });
+    cells.appendChild(c);
+  }
+  /* 1.8 — 16 ruled lines + 7 arithmetic strokes */
+  var ruled = document.getElementById("s8-ruled");
+  for (var r = 0; r < 16; r++) ruled.appendChild(el("path", { d: "M 110 " + (170 + r * 62) + " L 840 " + (170 + r * 62) }));
+  var marks = document.getElementById("s8-marks"), len = [172, 118, 208, 96, 154, 132, 186];
+  for (var m = 0; m < 7; m++) {
+    var y = 320 + m * 78;
+    marks.appendChild(el("path", { id: "s8-m" + m,
+      d: "M 306 " + y + " L " + (306 + len[m]) + " " + (y + (m % 2 ? -7 : 6)) }));
+  }
+  /* 1.9 — 24 holes, each leaking */
+  var drain = document.getElementById("s9-drain");
+  for (var h = 0; h < 24; h++) {
+    var x = 322 + h * 56, g = el("g", { id: "s9-h" + h });
+    g.appendChild(el("circle", { cx: x, cy: 130, r: 10, fill: "#080b11", stroke: "#98a2b3", "stroke-width": 2, opacity: .7 }));
+    g.appendChild(el("path", { class: "stw", style: "stroke-width:3;opacity:.55", d: "M " + x + " 140 L " + x + " 350" }));
+    drain.appendChild(g);
+  }
+})();
+
+/* ------------------------------------------------------------- transitions */
+sceneTransitions(IDS, S);
+
+/* ------------------------------------------------------------ the photograph
+   The still carries the move now, so the plate no longer pushes — one motion
+   per scene, not two competing. 1.1 -> 1.2 is the SAME image across two lines,
+   so it is ONE continuous zoom: 1.1 runs 1.00 -> 1.10 and 1.2 picks up at
+   exactly 1.10. Every other scene alternates, so no two in a row push the same
+   way. Swap frames ken together with their base or the framing change jumps. */
+plateKen("#s1-bg",  S.s1, D.s1, 1.00, 1.10);
+plateKen("#s2-bg",  S.s2, D.s2, 1.10, 1.24);
+ken("#s3-bg",  S.s3,  D.s3,  false); ken("#s3-bg2", S.s3, D.s3, false);
+ken("#s4-bg",  S.s4,  D.s4,  true);
+ken("#s5-bg",  S.s5,  D.s5,  false); ken("#s5-bg2", S.s5, D.s5, false); ken("#s5-bg3", S.s5, D.s5, false);
+ken("#s6-bg",  S.s6,  D.s6,  true);
+ken("#s7-bg",  S.s7,  D.s7,  false);
+ken("#s8-bg",  S.s8,  D.s8,  true);
+ken("#s9-bg",  S.s9,  D.s9,  false);
+ken("#s10-bg", S.s10, D.s10, true);
+
+/* The declared framing swaps are now PHOTO swaps — the strongest form of the
+   rule, because the two frames cannot possibly read as the same picture. */
+fade("#s3-bg2", S.s3 + 3.400, 0.55);
+fade("#s5-bg2", S.s5 + 2.100, 0.50);
+fade("#s5-bg3", S.s5 + 4.000, 0.50);
+
+/* ----------------------------------------------------------------- the type
+   The cue ladder is a property of the VO, not of what sits behind the words. */
+rise("#s1-kick",  S.s1  + 0.30, 0.7, 14); rise("#s1-stmt",  S.s1  + 1.10, 0.7, 18);
+rise("#s2-kick",  S.s2  + 0.30, 0.7, 14); rise("#s2-stmt",  S.s2  + 1.10, 0.7, 18);
+rise("#s3-kick",  S.s3  + 0.30, 0.7, 14); rise("#s3-stmt",  S.s3  + 1.10, 0.7, 18);
+rise("#s4-kick",  S.s4  + 0.30, 0.7, 14); rise("#s4-stmt",  S.s4  + 1.10, 0.7, 18);
+rise("#s5-kick",  S.s5  + 0.30, 0.7, 14); rise("#s5-stmt",  S.s5  + 1.10, 0.7, 18);
+rise("#s6-kick",  S.s6  + 0.30, 0.7, 14); rise("#s6-stmt",  S.s6  + 1.10, 0.7, 18);
+rise("#s7-kick",  S.s7  + 0.30, 0.7, 14); rise("#s7-stmt",  S.s7  + 1.10, 0.7, 18);
+rise("#s8-kick",  S.s8  + 0.30, 0.7, 14); rise("#s8-stmt",  S.s8  + 1.10, 0.7, 18);
+rise("#s9-kick",  S.s9  + 0.30, 0.7, 14); rise("#s9-stmt",  S.s9  + 1.10, 0.7, 18);
+rise("#s10-kick", S.s10 + 0.30, 0.7, 14); rise("#s10-stmt", S.s10 + 1.10, 0.7, 18);
+
+/* the archetype rules draw in just before the type they carry */
+tl.fromTo("#s3-cr", { scaleY: 0, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.7, ease: "power3.out" }, S.s3 + 0.15);
+tl.fromTo("#s4-cr", { scaleY: 0, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.7, ease: "power3.out" }, S.s4 + 0.15);
+tl.fromTo("#s8-cr", { scaleY: 0, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.7, ease: "power3.out" }, S.s8 + 0.15);
+tl.fromTo("#s5-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, S.s5 + 0.15);
+tl.fromTo("#s6-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, S.s6 + 0.15);
+tl.fromTo("#s9-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, S.s9 + 0.15);
+tl.fromTo("#s7-vr", { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.55, ease: "power3.out" }, S.s7 + 0.15);
+
+/* ------------------------------------------------------------------ the art
+   One motion idea per scene, starting BEFORE the type it supports — the field
+   is the room the words walk into, not a decoration that arrives after them. */
+
+/* 1.1 · the notification arrives. Frame 0 already shows the phone. */
+tl.fromTo("#s1-note", { scaleX: 0, transformOrigin: "0% 50%" },
+  { scaleX: 1, duration: 0.7, ease: "power2.out" }, S.s1 + 0.95);
+breathe("#s1-glow", S.s1 + 1.7, 2.6, 1.06);
+
+/* 1.2 · the glow decays — the two seconds passing. The phone does not move
+   relative to the plate; the PLATE moves, continuing 1.1's push. */
+tl.to("#s2-glow", { opacity: 0.45, duration: 3.2, ease: "power1.out" }, S.s2 + 1.5);
+
+/* 1.3 · framing 1 is the rent receipt; at +3.400 the power bill lands and its
+   amount grows past the dashed box that marks last time. */
+/* the comparison is the only drawn thing left here: the photograph shows a
+   meter, it cannot say "higher than last time". */
+tl.fromTo("#s3-power", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, S.s3 + 3.400);
+tl.fromTo("#s3-bar", { scaleX: 0.58, transformOrigin: "0% 50%" },
+  { scaleX: 1, duration: 1.05, ease: "power2.out" }, S.s3 + 3.95);
+fade("#s3-tick", S.s3 + 4.6, 0.4);
+
+/* 1.2 · the three methods the line promises, one mark each. */
+popEach("#s2-marks .s2m", S.s2 + 2.30, 0.62, 0.5);
+
+/* 1.4 · the circling. Two passes of a hand, the second looser than the first. */
+draw("#s4-ring1", S.s4 + 1.05, 0.62, 1300);
+draw("#s4-ring2", S.s4 + 1.45, 0.66, 1300);
+
+/* 1.5 · one item per declared framing: 0 / 2.100 / 4.000. */
+tl.fromTo("#s5-i1", { opacity: 0, y: 80 }, { opacity: .92, y: 0, duration: 0.6, ease: "power3.out" }, S.s5 + 0.40);
+tl.fromTo("#s5-i2", { opacity: 0, y: 80 }, { opacity: .92, y: 0, duration: 0.6, ease: "power3.out" }, S.s5 + 2.15);
+tl.fromTo("#s5-i3", { opacity: 0, y: 80 }, { opacity: .92, y: 0, duration: 0.6, ease: "power3.out" }, S.s5 + 4.05);
+
+/* 1.6 · forty-four slips, each on its own arithmetic offset. */
+(function () {
+  var n = document.querySelectorAll("#s6-slips rect");
+  for (var i = 0; i < n.length; i++) {
+    var o = parseFloat(n[i].getAttribute("data-o"));
+    tl.fromTo(n[i], { opacity: 0, y: 14 },
+      { opacity: 0.52, y: 0, duration: 0.42, ease: "power2.out" }, S.s6 + 1.35 + o * 2.6);
+  }
+})();
+
+/* 1.7 · the 20th is ringed, and the account drains to almost nothing. */
+tl.fromTo("#s7-hit", { opacity: 0 }, { opacity: 0.26, duration: 0.5, ease: "power1.out" }, S.s7 + 1.85);
+draw("#s7-ring", S.s7 + 1.95, 0.7, 300);
+span("#s7-mf", S.s7 + 1.30, 2.4, 1, 0.07);
+rise("#s7-ml", S.s7 + 1.10, 0.6, 10);
+
+/* 1.8 · seven strokes, written one after another at speed. */
+for (var m = 0; m < 7; m++) draw("#s8-m" + m, S.s8 + 1.20 + m * 0.17, 0.24, 260);
+
+/* 1.9 · twenty-four leaks, none of them large. */
+(function () {
+  for (var h = 0; h < 24; h++) {
+    tl.fromTo("#s9-h" + h + " path", { scaleY: 0, transformOrigin: "50% 0%" },
+      { scaleY: 1, duration: 0.95, ease: "power1.in" },
+      S.s9 + 0.95 + (h % 6) * 0.13 + Math.floor(h / 6) * 0.11);
+  }
+})();
+
+/* 1.10 · only the lamp moves. 3.0 not 4.5: `breathe` quantises to whole
+   out-and-back pairs and 4.5 rounds UP to 6.0s, which runs 0.758s past the root
+   duration and leaves the lamp mid-swell on the chapter's last frame. */
+breathe("#s10-lamp", S.s10 + 0.6, 3.0, 1.05);
+
+register();
+</script>
+</body>
+</html>

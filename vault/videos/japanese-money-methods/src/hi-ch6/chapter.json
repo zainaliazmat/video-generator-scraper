@@ -1,0 +1,120 @@
+{
+  "title": "Japan Ke 3 Paise Wale Tarike",
+  "note": "     METHOD THREE — KAKEIBO. Fourteen scenes and the chapter's longest quiet\n     stretch, so the variance is carried by the ground and by three drawn\n     mechanisms rather than by layout churn.\n\n     Ground arc: warm on the book itself -> amber on 1904 -> neutral through\n     the shelf and the blank page -> green on the method -> cool on why it was\n     new -> red on the four categories that came later and its held crop ->\n     neutral through what survives -> green on the four and their order ->\n     neutral on paper and the app -> amber out on 7.1%.\n\n     Archetypes: A A D A D A A A A B A A D B. s65/s66 are a matched-frame hold\n     (one photograph, a crop change across the boundary) so they keep one\n     archetype and one continued push, per the shipped cut's own ken direction.\n\n     Three drawn layers: a hundred and twenty-one annual volumes with FOUR\n     MISSING (a shelf photograph shows many spines; it cannot show an absence),\n     the year cut into twelve with the saving coming off the top of each, and\n     an app pointing backwards against a ledger pointing forwards. Everything\n     else is art-off — a drawn ledger over a photographed ledger, a drawn tick\n     over a photographed underline, four drawn boxes over four photographed\n     lines are all the depictive failure.",
+  "scenes": {
+    "s59": {
+      "comment": "6.1 · A · PLATE · no role · warm — KAKEIBO. A hand-ruled ledger with a pen\n     on it; the object is the subject.",
+      "arch": "a",
+      "f1": "#201c17"
+    },
+    "s60": {
+      "comment": "6.2 · A · PLATE · target · amber — 1904, Hani Motoko. A Meiji book cover\n     under a dated claim.",
+      "arch": "a",
+      "f1": "#2e2411"
+    },
+    "s61": {
+      "comment": "6.3 · D · BAND · no role · neutral — STILL PRINTED. A shelf of identical\n     spines can show MANY; it cannot show FOUR MISSING. One volume per year from\n     1904, and the wartime gap marked in warn — the only thing on this frame the\n     photograph could not have said.",
+      "arch": "d",
+      "f1": "#1c2027",
+      "art": "forward",
+      "opacity": ".62",
+      "rule": "top:398px",
+      "html": [
+        "<div class=\"band\" id=\"s61-band\" style=\"height:44%;z-index:0\"></div>"
+      ],
+      "svg": "<rect class=\"fl\" x=\"110\" y=\"452\" width=\"1706\" height=\"9\" opacity=\".55\"/>\n<g id=\"s61-vols\">\n  <rect class=\"fl\" x=\"116\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"130\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"144\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"158\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"172\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"186\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"200\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"214\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"228\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"242\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"256\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"270\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"284\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"298\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"312\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"326\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"340\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"354\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"368\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"382\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"396\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"410\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"424\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"438\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"452\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"466\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"480\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"494\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"508\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"522\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"536\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"550\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"564\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"578\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"592\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"606\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"620\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"690\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"704\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"718\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"732\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"746\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"760\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"774\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"788\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"802\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"816\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"830\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"844\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"858\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"872\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"886\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"900\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"914\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"928\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"942\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"956\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"970\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"984\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"998\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1012\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1026\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1040\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1054\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1068\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1082\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1096\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1110\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1124\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1138\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1152\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1166\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1180\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1194\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1208\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1222\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1236\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1250\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1264\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1278\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1292\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1306\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1320\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1334\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1348\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1362\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1376\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1390\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1404\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1418\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1432\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1446\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1460\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1474\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1488\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1502\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1516\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1530\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1544\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1558\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1572\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1586\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1600\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1614\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1628\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1642\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1656\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1670\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1684\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1698\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1712\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1726\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1740\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1754\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1768\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1782\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n  <rect class=\"fl\" x=\"1796\" y=\"270\" width=\"7\" height=\"182\" opacity=\".7\"/>\n</g>\n<g id=\"s61-gap\" class=\"flw\">\n  <rect x=\"634\" y=\"470\" width=\"50\" height=\"10\"/>\n  <rect x=\"634\" y=\"470\" width=\"9\" height=\"86\"/>\n  <rect x=\"673\" y=\"470\" width=\"9\" height=\"86\"/>\n  <rect x=\"634\" y=\"246\" width=\"50\" height=\"10\"/>\n</g>",
+      "motion": [
+        "fade(\"#s61-band\", S.s61 + 1.10, 0.6);",
+        "tl.fromTo(\"#s61-vols\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 1.2, ease: \"power2.out\" }, S.s61 + 1.50);",
+        "fade(\"#s61-gap\", S.s61 + 2.40, 0.5);"
+      ]
+    },
+    "s62": {
+      "comment": "6.4 · A · PLATE · no role · neutral cool — HER ACTUAL INVENTION. A blank\n     ruled page: the budget, before anything is written in it.",
+      "arch": "a",
+      "f1": "#171b21"
+    },
+    "s63": {
+      "comment": "6.5 · D · BAND · fund · green — THE METHOD, drawn as a process. The year cut\n     into twelve, and the saving arriving at the TOP of each month before the\n     rest of it fills. The order is the whole method and a coin stack cannot\n     perform an order.",
+      "arch": "d",
+      "f1": "#16281d",
+      "art": "forward",
+      "opacity": ".6",
+      "rule": "top:398px",
+      "html": [
+        "<div class=\"band\" id=\"s63-band\" style=\"height:46%;z-index:0\"></div>"
+      ],
+      "svg": "<g id=\"s63-year\">\n  <rect id=\"s63-c0\" class=\"flf\" x=\"200\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b0\" class=\"fl\" x=\"200\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c1\" class=\"flf\" x=\"330\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b1\" class=\"fl\" x=\"330\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c2\" class=\"flf\" x=\"460\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b2\" class=\"fl\" x=\"460\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c3\" class=\"flf\" x=\"590\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b3\" class=\"fl\" x=\"590\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c4\" class=\"flf\" x=\"720\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b4\" class=\"fl\" x=\"720\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c5\" class=\"flf\" x=\"850\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b5\" class=\"fl\" x=\"850\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c6\" class=\"flf\" x=\"980\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b6\" class=\"fl\" x=\"980\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c7\" class=\"flf\" x=\"1110\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b7\" class=\"fl\" x=\"1110\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c8\" class=\"flf\" x=\"1240\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b8\" class=\"fl\" x=\"1240\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c9\" class=\"flf\" x=\"1370\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b9\" class=\"fl\" x=\"1370\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c10\" class=\"flf\" x=\"1500\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b10\" class=\"fl\" x=\"1500\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n  <rect id=\"s63-c11\" class=\"flf\" x=\"1630\" y=\"270\" width=\"108\" height=\"46\"/>\n  <rect id=\"s63-b11\" class=\"fl\" x=\"1630\" y=\"322\" width=\"108\" height=\"116\" opacity=\".55\"/>\n</g>\n<rect class=\"fl\" x=\"196\" y=\"456\" width=\"1534\" height=\"7\" opacity=\".5\"/>",
+      "motion": [
+        "fade(\"#s63-band\", S.s63 + 1.30, 0.6);",
+        "popEach(\"#s63-year rect[id^='s63-c']\", S.s63 + 2.00, 0.10, 0.3);",
+        "popEach(\"#s63-year rect[id^='s63-b']\", S.s63 + 2.90, 0.10, 0.3);"
+      ]
+    },
+    "s64": {
+      "comment": "6.6 · A · PLATE · no role · cool — WHY IT WAS NEW. An inkwell and a nib: the\n     decision, before it is made.",
+      "arch": "a",
+      "f1": "#141b24"
+    },
+    "s65": {
+      "comment": "6.7 · A · PLATE · warn · red — THE FOUR CATEGORIES, which came later. The\n     photograph is already four separate piles; drawing four boxes on it is the\n     rule-8 failure exactly.",
+      "arch": "a",
+      "f1": "#301317"
+    },
+    "s66": {
+      "comment": "6.8 · A · PLATE · no role · neutral — SAY IT PLAINLY. Matched-frame hold:\n     the same photograph as s65 on a tighter crop, and the shipped ken keeps its\n     direction across the boundary so the two read as one continuous push.",
+      "arch": "a",
+      "f1": "#1b1c1e"
+    },
+    "s67": {
+      "comment": "6.9 · A · PLATE · no role · neutral — WHAT SURVIVES. A dated diary page.",
+      "arch": "a",
+      "f1": "#1a1c20"
+    },
+    "s68": {
+      "comment": "6.10 · B · FIGURE · fund · green — THE FOUR. The photograph is four\n     handwritten lines, so four drawn lines would be a tracing. What is drawn is\n     the ORDER: the second row is lit and the others are not, because the whole\n     claim of the next scene is that two comes before three.",
+      "arch": "b",
+      "f1": "#16281d",
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<g id=\"s68-rows\">\n  <rect id=\"s68-r0\" class=\"fl\" x=\"150\" y=\"132\" width=\"620\" height=\"70\" opacity=\".3\"/>\n  <rect class=\"fl\" x=\"60\" y=\"132\" width=\"62\" height=\"70\" opacity=\".5\"/>\n  <rect id=\"s68-r1\" class=\"flf\" x=\"150\" y=\"250\" width=\"620\" height=\"70\"/>\n  <rect class=\"fl\" x=\"60\" y=\"250\" width=\"62\" height=\"70\" opacity=\".5\"/>\n  <rect id=\"s68-r2\" class=\"fl\" x=\"150\" y=\"368\" width=\"620\" height=\"70\" opacity=\".3\"/>\n  <rect class=\"fl\" x=\"60\" y=\"368\" width=\"62\" height=\"70\" opacity=\".5\"/>\n  <rect id=\"s68-r3\" class=\"fl\" x=\"150\" y=\"486\" width=\"620\" height=\"70\" opacity=\".3\"/>\n  <rect class=\"fl\" x=\"60\" y=\"486\" width=\"62\" height=\"70\" opacity=\".5\"/>\n</g>",
+      "motion": [
+        "popEach(\"#s68-rows rect\", S.s68 + 1.90, 0.13, 0.34);",
+        "pulse(\"#s68-r1\", S.s68 + 3.60, 1.06);"
+      ],
+      "lift": true
+    },
+    "s69": {
+      "comment": "6.11 · A · PLATE · fund · green — THE ORDER IS THE METHOD. The scene already\n     carries the re-ordering icon in its stack, verbatim, and the photograph is\n     an underlined line. Nothing more belongs here.",
+      "arch": "a",
+      "f1": "#183020"
+    },
+    "s70": {
+      "comment": "6.12 · A · PLATE · no role · warm — ON PAPER. Pen, notebook, phone\n     face-down: the whole instruction is in the photograph.",
+      "arch": "a",
+      "f1": "#221c13"
+    },
+    "s71": {
+      "comment": "6.13 · D · BAND · no role · neutral — APP vs LEDGER. A photograph can put a\n     statement next to a notebook; it cannot say which way each one POINTS. One\n     arrow back, one arrow forward, and the forward one is the only green thing\n     on the frame.",
+      "arch": "d",
+      "f1": "#1c2027",
+      "art": "forward",
+      "opacity": ".6",
+      "rule": "top:398px",
+      "html": [
+        "<div class=\"band\" id=\"s71-band\" style=\"height:48%;z-index:0\"></div>"
+      ],
+      "svg": "<rect class=\"fl\" x=\"300\" y=\"250\" width=\"1320\" height=\"8\" opacity=\".34\"/>\n<g id=\"s71-back\" class=\"fl\" opacity=\".62\">\n  <rect x=\"420\" y=\"242\" width=\"1080\" height=\"24\"/>\n  <path d=\"M 300 254 L 430 200 L 430 308 Z\"/>\n</g>\n<rect class=\"fl\" x=\"300\" y=\"470\" width=\"1320\" height=\"8\" opacity=\".34\"/>\n<g id=\"s71-fwd\" class=\"flf\">\n  <rect x=\"420\" y=\"462\" width=\"1080\" height=\"24\"/>\n  <path d=\"M 1620 474 L 1490 420 L 1490 528 Z\"/>\n</g>",
+      "motion": [
+        "fade(\"#s71-band\", S.s71 + 1.30, 0.6);",
+        "tl.fromTo(\"#s71-back\", { opacity: 0, x: 60 }, { opacity: .62, x: 0, duration: 0.8, ease: \"power2.out\" }, S.s71 + 2.10);",
+        "tl.fromTo(\"#s71-fwd\", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.8, ease: \"power2.out\" }, S.s71 + 2.40);"
+      ]
+    },
+    "s72": {
+      "comment": "6.14 · B · FIGURE · target · amber — 7.1%, price evidence and nothing more.\n     The chapter closes on the figure; the s72->s73 shove lives on the concat\n     boundary, not inside this project.",
+      "arch": "b",
+      "f1": "#332708"
+    }
+  }
+}

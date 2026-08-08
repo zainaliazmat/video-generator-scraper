@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Japan Ke 3 Paise Wale Tarike — hi · CHAPTER 2 · DESIGN CUT</title>
+
+<!-- ===========================================================================
+     CHAPTER 2, DESIGN CUT — zero photographs.
+
+     A trial build (creator, 2026-08-05): "chapter two completely made by design.
+     No image, no nothing." So every photograph is gone and the picture in each
+     frame is DRAWN — CSS + inline SVG + the four vector assets this chapter
+     already owns. Nothing is fetched, nothing is raster.
+
+     This deliberately suspends the `image_per_scene` creator rule
+     (memory: finance-every-frame-has-image) for the length of the experiment.
+     It does NOT replace index.html — that is still the shipped chapter.
+
+     WHAT IS UNCHANGED, on purpose, so the two are comparable and either one
+     concatenates frame-exact with ch1/ch3:
+       · scene ids s11-s21, every data-start / data-duration / data-framings
+       · the track-index 1/2 alternation the cross-dissolve needs
+       · the type system (kicker / mega|huge / foot) and every string
+       · the voice rows, rebased by -55.909
+       · the four Lottie instances, at their existing cue slots
+
+     WHAT REPLACES THE PHOTOGRAPH — three layers, per scene:
+       1. `.rules`  a fixed 160px editorial grid, ~5% ink. Gives the frame
+                    structure and, under `ken`, something for the drift to move.
+       2. `.glow`   one soft radial in the scene's ROLE colour. This is the job
+                    the graded photo's light used to do: it tells you where to
+                    look and it is the only place role colour appears in the
+                    field.
+       3. `.art`    the scene's own drawn motif, oversized and bleeding off
+                    frame at 26-58% opacity. THIS is the sound-off test's answer:
+                    with the type stripped, the motif alone still says what the
+                    scene is about (a threshold, a feed, an echo, a seal, a
+                    near-empty gauge, a form, a broadcast).
+
+     The role-colour semantics are the storyboard's, unchanged: amber = a figure
+     under examination (s13 s15 s16), red = the drain or the falsity (s17 s20),
+     green = what the viewer does (s11). Six scenes carry no role colour at all
+     and their glow is plain ink — that is correct, not an omission.
+     =========================================================================== -->
+
+<link rel="stylesheet" href="assets/blockframe.css">
+<style>
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+
+/* ---------------------------------------------------------------- the field
+   `.field` takes `.bg`'s box (inset -8%) so `ken` moves it exactly as it moved
+   a photograph — same scale endpoints, same xPercent, same alternation. What is
+   inside it is drawn, not sampled. */
+.field { position: absolute; inset: -8%; z-index: 0; background: var(--bg); }
+
+/* The grid. Pure CSS, no asset. 160px column / row, ink at 5.5% and 3% — the
+   verticals read first, which keeps it editorial rather than graph-paper. */
+.rules {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(245,243,236,.055) 0 1px, transparent 1px 160px),
+    repeating-linear-gradient(0deg,  rgba(245,243,236,.030) 0 1px, transparent 1px 160px);
+}
+
+/* The light. `--gl` is the scene's role colour at low alpha; unset = plain ink,
+   which is what the six no-role scenes want. */
+.glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 74% 62% at 50% 46%,
+              var(--gl, rgba(245,243,236,.07)), transparent 72%);
+}
+
+/* The motif. Slice-cropped so it bleeds, and always behind the scrim. */
+.art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.art .st { fill: none; stroke: var(--ink); stroke-width: 3; }
+.art .stw { fill: none; stroke: var(--warn); stroke-width: 3; }
+.art .stf { fill: none; stroke: var(--fund); stroke-width: 3; }
+.art .stt { fill: none; stroke: var(--target); stroke-width: 3; }
+.art .fl { fill: var(--ink); }
+.art .flt { fill: var(--target); }
+.art .flf { fill: var(--fund); }
+
+/* Ghost type used AS art (s13's echo field, s21's rupee). Not a text register —
+   it never carries a string the viewer is meant to read, only the shape of one. */
+.art text { font-family: "FinanceSans", system-ui, sans-serif; font-weight: 900; }
+
+/* ------------------------------------------------------------ vector stages
+   Unchanged from index.html except that nothing competes with them now, so the
+   two that own the lower half get the room the photograph used to take. */
+#s15-stack, #s17-stack, #s19-stack, #s20-stack { align-self: start; }
+.lottie { z-index: 2; }
+.v-bars   { position: absolute; top: 470px; left: calc(50% - 500px); width: 1000px; height: 560px; }
+.v-table  { position: absolute; top: 500px; left: calc(50% - 520px); width: 1040px; height: 560px; }
+.v-dots   { position: absolute; top: 520px; left: calc(50% - 500px); width: 1000px; height: 520px; }
+.v-spread { position: absolute; top: 520px; left: calc(50% - 500px); width: 1000px; height: 520px; }
+
+/* Same overrides as the shipped chapter — the focal sizes are a property of the
+   copy, not of what is behind it. */
+#s17-num { font-size: 168px !important; }
+#s13-num, #s15-num, #s16-num { font-size: 180px !important; }
+
+/* The band survives, and is now doing LESS work: on a drawn field there is no
+   photographic noise to separate the art from, but the four vector assets were
+   authored against a darkened lower half and still read best on one. */
+.band {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 58%; z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(13,16,23,0) 0%, rgba(13,16,23,.45) 38%, rgba(13,16,23,.72) 100%);
+}
+</style>
+</head>
+<body>
+<div id="root" class="cut-hi" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="73.479">
+
+<!-- 2.1 · THE THRESHOLD. The photograph here was a noren-curtained Gion
+     shopfront — a doorway you step through, chosen because a chapter that opens
+     a promise wants a threshold. Drawn, that is exactly what survives: a lintel,
+     three hanging panels, a doorway. Green, because the line is the promise. -->
+<section class="scene clip" id="s11" data-track-index="1" data-start="0" data-duration="8.486" data-framings="8.036">
+  <div class="field" id="s11-field">
+    <div class="rules"></div>
+    <div class="glow" style="--gl:rgba(34,197,94,.13)"></div>
+    <svg class="art" id="s11-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.38">
+      <!-- The doorway is PRESENT AT FRAME 0, not drawn in (draft 2). This is the
+           first frame of the chapter, arriving off ch1's dark kitchen, and a
+           stroke-draw meant it opened on an empty field for ~0.4s — the same
+           retention failure ceo-hi-ch2-1 killed the rooftop photograph for. The
+           motion is now the noren dropping into a threshold that is already
+           there, which is also the better reading of the line. -->
+      <path id="s11-door" class="st" stroke-width="7" d="M 560 1080 L 560 148 L 1360 148 L 1360 1080"/>
+      <!-- the lintel -->
+      <rect class="fl" x="520" y="134" width="880" height="16"/>
+      <!-- Three hanging panels, raised out of the type band. At y302/h330 they
+           ran 302-632 and the centred stack sits ~440-640, so a 35%-ink panel
+           was passing behind the kicker and halving its contrast. 150-410
+           clears it with 30px of air. -->
+      <g id="s11-noren">
+        <rect class="flf" x="600" y="150" width="230" height="260" opacity=".55"/>
+        <rect class="fl"  x="845" y="150" width="230" height="260" opacity=".35"/>
+        <rect class="flf" x="1090" y="150" width="230" height="260" opacity=".55"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s11-scrim"></div>
+  <div class="stack" id="s11-stack">
+    <p class="kicker" id="s11-kick">THREE METHODS</p>
+    <p class="huge fundc" id="s11-stmt" style="font-size:88px">Centuries old. In no finance course.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.2 · THE FEED. Hands on a lit phone became a column of cards scrolling up
+     past a fixed viewport, one of them lit. No role colour: the saving rate has
+     not been stated yet, so there is nothing under examination. -->
+<section class="scene clip" id="s12" data-track-index="2" data-start="8.035" data-duration="6.03" data-framings="5.58">
+  <div class="field" id="s12-field">
+    <div class="rules"></div>
+    <div class="glow"></div>
+    <svg class="art" id="s12-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.34">
+      <g id="s12-feed">
+        <rect class="fl" x="660" y="60"   width="600" height="150" rx="16" opacity=".30"/>
+        <rect class="fl" x="660" y="240"  width="600" height="150" rx="16" opacity=".30"/>
+        <rect class="st" x="660" y="420"  width="600" height="150" rx="16" stroke-width="5"/>
+        <rect class="fl" x="660" y="600"  width="600" height="150" rx="16" opacity=".30"/>
+        <rect class="fl" x="660" y="780"  width="600" height="150" rx="16" opacity=".30"/>
+        <rect class="fl" x="660" y="960"  width="600" height="150" rx="16" opacity=".30"/>
+        <rect class="fl" x="660" y="1140" width="600" height="150" rx="16" opacity=".30"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s12-scrim"></div>
+  <div class="stack" id="s12-stack">
+    <p class="kicker" id="s12-kick">FIRST, THE SAVING RATE</p>
+    <p class="huge" id="s12-stmt" style="font-size:88px">The one that put Japan on your feed.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.3 · THE ECHO. «इंटरनेट कहता है» — the internet SAYS it. The photograph was
+     a phone full of social apps; drawn, the honest picture is the figure itself
+     repeating away from the centre. Fourteen ghosts, sized down as they get
+     further out, staggered in. Amber: a figure under examination. -->
+<section class="scene clip" id="s13" data-track-index="1" data-start="13.616" data-duration="6.683" data-framings="6.233">
+  <div class="field" id="s13-field">
+    <div class="rules"></div>
+    <div class="glow" style="--gl:rgba(245,158,11,.14)"></div>
+    <svg class="art" id="s13-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.34">
+      <g id="s13-echo" class="flt">
+        <text x="120"  y="180"  font-size="86">37.8%</text>
+        <text x="1500" y="150"  font-size="78">37.8%</text>
+        <text x="300"  y="430"  font-size="64">37.8%</text>
+        <text x="1560" y="420"  font-size="70">37.8%</text>
+        <text x="60"   y="700"  font-size="72">37.8%</text>
+        <text x="1620" y="720"  font-size="62">37.8%</text>
+        <text x="240"  y="980"  font-size="80">37.8%</text>
+        <text x="1420" y="1010" font-size="88">37.8%</text>
+        <text x="740"  y="120"  font-size="56">37.8%</text>
+        <text x="1080" y="1040" font-size="58">37.8%</text>
+        <text x="430"  y="230"  font-size="48">37.8%</text>
+        <text x="1300" y="260"  font-size="46">37.8%</text>
+        <text x="520"  y="880"  font-size="50">37.8%</text>
+        <text x="1180" y="850"  font-size="52">37.8%</text>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s13-scrim" style="--tint:rgba(245,158,11,.12)"></div>
+  <div class="stack" id="s13-stack">
+    <p class="kicker" id="s13-kick">THE INTERNET SAYS</p>
+    <p class="mega targetc" id="s13-num">37.8%</p>
+    <p class="foot" id="s13-foot">Statistics Bureau of Japan, Kakei Chosa 2024 annual summary, Table I-2-2</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.4 · THE SEAL. The National Diet Building said "the Japanese state" in a
+     photograph. Drawn, the state is a published document with a seal on it —
+     which is closer to what the line actually claims ("Japan's own government
+     PUBLISHES it") than a picture of a legislature ever was. The circle draws.
+     No role colour: the figure is not being disputed here, it is being confirmed. -->
+<section class="scene clip" id="s14" data-track-index="2" data-start="19.849" data-duration="5.665" data-framings="5.215">
+  <div class="field" id="s14-field">
+    <div class="rules"></div>
+    <div class="glow"></div>
+    <svg class="art" id="s14-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.40">
+      <rect class="st" x="620" y="120" width="680" height="900" stroke-width="6"/>
+      <g class="fl" opacity=".7">
+        <rect x="690" y="240" width="420" height="12"/>
+        <rect x="690" y="300" width="540" height="12"/>
+        <rect x="690" y="360" width="480" height="12"/>
+        <rect x="690" y="420" width="540" height="12"/>
+        <rect x="690" y="480" width="300" height="12"/>
+      </g>
+      <circle id="s14-seal" class="st" cx="1120" cy="800" r="130" stroke-width="14"/>
+      <circle class="st" cx="1120" cy="800" r="96" stroke-width="3" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="scrim" id="s14-scrim"></div>
+  <div class="stack" id="s14-stack">
+    <p class="kicker" id="s14-kick">IT IS REAL</p>
+    <p class="huge" id="s14-stmt" style="font-size:88px">Japan's own government publishes it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.5 · THE SURVEY. Keeps the chapter's own drawn table (Lottie 1 of 4) — the
+     asset was always vector, so nothing changes here except that it is no longer
+     fighting a building's window grid for the viewer's eye. The field behind it
+     is a column ruling, the survey's own structure. -->
+<section class="scene clip" id="s15" data-track-index="1" data-start="25.064" data-duration="6.292" data-framings="5.842">
+  <div class="field" id="s15-field">
+    <div class="rules"></div>
+    <div class="glow" style="--gl:rgba(245,158,11,.13)"></div>
+    <svg class="art" id="s15-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.26">
+      <g class="st" stroke-width="2">
+        <path d="M 380 0 L 380 1080"/><path d="M 760 0 L 760 1080"/>
+        <path d="M 1160 0 L 1160 1080"/><path d="M 1540 0 L 1540 1080"/>
+      </g>
+      <g class="fl" opacity=".5">
+        <rect x="380" y="150" width="1160" height="6"/>
+        <rect x="380" y="330" width="1160" height="6"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s15-scrim" style="--tint:rgba(245,158,11,.12)"></div>
+  <div class="band" id="s15-band"></div>
+  <div class="stack" id="s15-stack">
+    <p class="kicker" id="s15-kick">THE SURVEY</p>
+    <p class="mega targetc" id="s15-num">37.8%</p>
+    <p class="foot" id="s15-foot">FIES 2024, salaried-worker households: surplus JPY 197,432 of disposable JPY 522,569</p>
+  </div>
+  <div class="lottie v-table" id="s15-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.6 · ABOUT 1%. The strongest thing the photographless build buys: the
+     Cabinet Office facade said "an institution", which is true and is not what
+     the line is about. A full-width track with a 1.1% nub at the left end says
+     ABOUT 1% before a single word is read. The nub is 15px of a 1400px track —
+     drawn to scale, like s17's bars, so the two agree with each other. -->
+<section class="scene clip" id="s16" data-track-index="2" data-start="30.906" data-duration="7.18" data-framings="6.73">
+  <div class="field" id="s16-field">
+    <div class="rules"></div>
+    <div class="glow" style="--gl:rgba(245,158,11,.13)"></div>
+    <svg class="art" id="s16-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.58">
+      <rect class="st" x="260" y="810" width="1400" height="90" stroke-width="3" opacity=".45"/>
+      <rect id="s16-nub" class="flt" x="260" y="810" width="15" height="90"/>
+      <g class="fl" opacity=".3">
+        <path class="st" stroke-width="2" d="M 260 940 L 260 980 M 1660 940 L 1660 980 M 260 960 L 1660 960"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s16-scrim" style="--tint:rgba(245,158,11,.12)"></div>
+  <div class="stack" id="s16-stack">
+    <p class="kicker" id="s16-kick">THE SAME YEAR</p>
+    <p class="mega targetc" id="s16-num">ABOUT 1%</p>
+    <p class="foot" id="s16-foot">National Accounts (SNA) household saving rate, calendar 2024 — Horioka, NBER WP 33181, p.7</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.7 · THE CORRECTION. Lottie 2 of 4, unchanged: 37.8 -> 340px, 1.1 -> 9.9px,
+     drawn to scale. The Ministry of Finance behind it is gone and nothing is
+     lost — a wide grey elevation was never what "thirty times apart" looks like.
+     The field is a measuring rule, which is. Red: the falsity. -->
+<section class="scene clip" id="s17" data-track-index="1" data-start="37.635" data-duration="6.683" data-framings="6.233">
+  <div class="field" id="s17-field">
+    <div class="rules"></div>
+    <div class="glow" style="--gl:rgba(239,68,68,.13)"></div>
+    <svg class="art" id="s17-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.30">
+      <g class="stw" stroke-width="2">
+        <path d="M 160 0 L 160 1080"/>
+        <path d="M 1760 0 L 1760 1080"/>
+      </g>
+      <g class="fl" opacity=".45">
+        <rect x="160" y="200" width="60" height="4"/><rect x="160" y="360" width="100" height="4"/>
+        <rect x="160" y="520" width="60" height="4"/><rect x="160" y="680" width="100" height="4"/>
+        <rect x="160" y="840" width="60" height="4"/>
+        <rect x="1700" y="200" width="60" height="4"/><rect x="1660" y="360" width="100" height="4"/>
+        <rect x="1700" y="520" width="60" height="4"/><rect x="1660" y="680" width="100" height="4"/>
+        <rect x="1700" y="840" width="60" height="4"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s17-scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="band" id="s17-band"></div>
+  <div class="stack" id="s17-stack">
+    <p class="kicker" id="s17-kick">ONE GOVERNMENT. ONE YEAR.</p>
+    <p class="mega warnc" id="s17-num">30 TIMES</p>
+    <p class="foot" id="s17-foot">&quot;more than 30 times as high&quot; — Horioka, NBER WP 33181, p.7</p>
+  </div>
+  <div class="lottie v-bars" id="s17-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.8 · WHO IS COUNTED, AND HOW. A hand filling a form becomes the form: field
+     rules, and a checkbox whose tick draws. The tick is the "and how". -->
+<section class="scene clip" id="s18" data-track-index="2" data-start="43.869" data-duration="6.344" data-framings="5.894">
+  <div class="field" id="s18-field">
+    <div class="rules"></div>
+    <div class="glow"></div>
+    <svg class="art" id="s18-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.42">
+      <g class="fl" opacity=".55">
+        <rect x="420" y="180" width="700" height="10"/>
+        <rect x="420" y="300" width="920" height="10"/>
+        <rect x="420" y="420" width="560" height="10"/>
+        <rect x="420" y="840" width="820" height="10"/>
+        <rect x="420" y="960" width="640" height="10"/>
+      </g>
+      <rect class="st" x="420" y="560" width="150" height="150" stroke-width="6"/>
+      <path id="s18-tick" class="st" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+            d="M 452 636 L 492 678 L 566 552"/>
+      <rect class="fl" x="640" y="620" width="700" height="10" opacity=".55"/>
+    </svg>
+  </div>
+  <div class="scrim" id="s18-scrim"></div>
+  <div class="stack" id="s18-stack">
+    <p class="kicker" id="s18-kick">THE DIFFERENCE</p>
+    <p class="huge" id="s18-stmt" style="font-size:88px">Who is counted. And how.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.9 · WHO IS IN. Lottie 3 of 4 — the household grid, subset first then
+     everyone. This is the scene the photograph build worked hardest on (a
+     crossing, then a shopfront, then a band to make the dots visible over motion
+     blur) and it is the scene that needed a photograph least: the argument is a
+     PROPORTION, and a proportion is a drawn thing.
+
+     data-framings="5.200,3.985" stays honest — the field genuinely changes at
+     +5.200. It goes from a tight bracket (the salaried subset, fenced off) to an
+     open one that runs past both edges (everyone), which is the same beat the
+     grid is playing and the same beat the photo swap used to carry. -->
+<section class="scene clip" id="s19" data-track-index="1" data-start="49.763" data-duration="9.635" data-framings="5.200,3.985">
+  <div class="field" id="s19-field">
+    <div class="rules"></div>
+    <div class="glow"></div>
+    <svg class="art" id="s19-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.40">
+      <!-- framing 1 — the fence around the counted minority -->
+      <g id="s19-fence" class="st" stroke-width="5">
+        <path d="M 700 200 L 620 200 L 620 900 L 700 900"/>
+        <path d="M 1220 200 L 1300 200 L 1300 900 L 1220 900"/>
+      </g>
+      <!-- framing 2 — the brackets opened past both edges, and a baseline that
+           runs edge to edge under them. The bracket move alone was too quiet to
+           justify the declared framing (draft 1): at 480px it read as the same
+           frame twice. The rule is what makes "everyone" a different picture. -->
+      <g id="s19-open" class="st" stroke-width="5" opacity="0">
+        <path d="M 260 140 L 120 140 L 120 960 L 260 960"/>
+        <path d="M 1660 140 L 1800 140 L 1800 960 L 1660 960"/>
+        <path stroke-width="8" d="M 0 1010 L 1920 1010"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scrim" id="s19-scrim"></div>
+  <div class="band" id="s19-band" style="opacity:0"></div>
+  <div class="stack" id="s19-stack">
+    <p class="kicker" id="s19-kick">WHO IS IN</p>
+    <p class="huge" id="s19-stmt" style="font-size:72px">37.8% counts salaried households only. The other counts everyone.</p>
+    <p class="foot" id="s19-foot">Horioka p.7 — the National Accounts include the self-employed, unemployed, retired and unincorporated enterprises</p>
+  </div>
+  <div class="lottie v-dots" id="s19-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.10 · ONLY ONE OF THEM TRAVELS. Lottie 4 of 4 (the cap), unchanged. The
+     photograph here was the chapter's worst offender twice over — German
+     newsprint, then a Tokyo ad tower standing in for "the internet picks it up".
+     The field is now what amplification actually looks like: rings leaving one
+     point and not the other. Red: the thing that is false about the travelling. -->
+<section class="scene clip" id="s20" data-track-index="2" data-start="58.948" data-duration="7.128" data-framings="6.678">
+  <div class="field" id="s20-field">
+    <div class="rules"></div>
+    <div class="glow" style="--gl:rgba(239,68,68,.13)"></div>
+    <svg class="art" id="s20-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.40">
+      <g id="s20-rings" class="stw" stroke-width="5">
+        <circle cx="620" cy="380" r="120"/>
+        <circle cx="620" cy="380" r="240" opacity=".7"/>
+        <circle cx="620" cy="380" r="380" opacity=".5"/>
+        <circle cx="620" cy="380" r="540" opacity=".3"/>
+        <circle cx="620" cy="380" r="720" opacity=".18"/>
+      </g>
+      <circle class="st" cx="1420" cy="380" r="120" stroke-width="3" opacity=".55"/>
+    </svg>
+  </div>
+  <div class="scrim" id="s20-scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="band" id="s20-band"></div>
+  <div class="stack" id="s20-stack">
+    <p class="kicker" id="s20-kick">BOTH ARE TRUE</p>
+    <p class="huge warnc" id="s20-stmt" style="font-size:88px">Only one of them travels.</p>
+  </div>
+  <div class="lottie v-spread" id="s20-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.11 · THE REAL QUESTION. Coins became the unit the chapter hands forward: a
+     ghost ₹ and the worked example's own figure, underlined by a rule that
+     draws. Last scene of the chapter — data-duration is BARE (no +0.45 overlap),
+     same as index.html and ch1's s10. The 0.45 comes back on concat with ch3. -->
+<section class="scene clip" id="s21" data-track-index="1" data-start="65.626" data-duration="7.853" data-framings="7.853">
+  <div class="field" id="s21-field">
+    <div class="rules"></div>
+    <div class="glow"></div>
+    <svg class="art" id="s21-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.34">
+      <text class="fl" x="960" y="880" font-size="900" text-anchor="middle" opacity=".55">₹</text>
+      <path id="s21-rule" class="st" stroke-width="9" d="M 480 980 L 1440 980"/>
+    </svg>
+  </div>
+  <div class="scrim" id="s21-scrim"></div>
+  <div class="stack" id="s21-stack">
+    <p class="kicker" id="s21-kick">THE REAL QUESTION</p>
+    <p class="huge" id="s21-stmt" style="font-size:76px">What survives in the methods — and what it does to ₹30,000</p>
+    <p class="foot" id="s21-foot">₹30,000/mo in-hand is this channel's worked example, not a national average</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- Voice only, rebased by -55.909. Music and SFX are the post-mix step. -->
+<audio id="vo-2-1"  class="clip" data-track-index="10" data-start="0.25"   data-duration="7.236" src="assets/voice/2.1.mp3"></audio>
+<audio id="vo-2-2"  class="clip" data-track-index="10" data-start="8.285"  data-duration="4.78"  src="assets/voice/2.2.mp3"></audio>
+<audio id="vo-2-3"  class="clip" data-track-index="10" data-start="13.866" data-duration="5.433" src="assets/voice/2.3.mp3"></audio>
+<audio id="vo-2-4"  class="clip" data-track-index="10" data-start="20.099" data-duration="4.415" src="assets/voice/2.4.mp3"></audio>
+<audio id="vo-2-5"  class="clip" data-track-index="10" data-start="25.314" data-duration="5.042" src="assets/voice/2.5.mp3"></audio>
+<audio id="vo-2-6"  class="clip" data-track-index="10" data-start="31.156" data-duration="5.93"  src="assets/voice/2.6.mp3"></audio>
+<audio id="vo-2-7"  class="clip" data-track-index="10" data-start="37.885" data-duration="5.433" src="assets/voice/2.7.mp3"></audio>
+<audio id="vo-2-8"  class="clip" data-track-index="10" data-start="44.119" data-duration="5.094" src="assets/voice/2.8.mp3"></audio>
+<audio id="vo-2-9"  class="clip" data-track-index="10" data-start="50.013" data-duration="8.385" src="assets/voice/2.9.mp3"></audio>
+<audio id="vo-2-10" class="clip" data-track-index="10" data-start="59.198" data-duration="5.878" src="assets/voice/2.10.mp3"></audio>
+<audio id="vo-2-11" class="clip" data-track-index="10" data-start="65.876" data-duration="7.053" src="assets/voice/2.11.mp3"></audio>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/lottie.min.js"></script>
+<script src="assets/js/motion.js"></script>
+<script src="assets/lottie/stats-table-row.js"></script>
+<script src="assets/lottie/two-rates-30x.js"></script>
+<script src="assets/lottie/who-is-counted.js"></script>
+<script src="assets/lottie/one-number-travels.js"></script>
+<script>
+var S = { s11: 0, s12: 8.035, s13: 13.616, s14: 19.849, s15: 25.064, s16: 30.906,
+          s17: 37.635, s18: 43.869, s19: 49.763, s20: 58.948, s21: 65.626 };
+
+/* no shove inside chapter 2 — both act changes are in ch3 and ch6 */
+sceneTransitions(["s11","s12","s13","s14","s15","s16","s17","s18","s19","s20","s21"], S);
+
+/* ---------------------------------------------------------------- the field
+   `ken` on `.field` rather than `.bg`, same alternation as the shipped chapter.
+   A drawn field takes the drift better than a photo does — parallel rules
+   sliding under fixed type is the one thing a grid is unambiguously good at. */
+ken("#s11-field", S.s11, 8.486, true);
+ken("#s12-field", S.s12, 6.03,  false);
+ken("#s13-field", S.s13, 6.683, true);
+ken("#s14-field", S.s14, 5.665, false);
+ken("#s15-field", S.s15, 6.292, true);
+ken("#s16-field", S.s16, 7.18,  false);
+ken("#s17-field", S.s17, 6.683, true);
+ken("#s18-field", S.s18, 6.344, false);
+ken("#s19-field", S.s19, 9.635, true);
+ken("#s20-field", S.s20, 7.128, false);
+ken("#s21-field", S.s21, 7.853, true);
+
+/* ----------------------------------------------------------------- the type
+   Verbatim from index.html — the cue ladder (0.30 / 1.10 / 1.90) is a property
+   of the VO, not of what is behind the words, so none of it moves. */
+rise("#s11-kick", S.s11 + 0.30, 0.7, 14); rise("#s11-stmt", S.s11 + 1.10, 0.7, 18);
+rise("#s12-kick", S.s12 + 0.30, 0.7, 14); rise("#s12-stmt", S.s12 + 1.10, 0.7, 18);
+rise("#s13-kick", S.s13 + 0.30, 0.7, 14); rise("#s13-num",  S.s13 + 1.10, 0.7, 18); rise("#s13-foot", S.s13 + 1.90, 0.6, 10);
+rise("#s14-kick", S.s14 + 0.30, 0.7, 14); rise("#s14-stmt", S.s14 + 1.10, 0.7, 18);
+rise("#s15-kick", S.s15 + 0.30, 0.7, 14); rise("#s15-num",  S.s15 + 1.10, 0.7, 18); rise("#s15-foot", S.s15 + 1.90, 0.6, 10);
+rise("#s16-kick", S.s16 + 0.30, 0.7, 14); rise("#s16-num",  S.s16 + 1.10, 0.7, 18); rise("#s16-foot", S.s16 + 1.90, 0.6, 10);
+rise("#s17-kick", S.s17 + 0.30, 0.7, 14); rise("#s17-num",  S.s17 + 1.10, 0.7, 18); rise("#s17-foot", S.s17 + 1.90, 0.6, 10);
+rise("#s18-kick", S.s18 + 0.30, 0.7, 14); rise("#s18-stmt", S.s18 + 1.10, 0.7, 18);
+rise("#s19-kick", S.s19 + 0.30, 0.7, 14); rise("#s19-stmt", S.s19 + 1.10, 0.7, 18); rise("#s19-foot", S.s19 + 1.90, 0.6, 10);
+rise("#s20-kick", S.s20 + 0.30, 0.7, 14); rise("#s20-stmt", S.s20 + 1.10, 0.7, 18);
+rise("#s21-kick", S.s21 + 0.30, 0.7, 14); rise("#s21-stmt", S.s21 + 1.10, 0.7, 18); rise("#s21-foot", S.s21 + 1.90, 0.6, 10);
+
+/* ------------------------------------------------------------------ the art
+   ONE motion idea per scene, and it always starts BEFORE the type it supports —
+   the field is the room the words walk into, not a decoration that arrives after
+   them. Everything below runs through `tl`, so it is seek-safe. */
+
+/* s11 · the noren drops through a threshold that is already standing. No draw on
+   the doorway — see its section note; frame 0 of the chapter must not be empty. */
+tl.fromTo("#s11-noren rect", { yPercent: -100, opacity: 0 },
+  { yPercent: 0, opacity: 1, duration: 0.9, ease: "power3.out", stagger: 0.12 }, S.s11 + 0.15);
+
+/* s12 · the feed scrolls. One card height (180px of a 1080 viewBox) per ~1.5s,
+   linear, so it reads as an endless column rather than an animation that ends. */
+tl.fromTo("#s12-feed", { y: 0 }, { y: -540, duration: 6.03, ease: "none" }, S.s12);
+
+/* s13 · the echo. The centre number is the stack's own `.mega`; these are the
+   copies, arriving after it so the order is claim-then-repetition. */
+tl.fromTo("#s13-echo text", { opacity: 0, scale: 0.82, transformOrigin: "50% 50%" },
+  { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out", stagger: 0.13 }, S.s13 + 1.60);
+
+/* s14 · the seal. 880 ≈ the r=130 circumference, rounded up. */
+draw("#s14-seal", S.s14 + 0.60, 1.30, 880);
+
+/* s15 · the drawn table (Lottie 1 of 4), cue slot 3, true speed, holds last frame. */
+var t15 = loadLottie("#s15-lottie", L_stats_table_row);
+playLottie(t15, S.s15 + 1.90, 4.00);
+
+/* s16 · the nub. It grows from nothing to 15px of a 1400px track — deliberately
+   almost too small to see arrive, which is the point of the scene. */
+tl.fromTo("#s16-nub", { scaleX: 0, transformOrigin: "0% 50%" },
+  { scaleX: 1, duration: 1.10, ease: "power2.out" }, S.s16 + 1.20);
+pulse("#s16-nub", S.s16 + 2.60, 1.6);
+
+/* s17 · the correction (Lottie 2 of 4). 4.00s: the 37.8 bar rises, then the
+   ~1.1 sliver, then the bracket measures what is left between them. */
+var bars = loadLottie("#s17-lottie", L_two_rates_30x);
+playLottie(bars, S.s17 + 1.90, 4.00);
+
+/* s18 · the tick draws — "and how". 220 over-covers the 3-point path. */
+draw("#s18-tick", S.s18 + 1.70, 0.70, 220);
+
+/* s19 · the grid (Lottie 3 of 4) at +2.70 so its two phases land on the scene's
+   two framings, exactly as index.html times it. The brackets change with it:
+   the fence goes at +5.05 and the open pair arrives at +5.20, which is the
+   declared framing boundary. */
+var dots = loadLottie("#s19-lottie", L_who_is_counted);
+playLottie(dots, S.s19 + 2.70, 4.50);
+fade("#s19-band", S.s19 + 2.20, 0.50); exit("#s19-band", S.s19 + 5.10, 0.50);
+exit("#s19-fence", S.s19 + 5.05, 0.45);
+fade("#s19-open",  S.s19 + 5.200, 0.60);
+
+/* s20 · the rings leave one token and not the other. Scaled from the centre of
+   the ring stack, so it reads as emission rather than as a zoom. */
+tl.fromTo("#s20-rings", { scale: 0.4, opacity: 0, transformOrigin: "620px 380px" },
+  { scale: 1, opacity: 1, duration: 2.20, ease: "power2.out" }, S.s20 + 0.80);
+var spread = loadLottie("#s20-lottie", L_one_number_travels);
+playLottie(spread, S.s20 + 1.90, 4.00);
+
+/* s21 · the rule draws under the handover. */
+draw("#s21-rule", S.s21 + 2.20, 1.20, 1000);
+
+window.__timelines = window.__timelines || {};
+register();
+</script>
+</body>
+</html>

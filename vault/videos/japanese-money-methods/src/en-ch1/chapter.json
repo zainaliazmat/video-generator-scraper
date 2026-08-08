@@ -1,0 +1,118 @@
+{
+  "title": "Japanese Money Methods",
+  "note": "     THE SALARY MONTH, US register. Ten scenes and only two drawn layers, which\n     is the density chapter 1 of the -hi cut was approved at: the photographs are\n     doing the work and everything proposed on top of them was a redrawing.\n\n     Ground arc: cool screen-light at the notification -> green on the promise ->\n     red through the bills -> warm on the small discretionary things -> neutral\n     as they are counted -> red at the 20th and again where the money went ->\n     warm on the question the chapter closes with.\n\n     Archetypes: A A A B D D B A D A. Four layers assert what the stills cannot,\n     and none of them draws its own photograph: the notification ARRIVING (s1,\n     Lottie), six months of cover against the one that was budgeted (s4), a\n     COUNT of forty-four (s6), the 20th being ringed while the balance drains\n     (s7, Lottie + measure), and a drain with no single large stream (s9).",
+  "scenes": {
+    "s1": {
+      "comment": "1.1 · A · LOTTIE · no role · cool — frame 0 of the video, and the first half\n     of a 11.924s HOLD that s2 finishes. The phone and the counter are present\n     at frame 0 and ONLY the notification animates in (the asset's layer 7 is\n     opacity 0 until frame 24, 100 at frame 27). That is the beat no still can\n     hold: the money ARRIVING, rather than money having arrived.",
+      "arch": "a",
+      "f1": "#131b26",
+      "html": [
+        "<div class=\"lottie v-phone\" id=\"s1-phone\"></div>"
+      ],
+      "motion": [
+        "/* THE HOLD, part 1 of 2. s1 and s2 are one object and one push; s2 carries an\n   identical element driven from the SAME absolute times, so the two are\n   pixel-identical through the 0.45s cross-dissolve and there is nothing for\n   it to ghost against. (-hi ch1 gets this for free by hanging one phone off\n   #root across both scenes on its own track; a chapter.json spec has no hook\n   for root-level markup, and creating a `clip` from script would be invisible\n   to the linter and to the renderer's DOM scan. Two synchronised instances is\n   the version that survives the generator.)\n\n   ONE pass at TRUE speed (180f / 30fps = 6.00s), then it holds on its last\n   frame while the push keeps moving. -hi plays the loop twice because it has\n   no other motion; here that would say the deposit landed a second time at\n   6.8s, which is not true. Notification in at 0.80s, buzz again at 3.60s,\n   still lit when s2 dissolves over it. */\nvar phone = loadLottie(\"#s1-phone\", L_phone_on_counter_night);\n/* lottie-web writes preserveAspectRatio=\"xMidYMid meet\"; the artwork is 3:2 on\n   a 16:9 stage, so `meet` pillarboxes it. `slice` is background-size:cover for\n   an SVG. A property of THIS asset's aspect ratio, not of loadLottie. */\nphone.renderer.svgElement.setAttribute(\"preserveAspectRatio\", \"xMidYMid slice\");\nplayLottie(phone, S.s1, 6.00);\n/* plateKen, not ken: pure scale, no xPercent drift, so the zoom CONTINUES\n   across the cut instead of restarting. s1 reaches 1.10 at 4.039 — the exact\n   frame s2 starts from — rather than at 4.489, so the handoff is exact and\n   only the fading-out copy is briefly static. These are the cut's own numbers\n   for #s1-bg / #s2-bg, moved onto the object that is actually visible. */\nplateKen(\"#s1-phone\", S.s1, 4.039, 1.00, 1.10);"
+      ]
+    },
+    "s2": {
+      "comment": "1.2 · A · LOTTIE · fund · green — the promise, and the second half of the\n     hold. Same object, same instant, the push picked up at exactly 1.10 where\n     s1 leaves it. The notification has faded by ~5.7s and the phone simply\n     sits there for the rest of the line, which is the correct read: it landed\n     once and it is already past.",
+      "arch": "a",
+      "f1": "#16281d",
+      "html": [
+        "<div class=\"lottie v-phone\" id=\"s2-phone\"></div>",
+        "<div class=\"v-marks\" id=\"s2-marks\"><i></i><i></i><i></i></div>"
+      ],
+      "motion": [
+        "/* THE HOLD, part 2 of 2. Note the play cue is S.s1, NOT S.s2, and that is the\n   whole trick: both instances tween over the identical absolute window, so at\n   every t in the dissolve they are showing the same Lottie frame. Change this\n   to S.s2 and the phone snaps back to frame 0 mid-cut. */\nvar phone2 = loadLottie(\"#s2-phone\", L_phone_on_counter_night);\nphone2.renderer.svgElement.setAttribute(\"preserveAspectRatio\", \"xMidYMid slice\");\nplayLottie(phone2, S.s1, 6.00);\nplateKen(\"#s2-phone\", S.s2, 7.885, 1.10, 1.24);",
+        "popEach(\"#s2-marks i\", S.s2 + 2.30, 0.62, 0.5);"
+      ]
+    },
+    "s3": {
+      "comment": "1.3 · A · PLATE · warn · red — a pile of bills IS the line; a drawn bill on\n     top of it would trace it.",
+      "arch": "a",
+      "f1": "#2a1214"
+    },
+    "s4": {
+      "comment": "1.4 · B · FIGURE · no role · neutral — THE SIX-MONTH BILL. The claim in the\n     copy is \"six months where you budgeted one\", so the art is ONE cell against\n     SIX, to the same scale, and nothing else. The previous 6-lit-of-10 read as\n     a published proportion with a denominator that appears nowhere in the\n     script (editor en-ch1-3 finding 9). The underlines are measurement rules,\n     not decoration — they replace the stray red 62x8 mark that read as nothing.\n     Plate geometry (p-b, 0 0 860 610), the cell rect (62x138 on a 76 pitch) and\n     the baseline y are all unchanged; only the count and the spacing moved.",
+      "arch": "b",
+      "f1": "#1b1e23",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<!-- what you budgeted: one month, dim -->\n<g id=\"s4-one\">\n  <rect class=\"fl\" x=\"46\" y=\"236\" width=\"62\" height=\"138\" opacity=\".38\"/>\n  <rect class=\"fl\" x=\"46\" y=\"398\" width=\"62\" height=\"7\" opacity=\".55\"/>\n</g>\n<!-- what the one payment actually covers: six, same rect, same pitch -->\n<g id=\"s4-lit\">\n  <rect class=\"flt\" x=\"274\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"350\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"426\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"502\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"578\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"654\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n</g>\n<g id=\"s4-span\">\n  <rect class=\"flt\" x=\"274\" y=\"398\" width=\"442\" height=\"7\" opacity=\".8\"/>\n</g>",
+      "motion": [
+        "pop(\"#s4-one\", S.s4 + 1.50, 0.5);",
+        "popEach(\"#s4-lit rect\", S.s4 + 1.90, 0.16, 0.32);",
+        "fade(\"#s4-span\", S.s4 + 2.80, 0.5);"
+      ]
+    },
+    "s5": {
+      "comment": "1.5 · A · PLATE · no role · warm — one gift, two orders, one renewal. Gift\n     bags photographed; a drawn count of four here would be a caption.",
+      "arch": "a",
+      "f1": "#241c12"
+    },
+    "s6": {
+      "comment": "1.6 · A · PLATE + COUNT · no role · neutral — every one small, every one\n     fair. Forty-four identical slips on a strict 11x4 grid: uniform rects so\n     the layer reads as a TALLY, which is the line's actual claim, and not as a\n     second drawing of whatever receipts the photograph shows. A `.band` at\n     z 0 darkens BEHIND them (rule 9 — the photograph itself is never graded\n     per scene). Ported from -hi ch1, where the same band exists but is dead\n     code: that scene is `art-off centred`, so its plate never renders.",
+      "arch": "a",
+      "f1": "#191c21",
+      "art": "forward",
+      "opacity": ".78",
+      "html": [
+        "<div class=\"band\" id=\"s6-band\" style=\"height:40%;z-index:0\"></div>"
+      ],
+      "svg": "<g id=\"s6-slips\" class=\"fl\"></g>",
+      "motion": [
+        "fade(\"#s6-band\", S.s6 + 1.20, 0.6);\n/* 44 slips, each on its own arithmetic offset (i*7 mod 44) so the fill is\n   deterministic — no Math.random anywhere in a composition. Built in the DOM\n   rather than written out: forty-four hand-typed rects is forty-four chances\n   to fat-finger a coordinate. The grid sits at y 680-950, below the centred\n   type and clear of the watermark box. */\n(function () {\n  var NS = \"http://www.w3.org/2000/svg\", g = document.getElementById(\"s6-slips\");\n  for (var i = 0; i < 44; i++) {\n    var r = document.createElementNS(NS, \"rect\");\n    r.setAttribute(\"x\", 426 + (i % 11) * 104);\n    r.setAttribute(\"y\", 680 + Math.floor(i / 11) * 78);\n    r.setAttribute(\"width\", 27); r.setAttribute(\"height\", 36);\n    r.setAttribute(\"opacity\", 0);\n    g.appendChild(r);\n    tl.fromTo(r, { opacity: 0, y: 14 },\n      { opacity: 0.9, y: 0, duration: 0.42, ease: \"power2.out\" },\n      S.s6 + 1.35 + (((i * 7) % 44) / 44) * 2.6);\n  }\n})();"
+      ]
+    },
+    "s7": {
+      "comment": "1.7 · B · FIGURE + LOTTIE · warn · red — BY THE 20th. The measure bar drains\n     to almost nothing and the month grid burns down to a ringed 20th, on the\n     same cue: one claim, two readings of it. The scene is no longer `centred` —\n     B's right half now holds art, so the split is a layout again rather than a\n     hole, and the type takes the left column with the vrule back on.",
+      "arch": "b",
+      "f1": "#2f1215",
+      "measure": {
+        "label": "BALANCE",
+        "role": "warn",
+        "from": 1,
+        "to": 0.07,
+        "at": 1.3,
+        "dur": 2.4
+      },
+      "centred": false,
+      "html": [
+        "<div class=\"lottie v-cal\" id=\"s7-cal\"></div>"
+      ],
+      "motion": [
+        "/* The calendar shares the measure bar's +1.30 cue deliberately: the days\n   burning down and the balance draining are the same sentence. 105 frames over\n   3.05s is 1.15x — inside the range where the build still reads as a build —\n   and it lands the ring at +4.35, 0.03s before the cross-dissolve begins, so\n   the ringed 20th is the last thing the scene holds. */\nvar cal = loadLottie(\"#s7-cal\", L_calendar_20th_circled);\nplayLottie(cal, S.s7 + 1.30, 3.05);"
+      ]
+    },
+    "s8": {
+      "comment": "1.8 · A · PLATE · no role · cool — YOU GO LOOKING. Hands on a printed\n     statement; the search is the picture.",
+      "arch": "a",
+      "f1": "#101822"
+    },
+    "s9": {
+      "comment": "1.9 · D · BAND · warn · deep red — IT IS NOT THERE. Twenty-four holes, each\n     leaking a little, none of them large. Opacities raised throughout: the\n     streams were `.6` inside a container the global `.art-forward` rule pins\n     to `.52 !important`, so they rendered at .31 and vanished in the encode\n     (editor en-ch1-3 finding 8). The container is lifted to .78 by id in the\n     chapter css and the streams now carry no opacity of their own at all.",
+      "arch": "d",
+      "f1": "#3a1013",
+      "html": [
+        "<div class=\"band\" id=\"s9-band\" style=\"height:44%;z-index:0\"></div>"
+      ],
+      "motion": [
+        "fade(\"#s9-band\", S.s9 + 1.2, 0.6);",
+        "for (var h = 0; h < 24; h++) tl.fromTo(\"#s9-p\" + h, { scaleY: 0, transformOrigin: \"50% 0%\" }, { scaleY: 1, duration: 0.9, ease: \"power1.in\" }, S.s9 + 1.60 + (h % 6) * 0.1 + Math.floor(h / 6) * 0.09);"
+      ],
+      "art": "forward",
+      "opacity": ".78",
+      "svg": "<rect class=\"fl\" x=\"262\" y=\"70\" width=\"1396\" height=\"110\" rx=\"8\" opacity=\".5\"/>\n<g id=\"s9-drain\">\n  <rect class=\"fl\" x=\"316\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p0\" class=\"flw\" x=\"323\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"372\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p1\" class=\"flw\" x=\"379\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"428\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p2\" class=\"flw\" x=\"435\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"484\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p3\" class=\"flw\" x=\"491\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"540\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p4\" class=\"flw\" x=\"547\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"596\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p5\" class=\"flw\" x=\"603\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"652\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p6\" class=\"flw\" x=\"659\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"708\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p7\" class=\"flw\" x=\"715\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"764\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p8\" class=\"flw\" x=\"771\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"820\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p9\" class=\"flw\" x=\"827\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"876\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p10\" class=\"flw\" x=\"883\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"932\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p11\" class=\"flw\" x=\"939\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"988\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p12\" class=\"flw\" x=\"995\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1044\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p13\" class=\"flw\" x=\"1051\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1100\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p14\" class=\"flw\" x=\"1107\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1156\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p15\" class=\"flw\" x=\"1163\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1212\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p16\" class=\"flw\" x=\"1219\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1268\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p17\" class=\"flw\" x=\"1275\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1324\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p18\" class=\"flw\" x=\"1331\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1380\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p19\" class=\"flw\" x=\"1387\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1436\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p20\" class=\"flw\" x=\"1443\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1492\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p21\" class=\"flw\" x=\"1499\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1548\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p22\" class=\"flw\" x=\"1555\" y=\"140\" width=\"6\" height=\"230\"/>\n  <rect class=\"fl\" x=\"1604\" y=\"120\" width=\"20\" height=\"20\" rx=\"10\" opacity=\".85\"/>\n  <rect id=\"s9-p23\" class=\"flw\" x=\"1611\" y=\"140\" width=\"6\" height=\"230\"/>\n</g>"
+    },
+    "s10": {
+      "comment": "1.10 · A · PLATE · no role · warm — IS THAT YOURS? An empty chair at a\n     table; the chapter's last frame carries a BARE data-duration.",
+      "arch": "a",
+      "f1": "#221c13"
+    }
+  },
+  "lottie": [
+    "phone-on-counter-night",
+    "calendar-20th-circled"
+  ],
+  "css": "/* One-offs for this chapter only, named .v-* so they read as not-the-system. */\n\n/* s1 + s2 · THE HOLD. One object, one unbroken push, 0 -> 11.924s.\n\n   The phone artwork carries an OPAQUE 640x420 ground layer, so it cannot sit\n   on a photograph as an overlay — at any size below full-bleed it is a card\n   floating on a second counter, and s1-fix.jpg is itself a phone, which would\n   make it a drawn phone on a photographed phone (rule 8). So the Lottie IS the\n   picture for both lines, exactly as -hi ch1 plays it, and both .bg divs are\n   off rather than left underneath where nobody could ever see them.\n\n   `.v-phone` is deliberately the SAME BOX as `.bg` (inset -8%): the drawn layer\n   occupies the photograph's rect, so the plateKen numbers the cut already\n   carries transfer unchanged and the push cannot drift. */\n#s1-bg, #s2-bg { display: none; }\n/* Sized in PIXELS, not `inset: -8%`, and the svg forced to fill. lottie-web\n   reads the container's box at loadAnimation() time to size the <svg>; inside a\n   scene that has no layout yet it falls back to the artwork's native 640x420\n   and pins it top-left, which is what the first encode showed — a phone in the\n   corner of an otherwise empty navy frame. ch2's four stages work because they\n   carry explicit px. These numbers ARE `.bg`'s -8% box on 1920x1080, so the\n   plateKen values still transfer unchanged. */\n.v-phone { position: absolute; left: -153.6px; top: -86.4px;\n           width: 2227.2px; height: 1252.8px; z-index: 0; overflow: hidden;\n           filter: grayscale(0.34) brightness(0.92) contrast(1.05); }\n.v-phone svg { display: block; width: 100% !important; height: 100% !important; }\n\n/* s7 · the calendar takes B's right half, sized so lottie-web's default\n   `meet` cannot crop a month grid and so it clears .arch-b .huge's 900px\n   column (which ends at x=1112). It is z 2 — ABOVE the scrim — because a\n   ringed date dimmed by the scrim is the one thing this scene cannot afford. */\n.v-cal { position: absolute; left: 1140px; top: 210px; width: 740px; height: 460px; }\n\n/* s6 and s9 · each of these scenes' whole argument is a COUNT, and the global\n   `.has-photo.art-forward .art { opacity:.52 !important }` cap is what lost\n   s9's streams in the last encode — the per-scene inline opacity the spec\n   writes is dead against it. Lifted here, per scene, by id. The global cap is\n   untouched and no design token moves. */\n#s6-art, #s9-art { opacity: .78 !important; }\n\n/* s2 · the three marks. The line promises three methods; without them the\n   scene is 6.4s of a lit phone and a sentence, which is where a viewer goes.\n   Placed absolutely rather than in the stack — the stack is lifted verbatim\n   from the shipped cut and a chapter spec must not rewrite copy. */\n.v-marks { position: absolute; left: 50%; transform: translateX(-50%); top: 672px;\n           display: flex; gap: 26px; z-index: 3; }\n.v-marks i { display: block; width: 58px; height: 58px;\n             border: 3px solid var(--fund); border-radius: 4px; }"
+}

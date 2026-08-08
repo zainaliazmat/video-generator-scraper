@@ -1,0 +1,75 @@
+{
+  "title": "Japanese Money Methods",
+  "note": "     THE RECAP AND THE CLOSE. B is held across all four recap frames and each\n     carries its own chapter's mark redrawn small: the buy/skip fork from 4.10,\n     the eight-and-two cells from 5.2-5.4, the four rows with the second one lit\n     from 6.10, and the shared square from 7.4. Holding the layout makes them one\n     list; the marks make each one a different frame. A recap is the one place in\n     a cut where repeating a drawn device is the point rather than the failure.\n\n     Ground arc: warm -> green -> green deeper -> amber on the one that governs\n     the other three -> green for tonight -> neutral for the whole video -> the\n     single pop frame -> warm out.\n\n     Archetypes: B B B B A A D A. Nothing is drawn after s88: the last four\n     frames are one page, one pen and a closed notebook, and every one of them is\n     already the picture.",
+  "scenes": {
+    "s85": {
+      "comment": "8.1 · B · FIGURE · no role · warm — RECAP ONE, and 4.10's fork returns. Re-laid on -hi's coordinates 2026-08-06: the -en figure ran to vx=1032 with the X at 846-932, and `.p-b` maps vx 1:1 to screen x from left:1120 — so the accept branch was clipped and the X, the one thing this frame has to assert, rendered entirely off-canvas.",
+      "arch": "b",
+      "f1": "#201b14",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<path class=\"st\" style=\"stroke-width:2;opacity:.5\" fill=\"none\" d=\"M 60 292 L 360 300\"/>\n<rect class=\"fl\" x=\"352\" y=\"288\" width=\"17\" height=\"17\" opacity=\".7\"/>\n<path id=\"s85-yes\" class=\"stf\" style=\"stroke-width:6\" fill=\"none\" d=\"M 372 296 L 500 208 L 780 208\"/>\n<path id=\"s85-no\" class=\"st\" style=\"stroke-width:6;opacity:.45\" fill=\"none\" d=\"M 372 296 L 500 392 L 780 392\"/>\n<g class=\"stw\" style=\"stroke-width:7\" stroke-linecap=\"round\">\n  <path id=\"s85-x1\" d=\"M 596 344 L 700 440\"/>\n  <path id=\"s85-x2\" d=\"M 700 344 L 596 440\"/>\n</g>",
+      "motion": [
+        "draw(\"#s85-yes\", S.s85 + 1.9, 0.45, 500); draw(\"#s85-no\", S.s85 + 2.1999999999999997, 0.45, 500);",
+        "draw(\"#s85-x1\", S.s85 + 2.65, 0.2, 240); draw(\"#s85-x2\", S.s85 + 2.8, 0.2, 240);"
+      ]
+    },
+    "s86": {
+      "comment": "8.2 · B · FIGURE · fund · green — RECAP TWO, and the ten cells return\n     with the same two leaving.",
+      "arch": "b",
+      "f1": "#16281d",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<rect class=\"fl\" x=\"46\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"122\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"198\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"274\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"350\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"426\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"502\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"578\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"654\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<rect class=\"fl\" x=\"730\" y=\"236\" width=\"62\" height=\"120\" opacity=\".22\"/>\n<g id=\"s86-lit\">\n  <rect class=\"flf\" x=\"654\" y=\"236\" width=\"62\" height=\"120\" opacity=\".92\"/>\n  <rect class=\"flf\" x=\"730\" y=\"236\" width=\"62\" height=\"120\" opacity=\".92\"/>\n</g>",
+      "motion": [
+        "tl.fromTo(\"#s86-lit\", { y: 0 }, { y: 150, duration: 1.0, ease: \"power2.inOut\" }, S.s86 + 2.10);"
+      ]
+    },
+    "s87": {
+      "comment": "8.3 · B · FIGURE · fund · green deeper — RECAP THREE, and the four rows\n     return with the savings line still second.",
+      "arch": "b",
+      "f1": "#183020",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<g id=\"s87-rows\">\n  <rect id=\"s87-r0\" class=\"fl\" x=\"150\" y=\"132\" width=\"620\" height=\"70\" opacity=\".3\"/>\n  <rect class=\"fl\" x=\"60\" y=\"132\" width=\"62\" height=\"70\" opacity=\".5\"/>\n  <rect id=\"s87-r1\" class=\"flf\" x=\"150\" y=\"250\" width=\"620\" height=\"70\"/>\n  <rect class=\"fl\" x=\"60\" y=\"250\" width=\"62\" height=\"70\" opacity=\".5\"/>\n  <rect id=\"s87-r2\" class=\"fl\" x=\"150\" y=\"368\" width=\"620\" height=\"70\" opacity=\".3\"/>\n  <rect class=\"fl\" x=\"60\" y=\"368\" width=\"62\" height=\"70\" opacity=\".5\"/>\n  <rect id=\"s87-r3\" class=\"fl\" x=\"150\" y=\"486\" width=\"620\" height=\"70\" opacity=\".3\"/>\n  <rect class=\"fl\" x=\"60\" y=\"486\" width=\"62\" height=\"70\" opacity=\".5\"/>\n</g>",
+      "motion": [
+        "pulse(\"#s87-r1\", S.s87 + 2.40, 1.07);"
+      ]
+    },
+    "s88": {
+      "comment": "8.4 · B · FIGURE · target · amber — RECAP FOUR, and the shared square\n     returns. Amber, not green, because this is the one that governs the other\n     three rather than the one you do.",
+      "arch": "b",
+      "f1": "#332708",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<rect class=\"fl\" x=\"350\" y=\"230\" width=\"150\" height=\"150\" opacity=\".55\"/>\n<rect class=\"fl\" x=\"516\" y=\"230\" width=\"118\" height=\"150\" opacity=\".55\"/>\n<rect class=\"fl\" x=\"350\" y=\"396\" width=\"150\" height=\"118\" opacity=\".55\"/>\n<rect class=\"fl\" x=\"216\" y=\"230\" width=\"118\" height=\"150\" opacity=\".55\"/>\n<rect id=\"s88-sq\" class=\"flt\" x=\"350\" y=\"230\" width=\"150\" height=\"150\" opacity=\".95\"/>",
+      "motion": [
+        "pulse(\"#s88-sq\", S.s88 + 2.40, 1.09);"
+      ]
+    },
+    "s89": {
+      "comment": "8.5 · A · PLATE · fund · green — TONIGHT. A notebook and pen under a lamp:\n     the instruction is entirely in the photograph, which is why the recap's\n     drawn devices stop here.",
+      "arch": "a",
+      "f1": "#14261c"
+    },
+    "s90": {
+      "comment": "8.6 · A · PLATE · no role · neutral — THE WHOLE VIDEO, on a handwritten\n     list. No kicker on this scene, verbatim.",
+      "arch": "a",
+      "f1": "#1c2027"
+    },
+    "s91": {
+      "comment": "8.7 · D · BAND · pop · the one orange frame in the cut — the CTA, over a\n     closed notebook. Nothing drawn; nothing may compete with it.",
+      "arch": "d",
+      "f1": "#2e1a10"
+    },
+    "s92": {
+      "comment": "8.8 · A · PLATE · no role · warm out — SEND IT TO. Two mugs on a porch rail;\n     the last frame of the video carries its BARE data-duration.",
+      "arch": "a",
+      "f1": "#2a2114"
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "title": "Japanese Money Methods",
+  "note": "     THE NUMBER THAT TRAVELLED. -hi parity pass (editor en-ch2-3). The four\n     chapter-2 Lotties are spent here exactly as -hi spends them — the table row\n     pulled out of its source (s15), the two rates drawn to scale (s17), the\n     households counted and not counted (s19), the number that travels (s20).\n     Four is the cap, so no fifth is available and none is wanted.\n\n     s16 is a TRUTH fix: the nub is 16px in a 1480px track = 1.08%, under a focal\n     reading ABOUT 1%. The previous build drew the same 16px nub in a 600px\n     track — 2.67% — which overstated a published figure by 2.4x on screen.\n     Anything that reads as a published figure must BE one.\n\n     s13/s15/s16/s17 carry their art in a FULL-FRAME p-a window, not in B's\n     860x610 p-b plate. The plate's edge rule read as a UI panel pasted on the\n     photograph, and slice-cropping a 1920-wide drawing into it is what turned\n     s17's two bars into two smudges hard right. The art now sits in the picture,\n     which is what -hi does.\n\n     Ground arc: warm promise -> cool screen-light -> amber under examination ->\n     neutral -> amber deeper -> THE COLDEST FRAME IN THE CUT where the claim\n     collapses to about one per cent -> red at the correction -> neutral -> cool\n     -> red radiating -> warm resolve. The drop is a temperature event before it\n     is a number.\n\n     Archetypes: A A B A B B B A D D A — B held across s15/s16/s17 because\n     37.8% -> about 1% -> thirty times is one argument, and D across s19/s20\n     because both of those scenes are a mechanism in the lower two-thirds.\n\n     s21 is US-market and is NOT -hi: four twenty-dollar bills, $4,000, Census\n     P60-286. Never copy -hi's s21 here.",
+  "css": ".v-table  { position: absolute; top: 616px; left: 440px; width: 1040px; height: 430px; }\n.v-bars   { position: absolute; top: 610px; left: 560px; width: 1000px; height: 440px; }\n.v-dots   { position: absolute; top: 536px; left: 460px; width: 1000px; height: 508px; }\n.v-spread { position: absolute; top: 452px; left: 460px; width: 1000px; height: 560px; }",
+  "lottie": [
+    "stats-table-row",
+    "two-rates-30x",
+    "who-is-counted",
+    "one-number-travels"
+  ],
+  "scenes": {
+    "s11": {
+      "comment": "2.1 · A · PLATE · fund · warm — THREE METHODS. A lit shopfront: a threshold\n     you are about to walk through, which is what 'three methods' opens.",
+      "arch": "a",
+      "f1": "#1b3024"
+    },
+    "s12": {
+      "comment": "2.2 · A · PLATE · no role · cool — THE FEED. A hand scrolling a lit phone;\n     this is screen light and the ground says so.",
+      "arch": "a",
+      "f1": "#141d2c"
+    },
+    "s13": {
+      "comment": "2.3 · B · FIGURE · target · amber — THE INTERNET SAYS. The line is that the\n     INTERNET says it, so the drawn layer is the figure repeating OUTWARD from\n     where it was stated — larger and sparser as it travels. A photograph of a\n     screen can show the claim; it cannot show it being repeated.\n     Full-frame p-a window, no plate: the echo has to cross the whole picture to\n     be an echo, and the p-b edge read as a panel taped over the photo.",
+      "arch": "b",
+      "f1": "#2e2411",
+      "plate": "p-a",
+      "viewbox": "0 0 1920 1080",
+      "opacity": ".36",
+      "svg": "<g id=\"s13-echo\" class=\"flt\">\n  <text x=\"880\"  y=\"238\" font-size=\"52\">37.8%</text>\n  <text x=\"1140\" y=\"182\" font-size=\"66\">37.8%</text>\n  <text x=\"1430\" y=\"288\" font-size=\"84\">37.8%</text>\n  <text x=\"1180\" y=\"392\" font-size=\"58\">37.8%</text>\n  <text x=\"1560\" y=\"470\" font-size=\"72\">37.8%</text>\n  <text x=\"1250\" y=\"596\" font-size=\"62\">37.8%</text>\n  <text x=\"1580\" y=\"712\" font-size=\"88\">37.8%</text>\n  <text x=\"1120\" y=\"790\" font-size=\"54\">37.8%</text>\n  <text x=\"1460\" y=\"908\" font-size=\"70\">37.8%</text>\n  <text x=\"820\"  y=\"866\" font-size=\"48\">37.8%</text>\n  <text x=\"960\"  y=\"930\" font-size=\"60\">37.8%</text>\n  <text x=\"1640\" y=\"924\" font-size=\"46\">37.8%</text>\n</g>",
+      "motion": [
+        "tl.fromTo(\"#s13-echo text\", { opacity: 0, scale: 0.82, transformOrigin: \"50% 50%\" }, { opacity: 1, scale: 1, duration: 0.5, ease: \"power2.out\", stagger: 0.13 }, S.s13 + 1.60);"
+      ]
+    },
+    "s14": {
+      "comment": "2.4 · A · PLATE · no role · neutral — IT IS REAL. The National Diet Building\n     is the picture; drawing a seal on top of it is the rule-8 failure by name.",
+      "arch": "a",
+      "f1": "#1c2027"
+    },
+    "s15": {
+      "comment": "2.5 · B · FIGURE · target · amber deeper — THE SURVEY. Lottie 1 of 4: the\n     table row being pulled out of its own source. The figure is stated a second\n     time FROM ITS SOURCE, and that is a process, not a still — a photograph of\n     a government office can say where, never how. The drawn field behind it is\n     the survey's own column ruling; `.band` darkens the photo under the Lottie\n     rather than darkening the frame (rule 9).",
+      "arch": "b",
+      "f1": "#372a0c",
+      "plate": "p-a",
+      "viewbox": "0 0 1920 1080",
+      "opacity": ".28",
+      "svg": "<g class=\"st\" style=\"stroke-width:2\">\n  <path d=\"M 380 0 L 380 1080\"/><path d=\"M 760 0 L 760 1080\"/>\n  <path d=\"M 1160 0 L 1160 1080\"/><path d=\"M 1540 0 L 1540 1080\"/>\n</g>\n<g class=\"fl\" opacity=\".5\">\n  <rect x=\"200\" y=\"150\" width=\"1540\" height=\"6\"/>\n  <rect x=\"200\" y=\"330\" width=\"1540\" height=\"6\"/>\n</g>",
+      "html": [
+        "<div class=\"band\" id=\"s15-band\"></div>",
+        "<div class=\"lottie v-table\" id=\"s15-lottie\"></div>"
+      ],
+      "motion": [
+        "var t15 = loadLottie(\"#s15-lottie\", window.L_stats_table_row);",
+        "playLottie(t15, S.s15 + 1.90, 4.00);"
+      ]
+    },
+    "s16": {
+      "comment": "2.6 · B · FIGURE · target · THE COLD FLOOR — the coldest ground in the cut,\n     because this is where the claim collapses.\n     TRUTH: 16px of a 1480px track = 1.08%, which is what 'about 1%' means. The\n     previous build drew the identical 16px nub in a 600px track = 2.67% and\n     printed 'ABOUT 1%' over it — a drawn proportion 2.4x off a published\n     figure. Track width and nub width are a PAIR; never copy one without the\n     other. Full-frame p-a, because a 1480px track does not fit an 860px plate.",
+      "arch": "b",
+      "f1": "#0e1c2e",
+      "art": "forward",
+      "plate": "p-a",
+      "viewbox": "0 0 1920 1080",
+      "opacity": ".72",
+      "svg": "<rect class=\"st\" style=\"stroke-width:3;opacity:.55\" x=\"220\" y=\"716\" width=\"1480\" height=\"96\"/>\n<rect id=\"s16-ghost\" class=\"st\" style=\"stroke-width:2;opacity:.22\" fill=\"none\" x=\"220\" y=\"716\" width=\"559\" height=\"96\"/>\n<rect id=\"s16-nub\" class=\"flt\" x=\"220\" y=\"716\" width=\"16\" height=\"96\"/>\n<g class=\"st\" style=\"stroke-width:3;opacity:.5\">\n  <path d=\"M 220 700 L 220 828 M 1700 700 L 1700 828 M 220 764 L 1700 764\" opacity=\".28\"/>\n</g>\n<g class=\"st\" style=\"stroke-width:2;opacity:.4\">\n  <path d=\"M 220 860 L 220 900 M 1700 860 L 1700 900 M 220 880 L 1700 880\"/>\n</g>",
+      "motion": [
+        "tl.fromTo(\"#s16-nub\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 1.10, ease: \"power2.out\" }, S.s16 + 1.20);",
+        "/* the ghost is where 37.8% of the same track would have reached — the claim,\n   left standing next to what the national accounts actually say. */\nfade(\"#s16-ghost\", S.s16 + 2.30, 0.55);",
+        "pulse(\"#s16-nub\", S.s16 + 3.10, 1.6);"
+      ]
+    },
+    "s17": {
+      "comment": "2.7 · B · FIGURE · warn · red hot — THE CORRECTION. Lottie 2 of 4: 37.8 as\n     340px against 1.1 as 9.9px, drawn to scale across a full-width band.\n     The inline #s17-hi / #s17-lo rects are GONE: the ratio was arithmetically\n     right and visually unreadable — two dim rectangles slice-cropped hard right\n     inside an 860px plate. A ratio nobody can measure is not a measurement.\n     The drawn field that remains is a measuring rule, which is what 'thirty\n     times apart' looks like; `.band` sits under the Lottie.",
+      "arch": "b",
+      "f1": "#38151a",
+      "art": "forward",
+      "plate": "p-a",
+      "viewbox": "0 0 1920 1080",
+      "opacity": ".32",
+      "svg": "<g class=\"stw\" style=\"stroke-width:2\">\n  <path d=\"M 196 0 L 196 1080\"/>\n  <path d=\"M 1724 0 L 1724 1080\"/>\n</g>\n<g class=\"fl\" opacity=\".45\">\n  <rect x=\"196\" y=\"180\" width=\"64\" height=\"4\"/><rect x=\"196\" y=\"340\" width=\"104\" height=\"4\"/>\n  <rect x=\"196\" y=\"500\" width=\"64\" height=\"4\"/><rect x=\"196\" y=\"660\" width=\"104\" height=\"4\"/>\n  <rect x=\"196\" y=\"820\" width=\"64\" height=\"4\"/><rect x=\"196\" y=\"930\" width=\"104\" height=\"4\"/>\n  <rect x=\"1660\" y=\"180\" width=\"64\" height=\"4\"/><rect x=\"1620\" y=\"340\" width=\"104\" height=\"4\"/>\n  <rect x=\"1660\" y=\"500\" width=\"64\" height=\"4\"/><rect x=\"1620\" y=\"660\" width=\"104\" height=\"4\"/>\n  <rect x=\"1660\" y=\"820\" width=\"64\" height=\"4\"/><rect x=\"1620\" y=\"930\" width=\"104\" height=\"4\"/>\n</g>",
+      "html": [
+        "<div class=\"band\" id=\"s17-band\"></div>",
+        "<div class=\"lottie v-bars\" id=\"s17-lottie\"></div>"
+      ],
+      "motion": [
+        "var bars = loadLottie(\"#s17-lottie\", window.L_two_rates_30x);",
+        "playLottie(bars, S.s17 + 1.90, 4.00);"
+      ]
+    },
+    "s18": {
+      "comment": "2.8 · A · PLATE · no role · neutral — WHO IS COUNTED. A hand ticking boxes\n     on a survey form; the counting is the photograph.",
+      "arch": "a",
+      "f1": "#1c1f24"
+    },
+    "s19": {
+      "comment": "2.9 · D · BAND · no role · cool — WHO IS IN. Lottie 3 of 4: 108 households,\n     28 of them lit, then everyone. A subset inside a set is the one picture a\n     photograph can never state, and the whole debunk turns on it.\n     The 28/108 is DELIBERATELY not 37.8% — 37.8% is a share of disposable\n     income, not a share of households, and a grid at 37.8% would be a fabricated\n     statistic dressed as a real one (see assets/lottie/src/who-is-counted.py).\n     Do not 'correct' it.\n     Everything turns over on ONE beat at +4.446, the scene's declared framing\n     boundary: the photo swaps (motion lives in the shipped cut), the fence\n     around the counted minority goes, the brackets open past both edges, and\n     the Lottie's second pass lights everyone. The Lottie starts at +1.98 for\n     exactly that reason — its phase 2 begins at frame 74 of 135, i.e. 54.8%\n     through a 4.50s play = +2.47, and 1.98 + 2.47 = 4.446.",
+      "arch": "d",
+      "f1": "#131f2c",
+      "art": "forward",
+      "opacity": ".6",
+      "html": [
+        "<div class=\"band\" id=\"s19-band\" style=\"height:54%;z-index:0\"></div>",
+        "<div class=\"lottie v-dots\" id=\"s19-lottie\"></div>"
+      ],
+      "svg": "<g id=\"s19-fence\" class=\"fl\">\n  <rect x=\"620\" y=\"120\" width=\"10\" height=\"416\"/><rect x=\"620\" y=\"120\" width=\"86\" height=\"10\"/><rect x=\"620\" y=\"526\" width=\"86\" height=\"10\"/>\n  <rect x=\"1290\" y=\"120\" width=\"10\" height=\"416\"/><rect x=\"1214\" y=\"120\" width=\"86\" height=\"10\"/><rect x=\"1214\" y=\"526\" width=\"86\" height=\"10\"/>\n</g>\n<g id=\"s19-open\" class=\"fl\" opacity=\"0\">\n  <rect x=\"268\" y=\"82\" width=\"10\" height=\"444\"/><rect x=\"268\" y=\"82\" width=\"132\" height=\"10\"/><rect x=\"268\" y=\"516\" width=\"132\" height=\"10\"/>\n  <rect x=\"1642\" y=\"82\" width=\"10\" height=\"444\"/><rect x=\"1520\" y=\"82\" width=\"132\" height=\"10\"/><rect x=\"1520\" y=\"516\" width=\"132\" height=\"10\"/>\n  <rect x=\"250\" y=\"556\" width=\"1420\" height=\"11\"/>\n</g>",
+      "motion": [
+        "var dots = loadLottie(\"#s19-lottie\", window.L_who_is_counted);",
+        "playLottie(dots, S.s19 + 1.98, 4.50);",
+        "fade(\"#s19-band\", S.s19 + 1.50, 0.50); exit(\"#s19-band\", S.s19 + 4.35, 0.50);",
+        "exit(\"#s19-fence\", S.s19 + 4.30, 0.45);",
+        "fade(\"#s19-open\", S.s19 + 4.446, 0.60);"
+      ]
+    },
+    "s20": {
+      "comment": "2.10 · D · BAND · warn · red — ONLY ONE OF THEM TRAVELS. Lottie 4 of 4:\n     concentric rings leave one token and not the other. Travel is motion by\n     definition and a still page cannot state it; this is the one scene in the\n     chapter where the Lottie IS the argument.\n     D, not A: the mechanism owns the lower two-thirds, so the type cannot sit\n     in the middle of it. `centred: false` is explicit — the default would\n     re-centre an art-off D and drop the stack straight onto the Lottie.\n     No drawn rings on top of the Lottie: it already radiates. Two radiating\n     things is one too many.",
+      "arch": "d",
+      "f1": "#3b1219",
+      "centred": false,
+      "rule": "top:392px",
+      "html": [
+        "<div class=\"band\" id=\"s20-band\"></div>",
+        "<div class=\"lottie v-spread\" id=\"s20-lottie\"></div>"
+      ],
+      "motion": [
+        "var spread = loadLottie(\"#s20-lottie\", window.L_one_number_travels);",
+        "playLottie(spread, S.s20 + 1.90, 4.00);"
+      ]
+    },
+    "s21": {
+      "comment": "2.11 · A · PLATE · no role · warm resolve — THE REAL QUESTION, on four\n     twenty-dollar bills. US market: $4,000, Census P60-286. This is the one\n     scene in the chapter where copying -hi would be a REGRESSION (₹500 note,\n     ₹30,000). Leave it. The chapter's last frame carries a BARE duration.",
+      "arch": "a",
+      "f1": "#2d2214"
+    }
+  }
+}

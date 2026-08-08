@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Japan Ke 3 Paise Wale Tarike — hi · CHAPTER 2</title>
+<!-- CHAPTER 2 ONLY — «जापान के अपने दो आँकड़े», scenes s11-s21 (VO 2.1-2.11).
+     In the full cut this chapter runs 55.909 -> 129.388; here every start is
+     rebased by -55.909 so the file plays from 0. Scene ids, relative gaps and
+     cue offsets are the shipped cut's verbatim, so a locked chapter concatenates
+     frame-exact.
+
+     Built on the chapter-1 v2 pattern: every image re-checked against what its
+     VO line actually SAYS, and a Lottie wherever the beat is a NUMBER — which in
+     this chapter is most of them. This is the debunk chapter; its job is to make
+     37.8% and ~1% sit next to each other honestly.
+
+     Audit outcome: six of eleven photographs survived (s11 s14 s16 s18 s19 s20).
+     s12 and s21 were re-sourced; s15, s17 and s19b are drawn.
+
+     v7 applied editor-hi-ch2-1: s13's table dropped, s15's banded rather than
+     darkened, s16 re-cropped to a detail to break the s14-s17 grey run, s19's
+     grid banded over its first framing, s11 lifted to .86.
+
+     v8 applies editor-hi-ch2-2. Two photographs were asserting things that are
+     not true and both are replaced: s20 was legibly GERMAN newsprint and s17 was
+     the Tokyo Metropolitan POLICE under a head reading ONE GOVERNMENT. s20's beat
+     is now drawn (the chapter's fourth and last Lottie), and who-is-counted's lit
+     share moved off 44/108 because at ~41% it read as the 37.8% printed two lines
+     above it. Four Lottie instances against a cap of four.
+
+     v10 applies ceo-hi-ch2-1, which passed the body and rejected the front door:
+     s11 is re-sourced to the storyboard's own never-built noren spec, s12's
+     kicker finally names the unit (SAVING RATE) and s13's stops calling a
+     government table a claim. Text and one photograph; no timing moved.
+
+     Every data-start, data-duration and data-framings in this file is still the
+     shipped cut's verbatim, rebased by -55.909 — the concat stays frame-exact.
+
+     `assets/` is a symlink to the shipped cut. `assets-ch2/` is this chapter's
+     own and the only place new files land. -->
+<link rel="stylesheet" href="assets/blockframe.css">
+<style>
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+
+/* THE GRADE (creator, 2026-08-04): "don't make images too much tinted, it fails
+   to black and white — reduce the tint almost sixty percent less."
+
+   blockframe.css ships `.bg { grayscale(.32) brightness(.62) }`, and every
+   per-scene override in this file went darker still (down to .24) to keep drawn
+   Lotties readable on top. Together that desaturated real photographs into grey
+   mush — the Kyoto street, the Diet Building's flag, the shopfront's red signage
+   were all present in the source files and gone by the time they were rendered.
+
+   Softened by 60%: grayscale x0.4, and DARKNESS (1 - brightness) x0.4, so
+   .62 -> .85 rather than .62 x 0.4. Scaling brightness directly would have made
+   the frames darker, which is backwards. Contrast is untouched — it was never
+   the problem.
+
+   Overridden here rather than in blockframe.css because that file is the SHIPPED
+   cut's stylesheet, reached through the assets/ symlink; editing it would
+   re-grade a delivered video. Inline per-scene filters still win over this. */
+.bg { filter: grayscale(0.13) brightness(0.85) contrast(1.05); }
+
+/* Lottie stages. Same convention as ch1: absolutely positioned, OUT of `.stack`'s
+   flex flow, so a tall vector box never shifts the centred type. Scenes whose
+   Lottie owns the lower half get `align-self: start` on the stack, exactly as
+   ch1's s7 does. */
+#s15-stack, #s17-stack, #s19-stack, #s20-stack { align-self: start; }
+
+/* THE BAND — the scrim that sits BEHIND drawn art (editor ch2-1, blocker 1).
+   The two frame-wide levers are both wrong here. Dropping the scene's
+   `brightness` is what the creator rejected on 2026-08-04 ("it fails to black
+   and white"), and it does not even work: s13 and s15 were already at .72/.70,
+   the darkest in the chapter, and the table still read as render noise.
+   format.json's layout.grade_note settles it — art that needs a darker field
+   gets it BEHIND THE ART, not on the whole photograph.
+
+   So: a gradient over the lower band only, transparent at the top so the half
+   of the frame the viewer is actually looking at is untouched. z-index 1 puts
+   it above .scrim (also 1, and earlier in the DOM) and below .lottie (2).
+   58% ≈ 626px, which starts at y454 — above .v-table's top:500 and .v-dots'
+   top:520, so the art never begins on unbanded photo. */
+.band {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 58%; z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(13, 16, 23, 0) 0%, rgba(13, 16, 23, 0.55) 38%, rgba(13, 16, 23, 0.78) 100%);
+}
+
+/* The two rate bars need the most room — the 37.8 bar is 340px of drawn data and
+   must not be cropped or the ratio it exists to show stops being true. */
+.v-bars  { position: absolute; top: 470px; left: calc(50% - 500px); width: 1000px; height: 560px; }
+.v-table { position: absolute; top: 500px; left: calc(50% - 520px); width: 1040px; height: 560px; }
+.v-dots  { position: absolute; top: 520px; left: calc(50% - 500px); width: 1000px; height: 520px; }
+.v-spread { position: absolute; top: 520px; left: calc(50% - 500px); width: 1000px; height: 520px; }
+
+/* s17's `mega` is 240px AND the bars are 560px tall — together they overflow.
+   The number is the headline here, so it keeps its size and the bars sit under a
+   tightened stack rather than the bars shrinking. */
+#s17-num { font-size: 168px !important; }
+#s13-num, #s15-num, #s16-num { font-size: 180px !important; }
+</style>
+</head>
+<body>
+<div id="root" class="cut-hi" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="73.479">
+
+<!-- 2.1 · the promise, and the chapter's front door.
+     THE RULE (creator, 2026-08-04): with the sound off and the text stripped, the
+     picture alone must tell the viewer what the scene is about. Shoji screens
+     failed it first — wooden lattice reads as "some interior", not as Japan.
+     The Kyoto machiya ROOFTOP STREET that replaced them passed the editor twice
+     and was killed by the CEO (ceo-hi-ch2-1, blocker 1) on the one ground the
+     editor does not judge: RETENTION. It was the chapter's longest hold (8.486s)
+     and its darkest, widest, lowest-contrast frame, landing immediately after
+     ch1 closes on a dark kitchen — dark interior into dark exterior at the exact
+     cut where the video changes subject, with a ken too slow to see at that
+     scale. Sound-off it said "an old Japanese town": true, on-message, and not
+     what the line is about. It was also still the 1280x853 PREVIEW, never
+     promoted to full resolution, which is why it read softer than its
+     neighbours. Kept at assets-ch2/s11-kyoto-rooftops-rejected.jpg.
+
+     This is the storyboard's OWN spec for 2.1, which had never been built:
+     «img: a Japanese wooden shopfront noren curtain at dusk». A Gion restaurant
+     entrance — linen noren, timber lattice, a red lantern, tatami inside, and
+     someone in a kimono stepping through with the noren across their face.
+     Close, warm, human scale, and a threshold, which is what a chapter that
+     opens a promise wants. It is the warmest frame here, so s11 -> s12 (cool
+     phone) -> s13 (dark navy) now steps instead of running dark-dark-dark.
+
+     Two brighter candidates were rejected on the sound-off rule first: a Fukuoka
+     facade that is warm and unmistakably Japanese but MODERN — brick, aluminium
+     sliding doors, a printed lunch menu, キリン beer barrels, a hiring poster —
+     which argues with "Centuries old" exactly as this scene's own
+     air-conditioning units did (ceo note 5); and the Fushimi Inari torii tunnels
+     that dominate every Japan query and read as "tourist landmark".
+
+     ⚠ Accepted trade: this is the chapter's second dusk shopfront after s19b,
+     50s and nine scenes away. Taken deliberately — an image that argues with its
+     line is a blocker here and a near-pair is a should-fix, so the echo is the
+     cheaper of the two. Flagged for review rather than hidden. -->
+<section class="scene clip" id="s11" data-track-index="1" data-start="0" data-duration="8.486" data-framings="8.036">
+  <!-- .80 -> .86 was editor ch2-1 note 4, lifting the darkest cell on the sheet.
+       Eased back to .84 with the new photograph: .86 was compensating for a
+       source with no light in it, and this one is lit. -->
+  <div class="bg" id="s11-bg" style="background-image:url(assets-ch2/final/s11.jpg);filter:grayscale(0.14) brightness(0.84) contrast(1.06)"></div>
+  <!-- The sky-blue --tint that used to sit here was tuned for the cold rooftop
+       townscape. On tungsten-lit linen it fought the source and pulled the whole
+       frame to olive, which cost exactly the warmth this re-source exists to buy
+       — and dropped the separation between the --fund green stmt and its
+       background. Untinted: the scrim's other three layers still do the
+       type-legibility work. -->
+  <div class="scrim" id="s11-scrim"></div>
+  <div class="stack" id="s11-stack">
+    <p class="kicker" id="s11-kick">THREE METHODS</p>
+    <p class="huge fundc" id="s11-stmt" style="font-size:88px">Centuries old. In no finance course.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.2 · re-sourced. Was rain on a window — nothing to do with the line. Now
+     hands on a lit phone, no face, which is what "on your feed" means. -->
+<section class="scene clip" id="s12" data-track-index="2" data-start="8.035" data-duration="6.03" data-framings="5.58">
+  <div class="bg" id="s12-bg" style="background-image:url(assets-ch2/final/s12.jpg);filter:grayscale(0.13) brightness(0.81) contrast(1.06)"></div>
+  <div class="scrim" id="s12-scrim"></div>
+  <div class="stack" id="s12-stack">
+    <!-- "THE SAVING RATE", not "THE NUMBER" (ceo-hi-ch2-1, finding 2): 37.8%,
+         ABOUT 1% and 30 TIMES ran across 25s of this chapter and the word
+         *saving* appeared nowhere on screen. The Hindi VO says it plainly, so
+         this only bit the muted viewer and the one who joins mid-chapter — which
+         is precisely the pair a thumbnail-driven feed delivers. Named ONCE, and
+         named here rather than on s13 because this is the scene that introduces
+         the number at all. Both figures ARE saving rates — 37.8% is the FIES
+         surplus-of-disposable-income measure, ~1.1% the SNA one — and that they
+         share a unit is the chapter's whole argument. -->
+    <p class="kicker" id="s12-kick">FIRST, THE SAVING RATE</p>
+    <p class="huge" id="s12-stmt" style="font-size:88px">The one that put Japan on your feed.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.3 · THE CLAIM. The line is «इंटरनेट कहता है» — the INTERNET says it — so
+     the frame is a phone full of social apps, not a document. An earlier pass had
+     one photograph of files and books backing s13, s15 AND s17 as a neutral plate
+     for the drawn art; the creator rejected it (2026-08-04) and was right twice
+     over: books have nothing to do with the internet, and one image serving three
+     different points is the repetition this audit exists to remove. Each of the
+     three now carries the picture ITS OWN line is about.
+
+     THE TABLE IS GONE (editor ch2-1 blocker 1, creator's call 2026-08-05).
+     It drew itself over the densest photograph in the chapter and landed its
+     bars on the Facebook and LinkedIn glyphs, where they read as compression
+     artefacts rather than as a table — a frame that fails to communicate its own
+     device is worse than one that never had it. Nothing in the line goes unsaid
+     without it: the photo says "the internet", the 37.8% says the number, and
+     the foot cites Table I-2-2. The table was only ever here because an earlier
+     pass backed s13, s15 and s17 with one shared photograph of books and the art
+     was doing the work the picture wasn't; each scene now carries its own
+     picture, so the problem it solved no longer exists.
+
+     Dropping it also un-shares the artwork: the drawn table now appears ONCE in
+     the chapter (s15) instead of on two cells 11s apart, inside the run of
+     scenes finding 2 is about. Chapter is at 3 of the 4 Lottie instances
+     format.json allows.
+
+     Grade restored with it. .72 was pushed down to keep the table readable, it
+     never achieved that, and the only thing it still does is make this cell
+     darker than its neighbours. -->
+<section class="scene clip" id="s13" data-track-index="1" data-start="13.616" data-duration="6.683" data-framings="6.233">
+  <div class="bg" id="s13-bg" style="background-image:url(assets-ch2/final/s13.jpg);filter:grayscale(0.15) brightness(0.84) contrast(1.05)"></div>
+  <div class="scrim" id="s13-scrim" style="--tint:rgba(245,158,11,.12)"></div>
+  <div class="stack" id="s13-stack">
+    <!-- Was "THE CLAIM" (ceo-hi-ch2-1, finding 3). That kicker sat directly over
+         a foot citing the Statistics Bureau's Table I-2-2 — the frame calling a
+         government table a claim — and it pre-empted s14's entire reveal
+         (IT IS REAL / Japan's own government publishes it) six seconds early.
+         "THE INTERNET SAYS" is the VO's own words («इंटरनेट कहता है»), keeps the
+         source citation where it belongs, and now sets s14 up instead of
+         spoiling it: the internet says it, and then it turns out to be real.
+         What the chapter disputes is never the figure, only what it is taken to
+         mean, and the kicker should not imply otherwise. -->
+    <p class="kicker" id="s13-kick">THE INTERNET SAYS</p>
+    <p class="mega targetc" id="s13-num">37.8%</p>
+    <p class="foot" id="s13-foot">Statistics Bureau of Japan, Kakei Chosa 2024 annual summary, Table I-2-2</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.4 · the National Diet Building, frontal, flag flying. Was an inked rubber
+     stamp, which says "an office somewhere" and fails the sound-off rule.
+
+     From Wikimedia Commons, not the stock providers — four Pixabay/Pexels
+     queries for a Japanese government building returned the Hungarian Parliament
+     twelve times, the Reichstag, Kuala Lumpur, Seattle and Istanbul. Stock
+     indexes moods; Commons indexes named things. See tools/stock (@commons).
+
+     The Diet is the legislature, not the Statistics Bureau that actually issues
+     the Kakei Chosa — but the line is the generic "Japan's government itself
+     publishes it", and the Diet is what "the Japanese state" looks like. The
+     scene that names a specific compiler (s16) gets that compiler's own building.
+
+     ⚠ CC BY-SA 4.0 — attribution is a LICENCE CONDITION here, not a courtesy the
+     way it is on Pixabay. assets-ch2/final/CREDITS.txt must ship with this cut. -->
+<section class="scene clip" id="s14" data-track-index="2" data-start="19.849" data-duration="5.665" data-framings="5.215">
+  <div class="bg" id="s14-bg" style="background-image:url(assets-ch2/final/s14.jpg);filter:grayscale(0.17) brightness(0.78) contrast(1.08)"></div>
+  <div class="scrim" id="s14-scrim"></div>
+  <div class="stack" id="s14-stack">
+    <p class="kicker" id="s14-kick">IT IS REAL</p>
+    <p class="huge" id="s14-stmt" style="font-size:88px">Japan's own government publishes it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.5 · THE SURVEY. Backed by the Government Office Complex that houses the
+     Statistics Bureau — the body that actually runs the Kakei Chosa and issues
+     the 37.8%. Sourced from Commons; the stock providers have no such thing.
+     Portrait original, cropped to a 16:9 band across the building.
+
+     This is now the ONLY place the drawn table appears — s13's was dropped (see
+     its note). It keeps the storyboard's instruction ("the same table, wider")
+     and still starts later in its own timeline so the row is already lit: this
+     is the survey the claim was read off, not a second claim. `dry` — no cue.
+
+     The legibility fix is `.band`, not the grade (editor ch2-1, blocker 1). The
+     facade behind this is itself a lattice of rectangles, so the table's bars
+     and the building's window grid were cancelling each other out; a band under
+     the art separates the two planes, which pushing brightness to .70 never did.
+     Grade goes back to the chapter's own — the photograph is a photograph again
+     above the band, and darkened only where the art actually sits. -->
+<section class="scene clip" id="s15" data-track-index="1" data-start="25.064" data-duration="6.292" data-framings="5.842">
+  <div class="bg" id="s15-bg" style="background-image:url(assets-ch2/final/s15.jpg);filter:grayscale(0.16) brightness(0.84) contrast(1.05)"></div>
+  <div class="scrim" id="s15-scrim" style="--tint:rgba(245,158,11,.12)"></div>
+  <div class="band" id="s15-band"></div>
+  <div class="stack" id="s15-stack">
+    <p class="kicker" id="s15-kick">THE SURVEY</p>
+    <p class="mega targetc" id="s15-num">37.8%</p>
+    <p class="foot" id="s15-foot">FIES 2024, salaried-worker households: surplus JPY 197,432 of disposable JPY 522,569</p>
+  </div>
+  <div class="lottie v-table" id="s15-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.6 · the Cabinet Office government buildings. Was two old bound volumes.
+
+     Picked over the Bank of Japan, which was the obvious "Japanese money
+     institution" shot and is WRONG here: the National Accounts this line quotes
+     are compiled by the Cabinet Office (内閣府), not the central bank. The BoJ
+     would have looked better and said something false, which is the trade this
+     chapter's audit exists to refuse.
+
+     RE-CROPPED TO A DETAIL (editor ch2-1, finding 2). s14-s17 ran as four
+     consecutive wide grey institutional exteriors — 19.849 to 44.318, a third of
+     the chapter — and the fix is a change of SCALE, not of subject: the subject
+     is still the Cabinet Office, because the National Accounts this line quotes
+     are compiled by it and nothing else may claim to be.
+
+     So this is the same Commons photograph, cropped 2600x1462 from its 4896x3672
+     original (kept alongside as assets-ch2/s16-wide-original.jpg) to the entrance
+     colonnade. Three things that run of four needed: warm brick against three
+     grey blocks, an architectural scale instead of a fourth full elevation, and
+     the directory board — 内閣府庁舎 / 内閣官房 / 内閣府 — which actually NAMES the
+     institution the line names, where the wide shot only said "a building".
+
+     Commons was searched for a purpose-shot detail first and has none: the
+     `Cabinet Office Japan` and `Kasumigaseki` articles between them offer the
+     wide elevations already in this chapter, five politician portraits and a
+     skyline. Cropping the real building beats sourcing a generic doorway, which
+     would assert a place it cannot back — the third sound-off failure.
+
+     ⚠ CC BY-SA 3.0 — see the attribution note on s14. A crop is a derivative
+     and the licence still binds; CREDITS.txt is unchanged and still correct. -->
+<section class="scene clip" id="s16" data-track-index="2" data-start="30.906" data-duration="7.18" data-framings="6.73">
+  <div class="bg" id="s16-bg" style="background-image:url(assets-ch2/final/s16.jpg);filter:grayscale(0.18) brightness(0.8) contrast(1.08)"></div>
+  <div class="scrim" id="s16-scrim" style="--tint:rgba(245,158,11,.12)"></div>
+  <div class="stack" id="s16-stack">
+    <p class="kicker" id="s16-kick">THE SAME YEAR</p>
+    <p class="mega targetc" id="s16-num">ABOUT 1%</p>
+    <p class="foot" id="s16-foot">National Accounts (SNA) household saving rate, calendar 2024 — Horioka, NBER WP 33181, p.7</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.7 · THE CORRECTION. The shipped cut illustrated a THIRTY-TIMES gap with a
+     balance scale whose pans sit level — a picture that says "equal" under a line
+     that says "thirty times apart". Bars, drawn to scale: 37.8 -> 340px,
+     1.1 -> 9.9px. The sliver is supposed to look almost absent.
+
+     PHOTOGRAPH REPLACED (editor-hi-ch2-2, finding 2). This was `File:Keishicho.jpg`
+     — the Tokyo Metropolitan POLICE headquarters, picked because it stands in
+     Kasumigaseki and reads as "the ministry district". Two things wrong with it
+     under a head that says ONE GOVERNMENT: the police are a different institution
+     from either body publishing these figures, and the Metropolitan Police are the
+     METROPOLITAN government, not the national one — under a line whose entire
+     point is that both numbers come from the same national state. It survived
+     attempt 1 because it looks like exactly what it was chosen to look like; it
+     was caught by reading CREDITS.txt, not by looking. Kept at
+     assets-ch2/s17-keishicho-rejected.jpg.
+
+     Now the Ministry of Finance (財務省) — national, and the money ministry in a
+     money video. Wide eye-level scale is deliberate and must stay: that is what
+     makes the s14→s17 run read as four different scales now that s16 is a detail.
+     Its empty road is also the calmest lower band of the four, which is where the
+     bars sit. Was a stack of bound files shared with s13 and s15 before that; see
+     the note on s13 for why that was wrong.
+
+     ⚠ CC BY-SA 4.0 — attribution is a licence condition. Cropped 2500x1406 from
+     2500x1628 to 16:9; a crop is a derivative and the licence still binds. -->
+<section class="scene clip" id="s17" data-track-index="1" data-start="37.635" data-duration="6.683" data-framings="6.233">
+  <div class="bg" id="s17-bg" style="background-image:url(assets-ch2/final/s17.jpg);filter:grayscale(0.3) brightness(0.7) contrast(1.06)"></div>
+  <div class="scrim" id="s17-scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="stack" id="s17-stack">
+    <p class="kicker" id="s17-kick">ONE GOVERNMENT. ONE YEAR.</p>
+    <p class="mega warnc" id="s17-num">30 TIMES</p>
+    <p class="foot" id="s17-foot">&quot;more than 30 times as high&quot; — Horioka, NBER WP 33181, p.7</p>
+  </div>
+  <div class="lottie v-bars" id="s17-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.8 · kept. A hand filling a form — "who is counted, and how". -->
+<section class="scene clip" id="s18" data-track-index="2" data-start="43.869" data-duration="6.344" data-framings="5.894">
+  <div class="bg" id="s18-bg" style="background-image:url(assets-ch2/final/s18.jpg)"></div>
+  <div class="scrim" id="s18-scrim"></div>
+  <div class="stack" id="s18-stack">
+    <p class="kicker" id="s18-kick">THE DIFFERENCE</p>
+    <p class="huge" id="s18-stmt" style="font-size:88px">Who is counted. And how.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.9 · the load-bearing scene: the two rates disagree because they count
+     different populations. A grid of households lights up — a minority first
+     (salaried), then all of them. The lit share is a proportion, NOT a published
+     figure; no number is printed on it for that reason.
+
+     data-framings="5.200,3.985" is a CHECKED declaration (pipeline_check.py, the
+     dead-frame guard): this scene holds 9.185s, over the 9.0 cap, and is only
+     legal because a real second photograph arrives at +5.200. An earlier pass
+     here replaced s19b with the Lottie and left the attribute behind — which
+     still SUMS correctly, so the guard passes it, while the scene sits on one
+     photo for 9.2s. That is the exact failure the guard's own comment calls
+     "cosmetic framings to duck the guard", and the sum check cannot see it.
+
+     So the swap is real again, and now it earns its place: s19b was a
+     cherry-blossom branch that said nothing, then briefly a country-neutral night
+     stall, and is now a traditional Japanese shopfront — たばこ / 醤油 / つけめん on
+     the signage, a small trader's shop. «बुज़ुर्ग … दुकानदार», the clause the
+     storyboard anchors this swap to, in the country the chapter is about.
+     The country-neutral version was the wrong call: these ARE Japan's national
+     accounts, so the households being counted are Japanese ones, and a frame that
+     declines to say where it is fails the sound-off test. -->
+<section class="scene clip" id="s19" data-track-index="1" data-start="49.763" data-duration="9.635" data-framings="5.200,3.985">
+  <div class="bg" id="s19-bg" style="background-image:url(assets-ch2/final/s19.jpg);filter:grayscale(0.22) brightness(0.74) contrast(1.06)"></div>
+  <div class="bg" id="s19-bg2" style="background-image:url(assets-ch2/final/s19b.jpg);filter:grayscale(0.2) brightness(0.76) contrast(1.06);opacity:0"></div>
+  <div class="scrim" id="s19-scrim"></div>
+  <!-- Banded for the FIRST framing only (editor ch2-1, finding 3): the dot grid
+       was near-invisible over the crossing's motion blur and only read after the
+       swap to the shopfront. The editor's alternative — "start the crossing
+       framing at a slightly deeper grade" — is the lever format.json's
+       grade_note forbids, so the band does it instead and the photograph keeps
+       its own grade. Fades out before the shopfront arrives: that framing
+       already works and must not change. -->
+  <div class="band" id="s19-band" style="opacity:0"></div>
+  <div class="stack" id="s19-stack">
+    <p class="kicker" id="s19-kick">WHO IS IN</p>
+    <p class="huge" id="s19-stmt" style="font-size:72px">37.8% counts salaried households only. The other counts everyone.</p>
+    <p class="foot" id="s19-foot">Horioka p.7 — the National Accounts include the self-employed, unemployed, retired and unincorporated enterprises</p>
+  </div>
+  <div class="lottie v-dots" id="s19-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.10 · NOT kept — this was the editor's attempt-2 blocker, and it failed twice
+     over. The photograph is a stack of newspapers whose print is legibly GERMAN:
+     "Institut für Stadtgeschichte", "Frankfurter Schule", "Kölsche Karnevals-",
+     Frankfurt 069 phone numbers, all readable in the lower third right under the
+     type — inside a chapter built entirely on Japan's own two published figures.
+     Same class of error as the Indian shopkeeper for Japan's national accounts.
+     And it fails sound-off on its own terms: «इंटरनेट सिर्फ़ बड़ा वाला उठाता है»
+     is about THE INTERNET picking one number up, and a side-on stack of
+     classified listings says "old newsprint archive". The storyboard asked for a
+     fold with the headline showing; not even that survived.
+
+     A photograph stays (image_per_scene is a hard rule) but it no longer carries
+     the point. The replacement is a Tokyo street at night under a tower of
+     illuminated ad panels — the loud message amplified, which is the half of the
+     line a camera CAN see. Deliberately not another newspaper (the editor's
+     instruction: print is not what "the internet picks it up" looks like) and
+     deliberately not a third phone/screen frame after s12 and s13. Its dark base
+     is also the cleanest field in the chapter for drawn art.
+
+     The other half is DRAWN. Reach is a comparison no photograph states — one figure
+     copied everywhere, the other sitting where it started — which is exactly
+     what format.json `vector_art.lottie.reach_for_it_when` says is a FAIL as a
+     flat photo. This is the chapter's fourth and last Lottie (cap is 4).
+
+     The art draws REACH and never magnitude: two IDENTICAL tokens, because the
+     kicker reads BOTH ARE TRUE. s17 already drew 37.8 against 1.1 to scale two
+     scenes ago and re-asserting size here would restate a made point under a
+     line about circulation. See the generator for why the copy count is 22 and
+     deliberately not 30. -->
+<section class="scene clip" id="s20" data-track-index="2" data-start="58.948" data-duration="7.128" data-framings="6.678">
+  <div class="bg" id="s20-bg" style="background-image:url(assets-ch2/final/s20.jpg);filter:grayscale(0.18) brightness(0.8) contrast(1.06)"></div>
+  <div class="scrim" id="s20-scrim" style="--tint:rgba(239,68,68,.12)"></div>
+  <div class="band" id="s20-band"></div>
+  <div class="stack" id="s20-stack">
+    <p class="kicker" id="s20-kick">BOTH ARE TRUE</p>
+    <p class="huge warnc" id="s20-stmt" style="font-size:88px">Only one of them travels.</p>
+  </div>
+  <div class="lottie v-spread" id="s20-lottie"></div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.11 · re-sourced, and cropped. The shipped pick was the pre-2016 ₹500 —
+     demonetised, and a standing reject for this channel. EVERY rupee-note query
+     on both providers returns that series, so this slot moved to coins and the
+     frame is cropped to cut an old note out of the left edge.
+
+     last scene of the chapter: data-duration is BARE (no +0.45 overlap), same as
+     ch1's s10. The 0.45 comes back on concat with ch3. -->
+<section class="scene clip" id="s21" data-track-index="1" data-start="65.626" data-duration="7.853" data-framings="7.853">
+  <div class="bg" id="s21-bg" style="background-image:url(assets-ch2/final/s21.jpg);filter:grayscale(0.16) brightness(0.78) contrast(1.06)"></div>
+  <div class="scrim" id="s21-scrim"></div>
+  <div class="stack" id="s21-stack">
+    <p class="kicker" id="s21-kick">THE REAL QUESTION</p>
+    <p class="huge" id="s21-stmt" style="font-size:76px">What survives in the methods — and what it does to ₹30,000</p>
+    <p class="foot" id="s21-foot">₹30,000/mo in-hand is this channel's worked example, not a national average</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- Voice only, rebased by -55.909. Music and SFX are the post-mix step. -->
+<audio id="vo-2-1"  class="clip" data-track-index="10" data-start="0.25"   data-duration="7.236" src="assets/voice/2.1.mp3"></audio>
+<audio id="vo-2-2"  class="clip" data-track-index="10" data-start="8.285"  data-duration="4.78"  src="assets/voice/2.2.mp3"></audio>
+<audio id="vo-2-3"  class="clip" data-track-index="10" data-start="13.866" data-duration="5.433" src="assets/voice/2.3.mp3"></audio>
+<audio id="vo-2-4"  class="clip" data-track-index="10" data-start="20.099" data-duration="4.415" src="assets/voice/2.4.mp3"></audio>
+<audio id="vo-2-5"  class="clip" data-track-index="10" data-start="25.314" data-duration="5.042" src="assets/voice/2.5.mp3"></audio>
+<audio id="vo-2-6"  class="clip" data-track-index="10" data-start="31.156" data-duration="5.93"  src="assets/voice/2.6.mp3"></audio>
+<audio id="vo-2-7"  class="clip" data-track-index="10" data-start="37.885" data-duration="5.433" src="assets/voice/2.7.mp3"></audio>
+<audio id="vo-2-8"  class="clip" data-track-index="10" data-start="44.119" data-duration="5.094" src="assets/voice/2.8.mp3"></audio>
+<audio id="vo-2-9"  class="clip" data-track-index="10" data-start="50.013" data-duration="8.385" src="assets/voice/2.9.mp3"></audio>
+<audio id="vo-2-10" class="clip" data-track-index="10" data-start="59.198" data-duration="5.878" src="assets/voice/2.10.mp3"></audio>
+<audio id="vo-2-11" class="clip" data-track-index="10" data-start="65.876" data-duration="7.053" src="assets/voice/2.11.mp3"></audio>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/lottie.min.js"></script>
+<script src="assets/js/motion.js"></script>
+<script src="assets/lottie/stats-table-row.js"></script>
+<script src="assets/lottie/two-rates-30x.js"></script>
+<script src="assets/lottie/who-is-counted.js"></script>
+<script src="assets/lottie/one-number-travels.js"></script>
+<script>
+var S = { s11: 0, s12: 8.035, s13: 13.616, s14: 19.849, s15: 25.064, s16: 30.906,
+          s17: 37.635, s18: 43.869, s19: 49.763, s20: 58.948, s21: 65.626 };
+
+/* no shove inside chapter 2 — both act changes are in ch3 and ch6 */
+sceneTransitions(["s11","s12","s13","s14","s15","s16","s17","s18","s19","s20","s21"], S);
+
+/* alternating ken direction, as the shipped cut does */
+ken("#s11-bg", S.s11, 8.486, true);  rise("#s11-kick", S.s11 + 0.30, 0.7, 14); rise("#s11-stmt", S.s11 + 1.10, 0.7, 18);
+ken("#s12-bg", S.s12, 6.03,  false); rise("#s12-kick", S.s12 + 0.30, 0.7, 14); rise("#s12-stmt", S.s12 + 1.10, 0.7, 18);
+ken("#s13-bg", S.s13, 6.683, true);  rise("#s13-kick", S.s13 + 0.30, 0.7, 14); rise("#s13-num",  S.s13 + 1.10, 0.7, 18); rise("#s13-foot", S.s13 + 1.90, 0.6, 10);
+ken("#s14-bg", S.s14, 5.665, false); rise("#s14-kick", S.s14 + 0.30, 0.7, 14); rise("#s14-stmt", S.s14 + 1.10, 0.7, 18);
+ken("#s15-bg", S.s15, 6.292, true);  rise("#s15-kick", S.s15 + 0.30, 0.7, 14); rise("#s15-num",  S.s15 + 1.10, 0.7, 18); rise("#s15-foot", S.s15 + 1.90, 0.6, 10);
+ken("#s16-bg", S.s16, 7.18,  false); rise("#s16-kick", S.s16 + 0.30, 0.7, 14); rise("#s16-num",  S.s16 + 1.10, 0.7, 18); rise("#s16-foot", S.s16 + 1.90, 0.6, 10);
+ken("#s17-bg", S.s17, 6.683, true);  rise("#s17-kick", S.s17 + 0.30, 0.7, 14); rise("#s17-num",  S.s17 + 1.10, 0.7, 18); rise("#s17-foot", S.s17 + 1.90, 0.6, 10);
+ken("#s18-bg", S.s18, 6.344, false); rise("#s18-kick", S.s18 + 0.30, 0.7, 14); rise("#s18-stmt", S.s18 + 1.10, 0.7, 18);
+/* s19 · two framings (§6): the crossing (everyone, in bulk) for 5.200s, then the
+   stall (one of the people that "everyone" is made of) for the remaining 3.985 */
+ken("#s19-bg", S.s19, 5.65, true);   rise("#s19-kick", S.s19 + 0.30, 0.7, 14); rise("#s19-stmt", S.s19 + 1.10, 0.7, 18); rise("#s19-foot", S.s19 + 1.90, 0.6, 10);
+/* the band is up only while the dots are over the crossing: full at +2.70, the
+   frame the grid starts drawing on, and gone by +5.60, the frame the shopfront
+   finishes arriving on. It is never on screen over the shopfront. */
+fade("#s19-band", S.s19 + 2.20, 0.50); exit("#s19-band", S.s19 + 5.10, 0.50);
+fade("#s19-bg2", S.s19 + 5.200, 0.40); ken("#s19-bg2", S.s19 + 5.200, 4.435, false);
+ken("#s20-bg", S.s20, 7.128, false); rise("#s20-kick", S.s20 + 0.30, 0.7, 14); rise("#s20-stmt", S.s20 + 1.10, 0.7, 18);
+ken("#s21-bg", S.s21, 7.853, true);  rise("#s21-kick", S.s21 + 0.30, 0.7, 14); rise("#s21-stmt", S.s21 + 1.10, 0.7, 18); rise("#s21-foot", S.s21 + 1.90, 0.6, 10);
+
+/* --- the Lotties ----------------------------------------------------------
+   Each takes cue slot 3 (+1.90) — the slot the icon takes elsewhere — so the
+   ladder's >=0.8s gaps hold: 0.30 -> 1.10 -> 1.90. All run at true speed and
+   hold on their last frame (loop:false).
+
+   Three instances, one under the cap of four. s13's table was dropped as the
+   editor's blocker (see its section note), so the drawn table now runs ONCE,
+   here on s15 — the survey the claim was read off. It still starts later in the
+   asset than a from-zero play would, so the cited row is already lit. */
+var t15 = loadLottie("#s15-lottie", L_stats_table_row);
+playLottie(t15, S.s15 + 1.90, 4.00);
+
+/* The correction. 4.00s of growth: the 37.8 bar rises, then the ~1.1 sliver,
+   then the bracket measures what is left between them. */
+var bars = loadLottie("#s17-lottie", L_two_rates_30x);
+playLottie(bars, S.s17 + 1.90, 4.00);
+
+/* 4.5s: subset first, everyone second — the line's own order.
+
+   Starts at +2.70, not the usual +1.90, so its two phases land on the scene's
+   two framings. "Everyone else joins" begins 2.47s into the asset, so at +2.70
+   that is +5.17 — 0.03s before the photograph swaps to the stall at +5.200. The
+   grid filling in and the frame cutting to one of the people it just counted are
+   therefore the same beat, which is the whole argument of the scene.
+
+   +2.70 also keeps the cue ladder legal: the foot takes slot 3 at +1.90, and
+   0.80s is exactly the minimum gap. */
+var dots = loadLottie("#s19-lottie", L_who_is_counted);
+playLottie(dots, S.s19 + 2.70, 4.50);
+
+/* The fourth and last Lottie (cap is 4). Cue slot 3 (+1.90) like the others, so
+   the ladder stays 0.30 -> 1.10 -> 1.90; 4.00s of play ends at +5.90, inside the
+   6.678s framing. Both the token that multiplies and the one that doesn't are
+   already on screen by +2.10; the spread runs from +2.70 to +5.20. */
+var spread = loadLottie("#s20-lottie", L_one_number_travels);
+playLottie(spread, S.s20 + 1.90, 4.00);
+
+window.__timelines = window.__timelines || {};
+register();
+</script>
+</body>
+</html>

@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Japanese Money Methods — en · FULL CUT · CLAUDE-DESIGN</title>
+
+<!-- ===========================================================================
+     THE MASTER — all 92 scenes, 626.743s, one composition, one render.
+
+     ASSEMBLED by tools/cut_assemble.py from the eight approved chapter projects
+     plus studio/videos/japanese-money-methods-en/index.html (which stays the one home of every
+     timing, on-screen string and .bg). Do not hand-edit: change a chapter.json
+     or a hand-built chapter and re-run the assembler.
+
+     ch1  s1-s10  chapter.json
+     ch2  s11-s21  chapter.json
+     ch3  s22-s33  chapter.json
+     ch4  s34-s46  chapter.json
+     ch5  s47-s58  chapter.json
+     ch6  s59-s73  chapter.json
+     ch7  s74-s84  chapter.json
+     ch8  s85-s92  chapter.json
+
+     Every chapter's last scene has its +0.45s cross-dissolve overlap BACK — the
+     chapter generator strips it because a chapter has no successor. The seven
+     chapter joints are therefore real dissolves here, not the hard cuts that
+     tools/chapter_preview.py produces.
+     =========================================================================== -->
+
+<link rel="stylesheet" href="assets/blockframe.css">
+<link rel="stylesheet" href="assets/chapter-design.css">
+<style>
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+/* the four plate rects, one per archetype */
+.p-a { left: 0;      top: 0;     width: 1920px; height: 1080px; }
+.p-b { left: 1120px; top: 150px; width: 860px;  height: 610px;  }
+.p-c { left: 1046px; top: -60px; width: 934px;  height: 1200px; }
+.p-d { left: 0;      top: 424px; width: 1920px; height: 656px;  }
+/* One-offs for this chapter only, named .v-* so they read as not-the-system. */
+
+/* s1 + s2 · THE HOLD. One object, one unbroken push, 0 -> 11.924s.
+
+   The phone artwork carries an OPAQUE 640x420 ground layer, so it cannot sit
+   on a photograph as an overlay — at any size below full-bleed it is a card
+   floating on a second counter, and s1-fix.jpg is itself a phone, which would
+   make it a drawn phone on a photographed phone (rule 8). So the Lottie IS the
+   picture for both lines, exactly as -hi ch1 plays it, and both .bg divs are
+   off rather than left underneath where nobody could ever see them.
+
+   `.v-phone` is deliberately the SAME BOX as `.bg` (inset -8%): the drawn layer
+   occupies the photograph's rect, so the plateKen numbers the cut already
+   carries transfer unchanged and the push cannot drift. */
+#s1-bg, #s2-bg { display: none; }
+/* Sized in PIXELS, not `inset: -8%`, and the svg forced to fill. lottie-web
+   reads the container's box at loadAnimation() time to size the <svg>; inside a
+   scene that has no layout yet it falls back to the artwork's native 640x420
+   and pins it top-left, which is what the first encode showed — a phone in the
+   corner of an otherwise empty navy frame. ch2's four stages work because they
+   carry explicit px. These numbers ARE `.bg`'s -8% box on 1920x1080, so the
+   plateKen values still transfer unchanged. */
+.v-phone { position: absolute; left: -153.6px; top: -86.4px;
+           width: 2227.2px; height: 1252.8px; z-index: 0; overflow: hidden;
+           filter: grayscale(0.34) brightness(0.92) contrast(1.05); }
+.v-phone svg { display: block; width: 100% !important; height: 100% !important; }
+
+/* s7 · the calendar takes B's right half, sized so lottie-web's default
+   `meet` cannot crop a month grid and so it clears .arch-b .huge's 900px
+   column (which ends at x=1112). It is z 2 — ABOVE the scrim — because a
+   ringed date dimmed by the scrim is the one thing this scene cannot afford. */
+.v-cal { position: absolute; left: 1140px; top: 210px; width: 740px; height: 460px; }
+
+/* s6 and s9 · each of these scenes' whole argument is a COUNT, and the global
+   `.has-photo.art-forward .art { opacity:.52 !important }` cap is what lost
+   s9's streams in the last encode — the per-scene inline opacity the spec
+   writes is dead against it. Lifted here, per scene, by id. The global cap is
+   untouched and no design token moves. */
+#s6-art, #s9-art { opacity: .78 !important; }
+
+/* s2 · the three marks. The line promises three methods; without them the
+   scene is 6.4s of a lit phone and a sentence, which is where a viewer goes.
+   Placed absolutely rather than in the stack — the stack is lifted verbatim
+   from the shipped cut and a chapter spec must not rewrite copy. */
+.v-marks { position: absolute; left: 50%; transform: translateX(-50%); top: 672px;
+           display: flex; gap: 26px; z-index: 3; }
+.v-marks i { display: block; width: 58px; height: 58px;
+             border: 3px solid var(--fund); border-radius: 4px; }
+#s17-num { font-size: 240px !important; }
+.v-table  { position: absolute; top: 616px; left: 440px; width: 1040px; height: 430px; }
+.v-bars   { position: absolute; top: 610px; left: 560px; width: 1000px; height: 440px; }
+.v-dots   { position: absolute; top: 536px; left: 460px; width: 1000px; height: 508px; }
+.v-spread { position: absolute; top: 452px; left: 460px; width: 1000px; height: 560px; }
+#s55-num { font-size: 240px !important; }
+#s56-num { font-size: 240px !important; }
+</style>
+</head>
+<body>
+<div id="root" class="cut-en" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="626.743">
+
+<!-- 1.1 · A · LOTTIE · no role · cool — frame 0 of the video, and the first half
+     of a 11.924s HOLD that s2 finishes. The phone and the counter are present
+     at frame 0 and ONLY the notification animates in (the asset's layer 7 is
+     opacity 0 until frame 24, 100 at frame 27). That is the beat no still can
+     hold: the money ARRIVING, rather than money having arrived. -->
+<section class="scene clip arch-a has-photo art-off ch1" id="s1" data-track-index="1" data-start="0" data-duration="4.489">
+  <div class="bg" id="s1-bg" style="background-image:url(assets/img/s1-fix.jpg);filter:grayscale(.32) brightness(.81) contrast(1.05)"></div>
+  <div class="field" style="--f1:#131b26"><div class="rules"></div><div class="glow"></div></div>
+  <div class="lottie v-phone" id="s1-phone"></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="huge" id="s1-stmt" style="font-size:88px">The deposit is in.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.2 · A · LOTTIE · fund · green — the promise, and the second half of the
+     hold. Same object, same instant, the push picked up at exactly 1.10 where
+     s1 leaves it. The notification has faded by ~5.7s and the phone simply
+     sits there for the rest of the line, which is the correct read: it landed
+     once and it is already past. -->
+<section class="scene clip arch-a has-photo art-off ch1" id="s2" data-track-index="2" data-start="4.039" data-duration="7.885" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s2-bg" style="background-image:url(assets/img/s1-fix.jpg);filter:grayscale(.32) brightness(.81) contrast(1.05)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="lottie v-phone" id="s2-phone"></div>
+  <div class="v-marks" id="s2-marks"><i></i><i></i><i></i></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s2-head">TWO SECONDS</p>
+    <p class="huge fundc" id="s2-stmt" style="font-size:76px">Three Japanese methods make it last longer.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.3 · A · PLATE · warn · red — a pile of bills IS the line; a drawn bill on
+     top of it would trace it. -->
+<section class="scene clip arch-a has-photo art-off ch1" id="s3" data-track-index="1" data-start="11.474" data-duration="6.396" data-framings="3.205,2.741" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s3-bg" style="background-image:url(assets/img/s3-fix.jpg)"></div>
+  <div class="bg" id="s3-bg2" style="background-image:url(assets/img/s3b-hi.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#2a1214"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s3-head">THEN RENT</p>
+    <p class="huge warnc" id="s3-stmt" style="font-size:76px">Then the power bill. Higher again.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.4 · B · FIGURE · no role · neutral — THE SIX-MONTH BILL. The claim in the
+     copy is "six months where you budgeted one", so the art is ONE cell against
+     SIX, to the same scale, and nothing else. The previous 6-lit-of-10 read as
+     a published proportion with a denominator that appears nowhere in the
+     script (editor en-ch1-3 finding 9). The underlines are measurement rules,
+     not decoration — they replace the stray red 62x8 mark that read as nothing.
+     Plate geometry (p-b, 0 0 860 610), the cell rect (62x138 on a 76 pitch) and
+     the baseline y are all unchanged; only the count and the spacing moved. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch1" id="s4" data-track-index="2" data-start="17.42" data-duration="6.762">
+  <div class="bg" id="s4-bg" style="background-image:url(assets/img/s4.jpg)"></div>
+  <div class="field" style="--f1:#1b1e23"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-b edge" id="s4-plate">
+    <div class="plate-in" id="s4-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s4-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <!-- what you budgeted: one month, dim -->
+        <g id="s4-one">
+          <rect class="fl" x="46" y="236" width="62" height="138" opacity=".38"/>
+          <rect class="fl" x="46" y="398" width="62" height="7" opacity=".55"/>
+        </g>
+        <!-- what the one payment actually covers: six, same rect, same pitch -->
+        <g id="s4-lit">
+          <rect class="flt" x="274" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="350" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="426" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="502" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="578" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="654" y="236" width="62" height="138" opacity=".92"/>
+        </g>
+        <g id="s4-span">
+          <rect class="flt" x="274" y="398" width="442" height="7" opacity=".8"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s4-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s4-head">THEN THE RENEWAL</p>
+    <p class="huge" id="s4-stmt" style="font-size:76px">The six-month bill you budget like a monthly one.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.5 · A · PLATE · no role · warm — one gift, two orders, one renewal. Gift
+     bags photographed; a drawn count of four here would be a caption. -->
+<section class="scene clip arch-a has-photo art-off ch1" id="s5" data-track-index="1" data-start="23.732" data-duration="7.18" data-framings="2.581,2.335,1.814">
+  <div class="bg" id="s5-bg" style="background-image:url(assets/img/s5.jpg)"></div>
+  <div class="bg" id="s5-bg2" style="background-image:url(assets/img/s5b-fix.jpg);opacity:0"></div>
+  <div class="bg" id="s5-bg3" style="background-image:url(assets/img/s5c-fix.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#241c12"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s5-head">AND THEN</p>
+    <p class="huge" id="s5-stmt" style="font-size:76px">One gift. Two delivery orders. One auto-renewal.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.6 · A · PLATE + COUNT · no role · neutral — every one small, every one
+     fair. Forty-four identical slips on a strict 11x4 grid: uniform rects so
+     the layer reads as a TALLY, which is the line's actual claim, and not as a
+     second drawing of whatever receipts the photograph shows. A `.band` at
+     z 0 darkens BEHIND them (rule 9 — the photograph itself is never graded
+     per scene). Ported from -hi ch1, where the same band exists but is dead
+     code: that scene is `art-off centred`, so its plate never renders. -->
+<section class="scene clip arch-a has-photo art-forward ch1" id="s6" data-track-index="2" data-start="30.462" data-duration="6.997">
+  <div class="bg" id="s6-bg" style="background-image:url(assets/img/s6-fix.jpg)"></div>
+  <div class="field" style="--f1:#191c21"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s6-band" style="height:40%;z-index:0"></div>
+  <div class="plate p-a" id="s6-plate">
+    <div class="plate-in" id="s6-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s6-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.78">
+        <g id="s6-slips" class="fl"></g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s6-head">NOTHING WAS BIG</p>
+    <p class="huge" id="s6-stmt" style="font-size:76px">Every one was small. Every one was fair.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.7 · B · FIGURE + LOTTIE · warn · red — BY THE 20th. The measure bar drains
+     to almost nothing and the month grid burns down to a ringed 20th, on the
+     same cue: one claim, two readings of it. The scene is no longer `centred` —
+     B's right half now holds art, so the split is a layout again rather than a
+     hole, and the type takes the left column with the vrule back on. -->
+<section class="scene clip arch-b has-photo art-off ch1" id="s7" data-track-index="1" data-start="37.009" data-duration="4.829" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s7-bg" style="background-image:url(assets/img/s7-fix.jpg)"></div>
+  <div class="field" style="--f1:#2f1215"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="lottie v-cal" id="s7-cal"></div>
+  <p class="measure-lab under" id="s7-ml">BALANCE</p>
+  <div class="measure under" id="s7-mt"><div class="measure-fill warn" id="s7-mf"></div></div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s7-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s7-head">BY THE 20th</p>
+    <p class="huge warnc" id="s7-stmt" style="font-size:76px">The balance looks like payday never happened.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.8 · A · PLATE · no role · cool — YOU GO LOOKING. Hands on a printed
+     statement; the search is the picture. -->
+<section class="scene clip arch-a has-photo art-off ch1" id="s8" data-track-index="2" data-start="41.388" data-duration="6.448">
+  <div class="bg" id="s8-bg" style="background-image:url(assets/img/s8-fix.jpg)"></div>
+  <div class="field" style="--f1:#101822"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s8-head">YOU GO LOOKING</p>
+    <p class="huge" id="s8-stmt" style="font-size:76px">For the one big line that explains it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.9 · D · BAND · warn · deep red — IT IS NOT THERE. Twenty-four holes, each
+     leaking a little, none of them large. Opacities raised throughout: the
+     streams were `.6` inside a container the global `.art-forward` rule pins
+     to `.52 !important`, so they rendered at .31 and vanished in the encode
+     (editor en-ch1-3 finding 8). The container is lifted to .78 by id in the
+     chapter css and the streams now carry no opacity of their own at all. -->
+<section class="scene clip arch-d has-photo art-forward ch1" id="s9" data-track-index="1" data-start="47.386" data-duration="6.109" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s9-bg" style="background-image:url(assets/img/s9-hi.jpg)"></div>
+  <div class="field" style="--f1:#3a1013"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="band" id="s9-band" style="height:44%;z-index:0"></div>
+  <div class="plate p-d" id="s9-plate">
+    <div class="plate-in" id="s9-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s9-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.78">
+        <rect class="fl" x="262" y="70" width="1396" height="110" rx="8" opacity=".5"/>
+        <g id="s9-drain">
+          <rect class="fl" x="316" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p0" class="flw" x="323" y="140" width="6" height="230"/>
+          <rect class="fl" x="372" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p1" class="flw" x="379" y="140" width="6" height="230"/>
+          <rect class="fl" x="428" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p2" class="flw" x="435" y="140" width="6" height="230"/>
+          <rect class="fl" x="484" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p3" class="flw" x="491" y="140" width="6" height="230"/>
+          <rect class="fl" x="540" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p4" class="flw" x="547" y="140" width="6" height="230"/>
+          <rect class="fl" x="596" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p5" class="flw" x="603" y="140" width="6" height="230"/>
+          <rect class="fl" x="652" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p6" class="flw" x="659" y="140" width="6" height="230"/>
+          <rect class="fl" x="708" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p7" class="flw" x="715" y="140" width="6" height="230"/>
+          <rect class="fl" x="764" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p8" class="flw" x="771" y="140" width="6" height="230"/>
+          <rect class="fl" x="820" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p9" class="flw" x="827" y="140" width="6" height="230"/>
+          <rect class="fl" x="876" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p10" class="flw" x="883" y="140" width="6" height="230"/>
+          <rect class="fl" x="932" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p11" class="flw" x="939" y="140" width="6" height="230"/>
+          <rect class="fl" x="988" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p12" class="flw" x="995" y="140" width="6" height="230"/>
+          <rect class="fl" x="1044" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p13" class="flw" x="1051" y="140" width="6" height="230"/>
+          <rect class="fl" x="1100" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p14" class="flw" x="1107" y="140" width="6" height="230"/>
+          <rect class="fl" x="1156" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p15" class="flw" x="1163" y="140" width="6" height="230"/>
+          <rect class="fl" x="1212" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p16" class="flw" x="1219" y="140" width="6" height="230"/>
+          <rect class="fl" x="1268" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p17" class="flw" x="1275" y="140" width="6" height="230"/>
+          <rect class="fl" x="1324" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p18" class="flw" x="1331" y="140" width="6" height="230"/>
+          <rect class="fl" x="1380" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p19" class="flw" x="1387" y="140" width="6" height="230"/>
+          <rect class="fl" x="1436" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p20" class="flw" x="1443" y="140" width="6" height="230"/>
+          <rect class="fl" x="1492" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p21" class="flw" x="1499" y="140" width="6" height="230"/>
+          <rect class="fl" x="1548" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p22" class="flw" x="1555" y="140" width="6" height="230"/>
+          <rect class="fl" x="1604" y="120" width="20" height="20" rx="10" opacity=".85"/>
+          <rect id="s9-p23" class="flw" x="1611" y="140" width="6" height="230"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s9-br" style="top:424px"></div>
+  <div class="stack">
+    <p class="kicker" id="s9-head">IT IS NOT THERE</p>
+    <p class="huge warnc" id="s9-stmt" style="font-size:76px">Not one place. A little everywhere.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 1.10 · A · PLATE · no role · warm — IS THAT YOURS? An empty chair at a
+     table; the chapter's last frame carries a BARE data-duration. -->
+<section class="scene clip arch-a has-photo art-off ch1" id="s10" data-track-index="2" data-start="53.045" data-duration="4.594">
+  <div class="bg" id="s10-bg" style="background-image:url(assets/img/s10-hi.jpg)"></div>
+  <div class="field" style="--f1:#221c13"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s10-head">IS THAT YOURS?</p>
+    <p class="huge" id="s10-stmt" style="font-size:76px">Then this one is for you.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 2.1 · A · PLATE · fund · warm — THREE METHODS. A lit shopfront: a threshold
+     you are about to walk through, which is what 'three methods' opens. -->
+<section class="scene clip arch-a has-photo art-off ch2" id="s11" data-track-index="1" data-start="57.189" data-duration="7.65" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s11-bg" style="background-image:url(assets/img/s11-hi.jpg)"></div>
+  <div class="field" style="--f1:#1b3024"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s11-head">THREE METHODS</p>
+    <p class="huge fundc" id="s11-stmt" style="font-size:76px">Centuries old. In no finance course.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.2 · A · PLATE · no role · cool — THE FEED. A hand scrolling a lit phone;
+     this is screen light and the ground says so. -->
+<section class="scene clip arch-a has-photo art-off ch2" id="s12" data-track-index="2" data-start="64.389" data-duration="6.866">
+  <div class="bg" id="s12-bg" style="background-image:url(assets/img/s12-hi.jpg)"></div>
+  <div class="field" style="--f1:#141d2c"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s12-head">FIRST, THE SAVING RATE</p>
+    <p class="huge" id="s12-stmt" style="font-size:76px">The one that put Japan on your feed.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.3 · B · FIGURE · target · amber — THE INTERNET SAYS. The line is that the
+     INTERNET says it, so the drawn layer is the figure repeating OUTWARD from
+     where it was stated — larger and sparser as it travels. A photograph of a
+     screen can show the claim; it cannot show it being repeated.
+     Full-frame p-a window, no plate: the echo has to cross the whole picture to
+     be an echo, and the p-b edge read as a panel taped over the photo. -->
+<section class="scene clip arch-b has-photo ch2" id="s13" data-track-index="1" data-start="70.805" data-duration="6.762" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s13-bg" style="background-image:url(assets/img/s13-hi.jpg)"></div>
+  <div class="field" style="--f1:#2e2411"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="plate p-a" id="s13-plate">
+    <div class="plate-in" id="s13-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s13-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.36">
+        <g id="s13-echo" class="flt">
+          <text x="880"  y="238" font-size="52">37.8%</text>
+          <text x="1140" y="182" font-size="66">37.8%</text>
+          <text x="1430" y="288" font-size="84">37.8%</text>
+          <text x="1180" y="392" font-size="58">37.8%</text>
+          <text x="1560" y="470" font-size="72">37.8%</text>
+          <text x="1250" y="596" font-size="62">37.8%</text>
+          <text x="1580" y="712" font-size="88">37.8%</text>
+          <text x="1120" y="790" font-size="54">37.8%</text>
+          <text x="1460" y="908" font-size="70">37.8%</text>
+          <text x="820"  y="866" font-size="48">37.8%</text>
+          <text x="960"  y="930" font-size="60">37.8%</text>
+          <text x="1640" y="924" font-size="46">37.8%</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s13-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s13-head">THE INTERNET SAYS</p>
+    <p class="huge targetc" id="s13-num">37.8%</p>
+    <p class="foot" id="s13-foot">Statistics Bureau of Japan, Kakei Chosa 2024 annual summary, Table I-2-2</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.4 · A · PLATE · no role · neutral — IT IS REAL. The National Diet Building
+     is the picture; drawing a seal on top of it is the rule-8 failure by name. -->
+<section class="scene clip arch-a has-photo art-off ch2" id="s14" data-track-index="2" data-start="77.117" data-duration="6.109">
+  <div class="bg" id="s14-bg" style="background-image:url(assets/img/s14-hi.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s14-head">IT IS REAL</p>
+    <p class="huge" id="s14-stmt" style="font-size:76px">Japan's own government publishes it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.5 · B · FIGURE · target · amber deeper — THE SURVEY. Lottie 1 of 4: the
+     table row being pulled out of its own source. The figure is stated a second
+     time FROM ITS SOURCE, and that is a process, not a still — a photograph of
+     a government office can say where, never how. The drawn field behind it is
+     the survey's own column ruling; `.band` darkens the photo under the Lottie
+     rather than darkening the frame (rule 9). -->
+<section class="scene clip arch-b has-photo ch2" id="s15" data-track-index="1" data-start="82.776" data-duration="7.363" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s15-bg" style="background-image:url(assets/img/s15-hi.jpg)"></div>
+  <div class="field" style="--f1:#372a0c"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="band" id="s15-band"></div>
+  <div class="lottie v-table" id="s15-lottie"></div>
+  <div class="plate p-a" id="s15-plate">
+    <div class="plate-in" id="s15-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s15-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.28">
+        <g class="st" style="stroke-width:2">
+          <path d="M 380 0 L 380 1080"/><path d="M 760 0 L 760 1080"/>
+          <path d="M 1160 0 L 1160 1080"/><path d="M 1540 0 L 1540 1080"/>
+        </g>
+        <g class="fl" opacity=".5">
+          <rect x="200" y="150" width="1540" height="6"/>
+          <rect x="200" y="330" width="1540" height="6"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s15-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s15-head">THE SURVEY</p>
+    <p class="huge targetc" id="s15-num">37.8%</p>
+    <p class="foot" id="s15-foot">FIES 2024, salaried-worker households: surplus JPY 197,432 of disposable JPY 522,569</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.6 · B · FIGURE · target · THE COLD FLOOR — the coldest ground in the cut,
+     because this is where the claim collapses.
+     TRUTH: 16px of a 1480px track = 1.08%, which is what 'about 1%' means. The
+     previous build drew the identical 16px nub in a 600px track = 2.67% and
+     printed 'ABOUT 1%' over it — a drawn proportion 2.4x off a published
+     figure. Track width and nub width are a PAIR; never copy one without the
+     other. Full-frame p-a, because a 1480px track does not fit an 860px plate. -->
+<section class="scene clip arch-b has-photo art-forward ch2" id="s16" data-track-index="2" data-start="89.688" data-duration="6.814" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s16-bg" style="background-image:url(assets/img/s16-hi.jpg)"></div>
+  <div class="field" style="--f1:#0e1c2e"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="plate p-a" id="s16-plate">
+    <div class="plate-in" id="s16-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s16-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.72">
+        <rect class="st" style="stroke-width:3;opacity:.55" x="220" y="716" width="1480" height="96"/>
+        <rect id="s16-ghost" class="st" style="stroke-width:2;opacity:.22" fill="none" x="220" y="716" width="559" height="96"/>
+        <rect id="s16-nub" class="flt" x="220" y="716" width="16" height="96"/>
+        <g class="st" style="stroke-width:3;opacity:.5">
+          <path d="M 220 700 L 220 828 M 1700 700 L 1700 828 M 220 764 L 1700 764" opacity=".28"/>
+        </g>
+        <g class="st" style="stroke-width:2;opacity:.4">
+          <path d="M 220 860 L 220 900 M 1700 860 L 1700 900 M 220 880 L 1700 880"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s16-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s16-head">THE SAME YEAR</p>
+    <p class="huge targetc" id="s16-num">ABOUT 1%</p>
+    <p class="foot" id="s16-foot">National Accounts (SNA) household saving rate, calendar 2024 — Horioka, NBER WP 33181, p.7</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.7 · B · FIGURE · warn · red hot — THE CORRECTION. Lottie 2 of 4: 37.8 as
+     340px against 1.1 as 9.9px, drawn to scale across a full-width band.
+     The inline #s17-hi / #s17-lo rects are GONE: the ratio was arithmetically
+     right and visually unreadable — two dim rectangles slice-cropped hard right
+     inside an 860px plate. A ratio nobody can measure is not a measurement.
+     The drawn field that remains is a measuring rule, which is what 'thirty
+     times apart' looks like; `.band` sits under the Lottie. -->
+<section class="scene clip arch-b has-photo art-forward ch2" id="s17" data-track-index="1" data-start="96.052" data-duration="7.963" style="--tint:rgba(239,68,68,0.13)">
+  <div class="bg" id="s17-bg" style="background-image:url(assets/img/s17-hi.jpg)"></div>
+  <div class="field" style="--f1:#38151a"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="band" id="s17-band"></div>
+  <div class="lottie v-bars" id="s17-lottie"></div>
+  <div class="plate p-a" id="s17-plate">
+    <div class="plate-in" id="s17-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s17-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.32">
+        <g class="stw" style="stroke-width:2">
+          <path d="M 196 0 L 196 1080"/>
+          <path d="M 1724 0 L 1724 1080"/>
+        </g>
+        <g class="fl" opacity=".45">
+          <rect x="196" y="180" width="64" height="4"/><rect x="196" y="340" width="104" height="4"/>
+          <rect x="196" y="500" width="64" height="4"/><rect x="196" y="660" width="104" height="4"/>
+          <rect x="196" y="820" width="64" height="4"/><rect x="196" y="930" width="104" height="4"/>
+          <rect x="1660" y="180" width="64" height="4"/><rect x="1620" y="340" width="104" height="4"/>
+          <rect x="1660" y="500" width="64" height="4"/><rect x="1620" y="660" width="104" height="4"/>
+          <rect x="1660" y="820" width="64" height="4"/><rect x="1620" y="930" width="104" height="4"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s17-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s17-kick">ONE GOVERNMENT. ONE YEAR.</p>
+    <p class="mega warnc" id="s17-num" style="font-size:240px">30 TIMES</p>
+    <p class="foot" id="s17-foot">"more than 30 times as high" — Horioka, NBER WP 33181, p.7</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.8 · A · PLATE · no role · neutral — WHO IS COUNTED. A hand ticking boxes
+     on a survey form; the counting is the photograph. -->
+<section class="scene clip arch-a has-photo art-off ch2" id="s18" data-track-index="2" data-start="103.566" data-duration="7.754">
+  <div class="bg" id="s18-bg" style="background-image:url(assets/img/s18-hi.jpg)"></div>
+  <div class="field" style="--f1:#1c1f24"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s18-head">THE DIFFERENCE</p>
+    <p class="huge" id="s18-stmt" style="font-size:76px">Who is counted. And how.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.9 · D · BAND · no role · cool — WHO IS IN. Lottie 3 of 4: 108 households,
+     28 of them lit, then everyone. A subset inside a set is the one picture a
+     photograph can never state, and the whole debunk turns on it.
+     The 28/108 is DELIBERATELY not 37.8% — 37.8% is a share of disposable
+     income, not a share of households, and a grid at 37.8% would be a fabricated
+     statistic dressed as a real one (see assets/lottie/src/who-is-counted.py).
+     Do not 'correct' it.
+     Everything turns over on ONE beat at +4.446, the scene's declared framing
+     boundary: the photo swaps (motion lives in the shipped cut), the fence
+     around the counted minority goes, the brackets open past both edges, and
+     the Lottie's second pass lights everyone. The Lottie starts at +1.98 for
+     exactly that reason — its phase 2 begins at frame 74 of 135, i.e. 54.8%
+     through a 4.50s play = +2.47, and 1.98 + 2.47 = 4.446. -->
+<section class="scene clip arch-d has-photo art-forward ch2" id="s19" data-track-index="1" data-start="110.87" data-duration="8.303" data-framings="4.446,3.407">
+  <div class="bg" id="s19-bg" style="background-image:url(assets/img/s19.jpg)"></div>
+  <div class="bg" id="s19-bg2" style="background-image:url(assets/img/s19b-hi.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#131f2c"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s19-band" style="height:54%;z-index:0"></div>
+  <div class="lottie v-dots" id="s19-lottie"></div>
+  <div class="plate p-d" id="s19-plate">
+    <div class="plate-in" id="s19-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s19-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <g id="s19-fence" class="fl">
+          <rect x="620" y="120" width="10" height="416"/><rect x="620" y="120" width="86" height="10"/><rect x="620" y="526" width="86" height="10"/>
+          <rect x="1290" y="120" width="10" height="416"/><rect x="1214" y="120" width="86" height="10"/><rect x="1214" y="526" width="86" height="10"/>
+        </g>
+        <g id="s19-open" class="fl" opacity="0">
+          <rect x="268" y="82" width="10" height="444"/><rect x="268" y="82" width="132" height="10"/><rect x="268" y="516" width="132" height="10"/>
+          <rect x="1642" y="82" width="10" height="444"/><rect x="1520" y="82" width="132" height="10"/><rect x="1520" y="516" width="132" height="10"/>
+          <rect x="250" y="556" width="1420" height="11"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s19-br" style="top:424px"></div>
+  <div class="stack">
+    <p class="kicker" id="s19-head">WHO IS IN</p>
+    <p class="huge" id="s19-stmt" style="font-size:76px">37.8% counts salaried households only. The other counts everyone.</p>
+    <p class="foot" id="s19-foot">Horioka p.7 — the National Accounts include the self-employed, unemployed, retired and unincorporated enterprises</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.10 · D · BAND · warn · red — ONLY ONE OF THEM TRAVELS. Lottie 4 of 4:
+     concentric rings leave one token and not the other. Travel is motion by
+     definition and a still page cannot state it; this is the one scene in the
+     chapter where the Lottie IS the argument.
+     D, not A: the mechanism owns the lower two-thirds, so the type cannot sit
+     in the middle of it. `centred: false` is explicit — the default would
+     re-centre an art-off D and drop the stack straight onto the Lottie.
+     No drawn rings on top of the Lottie: it already radiates. Two radiating
+     things is one too many. -->
+<section class="scene clip arch-d has-photo art-off ch2" id="s20" data-track-index="2" data-start="118.723" data-duration="6.527" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s20-bg" style="background-image:url(assets/img/s20-hi.jpg)"></div>
+  <div class="field" style="--f1:#3b1219"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="band" id="s20-band"></div>
+  <div class="lottie v-spread" id="s20-lottie"></div>
+  <div class="scrim"></div>
+  <div class="brule" id="s20-br" style="top:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s20-head">BOTH ARE TRUE</p>
+    <p class="huge warnc" id="s20-stmt" style="font-size:76px">Only one of them travels.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 2.11 · A · PLATE · no role · warm resolve — THE REAL QUESTION, on four
+     twenty-dollar bills. US market: $4,000, Census P60-286. This is the one
+     scene in the chapter where copying -hi would be a REGRESSION (₹500 note,
+     ₹30,000). Leave it. The chapter's last frame carries a BARE duration. -->
+<section class="scene clip arch-a has-photo art-off ch2" id="s21" data-track-index="1" data-start="124.8" data-duration="7.702">
+  <div class="bg" id="s21-bg" style="background-image:url(assets/img/s21.jpg)"></div>
+  <div class="field" style="--f1:#2d2214"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s21-head">THE REAL QUESTION</p>
+    <p class="huge" id="s21-stmt" style="font-size:76px">What survives in the methods — and what it does to $4,000</p>
+    <p class="foot" id="s21-foot">$4,000/mo take-home is this channel's worked example, not a national average. US real median household income was $83,730 in 2024 (Census P60-286).</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 3.1 · A · PLATE · no role · neutral warm — a vintage bank ledger; the survey
+     is the subject and the object is on screen. -->
+<section class="scene clip arch-a has-photo art-off ch3" id="s22" data-track-index="2" data-start="132.052" data-duration="7.101">
+  <div class="bg" id="s22-bg" style="background-image:url(assets/img/s22.jpg)"></div>
+  <div class="field" style="--f1:#1e1a15"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s22-head">THE SAME SURVEY</p>
+    <p class="huge" id="s22-stmt" style="font-size:76px">It also records where the surplus goes.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.2 · B · FIGURE · target · amber — WHERE IT LANDS. A bank counter cannot
+     say 90 against 3. One track, split to scale, the securities sliver almost
+     too small to see arrive. -->
+<section class="scene clip arch-b has-photo art-forward ch3" id="s23" data-track-index="1" data-start="138.704" data-duration="7.284" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s23-bg" style="background-image:url(assets/img/s23-hi.jpg)"></div>
+  <div class="field" style="--f1:#2e2411"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="plate p-b edge" id="s23-plate">
+    <div class="plate-in" id="s23-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s23-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.62">
+        <rect class="fl" x="110" y="250" width="640" height="112" opacity=".22"/>
+        <rect id="s23-dep" class="flt" x="110" y="250" width="576" height="112" opacity=".92"/>
+        <rect id="s23-sec" class="flt" x="686" y="250" width="19" height="112"/>
+        <rect class="fl" x="110" y="396" width="576" height="6" opacity=".5"/>
+        <rect class="flt" x="686" y="396" width="19" height="6"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s23-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s23-head">WHERE IT LANDS</p>
+    <p class="huge targetc" id="s23-stmt" style="font-size:76px">About 90% into deposits. About 3% into securities.</p>
+    <p class="foot" id="s23-foot">ILLUSTRATIVE — computed from the FIES 2024 monthly surplus split (deposits JPY 175,241 · securities JPY 6,705 of JPY 197,432)</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.3 · A · PLATE · no role · red-free — SAVING IS NOT INVESTING. The padlock
+     icon is already in the stack, over a row of shut deposit boxes. -->
+<section class="scene clip arch-a has-photo art-off ch3" id="s24" data-track-index="2" data-start="145.538" data-duration="7.363">
+  <div class="bg" id="s24-bg" style="background-image:url(assets/img/s24-fix.jpg)"></div>
+  <div class="field" style="--f1:#2a1214"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s24-head">SAVING IS NOT INVESTING</p>
+    <p class="huge" id="s24-stmt" style="font-size:76px">Japan saves hard and puts very little of it to work.</p>
+    <svg class="icon sm warnc" id="s24-icon" viewBox="0 0 100 100">
+      <path id="s24-i-shackle" d="M33 46 V32 a17 17 0 0 1 34 0 V46"/>
+      <rect id="s24-i-body" x="20" y="46" width="60" height="40" rx="7"/>
+      <circle id="s24-i-pin" class="solid" cx="50" cy="62" r="5"/>
+      <line id="s24-i-slot" x1="50" y1="64" x2="50" y2="75"/>
+    </svg>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.4 · B · FIGURE · target · amber — 51.0%. The bar says HALF OF EVERYTHING
+     THEY HOLD before the figure is read. -->
+<section class="scene clip arch-b has-photo art-off centred ch3" id="s25" data-track-index="1" data-start="152.451" data-duration="7.754" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s25-bg" style="background-image:url(assets/img/s25-fix.jpg);background-size:auto 250%;background-position:55% 100%"></div>
+  <div class="field" style="--f1:#372a0c"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <p class="measure-lab under" id="s25-ml">HOUSEHOLD FINANCIAL ASSETS</p>
+  <div class="measure under" id="s25-mt"><div class="measure-fill target" id="s25-mf"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s25-head">JAPAN</p>
+    <p class="huge targetc" id="s25-num">51.0%</p>
+    <p class="foot" id="s25-foot">Cash and deposits, share of household financial assets — Bank of Japan Flow of Funds, Chart 2, end-March 2025</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.5 · B · FIGURE · target · amber deeper — HELD. Same table, next column:
+     two tracks at one scale, US cash against US equity. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch3" id="s26" data-track-index="2" data-start="159.755" data-duration="8.486" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s26-bg" style="background-image:url(assets/img/s25-fix.jpg);background-size:auto 380%;background-position:78% 100%"></div>
+  <div class="field" style="--f1:#3d2d0a"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="plate p-b edge" id="s26-plate">
+    <div class="plate-in" id="s26-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s26-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.62">
+        <rect class="fl" x="110" y="186" width="640" height="86" opacity=".2"/>
+        <rect class="fl" x="110" y="336" width="640" height="86" opacity=".2"/>
+        <rect id="s26-a" class="flt" x="110" y="186" width="74" height="86" opacity=".92"/>
+        <rect id="s26-b" class="flt" x="110" y="336" width="266" height="86" opacity=".92"/>
+        <rect class="fl" x="110" y="452" width="640" height="4" opacity=".34"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s26-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s26-head">SAME TABLE, NEXT COLUMN</p>
+    <p class="huge targetc" id="s26-stmt" style="font-size:76px">US cash 11.5% · US equity 41.5%</p>
+    <p class="foot" id="s26-foot">The SAME BOJ table states both markets — no conversion, no second source. ASSET MIX ONLY. This is NOT a saving-rate comparison.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.6 · A · PLATE · no role · cool — THE HALF NOBODY SHOWS. A sealed jar,
+     full, lid still on. -->
+<section class="scene clip arch-a has-photo art-off ch3" id="s27" data-track-index="1" data-start="167.791" data-duration="8.172">
+  <div class="bg" id="s27-bg" style="background-image:url(assets/img/s27-fix.jpg)"></div>
+  <div class="field" style="--f1:#141b24"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s27-head">THE HALF NOBODY SHOWS</p>
+    <p class="huge" id="s27-stmt" style="font-size:76px">An example of saving. Not of investing.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.7 · A · PLATE · warn · red — a period street photograph; nothing drawn
+     can add to "was not always". -->
+<section class="scene clip arch-a has-photo art-off ch3" id="s28" data-track-index="2" data-start="175.513" data-duration="8.016" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s28-bg" style="background-image:url(assets/img/s28-fix.jpg)"></div>
+  <div class="field" style="--f1:#301317"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s28-head">AND ONE MORE THING</p>
+    <p class="huge warnc" id="s28-stmt" style="font-size:76px">Japan was not always a nation of savers.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.8 · D · BAND · target · amber — THE POSTWAR HIGH-SAVING ERA. Tree
+     rings show time passing; they cannot show how SMALL twenty-five years is
+     inside the span it sits in. Eight decades as one rule, the era lit. -->
+<section class="scene clip arch-d has-photo art-forward ch3" id="s29" data-track-index="1" data-start="183.079" data-duration="7.519" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s29-bg" style="background-image:url(assets/img/s29.jpg)"></div>
+  <div class="field" style="--f1:#332708"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="band" id="s29-band" style="height:44%;z-index:0"></div>
+  <div class="plate p-d" id="s29-plate">
+    <div class="plate-in" id="s29-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s29-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.62">
+        <rect class="fl" x="200" y="356" width="1520" height="8" opacity=".5"/>
+        <g class="fl" opacity=".4">
+          <rect x="196" y="332" width="8" height="56"/>
+          <rect x="391" y="342" width="6" height="36"/>
+          <rect x="586" y="342" width="6" height="36"/>
+          <rect x="781" y="342" width="6" height="36"/>
+          <rect x="976" y="342" width="6" height="36"/>
+          <rect x="1171" y="342" width="6" height="36"/>
+          <rect x="1366" y="342" width="6" height="36"/>
+          <rect x="1561" y="342" width="6" height="36"/>
+          <rect x="1756" y="332" width="8" height="56"/>
+        </g>
+        <rect id="s29-era" class="flt" x="492" y="306" width="488" height="108" opacity=".85"/>
+        <g class="flt">
+          <rect id="s29-l" x="484" y="262" width="10" height="196"/>
+          <rect id="s29-r" x="976" y="262" width="10" height="196"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s29-br" style="top:424px"></div>
+  <div class="stack">
+    <p class="kicker" id="s29-head">THE POSTWAR HIGH-SAVING ERA</p>
+    <p class="huge targetc" id="s29-stmt" style="font-size:76px">1961 to 1986. Twenty-five years.</p>
+    <p class="foot" id="s29-foot">POSTWAR ONLY — Horioka, NBER WP 33181, p.3. The wartime rate reached 44%, so this is the postwar record, not the all-time one.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.9 · B · FIGURE · warn · red hot — 23.2%. The photograph is already a peak
+     drawn on graph paper; a drawn peak on top of it is the textbook failure. -->
+<section class="scene clip arch-b has-photo art-off centred ch3" id="s30" data-track-index="2" data-start="190.149" data-duration="8.355" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s30-bg" style="background-image:url(assets/img/s30.jpg)"></div>
+  <div class="field" style="--f1:#3b1013"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s30-head">THE POSTWAR PEAK</p>
+    <p class="huge warnc" id="s30-num">23.2%</p>
+    <p class="foot" id="s30-foot">Postwar peak, mid-1970s. No higher than 5% since 2002 apart from a temporary 2020 Covid blip, and negative in 2013-15, 2017 and 2023 — Horioka p.2</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.10 · A · PLATE · warn · red — NOT CULTURE. The quote sits on the working
+     paper it comes from. -->
+<section class="scene clip arch-a has-photo art-off ch3" id="s31" data-track-index="1" data-start="198.054" data-duration="7.833" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s31-bg" style="background-image:url(assets/img/s31-hi.jpg)"></div>
+  <div class="field" style="--f1:#38151a"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s31-head">NOT CULTURE</p>
+    <p class="huge warnc" id="s31-stmt" style="font-size:76px">"Culture, tradition and national character are not a major determinant."</p>
+    <p class="foot" id="s31-foot">Horioka, NBER WP 33181, sections 3 and 9-10</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.11 · D · BAND · no role · neutral paper — THE ACTUAL REASONS. Five,
+     and the COUNT is the point: not one cause, five separate ones. Two real
+     framings, second photograph at +5.66. -->
+<section class="scene clip arch-d has-photo art-forward ch3" id="s32" data-track-index="2" data-start="205.437" data-duration="8.59" data-framings="5.66,2.48">
+  <div class="bg" id="s32-bg" style="background-image:url(assets/img/s32.jpg)"></div>
+  <div class="bg" id="s32-bg2" style="background-image:url(assets/img/s32b.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s32-band" style="height:46%;z-index:0"></div>
+  <div class="plate p-d" id="s32-plate">
+    <div class="plate-in" id="s32-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s32-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="300" y="500" width="1320" height="5" opacity=".34"/>
+        <g class="st" style="stroke-width:19" stroke-linecap="round" opacity=".95">
+          <path id="s32-m0" d="M 566 232 L 546 472"/>
+          <path id="s32-m1" d="M 706 242 L 692 476"/>
+          <path id="s32-m2" d="M 846 228 L 830 470"/>
+          <path id="s32-m3" d="M 984 244 L 972 478"/>
+          <path id="s32-m4" d="M 1030 452 L 1310 250"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s32-br" style="top:424px"></div>
+  <div class="stack">
+    <p class="kicker" id="s32-head">THE ACTUAL REASONS</p>
+    <p class="huge" id="s32-stmt" style="font-size:76px">No consumer credit · No safety net · Fast income growth · A tax break · A state campaign</p>
+    <p class="foot" id="s32-foot">Horioka, NBER WP 33181, sections 9-10</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 3.12 · A · PLATE · fund · warm resolve — THE HONEST LINE, the chapter's only
+     green frame and the hinge of the video. One lit lantern. -->
+<section class="scene clip arch-a has-photo art-off ch3" id="s33" data-track-index="1" data-start="213.577" data-duration="7.598" style="--tint:rgba(34,197,94,0.13)">
+  <div class="bg" id="s33-bg" style="background-image:url(assets/img/s33.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s33-kick">THE HONEST LINE</p>
+    <p class="stamp fund" id="s33-stmt">The methods work. They were never the reason.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 4.1 · A · PLATE · no role · neutral warm — MOTTAINAI. A ceramic bowl on
+     wood. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s34" data-track-index="2" data-start="220.725" data-duration="7.702">
+  <div class="bg" id="s34-bg" style="background-image:url(assets/img/s34-fix.jpg)"></div>
+  <div class="field" style="--f1:#201b14"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s34-head">MOTTAINAI</p>
+    <p class="huge" id="s34-stmt" style="font-size:76px">A thing's real value, going unused.</p>
+    <p class="foot" id="s34-foot">Roughly, from mottai, "a thing's rightful worth", plus nai, "without" — attested since about the 13th century</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.2 · A · PLATE · no role · cool — NOT A SCOLDING. A hand sewing a patch. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s35" data-track-index="1" data-start="227.977" data-duration="7.781">
+  <div class="bg" id="s35-bg" style="background-image:url(assets/img/s35-hi.jpg)"></div>
+  <div class="field" style="--f1:#171b21"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s35-head">NOT A SCOLDING</p>
+    <p class="huge" id="s35-stmt" style="font-size:76px">It is regret. Not instruction.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.3 · D · BAND · no role · warm — ONE SHIRT. Three declared framings and
+     three real photographs: the shirt, the cotton field, the truck. The chain IS
+     the picture three times over. -->
+<section class="scene clip arch-d has-photo art-off centred ch4" id="s36" data-track-index="2" data-start="235.308" data-duration="8.251" data-framings="2.74,2.03,3.031">
+  <div class="bg" id="s36-bg" style="background-image:url(assets/img/s36b.jpg)"></div>
+  <div class="bg" id="s36-bg2" style="background-image:url(assets/img/s36b-fix.jpg);opacity:0"></div>
+  <div class="bg" id="s36-bg3" style="background-image:url(assets/img/s36c.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#241c12"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s36-head">ONE SHIRT</p>
+    <p class="huge" id="s36-stmt" style="font-size:76px">A farmer's crop. A mill's hours. A truck's diesel.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.4 · A · PLATE · warn · red — AND YOURS. An "hours you worked for it" bar
+     was drawn and cut: the script names no number, and a bar a viewer can read
+     off is a statistic whether or not one was meant. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s37" data-track-index="1" data-start="243.109" data-duration="5.691" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s37-bg" style="background-image:url(assets/img/s37-hi.jpg)"></div>
+  <div class="field" style="--f1:#2f1215"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s37-head">AND YOURS</p>
+    <p class="huge warnc" id="s37-stmt" style="font-size:76px">The hours of your own pay that bought it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.5 · B · FIGURE · fund · green — CHECK ONE. Three checks are one
+     instruction, so B is held and the bar moves a third per scene. -->
+<section class="scene clip arch-b has-photo art-off centred ch4" id="s38" data-track-index="2" data-start="248.349" data-duration="6.762" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s38-bg" style="background-image:url(assets/img/s38.jpg)"></div>
+  <div class="field" style="--f1:#14261c"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <p class="measure-lab under" id="s38-ml">THE THREE CHECKS</p>
+  <div class="measure under" id="s38-mt"><div class="measure-fill fund" id="s38-mf"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s38-head">PAUSE. CHECK ONE.</p>
+    <p class="huge fundc" id="s38-stmt" style="font-size:76px">Count the clothes still wearing their tags.</p>
+    <svg class="icon sm fundc" id="s38-icon" viewBox="0 0 100 100">
+      <rect id="s38-i-box" x="14" y="20" width="58" height="58" rx="8"/>
+      <path id="s38-i-tick" d="M28 50 L45 68 L88 16"/>
+    </svg>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.6 · B · FIGURE · fund · green deeper — CHECK TWO; the bar picks up exactly
+     where check one left it. -->
+<section class="scene clip arch-b has-photo art-off centred ch4" id="s39" data-track-index="1" data-start="254.661" data-duration="7.519" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s39-bg" style="background-image:url(assets/img/s39-fix.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <p class="measure-lab under" id="s39-ml">THE THREE CHECKS</p>
+  <div class="measure under" id="s39-mt"><div class="measure-fill fund" id="s39-mf"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s39-head">CHECK TWO</p>
+    <p class="huge fundc" id="s39-stmt" style="font-size:76px">The subscriptions screen. All of it.</p>
+    <svg class="icon sm fundc" id="s39-icon" viewBox="0 0 100 100">
+      <rect id="s39-i-box" x="14" y="20" width="58" height="58" rx="8"/>
+      <path id="s39-i-tick" d="M28 50 L45 68 L88 16"/>
+    </svg>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.7 · B · FIGURE · fund · green deepest — CHECK THREE; the bar closes. -->
+<section class="scene clip arch-b has-photo art-off centred ch4" id="s40" data-track-index="2" data-start="261.731" data-duration="5.978" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s40-bg" style="background-image:url(assets/img/s40-fix.jpg)"></div>
+  <div class="field" style="--f1:#183020"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <p class="measure-lab under" id="s40-ml">THE THREE CHECKS</p>
+  <div class="measure under" id="s40-mt"><div class="measure-fill fund" id="s40-mf"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s40-head">CHECK THREE</p>
+    <p class="huge fundc" id="s40-stmt" style="font-size:76px">What gets thrown out next week.</p>
+    <svg class="icon sm fundc" id="s40-icon" viewBox="0 0 100 100">
+      <rect id="s40-i-box" x="14" y="20" width="58" height="58" rx="8"/>
+      <path id="s40-i-tick" d="M28 50 L45 68 L88 16"/>
+    </svg>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.8 · A · PLATE · warn · red hot — WHAT YOU SAW. Unopened delivery boxes. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s41" data-track-index="1" data-start="267.259" data-duration="6.814" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s41-bg" style="background-image:url(assets/img/s41.jpg)"></div>
+  <div class="field" style="--f1:#3a1013"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s41-head">WHAT YOU SAW</p>
+    <p class="huge warnc" id="s41-stmt" style="font-size:76px">Not a shortage of money. Value already bought and never used.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.9 · A · PLATE · no role · cool — IT IS ONE QUESTION. A hand picking up a
+     product in a shop: the moment the question belongs to. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s42" data-track-index="2" data-start="273.623" data-duration="7.232">
+  <div class="bg" id="s42-bg" style="background-image:url(assets/img/s42-fix.jpg);background-size:auto 138%;background-position:20% 44%"></div>
+  <div class="field" style="--f1:#141b24"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s42-head">IT IS ONE QUESTION</p>
+    <p class="huge" id="s42-stmt" style="font-size:76px">And it is asked before, not after.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.10 · D · BAND · fund · green — THE QUESTION, and the chapter's one
+     piece of drawn argument. One path in, two out, the MAYBE branch struck
+     through. No photograph of an object on a table can state a decision rule. -->
+<section class="scene clip arch-d has-photo art-forward ch4" id="s43" data-track-index="1" data-start="280.405" data-duration="5.848" style="--tint:rgba(34,197,94,0.13)">
+  <div class="bg" id="s43-bg" style="background-image:url(assets/img/s43.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="band" id="s43-band" style="height:52%;z-index:0"></div>
+  <div class="plate p-d" id="s43-plate">
+    <div class="plate-in" id="s43-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s43-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <path class="st" style="stroke-width:4;opacity:.5" fill="none" d="M 260 328 L 880 328"/>
+        <rect class="fl" x="866" y="314" width="28" height="28" opacity=".7"/>
+        <path id="s43-yes" class="stf" style="stroke-width:9" fill="none" d="M 880 328 L 1140 186 L 1600 186"/>
+        <path id="s43-no" class="st" style="stroke-width:9;opacity:.45" fill="none" d="M 880 328 L 1140 476 L 1600 476"/>
+        <g class="stw" style="stroke-width:12" stroke-linecap="round">
+          <path id="s43-x1" d="M 1300 416 L 1440 536"/>
+          <path id="s43-x2" d="M 1440 416 L 1300 536"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s43-br" style="top:424px"></div>
+  <div class="stack">
+    <p class="kicker" id="s43-head">THE QUESTION</p>
+    <p class="huge fundc" id="s43-stmt" style="font-size:76px">Will its full value be used? If the answer is MAYBE, the answer is NO.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.11 · B · FIGURE · no role · neutral — ON $4,000. "Three or four times a
+     month" is a COUNT. The fourth stroke arrives faint, because the line says
+     three OR four and a solid fourth would overstate it. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch4" id="s44" data-track-index="2" data-start="285.802" data-duration="7.337">
+  <div class="bg" id="s44-bg" style="background-image:url(assets/img/s44-fix.jpg)"></div>
+  <div class="field" style="--f1:#1e1a15"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-b edge" id="s44-plate">
+    <div class="plate-in" id="s44-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s44-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.72">
+        <g class="st" style="stroke-width:21" stroke-linecap="round">
+          <path id="s44-m0" d="M 236 190 L 218 418"/>
+          <path id="s44-m1" d="M 344 200 L 326 424"/>
+          <path id="s44-m2" d="M 452 190 L 434 418"/>
+          <path id="s44-m3" d="M 560 200 L 542 424" opacity=".38"/>
+        </g>
+        <rect class="fl" x="170" y="472" width="540" height="7" opacity=".4"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s44-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s44-head">ON $4,000</p>
+    <p class="huge" id="s44-stmt" style="font-size:76px">The question comes up three or four times a month.</p>
+    <p class="foot" id="s44-foot">$4,000/mo take-home is the channel's worked example — not a statistic</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.12 · A · PLATE · no role · neutral warm — THE WHOLE POINT. A resoled boot
+     beside a new one in its box. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s45" data-track-index="1" data-start="292.689" data-duration="8.199">
+  <div class="bg" id="s45-bg" style="background-image:url(assets/img/s45-hi.jpg)"></div>
+  <div class="field" style="--f1:#221c13"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s45-head">THE WHOLE POINT</p>
+    <p class="huge" id="s45-stmt" style="font-size:76px">Not spending less. Using fully what was bought.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 4.13 · A · PLATE · no role · warm hand-off — NEXT, to the dinner table. -->
+<section class="scene clip arch-a has-photo art-off ch4" id="s46" data-track-index="2" data-start="300.438" data-duration="5.691">
+  <div class="bg" id="s46-bg" style="background-image:url(assets/img/s46.jpg)"></div>
+  <div class="field" style="--f1:#2a2114"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s46-head">NEXT</p>
+    <p class="huge" id="s46-stmt" style="font-size:76px">The next one starts at the dinner table.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 5.1 · A · PLATE · no role · warm — an old Okinawan habit. The footnote is a
+     disclaimer, so nothing drawn may imply a figure. -->
+<section class="scene clip arch-a has-photo art-off ch5" id="s47" data-track-index="1" data-start="305.678" data-duration="8.617">
+  <div class="bg" id="s47-bg" style="background-image:url(assets/img/s47.jpg)"></div>
+  <div class="field" style="--f1:#241c14"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s47-head">HARA HACHI BU</p>
+    <p class="huge" id="s47-stmt" style="font-size:76px">An old Okinawan habit, Confucian in origin.</p>
+    <p class="foot" id="s47-foot">No calorie, intake or lifespan figure is claimed here — every one in circulation is unsourced</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.2 · B · FIGURE · no role · neutral — EIGHT PARTS IN TEN. A bowl of rice
+     cannot state a RATIO. Ten cells, eight of them, and the same ten carry the
+     next two scenes. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch5" id="s48" data-track-index="2" data-start="313.845" data-duration="6.945">
+  <div class="bg" id="s48-bg" style="background-image:url(assets/img/s48-hi.jpg)"></div>
+  <div class="field" style="--f1:#1b1e23"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-b edge" id="s48-plate">
+    <div class="plate-in" id="s48-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s48-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="46" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="122" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="198" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="274" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="350" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="426" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="502" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="578" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="654" y="236" width="62" height="138" opacity=".2"/>
+        <rect class="fl" x="730" y="236" width="62" height="138" opacity=".2"/>
+        <g id="s48-lit">
+          <rect class="flt" x="46" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="122" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="198" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="274" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="350" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="426" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="502" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="578" y="236" width="62" height="138" opacity=".92"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s48-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s48-head">EIGHT PARTS IN TEN</p>
+    <p class="huge" id="s48-stmt" style="font-size:76px">Stop there.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.3 · B · FIGURE · no role · cool — HELD. The same ten cells, and now the
+     LAST TWO are the subject: fullness arrives late, so those two were always
+     surplus. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch5" id="s49" data-track-index="1" data-start="320.34" data-duration="6.631">
+  <div class="bg" id="s49-bg" style="background-image:url(assets/img/s49-hi.jpg)"></div>
+  <div class="field" style="--f1:#171d26"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-b edge" id="s49-plate">
+    <div class="plate-in" id="s49-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s49-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="46" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="122" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="198" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="274" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="350" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="426" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="502" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="578" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="654" y="236" width="62" height="138" opacity=".3"/>
+        <rect class="fl" x="730" y="236" width="62" height="138" opacity=".3"/>
+        <g id="s49-lit">
+          <rect class="flt" x="654" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flt" x="730" y="236" width="62" height="138" opacity=".92"/>
+        </g>
+        <g id="s49-br" class="flt">
+          <rect x="654" y="404" width="138" height="8"/>
+          <rect x="654" y="404" width="8" height="34"/>
+          <rect x="784" y="404" width="8" height="34"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s49-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s49-head">WHY IT WORKS</p>
+    <p class="huge" id="s49-stmt" style="font-size:76px">Fullness arrives late. The last two parts are surplus.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.4 · B · FIGURE · fund · green — HELD, and now it is an instruction. The
+     same two cells LEAVE the row on day one. A kitchen counter cannot perform a
+     movement. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch5" id="s50" data-track-index="2" data-start="326.521" data-duration="6.945" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s50-bg" style="background-image:url(assets/img/s50-fix.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="plate p-b edge" id="s50-plate">
+    <div class="plate-in" id="s50-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s50-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="46" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="122" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="198" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="274" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="350" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="426" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="502" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="578" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="654" y="236" width="62" height="138" opacity=".34"/>
+        <rect class="fl" x="730" y="236" width="62" height="138" opacity=".34"/>
+        <g id="s50-lit">
+          <rect class="flf" x="654" y="236" width="62" height="138" opacity=".92"/>
+          <rect class="flf" x="730" y="236" width="62" height="138" opacity=".92"/>
+        </g>
+        <rect id="s50-arrow" class="flf" x="654" y="454" width="138" height="8" opacity=".9"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s50-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s50-head">NOW THE PAYCHECK</p>
+    <p class="huge fundc" id="s50-stmt" style="font-size:76px">Live on eight parts. Move two out on day one.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.5 · A · PLATE · fund · green — the run of B breaks and the ratio arrives
+     in dollars. The bar is the ten cells restated as one length, which is why it
+     fills to exactly 0.20 and stops. -->
+<section class="scene clip arch-a has-photo art-off ch5" id="s51" data-track-index="1" data-start="333.016" data-duration="7.598" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s51-bg" style="background-image:url(assets/img/s51.jpg)"></div>
+  <div class="field" style="--f1:#14261c"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <p class="measure-lab under" id="s51-ml">MOVED OUT ON DAY ONE</p>
+  <div class="measure under" id="s51-mt"><div class="measure-fill fund" id="s51-mf"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s51-head">ON $4,000</p>
+    <p class="huge fundc" id="s51-stmt" style="font-size:76px">$800 out · $3,200 to live on</p>
+    <p class="foot" id="s51-foot">20% of the channel's $4,000 worked example. An arithmetic split, not a statistic.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.6 · A · PLATE · warn · red — DAY ONE, NOT DAY THIRTY. An open wallet with
+     nothing in it already says zero. -->
+<section class="scene clip arch-a has-photo art-off ch5" id="s52" data-track-index="2" data-start="340.163" data-duration="7.754" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s52-bg" style="background-image:url(assets/img/s52-hi.jpg)"></div>
+  <div class="field" style="--f1:#2f1215"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s52-head">DAY ONE, NOT DAY THIRTY</p>
+    <p class="huge warnc" id="s52-stmt" style="font-size:76px">What is left at month end is always zero.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.7 · A · PLATE · fund · green — AUTOMATICALLY, NOT HEROICALLY. Manila
+     envelopes: separation, photographed. The footnote names no institution and
+     nothing drawn may imply one. Art added 2026-08-06: the beat is a PROCESS and a flat photo is a FAIL for one, not a missed opportunity. Two containers, an arrow crossing, then the same move again — separation plus recurrence. No institution is named or implied. -->
+<section class="scene clip arch-a has-photo art-forward art-lift ch5" id="s53" data-track-index="1" data-start="347.468" data-duration="7.415" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s53-bg" style="background-image:url(assets/img/s53-fix.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="plate p-a" id="s53-plate">
+    <div class="plate-in" id="s53-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s53-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="st" style="stroke-width:4;opacity:.55" fill="none" x="286" y="596" width="420" height="260" rx="14"/>
+        <rect class="stf" style="stroke-width:4" fill="none" x="1214" y="596" width="420" height="260" rx="14"/>
+        <path class="st" style="stroke-width:3;opacity:.28" fill="none" d="M 706 726 L 1214 726"/>
+        <g class="stf" style="stroke-width:7" fill="none" stroke-linecap="round">
+          <path id="s53-a1" d="M 726 726 L 1194 726"/>
+          <path id="s53-a1h" d="M 1136 686 L 1194 726 L 1136 766"/>
+        </g>
+        <g class="stf" style="stroke-width:7;opacity:.5" fill="none" stroke-linecap="round">
+          <path id="s53-a2" d="M 726 806 L 1194 806"/>
+          <path id="s53-a2h" d="M 1136 766 L 1194 806 L 1136 846"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s53-head">AUTOMATICALLY, NOT HEROICALLY</p>
+    <p class="huge fundc" id="s53-stmt" style="font-size:76px">A separate account. Not the one the card touches.</p>
+    <p class="foot" id="s53-foot">No account type, bank, app or fund is named or recommended anywhere in this video.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.8 · A · PLATE · no role · neutral — NOT DISCIPLINE. A switch in the ON
+     position: one decision carrying twenty-nine days. -->
+<section class="scene clip arch-a has-photo art-off ch5" id="s54" data-track-index="2" data-start="354.433" data-duration="8.538">
+  <div class="bg" id="s54-bg" style="background-image:url(assets/img/s54.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s54-head">NOT DISCIPLINE</p>
+    <p class="huge" id="s54-stmt" style="font-size:76px">One decision on day one, carrying the other twenty-nine.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.9 · B · FIGURE · target · amber — 62.2%, Japan's own consumption figure. -->
+<section class="scene clip arch-b has-photo art-off centred ch5" id="s55" data-track-index="1" data-start="362.521" data-duration="8.538" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s55-bg" style="background-image:url(assets/img/s55-hi.jpg)"></div>
+  <div class="field" style="--f1:#372a0c"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s55-head">JAPAN'S OWN FIGURE</p>
+    <p class="mega targetc" id="s55-num" style="font-size:240px">62.2%</p>
+    <p class="foot" id="s55-foot">Average propensity to consume, salaried-worker households — Statistics Bureau FIES 2024, Table I-2-2. Japan's own number; not compared with any other country's.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.10 · B · FIGURE · fund · green — $200, the floor. One bill on a table. -->
+<section class="scene clip arch-b has-photo art-off centred ch5" id="s56" data-track-index="2" data-start="370.609" data-duration="7.781" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s56-bg" style="background-image:url(assets/img/s56-fix.jpg)"></div>
+  <div class="field" style="--f1:#183020"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s56-head">IF 20% IS TOO MUCH</p>
+    <p class="mega fundc" id="s56-num" style="font-size:240px">$200</p>
+    <p class="foot" id="s56-foot">5% of the $4,000 worked example</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.11 · A · PLATE · warn · red hot — HONESTLY. The chapter's hottest ground
+     and its most important line, on an empty highway. -->
+<section class="scene clip arch-a has-photo art-off ch5" id="s57" data-track-index="1" data-start="377.94" data-duration="8.538" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s57-bg" style="background-image:url(assets/img/s57-hi.jpg)"></div>
+  <div class="field" style="--f1:#3a1013"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s57-head">HONESTLY</p>
+    <p class="huge warnc" id="s57-stmt" style="font-size:76px">If the bills already eat the paycheck, this fails in month one.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 5.12 · A · PLATE · target · warm — THEN THE QUESTION CHANGES. A cracked
+     ledger spine, handing to KAKEIBO. -->
+<section class="scene clip arch-a has-photo art-off ch5" id="s58" data-track-index="2" data-start="386.028" data-duration="8.12" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s58-bg" style="background-image:url(assets/img/s58-hi.jpg)"></div>
+  <div class="field" style="--f1:#2d2214"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s58-head">THEN THE QUESTION CHANGES</p>
+    <p class="huge targetc" id="s58-stmt" style="font-size:76px">Not saving. Accounting.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 6.1 · A · PLATE · no role · warm — KAKEIBO. A hand-ruled ledger with a pen
+     resting on it. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s59" data-track-index="1" data-start="393.698" data-duration="7.519">
+  <div class="bg" id="s59-bg" style="background-image:url(assets/img/s59-hi.jpg)"></div>
+  <div class="field" style="--f1:#201c17"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s59-head">KAKEIBO</p>
+    <p class="huge" id="s59-stmt" style="font-size:76px">The household account book. Written by hand.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.2 · A · PLATE · target · amber — 1904. Antique letterpress type under a
+     dated claim. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s60" data-track-index="2" data-start="400.767" data-duration="6.997" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s60-bg" style="background-image:url(assets/img/s60-fix.jpg)"></div>
+  <div class="field" style="--f1:#2e2411"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s60-head">1904</p>
+    <p class="huge targetc" id="s60-stmt" style="font-size:76px">Hani Motoko. Japan's first woman journalist.</p>
+    <p class="foot" id="s60-foot">Fujin no Tomo Sha (publisher primary) + National Diet Library. First edition printed end-1904, for use in the 1905 year.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.3 · D · BAND · no role · neutral — STILL PRINTED. A shelf of
+     identical spines can show MANY; it cannot show FOUR MISSING. One volume per
+     year from 1904, the wartime gap marked in warn. -->
+<section class="scene clip arch-d has-photo art-forward ch6" id="s61" data-track-index="1" data-start="407.314" data-duration="6.631">
+  <div class="bg" id="s61-bg" style="background-image:url(assets/img/s61-hi.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s61-band" style="height:44%;z-index:0"></div>
+  <div class="plate p-d" id="s61-plate">
+    <div class="plate-in" id="s61-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s61-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.62">
+        <rect class="fl" x="110" y="452" width="1706" height="9" opacity=".55"/>
+        <g id="s61-vols">
+          <rect class="fl" x="116" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="130" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="144" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="158" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="172" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="186" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="200" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="214" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="228" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="242" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="256" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="270" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="284" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="298" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="312" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="326" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="340" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="354" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="368" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="382" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="396" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="410" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="424" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="438" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="452" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="466" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="480" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="494" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="508" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="522" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="536" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="550" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="564" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="578" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="592" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="606" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="620" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="690" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="704" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="718" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="732" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="746" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="760" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="774" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="788" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="802" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="816" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="830" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="844" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="858" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="872" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="886" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="900" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="914" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="928" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="942" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="956" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="970" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="984" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="998" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1012" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1026" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1040" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1054" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1068" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1082" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1096" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1110" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1124" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1138" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1152" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1166" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1180" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1194" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1208" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1222" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1236" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1250" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1264" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1278" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1292" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1306" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1320" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1334" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1348" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1362" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1376" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1390" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1404" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1418" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1432" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1446" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1460" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1474" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1488" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1502" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1516" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1530" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1544" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1558" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1572" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1586" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1600" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1614" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1628" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1642" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1656" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1670" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1684" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1698" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1712" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1726" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1740" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1754" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1768" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1782" y="270" width="7" height="182" opacity=".7"/>
+          <rect class="fl" x="1796" y="270" width="7" height="182" opacity=".7"/>
+        </g>
+        <g id="s61-gap" class="flw">
+          <rect x="634" y="470" width="50" height="10"/>
+          <rect x="634" y="470" width="9" height="86"/>
+          <rect x="673" y="470" width="9" height="86"/>
+          <rect x="634" y="246" width="50" height="10"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s61-br" style="top:398px"></div>
+  <div class="stack">
+    <p class="kicker" id="s61-head">STILL PRINTED</p>
+    <p class="huge" id="s61-stmt" style="font-size:76px">Every year since. Four wartime years missing.</p>
+    <p class="foot" id="s61-foot">Over a hundred years of continuous publication — the publisher marked the 120th in 2025</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.4 · A · PLATE · no role · neutral cool — HER ACTUAL INVENTION. A blank
+     ruled page: the budget, before anything is written in it. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s62" data-track-index="2" data-start="413.496" data-duration="6.919">
+  <div class="bg" id="s62-bg" style="background-image:url(assets/img/s62.jpg)"></div>
+  <div class="field" style="--f1:#171b21"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s62-head">HER ACTUAL INVENTION</p>
+    <p class="huge" id="s62-stmt" style="font-size:76px">Not the four-column chart. The budget.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.5 · D · BAND · fund · green — THE METHOD, drawn as a process. The
+     year cut into twelve, and the saving arriving at the TOP of each month
+     before the rest fills. A stack of coins cannot perform an order. -->
+<section class="scene clip arch-d has-photo art-forward ch6" id="s63" data-track-index="1" data-start="419.964" data-duration="8.016" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s63-bg" style="background-image:url(assets/img/s63.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="band" id="s63-band" style="height:46%;z-index:0"></div>
+  <div class="plate p-d" id="s63-plate">
+    <div class="plate-in" id="s63-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s63-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <g id="s63-year">
+          <rect id="s63-c0" class="flf" x="200" y="270" width="108" height="46"/>
+          <rect id="s63-b0" class="fl" x="200" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c1" class="flf" x="330" y="270" width="108" height="46"/>
+          <rect id="s63-b1" class="fl" x="330" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c2" class="flf" x="460" y="270" width="108" height="46"/>
+          <rect id="s63-b2" class="fl" x="460" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c3" class="flf" x="590" y="270" width="108" height="46"/>
+          <rect id="s63-b3" class="fl" x="590" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c4" class="flf" x="720" y="270" width="108" height="46"/>
+          <rect id="s63-b4" class="fl" x="720" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c5" class="flf" x="850" y="270" width="108" height="46"/>
+          <rect id="s63-b5" class="fl" x="850" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c6" class="flf" x="980" y="270" width="108" height="46"/>
+          <rect id="s63-b6" class="fl" x="980" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c7" class="flf" x="1110" y="270" width="108" height="46"/>
+          <rect id="s63-b7" class="fl" x="1110" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c8" class="flf" x="1240" y="270" width="108" height="46"/>
+          <rect id="s63-b8" class="fl" x="1240" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c9" class="flf" x="1370" y="270" width="108" height="46"/>
+          <rect id="s63-b9" class="fl" x="1370" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c10" class="flf" x="1500" y="270" width="108" height="46"/>
+          <rect id="s63-b10" class="fl" x="1500" y="322" width="108" height="116" opacity=".55"/>
+          <rect id="s63-c11" class="flf" x="1630" y="270" width="108" height="46"/>
+          <rect id="s63-b11" class="fl" x="1630" y="322" width="108" height="116" opacity=".55"/>
+        </g>
+        <rect class="fl" x="196" y="456" width="1534" height="7" opacity=".5"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s63-br" style="top:398px"></div>
+  <div class="stack">
+    <p class="kicker" id="s63-head">THE METHOD</p>
+    <p class="huge fundc" id="s63-stmt" style="font-size:76px">Divide the year by twelve. Set the saving aside FIRST. Then split the rest.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.6 · A · PLATE · no role · cool — WHY IT WAS NEW. An inkwell and a nib. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s64" data-track-index="2" data-start="427.53" data-duration="7.598">
+  <div class="bg" id="s64-bg" style="background-image:url(assets/img/s64-hi.jpg)"></div>
+  <div class="field" style="--f1:#141b24"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s64-head">WHY IT WAS NEW</p>
+    <p class="huge" id="s64-stmt" style="font-size:76px">Saving is decided before spending, not after.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.7 · A · PLATE · warn · red — THE FOUR CATEGORIES, which came later. The
+     photograph is already money spread into groups; four drawn boxes on it are
+     the rule-8 failure exactly. No kicker on this scene, verbatim. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s65" data-track-index="1" data-start="434.678" data-duration="7.702" style="--tint:rgba(239,68,68,0.13)">
+  <div class="bg" id="s65-bg" style="background-image:url(assets/img/s65-fix.jpg)"></div>
+  <div class="field" style="--f1:#301317"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="huge warnc" id="s65-stmt" style="font-size:88px">These came later. They are the version that travelled west.</p>
+    <p class="foot" id="s65-foot">Consistent across secondary sources; no Japanese primary attributes them to Hani Motoko or to 1904</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.8 · A · PLATE · no role · neutral — SAY IT PLAINLY. Matched-frame hold on
+     s65's photograph, tighter crop, ken direction continued from the shipped
+     cut. Four marks added 2026-08-06. The beat is that the four categories are a LATER addition, and the word four appeared nowhere on screen across s64-s67 — a 29s run of four consecutive art-off A scenes. The count goes here and not on s65 because s65 is one of the storyboard's seven SOLO scenes (focal alone, no kicker); adding type there would break a device that is deliberately spread every 12-14 scenes. -->
+<section class="scene clip arch-a has-photo art-forward art-lift ch6" id="s66" data-track-index="2" data-start="441.93" data-duration="7.415">
+  <div class="bg" id="s66-bg" style="background-image:url(assets/img/s65-fix.jpg);background-size:auto 260%;background-position:86% 55%"></div>
+  <div class="field" style="--f1:#1b1c1e"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-a" id="s66-plate">
+    <div class="plate-in" id="s66-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s66-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="opacity:.62">
+        <g id="s66-cats">
+          <rect class="fl" x="286" y="742" width="286" height="10" rx="5" opacity=".9"/>
+          <rect class="fl" x="626" y="742" width="286" height="10" rx="5" opacity=".9"/>
+          <rect class="fl" x="966" y="742" width="286" height="10" rx="5" opacity=".9"/>
+          <rect class="fl" x="1306" y="742" width="286" height="10" rx="5" opacity=".9"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s66-head">SAY IT PLAINLY</p>
+    <p class="huge" id="s66-stmt" style="font-size:76px">Her own expense headings were different ones.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.9 · A · PLATE · no role · neutral — WHAT SURVIVES. A dated diary page. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s67" data-track-index="1" data-start="448.895" data-duration="7.702">
+  <div class="bg" id="s67-bg" style="background-image:url(assets/img/s67-hi.jpg)"></div>
+  <div class="field" style="--f1:#1a1c20"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s67-head">WHAT SURVIVES</p>
+    <p class="huge" id="s67-stmt" style="font-size:76px">Four questions. Asked at the start of the month.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.10 · B · FIGURE · fund · green — THE FOUR. The photograph is already
+     handwritten notes, so four drawn lines would be a tracing. What is drawn is
+     the ORDER: the second row is lit and the others are not, because the next
+     scene's whole claim is that two comes before three. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch6" id="s68" data-track-index="2" data-start="456.147" data-duration="7.598" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s68-bg" style="background-image:url(assets/img/s68.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="plate p-b edge" id="s68-plate">
+    <div class="plate-in" id="s68-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s68-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <g id="s68-rows">
+          <rect id="s68-r0" class="fl" x="150" y="132" width="620" height="70" opacity=".3"/>
+          <rect class="fl" x="60" y="132" width="62" height="70" opacity=".5"/>
+          <rect id="s68-r1" class="flf" x="150" y="250" width="620" height="70"/>
+          <rect class="fl" x="60" y="250" width="62" height="70" opacity=".5"/>
+          <rect id="s68-r2" class="fl" x="150" y="368" width="620" height="70" opacity=".3"/>
+          <rect class="fl" x="60" y="368" width="62" height="70" opacity=".5"/>
+          <rect id="s68-r3" class="fl" x="150" y="486" width="620" height="70" opacity=".3"/>
+          <rect class="fl" x="60" y="486" width="62" height="70" opacity=".5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s68-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s68-head">THE FOUR</p>
+    <p class="huge fundc" id="s68-stmt" style="font-size:76px">How much came in · How much is set aside · How much goes out · What changes</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.11 · A · PLATE · fund · green — THE ORDER IS THE METHOD. The re-ordering
+     icon is already in the stack, over a note with its second line underlined. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s69" data-track-index="1" data-start="463.295" data-duration="7.337" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s69-bg" style="background-image:url(assets/img/s69.jpg)"></div>
+  <div class="field" style="--f1:#183020"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s69-head">THE ORDER IS THE METHOD</p>
+    <p class="huge fundc" id="s69-stmt" style="font-size:76px">Question two comes before question three.</p>
+    <svg class="icon sm fundc" id="s69-icon" viewBox="0 0 100 100">
+      <line id="s69-i-upper" x1="12" y1="34" x2="62" y2="34"/>
+      <line id="s69-i-lower" x1="12" y1="70" x2="62" y2="70"/>
+      <path id="s69-i-swap" d="M70 70 C92 70 92 34 74 34"/>
+      <path id="s69-i-head" d="M82 26 L74 34 L82 42"/>
+    </svg>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.12 · A · PLATE · no role · warm — ON PAPER. Pen, notebook, phone
+     face-down: the whole instruction is in the photograph. -->
+<section class="scene clip arch-a has-photo art-off ch6" id="s70" data-track-index="2" data-start="470.181" data-duration="7.885">
+  <div class="bg" id="s70-bg" style="background-image:url(assets/img/s70-fix.jpg)"></div>
+  <div class="field" style="--f1:#221c13"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s70-head">ON PAPER</p>
+    <p class="huge" id="s70-stmt" style="font-size:76px">Pen. Notebook. Phone face-down. Fifteen minutes.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.13 · D · BAND · no role · neutral — APP vs LEDGER. A photograph can
+     put a document next to a notebook; it cannot say which way each one POINTS.
+     One arrow back, one forward, and the forward one is the only green thing on
+     the frame. -->
+<section class="scene clip arch-d has-photo art-forward ch6" id="s71" data-track-index="1" data-start="477.616" data-duration="6.527">
+  <div class="bg" id="s71-bg" style="background-image:url(assets/img/s71.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s71-band" style="height:48%;z-index:0"></div>
+  <div class="plate p-d" id="s71-plate">
+    <div class="plate-in" id="s71-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s71-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="300" y="250" width="1320" height="8" opacity=".34"/>
+        <g id="s71-back" class="fl" opacity=".62">
+          <rect x="420" y="242" width="1080" height="24"/>
+          <path d="M 300 254 L 430 200 L 430 308 Z"/>
+        </g>
+        <rect class="fl" x="300" y="470" width="1320" height="8" opacity=".34"/>
+        <g id="s71-fwd" class="flf">
+          <rect x="420" y="462" width="1080" height="24"/>
+          <path d="M 1620 474 L 1490 420 L 1490 528 Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s71-br" style="top:398px"></div>
+  <div class="stack">
+    <p class="kicker" id="s71-head">APP vs LEDGER</p>
+    <p class="huge" id="s71-stmt" style="font-size:76px">An app reports where it went. A ledger decides where it goes.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.14 · B · FIGURE · warn · red — OVER 20%. A card APR, cited to the Fed's
+     own release. A mechanic under a car is the unplanned bill this line is
+     about; the figure carries the rest. -->
+<section class="scene clip arch-b has-photo art-off centred ch6" id="s72" data-track-index="2" data-start="483.693" data-duration="7.781" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s72-bg" style="background-image:url(assets/img/s72.jpg)"></div>
+  <div class="field" style="--f1:#38151a"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s72-head">WHAT THE SET-ASIDE LINE BUYS</p>
+    <p class="huge warnc" id="s72-num">OVER 20%</p>
+    <p class="foot" id="s72-foot">Card APR on accounts assessed interest, 22.15% — May 2026, Federal Reserve G.19 released 8 July 2026. Price evidence, not a recommendation.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 6.15 · B · FIGURE · target · amber — 4 IN 10, on a long receipt. HELD on B
+     with s72: the APR and the shortfall are one argument. Nothing is drawn — a
+     ten-cell grid here would be the HARA HACHI BU device saying something else,
+     and a countable grid a viewer can read off is a statistic. -->
+<section class="scene clip arch-b has-photo art-off centred ch6" id="s73" data-track-index="1" data-start="491.024" data-duration="7.415" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s73-bg" style="background-image:url(assets/img/s73-fix.jpg)"></div>
+  <div class="field" style="--f1:#332708"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s73-head">THE RECEIPT</p>
+    <p class="huge targetc" id="s73-num">4 IN 10</p>
+    <p class="foot" id="s73-foot">63% of adults could cover a $400 emergency with cash or its equivalent — Federal Reserve SHED 2025, fielded Oct 2025, released 13 May 2026</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 7.1 · A · PLATE · target · amber — THERE IS A FOURTH. A mossy path in mist. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s74" data-track-index="2" data-start="497.989" data-duration="6.396" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s74-bg" style="background-image:url(assets/img/s74.jpg)"></div>
+  <div class="field" style="--f1:#2e2411"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s74-head">THERE IS A FOURTH</p>
+    <p class="huge targetc" id="s74-stmt" style="font-size:76px">And it is the hard one.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.2 · A · PLATE · no role · neutral — RYOAN-JI. Raked gravel. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s75" data-track-index="1" data-start="503.935" data-duration="7.519">
+  <div class="bg" id="s75-bg" style="background-image:url(assets/img/s75.jpg)"></div>
+  <div class="field" style="--f1:#1a1c20"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s75-head">RYOAN-JI, KYOTO</p>
+    <p class="huge" id="s75-stmt" style="font-size:76px">A stone basin. Four characters cut into it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.3 · A · PLATE · no role · warm — WHAT IT SAYS. The tsukubai with its
+     bamboo ladle, and the inscription cited underneath. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s76" data-track-index="2" data-start="511.004" data-duration="6.814">
+  <div class="bg" id="s76-bg" style="background-image:url(assets/img/s76-hi.jpg)"></div>
+  <div class="field" style="--f1:#221c13"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s76-head">TARU WO SHIRU</p>
+    <p class="huge" id="s76-stmt" style="font-size:76px">What there is, is enough.</p>
+    <p class="foot" id="s76-foot">The tsukubai inscription at Ryoan-ji, Kyoto</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.4 · D · BAND · target · amber — THE DESIGN. A photograph of the
+     basin shows the square opening; it cannot show that four separate
+     characters each use it. Four blocks around one shared square. No kicker on
+     this scene, verbatim. -->
+<section class="scene clip arch-d has-photo art-forward ch7" id="s77" data-track-index="1" data-start="517.368" data-duration="7.754" style="--tint:rgba(245,158,11,0.13)">
+  <div class="bg" id="s77-bg" style="background-image:url(assets/img/s77-hi.jpg)"></div>
+  <div class="field" style="--f1:#332708"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="band" id="s77-band" style="height:52%;z-index:0"></div>
+  <div class="plate p-d" id="s77-plate">
+    <div class="plate-in" id="s77-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s77-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect id="s77-n" class="fl" x="880" y="120" width="164" height="128" opacity=".55"/>
+        <rect id="s77-e" class="fl" x="1064" y="268" width="128" height="164" opacity=".55"/>
+        <rect id="s77-s" class="fl" x="880" y="452" width="164" height="128" opacity=".55"/>
+        <rect id="s77-w" class="fl" x="732" y="268" width="128" height="164" opacity=".55"/>
+        <rect id="s77-sq" class="fl" x="880" y="268" width="164" height="164" opacity=".85"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s77-br" style="top:398px"></div>
+  <div class="stack">
+    <p class="huge targetc" id="s77-stmt" style="font-size:88px">All four share one part — the emptiness at the centre.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.5 · D · BAND · no role · cool — HELD, and the diagram continues
+     through a matched-frame hold on s77's own photograph. The square leaves and
+     the four drift apart: none of them stands alone. -->
+<section class="scene clip arch-d has-photo art-forward ch7" id="s78" data-track-index="2" data-start="524.673" data-duration="7.65">
+  <div class="bg" id="s78-bg" style="background-image:url(assets/img/s77-hi.jpg);background-size:auto 130%;background-position:55% 46%"></div>
+  <div class="field" style="--f1:#171d26"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s78-band" style="height:52%;z-index:0"></div>
+  <div class="plate p-d" id="s78-plate">
+    <div class="plate-in" id="s78-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s78-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect id="s78-n" class="fl" x="880" y="120" width="164" height="128" opacity=".5"/>
+        <rect id="s78-e" class="fl" x="1064" y="268" width="128" height="164" opacity=".5"/>
+        <rect id="s78-s" class="fl" x="880" y="452" width="164" height="128" opacity=".5"/>
+        <rect id="s78-w" class="fl" x="732" y="268" width="128" height="164" opacity=".5"/>
+        <rect id="s78-sq" class="fl" x="880" y="268" width="164" height="164" opacity=".85"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s78-br" style="top:398px"></div>
+  <div class="stack">
+    <p class="kicker" id="s78-head">NONE OF THEM STANDS ALONE</p>
+    <p class="huge" id="s78-stmt" style="font-size:76px">Each needs the emptiness in the middle to be whole.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.6 · D · BAND · no role · warm — NOW YOUR LIST. Six milestones on
+     one rule, each marker taller than the last: a COUNT and an ESCALATION. Two
+     real framings — the diploma and keys, then the car outside the apartment. -->
+<section class="scene clip arch-d has-photo art-forward ch7" id="s79" data-track-index="1" data-start="531.873" data-duration="8.799" data-framings="5.50,2.849">
+  <div class="bg" id="s79-bg" style="background-image:url(assets/img/s79-fix.jpg);background-size:auto 128%;background-position:50% 74%"></div>
+  <div class="bg" id="s79-bg2" style="background-image:url(assets/img/s79b-fix.jpg);opacity:0"></div>
+  <div class="field" style="--f1:#241c12"><div class="rules"></div><div class="glow"></div></div>
+  <div class="band" id="s79-band" style="height:44%;z-index:0"></div>
+  <div class="plate p-d" id="s79-plate">
+    <div class="plate-in" id="s79-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s79-art" viewBox="0 0 1920 656" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="200" y="298" width="1520" height="10" opacity=".5"/>
+        <g id="s79-list">
+          <rect class="fl" x="226" y="278" width="48" height="48" opacity=".95"/>
+          <rect class="fl" x="243" y="326" width="14" height="72" opacity=".75"/>
+          <rect class="fl" x="492" y="278" width="48" height="48" opacity=".95"/>
+          <rect class="fl" x="509" y="326" width="14" height="94" opacity=".75"/>
+          <rect class="fl" x="758" y="278" width="48" height="48" opacity=".95"/>
+          <rect class="fl" x="775" y="326" width="14" height="116" opacity=".75"/>
+          <rect class="fl" x="1024" y="278" width="48" height="48" opacity=".95"/>
+          <rect class="fl" x="1041" y="326" width="14" height="138" opacity=".75"/>
+          <rect class="fl" x="1290" y="278" width="48" height="48" opacity=".95"/>
+          <rect class="fl" x="1307" y="326" width="14" height="160" opacity=".75"/>
+          <rect class="fl" x="1556" y="278" width="48" height="48" opacity=".95"/>
+          <rect class="fl" x="1573" y="326" width="14" height="182" opacity=".75"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="brule" id="s79-br" style="top:398px"></div>
+  <div class="stack">
+    <p class="kicker" id="s79-head">NOW YOUR LIST</p>
+    <p class="huge" id="s79-stmt" style="font-size:76px">Degree. Job. First paycheck. Phone. Car. Apartment.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.7 · A · PLATE · warn · red — EVERY TIME. The photograph IS a finish line
+     rubbed out and redrawn further along; anything drawn here traces it. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s80" data-track-index="2" data-start="540.222" data-duration="6.527" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s80-bg" style="background-image:url(assets/img/s80-hi.jpg)"></div>
+  <div class="field" style="--f1:#301317"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s80-head">EVERY TIME</p>
+    <p class="huge warnc" id="s80-stmt" style="font-size:76px">The line moved a few weeks after you crossed it.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.8 · B · FIGURE · no role · neutral — WHAT HAPPENED. Two lines from one
+     origin: income in fund, the definition of need in warn, rising faster and
+     never levelling. Two near-identical jackets cannot state a rate of change. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch7" id="s81" data-track-index="1" data-start="546.299" data-duration="7.18">
+  <div class="bg" id="s81-bg" style="background-image:url(assets/img/s81.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-b edge" id="s81-plate">
+    <div class="plate-in" id="s81-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s81-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.62">
+        <rect class="fl" x="70" y="470" width="720" height="9" opacity=".55"/>
+        <rect class="fl" x="70" y="120" width="9" height="356" opacity=".55"/>
+        <path id="s81-inc" class="stf" style="stroke-width:13" fill="none" stroke-linecap="round" d="M 82 452 L 300 384 L 520 300 L 762 236"/>
+        <path id="s81-need" class="stw" style="stroke-width:13" fill="none" stroke-linecap="round" d="M 82 462 L 300 372 L 520 262 L 762 158"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s81-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s81-head">WHAT HAPPENED</p>
+    <p class="huge" id="s81-stmt" style="font-size:76px">Income rose. So did the definition of "need".</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.9 · A · PLATE · warn · red hot — THE WHOLE MARKET. Neon bokeh. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s82" data-track-index="2" data-start="553.029" data-duration="6.814" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s82-bg" style="background-image:url(assets/img/s82-fix.jpg)"></div>
+  <div class="field" style="--f1:#3a1013"><div class="rules"></div><div class="glow" style="--gl:rgba(239,68,68,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s82-head">THE WHOLE MARKET</p>
+    <p class="huge warnc" id="s82-stmt" style="font-size:76px">It runs on what you have feeling like less.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.10 · A · PLATE · fund · green — THE QUESTION. An empty chair by a window. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s83" data-track-index="1" data-start="559.393" data-duration="8.355" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s83-bg" style="background-image:url(assets/img/s83-hi.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s83-head">THE QUESTION</p>
+    <p class="huge fundc" id="s83-stmt" style="font-size:76px">What is enough for you?</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 7.11 · A · PLATE · no role · neutral — THE DIFFERENCE. Three tell you how,
+     the fourth tells you what for; the rock garden at last light closes the
+     method. The chapter's last frame carries a BARE data-duration. -->
+<section class="scene clip arch-a has-photo art-off ch7" id="s84" data-track-index="2" data-start="567.298" data-duration="7.284">
+  <div class="bg" id="s84-bg" style="background-image:url(assets/img/s84-fix.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s84-head">THE DIFFERENCE</p>
+    <p class="huge" id="s84-stmt" style="font-size:76px">Three tell you how. The fourth tells you what for.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- 8.1 · B · FIGURE · no role · warm — RECAP ONE, and 4.10's fork returns. Re-laid on -hi's coordinates 2026-08-06: the -en figure ran to vx=1032 with the X at 846-932, and `.p-b` maps vx 1:1 to screen x from left:1120 — so the accept branch was clipped and the X, the one thing this frame has to assert, rendered entirely off-canvas. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch8" id="s85" data-track-index="1" data-start="574.132" data-duration="6.71">
+  <div class="bg" id="s85-bg" style="background-image:url(assets/img/s85-hi.jpg)"></div>
+  <div class="field" style="--f1:#201b14"><div class="rules"></div><div class="glow"></div></div>
+  <div class="plate p-b edge" id="s85-plate">
+    <div class="plate-in" id="s85-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s85-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <path class="st" style="stroke-width:2;opacity:.5" fill="none" d="M 60 292 L 360 300"/>
+        <rect class="fl" x="352" y="288" width="17" height="17" opacity=".7"/>
+        <path id="s85-yes" class="stf" style="stroke-width:6" fill="none" d="M 372 296 L 500 208 L 780 208"/>
+        <path id="s85-no" class="st" style="stroke-width:6;opacity:.45" fill="none" d="M 372 296 L 500 392 L 780 392"/>
+        <g class="stw" style="stroke-width:7" stroke-linecap="round">
+          <path id="s85-x1" d="M 596 344 L 700 440"/>
+          <path id="s85-x2" d="M 700 344 L 596 440"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s85-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s85-head">RECAP ONE</p>
+    <p class="huge" id="s85-stmt" style="font-size:76px">MOTTAINAI — ask before buying, not after.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.2 · B · FIGURE · fund · green — RECAP TWO, and the ten cells return
+     with the same two leaving. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch8" id="s86" data-track-index="2" data-start="580.392" data-duration="6.71" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s86-bg" style="background-image:url(assets/img/s86.jpg)"></div>
+  <div class="field" style="--f1:#16281d"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="plate p-b edge" id="s86-plate">
+    <div class="plate-in" id="s86-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s86-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="46" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="122" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="198" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="274" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="350" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="426" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="502" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="578" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="654" y="236" width="62" height="120" opacity=".22"/>
+        <rect class="fl" x="730" y="236" width="62" height="120" opacity=".22"/>
+        <g id="s86-lit">
+          <rect class="flf" x="654" y="236" width="62" height="120" opacity=".92"/>
+          <rect class="flf" x="730" y="236" width="62" height="120" opacity=".92"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s86-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s86-head">RECAP TWO</p>
+    <p class="huge fundc" id="s86-stmt" style="font-size:76px">HARA HACHI BU — two parts out the day after payday. Live on eight.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.3 · B · FIGURE · fund · green deeper — RECAP THREE, and the four rows
+     return with the savings line still second. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch8" id="s87" data-track-index="1" data-start="586.651" data-duration="7.598" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s87-bg" style="background-image:url(assets/img/s87.jpg)"></div>
+  <div class="field" style="--f1:#183020"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="plate p-b edge" id="s87-plate">
+    <div class="plate-in" id="s87-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s87-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <g id="s87-rows">
+          <rect id="s87-r0" class="fl" x="150" y="132" width="620" height="70" opacity=".3"/>
+          <rect class="fl" x="60" y="132" width="62" height="70" opacity=".5"/>
+          <rect id="s87-r1" class="flf" x="150" y="250" width="620" height="70"/>
+          <rect class="fl" x="60" y="250" width="62" height="70" opacity=".5"/>
+          <rect id="s87-r2" class="fl" x="150" y="368" width="620" height="70" opacity=".3"/>
+          <rect class="fl" x="60" y="368" width="62" height="70" opacity=".5"/>
+          <rect id="s87-r3" class="fl" x="150" y="486" width="620" height="70" opacity=".3"/>
+          <rect class="fl" x="60" y="486" width="62" height="70" opacity=".5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s87-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s87-head">RECAP THREE</p>
+    <p class="huge fundc" id="s87-stmt" style="font-size:76px">KAKEIBO — four questions at the start. Savings line first.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.4 · B · FIGURE · target · amber — RECAP FOUR, and the shared square
+     returns. Amber, not green, because this is the one that governs the other
+     three rather than the one you do. -->
+<section class="scene clip arch-b has-photo art-forward art-lift ch8" id="s88" data-track-index="2" data-start="593.799" data-duration="6.683" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s88-bg" style="background-image:url(assets/img/s88.jpg)"></div>
+  <div class="field" style="--f1:#332708"><div class="rules"></div><div class="glow" style="--gl:rgba(245,158,11,.16)"></div></div>
+  <div class="plate p-b edge" id="s88-plate">
+    <div class="plate-in" id="s88-pin">
+      <div class="hatch"></div>
+      <svg class="art" id="s88-art" viewBox="0 0 860 610" preserveAspectRatio="xMidYMid slice" style="opacity:.6">
+        <rect class="fl" x="350" y="230" width="150" height="150" opacity=".55"/>
+        <rect class="fl" x="516" y="230" width="118" height="150" opacity=".55"/>
+        <rect class="fl" x="350" y="396" width="150" height="118" opacity=".55"/>
+        <rect class="fl" x="216" y="230" width="118" height="150" opacity=".55"/>
+        <rect id="s88-sq" class="flt" x="350" y="230" width="150" height="150" opacity=".95"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="vrule" id="s88-vr" style="top:196px;height:392px"></div>
+  <div class="stack">
+    <p class="kicker" id="s88-head">RECAP FOUR</p>
+    <p class="huge targetc" id="s88-stmt" style="font-size:76px">TARU WO SHIRU — decide what is enough, or the other three do nothing.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.5 · A · PLATE · fund · green — TONIGHT. A notebook and pen under a lamp:
+     the instruction is entirely in the photograph, which is why the recap's
+     drawn devices stop here. -->
+<section class="scene clip arch-a has-photo art-off ch8" id="s89" data-track-index="1" data-start="600.033" data-duration="7.937" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s89-bg" style="background-image:url(assets/img/s89.jpg)"></div>
+  <div class="field" style="--f1:#14261c"><div class="rules"></div><div class="glow" style="--gl:rgba(34,197,94,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s89-head">TONIGHT</p>
+    <p class="huge fundc" id="s89-stmt" style="font-size:76px">One page. One pen. Four questions. Fifteen minutes.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.6 · A · PLATE · no role · neutral — THE WHOLE VIDEO, on a handwritten
+     list. No kicker on this scene, verbatim. -->
+<section class="scene clip arch-a has-photo art-off ch8" id="s90" data-track-index="2" data-start="607.52" data-duration="7.128">
+  <div class="bg" id="s90-bg" style="background-image:url(assets/img/s90.jpg)"></div>
+  <div class="field" style="--f1:#1c2027"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="huge" id="s90-stmt" style="font-size:88px">What you heard is information. What you start is understanding.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.7 · D · BAND · pop · the one orange frame in the cut — the CTA, over a
+     closed notebook. Nothing drawn; nothing may compete with it. -->
+<section class="scene clip arch-d has-photo art-off centred ch8" id="s91" data-track-index="1" data-start="614.198" data-duration="7.101" style="--tint:rgba(255,92,57,0.13)">
+  <div class="bg" id="s91-bg" style="background-image:url(assets/img/s91-hi.jpg)"></div>
+  <div class="field" style="--f1:#2e1a10"><div class="rules"></div><div class="glow" style="--gl:rgba(255,92,57,.16)"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="cta" id="s91-cta">SUBSCRIBE</p>
+    <p class="foot" id="s91-foot">Comment which of the four hit hardest</p>
+  </div>
+  <div class="grain"></div>
+</section>
+<!-- 8.8 · A · PLATE · no role · warm out — SEND IT TO. Two mugs on a porch rail;
+     the last frame of the video carries its BARE data-duration. -->
+<section class="scene clip arch-a has-photo art-off ch8" id="s92" data-track-index="2" data-start="620.849" data-duration="5.894">
+  <div class="bg" id="s92-bg" style="background-image:url(assets/img/s92-fix.jpg)"></div>
+  <div class="field" style="--f1:#2a2114"><div class="rules"></div><div class="glow"></div></div>
+  <div class="scrim"></div>
+  <div class="stack">
+    <p class="kicker" id="s92-head">SEND IT TO</p>
+    <p class="huge" id="s92-stmt" style="font-size:76px">The friend who says every month: I have no idea where it goes.</p>
+  </div>
+  <div class="grain"></div>
+</section>
+
+<!-- Voice only, verbatim from the shipped cut. Music and SFX are the post-mix
+     step: tools/audio/mix.py reads the merged cue list from ../japanese-money-methods-en/assets/audio.json. -->
+<audio id="vo-1-1" class="clip" data-track-index="10" data-start="0.25" data-duration="3.239" src="assets/voice/1.1.mp3"></audio>
+<audio id="vo-1-2" class="clip" data-track-index="10" data-start="4.289" data-duration="6.635" src="assets/voice/1.2.mp3"></audio>
+<audio id="vo-1-3" class="clip" data-track-index="10" data-start="11.724" data-duration="5.146" src="assets/voice/1.3.mp3"></audio>
+<audio id="vo-1-4" class="clip" data-track-index="10" data-start="17.67" data-duration="5.512" src="assets/voice/1.4.mp3"></audio>
+<audio id="vo-1-5" class="clip" data-track-index="10" data-start="23.982" data-duration="5.93" src="assets/voice/1.5.mp3"></audio>
+<audio id="vo-1-6" class="clip" data-track-index="10" data-start="30.712" data-duration="5.747" src="assets/voice/1.6.mp3"></audio>
+<audio id="vo-1-7" class="clip" data-track-index="10" data-start="37.259" data-duration="3.579" src="assets/voice/1.7.mp3"></audio>
+<audio id="vo-1-8" class="clip" data-track-index="10" data-start="41.638" data-duration="5.198" src="assets/voice/1.8.mp3"></audio>
+<audio id="vo-1-9" class="clip" data-track-index="10" data-start="47.636" data-duration="4.859" src="assets/voice/1.9.mp3"></audio>
+<audio id="vo-1-10" class="clip" data-track-index="10" data-start="53.295" data-duration="3.344" src="assets/voice/1.10.mp3"></audio>
+<audio id="vo-2-1" class="clip" data-track-index="10" data-start="57.439" data-duration="6.4" src="assets/voice/2.1.mp3"></audio>
+<audio id="vo-2-2" class="clip" data-track-index="10" data-start="64.639" data-duration="5.616" src="assets/voice/2.2.mp3"></audio>
+<audio id="vo-2-3" class="clip" data-track-index="10" data-start="71.055" data-duration="5.512" src="assets/voice/2.3.mp3"></audio>
+<audio id="vo-2-4" class="clip" data-track-index="10" data-start="77.367" data-duration="4.859" src="assets/voice/2.4.mp3"></audio>
+<audio id="vo-2-5" class="clip" data-track-index="10" data-start="83.026" data-duration="6.113" src="assets/voice/2.5.mp3"></audio>
+<audio id="vo-2-6" class="clip" data-track-index="10" data-start="89.938" data-duration="5.564" src="assets/voice/2.6.mp3"></audio>
+<audio id="vo-2-7" class="clip" data-track-index="10" data-start="96.302" data-duration="6.713" src="assets/voice/2.7.mp3"></audio>
+<audio id="vo-2-8" class="clip" data-track-index="10" data-start="103.816" data-duration="6.504" src="assets/voice/2.8.mp3"></audio>
+<audio id="vo-2-9" class="clip" data-track-index="10" data-start="111.12" data-duration="7.053" src="assets/voice/2.9.mp3"></audio>
+<audio id="vo-2-10" class="clip" data-track-index="10" data-start="118.973" data-duration="5.277" src="assets/voice/2.10.mp3"></audio>
+<audio id="vo-2-11" class="clip" data-track-index="10" data-start="125.05" data-duration="6.452" src="assets/voice/2.11.mp3"></audio>
+<audio id="vo-3-1" class="clip" data-track-index="10" data-start="132.302" data-duration="5.851" src="assets/voice/3.1.mp3"></audio>
+<audio id="vo-3-2" class="clip" data-track-index="10" data-start="138.954" data-duration="6.034" src="assets/voice/3.2.mp3"></audio>
+<audio id="vo-3-3" class="clip" data-track-index="10" data-start="145.788" data-duration="6.113" src="assets/voice/3.3.mp3"></audio>
+<audio id="vo-3-4" class="clip" data-track-index="10" data-start="152.701" data-duration="6.504" src="assets/voice/3.4.mp3"></audio>
+<audio id="vo-3-5" class="clip" data-track-index="10" data-start="160.005" data-duration="7.236" src="assets/voice/3.5.mp3"></audio>
+<audio id="vo-3-6" class="clip" data-track-index="10" data-start="168.041" data-duration="6.922" src="assets/voice/3.6.mp3"></audio>
+<audio id="vo-3-7" class="clip" data-track-index="10" data-start="175.763" data-duration="6.766" src="assets/voice/3.7.mp3"></audio>
+<audio id="vo-3-8" class="clip" data-track-index="10" data-start="183.329" data-duration="6.269" src="assets/voice/3.8.mp3"></audio>
+<audio id="vo-3-9" class="clip" data-track-index="10" data-start="190.399" data-duration="7.105" src="assets/voice/3.9.mp3"></audio>
+<audio id="vo-3-10" class="clip" data-track-index="10" data-start="198.304" data-duration="6.583" src="assets/voice/3.10.mp3"></audio>
+<audio id="vo-3-11" class="clip" data-track-index="10" data-start="205.687" data-duration="7.34" src="assets/voice/3.11.mp3"></audio>
+<audio id="vo-3-12" class="clip" data-track-index="10" data-start="213.827" data-duration="6.348" src="assets/voice/3.12.mp3"></audio>
+<audio id="vo-4-1" class="clip" data-track-index="10" data-start="220.975" data-duration="6.452" src="assets/voice/4.1.mp3"></audio>
+<audio id="vo-4-2" class="clip" data-track-index="10" data-start="228.227" data-duration="6.531" src="assets/voice/4.2.mp3"></audio>
+<audio id="vo-4-3" class="clip" data-track-index="10" data-start="235.558" data-duration="7.001" src="assets/voice/4.3.mp3"></audio>
+<audio id="vo-4-4" class="clip" data-track-index="10" data-start="243.359" data-duration="4.441" src="assets/voice/4.4.mp3"></audio>
+<audio id="vo-4-5" class="clip" data-track-index="10" data-start="248.599" data-duration="5.512" src="assets/voice/4.5.mp3"></audio>
+<audio id="vo-4-6" class="clip" data-track-index="10" data-start="254.911" data-duration="6.269" src="assets/voice/4.6.mp3"></audio>
+<audio id="vo-4-7" class="clip" data-track-index="10" data-start="261.981" data-duration="4.728" src="assets/voice/4.7.mp3"></audio>
+<audio id="vo-4-8" class="clip" data-track-index="10" data-start="267.509" data-duration="5.564" src="assets/voice/4.8.mp3"></audio>
+<audio id="vo-4-9" class="clip" data-track-index="10" data-start="273.873" data-duration="5.982" src="assets/voice/4.9.mp3"></audio>
+<audio id="vo-4-10" class="clip" data-track-index="10" data-start="280.655" data-duration="4.598" src="assets/voice/4.10.mp3"></audio>
+<audio id="vo-4-11" class="clip" data-track-index="10" data-start="286.052" data-duration="6.087" src="assets/voice/4.11.mp3"></audio>
+<audio id="vo-4-12" class="clip" data-track-index="10" data-start="292.939" data-duration="6.949" src="assets/voice/4.12.mp3"></audio>
+<audio id="vo-4-13" class="clip" data-track-index="10" data-start="300.688" data-duration="4.441" src="assets/voice/4.13.mp3"></audio>
+<audio id="vo-5-1" class="clip" data-track-index="10" data-start="305.928" data-duration="7.367" src="assets/voice/5.1.mp3"></audio>
+<audio id="vo-5-2" class="clip" data-track-index="10" data-start="314.095" data-duration="5.695" src="assets/voice/5.2.mp3"></audio>
+<audio id="vo-5-3" class="clip" data-track-index="10" data-start="320.59" data-duration="5.381" src="assets/voice/5.3.mp3"></audio>
+<audio id="vo-5-4" class="clip" data-track-index="10" data-start="326.771" data-duration="5.695" src="assets/voice/5.4.mp3"></audio>
+<audio id="vo-5-5" class="clip" data-track-index="10" data-start="333.266" data-duration="6.348" src="assets/voice/5.5.mp3"></audio>
+<audio id="vo-5-6" class="clip" data-track-index="10" data-start="340.413" data-duration="6.504" src="assets/voice/5.6.mp3"></audio>
+<audio id="vo-5-7" class="clip" data-track-index="10" data-start="347.718" data-duration="6.165" src="assets/voice/5.7.mp3"></audio>
+<audio id="vo-5-8" class="clip" data-track-index="10" data-start="354.683" data-duration="7.288" src="assets/voice/5.8.mp3"></audio>
+<audio id="vo-5-9" class="clip" data-track-index="10" data-start="362.771" data-duration="7.288" src="assets/voice/5.9.mp3"></audio>
+<audio id="vo-5-10" class="clip" data-track-index="10" data-start="370.859" data-duration="6.531" src="assets/voice/5.10.mp3"></audio>
+<audio id="vo-5-11" class="clip" data-track-index="10" data-start="378.19" data-duration="7.288" src="assets/voice/5.11.mp3"></audio>
+<audio id="vo-5-12" class="clip" data-track-index="10" data-start="386.278" data-duration="6.87" src="assets/voice/5.12.mp3"></audio>
+<audio id="vo-6-1" class="clip" data-track-index="10" data-start="393.948" data-duration="6.269" src="assets/voice/6.1.mp3"></audio>
+<audio id="vo-6-2" class="clip" data-track-index="10" data-start="401.017" data-duration="5.747" src="assets/voice/6.2.mp3"></audio>
+<audio id="vo-6-3" class="clip" data-track-index="10" data-start="407.564" data-duration="5.381" src="assets/voice/6.3.mp3"></audio>
+<audio id="vo-6-4" class="clip" data-track-index="10" data-start="413.746" data-duration="5.669" src="assets/voice/6.4.mp3"></audio>
+<audio id="vo-6-5" class="clip" data-track-index="10" data-start="420.214" data-duration="6.766" src="assets/voice/6.5.mp3"></audio>
+<audio id="vo-6-6" class="clip" data-track-index="10" data-start="427.78" data-duration="6.348" src="assets/voice/6.6.mp3"></audio>
+<audio id="vo-6-7" class="clip" data-track-index="10" data-start="434.928" data-duration="6.452" src="assets/voice/6.7.mp3"></audio>
+<audio id="vo-6-8" class="clip" data-track-index="10" data-start="442.18" data-duration="6.165" src="assets/voice/6.8.mp3"></audio>
+<audio id="vo-6-9" class="clip" data-track-index="10" data-start="449.145" data-duration="6.452" src="assets/voice/6.9.mp3"></audio>
+<audio id="vo-6-10" class="clip" data-track-index="10" data-start="456.397" data-duration="6.348" src="assets/voice/6.10.mp3"></audio>
+<audio id="vo-6-11" class="clip" data-track-index="10" data-start="463.545" data-duration="6.087" src="assets/voice/6.11.mp3"></audio>
+<audio id="vo-6-12" class="clip" data-track-index="10" data-start="470.431" data-duration="6.635" src="assets/voice/6.12.mp3"></audio>
+<audio id="vo-6-13" class="clip" data-track-index="10" data-start="477.866" data-duration="5.277" src="assets/voice/6.13.mp3"></audio>
+<audio id="vo-6-14" class="clip" data-track-index="10" data-start="483.943" data-duration="6.531" src="assets/voice/6.14.mp3"></audio>
+<audio id="vo-6-15" class="clip" data-track-index="10" data-start="491.274" data-duration="6.165" src="assets/voice/6.15.mp3"></audio>
+<audio id="vo-7-1" class="clip" data-track-index="10" data-start="498.239" data-duration="5.146" src="assets/voice/7.1.mp3"></audio>
+<audio id="vo-7-2" class="clip" data-track-index="10" data-start="504.185" data-duration="6.269" src="assets/voice/7.2.mp3"></audio>
+<audio id="vo-7-3" class="clip" data-track-index="10" data-start="511.254" data-duration="5.564" src="assets/voice/7.3.mp3"></audio>
+<audio id="vo-7-4" class="clip" data-track-index="10" data-start="517.618" data-duration="6.504" src="assets/voice/7.4.mp3"></audio>
+<audio id="vo-7-5" class="clip" data-track-index="10" data-start="524.923" data-duration="6.4" src="assets/voice/7.5.mp3"></audio>
+<audio id="vo-7-6" class="clip" data-track-index="10" data-start="532.123" data-duration="7.549" src="assets/voice/7.6.mp3"></audio>
+<audio id="vo-7-7" class="clip" data-track-index="10" data-start="540.472" data-duration="5.277" src="assets/voice/7.7.mp3"></audio>
+<audio id="vo-7-8" class="clip" data-track-index="10" data-start="546.549" data-duration="5.93" src="assets/voice/7.8.mp3"></audio>
+<audio id="vo-7-9" class="clip" data-track-index="10" data-start="553.279" data-duration="5.564" src="assets/voice/7.9.mp3"></audio>
+<audio id="vo-7-10" class="clip" data-track-index="10" data-start="559.643" data-duration="7.105" src="assets/voice/7.10.mp3"></audio>
+<audio id="vo-7-11" class="clip" data-track-index="10" data-start="567.548" data-duration="6.034" src="assets/voice/7.11.mp3"></audio>
+<audio id="vo-8-1" class="clip" data-track-index="10" data-start="574.382" data-duration="5.46" src="assets/voice/8.1.mp3"></audio>
+<audio id="vo-8-2" class="clip" data-track-index="10" data-start="580.642" data-duration="5.46" src="assets/voice/8.2.mp3"></audio>
+<audio id="vo-8-3" class="clip" data-track-index="10" data-start="586.901" data-duration="6.348" src="assets/voice/8.3.mp3"></audio>
+<audio id="vo-8-4" class="clip" data-track-index="10" data-start="594.049" data-duration="5.433" src="assets/voice/8.4.mp3"></audio>
+<audio id="vo-8-5" class="clip" data-track-index="10" data-start="600.283" data-duration="6.687" src="assets/voice/8.5.mp3"></audio>
+<audio id="vo-8-6" class="clip" data-track-index="10" data-start="607.77" data-duration="5.878" src="assets/voice/8.6.mp3"></audio>
+<audio id="vo-8-7" class="clip" data-track-index="10" data-start="614.448" data-duration="5.851" src="assets/voice/8.7.mp3"></audio>
+<audio id="vo-8-8" class="clip" data-track-index="10" data-start="621.099" data-duration="5.094" src="assets/voice/8.8.mp3"></audio>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script><script src="assets/js/lottie.min.js"></script>
+<script src="assets/js/motion.js"></script>
+<script src="assets/lottie/phone-on-counter-night.js"></script>
+<script src="assets/lottie/calendar-20th-circled.js"></script>
+<script src="assets/lottie/stats-table-row.js"></script>
+<script src="assets/lottie/two-rates-30x.js"></script>
+<script src="assets/lottie/who-is-counted.js"></script>
+<script src="assets/lottie/one-number-travels.js"></script>
+<script>
+var S = { s1: 0, s2: 4.039, s3: 11.474, s4: 17.42, s5: 23.732, s6: 30.462, s7: 37.009, s8: 41.388, s9: 47.386, s10: 53.045, s11: 57.189, s12: 64.389, s13: 70.805, s14: 77.117, s15: 82.776, s16: 89.688, s17: 96.052, s18: 103.566, s19: 110.87, s20: 118.723, s21: 124.8, s22: 132.052, s23: 138.704, s24: 145.538, s25: 152.451, s26: 159.755, s27: 167.791, s28: 175.513, s29: 183.079, s30: 190.149, s31: 198.054, s32: 205.437, s33: 213.577, s34: 220.725, s35: 227.977, s36: 235.308, s37: 243.109, s38: 248.349, s39: 254.661, s40: 261.731, s41: 267.259, s42: 273.623, s43: 280.405, s44: 285.802, s45: 292.689, s46: 300.438, s47: 305.678, s48: 313.845, s49: 320.34, s50: 326.521, s51: 333.016, s52: 340.163, s53: 347.468, s54: 354.433, s55: 362.521, s56: 370.609, s57: 377.94, s58: 386.028, s59: 393.698, s60: 400.767, s61: 407.314, s62: 413.496, s63: 419.964, s64: 427.53, s65: 434.678, s66: 441.93, s67: 448.895, s68: 456.147, s69: 463.295, s70: 470.181, s71: 477.616, s72: 483.693, s73: 491.024, s74: 497.989, s75: 503.935, s76: 511.004, s77: 517.368, s78: 524.673, s79: 531.873, s80: 540.222, s81: 546.299, s82: 553.029, s83: 559.393, s84: 567.298, s85: 574.132, s86: 580.392, s87: 586.651, s88: 593.799, s89: 600.033, s90: 607.52, s91: 614.198, s92: 620.849 };
+var D = {  };
+var IDS = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25", "s26", "s27", "s28", "s29", "s30", "s31", "s32", "s33", "s34", "s35", "s36", "s37", "s38", "s39", "s40", "s41", "s42", "s43", "s44", "s45", "s46", "s47", "s48", "s49", "s50", "s51", "s52", "s53", "s54", "s55", "s56", "s57", "s58", "s59", "s60", "s61", "s62", "s63", "s64", "s65", "s66", "s67", "s68", "s69", "s70", "s71", "s72", "s73", "s74", "s75", "s76", "s77", "s78", "s79", "s80", "s81", "s82", "s83", "s84", "s85", "s86", "s87", "s88", "s89", "s90", "s91", "s92"];
+
+sceneTransitions(IDS, S, { acts: ["s34", "s74"] });
+
+/* s1 */
+plateKen("#s1-bg", 0, 4.039, 1.00, 1.10);
+rise("#s1-stmt", 0.45, 0.70, 40);
+/* THE HOLD, part 1 of 2. s1 and s2 are one object and one push; s2 carries an
+   identical element driven from the SAME absolute times, so the two are
+   pixel-identical through the 0.45s cross-dissolve and there is nothing for
+   it to ghost against. (-hi ch1 gets this for free by hanging one phone off
+   #root across both scenes on its own track; a chapter.json spec has no hook
+   for root-level markup, and creating a `clip` from script would be invisible
+   to the linter and to the renderer's DOM scan. Two synchronised instances is
+   the version that survives the generator.)
+
+   ONE pass at TRUE speed (180f / 30fps = 6.00s), then it holds on its last
+   frame while the push keeps moving. -hi plays the loop twice because it has
+   no other motion; here that would say the deposit landed a second time at
+   6.8s, which is not true. Notification in at 0.80s, buzz again at 3.60s,
+   still lit when s2 dissolves over it. */
+var phone = loadLottie("#s1-phone", L_phone_on_counter_night);
+/* lottie-web writes preserveAspectRatio="xMidYMid meet"; the artwork is 3:2 on
+   a 16:9 stage, so `meet` pillarboxes it. `slice` is background-size:cover for
+   an SVG. A property of THIS asset's aspect ratio, not of loadLottie. */
+phone.renderer.svgElement.setAttribute("preserveAspectRatio", "xMidYMid slice");
+playLottie(phone, S.s1, 6.00);
+/* plateKen, not ken: pure scale, no xPercent drift, so the zoom CONTINUES
+   across the cut instead of restarting. s1 reaches 1.10 at 4.039 — the exact
+   frame s2 starts from — rather than at 4.489, so the handoff is exact and
+   only the fading-out copy is briefly static. These are the cut's own numbers
+   for #s1-bg / #s2-bg, moved onto the object that is actually visible. */
+plateKen("#s1-phone", S.s1, 4.039, 1.00, 1.10);
+/* s2 */
+plateKen("#s2-bg", 4.039, 7.885, 1.10, 1.24);
+rise("#s2-head", 4.339, 0.50, 24);
+rise("#s2-stmt", 5.139, 0.70, 40);
+/* THE HOLD, part 2 of 2. Note the play cue is S.s1, NOT S.s2, and that is the
+   whole trick: both instances tween over the identical absolute window, so at
+   every t in the dissolve they are showing the same Lottie frame. Change this
+   to S.s2 and the phone snaps back to frame 0 mid-cut. */
+var phone2 = loadLottie("#s2-phone", L_phone_on_counter_night);
+phone2.renderer.svgElement.setAttribute("preserveAspectRatio", "xMidYMid slice");
+playLottie(phone2, S.s1, 6.00);
+plateKen("#s2-phone", S.s2, 7.885, 1.10, 1.24);
+popEach("#s2-marks i", S.s2 + 2.30, 0.62, 0.5);
+/* s3 */
+ken("#s3-bg", 11.474, 6.396, false);
+ken("#s3-bg2", 11.474, 6.396, false);
+fade("#s3-bg2", 14.679, 0.55);
+rise("#s3-head", 11.774, 0.50, 24);
+rise("#s3-stmt", 12.574, 0.70, 40);
+/* s4 */
+ken("#s4-bg", 17.42, 6.762, true);
+rise("#s4-head", 17.72, 0.50, 24);
+rise("#s4-stmt", 18.52, 0.70, 40);
+pop("#s4-one", S.s4 + 1.50, 0.5);
+popEach("#s4-lit rect", S.s4 + 1.90, 0.16, 0.32);
+fade("#s4-span", S.s4 + 2.80, 0.5);
+/* s5 */
+ken("#s5-bg", 23.732, 7.18, false);
+ken("#s5-bg2", 23.732, 7.18, false);
+ken("#s5-bg3", 23.732, 7.18, false);
+fade("#s5-bg2", 26.313, 0.50);
+fade("#s5-bg3", 28.648, 0.50);
+rise("#s5-head", 24.032, 0.50, 24);
+rise("#s5-stmt", 24.832, 0.70, 40);
+/* s6 */
+ken("#s6-bg", 30.462, 6.997, true);
+rise("#s6-head", 30.762, 0.50, 24);
+rise("#s6-stmt", 31.562, 0.70, 40);
+fade("#s6-band", S.s6 + 1.20, 0.6);
+/* 44 slips, each on its own arithmetic offset (i*7 mod 44) so the fill is
+   deterministic — no Math.random anywhere in a composition. Built in the DOM
+   rather than written out: forty-four hand-typed rects is forty-four chances
+   to fat-finger a coordinate. The grid sits at y 680-950, below the centred
+   type and clear of the watermark box. */
+(function () {
+  var NS = "http://www.w3.org/2000/svg", g = document.getElementById("s6-slips");
+  for (var i = 0; i < 44; i++) {
+    var r = document.createElementNS(NS, "rect");
+    r.setAttribute("x", 426 + (i % 11) * 104);
+    r.setAttribute("y", 680 + Math.floor(i / 11) * 78);
+    r.setAttribute("width", 27); r.setAttribute("height", 36);
+    r.setAttribute("opacity", 0);
+    g.appendChild(r);
+    tl.fromTo(r, { opacity: 0, y: 14 },
+      { opacity: 0.9, y: 0, duration: 0.42, ease: "power2.out" },
+      S.s6 + 1.35 + (((i * 7) % 44) / 44) * 2.6);
+  }
+})();
+/* s7 */
+ken("#s7-bg", 37.009, 4.829, false);
+rise("#s7-head", 37.309, 0.50, 24);
+rise("#s7-stmt", 38.109, 0.70, 40);
+rise("#s7-ml", S.s7 + 1.10, 0.6, 10);
+span("#s7-mf", S.s7 + 1.3, 2.4, 1, 0.07);
+/* The calendar shares the measure bar's +1.30 cue deliberately: the days
+   burning down and the balance draining are the same sentence. 105 frames over
+   3.05s is 1.15x — inside the range where the build still reads as a build —
+   and it lands the ring at +4.35, 0.03s before the cross-dissolve begins, so
+   the ringed 20th is the last thing the scene holds. */
+var cal = loadLottie("#s7-cal", L_calendar_20th_circled);
+playLottie(cal, S.s7 + 1.30, 3.05);
+/* s8 */
+ken("#s8-bg", 41.388, 6.448, true);
+rise("#s8-head", 41.688, 0.50, 24);
+rise("#s8-stmt", 42.488, 0.70, 40);
+/* s9 */
+ken("#s9-bg", 47.386, 6.109, false);
+rise("#s9-head", 47.686, 0.50, 24);
+rise("#s9-stmt", 48.486, 0.70, 40);
+fade("#s9-band", S.s9 + 1.2, 0.6);
+for (var h = 0; h < 24; h++) tl.fromTo("#s9-p" + h, { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.9, ease: "power1.in" }, S.s9 + 1.60 + (h % 6) * 0.1 + Math.floor(h / 6) * 0.09);
+/* s10 */
+ken("#s10-bg", 53.045, 4.594, true);
+rise("#s10-head", 53.345, 0.50, 24);
+rise("#s10-stmt", 54.145, 0.70, 40);
+
+/* s11 */
+ken("#s11-bg", 57.189, 7.65, false);
+rise("#s11-head", 57.489, 0.50, 24);
+rise("#s11-stmt", 58.289, 0.70, 40);
+/* s12 */
+ken("#s12-bg", 64.389, 6.866, true);
+rise("#s12-head", 64.689, 0.50, 24);
+rise("#s12-stmt", 65.489, 0.70, 40);
+/* s13 */
+ken("#s13-bg", 70.805, 6.762, false);
+rise("#s13-head", 71.105, 0.50, 24);
+pop("#s13-num", 71.905, 0.60);
+fade("#s13-foot", 72.705, 0.40);
+tl.fromTo("#s13-echo text", { opacity: 0, scale: 0.82, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out", stagger: 0.13 }, S.s13 + 1.60);
+/* s14 */
+ken("#s14-bg", 77.117, 6.109, true);
+rise("#s14-head", 77.417, 0.50, 24);
+rise("#s14-stmt", 78.217, 0.70, 40);
+/* s15 */
+ken("#s15-bg", 82.776, 7.363, false);
+rise("#s15-head", 83.076, 0.50, 24);
+pop("#s15-num", 83.876, 0.60);
+fade("#s15-foot", 84.676, 0.40);
+var t15 = loadLottie("#s15-lottie", window.L_stats_table_row);
+playLottie(t15, S.s15 + 1.90, 4.00);
+/* s16 */
+ken("#s16-bg", 89.688, 6.814, true);
+rise("#s16-head", 89.988, 0.50, 24);
+pop("#s16-num", 90.788, 0.60);
+fade("#s16-foot", 91.588, 0.40);
+tl.fromTo("#s16-nub", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 1.10, ease: "power2.out" }, S.s16 + 1.20);
+/* the ghost is where 37.8% of the same track would have reached — the claim,
+   left standing next to what the national accounts actually say. */
+fade("#s16-ghost", S.s16 + 2.30, 0.55);
+pulse("#s16-nub", S.s16 + 3.10, 1.6);
+/* s17 */
+ken("#s17-bg", 96.052, 7.963, false);
+rise("#s17-kick", 96.352, 0.50, 24);
+pop("#s17-num", 97.152, 0.60);
+fade("#s17-foot", 97.952, 0.40);
+var bars = loadLottie("#s17-lottie", window.L_two_rates_30x);
+playLottie(bars, S.s17 + 1.90, 4.00);
+/* s18 */
+ken("#s18-bg", 103.566, 7.754, true);
+rise("#s18-head", 103.866, 0.50, 24);
+rise("#s18-stmt", 104.666, 0.70, 40);
+/* s19 */
+ken("#s19-bg", 110.87, 8.303, false);
+ken("#s19-bg2", 110.87, 8.303, false);
+fade("#s19-bg2", 115.316, 0.55);
+rise("#s19-head", 111.17, 0.50, 24);
+rise("#s19-stmt", 111.97, 0.70, 40);
+fade("#s19-foot", 112.97, 0.40);
+var dots = loadLottie("#s19-lottie", window.L_who_is_counted);
+playLottie(dots, S.s19 + 1.98, 4.50);
+fade("#s19-band", S.s19 + 1.50, 0.50); exit("#s19-band", S.s19 + 4.35, 0.50);
+exit("#s19-fence", S.s19 + 4.30, 0.45);
+fade("#s19-open", S.s19 + 4.446, 0.60);
+/* s20 */
+ken("#s20-bg", 118.723, 6.527, true);
+rise("#s20-head", 119.023, 0.50, 24);
+rise("#s20-stmt", 119.823, 0.70, 40);
+var spread = loadLottie("#s20-lottie", window.L_one_number_travels);
+playLottie(spread, S.s20 + 1.90, 4.00);
+/* s21 */
+ken("#s21-bg", 124.8, 7.702, false);
+rise("#s21-head", 125.1, 0.50, 24);
+rise("#s21-stmt", 125.9, 0.70, 40);
+fade("#s21-foot", 126.9, 0.40);
+
+/* s22 */
+ken("#s22-bg", 132.052, 7.101, true);
+rise("#s22-head", 132.352, 0.50, 24);
+rise("#s22-stmt", 133.152, 0.70, 40);
+/* s23 */
+ken("#s23-bg", 138.704, 7.284, false);
+rise("#s23-head", 139.004, 0.50, 24);
+rise("#s23-stmt", 139.804, 0.70, 40);
+fade("#s23-foot", 140.804, 0.40);
+tl.fromTo("#s23-dep", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 1.10, ease: "power2.out" }, S.s23 + 1.60);
+tl.fromTo("#s23-sec", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, S.s23 + 2.90);
+/* s24 */
+ken("#s24-bg", 145.538, 7.363, true);
+rise("#s24-head", 145.838, 0.50, 24);
+rise("#s24-stmt", 146.638, 0.70, 40);
+draw("#s24-i-shackle", 147.638, 0.70, 260);
+draw("#s24-i-body", 147.818, 0.70, 260);
+/* s25 */
+ken("#s25-bg", 152.451, 7.754, false);
+rise("#s25-head", 152.751, 0.50, 24);
+pop("#s25-num", 154.39, 0.60);
+fade("#s25-foot", 155.19, 0.40);
+rise("#s25-ml", S.s25 + 1.10, 0.6, 10);
+span("#s25-mf", S.s25 + 1.4, 2.6, 0, 0.51);
+/* s26 */
+ken("#s26-bg", 159.755, 8.486, true);
+rise("#s26-head", 160.055, 0.50, 24);
+rise("#s26-stmt", 160.855, 0.70, 40);
+fade("#s26-foot", 161.855, 0.40);
+tl.fromTo("#s26-a", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.70, ease: "power2.out" }, S.s26 + 1.7);
+tl.fromTo("#s26-b", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.90, ease: "power2.out" }, S.s26 + 2.4);
+/* s27 */
+ken("#s27-bg", 167.791, 8.172, false);
+rise("#s27-head", 168.091, 0.50, 24);
+rise("#s27-stmt", 168.891, 0.70, 40);
+/* s28 */
+ken("#s28-bg", 175.513, 8.016, true);
+rise("#s28-head", 175.813, 0.50, 24);
+rise("#s28-stmt", 176.613, 0.70, 40);
+/* s29 */
+ken("#s29-bg", 183.079, 7.519, false);
+rise("#s29-head", 183.379, 0.50, 24);
+rise("#s29-stmt", 184.179, 0.70, 40);
+fade("#s29-foot", 185.179, 0.40);
+fade("#s29-band", S.s29 + 1.3, 0.6);
+tl.fromTo("#s29-era", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.95, ease: "power2.out" }, S.s29 + 1.90);
+tl.fromTo("#s29-l", { scaleY: 0, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.4, ease: "power3.out" }, S.s29 + 1.90);
+tl.fromTo("#s29-r", { scaleY: 0, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.4, ease: "power3.out" }, S.s29 + 2.60);
+/* s30 */
+ken("#s30-bg", 190.149, 8.355, true);
+rise("#s30-head", 190.449, 0.50, 24);
+pop("#s30-num", 191.96, 0.60);
+fade("#s30-foot", 192.76, 0.40);
+/* s31 */
+ken("#s31-bg", 198.054, 7.833, false);
+rise("#s31-head", 198.354, 0.50, 24);
+pop("#s31-stmt", 199.45, 0.60);
+fade("#s31-foot", 200.25, 0.40);
+/* s32 */
+ken("#s32-bg", 205.437, 8.59, true);
+ken("#s32-bg2", 205.437, 8.59, true);
+fade("#s32-bg2", 211.097, 0.40);
+rise("#s32-head", 205.737, 0.50, 24);
+rise("#s32-stmt", 206.537, 0.70, 40);
+fade("#s32-foot", 207.537, 0.40);
+fade("#s32-band", S.s32 + 1.6, 0.6);
+for (var q = 0; q < 5; q++) draw("#s32-m" + q, S.s32 + 2.10 + q * 1.15, 0.34, 380);
+/* s33 */
+ken("#s33-bg", 213.577, 7.598, false);
+rise("#s33-kick", 213.877, 0.50, 24);
+pop("#s33-stmt", 214.677, 0.60);
+
+/* s34 */
+ken("#s34-bg", 220.725, 7.702, true);
+rise("#s34-head", 221.025, 0.50, 24);
+rise("#s34-stmt", 221.825, 0.70, 40);
+fade("#s34-foot", 222.825, 0.40);
+/* s35 */
+ken("#s35-bg", 227.977, 7.781, false);
+rise("#s35-head", 228.277, 0.50, 24);
+rise("#s35-stmt", 229.077, 0.70, 40);
+/* s36 */
+ken("#s36-bg", 235.308, 8.251, true);
+ken("#s36-bg2", 235.308, 8.251, true);
+fade("#s36-bg2", 238.048, 0.40);
+ken("#s36-bg3", 235.308, 8.251, true);
+fade("#s36-bg3", 240.078, 0.40);
+rise("#s36-head", 235.608, 0.50, 24);
+rise("#s36-stmt", 236.408, 0.70, 40);
+/* s37 */
+ken("#s37-bg", 243.109, 5.691, false);
+rise("#s37-head", 243.409, 0.50, 24);
+rise("#s37-stmt", 244.209, 0.70, 40);
+/* s38 */
+ken("#s38-bg", 248.349, 6.762, true);
+rise("#s38-head", 248.649, 0.50, 24);
+rise("#s38-stmt", 249.449, 0.70, 40);
+pop("#s38-icon", 250.55, 0.60);
+rise("#s38-ml", S.s38 + 1.10, 0.6, 10);
+span("#s38-mf", S.s38 + 1.9, 1.6, 0, 0.3333);
+/* s39 */
+ken("#s39-bg", 254.661, 7.519, false);
+rise("#s39-head", 254.961, 0.50, 24);
+rise("#s39-stmt", 255.761, 0.70, 40);
+pop("#s39-icon", 256.86, 0.60);
+rise("#s39-ml", S.s39 + 1.10, 0.6, 10);
+span("#s39-mf", S.s39 + 1.9, 1.6, 0.3333, 0.6667);
+/* s40 */
+ken("#s40-bg", 261.731, 5.978, true);
+rise("#s40-head", 262.031, 0.50, 24);
+rise("#s40-stmt", 262.831, 0.70, 40);
+pop("#s40-icon", 263.93, 0.60);
+rise("#s40-ml", S.s40 + 1.10, 0.6, 10);
+span("#s40-mf", S.s40 + 1.9, 1.6, 0.6667, 1);
+/* s41 */
+ken("#s41-bg", 267.259, 6.814, false);
+rise("#s41-head", 267.559, 0.50, 24);
+rise("#s41-stmt", 268.359, 0.70, 40);
+/* s42 */
+ken("#s42-bg", 273.623, 7.232, true);
+rise("#s42-head", 273.923, 0.50, 24);
+rise("#s42-stmt", 274.723, 0.70, 40);
+/* s43 */
+ken("#s43-bg", 280.405, 5.848, false);
+rise("#s43-head", 280.705, 0.50, 24);
+pop("#s43-stmt", 281.505, 0.60);
+fade("#s43-band", S.s43 + 1.3, 0.6);
+draw("#s43-yes", S.s43 + 1.9, 0.45, 800); draw("#s43-no", S.s43 + 2.1999999999999997, 0.45, 800);
+draw("#s43-x1", S.s43 + 2.65, 0.2, 240); draw("#s43-x2", S.s43 + 2.8, 0.2, 240);
+/* s44 */
+ken("#s44-bg", 285.802, 7.337, true);
+rise("#s44-head", 286.102, 0.50, 24);
+rise("#s44-stmt", 286.902, 0.70, 40);
+fade("#s44-foot", 287.902, 0.40);
+for (var q = 0; q < 3; q++) draw("#s44-m" + q, S.s44 + 1.90 + q * 0.45, 0.28, 320);
+draw("#s44-m3", S.s44 + 3.40, 0.36, 320);
+/* s45 */
+ken("#s45-bg", 292.689, 8.199, false);
+rise("#s45-head", 292.989, 0.50, 24);
+rise("#s45-stmt", 293.789, 0.70, 40);
+/* s46 */
+ken("#s46-bg", 300.438, 5.691, true);
+rise("#s46-head", 300.738, 0.50, 24);
+rise("#s46-stmt", 301.538, 0.70, 40);
+
+/* s47 */
+ken("#s47-bg", 305.678, 8.617, false);
+rise("#s47-head", 305.978, 0.50, 24);
+rise("#s47-stmt", 306.778, 0.70, 40);
+fade("#s47-foot", 307.778, 0.40);
+/* s48 */
+ken("#s48-bg", 313.845, 6.945, true);
+rise("#s48-head", 314.145, 0.50, 24);
+rise("#s48-stmt", 314.945, 0.70, 40);
+popEach("#s48-lit rect", S.s48 + 1.90, 0.17, 0.34);
+/* s49 */
+ken("#s49-bg", 320.34, 6.631, false);
+rise("#s49-head", 320.64, 0.50, 24);
+rise("#s49-stmt", 321.44, 0.70, 40);
+popEach("#s49-lit rect", S.s49 + 2.10, 0.30, 0.4);
+tl.fromTo("#s49-br", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, S.s49 + 2.80);
+/* s50 */
+ken("#s50-bg", 326.521, 6.945, true);
+rise("#s50-head", 326.821, 0.50, 24);
+rise("#s50-stmt", 327.621, 0.70, 40);
+tl.fromTo("#s50-lit", { y: 0 }, { y: 176, duration: 1.10, ease: "power2.inOut" }, S.s50 + 2.10);
+tl.fromTo("#s50-arrow", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, S.s50 + 2.10);
+/* s51 */
+ken("#s51-bg", 333.016, 7.598, false);
+rise("#s51-head", 333.316, 0.50, 24);
+rise("#s51-stmt", 335.74, 0.70, 40);
+fade("#s51-foot", 336.54, 0.40);
+rise("#s51-ml", S.s51 + 1.10, 0.6, 10);
+span("#s51-mf", S.s51 + 1.9, 1.8, 0, 0.2);
+/* s52 */
+ken("#s52-bg", 340.163, 7.754, true);
+rise("#s52-head", 340.463, 0.50, 24);
+rise("#s52-stmt", 341.263, 0.70, 40);
+/* s53 */
+ken("#s53-bg", 347.468, 7.415, false);
+rise("#s53-head", 347.768, 0.50, 24);
+rise("#s53-stmt", 348.568, 0.70, 40);
+fade("#s53-foot", 349.568, 0.40);
+draw("#s53-a1", S.s53 + 1.60, 0.60, 520); draw("#s53-a1h", S.s53 + 2.10, 0.25, 140);
+/* the second pass is the word "every month" — the same move, again. */
+draw("#s53-a2", S.s53 + 3.10, 0.60, 520); draw("#s53-a2h", S.s53 + 3.60, 0.25, 140);
+/* s54 */
+ken("#s54-bg", 354.433, 8.538, true);
+rise("#s54-head", 354.733, 0.50, 24);
+rise("#s54-stmt", 355.533, 0.70, 40);
+/* s55 */
+ken("#s55-bg", 362.521, 8.538, false);
+rise("#s55-head", 362.821, 0.50, 24);
+pop("#s55-num", 363.621, 0.60);
+fade("#s55-foot", 364.621, 0.40);
+/* s56 */
+ken("#s56-bg", 370.609, 7.781, true);
+rise("#s56-head", 370.909, 0.50, 24);
+countUp("#s56-num", 371.709, 0, 200, "en-US", 1.2, "$");
+fade("#s56-foot", 372.709, 0.40);
+/* s57 */
+ken("#s57-bg", 377.94, 8.538, false);
+rise("#s57-head", 378.24, 0.50, 24);
+rise("#s57-stmt", 379.04, 0.70, 40);
+/* s58 */
+ken("#s58-bg", 386.028, 8.12, true);
+rise("#s58-head", 386.328, 0.50, 24);
+rise("#s58-stmt", 387.128, 0.70, 40);
+
+/* s59 */
+ken("#s59-bg", 393.698, 7.519, false);
+rise("#s59-head", 393.998, 0.50, 24);
+rise("#s59-stmt", 394.798, 0.70, 40);
+/* s60 */
+ken("#s60-bg", 400.767, 6.997, true);
+rise("#s60-head", 401.067, 0.50, 24);
+rise("#s60-stmt", 401.867, 0.70, 40);
+fade("#s60-foot", 402.867, 0.40);
+/* s61 */
+ken("#s61-bg", 407.314, 6.631, false);
+rise("#s61-head", 407.614, 0.50, 24);
+rise("#s61-stmt", 408.414, 0.70, 40);
+fade("#s61-foot", 409.414, 0.40);
+fade("#s61-band", S.s61 + 1.1, 0.6);
+tl.fromTo("#s61-vols", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 1.2, ease: "power2.out" }, S.s61 + 1.50);
+fade("#s61-gap", S.s61 + 2.40, 0.5);
+/* s62 */
+ken("#s62-bg", 413.496, 6.919, true);
+rise("#s62-head", 413.796, 0.50, 24);
+rise("#s62-stmt", 414.596, 0.70, 40);
+/* s63 */
+ken("#s63-bg", 419.964, 8.016, false);
+rise("#s63-head", 420.264, 0.50, 24);
+rise("#s63-stmt", 421.064, 0.70, 40);
+fade("#s63-band", S.s63 + 1.3, 0.6);
+popEach("#s63-year rect[id^='s63-c']", S.s63 + 2.00, 0.10, 0.3);
+popEach("#s63-year rect[id^='s63-b']", S.s63 + 2.90, 0.10, 0.3);
+/* s64 */
+ken("#s64-bg", 427.53, 7.598, true);
+rise("#s64-head", 427.83, 0.50, 24);
+rise("#s64-stmt", 428.63, 0.70, 40);
+/* s65 */
+ken("#s65-bg", 434.678, 7.702, false);
+pop("#s65-stmt", 436.08, 0.60);
+fade("#s65-foot", 436.88, 0.40);
+/* s66 */
+ken("#s66-bg", 441.93, 7.415, false);
+rise("#s66-head", 442.23, 0.50, 24);
+rise("#s66-stmt", 443.03, 0.70, 40);
+popEach("#s66-cats rect", S.s66 + 1.90, 0.52, 0.34);
+/* s67 */
+ken("#s67-bg", 448.895, 7.702, true);
+rise("#s67-head", 449.195, 0.50, 24);
+rise("#s67-stmt", 449.995, 0.70, 40);
+/* s68 */
+ken("#s68-bg", 456.147, 7.598, false);
+rise("#s68-head", 456.447, 0.50, 24);
+rise("#s68-stmt", 457.247, 0.70, 40);
+popEach("#s68-rows rect", S.s68 + 1.90, 0.13, 0.34);
+pulse("#s68-r1", S.s68 + 3.40, 1.06);
+/* s69 */
+ken("#s69-bg", 463.295, 7.337, true);
+rise("#s69-head", 463.595, 0.50, 24);
+rise("#s69-stmt", 464.395, 0.70, 40);
+draw("#s69-i-upper", 465.395, 0.70, 120);
+draw("#s69-i-lower", 465.575, 0.70, 120);
+draw("#s69-i-swap", 465.755, 0.70, 120);
+draw("#s69-i-head", 465.935, 0.70, 120);
+pulse("#s69-icon", 465.5);
+/* s70 */
+ken("#s70-bg", 470.181, 7.885, false);
+rise("#s70-head", 470.481, 0.50, 24);
+rise("#s70-stmt", 471.281, 0.70, 40);
+/* s71 */
+ken("#s71-bg", 477.616, 6.527, true);
+rise("#s71-head", 477.916, 0.50, 24);
+rise("#s71-stmt", 478.716, 0.70, 40);
+fade("#s71-band", S.s71 + 1.3, 0.6);
+tl.fromTo("#s71-back", { opacity: 0, x: 60 }, { opacity: .62, x: 0, duration: 0.8, ease: "power2.out" }, S.s71 + 1.90);
+tl.fromTo("#s71-fwd", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" }, S.s71 + 2.40);
+/* s72 */
+ken("#s72-bg", 483.693, 7.781, false);
+rise("#s72-head", 483.993, 0.50, 24);
+pop("#s72-num", 484.793, 0.60);
+fade("#s72-foot", 485.593, 0.40);
+/* s73 */
+ken("#s73-bg", 491.024, 7.415, true);
+rise("#s73-head", 491.324, 0.50, 24);
+pop("#s73-num", 493.62, 0.60);
+fade("#s73-foot", 494.42, 0.40);
+
+/* s74 */
+ken("#s74-bg", 497.989, 6.396, false);
+rise("#s74-head", 498.289, 0.50, 24);
+rise("#s74-stmt", 499.089, 0.70, 40);
+/* s75 */
+ken("#s75-bg", 503.935, 7.519, true);
+rise("#s75-head", 504.235, 0.50, 24);
+rise("#s75-stmt", 505.035, 0.70, 40);
+/* s76 */
+ken("#s76-bg", 511.004, 6.814, false);
+rise("#s76-head", 511.304, 0.50, 24);
+rise("#s76-stmt", 512.104, 0.70, 40);
+fade("#s76-foot", 513.104, 0.40);
+/* s77 */
+ken("#s77-bg", 517.368, 7.754, true);
+rise("#s77-stmt", 518.77, 0.70, 40);
+fade("#s77-band", S.s77 + 1.3, 0.6);
+pop("#s77-sq", S.s77 + 1.80, 0.5);
+popEach("#s77-n, #s77-e, #s77-s, #s77-w", S.s77 + 2.20, 0.12, 0.4);
+/* s78 */
+ken("#s78-bg", 524.673, 7.65, true);
+rise("#s78-head", 524.973, 0.50, 24);
+rise("#s78-stmt", 525.773, 0.70, 40);
+fade("#s78-band", S.s78 + 0.6, 0.6);
+exit("#s78-sq", S.s78 + 2.10, 0.7);
+tl.fromTo("#s78-n", { y: 0 }, { y: -54, duration: 1.4, ease: "power2.inOut" }, S.s78 + 2.30);
+tl.fromTo("#s78-s", { y: 0 }, { y: 54, duration: 1.4, ease: "power2.inOut" }, S.s78 + 2.30);
+tl.fromTo("#s78-w", { x: 0 }, { x: -64, duration: 1.4, ease: "power2.inOut" }, S.s78 + 2.30);
+tl.fromTo("#s78-e", { x: 0 }, { x: 64, duration: 1.4, ease: "power2.inOut" }, S.s78 + 2.30);
+/* s79 */
+ken("#s79-bg", 531.873, 8.799, false);
+ken("#s79-bg2", 531.873, 8.799, false);
+fade("#s79-bg2", 537.373, 0.40);
+rise("#s79-head", 532.173, 0.50, 24);
+rise("#s79-stmt", 532.973, 0.70, 40);
+fade("#s79-band", S.s79 + 1.2, 0.6);
+popEach("#s79-list rect", S.s79 + 1.80, 0.11, 0.3);
+/* s80 */
+ken("#s80-bg", 540.222, 6.527, true);
+rise("#s80-head", 540.522, 0.50, 24);
+rise("#s80-stmt", 541.322, 0.70, 40);
+/* s81 */
+ken("#s81-bg", 546.299, 7.18, false);
+rise("#s81-head", 546.599, 0.50, 24);
+rise("#s81-stmt", 547.399, 0.70, 40);
+draw("#s81-inc", S.s81 + 1.60, 0.9, 800);
+draw("#s81-need", S.s81 + 2.10, 0.9, 860);
+/* s82 */
+ken("#s82-bg", 553.029, 6.814, true);
+rise("#s82-head", 553.329, 0.50, 24);
+rise("#s82-stmt", 554.129, 0.70, 40);
+/* s83 */
+ken("#s83-bg", 559.393, 8.355, false);
+rise("#s83-head", 559.693, 0.50, 24);
+rise("#s83-stmt", 560.493, 0.70, 40);
+/* s84 */
+ken("#s84-bg", 567.298, 7.284, true);
+rise("#s84-head", 567.598, 0.50, 24);
+rise("#s84-stmt", 568.398, 0.70, 40);
+
+/* s85 */
+ken("#s85-bg", 574.132, 6.71, false);
+rise("#s85-head", 574.432, 0.50, 24);
+rise("#s85-stmt", 575.232, 0.70, 40);
+draw("#s85-yes", S.s85 + 1.9, 0.45, 500); draw("#s85-no", S.s85 + 2.1999999999999997, 0.45, 500);
+draw("#s85-x1", S.s85 + 2.65, 0.2, 240); draw("#s85-x2", S.s85 + 2.8, 0.2, 240);
+/* s86 */
+ken("#s86-bg", 580.392, 6.71, true);
+rise("#s86-head", 580.692, 0.50, 24);
+rise("#s86-stmt", 581.492, 0.70, 40);
+tl.fromTo("#s86-lit", { y: 0 }, { y: 150, duration: 1.0, ease: "power2.inOut" }, S.s86 + 2.10);
+/* s87 */
+ken("#s87-bg", 586.651, 7.598, false);
+rise("#s87-head", 586.951, 0.50, 24);
+rise("#s87-stmt", 587.751, 0.70, 40);
+pulse("#s87-r1", S.s87 + 2.40, 1.07);
+/* s88 */
+ken("#s88-bg", 593.799, 6.683, true);
+rise("#s88-head", 594.099, 0.50, 24);
+rise("#s88-stmt", 594.899, 0.70, 40);
+pulse("#s88-sq", S.s88 + 2.40, 1.09);
+/* s89 */
+ken("#s89-bg", 600.033, 7.937, false);
+rise("#s89-head", 600.333, 0.50, 24);
+rise("#s89-stmt", 601.133, 0.70, 40);
+/* s90 */
+ken("#s90-bg", 607.52, 7.128, true);
+pop("#s90-stmt", 608.92, 0.60);
+/* s91 */
+ken("#s91-bg", 614.198, 7.101, false);
+pop("#s91-cta", 616.61, 0.60);
+fade("#s91-foot", 617.41, 0.40);
+/* s92 */
+ken("#s92-bg", 620.849, 5.894, true);
+rise("#s92-head", 621.149, 0.50, 24);
+rise("#s92-stmt", 621.949, 0.70, 40);
+/* motion.js initialises this too, but hyperframes lint only reads THIS
+file and fails missing_timeline_registry if it is absent here. */
+
+
+window.__timelines = window.__timelines || {};
+register();
+</script>
+</body>
+</html>

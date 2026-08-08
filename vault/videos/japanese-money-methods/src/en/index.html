@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Japanese Money Methods — en</title>
+
+<!-- THE SYSTEM. Linked, never copied: tokens, grade, scrim, type ladder,
+     components. blockframe-9 is the bare system — #root carries no body class,
+     only the cut-en watermark class. Every motion helper lives in
+     assets/js/motion.js. Nothing from either file is redefined here. -->
+<link rel="stylesheet" href="assets/blockframe.css">
+
+<style>
+/* The one thing blockframe.css does not own: it styles everything INSIDE #root
+   but never sizes the stage, and .scene{position:absolute} + #root::after (the
+   watermark) both need a positioned, sized root. Owed to tools/scaffold/. */
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+</style>
+</head>
+<body>
+
+<div id="root" class="cut-en" data-composition-id="main"
+     data-width="1920" data-height="1080" data-start="0" data-duration="626.743">
+
+<section id="s1" class="scene clip" data-track-index="1" data-start="0" data-duration="4.489">
+  <div class="bg" id="s1-bg" style="background-image:url(assets/img/s1-fix.jpg);filter:grayscale(.32) brightness(.81) contrast(1.05)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="huge" id="s1-stmt" style="font-size:88px">The deposit is in.</p>
+  </div>
+</section>
+
+<section id="s2" class="scene clip" data-track-index="2" data-start="4.039" data-duration="7.885" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s2-bg" style="background-image:url(assets/img/s1-fix.jpg);filter:grayscale(.32) brightness(.81) contrast(1.05)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s2-head">TWO SECONDS</p>
+    <p class="huge fundc" id="s2-stmt" style="font-size:76px">Three Japanese methods make it last longer.</p>
+  </div>
+</section>
+
+<section id="s3" class="scene clip" data-track-index="1" data-start="11.474" data-duration="6.396" data-framings="3.205,2.741" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s3-bg" style="background-image:url(assets/img/s3-fix.jpg)"></div>
+  <div class="bg" id="s3-bg2" style="background-image:url(assets/img/s3b-hi.jpg);opacity:0"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s3-head">THEN RENT</p>
+    <p class="huge warnc" id="s3-stmt" style="font-size:76px">Then the power bill. Higher again.</p>
+  </div>
+</section>
+
+<section id="s4" class="scene clip" data-track-index="2" data-start="17.42" data-duration="6.762">
+  <div class="bg" id="s4-bg" style="background-image:url(assets/img/s4.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s4-head">THEN THE RENEWAL</p>
+    <p class="huge" id="s4-stmt" style="font-size:76px">The six-month bill you budget like a monthly one.</p>
+  </div>
+</section>
+
+<section id="s5" class="scene clip" data-track-index="1" data-start="23.732" data-duration="7.18" data-framings="2.581,2.335,1.814">
+  <div class="bg" id="s5-bg" style="background-image:url(assets/img/s5.jpg)"></div>
+  <div class="bg" id="s5-bg2" style="background-image:url(assets/img/s5b-fix.jpg);opacity:0"></div>
+  <div class="bg" id="s5-bg3" style="background-image:url(assets/img/s5c-fix.jpg);opacity:0"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s5-head">AND THEN</p>
+    <p class="huge" id="s5-stmt" style="font-size:76px">One gift. Two delivery orders. One auto-renewal.</p>
+  </div>
+</section>
+
+<section id="s6" class="scene clip" data-track-index="2" data-start="30.462" data-duration="6.997">
+  <div class="bg" id="s6-bg" style="background-image:url(assets/img/s6-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s6-head">NOTHING WAS BIG</p>
+    <p class="huge" id="s6-stmt" style="font-size:76px">Every one was small. Every one was fair.</p>
+  </div>
+</section>
+
+<section id="s7" class="scene clip" data-track-index="1" data-start="37.009" data-duration="4.829" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s7-bg" style="background-image:url(assets/img/s7-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s7-head">BY THE 20th</p>
+    <p class="huge warnc" id="s7-stmt" style="font-size:76px">The balance looks like payday never happened.</p>
+  </div>
+</section>
+
+<section id="s8" class="scene clip" data-track-index="2" data-start="41.388" data-duration="6.448">
+  <div class="bg" id="s8-bg" style="background-image:url(assets/img/s8-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s8-head">YOU GO LOOKING</p>
+    <p class="huge" id="s8-stmt" style="font-size:76px">For the one big line that explains it.</p>
+  </div>
+</section>
+
+<section id="s9" class="scene clip" data-track-index="1" data-start="47.386" data-duration="6.109" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s9-bg" style="background-image:url(assets/img/s9-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s9-head">IT IS NOT THERE</p>
+    <p class="huge warnc" id="s9-stmt" style="font-size:76px">Not one place. A little everywhere.</p>
+  </div>
+</section>
+
+<section id="s10" class="scene clip" data-track-index="2" data-start="53.045" data-duration="4.594">
+  <div class="bg" id="s10-bg" style="background-image:url(assets/img/s10-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s10-head">IS THAT YOURS?</p>
+    <p class="huge" id="s10-stmt" style="font-size:76px">Then this one is for you.</p>
+  </div>
+</section>
+
+<section id="s11" class="scene clip" data-track-index="1" data-start="57.189" data-duration="7.65" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s11-bg" style="background-image:url(assets/img/s11-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s11-head">THREE METHODS</p>
+    <p class="huge fundc" id="s11-stmt" style="font-size:76px">Centuries old. In no finance course.</p>
+  </div>
+</section>
+
+<section id="s12" class="scene clip" data-track-index="2" data-start="64.389" data-duration="6.866">
+  <div class="bg" id="s12-bg" style="background-image:url(assets/img/s12-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s12-head">FIRST, THE SAVING RATE</p>
+    <p class="huge" id="s12-stmt" style="font-size:76px">The one that put Japan on your feed.</p>
+  </div>
+</section>
+
+<section id="s13" class="scene clip" data-track-index="1" data-start="70.805" data-duration="6.762" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s13-bg" style="background-image:url(assets/img/s13-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s13-head">THE INTERNET SAYS</p>
+    <p class="huge targetc" id="s13-num">37.8%</p>
+    <p class="foot" id="s13-foot">Statistics Bureau of Japan, Kakei Chosa 2024 annual summary, Table I-2-2</p>
+  </div>
+</section>
+
+<section id="s14" class="scene clip" data-track-index="2" data-start="77.117" data-duration="6.109">
+  <div class="bg" id="s14-bg" style="background-image:url(assets/img/s14-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s14-head">IT IS REAL</p>
+    <p class="huge" id="s14-stmt" style="font-size:76px">Japan's own government publishes it.</p>
+  </div>
+</section>
+
+<section id="s15" class="scene clip" data-track-index="1" data-start="82.776" data-duration="7.363" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s15-bg" style="background-image:url(assets/img/s15-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s15-head">THE SURVEY</p>
+    <p class="huge targetc" id="s15-num">37.8%</p>
+    <p class="foot" id="s15-foot">FIES 2024, salaried-worker households: surplus JPY 197,432 of disposable JPY 522,569</p>
+  </div>
+</section>
+
+<section id="s16" class="scene clip" data-track-index="2" data-start="89.688" data-duration="6.814" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s16-bg" style="background-image:url(assets/img/s16-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s16-head">THE SAME YEAR</p>
+    <p class="huge targetc" id="s16-num">ABOUT 1%</p>
+    <p class="foot" id="s16-foot">National Accounts (SNA) household saving rate, calendar 2024 — Horioka, NBER WP 33181, p.7</p>
+  </div>
+</section>
+
+<section id="s17" class="scene clip" data-track-index="1" data-start="96.052" data-duration="7.963" style="--tint:rgba(239,68,68,0.13)">
+  <div class="bg" id="s17-bg" style="background-image:url(assets/img/s17-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s17-kick">ONE GOVERNMENT. ONE YEAR.</p>
+    <p class="mega warnc" id="s17-num" style="font-size:240px">30 TIMES</p>
+    <p class="foot" id="s17-foot">"more than 30 times as high" — Horioka, NBER WP 33181, p.7</p>
+  </div>
+</section>
+
+<section id="s18" class="scene clip" data-track-index="2" data-start="103.566" data-duration="7.754">
+  <div class="bg" id="s18-bg" style="background-image:url(assets/img/s18-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s18-head">THE DIFFERENCE</p>
+    <p class="huge" id="s18-stmt" style="font-size:76px">Who is counted. And how.</p>
+  </div>
+</section>
+
+<section id="s19" class="scene clip" data-track-index="1" data-start="110.87" data-duration="8.303" data-framings="4.446,3.407">
+  <div class="bg" id="s19-bg" style="background-image:url(assets/img/s19.jpg)"></div>
+  <div class="bg" id="s19-bg2" style="background-image:url(assets/img/s19b-hi.jpg);opacity:0"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s19-head">WHO IS IN</p>
+    <p class="huge" id="s19-stmt" style="font-size:76px">37.8% counts salaried households only. The other counts everyone.</p>
+    <p class="foot" id="s19-foot">Horioka p.7 — the National Accounts include the self-employed, unemployed, retired and unincorporated enterprises</p>
+  </div>
+</section>
+
+<section id="s20" class="scene clip" data-track-index="2" data-start="118.723" data-duration="6.527" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s20-bg" style="background-image:url(assets/img/s20-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s20-head">BOTH ARE TRUE</p>
+    <p class="huge warnc" id="s20-stmt" style="font-size:76px">Only one of them travels.</p>
+  </div>
+</section>
+
+<section id="s21" class="scene clip" data-track-index="1" data-start="124.8" data-duration="7.702">
+  <div class="bg" id="s21-bg" style="background-image:url(assets/img/s21.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s21-head">THE REAL QUESTION</p>
+    <p class="huge" id="s21-stmt" style="font-size:76px">What survives in the methods — and what it does to $4,000</p>
+    <p class="foot" id="s21-foot">$4,000/mo take-home is this channel's worked example, not a national average. US real median household income was $83,730 in 2024 (Census P60-286).</p>
+  </div>
+</section>
+
+<section id="s22" class="scene clip" data-track-index="2" data-start="132.052" data-duration="7.101">
+  <div class="bg" id="s22-bg" style="background-image:url(assets/img/s22.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s22-head">THE SAME SURVEY</p>
+    <p class="huge" id="s22-stmt" style="font-size:76px">It also records where the surplus goes.</p>
+  </div>
+</section>
+
+<section id="s23" class="scene clip" data-track-index="1" data-start="138.704" data-duration="7.284" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s23-bg" style="background-image:url(assets/img/s23-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s23-head">WHERE IT LANDS</p>
+    <p class="huge targetc" id="s23-stmt" style="font-size:76px">About 90% into deposits. About 3% into securities.</p>
+    <p class="foot" id="s23-foot">ILLUSTRATIVE — computed from the FIES 2024 monthly surplus split (deposits JPY 175,241 · securities JPY 6,705 of JPY 197,432)</p>
+  </div>
+</section>
+
+<section id="s24" class="scene clip" data-track-index="2" data-start="145.538" data-duration="7.363">
+  <div class="bg" id="s24-bg" style="background-image:url(assets/img/s24-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s24-head">SAVING IS NOT INVESTING</p>
+    <p class="huge" id="s24-stmt" style="font-size:76px">Japan saves hard and puts very little of it to work.</p>
+    <svg class="icon sm warnc" id="s24-icon" viewBox="0 0 100 100">
+      <path id="s24-i-shackle" d="M33 46 V32 a17 17 0 0 1 34 0 V46"/>
+      <rect id="s24-i-body" x="20" y="46" width="60" height="40" rx="7"/>
+      <circle id="s24-i-pin" class="solid" cx="50" cy="62" r="5"/>
+      <line id="s24-i-slot" x1="50" y1="64" x2="50" y2="75"/>
+    </svg>
+  </div>
+</section>
+
+<section id="s25" class="scene clip" data-track-index="1" data-start="152.451" data-duration="7.754" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s25-bg" style="background-image:url(assets/img/s25-fix.jpg);background-size:auto 250%;background-position:55% 100%"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s25-head">JAPAN</p>
+    <p class="huge targetc" id="s25-num">51.0%</p>
+    <p class="foot" id="s25-foot">Cash and deposits, share of household financial assets — Bank of Japan Flow of Funds, Chart 2, end-March 2025</p>
+  </div>
+</section>
+
+<section id="s26" class="scene clip" data-track-index="2" data-start="159.755" data-duration="8.486" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s26-bg" style="background-image:url(assets/img/s25-fix.jpg);background-size:auto 380%;background-position:78% 100%"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s26-head">SAME TABLE, NEXT COLUMN</p>
+    <p class="huge targetc" id="s26-stmt" style="font-size:76px">US cash 11.5% · US equity 41.5%</p>
+    <p class="foot" id="s26-foot">The SAME BOJ table states both markets — no conversion, no second source. ASSET MIX ONLY. This is NOT a saving-rate comparison.</p>
+  </div>
+</section>
+
+<section id="s27" class="scene clip" data-track-index="1" data-start="167.791" data-duration="8.172">
+  <div class="bg" id="s27-bg" style="background-image:url(assets/img/s27-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s27-head">THE HALF NOBODY SHOWS</p>
+    <p class="huge" id="s27-stmt" style="font-size:76px">An example of saving. Not of investing.</p>
+  </div>
+</section>
+
+<section id="s28" class="scene clip" data-track-index="2" data-start="175.513" data-duration="8.016" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s28-bg" style="background-image:url(assets/img/s28-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s28-head">AND ONE MORE THING</p>
+    <p class="huge warnc" id="s28-stmt" style="font-size:76px">Japan was not always a nation of savers.</p>
+  </div>
+</section>
+
+<section id="s29" class="scene clip" data-track-index="1" data-start="183.079" data-duration="7.519" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s29-bg" style="background-image:url(assets/img/s29.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s29-head">THE POSTWAR HIGH-SAVING ERA</p>
+    <p class="huge targetc" id="s29-stmt" style="font-size:76px">1961 to 1986. Twenty-five years.</p>
+    <p class="foot" id="s29-foot">POSTWAR ONLY — Horioka, NBER WP 33181, p.3. The wartime rate reached 44%, so this is the postwar record, not the all-time one.</p>
+  </div>
+</section>
+
+<section id="s30" class="scene clip" data-track-index="2" data-start="190.149" data-duration="8.355" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s30-bg" style="background-image:url(assets/img/s30.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s30-head">THE POSTWAR PEAK</p>
+    <p class="huge warnc" id="s30-num">23.2%</p>
+    <p class="foot" id="s30-foot">Postwar peak, mid-1970s. No higher than 5% since 2002 apart from a temporary 2020 Covid blip, and negative in 2013-15, 2017 and 2023 — Horioka p.2</p>
+  </div>
+</section>
+
+<section id="s31" class="scene clip" data-track-index="1" data-start="198.054" data-duration="7.833" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s31-bg" style="background-image:url(assets/img/s31-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s31-head">NOT CULTURE</p>
+    <p class="huge warnc" id="s31-stmt" style="font-size:76px">"Culture, tradition and national character are not a major determinant."</p>
+    <p class="foot" id="s31-foot">Horioka, NBER WP 33181, sections 3 and 9-10</p>
+  </div>
+</section>
+
+<section id="s32" class="scene clip" data-track-index="2" data-start="205.437" data-duration="8.59" data-framings="5.66,2.48">
+  <div class="bg" id="s32-bg" style="background-image:url(assets/img/s32.jpg)"></div>
+  <div class="bg" id="s32-bg2" style="background-image:url(assets/img/s32b.jpg);opacity:0"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s32-head">THE ACTUAL REASONS</p>
+    <p class="huge" id="s32-stmt" style="font-size:76px">No consumer credit · No safety net · Fast income growth · A tax break · A state campaign</p>
+    <p class="foot" id="s32-foot">Horioka, NBER WP 33181, sections 9-10</p>
+  </div>
+</section>
+
+<section id="s33" class="scene clip" data-track-index="1" data-start="213.577" data-duration="7.598" style="--tint:rgba(34,197,94,0.13)">
+  <div class="bg" id="s33-bg" style="background-image:url(assets/img/s33.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s33-kick">THE HONEST LINE</p>
+    <p class="stamp fund" id="s33-stmt">The methods work. They were never the reason.</p>
+  </div>
+</section>
+
+<section id="s34" class="scene clip" data-track-index="2" data-start="220.725" data-duration="7.702">
+  <div class="bg" id="s34-bg" style="background-image:url(assets/img/s34-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s34-head">MOTTAINAI</p>
+    <p class="huge" id="s34-stmt" style="font-size:76px">A thing's real value, going unused.</p>
+    <p class="foot" id="s34-foot">Roughly, from mottai, "a thing's rightful worth", plus nai, "without" — attested since about the 13th century</p>
+  </div>
+</section>
+
+<section id="s35" class="scene clip" data-track-index="1" data-start="227.977" data-duration="7.781">
+  <div class="bg" id="s35-bg" style="background-image:url(assets/img/s35-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s35-head">NOT A SCOLDING</p>
+    <p class="huge" id="s35-stmt" style="font-size:76px">It is regret. Not instruction.</p>
+  </div>
+</section>
+
+<section id="s36" class="scene clip" data-track-index="2" data-start="235.308" data-duration="8.251" data-framings="2.74,2.03,3.031">
+  <div class="bg" id="s36-bg" style="background-image:url(assets/img/s36b.jpg)"></div>
+  <div class="bg" id="s36-bg2" style="background-image:url(assets/img/s36b-fix.jpg);opacity:0"></div>
+  <div class="bg" id="s36-bg3" style="background-image:url(assets/img/s36c.jpg);opacity:0"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s36-head">ONE SHIRT</p>
+    <p class="huge" id="s36-stmt" style="font-size:76px">A farmer's crop. A mill's hours. A truck's diesel.</p>
+  </div>
+</section>
+
+<section id="s37" class="scene clip" data-track-index="1" data-start="243.109" data-duration="5.691" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s37-bg" style="background-image:url(assets/img/s37-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s37-head">AND YOURS</p>
+    <p class="huge warnc" id="s37-stmt" style="font-size:76px">The hours of your own pay that bought it.</p>
+  </div>
+</section>
+
+<section id="s38" class="scene clip" data-track-index="2" data-start="248.349" data-duration="6.762" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s38-bg" style="background-image:url(assets/img/s38.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s38-head">PAUSE. CHECK ONE.</p>
+    <p class="huge fundc" id="s38-stmt" style="font-size:76px">Count the clothes still wearing their tags.</p>
+    <svg class="icon sm fundc" id="s38-icon" viewBox="0 0 100 100">
+      <rect id="s38-i-box" x="14" y="20" width="58" height="58" rx="8"/>
+      <path id="s38-i-tick" d="M28 50 L45 68 L88 16"/>
+    </svg>
+  </div>
+</section>
+
+<section id="s39" class="scene clip" data-track-index="1" data-start="254.661" data-duration="7.519" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s39-bg" style="background-image:url(assets/img/s39-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s39-head">CHECK TWO</p>
+    <p class="huge fundc" id="s39-stmt" style="font-size:76px">The subscriptions screen. All of it.</p>
+    <svg class="icon sm fundc" id="s39-icon" viewBox="0 0 100 100">
+      <rect id="s39-i-box" x="14" y="20" width="58" height="58" rx="8"/>
+      <path id="s39-i-tick" d="M28 50 L45 68 L88 16"/>
+    </svg>
+  </div>
+</section>
+
+<section id="s40" class="scene clip" data-track-index="2" data-start="261.731" data-duration="5.978" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s40-bg" style="background-image:url(assets/img/s40-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s40-head">CHECK THREE</p>
+    <p class="huge fundc" id="s40-stmt" style="font-size:76px">What gets thrown out next week.</p>
+    <svg class="icon sm fundc" id="s40-icon" viewBox="0 0 100 100">
+      <rect id="s40-i-box" x="14" y="20" width="58" height="58" rx="8"/>
+      <path id="s40-i-tick" d="M28 50 L45 68 L88 16"/>
+    </svg>
+  </div>
+</section>
+
+<section id="s41" class="scene clip" data-track-index="1" data-start="267.259" data-duration="6.814" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s41-bg" style="background-image:url(assets/img/s41.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s41-head">WHAT YOU SAW</p>
+    <p class="huge warnc" id="s41-stmt" style="font-size:76px">Not a shortage of money. Value already bought and never used.</p>
+  </div>
+</section>
+
+<section id="s42" class="scene clip" data-track-index="2" data-start="273.623" data-duration="7.232">
+  <div class="bg" id="s42-bg" style="background-image:url(assets/img/s42-fix.jpg);background-size:auto 138%;background-position:20% 44%"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s42-head">IT IS ONE QUESTION</p>
+    <p class="huge" id="s42-stmt" style="font-size:76px">And it is asked before, not after.</p>
+  </div>
+</section>
+
+<section id="s43" class="scene clip" data-track-index="1" data-start="280.405" data-duration="5.848" style="--tint:rgba(34,197,94,0.13)">
+  <div class="bg" id="s43-bg" style="background-image:url(assets/img/s43.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s43-head">THE QUESTION</p>
+    <p class="huge fundc" id="s43-stmt" style="font-size:76px">Will its full value be used? If the answer is MAYBE, the answer is NO.</p>
+  </div>
+</section>
+
+<section id="s44" class="scene clip" data-track-index="2" data-start="285.802" data-duration="7.337">
+  <div class="bg" id="s44-bg" style="background-image:url(assets/img/s44-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s44-head">ON $4,000</p>
+    <p class="huge" id="s44-stmt" style="font-size:76px">The question comes up three or four times a month.</p>
+    <p class="foot" id="s44-foot">$4,000/mo take-home is the channel's worked example — not a statistic</p>
+  </div>
+</section>
+
+<section id="s45" class="scene clip" data-track-index="1" data-start="292.689" data-duration="8.199">
+  <div class="bg" id="s45-bg" style="background-image:url(assets/img/s45-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s45-head">THE WHOLE POINT</p>
+    <p class="huge" id="s45-stmt" style="font-size:76px">Not spending less. Using fully what was bought.</p>
+  </div>
+</section>
+
+<section id="s46" class="scene clip" data-track-index="2" data-start="300.438" data-duration="5.691">
+  <div class="bg" id="s46-bg" style="background-image:url(assets/img/s46.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s46-head">NEXT</p>
+    <p class="huge" id="s46-stmt" style="font-size:76px">The next one starts at the dinner table.</p>
+  </div>
+</section>
+
+<section id="s47" class="scene clip" data-track-index="1" data-start="305.678" data-duration="8.617">
+  <div class="bg" id="s47-bg" style="background-image:url(assets/img/s47.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s47-head">HARA HACHI BU</p>
+    <p class="huge" id="s47-stmt" style="font-size:76px">An old Okinawan habit, Confucian in origin.</p>
+    <p class="foot" id="s47-foot">No calorie, intake or lifespan figure is claimed here — every one in circulation is unsourced</p>
+  </div>
+</section>
+
+<section id="s48" class="scene clip" data-track-index="2" data-start="313.845" data-duration="6.945">
+  <div class="bg" id="s48-bg" style="background-image:url(assets/img/s48-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s48-head">EIGHT PARTS IN TEN</p>
+    <p class="huge" id="s48-stmt" style="font-size:76px">Stop there.</p>
+  </div>
+</section>
+
+<section id="s49" class="scene clip" data-track-index="1" data-start="320.34" data-duration="6.631">
+  <div class="bg" id="s49-bg" style="background-image:url(assets/img/s49-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s49-head">WHY IT WORKS</p>
+    <p class="huge" id="s49-stmt" style="font-size:76px">Fullness arrives late. The last two parts are surplus.</p>
+  </div>
+</section>
+
+<section id="s50" class="scene clip" data-track-index="2" data-start="326.521" data-duration="6.945" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s50-bg" style="background-image:url(assets/img/s50-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s50-head">NOW THE PAYCHECK</p>
+    <p class="huge fundc" id="s50-stmt" style="font-size:76px">Live on eight parts. Move two out on day one.</p>
+  </div>
+</section>
+
+<section id="s51" class="scene clip" data-track-index="1" data-start="333.016" data-duration="7.598" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s51-bg" style="background-image:url(assets/img/s51.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s51-head">ON $4,000</p>
+    <p class="huge fundc" id="s51-stmt" style="font-size:76px">$800 out · $3,200 to live on</p>
+    <p class="foot" id="s51-foot">20% of the channel's $4,000 worked example. An arithmetic split, not a statistic.</p>
+  </div>
+</section>
+
+<section id="s52" class="scene clip" data-track-index="2" data-start="340.163" data-duration="7.754" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s52-bg" style="background-image:url(assets/img/s52-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s52-head">DAY ONE, NOT DAY THIRTY</p>
+    <p class="huge warnc" id="s52-stmt" style="font-size:76px">What is left at month end is always zero.</p>
+  </div>
+</section>
+
+<section id="s53" class="scene clip" data-track-index="1" data-start="347.468" data-duration="7.415" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s53-bg" style="background-image:url(assets/img/s53-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s53-head">AUTOMATICALLY, NOT HEROICALLY</p>
+    <p class="huge fundc" id="s53-stmt" style="font-size:76px">A separate account. Not the one the card touches.</p>
+    <p class="foot" id="s53-foot">No account type, bank, app or fund is named or recommended anywhere in this video.</p>
+  </div>
+</section>
+
+<section id="s54" class="scene clip" data-track-index="2" data-start="354.433" data-duration="8.538">
+  <div class="bg" id="s54-bg" style="background-image:url(assets/img/s54.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s54-head">NOT DISCIPLINE</p>
+    <p class="huge" id="s54-stmt" style="font-size:76px">One decision on day one, carrying the other twenty-nine.</p>
+  </div>
+</section>
+
+<section id="s55" class="scene clip" data-track-index="1" data-start="362.521" data-duration="8.538" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s55-bg" style="background-image:url(assets/img/s55-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s55-head">JAPAN'S OWN FIGURE</p>
+    <p class="mega targetc" id="s55-num" style="font-size:240px">62.2%</p>
+    <p class="foot" id="s55-foot">Average propensity to consume, salaried-worker households — Statistics Bureau FIES 2024, Table I-2-2. Japan's own number; not compared with any other country's.</p>
+  </div>
+</section>
+
+<section id="s56" class="scene clip" data-track-index="2" data-start="370.609" data-duration="7.781" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s56-bg" style="background-image:url(assets/img/s56-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s56-head">IF 20% IS TOO MUCH</p>
+    <p class="mega fundc" id="s56-num" style="font-size:240px">$200</p>
+    <p class="foot" id="s56-foot">5% of the $4,000 worked example</p>
+  </div>
+</section>
+
+<section id="s57" class="scene clip" data-track-index="1" data-start="377.94" data-duration="8.538" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s57-bg" style="background-image:url(assets/img/s57-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s57-head">HONESTLY</p>
+    <p class="huge warnc" id="s57-stmt" style="font-size:76px">If the bills already eat the paycheck, this fails in month one.</p>
+  </div>
+</section>
+
+<section id="s58" class="scene clip" data-track-index="2" data-start="386.028" data-duration="8.12" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s58-bg" style="background-image:url(assets/img/s58-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s58-head">THEN THE QUESTION CHANGES</p>
+    <p class="huge targetc" id="s58-stmt" style="font-size:76px">Not saving. Accounting.</p>
+  </div>
+</section>
+
+<section id="s59" class="scene clip" data-track-index="1" data-start="393.698" data-duration="7.519">
+  <div class="bg" id="s59-bg" style="background-image:url(assets/img/s59-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s59-head">KAKEIBO</p>
+    <p class="huge" id="s59-stmt" style="font-size:76px">The household account book. Written by hand.</p>
+  </div>
+</section>
+
+<section id="s60" class="scene clip" data-track-index="2" data-start="400.767" data-duration="6.997" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s60-bg" style="background-image:url(assets/img/s60-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s60-head">1904</p>
+    <p class="huge targetc" id="s60-stmt" style="font-size:76px">Hani Motoko. Japan's first woman journalist.</p>
+    <p class="foot" id="s60-foot">Fujin no Tomo Sha (publisher primary) + National Diet Library. First edition printed end-1904, for use in the 1905 year.</p>
+  </div>
+</section>
+
+<section id="s61" class="scene clip" data-track-index="1" data-start="407.314" data-duration="6.631">
+  <div class="bg" id="s61-bg" style="background-image:url(assets/img/s61-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s61-head">STILL PRINTED</p>
+    <p class="huge" id="s61-stmt" style="font-size:76px">Every year since. Four wartime years missing.</p>
+    <p class="foot" id="s61-foot">Over a hundred years of continuous publication — the publisher marked the 120th in 2025</p>
+  </div>
+</section>
+
+<section id="s62" class="scene clip" data-track-index="2" data-start="413.496" data-duration="6.919">
+  <div class="bg" id="s62-bg" style="background-image:url(assets/img/s62.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s62-head">HER ACTUAL INVENTION</p>
+    <p class="huge" id="s62-stmt" style="font-size:76px">Not the four-column chart. The budget.</p>
+  </div>
+</section>
+
+<section id="s63" class="scene clip" data-track-index="1" data-start="419.964" data-duration="8.016" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s63-bg" style="background-image:url(assets/img/s63.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s63-head">THE METHOD</p>
+    <p class="huge fundc" id="s63-stmt" style="font-size:76px">Divide the year by twelve. Set the saving aside FIRST. Then split the rest.</p>
+  </div>
+</section>
+
+<section id="s64" class="scene clip" data-track-index="2" data-start="427.53" data-duration="7.598">
+  <div class="bg" id="s64-bg" style="background-image:url(assets/img/s64-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s64-head">WHY IT WAS NEW</p>
+    <p class="huge" id="s64-stmt" style="font-size:76px">Saving is decided before spending, not after.</p>
+  </div>
+</section>
+
+<section id="s65" class="scene clip" data-track-index="1" data-start="434.678" data-duration="7.702" style="--tint:rgba(239,68,68,0.13)">
+  <div class="bg" id="s65-bg" style="background-image:url(assets/img/s65-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="huge warnc" id="s65-stmt" style="font-size:88px">These came later. They are the version that travelled west.</p>
+    <p class="foot" id="s65-foot">Consistent across secondary sources; no Japanese primary attributes them to Hani Motoko or to 1904</p>
+  </div>
+</section>
+
+<section id="s66" class="scene clip" data-track-index="2" data-start="441.93" data-duration="7.415">
+  <div class="bg" id="s66-bg" style="background-image:url(assets/img/s65-fix.jpg);background-size:auto 260%;background-position:86% 55%"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s66-head">SAY IT PLAINLY</p>
+    <p class="huge" id="s66-stmt" style="font-size:76px">Her own expense headings were different ones.</p>
+  </div>
+</section>
+
+<section id="s67" class="scene clip" data-track-index="1" data-start="448.895" data-duration="7.702">
+  <div class="bg" id="s67-bg" style="background-image:url(assets/img/s67-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s67-head">WHAT SURVIVES</p>
+    <p class="huge" id="s67-stmt" style="font-size:76px">Four questions. Asked at the start of the month.</p>
+  </div>
+</section>
+
+<section id="s68" class="scene clip" data-track-index="2" data-start="456.147" data-duration="7.598" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s68-bg" style="background-image:url(assets/img/s68.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s68-head">THE FOUR</p>
+    <p class="huge fundc" id="s68-stmt" style="font-size:76px">How much came in · How much is set aside · How much goes out · What changes</p>
+  </div>
+</section>
+
+<section id="s69" class="scene clip" data-track-index="1" data-start="463.295" data-duration="7.337" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s69-bg" style="background-image:url(assets/img/s69.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s69-head">THE ORDER IS THE METHOD</p>
+    <p class="huge fundc" id="s69-stmt" style="font-size:76px">Question two comes before question three.</p>
+    <svg class="icon sm fundc" id="s69-icon" viewBox="0 0 100 100">
+      <line id="s69-i-upper" x1="12" y1="34" x2="62" y2="34"/>
+      <line id="s69-i-lower" x1="12" y1="70" x2="62" y2="70"/>
+      <path id="s69-i-swap" d="M70 70 C92 70 92 34 74 34"/>
+      <path id="s69-i-head" d="M82 26 L74 34 L82 42"/>
+    </svg>
+  </div>
+</section>
+
+<section id="s70" class="scene clip" data-track-index="2" data-start="470.181" data-duration="7.885">
+  <div class="bg" id="s70-bg" style="background-image:url(assets/img/s70-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s70-head">ON PAPER</p>
+    <p class="huge" id="s70-stmt" style="font-size:76px">Pen. Notebook. Phone face-down. Fifteen minutes.</p>
+  </div>
+</section>
+
+<section id="s71" class="scene clip" data-track-index="1" data-start="477.616" data-duration="6.527">
+  <div class="bg" id="s71-bg" style="background-image:url(assets/img/s71.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s71-head">APP vs LEDGER</p>
+    <p class="huge" id="s71-stmt" style="font-size:76px">An app reports where it went. A ledger decides where it goes.</p>
+  </div>
+</section>
+
+<section id="s72" class="scene clip" data-track-index="2" data-start="483.693" data-duration="7.781" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s72-bg" style="background-image:url(assets/img/s72.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s72-head">WHAT THE SET-ASIDE LINE BUYS</p>
+    <p class="huge warnc" id="s72-num">OVER 20%</p>
+    <p class="foot" id="s72-foot">Card APR on accounts assessed interest, 22.15% — May 2026, Federal Reserve G.19 released 8 July 2026. Price evidence, not a recommendation.</p>
+  </div>
+</section>
+
+<section id="s73" class="scene clip" data-track-index="1" data-start="491.024" data-duration="7.415" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s73-bg" style="background-image:url(assets/img/s73-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s73-head">THE RECEIPT</p>
+    <p class="huge targetc" id="s73-num">4 IN 10</p>
+    <p class="foot" id="s73-foot">63% of adults could cover a $400 emergency with cash or its equivalent — Federal Reserve SHED 2025, fielded Oct 2025, released 13 May 2026</p>
+  </div>
+</section>
+
+<section id="s74" class="scene clip" data-track-index="2" data-start="497.989" data-duration="6.396" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s74-bg" style="background-image:url(assets/img/s74.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s74-head">THERE IS A FOURTH</p>
+    <p class="huge targetc" id="s74-stmt" style="font-size:76px">And it is the hard one.</p>
+  </div>
+</section>
+
+<section id="s75" class="scene clip" data-track-index="1" data-start="503.935" data-duration="7.519">
+  <div class="bg" id="s75-bg" style="background-image:url(assets/img/s75.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s75-head">RYOAN-JI, KYOTO</p>
+    <p class="huge" id="s75-stmt" style="font-size:76px">A stone basin. Four characters cut into it.</p>
+  </div>
+</section>
+
+<section id="s76" class="scene clip" data-track-index="2" data-start="511.004" data-duration="6.814">
+  <div class="bg" id="s76-bg" style="background-image:url(assets/img/s76-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s76-head">TARU WO SHIRU</p>
+    <p class="huge" id="s76-stmt" style="font-size:76px">What there is, is enough.</p>
+    <p class="foot" id="s76-foot">The tsukubai inscription at Ryoan-ji, Kyoto</p>
+  </div>
+</section>
+
+<section id="s77" class="scene clip" data-track-index="1" data-start="517.368" data-duration="7.754" style="--tint:rgba(245,158,11,0.13)">
+  <div class="bg" id="s77-bg" style="background-image:url(assets/img/s77-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="huge targetc" id="s77-stmt" style="font-size:88px">All four share one part — the emptiness at the centre.</p>
+  </div>
+</section>
+
+<section id="s78" class="scene clip" data-track-index="2" data-start="524.673" data-duration="7.65">
+  <div class="bg" id="s78-bg" style="background-image:url(assets/img/s77-hi.jpg);background-size:auto 130%;background-position:55% 46%"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s78-head">NONE OF THEM STANDS ALONE</p>
+    <p class="huge" id="s78-stmt" style="font-size:76px">Each needs the emptiness in the middle to be whole.</p>
+  </div>
+</section>
+
+<section id="s79" class="scene clip" data-track-index="1" data-start="531.873" data-duration="8.799" data-framings="5.50,2.849">
+  <div class="bg" id="s79-bg" style="background-image:url(assets/img/s79-fix.jpg);background-size:auto 128%;background-position:50% 74%"></div>
+  <div class="bg" id="s79-bg2" style="background-image:url(assets/img/s79b-fix.jpg);opacity:0"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s79-head">NOW YOUR LIST</p>
+    <p class="huge" id="s79-stmt" style="font-size:76px">Degree. Job. First paycheck. Phone. Car. Apartment.</p>
+  </div>
+</section>
+
+<section id="s80" class="scene clip" data-track-index="2" data-start="540.222" data-duration="6.527" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s80-bg" style="background-image:url(assets/img/s80-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s80-head">EVERY TIME</p>
+    <p class="huge warnc" id="s80-stmt" style="font-size:76px">The line moved a few weeks after you crossed it.</p>
+  </div>
+</section>
+
+<section id="s81" class="scene clip" data-track-index="1" data-start="546.299" data-duration="7.18">
+  <div class="bg" id="s81-bg" style="background-image:url(assets/img/s81.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s81-head">WHAT HAPPENED</p>
+    <p class="huge" id="s81-stmt" style="font-size:76px">Income rose. So did the definition of "need".</p>
+  </div>
+</section>
+
+<section id="s82" class="scene clip" data-track-index="2" data-start="553.029" data-duration="6.814" style="--tint:rgba(239,68,68,0.12)">
+  <div class="bg" id="s82-bg" style="background-image:url(assets/img/s82-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s82-head">THE WHOLE MARKET</p>
+    <p class="huge warnc" id="s82-stmt" style="font-size:76px">It runs on what you have feeling like less.</p>
+  </div>
+</section>
+
+<section id="s83" class="scene clip" data-track-index="1" data-start="559.393" data-duration="8.355" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s83-bg" style="background-image:url(assets/img/s83-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s83-head">THE QUESTION</p>
+    <p class="huge fundc" id="s83-stmt" style="font-size:76px">What is enough for you?</p>
+  </div>
+</section>
+
+<section id="s84" class="scene clip" data-track-index="2" data-start="567.298" data-duration="7.284">
+  <div class="bg" id="s84-bg" style="background-image:url(assets/img/s84-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s84-head">THE DIFFERENCE</p>
+    <p class="huge" id="s84-stmt" style="font-size:76px">Three tell you how. The fourth tells you what for.</p>
+  </div>
+</section>
+
+<section id="s85" class="scene clip" data-track-index="1" data-start="574.132" data-duration="6.71">
+  <div class="bg" id="s85-bg" style="background-image:url(assets/img/s85-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s85-head">RECAP ONE</p>
+    <p class="huge" id="s85-stmt" style="font-size:76px">MOTTAINAI — ask before buying, not after.</p>
+  </div>
+</section>
+
+<section id="s86" class="scene clip" data-track-index="2" data-start="580.392" data-duration="6.71" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s86-bg" style="background-image:url(assets/img/s86.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s86-head">RECAP TWO</p>
+    <p class="huge fundc" id="s86-stmt" style="font-size:76px">HARA HACHI BU — two parts out the day after payday. Live on eight.</p>
+  </div>
+</section>
+
+<section id="s87" class="scene clip" data-track-index="1" data-start="586.651" data-duration="7.598" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s87-bg" style="background-image:url(assets/img/s87.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s87-head">RECAP THREE</p>
+    <p class="huge fundc" id="s87-stmt" style="font-size:76px">KAKEIBO — four questions at the start. Savings line first.</p>
+  </div>
+</section>
+
+<section id="s88" class="scene clip" data-track-index="2" data-start="593.799" data-duration="6.683" style="--tint:rgba(245,158,11,0.12)">
+  <div class="bg" id="s88-bg" style="background-image:url(assets/img/s88.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s88-head">RECAP FOUR</p>
+    <p class="huge targetc" id="s88-stmt" style="font-size:76px">TARU WO SHIRU — decide what is enough, or the other three do nothing.</p>
+  </div>
+</section>
+
+<section id="s89" class="scene clip" data-track-index="1" data-start="600.033" data-duration="7.937" style="--tint:rgba(34,197,94,0.1)">
+  <div class="bg" id="s89-bg" style="background-image:url(assets/img/s89.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s89-head">TONIGHT</p>
+    <p class="huge fundc" id="s89-stmt" style="font-size:76px">One page. One pen. Four questions. Fifteen minutes.</p>
+  </div>
+</section>
+
+<section id="s90" class="scene clip" data-track-index="2" data-start="607.52" data-duration="7.128">
+  <div class="bg" id="s90-bg" style="background-image:url(assets/img/s90.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="huge" id="s90-stmt" style="font-size:88px">What you heard is information. What you start is understanding.</p>
+  </div>
+</section>
+
+<section id="s91" class="scene clip" data-track-index="1" data-start="614.198" data-duration="7.101" style="--tint:rgba(255,92,57,0.13)">
+  <div class="bg" id="s91-bg" style="background-image:url(assets/img/s91-hi.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="cta" id="s91-cta">SUBSCRIBE</p>
+    <p class="foot" id="s91-foot">Comment which of the four hit hardest</p>
+  </div>
+</section>
+
+<section id="s92" class="scene clip" data-track-index="2" data-start="620.849" data-duration="5.894">
+  <div class="bg" id="s92-bg" style="background-image:url(assets/img/s92-fix.jpg)"></div>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="stack">
+    <p class="kicker" id="s92-head">SEND IT TO</p>
+    <p class="huge" id="s92-stmt" style="font-size:76px">The friend who says every month: I have no idea where it goes.</p>
+  </div>
+</section>
+
+<audio id="vo-1-1" class="clip" data-track-index="10" data-start="0.25" data-duration="3.239" src="assets/voice/1.1.mp3"></audio>
+<audio id="vo-1-2" class="clip" data-track-index="10" data-start="4.289" data-duration="6.635" src="assets/voice/1.2.mp3"></audio>
+<audio id="vo-1-3" class="clip" data-track-index="10" data-start="11.724" data-duration="5.146" src="assets/voice/1.3.mp3"></audio>
+<audio id="vo-1-4" class="clip" data-track-index="10" data-start="17.67" data-duration="5.512" src="assets/voice/1.4.mp3"></audio>
+<audio id="vo-1-5" class="clip" data-track-index="10" data-start="23.982" data-duration="5.93" src="assets/voice/1.5.mp3"></audio>
+<audio id="vo-1-6" class="clip" data-track-index="10" data-start="30.712" data-duration="5.747" src="assets/voice/1.6.mp3"></audio>
+<audio id="vo-1-7" class="clip" data-track-index="10" data-start="37.259" data-duration="3.579" src="assets/voice/1.7.mp3"></audio>
+<audio id="vo-1-8" class="clip" data-track-index="10" data-start="41.638" data-duration="5.198" src="assets/voice/1.8.mp3"></audio>
+<audio id="vo-1-9" class="clip" data-track-index="10" data-start="47.636" data-duration="4.859" src="assets/voice/1.9.mp3"></audio>
+<audio id="vo-1-10" class="clip" data-track-index="10" data-start="53.295" data-duration="3.344" src="assets/voice/1.10.mp3"></audio>
+<audio id="vo-2-1" class="clip" data-track-index="10" data-start="57.439" data-duration="6.4" src="assets/voice/2.1.mp3"></audio>
+<audio id="vo-2-2" class="clip" data-track-index="10" data-start="64.639" data-duration="5.616" src="assets/voice/2.2.mp3"></audio>
+<audio id="vo-2-3" class="clip" data-track-index="10" data-start="71.055" data-duration="5.512" src="assets/voice/2.3.mp3"></audio>
+<audio id="vo-2-4" class="clip" data-track-index="10" data-start="77.367" data-duration="4.859" src="assets/voice/2.4.mp3"></audio>
+<audio id="vo-2-5" class="clip" data-track-index="10" data-start="83.026" data-duration="6.113" src="assets/voice/2.5.mp3"></audio>
+<audio id="vo-2-6" class="clip" data-track-index="10" data-start="89.938" data-duration="5.564" src="assets/voice/2.6.mp3"></audio>
+<audio id="vo-2-7" class="clip" data-track-index="10" data-start="96.302" data-duration="6.713" src="assets/voice/2.7.mp3"></audio>
+<audio id="vo-2-8" class="clip" data-track-index="10" data-start="103.816" data-duration="6.504" src="assets/voice/2.8.mp3"></audio>
+<audio id="vo-2-9" class="clip" data-track-index="10" data-start="111.12" data-duration="7.053" src="assets/voice/2.9.mp3"></audio>
+<audio id="vo-2-10" class="clip" data-track-index="10" data-start="118.973" data-duration="5.277" src="assets/voice/2.10.mp3"></audio>
+<audio id="vo-2-11" class="clip" data-track-index="10" data-start="125.05" data-duration="6.452" src="assets/voice/2.11.mp3"></audio>
+<audio id="vo-3-1" class="clip" data-track-index="10" data-start="132.302" data-duration="5.851" src="assets/voice/3.1.mp3"></audio>
+<audio id="vo-3-2" class="clip" data-track-index="10" data-start="138.954" data-duration="6.034" src="assets/voice/3.2.mp3"></audio>
+<audio id="vo-3-3" class="clip" data-track-index="10" data-start="145.788" data-duration="6.113" src="assets/voice/3.3.mp3"></audio>
+<audio id="vo-3-4" class="clip" data-track-index="10" data-start="152.701" data-duration="6.504" src="assets/voice/3.4.mp3"></audio>
+<audio id="vo-3-5" class="clip" data-track-index="10" data-start="160.005" data-duration="7.236" src="assets/voice/3.5.mp3"></audio>
+<audio id="vo-3-6" class="clip" data-track-index="10" data-start="168.041" data-duration="6.922" src="assets/voice/3.6.mp3"></audio>
+<audio id="vo-3-7" class="clip" data-track-index="10" data-start="175.763" data-duration="6.766" src="assets/voice/3.7.mp3"></audio>
+<audio id="vo-3-8" class="clip" data-track-index="10" data-start="183.329" data-duration="6.269" src="assets/voice/3.8.mp3"></audio>
+<audio id="vo-3-9" class="clip" data-track-index="10" data-start="190.399" data-duration="7.105" src="assets/voice/3.9.mp3"></audio>
+<audio id="vo-3-10" class="clip" data-track-index="10" data-start="198.304" data-duration="6.583" src="assets/voice/3.10.mp3"></audio>
+<audio id="vo-3-11" class="clip" data-track-index="10" data-start="205.687" data-duration="7.34" src="assets/voice/3.11.mp3"></audio>
+<audio id="vo-3-12" class="clip" data-track-index="10" data-start="213.827" data-duration="6.348" src="assets/voice/3.12.mp3"></audio>
+<audio id="vo-4-1" class="clip" data-track-index="10" data-start="220.975" data-duration="6.452" src="assets/voice/4.1.mp3"></audio>
+<audio id="vo-4-2" class="clip" data-track-index="10" data-start="228.227" data-duration="6.531" src="assets/voice/4.2.mp3"></audio>
+<audio id="vo-4-3" class="clip" data-track-index="10" data-start="235.558" data-duration="7.001" src="assets/voice/4.3.mp3"></audio>
+<audio id="vo-4-4" class="clip" data-track-index="10" data-start="243.359" data-duration="4.441" src="assets/voice/4.4.mp3"></audio>
+<audio id="vo-4-5" class="clip" data-track-index="10" data-start="248.599" data-duration="5.512" src="assets/voice/4.5.mp3"></audio>
+<audio id="vo-4-6" class="clip" data-track-index="10" data-start="254.911" data-duration="6.269" src="assets/voice/4.6.mp3"></audio>
+<audio id="vo-4-7" class="clip" data-track-index="10" data-start="261.981" data-duration="4.728" src="assets/voice/4.7.mp3"></audio>
+<audio id="vo-4-8" class="clip" data-track-index="10" data-start="267.509" data-duration="5.564" src="assets/voice/4.8.mp3"></audio>
+<audio id="vo-4-9" class="clip" data-track-index="10" data-start="273.873" data-duration="5.982" src="assets/voice/4.9.mp3"></audio>
+<audio id="vo-4-10" class="clip" data-track-index="10" data-start="280.655" data-duration="4.598" src="assets/voice/4.10.mp3"></audio>
+<audio id="vo-4-11" class="clip" data-track-index="10" data-start="286.052" data-duration="6.087" src="assets/voice/4.11.mp3"></audio>
+<audio id="vo-4-12" class="clip" data-track-index="10" data-start="292.939" data-duration="6.949" src="assets/voice/4.12.mp3"></audio>
+<audio id="vo-4-13" class="clip" data-track-index="10" data-start="300.688" data-duration="4.441" src="assets/voice/4.13.mp3"></audio>
+<audio id="vo-5-1" class="clip" data-track-index="10" data-start="305.928" data-duration="7.367" src="assets/voice/5.1.mp3"></audio>
+<audio id="vo-5-2" class="clip" data-track-index="10" data-start="314.095" data-duration="5.695" src="assets/voice/5.2.mp3"></audio>
+<audio id="vo-5-3" class="clip" data-track-index="10" data-start="320.59" data-duration="5.381" src="assets/voice/5.3.mp3"></audio>
+<audio id="vo-5-4" class="clip" data-track-index="10" data-start="326.771" data-duration="5.695" src="assets/voice/5.4.mp3"></audio>
+<audio id="vo-5-5" class="clip" data-track-index="10" data-start="333.266" data-duration="6.348" src="assets/voice/5.5.mp3"></audio>
+<audio id="vo-5-6" class="clip" data-track-index="10" data-start="340.413" data-duration="6.504" src="assets/voice/5.6.mp3"></audio>
+<audio id="vo-5-7" class="clip" data-track-index="10" data-start="347.718" data-duration="6.165" src="assets/voice/5.7.mp3"></audio>
+<audio id="vo-5-8" class="clip" data-track-index="10" data-start="354.683" data-duration="7.288" src="assets/voice/5.8.mp3"></audio>
+<audio id="vo-5-9" class="clip" data-track-index="10" data-start="362.771" data-duration="7.288" src="assets/voice/5.9.mp3"></audio>
+<audio id="vo-5-10" class="clip" data-track-index="10" data-start="370.859" data-duration="6.531" src="assets/voice/5.10.mp3"></audio>
+<audio id="vo-5-11" class="clip" data-track-index="10" data-start="378.19" data-duration="7.288" src="assets/voice/5.11.mp3"></audio>
+<audio id="vo-5-12" class="clip" data-track-index="10" data-start="386.278" data-duration="6.87" src="assets/voice/5.12.mp3"></audio>
+<audio id="vo-6-1" class="clip" data-track-index="10" data-start="393.948" data-duration="6.269" src="assets/voice/6.1.mp3"></audio>
+<audio id="vo-6-2" class="clip" data-track-index="10" data-start="401.017" data-duration="5.747" src="assets/voice/6.2.mp3"></audio>
+<audio id="vo-6-3" class="clip" data-track-index="10" data-start="407.564" data-duration="5.381" src="assets/voice/6.3.mp3"></audio>
+<audio id="vo-6-4" class="clip" data-track-index="10" data-start="413.746" data-duration="5.669" src="assets/voice/6.4.mp3"></audio>
+<audio id="vo-6-5" class="clip" data-track-index="10" data-start="420.214" data-duration="6.766" src="assets/voice/6.5.mp3"></audio>
+<audio id="vo-6-6" class="clip" data-track-index="10" data-start="427.78" data-duration="6.348" src="assets/voice/6.6.mp3"></audio>
+<audio id="vo-6-7" class="clip" data-track-index="10" data-start="434.928" data-duration="6.452" src="assets/voice/6.7.mp3"></audio>
+<audio id="vo-6-8" class="clip" data-track-index="10" data-start="442.18" data-duration="6.165" src="assets/voice/6.8.mp3"></audio>
+<audio id="vo-6-9" class="clip" data-track-index="10" data-start="449.145" data-duration="6.452" src="assets/voice/6.9.mp3"></audio>
+<audio id="vo-6-10" class="clip" data-track-index="10" data-start="456.397" data-duration="6.348" src="assets/voice/6.10.mp3"></audio>
+<audio id="vo-6-11" class="clip" data-track-index="10" data-start="463.545" data-duration="6.087" src="assets/voice/6.11.mp3"></audio>
+<audio id="vo-6-12" class="clip" data-track-index="10" data-start="470.431" data-duration="6.635" src="assets/voice/6.12.mp3"></audio>
+<audio id="vo-6-13" class="clip" data-track-index="10" data-start="477.866" data-duration="5.277" src="assets/voice/6.13.mp3"></audio>
+<audio id="vo-6-14" class="clip" data-track-index="10" data-start="483.943" data-duration="6.531" src="assets/voice/6.14.mp3"></audio>
+<audio id="vo-6-15" class="clip" data-track-index="10" data-start="491.274" data-duration="6.165" src="assets/voice/6.15.mp3"></audio>
+<audio id="vo-7-1" class="clip" data-track-index="10" data-start="498.239" data-duration="5.146" src="assets/voice/7.1.mp3"></audio>
+<audio id="vo-7-2" class="clip" data-track-index="10" data-start="504.185" data-duration="6.269" src="assets/voice/7.2.mp3"></audio>
+<audio id="vo-7-3" class="clip" data-track-index="10" data-start="511.254" data-duration="5.564" src="assets/voice/7.3.mp3"></audio>
+<audio id="vo-7-4" class="clip" data-track-index="10" data-start="517.618" data-duration="6.504" src="assets/voice/7.4.mp3"></audio>
+<audio id="vo-7-5" class="clip" data-track-index="10" data-start="524.923" data-duration="6.4" src="assets/voice/7.5.mp3"></audio>
+<audio id="vo-7-6" class="clip" data-track-index="10" data-start="532.123" data-duration="7.549" src="assets/voice/7.6.mp3"></audio>
+<audio id="vo-7-7" class="clip" data-track-index="10" data-start="540.472" data-duration="5.277" src="assets/voice/7.7.mp3"></audio>
+<audio id="vo-7-8" class="clip" data-track-index="10" data-start="546.549" data-duration="5.93" src="assets/voice/7.8.mp3"></audio>
+<audio id="vo-7-9" class="clip" data-track-index="10" data-start="553.279" data-duration="5.564" src="assets/voice/7.9.mp3"></audio>
+<audio id="vo-7-10" class="clip" data-track-index="10" data-start="559.643" data-duration="7.105" src="assets/voice/7.10.mp3"></audio>
+<audio id="vo-7-11" class="clip" data-track-index="10" data-start="567.548" data-duration="6.034" src="assets/voice/7.11.mp3"></audio>
+<audio id="vo-8-1" class="clip" data-track-index="10" data-start="574.382" data-duration="5.46" src="assets/voice/8.1.mp3"></audio>
+<audio id="vo-8-2" class="clip" data-track-index="10" data-start="580.642" data-duration="5.46" src="assets/voice/8.2.mp3"></audio>
+<audio id="vo-8-3" class="clip" data-track-index="10" data-start="586.901" data-duration="6.348" src="assets/voice/8.3.mp3"></audio>
+<audio id="vo-8-4" class="clip" data-track-index="10" data-start="594.049" data-duration="5.433" src="assets/voice/8.4.mp3"></audio>
+<audio id="vo-8-5" class="clip" data-track-index="10" data-start="600.283" data-duration="6.687" src="assets/voice/8.5.mp3"></audio>
+<audio id="vo-8-6" class="clip" data-track-index="10" data-start="607.77" data-duration="5.878" src="assets/voice/8.6.mp3"></audio>
+<audio id="vo-8-7" class="clip" data-track-index="10" data-start="614.448" data-duration="5.851" src="assets/voice/8.7.mp3"></audio>
+<audio id="vo-8-8" class="clip" data-track-index="10" data-start="621.099" data-duration="5.094" src="assets/voice/8.8.mp3"></audio>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/motion.js"></script>
+<script>
+var S = {
+  s1: 0,
+  s2: 4.039,
+  s3: 11.474,
+  s4: 17.42,
+  s5: 23.732,
+  s6: 30.462,
+  s7: 37.009,
+  s8: 41.388,
+  s9: 47.386,
+  s10: 53.045,
+  s11: 57.189,
+  s12: 64.389,
+  s13: 70.805,
+  s14: 77.117,
+  s15: 82.776,
+  s16: 89.688,
+  s17: 96.052,
+  s18: 103.566,
+  s19: 110.87,
+  s20: 118.723,
+  s21: 124.8,
+  s22: 132.052,
+  s23: 138.704,
+  s24: 145.538,
+  s25: 152.451,
+  s26: 159.755,
+  s27: 167.791,
+  s28: 175.513,
+  s29: 183.079,
+  s30: 190.149,
+  s31: 198.054,
+  s32: 205.437,
+  s33: 213.577,
+  s34: 220.725,
+  s35: 227.977,
+  s36: 235.308,
+  s37: 243.109,
+  s38: 248.349,
+  s39: 254.661,
+  s40: 261.731,
+  s41: 267.259,
+  s42: 273.623,
+  s43: 280.405,
+  s44: 285.802,
+  s45: 292.689,
+  s46: 300.438,
+  s47: 305.678,
+  s48: 313.845,
+  s49: 320.34,
+  s50: 326.521,
+  s51: 333.016,
+  s52: 340.163,
+  s53: 347.468,
+  s54: 354.433,
+  s55: 362.521,
+  s56: 370.609,
+  s57: 377.94,
+  s58: 386.028,
+  s59: 393.698,
+  s60: 400.767,
+  s61: 407.314,
+  s62: 413.496,
+  s63: 419.964,
+  s64: 427.53,
+  s65: 434.678,
+  s66: 441.93,
+  s67: 448.895,
+  s68: 456.147,
+  s69: 463.295,
+  s70: 470.181,
+  s71: 477.616,
+  s72: 483.693,
+  s73: 491.024,
+  s74: 497.989,
+  s75: 503.935,
+  s76: 511.004,
+  s77: 517.368,
+  s78: 524.673,
+  s79: 531.873,
+  s80: 540.222,
+  s81: 546.299,
+  s82: 553.029,
+  s83: 559.393,
+  s84: 567.298,
+  s85: 574.132,
+  s86: 580.392,
+  s87: 586.651,
+  s88: 593.799,
+  s89: 600.033,
+  s90: 607.52,
+  s91: 614.198,
+  s92: 620.849
+};
+
+sceneTransitions(["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25", "s26", "s27", "s28", "s29", "s30", "s31", "s32", "s33", "s34", "s35", "s36", "s37", "s38", "s39", "s40", "s41", "s42", "s43", "s44", "s45", "s46", "s47", "s48", "s49", "s50", "s51", "s52", "s53", "s54", "s55", "s56", "s57", "s58", "s59", "s60", "s61", "s62", "s63", "s64", "s65", "s66", "s67", "s68", "s69", "s70", "s71", "s72", "s73", "s74", "s75", "s76", "s77", "s78", "s79", "s80", "s81", "s82", "s83", "s84", "s85", "s86", "s87", "s88", "s89", "s90", "s91", "s92"], S, { acts: ["s34","s74"] });
+
+/* s1 · 1.1 · SOLO */
+plateKen("#s1-bg", 0, 4.039, 1.00, 1.10);
+rise("#s1-stmt", 0.45, 0.70, 40);
+
+/* s2 · 1.2 · --fund */
+plateKen("#s2-bg", 4.039, 7.885, 1.10, 1.24);
+rise("#s2-head", 4.339, 0.50, 24);
+rise("#s2-stmt", 5.139, 0.70, 40);
+
+/* s3 · 1.3 · --warn */
+ken("#s3-bg", 11.474, 6.396, false);
+ken("#s3-bg2", 11.474, 6.396, false);
+fade("#s3-bg2", 14.679, 0.55);
+rise("#s3-head", 11.774, 0.50, 24);
+rise("#s3-stmt", 12.574, 0.70, 40);
+
+/* s4 · 1.4 */
+ken("#s4-bg", 17.42, 6.762, true);
+rise("#s4-head", 17.72, 0.50, 24);
+rise("#s4-stmt", 18.52, 0.70, 40);
+
+/* s5 · 1.5 */
+ken("#s5-bg", 23.732, 7.18, false);
+ken("#s5-bg2", 23.732, 7.18, false);
+ken("#s5-bg3", 23.732, 7.18, false);
+fade("#s5-bg2", 26.313, 0.50);
+fade("#s5-bg3", 28.648, 0.50);
+rise("#s5-head", 24.032, 0.50, 24);
+rise("#s5-stmt", 24.832, 0.70, 40);
+
+/* s6 · 1.6 */
+ken("#s6-bg", 30.462, 6.997, true);
+rise("#s6-head", 30.762, 0.50, 24);
+rise("#s6-stmt", 31.562, 0.70, 40);
+
+/* s7 · 1.7 · --warn */
+ken("#s7-bg", 37.009, 4.829, false);
+rise("#s7-head", 37.309, 0.50, 24);
+rise("#s7-stmt", 38.109, 0.70, 40);
+
+/* s8 · 1.8 */
+ken("#s8-bg", 41.388, 6.448, true);
+rise("#s8-head", 41.688, 0.50, 24);
+rise("#s8-stmt", 42.488, 0.70, 40);
+
+/* s9 · 1.9 · --warn */
+ken("#s9-bg", 47.386, 6.109, false);
+rise("#s9-head", 47.686, 0.50, 24);
+rise("#s9-stmt", 48.486, 0.70, 40);
+
+/* s10 · 1.10 */
+ken("#s10-bg", 53.045, 4.594, true);
+rise("#s10-head", 53.345, 0.50, 24);
+rise("#s10-stmt", 54.145, 0.70, 40);
+
+/* s11 · 2.1 · --fund */
+ken("#s11-bg", 57.189, 7.65, false);
+rise("#s11-head", 57.489, 0.50, 24);
+rise("#s11-stmt", 58.289, 0.70, 40);
+
+/* s12 · 2.2 */
+ken("#s12-bg", 64.389, 6.866, true);
+rise("#s12-head", 64.689, 0.50, 24);
+rise("#s12-stmt", 65.489, 0.70, 40);
+
+/* s13 · 2.3 · --target */
+ken("#s13-bg", 70.805, 6.762, false);
+rise("#s13-head", 71.105, 0.50, 24);
+pop("#s13-num", 71.905, 0.60);
+fade("#s13-foot", 72.705, 0.40);
+
+/* s14 · 2.4 */
+ken("#s14-bg", 77.117, 6.109, true);
+rise("#s14-head", 77.417, 0.50, 24);
+rise("#s14-stmt", 78.217, 0.70, 40);
+
+/* s15 · 2.5 · --target */
+ken("#s15-bg", 82.776, 7.363, false);
+rise("#s15-head", 83.076, 0.50, 24);
+pop("#s15-num", 83.876, 0.60);
+fade("#s15-foot", 84.676, 0.40);
+
+/* s16 · 2.6 · --target */
+ken("#s16-bg", 89.688, 6.814, true);
+rise("#s16-head", 89.988, 0.50, 24);
+pop("#s16-num", 90.788, 0.60);
+fade("#s16-foot", 91.588, 0.40);
+
+/* s17 · 2.7 · SOLO · --warn */
+ken("#s17-bg", 96.052, 7.963, false);
+rise("#s17-kick", 96.352, 0.50, 24);
+pop("#s17-num", 97.152, 0.60);
+fade("#s17-foot", 97.952, 0.40);
+
+/* s18 · 2.8 */
+ken("#s18-bg", 103.566, 7.754, true);
+rise("#s18-head", 103.866, 0.50, 24);
+rise("#s18-stmt", 104.666, 0.70, 40);
+
+/* s19 · 2.9 */
+ken("#s19-bg", 110.87, 8.303, false);
+ken("#s19-bg2", 110.87, 8.303, false);
+fade("#s19-bg2", 115.316, 0.55);
+rise("#s19-head", 111.17, 0.50, 24);
+rise("#s19-stmt", 111.97, 0.70, 40);
+fade("#s19-foot", 112.97, 0.40);
+
+/* s20 · 2.10 · --warn */
+ken("#s20-bg", 118.723, 6.527, true);
+rise("#s20-head", 119.023, 0.50, 24);
+rise("#s20-stmt", 119.823, 0.70, 40);
+
+/* s21 · 2.11 */
+ken("#s21-bg", 124.8, 7.702, false);
+rise("#s21-head", 125.1, 0.50, 24);
+rise("#s21-stmt", 125.9, 0.70, 40);
+fade("#s21-foot", 126.9, 0.40);
+
+/* s22 · 3.1 */
+ken("#s22-bg", 132.052, 7.101, true);
+rise("#s22-head", 132.352, 0.50, 24);
+rise("#s22-stmt", 133.152, 0.70, 40);
+
+/* s23 · 3.2 · --target */
+ken("#s23-bg", 138.704, 7.284, false);
+rise("#s23-head", 139.004, 0.50, 24);
+rise("#s23-stmt", 139.804, 0.70, 40);
+fade("#s23-foot", 140.804, 0.40);
+
+/* s24 · 3.3 */
+ken("#s24-bg", 145.538, 7.363, true);
+rise("#s24-head", 145.838, 0.50, 24);
+rise("#s24-stmt", 146.638, 0.70, 40);
+draw("#s24-i-shackle", 147.638, 0.70, 260);
+draw("#s24-i-body", 147.818, 0.70, 260);
+
+/* s25 · 3.4 · --target */
+ken("#s25-bg", 152.451, 7.754, false);
+rise("#s25-head", 152.751, 0.50, 24);
+pop("#s25-num", 154.39, 0.60);
+fade("#s25-foot", 155.19, 0.40);
+
+/* s26 · 3.5 · --target */
+ken("#s26-bg", 159.755, 8.486, true);
+rise("#s26-head", 160.055, 0.50, 24);
+rise("#s26-stmt", 160.855, 0.70, 40);
+fade("#s26-foot", 161.855, 0.40);
+
+/* s27 · 3.6 */
+ken("#s27-bg", 167.791, 8.172, false);
+rise("#s27-head", 168.091, 0.50, 24);
+rise("#s27-stmt", 168.891, 0.70, 40);
+
+/* s28 · 3.7 · --warn */
+ken("#s28-bg", 175.513, 8.016, true);
+rise("#s28-head", 175.813, 0.50, 24);
+rise("#s28-stmt", 176.613, 0.70, 40);
+
+/* s29 · 3.8 · --target */
+ken("#s29-bg", 183.079, 7.519, false);
+rise("#s29-head", 183.379, 0.50, 24);
+rise("#s29-stmt", 184.179, 0.70, 40);
+fade("#s29-foot", 185.179, 0.40);
+
+/* s30 · 3.9 · --warn */
+ken("#s30-bg", 190.149, 8.355, true);
+rise("#s30-head", 190.449, 0.50, 24);
+pop("#s30-num", 191.96, 0.60);
+fade("#s30-foot", 192.76, 0.40);
+
+/* s31 · 3.10 · --warn */
+ken("#s31-bg", 198.054, 7.833, false);
+rise("#s31-head", 198.354, 0.50, 24);
+pop("#s31-stmt", 199.45, 0.60);
+fade("#s31-foot", 200.25, 0.40);
+
+/* s32 · 3.11 */
+ken("#s32-bg", 205.437, 8.59, true);
+ken("#s32-bg2", 205.437, 8.59, true);
+fade("#s32-bg2", 211.097, 0.40);
+rise("#s32-head", 205.737, 0.50, 24);
+rise("#s32-stmt", 206.537, 0.70, 40);
+fade("#s32-foot", 207.537, 0.40);
+
+/* s33 · 3.12 · SOLO · --fund */
+ken("#s33-bg", 213.577, 7.598, false);
+rise("#s33-kick", 213.877, 0.50, 24);
+pop("#s33-stmt", 214.677, 0.60);
+
+/* s34 · 4.1 */
+ken("#s34-bg", 220.725, 7.702, true);
+rise("#s34-head", 221.025, 0.50, 24);
+rise("#s34-stmt", 221.825, 0.70, 40);
+fade("#s34-foot", 222.825, 0.40);
+
+/* s35 · 4.2 */
+ken("#s35-bg", 227.977, 7.781, false);
+rise("#s35-head", 228.277, 0.50, 24);
+rise("#s35-stmt", 229.077, 0.70, 40);
+
+/* s36 · 4.3 */
+ken("#s36-bg", 235.308, 8.251, true);
+ken("#s36-bg2", 235.308, 8.251, true);
+fade("#s36-bg2", 238.048, 0.40);
+ken("#s36-bg3", 235.308, 8.251, true);
+fade("#s36-bg3", 240.078, 0.40);
+rise("#s36-head", 235.608, 0.50, 24);
+rise("#s36-stmt", 236.408, 0.70, 40);
+
+/* s37 · 4.4 · --warn */
+ken("#s37-bg", 243.109, 5.691, false);
+rise("#s37-head", 243.409, 0.50, 24);
+rise("#s37-stmt", 244.209, 0.70, 40);
+
+/* s38 · 4.5 · --fund */
+ken("#s38-bg", 248.349, 6.762, true);
+rise("#s38-head", 248.649, 0.50, 24);
+rise("#s38-stmt", 249.449, 0.70, 40);
+pop("#s38-icon", 250.55, 0.60);
+
+/* s39 · 4.6 · --fund */
+ken("#s39-bg", 254.661, 7.519, false);
+rise("#s39-head", 254.961, 0.50, 24);
+rise("#s39-stmt", 255.761, 0.70, 40);
+pop("#s39-icon", 256.86, 0.60);
+
+/* s40 · 4.7 · --fund */
+ken("#s40-bg", 261.731, 5.978, true);
+rise("#s40-head", 262.031, 0.50, 24);
+rise("#s40-stmt", 262.831, 0.70, 40);
+pop("#s40-icon", 263.93, 0.60);
+
+/* s41 · 4.8 · --warn */
+ken("#s41-bg", 267.259, 6.814, false);
+rise("#s41-head", 267.559, 0.50, 24);
+rise("#s41-stmt", 268.359, 0.70, 40);
+
+/* s42 · 4.9 */
+ken("#s42-bg", 273.623, 7.232, true);
+rise("#s42-head", 273.923, 0.50, 24);
+rise("#s42-stmt", 274.723, 0.70, 40);
+
+/* s43 · 4.10 · SOLO · --fund */
+ken("#s43-bg", 280.405, 5.848, false);
+rise("#s43-head", 280.705, 0.50, 24);
+pop("#s43-stmt", 281.505, 0.60);
+
+/* s44 · 4.11 */
+ken("#s44-bg", 285.802, 7.337, true);
+rise("#s44-head", 286.102, 0.50, 24);
+rise("#s44-stmt", 286.902, 0.70, 40);
+fade("#s44-foot", 287.902, 0.40);
+
+/* s45 · 4.12 */
+ken("#s45-bg", 292.689, 8.199, false);
+rise("#s45-head", 292.989, 0.50, 24);
+rise("#s45-stmt", 293.789, 0.70, 40);
+
+/* s46 · 4.13 */
+ken("#s46-bg", 300.438, 5.691, true);
+rise("#s46-head", 300.738, 0.50, 24);
+rise("#s46-stmt", 301.538, 0.70, 40);
+
+/* s47 · 5.1 */
+ken("#s47-bg", 305.678, 8.617, false);
+rise("#s47-head", 305.978, 0.50, 24);
+rise("#s47-stmt", 306.778, 0.70, 40);
+fade("#s47-foot", 307.778, 0.40);
+
+/* s48 · 5.2 */
+ken("#s48-bg", 313.845, 6.945, true);
+rise("#s48-head", 314.145, 0.50, 24);
+rise("#s48-stmt", 314.945, 0.70, 40);
+
+/* s49 · 5.3 */
+ken("#s49-bg", 320.34, 6.631, false);
+rise("#s49-head", 320.64, 0.50, 24);
+rise("#s49-stmt", 321.44, 0.70, 40);
+
+/* s50 · 5.4 · --fund */
+ken("#s50-bg", 326.521, 6.945, true);
+rise("#s50-head", 326.821, 0.50, 24);
+rise("#s50-stmt", 327.621, 0.70, 40);
+
+/* s51 · 5.5 · --fund */
+ken("#s51-bg", 333.016, 7.598, false);
+rise("#s51-head", 333.316, 0.50, 24);
+rise("#s51-stmt", 335.74, 0.70, 40);
+fade("#s51-foot", 336.54, 0.40);
+
+/* s52 · 5.6 · --warn */
+ken("#s52-bg", 340.163, 7.754, true);
+rise("#s52-head", 340.463, 0.50, 24);
+rise("#s52-stmt", 341.263, 0.70, 40);
+
+/* s53 · 5.7 · --fund */
+ken("#s53-bg", 347.468, 7.415, false);
+rise("#s53-head", 347.768, 0.50, 24);
+rise("#s53-stmt", 348.568, 0.70, 40);
+fade("#s53-foot", 349.568, 0.40);
+
+/* s54 · 5.8 */
+ken("#s54-bg", 354.433, 8.538, true);
+rise("#s54-head", 354.733, 0.50, 24);
+rise("#s54-stmt", 355.533, 0.70, 40);
+
+/* s55 · 5.9 · --target */
+ken("#s55-bg", 362.521, 8.538, false);
+rise("#s55-head", 362.821, 0.50, 24);
+pop("#s55-num", 363.621, 0.60);
+fade("#s55-foot", 364.621, 0.40);
+
+/* s56 · 5.10 · --fund */
+ken("#s56-bg", 370.609, 7.781, true);
+rise("#s56-head", 370.909, 0.50, 24);
+countUp("#s56-num", 371.709, 0, 200, "en-US", 1.2, "$");
+fade("#s56-foot", 372.709, 0.40);
+
+/* s57 · 5.11 · --warn */
+ken("#s57-bg", 377.94, 8.538, false);
+rise("#s57-head", 378.24, 0.50, 24);
+rise("#s57-stmt", 379.04, 0.70, 40);
+
+/* s58 · 5.12 · --target */
+ken("#s58-bg", 386.028, 8.12, true);
+rise("#s58-head", 386.328, 0.50, 24);
+rise("#s58-stmt", 387.128, 0.70, 40);
+
+/* s59 · 6.1 */
+ken("#s59-bg", 393.698, 7.519, false);
+rise("#s59-head", 393.998, 0.50, 24);
+rise("#s59-stmt", 394.798, 0.70, 40);
+
+/* s60 · 6.2 · --target */
+ken("#s60-bg", 400.767, 6.997, true);
+rise("#s60-head", 401.067, 0.50, 24);
+rise("#s60-stmt", 401.867, 0.70, 40);
+fade("#s60-foot", 402.867, 0.40);
+
+/* s61 · 6.3 */
+ken("#s61-bg", 407.314, 6.631, false);
+rise("#s61-head", 407.614, 0.50, 24);
+rise("#s61-stmt", 408.414, 0.70, 40);
+fade("#s61-foot", 409.414, 0.40);
+
+/* s62 · 6.4 */
+ken("#s62-bg", 413.496, 6.919, true);
+rise("#s62-head", 413.796, 0.50, 24);
+rise("#s62-stmt", 414.596, 0.70, 40);
+
+/* s63 · 6.5 · --fund */
+ken("#s63-bg", 419.964, 8.016, false);
+rise("#s63-head", 420.264, 0.50, 24);
+rise("#s63-stmt", 421.064, 0.70, 40);
+
+/* s64 · 6.6 */
+ken("#s64-bg", 427.53, 7.598, true);
+rise("#s64-head", 427.83, 0.50, 24);
+rise("#s64-stmt", 428.63, 0.70, 40);
+
+/* s65 · 6.7 · SOLO · --warn */
+ken("#s65-bg", 434.678, 7.702, false);
+pop("#s65-stmt", 436.08, 0.60);
+fade("#s65-foot", 436.88, 0.40);
+
+/* s66 · 6.8 */
+ken("#s66-bg", 441.93, 7.415, false);
+rise("#s66-head", 442.23, 0.50, 24);
+rise("#s66-stmt", 443.03, 0.70, 40);
+
+/* s67 · 6.9 */
+ken("#s67-bg", 448.895, 7.702, true);
+rise("#s67-head", 449.195, 0.50, 24);
+rise("#s67-stmt", 449.995, 0.70, 40);
+
+/* s68 · 6.10 · --fund */
+ken("#s68-bg", 456.147, 7.598, false);
+rise("#s68-head", 456.447, 0.50, 24);
+rise("#s68-stmt", 457.247, 0.70, 40);
+
+/* s69 · 6.11 · --fund */
+ken("#s69-bg", 463.295, 7.337, true);
+rise("#s69-head", 463.595, 0.50, 24);
+rise("#s69-stmt", 464.395, 0.70, 40);
+draw("#s69-i-upper", 465.395, 0.70, 120);
+draw("#s69-i-lower", 465.575, 0.70, 120);
+draw("#s69-i-swap", 465.755, 0.70, 120);
+draw("#s69-i-head", 465.935, 0.70, 120);
+pulse("#s69-icon", 465.5);
+
+/* s70 · 6.12 */
+ken("#s70-bg", 470.181, 7.885, false);
+rise("#s70-head", 470.481, 0.50, 24);
+rise("#s70-stmt", 471.281, 0.70, 40);
+
+/* s71 · 6.13 */
+ken("#s71-bg", 477.616, 6.527, true);
+rise("#s71-head", 477.916, 0.50, 24);
+rise("#s71-stmt", 478.716, 0.70, 40);
+
+/* s72 · 6.14 · --warn */
+ken("#s72-bg", 483.693, 7.781, false);
+rise("#s72-head", 483.993, 0.50, 24);
+pop("#s72-num", 484.793, 0.60);
+fade("#s72-foot", 485.593, 0.40);
+
+/* s73 · 6.15 · --target */
+ken("#s73-bg", 491.024, 7.415, true);
+rise("#s73-head", 491.324, 0.50, 24);
+pop("#s73-num", 493.62, 0.60);
+fade("#s73-foot", 494.42, 0.40);
+
+/* s74 · 7.1 · --target */
+ken("#s74-bg", 497.989, 6.396, false);
+rise("#s74-head", 498.289, 0.50, 24);
+rise("#s74-stmt", 499.089, 0.70, 40);
+
+/* s75 · 7.2 */
+ken("#s75-bg", 503.935, 7.519, true);
+rise("#s75-head", 504.235, 0.50, 24);
+rise("#s75-stmt", 505.035, 0.70, 40);
+
+/* s76 · 7.3 */
+ken("#s76-bg", 511.004, 6.814, false);
+rise("#s76-head", 511.304, 0.50, 24);
+rise("#s76-stmt", 512.104, 0.70, 40);
+fade("#s76-foot", 513.104, 0.40);
+
+/* s77 · 7.4 · SOLO · --target */
+ken("#s77-bg", 517.368, 7.754, true);
+rise("#s77-stmt", 518.77, 0.70, 40);
+
+/* s78 · 7.5 */
+ken("#s78-bg", 524.673, 7.65, true);
+rise("#s78-head", 524.973, 0.50, 24);
+rise("#s78-stmt", 525.773, 0.70, 40);
+
+/* s79 · 7.6 */
+ken("#s79-bg", 531.873, 8.799, false);
+ken("#s79-bg2", 531.873, 8.799, false);
+fade("#s79-bg2", 537.373, 0.40);
+rise("#s79-head", 532.173, 0.50, 24);
+rise("#s79-stmt", 532.973, 0.70, 40);
+
+/* s80 · 7.7 · --warn */
+ken("#s80-bg", 540.222, 6.527, true);
+rise("#s80-head", 540.522, 0.50, 24);
+rise("#s80-stmt", 541.322, 0.70, 40);
+
+/* s81 · 7.8 */
+ken("#s81-bg", 546.299, 7.18, false);
+rise("#s81-head", 546.599, 0.50, 24);
+rise("#s81-stmt", 547.399, 0.70, 40);
+
+/* s82 · 7.9 · --warn */
+ken("#s82-bg", 553.029, 6.814, true);
+rise("#s82-head", 553.329, 0.50, 24);
+rise("#s82-stmt", 554.129, 0.70, 40);
+
+/* s83 · 7.10 · --fund */
+ken("#s83-bg", 559.393, 8.355, false);
+rise("#s83-head", 559.693, 0.50, 24);
+rise("#s83-stmt", 560.493, 0.70, 40);
+
+/* s84 · 7.11 */
+ken("#s84-bg", 567.298, 7.284, true);
+rise("#s84-head", 567.598, 0.50, 24);
+rise("#s84-stmt", 568.398, 0.70, 40);
+
+/* s85 · 8.1 */
+ken("#s85-bg", 574.132, 6.71, false);
+rise("#s85-head", 574.432, 0.50, 24);
+rise("#s85-stmt", 575.232, 0.70, 40);
+
+/* s86 · 8.2 · --fund */
+ken("#s86-bg", 580.392, 6.71, true);
+rise("#s86-head", 580.692, 0.50, 24);
+rise("#s86-stmt", 581.492, 0.70, 40);
+
+/* s87 · 8.3 · --fund */
+ken("#s87-bg", 586.651, 7.598, false);
+rise("#s87-head", 586.951, 0.50, 24);
+rise("#s87-stmt", 587.751, 0.70, 40);
+
+/* s88 · 8.4 · --target */
+ken("#s88-bg", 593.799, 6.683, true);
+rise("#s88-head", 594.099, 0.50, 24);
+rise("#s88-stmt", 594.899, 0.70, 40);
+
+/* s89 · 8.5 · --fund */
+ken("#s89-bg", 600.033, 7.937, false);
+rise("#s89-head", 600.333, 0.50, 24);
+rise("#s89-stmt", 601.133, 0.70, 40);
+
+/* s90 · 8.6 · SOLO */
+ken("#s90-bg", 607.52, 7.128, true);
+pop("#s90-stmt", 608.92, 0.60);
+
+/* s91 · 8.7 · CTA · --pop */
+ken("#s91-bg", 614.198, 7.101, false);
+pop("#s91-cta", 616.61, 0.60);
+fade("#s91-foot", 617.41, 0.40);
+
+/* s92 · 8.8 */
+ken("#s92-bg", 620.849, 5.894, true);
+rise("#s92-head", 621.149, 0.50, 24);
+rise("#s92-stmt", 621.949, 0.70, 40);
+
+/* motion.js initialises this too, but hyperframes lint only reads THIS
+   file and fails missing_timeline_registry if it is absent here. */
+window.__timelines = window.__timelines || {};
+register();
+</script>
+</body>
+</html>

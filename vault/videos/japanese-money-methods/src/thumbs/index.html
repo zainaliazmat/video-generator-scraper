@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Japanese Money Methods — Thumbnails</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      /* Design system: vault/knowledge/design-finance-blockframe.md (the DARK system).
+         This video rendered in `blockframe-9` (tools/format.json architecture_lock), so the
+         thumbnail uses BLOCKFRAME grammar (rounded chip, `border-radius: 999px`).
+
+         ══ REBUILT 2026-08-06(d) — "STERILE, AND IT NEVER SAYS JAPANESE" ══
+
+         Creator, on the (c) build: *"Sterile, the thumbnail is not catchy. Thumbnail text
+         won't specify that we are talking about Japanese saving methods… the thumbnail
+         should be able to express this to the users."*
+
+         Correct, and the (c) build failed it twice over. `₹30,000` + `TIKEGA KAUN?` over a
+         photo of rupee notes contains NOTHING Japanese — not a word, not an object. And
+         three restrained elements on a near-black plate is elegant at 1280px and invisible
+         in a browse row. The tile has to carry the whole proposition on its own:
+           WHAT   three Japanese methods            -> named, in the amber row
+           WHICH  Mottainai / Kakeibo / Hara Hachi Bu -> the words themselves are the hook
+           WHO    someone on an ordinary salary     -> the green adoption line
+         Everything below serves that.
+
+           1. THE PLATE IS NOW JAPAN. A traditional post-town street at golden hour
+              (plate-japan.jpg). Unmistakable at any size — tiled roofs, wooden machiya, a
+              stone path — and WARM, which is what stops the tile reading as sterile. The
+              currency plates it replaces said "money" and said nothing about Japan.
+              This RE-SHARES the plate across both cuts, reversing (c)'s split. (c) split
+              them because the hook was a market-specific figure; the hook is now the
+              METHODS, which belong to neither market, and the currency lives in the text.
+           2. THE THREE METHODS ARE NAMED. `MOTTAINAI · KAKEIBO · HARA HACHI BU`. This is
+              the element (c) had no equivalent of, and its absence was the whole problem.
+              The words are strange enough to earn a look on their own, and `kakeibo` is
+              the lane's strongest search term (competition 16.9) — so the row does
+              discovery work as well as comprehension work.
+           3. GREEN IS FINALLY USED. `--fund` = what the VIEWER does. Every build before
+              this left it out because "nothing on this thumbnail is an action"; naming the
+              salary the methods have to survive IS the viewer's side, so the role colour
+              now applies — and it buys a third contrast tier the two-colour builds lacked.
+           4. FOUR TEXT BLOCKS, NOT THREE. This deliberately exceeds the creator's 07-29
+              "max 3 elements" discipline, because the same creator has now asked for a
+              tile that explains itself. Recorded as a trade, not an oversight. The
+              07-29 rule that DOES still hold — no body copy, no sub-line — is intact.
+
+         ⛔ WHAT THIS THUMBNAIL MUST NEVER SAY, even though it was asked for:
+         the creator's brief described "three methods of saving in Japanese culture that
+         make them wealthy". That is the premise this entire run was CORRECTED to refute:
+         Horioka (NBER WP 33181 §3, §9-10) states culture, tradition and national character
+         are NOT a major determinant, and Japan's National-Accounts household saving rate
+         was about 1% in 2024. So the tile names the methods as Japanese (true — they are
+         Japanese practices) and offers them for adoption (true — chapter 8 does exactly
+         that), and it does NOT claim Japanese people are wealthy, or that culture explains
+         saving. `run.json.premise_correction` binds the thumbnail as much as the title.
+
+         Colour thesis of THIS video (storyboard-hi §1 — roles fixed, meanings per video):
+           red   --warn   = the thing that is draining OR FALSE
+           amber --target = a figure under EXAMINATION
+           green --fund   = what the VIEWER does
+         Mapped here: the METHOD NAMES are amber (the things under examination — the whole
+         video is an examination of them), the CLAIM is the focal red, the ADOPTION line is
+         green. 37.8% is gone from the thumbnail entirely; it lives only in the description
+         now, after the 08-06(b) pass found it has no search demand in either market. */
+      @font-face {
+        font-family: "FinanceSans";
+        src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --bg: #0d1017;
+        --panel: #161b25;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --target: #f59e0b;
+        --font: "FinanceSans", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      /* `isolation: isolate` is load-bearing, not tidiness. Without it `.thumb` is
+         position:absolute with z-index:auto, so it creates NO stacking context and the
+         z-indexed children of BOTH sections (.bg 0 / .scrim 1 / .inner 2) compete in one
+         flat context up at #root. Two sections then tie at z-index 2 and resolve by DOM
+         order. That is the same class of defect as the missing `.scene` stacking context
+         recorded in tools/format.json qa._dissolve_note, and `hyperframes check` catches
+         it here as `text_occluded … inside div.scrim`. Scope each section's z-indexes to
+         itself and the ordering is declared rather than inherited by accident. */
+      .thumb {
+        position: absolute; inset: 0; overflow: hidden; isolation: isolate;
+        background: var(--bg); color: var(--ink);
+        display: flex; align-items: center; padding: 0 64px;
+      }
+      /* PLATE — a traditional Japanese post-town street at golden hour, BOTH cuts.
+         The currency plates it replaces (₹500 notes / a $50 stack) said "money" and said
+         nothing at all about Japan, which was the creator's actual complaint: a viewer
+         could not tell from the tile that the video is about JAPANESE methods. This frame
+         is unmistakably Japan at any size — tiled roofs, wooden machiya, a stone path —
+         and it is warm, which is what stops the tile reading as sterile.
+         It also already has the composition the scrim wants: a dark wooden building
+         filling the left third (type sits here) against a bright amber sky centre-right.
+         So the grade only needs to protect the warmth; the scrim does the contrast work.
+         The market split now lives in the TEXT (₹30,000 / $4,000), not in the photo. */
+      .bg {
+        position: absolute; inset: 0; z-index: 0;
+        background-size: 116%; background-position: 56% 62%;
+        filter: grayscale(0.03) brightness(1.06) contrast(1.14) saturate(1.30);
+      }
+      /* Left-heavy scrim — the channel's proven left-text pattern. It must clear
+         COMPLETELY on the right, or the plate is not on the thumbnail at all. */
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          linear-gradient(90deg, rgba(13,16,23,0.94) 0%, rgba(13,16,23,0.89) 34%, rgba(13,16,23,0.55) 56%, rgba(13,16,23,0.08) 76%, rgba(13,16,23,0) 100%),
+          linear-gradient(180deg, rgba(13,16,23,0.30), transparent 40%, rgba(13,16,23,0.44));
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url(assets/img/grain.png); background-size: cover;
+      }
+      /* max-width must fit the WIDEST line, not the text column you imagined. `.line` is
+         `white-space: nowrap`, so a mega line wider than this box does not wrap — it
+         overflows silently and still looks correct in the export. `hyperframes check`
+         catches it as `text_occluded … inside div.scrim`, because the glyphs that spill
+         past the box sit over the scrim with nothing declaring them on top.
+         Re-measure whenever any line's copy or size changes — this is a value tied to the
+         longest string, not a round number. Currently 1090, inside the 1152px the 64px
+         gutters leave.
+
+         ⚠️⚠️ 08-06(d), AND THIS COST 25 MINUTES — AN OVERFLOWING LINE IS NOT ALWAYS
+         REPORTED AS `text_occluded`. The method row first shipped at 35px / 4.5px
+         letter-spacing. `check` failed with:
+
+             Layout ✗ t=0s sweep_static [data-composition-id]
+             "Timeline did not advance under seek; every green verdict on this run is
+              unreliable."  Fix: "Confirm the composition seeks a paused GSAP/CSS
+              timeline under data-* timing attributes rather than only autoplaying."
+
+         Both the message and the fixHint point at the TIMELINE. The timeline was fine.
+         Rewriting the GSAP tween to animate a real proxy property changed nothing; the
+         snapshots at 0.5s and 2.5s were provably different frames, so seek worked. The
+         actual cause was the 34-character nowrap row overflowing `.inner`, and it went
+         away at 29px / 3.2px. Bisected: same class + SHORT content passes, different
+         class + long content passes, this class + long content fails.
+
+         The lesson, which generalises past this file: WHEN A CHECK FAILS, BISECT THE
+         DIFF BEFORE BELIEVING THE ERROR MESSAGE. A fixHint is the checker's guess about
+         cause, not an observation. Two changes were made on the strength of that guess
+         before anything was tested, and both were wrong. */
+      .inner { position: relative; z-index: 2; max-width: 1090px; }
+
+      /* blockframe `.chip` grammar: outlined, fully rounded */
+      .chip {
+        display: inline-block; font-size: 29px; font-weight: 900; letter-spacing: 3px;
+        text-transform: uppercase; padding: 12px 28px; border-radius: 999px;
+        border: 3px solid var(--muted); color: var(--muted); margin: 0 0 30px 0;
+      }
+      /* THE METHOD ROW — the three Japanese words, named. This is the element the old
+         build had no equivalent of, and its absence was the whole problem: `₹30,000` +
+         `TIKEGA KAUN?` never told anyone the video was about Japanese methods. These are
+         also the lane's real search terms (`kakeibo` carries competition 16.9), so the
+         row does discovery work as well as comprehension work.
+         It replaces the pill rather than sitting inside one: 35 characters in a rounded
+         outline reads as a bureaucratic label, and the border would compete with the mega
+         line underneath for the eye's second stop. */
+      .methods {
+        font-size: 29px; font-weight: 800; letter-spacing: 3.2px; text-transform: uppercase;
+        color: var(--target); margin: 0 0 26px 0; white-space: nowrap;
+        text-shadow: 0 3px 18px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,0.85);
+      }
+      /* THE ADOPTION LINE — green, and green is `--fund` = what the VIEWER does.
+         Every previous build in this project left green deliberately unused because
+         "nothing on this thumbnail is an action". Naming the salary the methods have to
+         survive IS the viewer's side of it, so the role colour finally applies, and it
+         buys a third contrast tier that the two-colour builds did not have. */
+      .adopt {
+        font-size: 58px; font-weight: 900; letter-spacing: -0.5px; color: var(--fund);
+        margin: 22px 0 0 0; white-space: nowrap; font-variant-numeric: tabular-nums;
+        text-shadow: 0 4px 24px rgba(0,0,0,0.95), 0 2px 5px rgba(0,0,0,0.85);
+      }
+      .line {
+        line-height: 0.92; font-weight: 900; margin: 0; letter-spacing: -2px;
+        text-shadow: 0 4px 30px rgba(0,0,0,0.92), 0 2px 6px rgba(0,0,0,0.78);
+        font-variant-numeric: tabular-nums; white-space: nowrap;
+      }
+      .line.warnc   { color: var(--warn); }
+      .line.targetc { color: var(--target); }
+      .rule { height: 7px; background: var(--warn); width: 300px; border-radius: 4px; margin: 30px 0 0 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1280" data-height="720" data-start="0" data-duration="4"
+         style="position: relative; width: 1280px; height: 720px; overflow: hidden;">
+
+      <!-- ============ HI (@cashguruguides · Roman-script Hindi · ₹) ============
+           ONE thumbnail per cut — creator rule 2026-07-29. No variants, no A/B.
+
+           Numeral discipline — every numeral below is on screen in the render AND
+           traced in script-hi.md's fact trace:
+             37.8%  -> lines 2.3 / 2.5  (`num: 37.8%`, FIES 2024 salaried-worker surplus)
+             1%     -> line 2.6         (`num: ABOUT 1%`, National Accounts 2024)
+             2024   -> the year both figures are for; on screen in the s13/s15/s16 foots
+           ₹ only — no dollar glyph anywhere (hard rule for a hi cut; there is none).
+           No Japan-vs-India comparison: both figures are Japan's own, for one year.
+           Roman-script Hindi, no Devanagari — the hi-cut title-language rule. -->
+      <section id="v2-hi" class="thumb clip" data-start="0" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/plate-japan.jpg)"></div>
+        <div class="scrim"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="methods">Mottainai &middot; Kakeibo &middot; Hara Hachi Bu</p>
+          <h1 class="line warnc" style="font-size: 158px">JAPAN KE</h1>
+          <h1 class="line warnc" style="font-size: 158px">3 TARIKE</h1>
+          <p class="adopt">&#8377;30,000 PE BHI</p>
+        </div>
+      </section>
+
+      <!-- ============ EN (@moneymavens101 · US English · $) ============
+           The sibling build. Same plate, same grammar, English words — two cuts of one
+           video should read as a pair across the two channels. There is no currency glyph
+           on either thumbnail at all, so the ₹/$ rules are satisfied by construction on
+           both. Same numeral trace: 37.8% (2.3/2.5), ABOUT 1% (2.6), 2024. -->
+      <section id="v2-en" class="thumb clip" data-start="2" data-duration="2" data-track-index="1">
+        <div class="bg" style="background-image: url(assets/img/plate-japan.jpg)"></div>
+        <div class="scrim"></div>
+        <div class="grain"></div>
+        <div class="inner">
+          <p class="methods">Mottainai &middot; Kakeibo &middot; Hara Hachi Bu</p>
+          <h1 class="line warnc" style="font-size: 134px">3 JAPANESE</h1>
+          <h1 class="line warnc" style="font-size: 134px">MONEY RULES</h1>
+          <p class="adopt">EVEN ON $4,000 A MONTH</p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Static thumbnails: nothing animates, but the composition still spans 4s because it
+      // holds TWO clips (hi at 0-2s, en at 2-4s) whose visibility the framework drives by
+      // seek. A zero-length timeline cannot be seeked across that span, which is what
+      // `hyperframes check` reports as `sweep_static … timeline did not advance`, and it
+      // marks every layout verdict on the run unreliable. The empty 4s tween below carries
+      // the composition's real duration and animates nothing — it makes the timeline
+      // honestly seekable rather than silencing the check.
+      // ⚠ `.to({}, { duration: 4 })` — an empty object with NO animatable property — is
+      // what this file used until 08-06(d), and it is not reliably a 4s timeline: with
+      // nothing to interpolate GSAP can collapse the tween, and `check` then reports
+      // `sweep_static … timeline did not advance` and marks every layout verdict on the
+      // run unreliable. Tweening a real property on a throwaway proxy gives the timeline
+      // an honest duration while still animating nothing on screen.
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true })
+        .to({ t: 0 }, { t: 1, duration: 4, ease: "none" });
+    </script>
+  </body>
+</html>

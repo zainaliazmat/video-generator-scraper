@@ -1,0 +1,105 @@
+{
+  "title": "Japanese Money Methods",
+  "note": "     METHOD TWO — HARA HACHI BU. One mechanism held across three consecutive B\n     scenes: ten cells, eight of them, then the last two leaving. The layout\n     never moves; only what the cells are doing changes. s51 breaks the run and\n     hands the same ratio to the measure bar in dollars.\n\n     This chapter DIVERGES from the -hi row. 5.7 here is \"a separate account,\n     not the one the card touches\" where -hi had 62.2%, and 62.2% moves to 5.9.\n     The design follows the copy.\n\n     Ground arc: warm -> neutral -> cool -> green across the instruction -> green\n     on the split -> red at month-end zero -> green on the separate account ->\n     neutral -> amber on Japan's own figure -> green on the $200 floor -> the\n     chapter's hottest red on the honest caveat -> amber out.\n\n     Archetypes: A B B B A A A A B B A A.",
+  "scenes": {
+    "s47": {
+      "comment": "5.1 · A · PLATE · no role · warm — an old Okinawan habit. The footnote is a\n     disclaimer, so nothing drawn may imply a figure.",
+      "arch": "a",
+      "f1": "#241c14"
+    },
+    "s48": {
+      "comment": "5.2 · B · FIGURE · no role · neutral — EIGHT PARTS IN TEN. A bowl of rice\n     cannot state a RATIO. Ten cells, eight of them, and the same ten carry the\n     next two scenes.",
+      "arch": "b",
+      "f1": "#1b1e23",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<rect class=\"fl\" x=\"46\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"122\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"198\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"274\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"350\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"426\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"502\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"578\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"654\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<rect class=\"fl\" x=\"730\" y=\"236\" width=\"62\" height=\"138\" opacity=\".2\"/>\n<g id=\"s48-lit\">\n  <rect class=\"flt\" x=\"46\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"122\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"198\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"274\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"350\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"426\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"502\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"578\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n</g>",
+      "motion": [
+        "popEach(\"#s48-lit rect\", S.s48 + 1.90, 0.17, 0.34);"
+      ]
+    },
+    "s49": {
+      "comment": "5.3 · B · FIGURE · no role · cool — HELD. The same ten cells, and now the\n     LAST TWO are the subject: fullness arrives late, so those two were always\n     surplus.",
+      "arch": "b",
+      "f1": "#171d26",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<rect class=\"fl\" x=\"46\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"122\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"198\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"274\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"350\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"426\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"502\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"578\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"654\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<rect class=\"fl\" x=\"730\" y=\"236\" width=\"62\" height=\"138\" opacity=\".3\"/>\n<g id=\"s49-lit\">\n  <rect class=\"flt\" x=\"654\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flt\" x=\"730\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n</g>\n<g id=\"s49-br\" class=\"flt\">\n  <rect x=\"654\" y=\"404\" width=\"138\" height=\"8\"/>\n  <rect x=\"654\" y=\"404\" width=\"8\" height=\"34\"/>\n  <rect x=\"784\" y=\"404\" width=\"8\" height=\"34\"/>\n</g>",
+      "motion": [
+        "popEach(\"#s49-lit rect\", S.s49 + 2.10, 0.30, 0.4);",
+        "tl.fromTo(\"#s49-br\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 0.6, ease: \"power2.out\" }, S.s49 + 2.80);"
+      ]
+    },
+    "s50": {
+      "comment": "5.4 · B · FIGURE · fund · green — HELD, and now it is an instruction. The\n     same two cells LEAVE the row on day one. A kitchen counter cannot perform a\n     movement.",
+      "arch": "b",
+      "f1": "#16281d",
+      "lift": true,
+      "art": "forward",
+      "opacity": ".6",
+      "svg": "<rect class=\"fl\" x=\"46\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"122\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"198\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"274\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"350\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"426\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"502\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"578\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"654\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<rect class=\"fl\" x=\"730\" y=\"236\" width=\"62\" height=\"138\" opacity=\".34\"/>\n<g id=\"s50-lit\">\n  <rect class=\"flf\" x=\"654\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n  <rect class=\"flf\" x=\"730\" y=\"236\" width=\"62\" height=\"138\" opacity=\".92\"/>\n</g>\n<rect id=\"s50-arrow\" class=\"flf\" x=\"654\" y=\"454\" width=\"138\" height=\"8\" opacity=\".9\"/>",
+      "motion": [
+        "tl.fromTo(\"#s50-lit\", { y: 0 }, { y: 176, duration: 1.10, ease: \"power2.inOut\" }, S.s50 + 2.10);",
+        "tl.fromTo(\"#s50-arrow\", { scaleX: 0, transformOrigin: \"0% 50%\" }, { scaleX: 1, duration: 0.5, ease: \"power2.out\" }, S.s50 + 2.10);"
+      ]
+    },
+    "s51": {
+      "comment": "5.5 · A · PLATE · fund · green — the run of B breaks and the ratio arrives\n     in dollars. The bar is the ten cells restated as one length, which is why it\n     fills to exactly 0.20 and stops.",
+      "arch": "a",
+      "f1": "#14261c",
+      "measure": {
+        "label": "MOVED OUT ON DAY ONE",
+        "role": "fund",
+        "from": 0,
+        "to": 0.2,
+        "at": 1.9,
+        "dur": 1.8
+      }
+    },
+    "s52": {
+      "comment": "5.6 · A · PLATE · warn · red — DAY ONE, NOT DAY THIRTY. An open wallet with\n     nothing in it already says zero.",
+      "arch": "a",
+      "f1": "#2f1215"
+    },
+    "s53": {
+      "comment": "5.7 · A · PLATE · fund · green — AUTOMATICALLY, NOT HEROICALLY. Manila\n     envelopes: separation, photographed. The footnote names no institution and\n     nothing drawn may imply one. Art added 2026-08-06: the beat is a PROCESS and a flat photo is a FAIL for one, not a missed opportunity. Two containers, an arrow crossing, then the same move again — separation plus recurrence. No institution is named or implied.",
+      "arch": "a",
+      "f1": "#16281d",
+      "art": "forward",
+      "lift": true,
+      "opacity": ".6",
+      "svg": "<rect class=\"st\" style=\"stroke-width:4;opacity:.55\" fill=\"none\" x=\"286\" y=\"596\" width=\"420\" height=\"260\" rx=\"14\"/>\n<rect class=\"stf\" style=\"stroke-width:4\" fill=\"none\" x=\"1214\" y=\"596\" width=\"420\" height=\"260\" rx=\"14\"/>\n<path class=\"st\" style=\"stroke-width:3;opacity:.28\" fill=\"none\" d=\"M 706 726 L 1214 726\"/>\n<g class=\"stf\" style=\"stroke-width:7\" fill=\"none\" stroke-linecap=\"round\">\n  <path id=\"s53-a1\" d=\"M 726 726 L 1194 726\"/>\n  <path id=\"s53-a1h\" d=\"M 1136 686 L 1194 726 L 1136 766\"/>\n</g>\n<g class=\"stf\" style=\"stroke-width:7;opacity:.5\" fill=\"none\" stroke-linecap=\"round\">\n  <path id=\"s53-a2\" d=\"M 726 806 L 1194 806\"/>\n  <path id=\"s53-a2h\" d=\"M 1136 766 L 1194 806 L 1136 846\"/>\n</g>",
+      "motion": [
+        "draw(\"#s53-a1\", S.s53 + 1.60, 0.60, 520); draw(\"#s53-a1h\", S.s53 + 2.10, 0.25, 140);",
+        "/* the second pass is the word \"every month\" — the same move, again. */\ndraw(\"#s53-a2\", S.s53 + 3.10, 0.60, 520); draw(\"#s53-a2h\", S.s53 + 3.60, 0.25, 140);"
+      ]
+    },
+    "s54": {
+      "comment": "5.8 · A · PLATE · no role · neutral — NOT DISCIPLINE. A switch in the ON\n     position: one decision carrying twenty-nine days.",
+      "arch": "a",
+      "f1": "#1c2027"
+    },
+    "s55": {
+      "comment": "5.9 · B · FIGURE · target · amber — 62.2%, Japan's own consumption figure.",
+      "arch": "b",
+      "f1": "#372a0c"
+    },
+    "s56": {
+      "comment": "5.10 · B · FIGURE · fund · green — $200, the floor. One bill on a table.",
+      "arch": "b",
+      "f1": "#183020"
+    },
+    "s57": {
+      "comment": "5.11 · A · PLATE · warn · red hot — HONESTLY. The chapter's hottest ground\n     and its most important line, on an empty highway.",
+      "arch": "a",
+      "f1": "#3a1013"
+    },
+    "s58": {
+      "comment": "5.12 · A · PLATE · target · warm — THEN THE QUESTION CHANGES. A cracked\n     ledger spine, handing to KAKEIBO.",
+      "arch": "a",
+      "f1": "#2d2214"
+    }
+  }
+}

@@ -1,0 +1,166 @@
+s1.jpg	https://www.pexels.com/photo/a-black-kitchen-counter-8142046/	by Max Vakhtbovych	Pexels License
+s3.jpg	https://pixabay.com/photos/envelope-stationary-a-lot-2575249/	by 5827444	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/board-desk-pen-surface-table-wood-1854180/	by Pexels	Pixabay Content License
+s5.jpg	https://pixabay.com/photos/bag-paper-bag-purchasing-3836460/	by ulleo	Pixabay Content License
+s6.jpg	https://www.pexels.com/photo/flat-lay-with-blank-writing-sheet-pen-and-crumpled-paper-balls-on-top-of-wooden-office-desk-writer-s-block-or-creativity-crisis-concept-top-down-view-17175670/	by Marta Nogueira	Pexels License
+s7.jpg	https://www.pexels.com/photo/white-calendar-273153/	by Pixabay	Pexels License
+s8.jpg	https://pixabay.com/photos/hand-pen-write-paper-business-3542423/	by twin1961	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/tomato-washing-sink-colander-rinse-10370291/	by Irynkaa	Pixabay Content License
+s10.jpg	https://www.pexels.com/photo/a-brown-wooden-table-with-chairs-13097272/	by Giovana Spiller	Pexels License
+s11.jpg	https://www.pexels.com/photo/traditional-japanese-village-at-dusk-36688906/	by Lam N	Pexels License
+s12.jpg	https://www.pexels.com/photo/silhouette-of-a-woman-holding-a-phone-and-a-sparkler-19654993/	by Traveler stories photos  旅人故事相片集	Pexels License
+s13.jpg	https://www.pexels.com/photo/white-and-red-click-pen-on-white-printer-paper-7821578/	by RDNE Stock project	Pexels License
+s14.jpg	https://pixabay.com/photos/a-book-embossing-leather-book-cover-3088775/	by Darkmoon_Art	Pixabay Content License
+s15.jpg	https://pixabay.com/photos/calculator-numbers-accounting-2620140/	by StockSnap	Pixabay Content License
+s16.jpg	https://www.pexels.com/photo/pile-of-old-books-12006842/	by photoGraph	Pexels License
+s17.jpg	https://www.pexels.com/photo/rusty-set-of-iron-weights-for-scale-in-close-up-view-8545561/	by Ylanite Koppens	Pexels License
+s18.jpg	https://pixabay.com/photos/office-desk-minimalist-clipboard-6180926/	by Anlomaja27	Pixabay Content License
+s19.jpg	https://pixabay.com/photos/people-rainy-busy-japan-osaka-400818/	by B_Me	Pixabay Content License
+s20.jpg	https://www.pexels.com/photo/close-up-of-newspapers-on-wooden-table-18287623/	by Lisa from Pexels	Pexels License
+s21.jpg	https://www.pexels.com/photo/close-up-photo-of-dollar-bills-4386374/	by https://kaboompics.com/	Pexels License
+s22.jpg	https://www.pexels.com/photo/abandoned-book-in-close-up-shot-12983115/	by Strange Happenings	Pexels License
+s23.jpg	https://www.pexels.com/photo/person-in-black-long-sleeve-shirt-holding-black-card-3915678/	by Andrea Piacquadio	Pexels License
+s24.jpg	https://pixabay.com/photos/lockers-school-protect-store-94959/	by tlparadis	Pixabay Content License
+s25.jpg	https://www.pexels.com/photo/close-up-photo-of-book-pages-4124053/	by photoGraph	Pexels License
+s26.jpg	https://www.pexels.com/photo/a-person-holding-a-paper-8124374/	by RDNE Stock project	Pexels License
+s27.jpg	https://pixabay.com/photos/honey-beekeeper-beekeeping-glass-5043708/	by Lolame	Pixabay Content License
+s28.jpg	https://www.pexels.com/photo/a-person-wearing-a-hat-11588655/	by Elif Aksoy	Pexels License
+s29.jpg	https://pixabay.com/photos/annual-rings-tree-wood-texture-3212803/	by Couleur	Pixabay Content License
+s30.jpg	https://www.pexels.com/photo/a-pencil-and-a-paper-with-printed-math-equation-8482035/	by Sergey  Meshkov	Pexels License
+s31.jpg	https://pixabay.com/photos/man-men-hand-person-people-male-3653346/	by F1Digitals	Pixabay Content License
+s32.jpg	https://pixabay.com/photos/texture-grunge-fracture-cracked-1874580/	by PellissierJP	Pixabay Content License
+s33.jpg	https://www.pexels.com/photo/serene-night-in-historic-kyoto-alleyway-33469141/	by Julien	Pexels License
+s34.jpg	https://www.pexels.com/photo/japanese-matcha-tea-in-ceramic-bowl-on-wooden-tray-31251478/	by Anh Nguyen	Pexels License
+s35.jpg	https://pixabay.com/photos/red-thread-cotton-thread-needle-5548304/	by Myriams-Fotos	Pixabay Content License
+s36.jpg	https://www.pexels.com/photo/white-long-sleeves-shirts-on-brown-wooden-clothes-hanger-3735641/	by Polina Tankilevitch	Pexels License
+s36b.jpg	https://pixabay.com/photos/field-fog-sunrise-stubble-farm-3725927/	by jplenio	Pixabay Content License
+s36c.jpg	https://www.pexels.com/photo/semi-truck-on-scenic-highway-with-mountains-34902065/	by Omar Gerardo	Pexels License
+s37.jpg	https://pixabay.com/photos/alarm-clock-coffee-pot-time-wake-up-2132264/	by NoName_13	Pixabay Content License
+s38.jpg	https://pixabay.com/photos/wardrobe-coat-hanger-dressing-room-5961191/	by congerdesign	Pixabay Content License
+s39.jpg	https://www.pexels.com/photo/persons-pointing-at-the-numbers-on-the-invoice-7688191/	by Kindel Media	Pexels License
+s40.jpg	https://www.pexels.com/photo/woman-getting-some-foods-in-the-refrigerator-9031968/	by Kevin  Malik	Pexels License
+s41.jpg	https://pixabay.com/photos/boxes-cardboard-pizza-boxes-pizza-5429964/	by WOKANDAPIX	Pixabay Content License
+s42.jpg	https://pixabay.com/photos/apple-hand-keep-fruit-vitamins-5391076/	by congerdesign	Pixabay Content License
+s43.jpg	https://www.pexels.com/photo/a-empty-glass-on-the-table-5213101/	by Balaji Srinivasan	Pexels License
+s44.jpg	https://www.pexels.com/photo/photo-of-a-shopping-cart-at-the-parking-lot-12323217/	by Paul Seling	Pexels License
+s45.jpg	https://pixabay.com/photos/boots-footwear-rustic-wall-wooden-1853964/	by Pexels	Pixabay Content License
+s46.jpg	https://pixabay.com/photos/food-japanese-asian-bowl-dish-eat-715542/	by Wow_Pho	Pixabay Content License
+s47.jpg	https://pixabay.com/photos/elderly-couple-walking-trail-2914879/	by PICNIC-Foto	Pixabay Content License
+s48.jpg	https://pixabay.com/photos/bowl-of-rice-asia-japan-vietnam-6335570/	by Brusse	Pixabay Content License
+s49.jpg	https://pixabay.com/photos/food-asian-prawns-noodles-sticks-4773380/	by unitea	Pixabay Content License
+s50.jpg	https://www.pexels.com/photo/white-wooden-kitchen-cabinets-4469162/	by Curtis Adams	Pexels License
+s51.jpg	https://www.pexels.com/photo/bundle-of-money-on-a-table-15633962/	by John Guccione www.advergroup.com	Pexels License
+s52.jpg	https://pixabay.com/photos/zipper-wallet-cramp-small-teeth-4802469/	by Myriams-Fotos	Pixabay Content License
+s53.jpg	https://pixabay.com/photos/hand-man-watch-work-desk-1076597/	by andrewlloydgordon	Pixabay Content License
+s54.jpg	https://pixabay.com/photos/switch-on-off-switch-light-wall-1890021/	by olarts	Pixabay Content License
+s55.jpg	https://www.pexels.com/photo/people-holding-a-document-on-a-table-7821731/	by RDNE Stock project	Pexels License
+s56.jpg	https://www.pexels.com/photo/hands-of-a-person-counting-cash-money-6693632/	by Tima Miroshnichenko	Pexels License
+s57.jpg	https://pixabay.com/photos/road-landscape-countryside-pavement-238458/	by RyanMcGuire	Pixabay Content License
+s58.jpg	https://pixabay.com/photos/books-bookshelf-old-literature-4515917/	by 4262159	Pixabay Content License
+s59.jpg	https://pixabay.com/photos/woman-write-notepad-girl-female-792162/	by kaboompics	Pixabay Content License
+s60.jpg	https://pixabay.com/photos/letters-pressure-plate-pressure-3665281/	by Bru-nO	Pixabay Content License
+s61.jpg	https://pixabay.com/photos/books-library-read-literature-old-3446448/	by Sweetaholic	Pixabay Content License
+s62.jpg	https://pixabay.com/photos/journal-write-blank-pages-notes-2850091/	by 6689062	Pixabay Content License
+s63.jpg	https://www.pexels.com/photo/close-up-photo-of-dollar-coins-12920771/	by crazy motions	Pexels License
+s64.jpg	https://pixabay.com/photos/globe-ink-rustic-still-life-map-3441673/	by Felix-Mittermeier	Pixabay Content License
+s65.jpg	https://www.pexels.com/photo/paper-dollar-bills-6590651/	by Sergei Starostin	Pexels License
+s67.jpg	https://pixabay.com/photos/open-notebook-blank-page-notebook-1974725/	by NikolayFrolochkin	Pixabay Content License
+s68.jpg	https://www.pexels.com/photo/close-up-shot-of-a-person-writing-on-a-notebook-5756573/	by RDNE Stock project	Pexels License
+s69.jpg	https://pixabay.com/photos/notebook-notes-pen-writing-diary-1840276/	by Pexels	Pixabay Content License
+s70.jpg	https://pixabay.com/photos/hand-write-pen-notebook-journal-1868015/	by Pexels	Pixabay Content License
+s71.jpg	https://www.pexels.com/photo/opened-copybooks-placed-on-school-bench-5905452/	by Katerina Holmes	Pexels License
+s72.jpg	https://www.pexels.com/photo/man-in-blue-coverall-checking-under-a-vehicle-8985613/	by Artem Podrez	Pexels License
+s73.jpg	https://pixabay.com/photos/happy-holidays-woman-shopping-3040029/	by gonghuimin468	Pixabay Content License
+s74.jpg	https://pixabay.com/photos/stone-path-stairs-forest-japan-3757827/	by Michelle-Maria	Pixabay Content License
+s75.jpg	https://www.pexels.com/photo/banryu-tei-japanese-rock-garden-in-koya-japan-22616210/	by Travel With Miu	Pexels License
+s76.jpg	https://www.pexels.com/photo/dragon-statue-at-inuyama-temple-in-aichi-japan-28945667/	by Tien Nguyen	Pexels License
+s79.jpg	https://pixabay.com/photos/home-interiors-kitchen-2486092/	by user32212	Pixabay Content License
+s79b.jpg	https://pixabay.com/photos/house-building-balconies-apartments-7124141/	by wal_172619	Pixabay Content License
+s80.jpg	https://pixabay.com/photos/racetrack-track-finish-line-sport-794589/	by marceloabreu	Pixabay Content License
+s81.jpg	https://pixabay.com/photos/hanger-cloths-jacket-coat-outer-4570806/	by yatsusimnetcojp	Pixabay Content License
+s82.jpg	https://pixabay.com/photos/adult-blur-bokeh-city-evening-1867665/	by Pexels	Pixabay Content License
+s83.jpg	https://pixabay.com/photos/chairs-empty-indoors-room-table-2181944/	by Pexels	Pixabay Content License
+s84.jpg	https://pixabay.com/photos/maple-japanese-foliage-garden-zen-5311992/	by keyouest	Pixabay Content License
+s85.jpg	https://www.pexels.com/photo/modern-wardrobe-interior-with-shelves-at-home-7045314/	by Max Vakhtbovych	Pexels License
+s86.jpg	https://www.pexels.com/photo/full-shot-of-twenty-dollars-ban-6590644/	by Sergei Starostin	Pexels License
+s87.jpg	https://pixabay.com/photos/audit-accounting-ledger-figures-4190945/	by Tumisu	Pixabay Content License
+s88.jpg	https://pixabay.com/photos/japan-travel-japan-section-7280360/	by rabeca	Pixabay Content License
+s89.jpg	https://pixabay.com/photos/coffee-coffee-table-latte-latte-art-7161769/	by 26797441	Pixabay Content License
+s90.jpg	https://www.pexels.com/photo/notebook-1226398/	by Suzy Hazelwood	Pexels License
+s92.jpg	https://pixabay.com/photos/coffee-cup-mug-coffee-cup-819362/	by fancycrave1	Pixabay Content License
+s32b.jpg	https://www.pexels.com/photo/vintage-notice-board-against-blue-wall-in-tokyo-31128802/	by Dane Cardiel	Pexels License
+s77.jpg	https://www.pexels.com/photo/serene-leaf-floating-on-water-in-birdbath-37181885/	by Dhanush N	Pexels License
+s91.jpg	https://www.pexels.com/photo/black-framed-eyeglasses-163142/	by Pixabay	Pexels License
+s3-fix.jpg	https://www.pexels.com/photo/stacked-of-bills-and-coins-on-marble-surface-6110309/	by Jason Deines	Pexels License
+s5c-fix.jpg	https://www.pexels.com/photo/cozy-living-room-with-tv-remote-on-sofa-38466607/	by Kamil Čičila	Pexels License
+s24-fix.jpg	https://www.pexels.com/photo/wooden-door-between-drawers-on-walls-23322329/	by Ehtiram Mammadov	Pexels License
+s36b-fix.jpg	https://www.pexels.com/photo/white-threads-on-production-line-in-factory-8246743/	by RAJESH KUMAR    VERMA	Pexels License
+s41-fix.jpg	https://www.pexels.com/photo/photograph-of-brown-cardboard-boxes-12354555/	by Ayrat	Pexels License
+s5b-fix.jpg	https://www.pexels.com/photo/man-in-a-white-shirt-holding-a-box-with-food-6969973/	by Mikhail Nilov	Pexels License
+s79-fix.jpg	https://www.pexels.com/photo/graduation-diploma-on-silver-metal-surface-7713369/	by RDNE Stock project	Pexels License
+s84-fix.jpg	https://commons.wikimedia.org/wiki/File:250201_Ryoan-ji_Kyoto_Japan06s3.jpg	by 663highland	CC BY-SA 4.0
+s87-fix.jpg	https://www.pexels.com/photo/white-notebook-on-the-table-5466798/	by olia danilevich	Pexels License
+s92-fix.jpg	https://www.pexels.com/photo/a-close-up-shot-of-mugs-on-a-wooden-ledge-8925533/	by Vilnis Husko	Pexels License
+s1-fix.jpg	https://www.pexels.com/photo/selective-focus-photography-of-black-iphone-turned-off-on-table-1350462/	by Hasan Albari	Pexels License
+s6-fix.jpg	https://www.pexels.com/photo/close-up-photo-of-us-dollar-bills-4430247/	by Natasha Chebanoo	Pexels License
+s70-fix.jpg	https://www.pexels.com/photo/black-iphone-on-brown-wooden-surface-10024574/	by Jessica Lewis 🦋 thepaintedsquare	Pexels License
+s79b-fix.jpg	https://www.pexels.com/photo/black-car-parked-outside-the-house-9459195/	by Erik Mclean	Pexels License
+s72b-fix.jpg	https://www.pexels.com/photo/hand-of-a-person-holding-a-card-using-a-laptop-6694860/	by Tima Miroshnichenko	Pexels License
+s73-fix.jpg	https://www.pexels.com/photo/person-holding-an-empty-wallet-10994723/	by Towfiqu barbhuiya	Pexels License
+s65-fix.jpg	https://www.pexels.com/photo/a-person-holding-dollars-on-the-table-6693654/	by Tima Miroshnichenko	Pexels License
+s8-fix.jpg	https://www.pexels.com/photo/bank-notes-on-the-gray-table-7735775/	by Mikhail Nilov	Pexels License
+s27-fix.jpg	https://www.pexels.com/photo/large-jars-of-grains-4224263/	by alleksana	Pexels License
+s34-fix.jpg	https://commons.wikimedia.org/wiki/File:Tea_bowl,_Korea,_Joseon_dynasty,_16th_century_AD,_Mishima-hakeme_type,_buncheong_ware,_stoneware_with_white_engobe_and_translucent,_greenish-gray_glaze,_gold_lacquer_-_Ethnological_Museum,_Berlin_-_DSC02061.JPG	by Daderot	CC0
+s50-fix.jpg	https://www.pexels.com/photo/stack-of-dollar-bills-11341267/	by Towfiqu barbhuiya	Pexels License
+s53-fix.jpg	https://www.pexels.com/photo/laptop-computer-beside-a-cup-8037008/	by SHVETS production	Pexels License
+s56-fix.jpg	https://www.pexels.com/photo/dollar-on-a-table-12584119/	by Subru M	Pexels License
+s66-fix.jpg	https://www.pexels.com/photo/bookmarks-in-japanese-6391528/	by Feng Zou	Pexels License
+s60-fix.jpg	https://www.pexels.com/photo/a-person-holding-a-book-with-chinese-writing-on-it-27573821/	by Zonghao Feng	Pexels License
+s72-fix.jpg	https://www.pexels.com/photo/green-credit-card-on-top-of-papers-7821472/	by RDNE Stock project	Pexels License
+s85-fix.jpg	https://www.pexels.com/photo/close-up-of-a-stall-with-pomegranates-8251006/	by Julia Filirovska	Pexels License
+s25-fix.jpg	https://www.pexels.com/photo/a-document-with-computations-beside-two-highlighter-pens-7821548/	by RDNE Stock project	Pexels License
+s82-fix.jpg	https://www.pexels.com/photo/abstract-defocused-image-with-lens-flare-11774190/	by Mathias Reding	Pexels License
+s7-fix.jpg	https://www.pexels.com/photo/shadow-of-a-window-frame-on-the-wood-flooring-of-an-empty-room-18707513/	by sanket mahind	Pexels License
+s28-fix.jpg	https://www.pexels.com/photo/traditional-street-in-kanazawa-s-higashi-chaya-district-31224488/	by Jeremy Wong	Pexels License
+s40-fix.jpg	https://www.pexels.com/photo/white-ceramic-bowl-on-black-wooden-table-4114069/	by cottonbro studio	Pexels License
+s42-fix.jpg	https://www.pexels.com/photo/person-buying-a-cake-3985091/	by Gustavo Fring	Pexels License
+s38-fix.jpg	https://www.pexels.com/photo/blank-paper-tag-on-textile-11485130/	by Andrzej Gdula	Pexels License
+s44-fix.jpg	https://www.pexels.com/photo/an-assorted-vegetables-at-the-counter-8475149/	by Kampus Production	Pexels License
+s39-fix.jpg	https://pixabay.com/photos/business-smartphone-hands-7304257/	by IqbalStock	Pixabay Content License
+# --- added 2026-08-06: images the -en image round put on screen under new
+# --- filenames without carrying their credit row across. URL/author/licence
+# --- are the originals, re-keyed onto the filename actually rendered.
+s10-hi.jpg	https://www.pexels.com/photo/collection-of-green-plants-in-kitchen-with-shiny-lamp-6207511/	by Skylar Kang	Pexels License
+s11-hi.jpg	https://www.pexels.com/photo/traditional-japanese-restaurant-entrance-at-night-31204027/	by Felipe Sérvulo	Pexels License
+s12-hi.jpg	https://pixabay.com/photos/hands-phone-smartphone-electronics-1851218/	by Pexels	Pixabay Content License
+s13-hi.jpg	https://pixabay.com/photos/media-social-media-apps-998990/	by Pixelkult	Pixabay Content License
+s14-hi.jpg	https://commons.wikimedia.org/wiki/File:National_Diet_Building_P5030133.jpg	by Kestrel	CC BY-SA 4.0
+s15-hi.jpg	https://commons.wikimedia.org/wiki/File:Government_Office_Complex_2_of_Japan_2009.jpg	by Wiiii	CC BY-SA 3.0
+s16-hi.jpg	https://commons.wikimedia.org/wiki/File:Cabinet_Office_Government_Buildings.jpg	by Yuukokusya	CC BY-SA 3.0
+s17-hi.jpg	https://commons.wikimedia.org/wiki/File:Ministry_of_Finance_Building_(Japan).jpg	by Kakidai	CC BY-SA 4.0
+s18-hi.jpg	https://pixabay.com/photos/opinion-poll-opinion-polling-survey-1594962/	by andibreit	Pixabay Content License
+s19b-hi.jpg	https://pixabay.com/photos/girl-portrait-woman-face-model-5993627/	by ptksgc	Pixabay Content License
+s20-hi.jpg	https://www.pexels.com/photo/people-walking-on-street-during-night-time-4344739/	by Aleksandar Pasaric	Pexels License
+s23-hi.jpg	https://pixabay.com/photos/test-paper-answering-hand-note-7702622/	by F1Digitals	Pixabay Content License
+s31-hi.jpg	https://pixabay.com/photos/book-volume-ridge-cards-pages-7567437/	by _marioosh	Pixabay Content License
+s35-hi.jpg	https://pixabay.com/photos/jeans-denim-blue-seam-material-9724673/	by Ralf1403	Pixabay Content License
+s37-hi.jpg	https://pixabay.com/photos/clock-time-clock-face-station-clock-7855485/	by wal_172619	Pixabay Content License
+s3b-hi.jpg	https://pixabay.com/photos/meter-kilo-watt-hours-amps-antique-96512/	by biker_becca	Pixabay Content License
+s45-hi.jpg	https://pixabay.com/photos/boot-leather-shoe-old-shoestrings-250012/	by nuzree	Pixabay Content License
+s48-hi.jpg	https://pixabay.com/photos/top-view-basil-herbs-bowl-closeup-1248955/	by Kost9n4	Pixabay Content License
+s49-hi.jpg	https://pixabay.com/photos/porcelain-bowl-chinese-soup-food-4380201/	by Pantameron	Pixabay Content License
+s52-hi.jpg	https://pixabay.com/photos/wallet-empty-poverty-bankrupt-3548021/	by Chronomarchie	Pixabay Content License
+s55-hi.jpg	https://www.pexels.com/photo/nighttime-urban-apartment-building-in-kyoto-31359829/	by Julien	Pexels License
+s57-hi.jpg	https://pixabay.com/photos/highway-night-landscape-sky-stars-7511785/	by ELG21	Pixabay Content License
+s58-hi.jpg	https://pixabay.com/photos/old-books-book-old-library-436498/	by jarmoluk	Pixabay Content License
+s59-hi.jpg	https://pixabay.com/photos/open-book-library-education-read-1428428/	by lil_foot_	Pixabay Content License
+s61-hi.jpg	https://pixabay.com/photos/books-library-literature-bookshelf-3446451/	by Sweetaholic	Pixabay Content License
+s64-hi.jpg	https://pixabay.com/photos/school-work-write-still-life-851328/	by mozlase__	Pixabay Content License
+s67-hi.jpg	https://pixabay.com/photos/plan-diary-records-week-month-4004584/	by Olga1205	Pixabay Content License
+s76-hi.jpg	https://www.pexels.com/photo/traditional-japanese-temizuya-for-ritual-purification-29537621/	by G N	Pexels License
+s77-hi.jpg	https://www.pexels.com/photo/tree-trunk-in-black-and-white-19065641/	by Noémi Móricz	Pexels License
+s80-hi.jpg	https://pixabay.com/photos/board-drawing-black-dark-white-3323693/	by padrinan	Pixabay Content License
+s83-hi.jpg	https://pixabay.com/photos/architecture-building-room-interior-2576906/	by StockSnap	Pixabay Content License
+s85-hi.jpg	https://pixabay.com/photos/jars-herbs-shelves-store-shop-1853439/	by Pexels	Pixabay Content License
+s9-hi.jpg	https://pixabay.com/photos/drip-wet-drop-of-water-rain-water-2806027/	by 51581	Pixabay Content License
+s91-hi.jpg	https://www.pexels.com/photo/brown-pen-on-white-notebook-303532/	by Lum3n	Pexels License

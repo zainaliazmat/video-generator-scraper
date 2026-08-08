@@ -1,0 +1,98 @@
+s1.jpg	https://www.pexels.com/photo/space-gray-iphone-6-215579/	by John (Giannis) Tekeridis	Pexels License
+s3.jpg	https://pixabay.com/photos/heap-paper-side-note-3324375/	by Anyusha	Pixabay Content License
+s4.jpg	https://pixabay.com/photos/laptop-office-hand-writing-3196481/	by AymaneJed	Pixabay Content License
+s5.jpg	https://pixabay.com/photos/package-parcel-packaging-to-ship-2366468/	by congerdesign	Pixabay Content License
+s6.jpg	https://pixabay.com/photos/garbage-trash-litter-recycling-3259455/	by steve_a_johnson	Pixabay Content License
+s7.jpg	https://pixabay.com/photos/pen-jobs-notepad-red-date-6882385/	by Roy_Inove	Pixabay Content License
+s8.jpg	https://pixabay.com/photos/arm-hand-write-planner-planning-1284248/	by Pexels	Pixabay Content License
+s9.jpg	https://pixabay.com/photos/faucet-sink-tap-tap-water-flow-3240211/	by JonasKIM	Pixabay Content License
+s10.jpg	https://pixabay.com/photos/chair-couch-furniture-road-1840011/	by Pexels	Pixabay Content License
+s11.jpg	https://pixabay.com/photos/traditional-door-room-house-8245250/	by jplenio	Pixabay Content License
+s12.jpg	https://pixabay.com/photos/window-raindrops-on-glass-7034448/	by grom900	Pixabay Content License
+s13.jpg	https://www.pexels.com/photo/close-up-of-page-in-a-book-7033804/	by Tima Miroshnichenko	Pexels License
+s14.jpg	https://pixabay.com/photos/stamp-secret-important-official-3406367/	by winvcf	Pixabay Content License
+s15.jpg	https://pixabay.com/photos/book-book-pages-pages-read-8643905/	by Pezibear	Pixabay Content License
+s16.jpg	https://www.pexels.com/photo/old-textbooks-on-wooden-table-in-sunlight-5984609/	by Olha Ruskykh	Pexels License
+s17.jpg	https://www.pexels.com/photo/vintage-brass-scale-on-a-wooden-shelf-13208025/	by Diana ✨	Pexels License
+s18.jpg	https://pixabay.com/photos/opinion-poll-opinion-polling-survey-1594962/	by andibreit	Pixabay Content License
+s19.jpg	https://pixabay.com/photos/pedestrians-people-busy-movement-400811/	by B_Me	Pixabay Content License
+s19b.jpg	https://pixabay.com/photos/cherry-blossoms-flowers-blossom-301253/	by DeltaWorks	Pixabay Content License
+s20.jpg	https://pixabay.com/photos/newspaper-article-3208823/	by moritz320	Pixabay Content License
+s21.jpg	https://www.pexels.com/photo/close-up-photo-of-banknotes-and-coins-8566288/	by Ravi Roshan	Pexels License
+s22.jpg	https://pixabay.com/photos/columns-building-massachusetts-5135499/	by It_was_a_pleasure	Pixabay Content License
+s23.jpg	https://pixabay.com/photos/test-paper-answering-hand-note-7702622/	by F1Digitals	Pixabay Content License
+s24.jpg	https://pixabay.com/photos/lockers-cabinets-storage-lock-932113/	by tookapic	Pixabay Content License
+s25.jpg	https://www.pexels.com/photo/a-graph-on-printed-paper-7947754/	by RDNE Stock project	Pexels License
+s25b.jpg	https://pixabay.com/photos/book-scripture-read-education-6957870/	by wal_172619	Pixabay Content License
+s26.jpg	https://www.pexels.com/photo/white-red-and-blue-paper-7948030/	by RDNE Stock project	Pexels License
+s27.jpg	https://pixabay.com/photos/container-pot-stamp-soil-1354471/	by 2102033	Pixabay Content License
+s28.jpg	https://pixabay.com/photos/people-street-walking-city-6545894/	by TomasHa73	Pixabay Content License
+s29.jpg	https://pixabay.com/photos/watch-retro-book-old-library-4638673/	by ilovechile-travel	Pixabay Content License
+s30.jpg	https://www.pexels.com/photo/paper-with-printed-graph-and-a-pencil-8482069/	by Sergey  Meshkov	Pexels License
+s31.jpg	https://pixabay.com/photos/book-volume-ridge-cards-pages-7567437/	by _marioosh	Pixabay Content License
+s32.jpg	https://pixabay.com/photos/abstract-aged-backdrop-cement-1846979/	by Pexels	Pixabay Content License
+s32b.jpg	https://pixabay.com/photos/blackboard-wall-black-dark-grunge-1846865/	by Pexels	Pixabay Content License
+s33.jpg	https://www.pexels.com/photo/traditional-japanese-lantern-in-osaka-night-street-30542406/	by Julien	Pexels License
+s34.jpg	https://pixabay.com/photos/pottery-handcraft-ceramic-vessel-10258355/	by MrHà	Pixabay Content License
+s35.jpg	https://pixabay.com/photos/jeans-denim-blue-seam-material-9724673/	by Ralf1403	Pixabay Content License
+s36.jpg	https://pixabay.com/photos/cotton-crop-field-brazil-1804669/	by karygrabovski	Pixabay Content License
+s36b.jpg	https://pixabay.com/photos/craftsman-loom-craftsmanship-hands-1839920/	by Pexels	Pixabay Content License
+s36c.jpg	https://pixabay.com/photos/sunset-cut-dusk-evening-truck-3378088/	by rauschenberger	Pixabay Content License
+s37.jpg	https://pixabay.com/photos/clock-time-clock-face-station-clock-7855485/	by wal_172619	Pixabay Content License
+s38.jpg	https://pixabay.com/photos/wardrobe-coat-hanger-dressing-room-5961193/	by congerdesign	Pixabay Content License
+s39.jpg	https://pixabay.com/photos/spreadsheet-number-numbers-excel-2816806/	by tomfield	Pixabay Content License
+s40.jpg	https://pixabay.com/photos/spices-shelf-jar-kitchen-cooking-2454799/	by monicore	Pixabay Content License
+s41.jpg	https://pixabay.com/photos/carton-stack-packaging-move-1984477/	by stux	Pixabay Content License
+s42.jpg	https://pixabay.com/photos/basket-handcraft-bank-hobby-7850546/	by mariya_m	Pixabay Content License
+s43.jpg	https://www.pexels.com/photo/high-angle-shot-of-a-cup-of-coffee-12039010/	by onehundredseventyfive .	Pexels License
+s44.jpg	https://pixabay.com/photos/bags-shopping-bags-paper-4543999/	by matthiasboeckel	Pixabay Content License
+s45.jpg	https://pixabay.com/photos/boot-leather-shoe-old-shoestrings-250012/	by nuzree	Pixabay Content License
+s46.jpg	https://pixabay.com/photos/yakisoba-noodles-japanese-food-dish-6405452/	by subarasikiai	Pixabay Content License
+s47.jpg	https://pixabay.com/photos/overcast-winter-cloudy-day-clouds-7743510/	by Nordseher	Pixabay Content License
+s48.jpg	https://pixabay.com/photos/top-view-basil-herbs-bowl-closeup-1248955/	by Kost9n4	Pixabay Content License
+s49.jpg	https://pixabay.com/photos/porcelain-bowl-chinese-soup-food-4380201/	by Pantameron	Pixabay Content License
+s50.jpg	https://pixabay.com/photos/india-food-indian-meal-2731812/	by AnirMitra	Pixabay Content License
+s51.jpg	https://www.pexels.com/photo/a-stack-of-assorted-indian-rupees-6901511/	by Pranav Choubey	Pexels License
+s52.jpg	https://pixabay.com/photos/wallet-empty-poverty-bankrupt-3548021/	by Chronomarchie	Pixabay Content License
+s54.jpg	https://pixabay.com/photos/power-outlet-light-switch-switch-4714719/	by korbiart67	Pixabay Content License
+s55.jpg	https://pixabay.com/photos/coins-currency-india-paisa-rupee-2576255/	by SandeepHanda	Pixabay Content License
+s56.jpg	https://www.pexels.com/photo/close-up-shot-of-a-coin-on-banknote-14907379/	by Ravi Roshan	Pexels License
+s57.jpg	https://pixabay.com/photos/highway-night-landscape-sky-stars-7511785/	by ELG21	Pixabay Content License
+s58.jpg	https://pixabay.com/photos/old-books-book-old-library-436498/	by jarmoluk	Pixabay Content License
+s59.jpg	https://pixabay.com/photos/open-book-library-education-read-1428428/	by lil_foot_	Pixabay Content License
+s60.jpg	https://pixabay.com/photos/music-book-old-literature-hymnal-3510326/	by Tama66	Pixabay Content License
+s61.jpg	https://pixabay.com/photos/books-library-literature-bookshelf-3446451/	by Sweetaholic	Pixabay Content License
+s62.jpg	https://pixabay.com/photos/notebook-diary-notes-open-notebook-3090133/	by Paolinio	Pixabay Content License
+s63.jpg	https://pixabay.com/photos/money-coins-stack-stacked-coins-2180330/	by kschneider2991	Pixabay Content License
+s64.jpg	https://pixabay.com/photos/school-work-write-still-life-851328/	by mozlase__	Pixabay Content License
+s65.jpg	https://www.pexels.com/photo/a-coin-on-cash-notes-14907356/	by Ravi Roshan	Pexels License
+s67.jpg	https://pixabay.com/photos/plan-diary-records-week-month-4004584/	by Olga1205	Pixabay Content License
+s68.jpg	https://pixabay.com/photos/old-letters-letters-handwritten-436503/	by jarmoluk	Pixabay Content License
+s69.jpg	https://pixabay.com/photos/fountain-pen-notebook-paper-writing-1854169/	by Pexels	Pixabay Content License
+s70.jpg	https://pixabay.com/photos/notepad-coffee-pen-fountain-pen-1276779/	by freephotocc	Pixabay Content License
+s71.jpg	https://pixabay.com/photos/fountain-pen-note-notebook-page-1851096/	by Pexels	Pixabay Content License
+s72.jpg	https://pixabay.com/photos/letters-letter-envelopes-286541/	by cocoparisienne	Pixabay Content License
+s73.jpg	https://pixabay.com/photos/forest-path-rocks-trail-438432/	by SplitShire	Pixabay Content License
+s74.jpg	https://pixabay.com/photos/zen-garden-sand-stone-japanese-2420323/	by entrecon	Pixabay Content License
+s75.jpg	https://www.pexels.com/photo/traditional-japanese-temizuya-for-ritual-purification-29537621/	by G N	Pexels License
+s76.jpg	https://www.pexels.com/photo/tree-trunk-in-black-and-white-19065641/	by Noémi Móricz	Pexels License
+s78.jpg	https://pixabay.com/photos/scooter-asia-asian-journey-2792992/	by igorovsyannykov	Pixabay Content License
+s79.jpg	https://pixabay.com/photos/board-drawing-black-dark-white-3323693/	by padrinan	Pixabay Content License
+s80.jpg	https://pixabay.com/photos/closet-clothes-blue-clothing-912694/	by sdnet01	Pixabay Content License
+s81.jpg	https://pixabay.com/photos/bokeh-city-lights-night-barcelona-1160391/	by Michelle-Maria	Pixabay Content License
+s82.jpg	https://pixabay.com/photos/architecture-building-room-interior-2576906/	by StockSnap	Pixabay Content License
+s83.jpg	https://pixabay.com/photos/letter-calligraphy-ink-written-447577/	by Andrys	Pixabay Content License
+s84.jpg	https://pixabay.com/photos/bridge-park-garden-japanese-garden-53769/	by JamesDeMers	Pixabay Content License
+s85.jpg	https://pixabay.com/photos/jars-herbs-shelves-store-shop-1853439/	by Pexels	Pixabay Content License
+s86.jpg	https://www.pexels.com/photo/yellow-and-white-bank-note-in-close-up-shot-14907452/	by Ravi Roshan	Pexels License
+s87.jpg	https://pixabay.com/photos/ledger-accounting-business-money-1428230/	by cpastrick	Pixabay Content License
+s88.jpg	https://pixabay.com/photos/water-japan-temple-basin-clean-4832411/	by InkMagiStudio	Pixabay Content License
+s89.jpg	https://pixabay.com/photos/coffee-pen-notebook-open-notebook-2306471/	by Engin_Akyurt	Pixabay Content License
+s90.jpg	https://www.pexels.com/photo/writing-in-notebook-with-checklist-for-task-management-35719566/	by Jakub Zerdzicki	Pexels License
+s92.jpg	https://pixabay.com/photos/art-glass-tea-bokeh-outdoors-1284427/	by Pexels	Pixabay Content License
+s91.jpg	https://www.pexels.com/photo/brown-pen-on-white-notebook-303532/	by Lum3n	Pexels License
+s53.jpg	https://www.pexels.com/photo/nighttime-urban-apartment-building-in-kyoto-31359829/	by Julien	Pexels License
+# --- added 2026-08-06: images the -en image round put on screen under new
+# --- filenames without carrying their credit row across. URL/author/licence
+# --- are the originals, re-keyed onto the filename actually rendered.
+s28-fix.jpg	https://www.pexels.com/photo/traditional-street-in-kanazawa-s-higashi-chaya-district-31224488/	by Jeremy Wong	Pexels License

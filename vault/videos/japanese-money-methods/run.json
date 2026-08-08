@@ -1,0 +1,186 @@
+{
+ "slug": "japanese-money-methods",
+ "topic": "Japanese money methods — the 37.8% vs 1.1% split, and the four methods (Mottainai · Hara Hachi Bu · Kakeibo · Taru wo Shiru)",
+ "tier": "long",
+ "target_seconds": 660,
+ "architecture": "blockframe-9",
+ "architecture_default": "blockframe-9 (LOCKED)",
+ "architecture_differs_from_default": false,
+ "cuts": [
+  "hi",
+  "en"
+ ],
+ "started": "2026-08-01",
+ "source_note": "vault/knowledge/niches/finance-topics-2026-07-31.md — topic #2, highest V/S in the 1,881-video pull",
+ "stages": {
+  "fin-research": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-research-1.md",
+   "at": "2026-07-31T19:42:13+00:00"
+  },
+  "fin-facts": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-facts-1.md",
+   "at": "2026-07-31T19:56:37+00:00"
+  },
+  "fin-script-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-script-hi-1.md",
+   "at": "2026-07-31T20:22:41+00:00"
+  },
+  "fin-audit-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-audit-hi-1.md",
+   "at": "2026-07-31T20:35:10+00:00"
+  },
+  "fin-script-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-script-en-1.md",
+   "at": "2026-07-31T20:39:59+00:00"
+  },
+  "fin-voice-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 2,
+   "log": "vault/videos/japanese-money-methods/logs/fin-voice-hi-2.md",
+   "at": "2026-08-01T08:34:55+00:00",
+   "script_sha256": "5688e8b711f767d82b529b63278e3eb206d551e80b9f6bae0eed9326216a7521"
+  },
+  "fin-audit-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-audit-en-1.md",
+   "at": "2026-07-31T20:55:22+00:00"
+  },
+  "fin-voice-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 3,
+   "log": "vault/videos/japanese-money-methods/logs/fin-voice-en-3.md",
+   "at": "2026-08-01T08:35:16+00:00",
+   "script_sha256": "81679132e3d430edc6adcd16f21d15d387ad45ab78bccfb4bde67486680cfe40"
+  },
+  "fin-assets-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 5,
+   "log": "vault/videos/japanese-money-methods/logs/fin-assets-hi-5.md",
+   "at": "2026-08-01T09:10:57+00:00"
+  },
+  "fin-assets-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 7,
+   "log": "vault/videos/japanese-money-methods/logs/fin-assets-en-7.md",
+   "at": "2026-08-01T09:10:57+00:00"
+  },
+  "fin-storyboard-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 3,
+   "log": "vault/videos/japanese-money-methods/logs/fin-storyboard-en-3.md",
+   "at": "2026-08-01T08:46:56+00:00"
+  },
+  "fin-storyboard-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 3,
+   "log": "vault/videos/japanese-money-methods/logs/fin-storyboard-hi-3.md",
+   "at": "2026-08-01T08:47:44+00:00"
+  },
+  "fin-build-en": {
+   "status": "done",
+   "reason": "",
+   "attempt": 2,
+   "log": "vault/videos/japanese-money-methods/logs/fin-build-en-2.md",
+   "at": "2026-08-01T10:55:30+00:00"
+  },
+  "fin-render-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 3,
+   "log": "vault/videos/japanese-money-methods/logs/fin-render-hi-3.md",
+   "at": "2026-08-01T17:50:39+00:00"
+  },
+  "fin-package-hi": {
+   "status": "done",
+   "reason": "",
+   "attempt": 1,
+   "log": "vault/videos/japanese-money-methods/logs/fin-package-hi-1.md",
+   "at": "2026-08-01T18:07:29+00:00"
+  }
+ },
+ "budget": {
+  "elevenlabs_calls": 184,
+  "max_elevenlabs_calls": 221,
+  "pixabay_calls": 0,
+  "_ceiling_note": "92 lines x 2 cuts x 1.2 retry headroom = 221 (LONG tier). Was 30 — a SHORT-tier constant from the command template; corrected there too on 2026-08-01.",
+  "_spend_log": "fin-voice-hi attempt 1 (2026-08-01): 92 calls, one per line, zero retries. fin-voice-en attempt 1 (2026-08-01): 92 calls, one per line, zero retries. 184 cumulative; 37 left for any redo."
+ },
+ "premise_correction": "fin-facts J7 (Horioka NBER WP 33181): culture is NOT the cause of Japan's saving rate, and the SNA rate is ~1%. The 'Japanese people don't go broke because of culture' framing is retired. Kept: the four methods as behavioural tools; the hook is Japan's own two published numbers (37.8% FIES salaried-worker surplus vs ~1% SNA). No Japan-vs-India or Japan-vs-US saving-rate head-to-head on screen (facts-staging §1). Only safe cross-market table is J8 (BOJ Flow of Funds, states both markets itself).",
+ "architecture_history": [
+  "ledger-rail (chosen at intake 2026-08-01)",
+  "blockframe-9 (creator 2026-08-01: saw a rendered ledger-rail frame of the hi cut, rejected it — 'i dont like it', regenerate both cuts on the default)"
+ ],
+ "vo_correction_7_4": "Creator chose option A: the Ryoan-ji square-hole tsukubai does not exist in Pexels or Pixabay (70+ candidate cells across 4 independent searches) and Wikimedia Commons is unreachable from this environment, so VO 7.4 is re-voiced in both cuts to drop the 'square' claim. The basin photograph stays; the words stop describing something the frame cannot show.",
+ "chapters": {
+  "_note": "Chapter-by-chapter rework of the hi cut (2026-08-04/05). The shipped 92-scene cut at studio/videos/japanese-money-methods-hi/ is untouched and still carries the old imagery; these are standalone chapter projects and nothing has been concatenated back. Timings are the shipped cut's verbatim, rebased so each plays from 0, so a locked chapter concatenates frame-exact.",
+  "hi": {
+   "1": {
+    "status": "locked",
+    "approved_by": "creator",
+    "draft": "renders/DRAFT-ch1-v2.mp4",
+    "fps": 30,
+    "scenes": "s1-s10",
+    "span_in_cut": [
+     0,
+     55.909
+    ],
+    "note": "Creator hand-edited the grades and s7's stack alignment after approving — keep those edits."
+   },
+   "2": {
+    "status": "locked",
+    "approved_by": "fin-editor + fin-ceo",
+    "draft": "renders/DRAFT-ch2-v11.mp4",
+    "fps": 30,
+    "scenes": "s11-s21",
+    "span_in_cut": [
+     55.909,
+     129.388
+    ],
+    "editor": {
+     "attempts": 3,
+     "verdict": "PASS",
+     "logs": [
+      "logs/editor-hi-ch2-1.md",
+      "logs/editor-hi-ch2-2.md",
+      "logs/editor-hi-ch2-3.md"
+     ]
+    },
+    "ceo": {
+     "attempts": 2,
+     "verdict": "SHIP",
+     "logs": [
+      "logs/ceo-hi-ch2-1.md",
+      "logs/ceo-hi-ch2-2.md"
+     ]
+    },
+    "lotties": 4,
+    "lottie_cap": 4,
+    "open": "Not creator-reviewed yet. Voice-only — music bed and SFX post-mix still owed for both chapters."
+   }
+  },
+  "_next": "Chapters 3-8 of the hi cut not started. The -en cut not started."
+ }
+}
