@@ -34,14 +34,17 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    and no motion helpers of its own:
 
    ```html
-   <link rel="stylesheet" href="assets/css/blockframe.css">
+   <link rel="stylesheet" href="assets/blockframe.css">
+   <link rel="stylesheet" href="assets/chapter-design.css">   <!-- chapter cuts -->
    <script src="assets/js/gsap.min.js"></script>
    <script src="assets/js/motion.js"></script>
    ```
 
    `blockframe.css` owns every token, the grade, the scrim, the type ladder and
-   every component. `motion.js` owns every helper (`rise pop popEach fade exit
-   pulse breathe fill countUp countDown ken drift dissolve shove
+   every component. `chapter-design.css` owns the **archetype layer** (§1a) and
+   is required on every MEDIUM/LONG chapter project. `motion.js` owns every
+   helper (`rise pop popEach fade exit
+   pulse breathe fill span countUp countDown ken plateKen drift dissolve shove
    sceneTransitions draw loadLottie playLottie register`). **Do not redefine one
    inline, and do not read a
    previous video's `index.html` to find out how something is done** — that
@@ -60,6 +63,59 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    — e.g. `ledger-rail` ⇒ `<div id="root" class="rail" …>`. An empty
    `body_class` is the default centred stack. It is not yours to override or to
    "improve" because the last few videos looked alike.
+
+1a. **THE ARCHETYPE LAYER — every chapter scene, MEDIUM/LONG.**
+   Constants: `format.json chapter_design`. Rationale and the full rule list:
+   `vault/knowledge/design-chapter-archetypes.md` — **read it before your first
+   chapter of a run**, then build from format.json. Reference implementations
+   (creator-approved 2026-08-05):
+   `studio/videos/japanese-money-methods-hi-ch1/index-claudedesign.html` + `-ch2`.
+
+   The storyboard assigns each scene an **archetype**, a **ground** and a
+   **role**; you do not choose them. Apply them literally:
+
+   ```html
+   <section class="scene clip arch-c has-photo art-off centred" id="s4" …>
+     <div class="bg" id="s4-bg" style="background-image:url(assets-ch1/final/s4.jpg)"></div>
+     <div class="field" style="--f1:#1d1a15"><div class="rules"></div><div class="glow"></div></div>
+     <div class="plate p-c edge" id="s4-plate">
+       <div class="plate-in" id="s4-pin"><div class="hatch"></div>
+         <svg class="art" viewBox="0 0 934 1200" preserveAspectRatio="xMidYMid slice">…</svg>
+       </div>
+     </div>
+     <div class="scrim"></div> … <div class="stack" id="s4-stack">…</div> <div class="grain"></div>
+   </section>
+   ```
+
+   - **Plate rects** come from `chapter_design.archetypes[X].plate` — use the
+     `.p-a`/`.p-b`/`.p-c`/`.p-d` helpers. **Author the art in the PLATE's own
+     coordinate space** (its `viewBox` is the plate's w/h), not in 1920×1080.
+     That is the whole point: the window is declared, so nothing is cropped by
+     surprise.
+   - **The photograph carries the ken, not the plate** — `ken("#sN-bg", …)`
+     alternating direction. Same image across two lines ⇒ ONE continuous zoom:
+     `plateKen("#s1-bg", …, 1.00, 1.10)` then `plateKen("#s2-bg", …, 1.10, 1.24)`.
+     Never push both the photo and the plate; one motion per scene.
+   - **A declared `data-framings` swap should be a PHOTO swap** — a second `.bg`
+     at `opacity:0`, `fade`d in at the boundary, kenned identically to the first
+     so it does not jump. That is the strongest form of the rule: two frames that
+     cannot read as the same picture.
+   - **`.art-off` is the default for a scene whose drawn layer depicts what the
+     photo already shows.** Rule 8: drawn art over a still must be ADDITIVE
+     — a proportion, a comparison, a measurement, a count — never a second
+     drawing of the subject. On the reference chapters nine of ten and four of
+     eleven scenes were `art-off`. When in doubt, turn it off.
+   - **`.centred`** whenever `.art-off` leaves the archetype's other side empty.
+     A split with nothing opposite is a hole, not a layout.
+   - **Never darken a photo per scene** to make art readable (rule 9) — the
+     grade is locked; darken behind the art with `.band` instead.
+   - **No rail.** A chapter title / scene counter overlay was built and removed
+     at creator request 2026-08-05. Do not add one.
+   - Gotchas that each cost a render, all in `chapter_design.gotchas`:
+     `stroke-width="N"` as an attribute is a **no-op** (use inline
+     `style="stroke-width:N"`); a scrolling group needs a `clipPath`;
+     `breathe(dur)` rounds UP (ask for a multiple of 3); a plate must be a
+     lifted panel or dark art has nothing to read against.
 
    **Watermark.** `#root` also carries `cut-<cut>` — `<div id="root"
    class="rail cut-hi" …>`. That one class is the whole channel watermark:
@@ -111,7 +167,7 @@ the project dir. Nothing else — no render (that is fin-render's stage).
      `loadLottie` / `playLottie` are the ONLY way in. `window.__hfLottie`, a
      bare `lottie.loadAnimation()`, and a `path:` URL each render a blank scene
      that passes `hyperframes check` — `pipeline_check check_build` fails all
-     three, plus more than `max_per_video` of them.
+     three, plus more than `max_per_chapter` of them.
    - **`.aside`** puts art beside type (`<div class="aside"><div class="stack">…`).
      Do not hand-roll a flex row for this: `.scene` is a centred grid and a
      `width:100%` child lands off-centre.
@@ -164,8 +220,9 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    (restructure instead). Counters use `Intl.NumberFormat` with the cut's
    locale and `tabular-nums`.
 5. Every scene has a full-bleed `.bg` (no photo-free scenes — creator rule
-   2026-07-28) and gets `ken` with alternating direction; cut-in images fire on
-   their keyword's cue; no scene holds a static frame beyond ~2s.
+   2026-07-28) **and carries `has-photo`** so the archetype layer steps the
+   ground and the drawn layer back behind it. `ken` alternates direction; cut-in
+   images fire on their keyword's cue; no scene holds a static frame beyond ~2s.
 6. **Max-density snapshot pass:** `snapshot --at` each scene's LAST cue time
    and look at the frames — `.stack` must sit inside the safe area, nothing
    overflowing. These deterministic worst-case frames catch what time-spaced

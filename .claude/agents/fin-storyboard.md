@@ -35,6 +35,34 @@ You are the storyboard stage. Runs once per cut.
 4. Layout rules (format.json): one focal element per scene, kicker first,
    cue spacing ≥0.8s except declared cascades, ≤6 simultaneous elements,
    something on screen by +0.5s, ≤3 chips/row at ≤22 chars.
+4b. **Assign the ARCHETYPE LAYER — MEDIUM/LONG only, one row per scene.**
+   Constants: `format.json chapter_design`. Rules:
+   `vault/knowledge/design-chapter-archetypes.md`. `fin-build` applies what you
+   write here and chooses nothing itself, so the scene table must carry three
+   more columns:
+
+   - **`arch`** — `A` plate · `B` figure · `C` ledger · `D` band. Assign by what
+     the scene DOES, never for variety. Write the chapter's sequence out and
+     read it as a rhythm (ch1 `A A C C D D B C D A`, ch2 `C D B C B B B C D D A`).
+     **Holding one archetype across consecutive scenes is correct when they are
+     one argument** — ch2 keeps B across three scenes while the mechanism under
+     it changes. Varying there would break the through-line.
+   - **`ground`** — a hex for `--f1`, tracking the argument's temperature across
+     the chapter. Role scenes deepen into their role colour; scenes with no role
+     move only on the neutral warm↔cool axis, so no frame asserts a colour it
+     has not earned. Make the arc a curve, not a stripe, and mark the beat where
+     it should be coldest or hottest — *the drop is a temperature event before it
+     is a number.*
+   - **`art`** — one of `off` (the drawn layer would depict what the photograph
+     already shows — **the default**), `forward` (the scene's point is a
+     PROPORTION and the mechanism still wins), or a named motif/Lottie that is
+     genuinely ADDITIVE: a comparison, a measurement, a count. Rule 8 is the
+     test: if you cannot say what the art asserts that the picture cannot, it is
+     `off`.
+
+   Then say, per scene, whether the archetype's other side ends up empty — those
+   scenes get `centred` and `fin-build` drops their plate and rules.
+
 4a. **Storyboard for THIS run's architecture**, named in `run.json`
    (`architecture`) and specced in format.json `architectures`. It is rotated
    per run, so do not assume the centred stack. `ledger-rail` in particular is
@@ -56,6 +84,11 @@ You are the storyboard stage. Runs once per cut.
    `cta`→the closing block.
    **Budget: at most 10 SFX cues in a short cut, and never two inside 0.8s.**
    A sound is punctuation — if every reveal has one, none of them means anything.
+   **Bed length is not your problem — do not flag it.** The beds are ~248s and
+   `tools/audio/mix.py` already covers any runtime by feeding the bed in `laps`
+   times with a 3s `acrossfade` at each joint, then trimming to the master's
+   duration. There is no silence dip at 248s or 496s. (Both storyboards on
+   japanese-money-methods, 2026-08-01, escalated this as a decision; it is not one.)
    Silence on a beat is a choice; mark the beats you want *dry*.
 4d. **Vector art (optional).** A scene may carry ONE graphic on top of its
    photograph — never instead of it. Constants in format.json `vector_art`;
@@ -65,7 +98,7 @@ You are the storyboard stage. Runs once per cut.
      one line ("upward step arrow", "shield", "₹ in a circle") and its role
      colour; fin-build draws it.
    - A **lottie** is for a real illustration that an icon cannot carry — a
-     person, a scene, a device. **At most `lottie.max_per_video` (3) in a cut**
+     person, a scene, a device. **At most `lottie.max_per_chapter` in a chapter**
      and never two in adjacent scenes: they cost render time and a deck of them
      stops looking like a film. Give the search phrase, not a file
      (`"person checking finance app on phone"`), plus the accent hex fin-assets

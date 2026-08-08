@@ -18,7 +18,14 @@ You are the vault close-out stage. Runs once per run (after both cuts).
 1. Write the milestone note `vault/videos/<slug>/index.md`: both cuts,
    runtimes, voices, hero numbers with sources, QA numbers from the render
    logs, current state, and **what is owed** — always including:
-   `proof-listen (hi, en) · thumbnail pick · upload · analytics after 28 days`.
+   `proof-listen (hi, en) · thumbnail pick · caption upload (hi, en) · upload ·
+   analytics after 28 days`.
+   Record the caption pack alongside the renders: `narration-<cut>.md` in the
+   vault and `renders/captions-<cut>.srt` in studio. The .srt lives under
+   `studio/` (gitignored, deleted at archive time), so when `tools/archive_cut.py`
+   moves the source into `vault/videos/<slug>/src/`, the .srt must go with it —
+   it is regenerable from `script-<cut>.md` + the composition via
+   `tools/transcript.py`, but only while both still exist.
 2. Add one line per new note to `vault/index.md` (keep the catalog current).
 3. Read the publish packs' `chosen:` lines from any PREVIOUS runs and record
    thumbnail picks in their milestone notes if the creator filled them —

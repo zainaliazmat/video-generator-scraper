@@ -193,10 +193,17 @@ def cues(path, cut, first_is_joint):
                 casc.sort()
                 if sid in COUNTED:
                     # the COUNT is the point: one click per item, read off the
-                    # helper's own stagger argument
-                    m = re.search(rf'popEach\(\s*"[^"]*{sid}[^"]*"\s*,[^,]+,[^,]+,\s*([\d.]+)',
+                    # helper's own stagger argument.
+                    # popEach(sel, at, stagger, dur) — motion.js:48. This read arg 4
+                    # (dur) until 2026-08-08 and so emitted the cascade at the wrong
+                    # spacing: on hi ch1 s6 it wanted 0.45 where the build draws 0.60,
+                    # and `--write` would have regressed a correct chapter. Caught by
+                    # fin-render diffing the build's audio.json against this tool.
+                    m = re.search(rf'popEach\(\s*"[^"]*{sid}[^"]*"\s*,[^,]+,\s*([\d.]+)',
                                   script)
                     step = float(m.group(1)) if m else 0.5
+                    # ponytail: 3 clicks assumed. Every cascade shipped so far is three
+                    # chips; count the selector's elements if a 4-chip cascade appears.
                     n = 3
                     for k in range(n):
                         add(casc[0][0] + k * step, "chip",
