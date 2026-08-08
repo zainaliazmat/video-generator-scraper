@@ -822,7 +822,13 @@ def stale_log(log, slug, cut, stage=None):
             continue
         if m > newest:
             newest, newest_f = m, fp
-    if newest_f and os.path.getmtime(p) < newest - 1:
+    # SLACK, and it is not a fudge — it is the difference between the two things this
+    # distinguishes. An agent legitimately writes its log and then does a final verifying
+    # regenerate seconds later (hi ch2 attempt 3: log 16:12:26, index.html 16:12:41, and a
+    # 1s tolerance false-fired on it). A LEFTOVER, the thing being caught, is from an
+    # earlier attempt or an earlier session: the two real ones were ~2 hours and ~27 hours
+    # stale. Ten minutes sits in the empty gap between those populations.
+    if newest_f and os.path.getmtime(p) < newest - 600:
         return (f"log {log} is OLDER than {os.path.relpath(newest_f, ROOT)}, the artifact this "
                 f"stage produces — it predates the work it claims to describe, so it is a "
                 f"leftover from an earlier attempt, not this one's record")
@@ -939,8 +945,13 @@ def _selftest():
         idx = os.path.join(project_dir(slug, cut), "index.html")
         os.makedirs(os.path.dirname(idx), exist_ok=True)
         open(idx, "w").close()                        # the artifact `build` produces
-        os.utime(logabs, (1, 1))                      # older than it
+        os.utime(logabs, (1, 1))                      # hours older, like a real leftover
         assert stale_log(logrel, slug, cut, "build")
+        # ...but a log written seconds BEFORE the final regenerate is this attempt's
+        assert stale_log(logrel, slug, cut, "build") is not None
+        os.utime(logabs, (os.path.getmtime(idx) - 20,) * 2)
+        assert stale_log(logrel, slug, cut, "build") is None, "20s slack must be allowed"
+        os.utime(logabs, (1, 1))
         # mark() must FAIL a stage whose check passed but whose log is stale — the
         # artifact being fine is exactly the case the guard exists for.
         mark("build", slug, cut, [], 3, logrel)
