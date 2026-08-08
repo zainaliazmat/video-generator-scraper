@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- a carried shopping bag — the GROCERIES glyph. Deliberately a bag and not
+       a basket, a cart or loose produce: over a photograph of shopping it has to
+       read as the CATEGORY being paid for, not as a second drawing of what is
+       already in frame (rule 8). The first draft had a folded cuff and a small
+       knob handle and rendered as a shaker at 220px; one big semicircular handle
+       rising to y14 over a straight-sided body is what makes it a bag on sight.
+       draw() i-bag then i-handle. -->
+  <path id="i-bag" d="M24 32 H76 V82 a6 6 0 0 1 -6 6 H30 a6 6 0 0 1 -6 -6 Z"/>
+  <path id="i-handle" d="M38 32 V26 a12 12 0 0 1 24 0 V32"/>
+</svg>

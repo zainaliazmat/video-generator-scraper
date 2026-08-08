@@ -193,7 +193,7 @@ into the three stages that already own those jobs:
 | Piece | Home |
 |---|---|
 | Constants, licence, caps | `tools/format.json` → `vector_art` |
-| `.icon` · `.lottie` · `.aside` components | `tools/scaffold/assets/css/blockframe.css` |
+| `.icon` · `.lottie` · `.aside` components | `tools/scaffold/assets/blockframe.css` |
 | `draw` · `loadLottie` · `playLottie` helpers | `tools/scaffold/assets/js/motion.js` |
 | Vendored player | `tools/scaffold/assets/js/lottie.min.js` (306 KB, lottie-web 5.12.2) |
 | The shared library (git, outside `studio/`) | `assets/lottie/` · `assets/icons/` · `assets/README.md` |

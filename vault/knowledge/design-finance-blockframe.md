@@ -9,13 +9,19 @@ source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-
 > **The system now has a code home (2026-07-29). This file is the rationale;
 > the implementation is two files and they are linked, never copied:**
 >
-> - `tools/scaffold/assets/css/blockframe.css` — tokens, grade, scrim, type
+> - `tools/scaffold/assets/blockframe.css` — tokens, grade, scrim, type
 >   ladder, every component, and the `.rail` architecture variant.
 > - `tools/scaffold/assets/js/motion.js` — every motion helper, including the
 >   scene transitions this doc used to have no answer for.
 >
 > Where they disagree with the prose below, **the files win** — they are what
-> renders. Until now each cut was scaffolded by copying the previous cut's
+> renders.
+>
+> **Chapter-based (MEDIUM/LONG) cuts extend this with the archetype layer** —
+> `tools/scaffold/assets/chapter-design.css`, documented in
+> [[design-chapter-archetypes]]. That note owns the four scene layouts, the
+> plate, the ground temperature arc and the photograph rules; this note still
+> owns the tokens, the grade, the scrim, the type ladder and the watermark. Until now each cut was scaffolded by copying the previous cut's
 > `index.html`, which produced five divergent stylesheets, five different motion
 > vocabularies, and four cuts that silently lost `@font-face` and rendered in
 > Arial Black. Full evidence: [[finance-audit-2026-07-29/index]].
@@ -118,6 +124,59 @@ monetised video that criticises their money decisions.
 ---
 
 ## 1. Stage and grade
+
+### ledger-rail was built, rendered and rejected (creator, 2026-08-01)
+
+`ledger-rail` (300px left rail carrying the scene index + beat label, content
+ragged right, photo in a 740px panel) was chosen at intake for
+japanese-money-methods, built to completion on both cuts, and **rejected by the
+creator on sight of one rendered hi frame** — *"i have seen the ledger frame hi and
+honestly i dont like it"*. Both cuts were regenerated on `blockframe-9`.
+
+Three things this cost, worth knowing before anyone offers a non-default style again:
+
+1. **Storyboards and compositions are architecture-specific; nothing else is.**
+   Research, facts, scripts, audits, voice and images all survived the switch
+   untouched. The rebuild was two storyboards and two builds — real, but bounded.
+2. **A finished master had to be discarded.** The hi cut was already encoded,
+   mixed and normalised to −14 LUFS when the rejection came. **Show the creator a
+   rendered frame before the first encode, not after** — snapshotting costs about
+   two minutes against ~35 per encode.
+3. **Full-bleed changes the image-resolution economics.** In `ledger-rail` a
+   1280px Pixabay file sat in a 740px panel and was oversampled. Under
+   `blockframe-9` every photo is full-bleed at `inset:-8%` ⇒ roughly **1.63× on the
+   long edge**. The Pixabay key has no full-HD access (`fullHDURL`/`imageURL`
+   absent — verified against the API 2026-08-01), so 1280px is its ceiling and
+   Pexels `large2x` at 1880px is the only upgrade path. **Route every hero, SOLO and
+   closing frame to Pexels**; Pixabay is fine for texture under a scrim, where the
+   grade plus 5% grain reads as soft focus. See [[stock-photo-sourcing]].
+
+⚠ **Untested at length:** the three blockframe-9 cuts shipped before this one were
+9-scene SHORTs. A 92-scene LONG puts ~92 `.scrim` divs in one document and trips
+`composition_heavy_overlay_count_high`, whose field signal is that ~40 overlays can
+make the capture layer emit solid black for the first half of a render. Probe the
+first finalised chunk of any long blockframe-9 encode before trusting the master.
+
+### `.scene { isolation: isolate; }` is load-bearing (found 2026-08-01)
+
+`.scene` is `position:absolute` with `z-index:auto`, which does **not** create a
+stacking context. So `.stack` (z 2) and `.rail .railcol` (z 3) escaped into the
+**root** stacking context and outranked the *incoming* section, which paints in
+the z-0 band. For the whole `transition_seconds` (0.45s) cross-dissolve, the
+**outgoing** scene's headline and rail number painted on top of the incoming
+scene — two scenes' words legible at once, at every one of the 91 boundaries.
+
+Found by boundary forensics on frames 550/551/552 of `japanese-money-methods-hi`
+(frame 551 shows rail "04" carrying scene 03's words). **Every cut shipped before
+2026-08-01 carries this defect** — it is in the shared section of
+`blockframe.css`, not in any one architecture. `isolation: isolate` creates the
+stacking context without changing paint order inside the scene.
+
+Why nothing caught it for six cuts: `hyperframes check` is static and per-frame,
+and the frame check sampled one frame per scene at that scene's last cue — which
+lands *between* transitions by construction. A defect that exists only during a
+dissolve needs a frame sampled during a dissolve; `fin-render` now requires three
+such samples per cut.
 
 | Property | Value |
 |---|---|

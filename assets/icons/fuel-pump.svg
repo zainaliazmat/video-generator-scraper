@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- a fuel pump with its hose and nozzle — the CAR / COMMUTING-COST glyph.
+       The one household cost a photograph of a home almost never carries, which
+       is exactly why it has to be drawable. Body 24-62 with the screen inside
+       it, hose hanging on the right; everything inside x16-82 so a 6px stroke
+       never touches the viewBox edge. draw() i-pump, i-base, i-screen, i-hose. -->
+  <path id="i-pump" d="M24 88 V28 a8 8 0 0 1 8-8 H54 a8 8 0 0 1 8 8 V88"/>
+  <path id="i-base" d="M16 88 H70"/>
+  <rect id="i-screen" x="33" y="32" width="20" height="16" rx="2"/>
+  <path id="i-hose" d="M62 40 H74 q8 0 8 8 V70 q0 8 -8 8 H68 V60"/>
+</svg>

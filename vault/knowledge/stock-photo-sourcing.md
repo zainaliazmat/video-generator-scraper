@@ -153,9 +153,22 @@ like unrelated defects and had one cause. **The blockframe grade is locked** —
 storyboard's §9 — so the photograph is chosen *knowing* it will be darkened by
 38% and desaturated by a third.
 
-**A white-dominant subject cannot survive that.** White marble, a pale card on
-pale wood, white paper in a white office all land as the same flat charcoal
-slab. One frame (s4: "a single closed brown envelope on a bare wooden table")
+> ⚠ **CORRECTED 2026-08-09 — the observation below is real, the mechanism was wrong,
+> and the wrong mechanism drove fetches for two days.** "Flat charcoal" is false.
+> Measured through the actual filter chain: **white (255) grades to 159.6**, a mid-grey;
+> 240 → 149.9; 128 → 77.0; 40 → 19.7. And `grayscale(.32)` is a *saturation* operation —
+> it does not move a neutral's luminance at all. So a white frame does not go dark; it
+> goes **flat**. The failure is **contrast collapse and emptiness, not darkness**, and the
+> distinction changes what you reject: a bright frame with a real subject, real edges and
+> real falloff is *fine* and was being turned away on a rule that misnamed its own cause.
+> Caught when a white car door handle and a white front door were predicted to become
+> charcoal and measured at composed median 97.0 and 70.6 — the two brightest replacements
+> of the run. This is the same lesson as the sound-off gate from the other direction: the
+> enemy is the frame that says nothing, and brightness was never the variable.
+
+**A white-dominant subject is at risk — of saying nothing, not of going dark.** White
+marble, a pale card on pale wood, white paper in a white office all land as the same
+flat, even, featureless slab. One frame (s4: "a single closed brown envelope on a bare wooden table")
 delivered exactly what its query asked for and still rendered as a grey panel
 with no flap, seam or depth — it satisfied the letter of `image_per_scene` and
 broke its intent, saying nothing sound-off. Checked at both ken extremes, so it
@@ -168,8 +181,12 @@ Three rules, all cheap to follow at query time and expensive to fix afterwards:
    windowsill, warm morning light, dark interior behind" survives the grade;
    "steel glass of chai tea india" returns an overhead food-blog flat lay on
    white marble.
-2. **Replacing one white photo with another white photo re-breaks it.** When a
-   frame reads grey, the fix is a differently-lit original, not a re-crop.
+2. **Replacing one FEATURELESS photo with another featureless photo re-breaks it.**
+   When a frame reads as a slab, the fix is an original with a subject, an edge and
+   a falloff — not a re-crop, and not merely a darker picture. ⚠ Restated 2026-08-09:
+   this used to read "one white photo with another white photo", which sent fetches
+   hunting for darkness when the missing thing was structure. A pale frame that holds
+   a nameable object passes; a dark frame that holds nothing still fails.
    ⚠ Note the tension with the 50-30-20 corollary above ("near-black textures
    need a per-scene grade override"): that escape hatch exists under the plain
    blockframe architecture, but the **chapter archetype layer closes it** —

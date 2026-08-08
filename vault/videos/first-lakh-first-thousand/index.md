@@ -1,5 +1,5 @@
 ---
-summary: Milestone note for «Pehla 1 Lakh / The First $10,000» (hi 8:34.8 · en 8:25.6) — the channel's FIRST MEDIUM-tier run, FIRST swiss-band build and first *offense* topic. Both cuts rendered, MASTER QA PASS, packaged, facts promoted; **NOT uploaded — both studio dirs must survive until a YouTube URL exists.** The durable lesson is one class of bug seen five times: **every constant in this pipeline was tuned at SHORT's 9 lines and misbehaves at 86.** Second lesson: **every image defect on both cuts was invisible at contact-sheet size and legible at 1:1** — root cause was country-blind queries. Owed — proof-listen (hi, en) · thumbnail pick · upload · analytics after 28 days.
+summary: Milestone note for «Pehla 1 Lakh / The First $10,000» (hi 8:34.8 · en 8:25.6) — the channel's FIRST MEDIUM-tier run, FIRST swiss-band build and first *offense* topic. Both cuts rendered, MASTER QA PASS, packaged, facts promoted; **LIVE on YouTube 2026-08-01, source archived to `src/`, studio dirs deleted** (hi youtu.be/TxAANc0_7lQ · en youtu.be/UF350uxHlqU). **Thumbnails AI-enhanced retroactively 2026-08-06** — the gullak/coin-jar pair, with the prompts kept in-note. The durable lesson is one class of bug seen five times: **every constant in this pipeline was tuned at SHORT's 9 lines and misbehaves at 86.** Second lesson: **every image defect on both cuts was invisible at contact-sheet size and legible at 1:1** — root cause was country-blind queries. Owed — the enhanced PNGs are not in the repo · re-measure legibility on them · swap the live thumbnails · analytics after 28 days.
 updated: 2026-07-31
 source: run.json + the 39 stage logs in logs/ (fin-research → fin-render), both publish packs, facts-staging.md, and the prior-run `chosen:` lines read back from vault/videos/{pay-yourself-first,good-debt-vs-bad-debt,credit-history}/youtube-metadata-{hi,en}.md
 ---
@@ -190,7 +190,85 @@ to relearn.
   gate two on a 1:1 read anyway — deliberate chiaroscuro, not a black frame. **If the
   per-scene grade allowance is ever widened, s48 is the better candidate than s90.**
 
-## Thumbnails (ONE per cut — creator rule 2026-07-29)
+## Thumbnails — AI-ENHANCED 2026-08-06 (retroactive; these tiles predate the step)
+
+Both cuts were re-enhanced through **Nano Banana / Google Flow** after publication,
+under [[../../knowledge/design-thumbnail-ai-enhance]]. The originals were built before
+that step existed and were flat, near-monochrome grades — the "sterile" class the
+creator later named. **Every string survived** both passes, including the `₹` glyph and
+the two-colour sub-lines; zero garbling, zero invented text, one pass each.
+
+**What the enhance added:** a worn brass **gullak** with four ascending ₹ coin stacks
+on a scratched wooden table (hi), and a mason jar of US coins with three ascending
+stacks and folded $1 notes (en), both in warm window light. The gullak is the finding —
+a named cultural object in a prompt delivers what [[../../knowledge/stock-photo-sourcing]]
+measures as a ~20 % hit rate for India-with-people stock.
+
+⚠️ **The tone constraint was load-bearing and is a CONTENT decision, not a style one.**
+This video's thesis is that the **first** lakh is slow and only the tenth is fast. A
+triumphant cash-pile would argue with that, so both prompts specified *"patient,
+ordinary saving, not wealth — small denominations, modest quantities, a domestic table.
+No overflowing cash, no gold bars, no luxury, no glitter, no rays of light, no upward
+arrows."* → **run the sound-off test on the PROMPT, where it is cheap, not only on the
+returned image.**
+
+<details><summary>The two enhance prompts (paste with the matching PNG attached)</summary>
+
+Both share one skeleton; only the bracketed parts differ. Preserve-text block lists the
+exact strings — hi: `Rs 5,000 / MAHINA` · `PEHLA LAKH` · `20 MAHINE` · the red rule ·
+`dasva lakh - wahi Rs 5,000, sirf 7 mahine` (white, `7 mahine` green). en:
+`THE FIRST $10,000` · `$800 / MONTH` · `12.5 MONTHS` · the red rule ·
+`the tenth $10,000 - same $800, just 6 months` (white, `6 months` green).
+
+```
+Enhance this YouTube thumbnail. Keep the composition and the left-hand text
+column EXACTLY as they are.
+
+ABSOLUTE RULE — TEXT: preserve every existing letter pixel-for-pixel. Do not
+re-render, re-letter, restyle, translate, move or re-space ANY text. [list the
+exact strings, their colours and positions] must come back byte-identical.
+Add NO new text, NO labels, NO signs, NO handwriting, NO numbers, NO captions
+anywhere in the image.
+
+WHAT TO REBUILD — only the right 55% of the frame, behind and around the type:
+Replace the flat grey plate with a warm, cinematic, photoreal still life on a
+worn wooden table in soft late-afternoon window light. Deep shadow on the left
+so the text column stays clean and high-contrast; warm amber falloff right.
+
+ADD, on the right third only, as ONE clear hero group:
+  hi — a traditional Indian steel or clay gullak (coin bank), slightly worn;
+       three or four modest stacks of Indian rupee coins gently ascending left
+       to right; a few folded Indian rupee banknotes under the nearest stack
+  en — a plain glass jar holding US coins about a third full; three or four
+       modest ascending stacks of US coins; a few folded US banknotes under the
+       nearest stack
+Shallow depth of field, warm rim-light on the metal, visible table grain.
+
+TONE — this matters: it must read as PATIENT, ORDINARY SAVING, not wealth.
+Small denominations, modest quantities, a domestic table. No overflowing cash,
+no gold bars, no luxury, no glitter, no rays of light, no upward arrows.
+
+HARD CONSTRAINTS:
+- [INDIAN | US] currency only. No other currency. No currency symbols drawn
+  anywhere in the art.
+- ONE hero group. No charts, pie graphs, receipts, bill lists, checklists,
+  progress bars or infographics. Small props turn to mud at 320x180.
+- No people, no faces, no hands, no bodies anywhere.
+- Not a collage, not a comic, not 3D-render or CGI. One continuous photoreal
+  scene with real optics.
+- Do not add any promise, badge, tick, seal or arrow implying wealth, riches,
+  guaranteed returns, "financial freedom" or "get rich".
+- Output 16:9, 1280x720.
+```
+</details>
+
+🔴 **Owed on the enhanced pair:** the returned PNGs are **not in this repo** — same gap
+as japanese-money-methods. Save them as `src/thumbs/thumbnail-{hi,en}-ai.png`. They also
+return at ~2752×1536 (1.79:1) and need resizing to 1280×720 before they replace the live
+thumbnails. And `12.5 MONTHS` now overlaps the jar in the -en tile — **the ≥40 % assert
+has not been re-measured on the returned image**, only eyeballed.
+
+## The original (pre-enhance) builds — ONE per cut, creator rule 2026-07-29
 
 `studio/videos/first-lakh-first-thousand-thumbs/thumbnail-{hi,en}.png`, one HyperFrames
 project per slug (hi §v2 at 0–2 s, en §env2 at 2–4 s). Both: `npm run check` 0 lint /
