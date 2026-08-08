@@ -234,14 +234,28 @@ def cues(path, cut, first_is_joint):
                     # fin-render diffing the build's audio.json against this tool.
                     m = re.search(rf'popEach\(\s*"[^"]*{sid}[^"]*"\s*,[^,]+,\s*([\d.]+)',
                                   script)
-                    step = float(m.group(1)) if m else 0.5
-                    # ponytail: 3 clicks assumed. Every cascade shipped so far is three
-                    # chips; count the selector's elements if a 4-chip cascade appears.
-                    n = 3
-                    for k in range(n):
-                        add(casc[0][0] + k * step, "chip",
-                            f"{sid} · one click per item — the COUNT is the point"
-                            if k == 0 else "")
+                    if m:
+                        # ONE popEach: the cells are synthesised from its stagger, so
+                        # reproduce that. ponytail: 3 clicks assumed — every popEach
+                        # cascade shipped so far is three chips; count the selector's
+                        # elements if a 4-chip one appears.
+                        step = float(m.group(1))
+                        for k in range(3):
+                            add(casc[0][0] + k * step, "chip",
+                                f"{sid} · one click per item — the COUNT is the point"
+                                if k == 0 else "")
+                    else:
+                        # SPEECH-ANCHORED cascade: separate pop() calls, each already at
+                        # its own clause onset (tools/tts/clauses.py). There is no stagger
+                        # to read and inventing one is worse than useless — on hi ch1 s6
+                        # this branch reconstructed a uniform 0.5s cascade at
+                        # 24.159/24.659/25.159 against a shipped 26.509/27.959/29.109,
+                        # i.e. it disagreed with a correct build and would have regressed
+                        # it under --write. Emit one chip per call AT THAT CALL'S OWN TIME.
+                        for i, (t, _s) in enumerate(casc):
+                            add(t, "chip",
+                                f"{sid} · one click per item at its own clause onset — "
+                                f"the COUNT is the point" if i == 0 else "")
                     pick = "done"
                 else:
                     for t, s in casc:      # one per cascade, never one per element
