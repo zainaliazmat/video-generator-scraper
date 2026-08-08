@@ -83,6 +83,31 @@ Corollaries, all proven on 50-30-20:
 
 Found 2026-08-01 on japanese-money-methods; each has shipped undetected before.
 
+- **Currency photographs: check whether two notes in one frame SHARE A SERIAL, not
+  whether one serial is valid.** Prop and film money is printed from a single plate, so
+  the tell is repetition inside the frame, not anything about an individual note.
+  Found 2026-08-08 on passive-income-number hi ch2 s16 — the **hero corpus frame**, the
+  payoff of the chapter — where two visibly distinct ₹500 notes both read `ILR 176177`.
+  It had a standing DO-NOT-RE-FETCH on it and had been *verified*: the earlier check
+  confirmed the notes were post-2016 current series at full resolution, which was true
+  and beside the point. The rule it was written against was demonetisation; the defect
+  was counterfeit. **A check that reads one serial and clears the frame is answering a
+  different question than the one that matters.**
+  Known-bad serials, both surfaced repeatedly across ₹ queries — reject on sight:
+  `ILR 176177` and the entire `6UW 643492` shoot (hit on five separate queries).
+  This matters more than an ordinary sourcing miss: prop money in a finance video aimed
+  at an Indian audience is a credibility failure the audience is better equipped to spot
+  than we are.
+
+- **A DERIVED CROP must be re-derived when its source file changes.** A crop records a
+  geometry against a parent, and re-fetching the parent silently orphans it: the crop
+  still exists, still passes every check, and now shows an unrelated photograph. Found
+  2026-08-08 on passive-income-number hi ch2, where s15 is a 91.754% crop of s14's source
+  and s14 was being re-fetched in the same pass — un-caught, the continuous zoom would
+  have dissolved mid-hold into a different picture **with every check green**. The credit
+  row goes stale in the same instant and must be re-keyed too. Record the parent in the
+  manifest so the dependency is visible to the next fetch, which will not remember it.
+
 - **Never a phone or laptop SCREEN as a scene background.** Script beats about apps,
   subscriptions or "check your statement" pull screen photos by gravity, and a screen
   in frame dates the video, brands it, and fights the type. Shoot around it: glow only
@@ -102,6 +127,22 @@ Found 2026-08-01 on japanese-money-methods; each has shipped undetected before.
   bitcoin coins, a fake-kanji shopfront, and a Chinese menu board sold as Japanese).
   One pick even came back byte-identical to another scene in the same cut and only the
   md5 sweep saw it. **Read every promoted file at full resolution, and md5 it.**
+- **md5 dedupe has a hole, and it is not a rare one (2026-08-08).** en ch2's s14 came
+  back byte-unique and was still the *Hindi cut's own s16*: **Pexels has ingested part of
+  Pixabay's library**, so the same photograph lives in both pools at different
+  resolutions and therefore different hashes. It would have shipped the identical ledger
+  in both language cuts of the same video — the one thing cross-cut dedupe exists to
+  prevent — with every check green.
+  - **The cheap tell:** Pexels credits some of those contributors as *"by Pixabay"*.
+    Treat that credit line as a dedupe warning, not as attribution trivia.
+  - **The reliable check:** read the promoted file at full resolution against the
+    *sibling cut's* asset log. That is what actually caught it.
+  - **A perceptual sweep finds it mechanically** — 8×8 dHash, flag any pair within
+    Hamming ~6. Run it per chapter across BOTH cuts. It is deliberately **not** wired
+    into `pipeline_check`: every derived crop the pipeline makes on purpose (s3→s4,
+    s10→s10b, hi ch2's s13→s14 continuous zoom) sits at Hamming 5 or less, so as a hard
+    gate it would cry wolf on the pipeline's own design. Run it, then read the hits —
+    a hit is a question, not a verdict.
 
 ## The grade decides the photo: never buy high-key stock (2026-08-07)
 
@@ -165,14 +206,42 @@ Two things that make the gate cheap instead of annoying:
 - **Measure the contact sheet's cells, not the promoted file.** `crop=512:288:x:y,signalstats`
   per cell is a *pre-fetch* filter — four rejections on s4's third pass cost six
   ffprobe calls and zero downloads.
-- **Warmth has its own predictor: mean `R−B` on the raw, reject under about +40.**
-  The grade desaturates by a third, so "warm enough by eye" is not warm enough by
-  the time it renders. Measured on ch1: s5 (+61.7) and s7 (+43.6) render warm;
-  s2 (+14.6) and s3 (+3.3) do not — and s2 is instructive, because it is a
-  genuinely warm photograph (a chai glass on a sunlit sill) that simply had too
-  little saturation to survive. Under the chapter archetype no override can
-  rescue it, so the only lever is the candidate. Screen for this at the same time
-  as `YHIGH`, on the same sheet cells.
+- **⚠ RETIRED 2026-08-08 — `R−B ≥ +40` on the raw was never reachable.** It read as a
+  screening rule for two videos and cost real fetch rounds. It said: *"warmth has its
+  own predictor: mean `R−B` on the raw, reject under about +40. Measured on ch1: s5
+  (+61.7) and s7 (+43.6) render warm; s2 (+14.6) and s3 (+3.3) do not."* Those
+  observations are real; the inference from them was wrong, because every one of them
+  was taken on the SOURCE FILE and never on the encoded frame.
+
+  fin-render measured the encoded frames of passive-income-number-en ch1 and derived
+  the pass-through from scene pairs, no model:
+
+  ```
+  encoded R−B = 0.0927 × source R−B − 6.43        residual std 1.43, 5 pairs
+  ```
+
+  **Only ~9% of a photograph's warmth reaches the screen, under a fixed −6.43 from the
+  layer stack.** The proof is s1: source **+73.53**, three times warmer than anything
+  else in the chapter, landing at **+0.76** on screen — 7.9 units from the terrazzo
+  slab it was supposed to beat. To hit neutral a photograph needs source R−B ≈ **+69**;
+  to hit the old +40 target it needs ≈ **+500**, which does not exist.
+
+  So warmth is **chrome, not photograph**. The `--bg` ink is `#0d1017` (R−B −10) and it
+  is all four `.scrim` layers, the `.band`, *and* the far stop of `.field`
+  (`linear-gradient(158deg, var(--f1) 0%, var(--bg) 64%)`) — past 64% of the diagonal
+  the "warm ground" is the cool ink. Several `--f1` values are themselves cool
+  (`#161f2b` is −21, `#1a1e24` is −10). Raising `.has-photo .field` opacity makes a
+  chapter **colder**, not warmer, because the gradient it strengthens runs into `--bg`.
+
+  **What to do instead:** screen `YHIGH` (which does predict survival) and judge warmth
+  on the ENCODED FRAME. Do not reject a candidate on source R−B, and never send a slot
+  back a second time for warmth — that is a chrome edit, and `--bg` is a global
+  `blockframe.css` token shared by every cut on the channel, so it is a channel-level
+  decision, not a per-chapter or per-photograph one.
+
+  The general lesson, which this repo keeps re-learning: **a rule measured on the source
+  is a rule about the source.** The encoded frame is the only thing the viewer sees, and
+  it is the only place a visual rule may be calibrated.
 - **When a slot fails twice on brightness, change the MATERIAL, not the lighting
   adjective.** Kraft paper is diffuse: round 1 lit it badly, round 2 lit it well
   against black, both measured dead. Enamel, glass, glazed ceramic, polished

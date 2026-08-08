@@ -19,6 +19,12 @@ anchored to the SCENE and the audio does not begin at the scene's first frame.
 
 The clip is one sentence, so the boundaries this finds are commas and breath pauses.
 That is exactly the granularity a cascade wants: one cell per named thing.
+
+PRECISION, measured against fin-ceo's independent by-hand read of hi 1.6: this lands
+within 0.05s and consistently a hair LATE (2.501/3.989/5.147 against 2.50/3.95/5.10).
+Late is the safe direction — a cell arriving just after its noun reads as the picture
+following the voice, which is what the beat wants; arriving before it is the defect this
+tool exists to prevent. Do not "correct" the residual toward zero.
 """
 import argparse
 import json
