@@ -783,11 +783,60 @@ def doctor(tier):
 
 # ------------------------------------------------------------------- run.json
 
+def stale_log(log, slug, cut, stage=None):
+    """A log must POSTDATE the work it describes. Returns a problem string, or None.
+
+    The rule 'an agent that returns without its log failed' silently assumes the log's
+    ABSENCE is detectable. It is not, when a same-named log survives from an earlier
+    attempt or an earlier session. That happened twice on 2026-08-08:
+    `fin-assets-hi-ch2-2.md` was an older s16-only log read as a killed agent's output,
+    and `fin-build-hi-ch2-2.md` was dated the previous day. Either would have certified
+    unverified work as done — the exact failure this whole file exists to prevent, one
+    level up.
+
+    The comparand is the STAGE'S OWN artifact, not the project. The first version of this
+    compared against the newest file anywhere in the project and immediately false-fired
+    on a correct assets log, because a build was running in the same chapter and writing
+    newer files — stages are sequential, so a later stage always postdates an earlier
+    stage's log. Only `assets` and `build` have a single unambiguous artifact to compare
+    against; for every other stage this checks existence and stops, which is still the
+    half that catches a leftover nobody wrote."""
+    if not log:
+        return None
+    p = log if os.path.isabs(log) else os.path.join(ROOT, log)
+    if not os.path.exists(p):
+        return f"log {log} does not exist — an agent's claim without its log is worth nothing"
+    if not cut or stage not in ("assets", "build"):
+        return None
+    targets = []
+    if stage == "build":
+        targets = [os.path.join(project_dir(slug, cut), "index.html")]
+    else:
+        d = assets_img_dir(slug, cut)
+        targets = [os.path.join(d, f) for f in os.listdir(d)] if os.path.isdir(d) else []
+    newest, newest_f = 0.0, None
+    for fp in targets:
+        try:
+            m = os.path.getmtime(fp)
+        except OSError:
+            continue
+        if m > newest:
+            newest, newest_f = m, fp
+    if newest_f and os.path.getmtime(p) < newest - 1:
+        return (f"log {log} is OLDER than {os.path.relpath(newest_f, ROOT)}, the artifact this "
+                f"stage produces — it predates the work it claims to describe, so it is a "
+                f"leftover from an earlier attempt, not this one's record")
+    return None
+
+
 def mark(stage, slug, cut, problems, attempt, log, rescue=False):
     """Record the checked result in run.json — {status, reason, log, at} per DX X-3,
     retry counter as its own field. Atomic; the only writer of `done`.
     rescue=True records `rescued` (a documented no-artifact rescue path, e.g.
     research's EmptyStudyPacket) — terminal like done, so --resume skips it."""
+    stale = stale_log(log, slug, cut, stage)
+    if stale and not problems:
+        problems = [stale]
     path = os.path.join(vault_dir(slug), "run.json")
     run = {}
     if os.path.exists(path):
@@ -872,11 +921,41 @@ def _selftest():
         assert run["stages"]["fin-script-en"]["status"] == "failed"
         with open(os.path.join(vault_dir(slug), "script-hi.md"), "w", encoding="utf-8") as fh:
             fh.write("original script " + "x" * 600)
-        mark("voice", slug, cut, [], 2, "logs/fin-voice-hi-2.md")
+        logrel = os.path.join("vault", "videos", slug, "logs", "fin-voice-hi-2.md")
+        logabs = os.path.join(ROOT, logrel)
+        os.makedirs(os.path.dirname(logabs), exist_ok=True)
+        open(logabs, "w").close()
+        mark("voice", slug, cut, [], 2, logrel)
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
         assert run["stages"]["fin-voice-hi"] == {**run["stages"]["fin-voice-hi"],
                                                 "status": "done", "attempt": 2}
         assert run["stages"]["fin-voice-hi"]["script_sha256"]
+
+        # the stale-log guard: a log that predates the work it describes is a leftover
+        # from an earlier attempt, and accepting one certifies unverified work as done.
+        # Both halves matter — a MISSING log and an OLD log fail the same way in practice
+        # because neither is a record of this attempt.
+        assert stale_log("vault/videos/%s/logs/nope.md" % slug, slug, cut, "build")
+        idx = os.path.join(project_dir(slug, cut), "index.html")
+        os.makedirs(os.path.dirname(idx), exist_ok=True)
+        open(idx, "w").close()                        # the artifact `build` produces
+        os.utime(logabs, (1, 1))                      # older than it
+        assert stale_log(logrel, slug, cut, "build")
+        # mark() must FAIL a stage whose check passed but whose log is stale — the
+        # artifact being fine is exactly the case the guard exists for.
+        mark("build", slug, cut, [], 3, logrel)
+        run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
+        assert run["stages"]["fin-build-hi"]["status"] == "failed", "stale log must not mark done"
+        assert "OLDER" in run["stages"]["fin-build-hi"]["reason"]
+        os.utime(logabs, None)                        # now
+        assert stale_log(logrel, slug, cut, "build") is None
+        mark("build", slug, cut, [], 4, logrel)
+        run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
+        assert run["stages"]["fin-build-hi"]["status"] == "done"
+        # and a stage with no single artifact to compare against is existence-only,
+        # never age — a later stage legitimately postdates an earlier stage's log.
+        os.utime(logabs, (1, 1))
+        assert stale_log(logrel, slug, cut, "voice") is None
 
         # transitions: a scene must be held `transition_seconds` past its own end,
         # or the incoming cross-dissolve fades up from black instead of from the
@@ -1080,6 +1159,15 @@ def main(argv=None):
         if args.rescue:
             print(f"RESCUED {args.stage}: " + ("; ".join(problems) or "no artifact"))
             return 0
+        # `mark` can fail a stage the artifact check passed — a missing or stale log means
+        # nothing recorded this attempt, whatever the files look like. Report what was
+        # WRITTEN, not what the check found, or this prints PASS over a `failed` entry.
+        stale = stale_log(args.log, args.slug, args.cut, args.stage)
+        if stale and not problems:
+            print(f"FAIL {args.stage}" + (f"-{args.cut}" if args.cut else ""))
+            print(f"  ✗ {stale}")
+            print("  (the artifact check itself passed — this is the log, not the work)")
+            return 1
     if problems:
         print(f"FAIL {args.stage}" + (f"-{args.cut}" if args.cut else ""))
         for pr in problems:
