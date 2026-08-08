@@ -1,88 +1,113 @@
 ---
-summary: Handover prompt for resuming the passive-income-number run in a fresh session (written 2026-08-08). Session file — delete once folded into the milestone note.
+summary: Handover for resuming the passive-income-number run (rewritten 2026-08-08 after a session-limit stop). Session file — delete once folded into the milestone note.
 updated: 2026-08-08
 source: this run's run.json, stage logs and chapter reviews.
 ---
 
-Resume the `passive-income-number` finance video run. Read
-`vault/videos/passive-income-number/run.json` first — it is the authoritative state,
-and it carries the creator's `constraints`, the `style_decision`, both measured hook
-gates, the budget and the per-chapter records.
+Resume the `passive-income-number` finance video run:
 
-## Where it stands
+```
+/finance-video --resume passive-income-number
+```
 
-**English cut — ready to build.** Script (restyled, 81 lines), audit (PASS), voice
-(81 clips on Brian, 527.873s) and storyboard (81 scenes, 84 image slots) are all
-marked `done`. `studio/videos/passive-income-number-en/assets/cues-tables.json` is
-written. **Nothing is built yet.** Next action: `fin-assets` on en chapter 1, then
-the chapter loop (assets → build → `hyperframes check` → draft render + sheet →
-`fin-editor` → `fin-ceo` → lock) for all 6 chapters.
+`vault/videos/passive-income-number/run.json` is authoritative. Read it first — it now
+carries a complete per-chapter map, the creator's `constraints`, both measured hook
+gates, the budget, and **eight root-cause tool fixes** made on 2026-08-08.
 
-**Hindi cut — needs re-doing from the script.** Its script/audit/voice/storyboard
-are marked `superseded`, because the creator changed both the register (style E) and
-the voice (Harsh → Amrut Deshmukh, already switched in `tools/format.json`). Chapters
-1 and 2 are built but obsolete. **Their photographs survive and must be reused** —
-every image in both chapters is verified and passes the new gates, and three of them
-took multiple rounds to land. Only script, voice, timing and layout get redone.
+## Stopped by a session limit, not by a failure
 
-## What style E is
+Two agents were killed mid-flight (limit reset 9:10am Asia/Karachi). **Neither wrote a
+log, so neither stage is done**, and nothing in `run.json` claims otherwise — every
+stage marked `done` was re-verified against disk after the stop.
 
-Creator-approved after a listening test. Reference scripts, chapters 1-2 of each cut,
-in `studio/voice-tests/passive-income-number/`:
-`style-E-teacher-curiosity.txt` (hi) and `style-E-en-teacher-curiosity.txt` (en).
+## The two next actions
 
-1. The cold open is a **what-if**, not a statement, and the phone's silence is the
-   promise while its single buzz is the payoff.
-2. **Signposted teaching** — «यहाँ ध्यान दीजिए» / "Notice this", "Think of it this
-   way", "Now watch what it buys", "Work it through".
-3. **A tank analogy that pays off later**: "how much can you draw each year without
-   emptying it" IS the safe-withdrawal question, so the mid-video yield-trap beat
-   becomes a callback rather than a new idea.
-4. **Stepped arithmetic** — yearly, then monthly, then the division, each its own line.
+1. **`fin-ceo` on en chapter 1.** The chapter has `fin-editor` PASS (round 3, 0 blockers,
+   0 should-fix) and is waiting only on the CEO gate. The dispatched agent died before
+   writing anything, so the gate has **not** been attempted. Artifacts are on disk:
+   `renders/DRAFT-ch1.mp4` (1393 frames / 46.433s / 0 black segments) and a regenerated
+   `renders/SHEET-ch1.jpg`.
+2. **`fin-build` on hi chapter 1.** ⚠ **Do not trust `index.html` in that project.**
+   `build.mjs` and `package-lock.json` are new and possibly incomplete; `index.html` is
+   still the **old style-A build from 2026-08-07**. The style-E rotation re-keyed the
+   image filenames, so the old composition now points at the *new* photographs and would
+   render the right slots with the wrong pictures, every check green. Regenerate
+   `index.html` from `build.mjs` before anything else.
 
-It measurably worked: the en hook gate is **9.571s** against the hi cut's 14.9-15.1s.
+## Where each cut stands
 
-## Non-negotiables (from run.json `constraints`)
+**en (6 chapters).** script · audit · voice · storyboard all done. ch1: assets ×3,
+build ×3, draft ×3, editor PASS — awaiting CEO. ch2: assets PASS (16 accepted, 128
+rejected), build not started. ch3–6 not started.
 
-Every corpus figure speaks its rate in the SAME line AND shares its frame · derived
-income figures too (`WHAT ₹2,500 BUYS` needed the rate or an ILLUSTRATIVE marker) ·
-no return promise · no corpus converted to an age · the word "dividend" is banned in
-the **hi** cut only, and en line 1.7 uses it on purpose because it is the phrase the
-format ranks on · currency purity per cut · no Latin digits in a VO line · no first
-person · no rail (nothing on screen may reveal the video is chapter-based).
+**hi (7 chapters).** script · audit · voice · storyboard all done and measured. The cut
+runs **519.331s = 8:39.331**, clearing YouTube's 8:00 mid-roll floor by 39.3s — it was
+7:59.259 before a deliberate expansion (see `hi_length_decision`). ch1: assets PASS,
+build half-written. ch2: not started, but its style-A photographs are reusable. ch3–7 not
+started.
 
-## The traps this run has already paid for
+**Budget: ElevenLabs 300 / 350.** Enough for ~50 more clips. vidIQ **13 credits** against
+a ~35-credit close-out packaging pass, resetting 2026-08-29 — still unresolved: ration
+it, defer the title lock, or run one market only.
 
-Read `vault/knowledge/stock-photo-sourcing.md` before any fetch. In short:
+## Uncommitted code
 
-- **`YHIGH ≥ 110`** on the source, enforced by `pipeline_check check assets --chapter <N>`
-  — highlight ceiling predicts survival under the locked grade, average brightness does
-  not. Measure the CONTACT SHEET CELLS, not the promoted file; it is a pre-fetch filter.
-- **mean `R−B ≥ ~+40`** for warmth. No per-scene grade override exists under the
-  chapter archetype, so the photograph is the only variable.
-- **A gate can only reject, never approve.** Two candidates once cleared both gates and
-  were a `PAST DUE` shoot saying the opposite of the line.
-- **When a slot fails twice on brightness, change the MATERIAL** — matte paper has no
-  specular return; enamel, glass, glazed ceramic, polished metal do.
-- Pass `--chapter <N>` to the assets check or it reads the wrong directory and reports
-  green over nothing.
+`vault_commit.py` only touches vault paths by design, so these are **still uncommitted**
+and will be lost if the tree is reset:
 
-Six tooling defects were fixed today and all share one shape: **a check reporting green
-over the thing it existed to catch.** Invalid JS leaving a scene blank · a cue generator
-parsing the wrong `<script>` block · a licence assertion pointed at a directory that did
-not exist · another video's cue holds hardcoded in a shared tool · a foot struck through
-by a comma at 11/11 WCAG AA · a photograph satisfying `image_per_scene` by loading a
-file. Trust the encoded frames over the source, always.
+- `tools/pipeline_check.py` — chapter-aware `check_build`, comment stripping, the
+  duration band
+- `tools/tts/batch.py` — the `.voice` stamp
+- `tools/chapter_sheet.py` — settle on all drawn art, plus a new `--selftest`
+- `.claude/agents/fin-audit.md` — gained `Write`
+- `studio/videos/passive-income-number-hi/gen_vo_hi.sh` — the corrected `--force` note
 
-## Budget
+## What this session learned (all recorded in run.json / the vault)
 
-**ElevenLabs 209 / 350.** The hi restyle needs a full ~81 (voice AND text changed).
-**vidIQ 13 credits** against a ~35-credit close-out packaging pass, resetting 2026-08-29
-— that decision is still open: ration it, defer the title lock, or run one market only.
+Seven of the eight fixes are one bug wearing different clothes: **a check reporting green
+over the exact thing it existed to catch.** The eighth is its inverse — a grep that
+reports a false blocker.
 
-## Owed
+- `check_build` refused `--chapter`, so the whole chapter loop had **no build
+  postcondition**; the Lottie guard fired on the comment explaining the trap it prevents.
+- The duration check **double-counted pause silence** the rate key already contained —
+  proven general by measuring both cuts, then fixed by making the estimate a *range*,
+  since a pause mark is a request the engine honours variably.
+- The TTS resume **could not see a voice change**. 17 lines were byte-identical across
+  the Harsh→Amrut switch and would have shipped chapter 5 half in the retired voice, with
+  every check green — nothing downstream tests timbre.
+- `fin-audit` **had no tool that could create its own required log**, so it correctly
+  reported failure on a passing audit.
+- **`R−B ≥ +40` was unreachable.** Only ~9% of a photograph's warmth survives to the
+  encoded frame (`encoded = 0.0927 × source − 6.43`); a source of ~+500 would be needed.
+  Warmth is chrome, not photograph. Retired — it had cost four fetch rounds.
+- `chapter_sheet.py` sheeted a **tick cascade one third built** — third occurrence of
+  that failure, third kind of art. Now keyed off the whole `v-` family.
+- A **grep for `₹` on the notification Lottie returns 0 and always will** — the generator
+  draws the mark as five round-capped strokes, not text. Verify from the generator or the
+  encode, never the artefact.
 
-A real study packet (`study.py --ids JiuVKaO2a6c Jn3N9OzSY1c`) once yt-dlp cookies exist
-— `YTAUTO_COOKIES` / `YTAUTO_COOKIES_BROWSER` were added to `study.py` today. The
-current study was built from two bought vidIQ transcripts, so its visual half is
-recorded MISSING, not faked.
+Two gaps recorded as **owed** rather than built mid-run, both with reasons in `run.json`:
+the derived-income assert is frame-only and cannot see a VO line speaking money over a
+bare frame; and md5 dedupe cannot catch a photograph that lives in both stock pools at
+different resolutions (Pexels has ingested part of Pixabay — the tell is a "by Pixabay"
+credit).
+
+## Two questions still open for `fin-editor`, both deliberately unruled
+
+- **hi 1.3→1.4** is a dissolve, not the script's declared continuous zoom, because the
+  reused chai-glass counter has no phone in it. The en cut's equivalent joint was an
+  editor blocker when it read as two pictures, and its fix — point both scenes at one
+  file — is unavailable here.
+- **en s10 could not source "the tank"** (6 sheets, 36 candidates). It resolves as a
+  brass tap on a plain steel body. This matters beyond one frame: the tank-and-two-taps
+  analogy is style E's load-bearing device, the mid-video yield-trap beat is written as
+  its callback, and s46/s47/s57 inherit the object family. If the image cannot say TANK,
+  the callback lands on an object the viewer was never shown.
+
+## Still owed
+
+A real study packet (`study.py --ids JiuVKaO2a6c Jn3N9OzSY1c`) once yt-dlp cookies exist —
+`YTAUTO_COOKIES` / `YTAUTO_COOKIES_BROWSER` were added to `study.py`. The current study
+was built from two bought vidIQ transcripts, so its visual half is recorded MISSING, not
+faked.

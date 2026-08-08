@@ -154,10 +154,19 @@
   },
   "chapters": {
     "_note": "Chapter-first production (orchestrator §3b): each chapter is a standalone project at studio/videos/<slug>-<cut>-ch<N>/, timings rebased to play from 0 but relative gaps exact so chapters concatenate frame-exact. hi has 7 chapters, en has 6. A chapter locks only after fin-editor PASS and fin-ceo SHIP; locked chapters are never rebuilt on --resume. The per-cut fin-assets/fin-build stage entries in `stages` are marked once, at the end of that cut's loop — not per chapter — because a per-chapter mark would read as the whole stage being done.",
+    "_THIS_MAP_IS_AUTHORITATIVE": "⚠ 2026-08-08: `stages` DOES now carry `fin-assets-en`, `fin-build-en` and `fin-assets-hi` as done, and that is misleading — each was written by `pipeline_check mark <stage> --chapter <N>`, so it records ONE CHAPTER passing, not the whole cut. `mark` has no way to say 'chapter 1 of 6'. Every chapter of both cuts is therefore listed explicitly below, including the ones never started. **Read chapter progress ONLY from here, never from `stages`.** This is the same failure this run kept hitting elsewhere — a green signal covering something it was never measuring.",
     "_carry_forward_from_ch1_assets": "fin-assets could not land a window photograph for s2 (three rounds across both pools returned coffee, book spines and a church rose window), so two LATER briefs must adjust rather than assume: s77's callback should rhyme with the chai GLASS, not the window; and s25 must put its brass weights visibly in frame or it reads as s7 reused. Carried here because the agent that found it does not run again until its own chapter. ⚠ SUPERSEDED 2026-08-08 by fin-storyboard-hi attempt 2. That note was written against the style-A scene numbering, which no longer exists (the restyle renumbered to 81 scenes). The window problem it worked around is GONE on its own: style E's 1.3 names a counter and a steel glass, not a window, so s2's blocker never arises. Do not apply the s77/s25 instructions to the new numbering — they refer to scenes that are not the same scenes.",
     "hi": {
       "1": {
-        "status": "superseded",
+        "status": "assets_done_build_pending",
+        "_style_E_state_2026-08-08": {
+          "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch1-6.md",
+          "assets_verdict": "PASS — 8 slots for s1-s8: 6 REUSED VERBATIM under rotated names with credit rows re-keyed, 2 fetched from 24 candidates over 4 sheets. Zero duplicate md5s across all of studio/.",
+          "⚠_HALF_STATE_DO_NOT_TRUST_index.html": "fin-build was KILLED MID-WRITE by the session limit. `build.mjs` (07:39) and `package-lock.json` (07:36) are NEW and possibly incomplete; `index.html` is still the OLD STYLE-A build from 2026-08-07 14:30. Do not run or read index.html as current — the style-E rotation re-keyed the image filenames, so the old composition now points at the NEW photographs and would render the right slots with the WRONG pictures, every check green. fin-build must regenerate index.html from build.mjs before anything else. No log was written, so no stage claims this is done.",
+          "declared_caveats_for_the_editor": "fin-assets declared two on s8, both deliberately left for fin-editor to rule from the ENCODE rather than pre-ruled by the orchestrator: (1) s8 is 1280px, drawn ~1.63x. Unlike en's s4 — a hero frame under a sharp vector banner, where the >=1600 rule is unambiguous — s8 is a chapter-closing frame with no vector overlay, a materially weaker case. (2) The chapter runs 5 of 8 frames on WOOD, where en ch1 needed four re-fetches to get from 6/8 to 3/8.",
+          "storyboard_override_to_rule_on": "The storyboard makes s4 a DISSOLVE, not the script's declared continuous zoom, because the reused s3 chai-glass counter contains no phone. The s4 fetch is briefed on the same counter material so the place still reads as one place. The en cut's equivalent joint became an editor blocker when it read as two pictures — see chapters.en.1._the_expensive_lesson, whose answer was to point BOTH scenes at ONE file. That answer is unavailable here, so this needs a real ruling."
+        },
+        "_superseded_style_A_record_below": true,
         "round": 2,
         "draft": "studio/videos/passive-income-number-hi-ch1/renders/DRAFT-ch1.mp4",
         "sheet": "studio/videos/passive-income-number-hi-ch1/renders/SHEET-ch1.jpg",
@@ -193,13 +202,48 @@
         "blockers": "s15 the video's FIRST corpus figure sits on DEMONETISED pre-2016 Mahatma Gandhi Series ₹500 notes — storyboard §9 names s15 by number and forbids it, and the vault has warned since 50-30-20. s11 ~30 unsold clay gullaks at a pottery market under 'SIP puts in, SWP takes out'. s19 a brickyard of HUNDREDS of blocks under THE FIRST BRICK / 'this feels small, and it IS small'. s17 a bare RJ45 lead under 'the phone recharge and the home internet' — neither subject present.",
         "should_fix": "s17→s18→s19 is 20.4s of three flat desaturated textures where the win has to land. s18 asserts a COUNT of twelve over uncountable bundles. s16's funnel reads as a RISING GROWTH CURVE. s10's circled date is sliced off the bottom edge (crop fix, no fetch). s9's card index grades to indistinct brown.",
         "reference": "s11b was serial-checked and CLEARED — current stone-grey notes with MAHATMA GANDHI microtext. It is the reference s15's replacement must match; do not re-fetch it.",
-        "superseded_reason": "built on style A and the Harsh voice; both changed 2026-08-07. The image work survives and should be reused — every photograph in ch1 and ch2 is verified and passes the YHIGH gate; only script, voice, timing and layout are re-done."
-      }
+        "superseded_reason": "built on style A and the Harsh voice; both changed 2026-08-07. The image work survives and should be reused — every photograph in ch1 and ch2 is verified and passes the YHIGH gate; only script, voice, timing and layout are re-done.",
+        "_style_E_state_2026-08-08": "NOT STARTED. Its style-A photographs remain on disk and the style-E storyboard reuses several of them — notably s11b, the serial-checked CLEARED current-series notes, which now backs the cut's FIRST CORPUS FIGURE and thereby kills the demonetised-notes blocker with zero fetches. Do not re-fetch s11b."
+      },
+      "3": {"status": "pending", "note": "not started — ⚠ s28 reuses assets-ch1/style-a/s7.jpg, NOT final/s7.jpg; the style-E rotation made final/s7.jpg the STAIRCASE. Storyboard §10a is corrected, but verify the path before promoting."},
+      "4": {"status": "pending", "note": "not started"},
+      "5": {"status": "pending", "note": "not started"},
+      "6": {"status": "pending", "note": "not started"},
+      "7": {"status": "pending", "note": "not started"}
     },
-    "en": {},
+    "en": {
+      "1": {
+        "status": "editor_pass_awaiting_ceo",
+        "round": 3,
+        "draft": "studio/videos/passive-income-number-en-ch1/renders/DRAFT-ch1.mp4",
+        "sheet": "studio/videos/passive-income-number-en-ch1/renders/SHEET-ch1.jpg",
+        "frames": 1393,
+        "seconds": 46.42,
+        "fps": 30,
+        "scenes": "s1-s8",
+        "editor": "vault/videos/passive-income-number/logs/editor-en-ch1-3.md",
+        "editor_verdict": "PASS — 0 blockers, 0 should-fix (round 3)",
+        "rounds": "assets x3, build x3, draft x3, editor x3",
+        "verified_good": "s3->s4 matched-frame hold measured four ways and positive-controlled (scdet 0.056 vs 0.446/0.352; frame-delta 0.313 vs 3.016/2.006; max dYAVG 0.13 vs 2.90; the 9.467 control frame does show two superimposed photographs, so the method detects a double exposure when there is one). Lottie animates, onset 15.933 = the asset's own 5-frame park, identical across all three renders. s6's drawn count staggers at exactly 0.600s x4, last tick +3.116. 1393 frames exact, 0 black segments, no rail. Both rate asserts armed by planting a figure and confirming the check went red.",
+        "_the_expensive_lesson": "s4 was a derived crop at 1200px; I sent it back for the >=1600 rule, the re-fetch made it an exact-16:9 crop against s3's 3:2 at center 70%, and the two rectangles read as a DOUBLE EXPOSURE — two phones, two mugs, two vases. Fixing resolution created a worse defect. The editor's answer beat both: point BOTH scenes at ONE file and chain the ken. A matched-frame hold should never be two files.",
+        "_next_action": "fin-ceo round 1. It was dispatched 2026-08-08 and KILLED by the session limit before writing anything — no log, no verdict, so the CEO gate has NOT been attempted. Re-dispatch it; the chapter cannot lock without SHIP."
+      },
+      "2": {
+        "status": "assets_done_build_pending",
+        "scenes": "s9-s23",
+        "assets": "vault/videos/passive-income-number/logs/fin-assets-en-ch2-1.md",
+        "assets_verdict": "PASS — 15 backgrounds + the s10b second framing, every file >=1600px, every YHIGH >=138 against the 110 gate, zero md5 collisions across both cuts. Accepted 16, rejected 128, dropped 0.",
+        "note": "Two flags live in `_carry_forward_en_ch2_to_ch4_ch5`: THE TANK could not be sourced (s10 resolves as a brass tap on a plain steel body; sound-off gate 3 declared weakest there; ch4/ch5 s46/s47/s57 inherit the object family), and one candidate was the hi cut's own s16 arriving byte-unique through the other pool."
+      },
+      "3": {"status": "pending", "note": "not started"},
+      "4": {"status": "pending", "note": "not started"},
+      "5": {"status": "pending", "note": "not started"},
+      "6": {"status": "pending", "note": "not started — see _carry_forward_en_ch1_to_ch2_ch6: s74 needs re-planning because s8 already used the full-height ladder"}
+    },
     "_carry_forward_to_storyboard_hi": "From fin-audit-hi-2 (2026-08-08): 5.2 and 6.13 are `--warn` frames whose strings contain India's 3.0% as the COMPARATOR. The tint must land on the 10/12/4% token, not on the 3.0%, or the frame argues against its own thesis. Carried here because the agent that found it does not run again before the storyboard. ALSO from fin-script-hi attempt 3 (2026-08-08): the two-`data-framings` instruction was INVERTED. It named 2.4, which measures 7.853s and needs one framing; the cut's only max_scene_seconds breach is 6.13 at 9.812s. Point the framings at 6.13. MEASURED 2026-08-08 after the re-voice: FOUR scenes breach max_scene_seconds (9.0) and need two data-framings each — 6.13 (9.812s), 5.12 (9.603s), 5.17 (9.185s), 4.4 (9.159s) — and two sit within 0.1s of the cap: 3.6 (8.976s), 6.8 (8.924s). Note 5.12 breached HARDEST at only 105 chars: the script's 117-char flat ceiling screened 4.4 and 5.17 and let 5.12 straight through, because Amrut slows on spelled-out rates («चार परसेंट»), the same mechanic as 6.13. A char ceiling does not predict a scene breach; only measurement does.",
     "_carry_forward_en_ch2_to_ch4_ch5": "fin-assets en ch2 could not source THE TANK — six contact sheets and 36 candidates returned tanks with no tap or taps with no tank, so s10/s10b resolve it as a brass tap on a plain steel body, taking the constant §10 itself names as load-bearing rather than a near-miss on the silhouette. Nothing was faked and the weakness is declared: sound-off gate 3 is genuinely weakest there. **s46, s47 and s57 in ch4/ch5 INHERIT this object family**, so if fin-editor rejects s10 the fix is a storyboard decision about the object family, not another fetch round. Stakes are higher than one frame: the tank-and-two-taps analogy is style E's load-bearing device — 'how much can you draw each year without emptying it' IS the safe-withdrawal question, and the mid-video yield-trap beat is written as its callback. If the image cannot say TANK, the callback lands on an object the viewer was never shown.",
-    "_lottie_glyph_grep_is_a_false_negative": "VERIFIED 2026-08-08. The hi ch1 round-1 blocker 'notification card carries no ₹ glyph' is CLOSED, but `grep '₹' assets/lottie/phone-notify-credit.json` returns 0 and always will: assets/lottie/src/phone-notify-credit.py draws the mark in rupee() as FIVE ROUND-CAPPED STROKES, not as text. Same for the `$` on the -en twin. So a glyph check against the artefact reports a false BLOCKER — the inverse of this run's usual defect, a check going RED over something correct. Verify from the GENERATOR or from encoded frames (fin-build already proved the $ legible in the en encode); never from a grep of the JSON."
+    "_lottie_glyph_grep_is_a_false_negative": "VERIFIED 2026-08-08. The hi ch1 round-1 blocker 'notification card carries no ₹ glyph' is CLOSED, but `grep '₹' assets/lottie/phone-notify-credit.json` returns 0 and always will: assets/lottie/src/phone-notify-credit.py draws the mark in rupee() as FIVE ROUND-CAPPED STROKES, not as text. Same for the `$` on the -en twin. So a glyph check against the artefact reports a false BLOCKER — the inverse of this run's usual defect, a check going RED over something correct. Verify from the GENERATOR or from encoded frames (fin-build already proved the $ legible in the en encode); never from a grep of the JSON.",
+    "_carry_forward_en_ch1_to_ch2_ch6": "From fin-editor en ch1 round 3 (2026-08-08): (1) **s41/s42 and s75/s76 are the same matched-frame-hold shape as s3/s4** — build them pointing at ONE file under one chained ken push the FIRST time, not as two files dissolving. s3/s4 cost three rounds to learn this. (2) **s8 has eaten s74's territory** — its ladder reads full-height, which §10 had planned as ch6's move for s74, so s74 needs re-planning when ch6 is built or it repeats a frame the viewer has already seen."
   },
   "tool_fixes_this_run": [
     "chapter_sheet.py: scenes with a countUp now settle at +4.5s instead of +2.6s. The rung-one corpus counts to ₹10,00,000 over 1.2s from +1.90, so every sheet cell — and therefore every downstream reviewer and the CEO — was shown ₹8,36,874: plausible, wrong, and the figure the rung would have been judged on. Five more rungs in ch3-7 would each have shown their own fabricated total. A partial chart looks broken; a partial count looks like a real number.",
