@@ -71,6 +71,39 @@ COUNTED = set()
 DRY = set()
 
 
+def gap_violations(sfx):
+    """`format.json cue_min_gap_seconds` had NO reader anywhere in the tree — it was a
+    documented constant that nothing enforced, so en ch2 shipped a 0.600s gap at s18
+    that both the build and the render passed. fin-editor caught it by ear.
+
+    A chip CASCADE is exempt by design: `format.json cascade.gap_seconds` is [0.6, 0.7]
+    and a counted cascade draws at 0.60, deliberately tighter than the 0.8 floor. The
+    floor is about two SEPARATE events crowding each other, not about the clicks inside
+    one run — without this exemption the check would fire on every counted cascade,
+    which is how a new check earns itself a --no-verify."""
+    fmt = json.load(open(os.path.join(ROOT, "tools/format.json")))
+    floor = fmt.get("cue_min_gap_seconds", 0.8)
+    timed = [c for c in sfx if "at" in c]
+    bad = []
+    for prev, cur in zip(timed, timed[1:]):
+        gap = round(cur["at"] - prev["at"], 3)
+        if gap >= floor or (prev.get("name") == "chip" and cur.get("name") == "chip"):
+            continue
+        bad.append("%.3f -> %.3f is %.3fs (%s -> %s), under the %.1fs floor"
+                   % (prev["at"], cur["at"], gap, prev.get("name"), cur.get("name"), floor))
+    return bad
+
+
+def existing_music(proj):
+    """The bed already chosen for this chapter, if it has been built. Returns None
+    for a fresh chapter, which is the only case where this tool gets to pick."""
+    try:
+        with open(os.path.join(proj, "assets", "audio.json"), encoding="utf-8") as fh:
+            return json.load(fh).get("music")
+    except (OSError, ValueError):
+        return None
+
+
 def load_tables(proj, cut):
     """Populate HOLDS/BUZZ/COUNTED from the cut's own table file."""
     cut_dir = re.sub(r"-ch\d+$", "", proj)
@@ -264,7 +297,13 @@ def main():
         "_density": f"{n} cues over {order[0]}-{order[-1]}, about one per "
                     f"{span / max(n - 1, 1):.1f}s of scene starts. The reference "
                     f"is -en ch1: 22 cues in 57.189s.",
-        "music": "bed-resolve",
+        # The bed is a per-chapter choice the BUILD makes and this tool has no basis
+        # to re-make: en ch1 and ch2 ship `bed-tension`, hi ch1 ships `bed-resolve`.
+        # Hardcoding one meant `--write` silently swapped the other — the same class
+        # as the hardcoded-table gap fixed on 2026-08-07, and caught the same way, by
+        # fin-render diffing a build's audio.json against this generator. Preserve
+        # what is already there; only choose for a chapter that has never been built.
+        "music": existing_music(proj) or "bed-resolve",
         "sfx": sfx,
     }
     if a.write:
@@ -281,6 +320,38 @@ def main():
         json.dump(doc, sys.stdout, ensure_ascii=False, indent=1)
         print()
 
+    # Validate the BUILD's list, not just our own — the build writes audio.json by hand
+    # and that is the file mix.py lays down, so it is the one that has to be legal.
+    shipped = os.path.join(proj, "assets", "audio.json")
+    for label, cues_list in (("generated", doc["sfx"]),
+                             ("shipped " + os.path.relpath(shipped, ROOT),
+                              (json.load(open(shipped, encoding="utf-8")).get("sfx", [])
+                               if os.path.exists(shipped) and not a.write else []))):
+        bad = gap_violations(cues_list)
+        if bad:
+            print("FAIL cue_min_gap (%s) — %d:" % (label, len(bad)), file=sys.stderr)
+            for b in bad:
+                print("  " + b, file=sys.stderr)
+            sys.exit(1)
+
+
+def selftest():
+    """One runnable check: the en ch2 s18 shape must fail, and a counted cascade at the
+    0.60 spacing the build actually draws must NOT."""
+    assert gap_violations([{"at": 10.0, "name": "reveal"}, {"at": 10.6, "name": "stamp"}]), \
+        "0.600s between two separate events must fail"
+    assert not gap_violations([{"at": 22.759, "name": "chip"}, {"at": 23.359, "name": "chip"},
+                               {"at": 23.959, "name": "chip"}]), \
+        "a counted cascade at 0.60 is exempt by format.json cascade.gap_seconds"
+    assert not gap_violations([{"at": 10.0, "name": "reveal"}, {"at": 10.8, "name": "stamp"}]), \
+        "exactly the floor is legal"
+    assert not gap_violations([{"_dry": "s9 is DRY"}, {"at": 1.0, "name": "transition"}]), \
+        "untimed rows must not be compared"
+    print("PASS cues.py --selftest")
+
 
 if __name__ == "__main__":
-    main()
+    if "--selftest" in sys.argv:
+        selftest()
+    else:
+        main()

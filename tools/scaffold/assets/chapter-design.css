@@ -173,11 +173,35 @@
 .scene.centred .stack {
   justify-self: center; align-self: center; margin-top: 0;
   align-items: center; text-align: center; width: auto; max-width: 1500px;
+  /* This block resets everything B's stack sets EXCEPT `padding-left: 62px`, so a
+     centred archetype-B scene rendered its "centred" content 31px right of frame
+     centre. The 62px exists to hold the type off `.vrule` — and `.vrule` is
+     `display: none` three rules down on exactly these scenes, so on a centred
+     scene the padding has nothing to hold off and no reason to exist.
+     Invisible in isolation, which is why it survived: it only shows when
+     something genuinely centred sits in the same frame. passive-income-number
+     en 2.13 is that frame — `.measure.under` is at `left: calc(50% - 460px)` and
+     IS centred, so the ladder bar and the figure above it disagreed by 31px.
+     Found by fin-build on en ch2 (four scenes there, plus every B scene of
+     chapters 3-6), patched locally in that build.mjs and reported as a system
+     gap rather than fixed in place. Ported here 2026-08-08 so the remaining
+     chapters inherit it instead of each build re-deriving the same patch. */
+  padding-left: 0;
 }
 .scene.centred .plate,
 .scene.centred .crule,
 .scene.centred .vrule,
 .scene.centred .brule { display: none; }
+/* Same shape as the padding-left reset above, and found the same way — twice, by two
+   different chapters. `.arch-b .huge/.foot` are capped at 900px because in the FIGURE
+   archetype the type shares the frame with the art plate. On a centred scene `.plate`
+   is `display: none` one rule up, so the plate is gone and the cap is the leftover of
+   a layout that is not on screen: the stack is allowed 1500px and its own children
+   still refuse to use it. en ch2 hit this on 2.14 and patched it as a "ONE-OFF, this
+   composition only"; hi ch2 hit it independently and called it a system gap, which is
+   the correct read. Ported 2026-08-08. */
+.scene.centred.arch-b .huge,
+.scene.centred.arch-b .foot { max-width: 1500px; }
 
 /* B's measure bar — a labelled track under the type that drains or fills. The
    animatic's ACCOUNT bar; generalised. */
