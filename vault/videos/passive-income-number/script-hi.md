@@ -76,7 +76,7 @@ characters across exactly ten lines**, landing at **6,422 chars → 514.5 s (8:3
 | **3.5** | 65 | 110 | +45 | 8.08 | Says out loud that the **bill did not shrink** — only the pocket changed. Kills the one misreading the rung ladder invites, and rhymes with 2.13. |
 | **3.6** | 65 | 117 | +52 | 8.20 | Names the mechanism the whole ladder rests on: the rate is **one stamp pressed on every rung**, and the only thing that moves is the corpus. On-metaphor with the frame's stamp. |
 | **4.4** | 61 | 119 | +58 | 8.15 | **Speaks the 3.0% rate inside a derived-income line** (it was frame-only before — see the rate check), then marks rung three as the first rung that pays a **need**, not a convenience. |
-| **4.9** | 63 | 117 | +54 | 8.06 | The tax line was one clause and stopped. It now states the practical consequence with **no figure**: what reaches the hand is a little less than the ledger. B.2's LTCG row is SOFT, so still no number. |
+| **4.9** | 63 | 120 | +57 | 8.27 | The tax line was one clause and stopped. It now states the practical consequence with **no figure**: the hand *may* get less than the ledger. B.2's LTCG row is SOFT, so still no number — and `fin-audit-hi-3` hedged the certainty out, because B.2's own ₹1.25 lakh exemption makes the tax at this rung zero. |
 | **5.3** | 57 | 113 | +56 | 7.54 | The strongest addition in the draft: **the division at a bigger rate is not wrong** — it is the tank that fails. Converts "stop here" from an assertion into a reason, and hands off directly into 5.4's tank callback. |
 | **5.12** | 61 | 105 | +44 | 7.96 | Explains **why** four percent dominates the internet — repetition, until a paper starts sounding like a rule. Primes 5.13's provenance beat. |
 | **5.17** | 73 | 121 | +48 | 8.42 | The inflation line stated a rate and stopped. It now states the **mechanism**: next year the same ration costs more, so the withdrawal has to rise — which is why the surviving rate is smaller. |
@@ -676,7 +676,7 @@ is the tank callback**, so the honesty beat is a return to 2.3–2.4's picture, 
 **4.9** ★ *expanded +54*
 > और यह भी याद रखिए कि इस तरह निकाले गए पैसे पर टैक्स भी लगता है। काग़ज़ पर जो हिसाब बना, हाथ में उससे थोड़ा कम आ सकता है।
 
-`[arch C | img: a tax challan form face-up on a desk, pen across it | bar: AND TAX | stmt: Withdrawals are taxable — the hand may get less than the ledger | foot: NO RATE STATED ON PURPOSE — facts-staging B.2's LTCG row is SOFT, no statute or ITD page was read | ⚠ EXPANDED — modelled 8.06s scene, re-measure after TTS. Still ZERO tax figures, spoken or shown.]`
+`[arch C | img: a tax challan form face-up on a desk, pen across it | bar: AND TAX | stmt: Withdrawals are taxable — the hand may get less than the ledger | foot: NO RATE STATED ON PURPOSE — facts-staging B.2's LTCG row is SOFT, no statute or ITD page was read | ⚠ EXPANDED — modelled 8.06s scene, re-measure after TTS. Still ZERO tax figures, spoken or shown. | ⚠ fin-audit-hi-3 HEDGED the VO and this `stmt` from "gets less" to "may get less" — B.2's own ₹1.25 lakh LTCG exemption makes the tax at this rung zero, so the certainty was unsourced. VO is now 120 chars, not 117 (+3); recount programmatically, cut total 6,425.]`
 
 **4.10**
 > अब तक तीन सीढ़ियाँ हुईं, और तीनों पर एक ही दर चली — तीन परसेंट।
@@ -835,7 +835,7 @@ measured breach of `max_scene_seconds`.**
 **6.8** ★ *expanded +49*
 > अब इस पच्चीस हज़ार को एक सरकारी आँकड़े के बगल में रखिए। अकेला नंबर कुछ नहीं कहता, मतलब तुलना से बनता है।
 
-`[arch A | img: two sheets of paper laid edge to edge on a desk | bar: SET IT BESIDE THIS | stmt: A number alone says nothing. Meaning comes from what sits next to it. | ⚠ EXPANDED — this frame's stmt was empty before and now carries the line's point. Modelled 7.95s scene, re-measure after TTS]`
+`[arch A | img: two sheets of paper laid edge to edge on a desk | bar: SET IT BESIDE THIS | stmt: A number alone says nothing. Meaning comes from what sits next to it. | foot: AT A 3.0% WITHDRAWAL RATE · ILLUSTRATIVE | ⚠ EXPANDED — this frame's stmt was empty before and now carries the line's point. ⚠ fin-audit-hi-3 ADDED the foot: the VO speaks «पच्चीस हज़ार», a derived income figure, and this frame carried neither the rate nor an ILLUSTRATIVE marker — `derived_income_carries_assumption` binds on the figure, not only on the on-screen token. No ₹ figure on this frame on purpose; the payoff is 6.9/6.10. Modelled 7.95s scene, re-measure after TTS]`
 
 **6.9**
 > नियमित तनख़्वाह पाने वाले भारतीय पुरुष की औसत महीने की कमाई चौबीस हज़ार दो सौ सत्रह रुपये है।
@@ -958,7 +958,7 @@ a decimal, a date or a rate that was not already spoken elsewhere in the cut.
 | **7.1%** assumed growth, and **≈ ₹19,000/month for 20 years** | 6.15 | B.1 "PPF — **7.1% p.a.**, Q2 FY2026-27" + B.3 "Getting there" table, 20-year row at 7.1% | rate **HARD** · the monthly figure **COMPUTED**, labelled illustrative |
 | **~12%** assumed growth, and **≈ ₹10,000/month for 20 years** | 6.16 | B.1 Nifty 50 long-run figure (**SOFT — shape only, never a decimal**, all three NSE hosts 403'd) + B.3 20-year row | **SOFT** — shape only, spoken as «क़रीब बारह परसेंट», no decimal anywhere, and the index measure is **never explained** (B.1 vocabulary trap) |
 | **SWP** definition — a fixed amount drawn monthly out of your own corpus | 2.2, 2.4, 4.7, 4.8, 5.11 | B.2 "SWP = what it is … withdrawals come out of **capital + appreciation**" — four fund houses, identical definition | **HARD (terminology)** |
-| Withdrawals are taxable | 4.9 | B.2 LTCG row — tagged **SOFT** (no statute or ITD page read) | **SOFT — so no figure is spoken or shown**, only that tax applies. **4.9's expansion stays inside that**: it says what reaches the hand is *a little less* than the ledger figure — a direction, never a rate, never a threshold. |
+| Withdrawals are taxable | 4.9 | B.2 LTCG row — tagged **SOFT** (no statute or ITD page read) | **SOFT — so no figure is spoken or shown**, only that tax applies. **4.9's expansion stays inside that** after `fin-audit-hi-3`'s hedge: the hand *may* get less than the ledger figure — a possibility, never a rate, never a threshold. The unconditional form ("gets a little less") was killed at audit: B.2's own **₹1.25 lakh annual exemption** means the tax at every rung this cut actually works is plausibly zero, so the certainty was unsourced and the re-fetched §112A surface contradicted it. |
 | **12%** as a withdrawal rate = a warning | 5.2, 5.4, 5.5, 5.6 | Study conclusion 6 (both twins warn at 10–12%, at ≈5:00) + A.3 (failure risk rises sharply above 3.75%) | the trap beat — **12% is spoken only as a rate someone might PULL OUT, never as a return** |
 | **The tank** (2.3, 2.4, 4.7, 4.8, **5.3 — spoken only**, 5.4, 5.5) | — | **not a fact — an analogy** | Carries no figure and asserts no measurement. Its one claim is definitional: the safe-withdrawal question *is* "how much can be drawn per year without emptying the corpus". Any drawn level line is decorative. **5.3 now names the tank in VO one clip before 5.4 shows it — a hand-off, not a seventh tank photograph.** |
 
@@ -993,6 +993,7 @@ Every corpus line **and** every derived-income line, re-read individually:
 | 6.5 | ₹1,00,00,000 | «तीन परसेंट सालाना निकालने के हिसाब से» |
 | 6.6 | ₹3,00,000/yr | «एक करोड़ का तीन परसेंट» |
 | 6.7 | ₹25,000/mo | «तीन परसेंट पर» ← *the hero's derived income carries its own rate* |
+| **6.8** | ₹25,000/mo, spoken as a back-reference («इस पच्चीस हज़ार») | **not spoken** — 6.7 states it in the immediately preceding clip. **This row was MISSING from the table until `fin-audit-hi-3` added it**, and the frame carried neither the rate nor an `ILLUSTRATIVE` marker; the audit added `AT A 3.0% WITHDRAWAL RATE · ILLUSTRATIVE` to the frame. No figure appears on screen here |
 | 6.10 | ₹25,000/mo vs ₹24,217 | «एक करोड़, तीन परसेंट पर» |
 | 6.12 | ₹75,00,000 + ₹25,000/mo | «उधार लिया चार परसेंट» |
 | 6.13 | ₹75,00,000 and ₹1,00,00,000 | «चार परसेंट पर … तीन परसेंट पर» — both rates, both figures |
@@ -1001,12 +1002,17 @@ Every corpus line **and** every derived-income line, re-read individually:
 | 7.3 | ₹1,00,00,000 → the monthly figure | «एक करोड़ का तीन परसेंट» |
 | 7.6 | ₹1,00,00,000 and ₹2,500 | «तीन परसेंट वाले उस पहले ढाई हज़ार» |
 
-**After attempt 3, THREE lines carry a figure whose rate is not in the spoken sentence — 2.10,
-2.11 and 2.12 — down from four.** All three are creator-approved chapter-2 copy and cannot be
-edited here. 3.4 / 4.5 / 6.3 inherit the rate from the immediately preceding clip and carry it
-in frame, by design: those are the bill, not the arithmetic. `fin-audit` should re-rule only on
-the three verbatim ones; if the preceding-clip rate does not satisfy "the same VO breath", the
-fix is a change to the approved chapter-2 copy, not a silent edit.
+**After attempt 3, FOUR lines carry a figure whose rate is not in the spoken sentence — 2.10,
+2.11, 2.12 and 6.8.** The first three are creator-approved chapter-2 copy; **6.8 is the one this
+table originally omitted**, and it is a back-reference («इस पच्चीस हज़ार») one clip after 6.7
+speaks the rate, now with the rate in its own frame. The three chapter-2 lines cannot be edited
+here. 3.4 / 4.5 / 6.3 inherit the rate from the immediately preceding clip and carry it
+in frame, by design: those are the bill, not the arithmetic. **`fin-audit-hi-3` RULED on all of
+them:** preceding-clip rate **plus** the rate in frame satisfies
+`derived_income_carries_assumption`, so 2.10 / 2.11 / 2.12 stand unedited and the creator-approved
+copy is not re-opened. 6.8 was the only one of the seven that had neither, and the audit fixed it
+in the frame rather than in the VO — the cheaper of the two, and it keeps the beat's figure off a
+screen where 6.9's sourced ₹24,217 has to land.
 
 ### Deliberately NOT used (so fin-audit does not rediscover them)
 

@@ -1,17 +1,173 @@
 ---
-summary: fin-audit gate for passive-income-number script-hi.md, attempt 2 (style E, 81 lines, 7 chapters). PASS after three edits — the restyle silently REGRESSED attempt 1's D3 (5.14 re-bound a methodology claim to a paper nobody has read), 6.9 spoke a men-only PLFS average as the all-India average, and the fact trace upgraded a SOFT single decimal to HARD. Every load-bearing figure re-fetched independently of facts-staging.md; Bengen 1994 was text-extracted for the first time on this slug, which is what proved the first defect.
+summary: fin-audit gate for passive-income-number script-hi.md. ATTEMPT 3 = the SCOPED audit of the ten expanded lines (3.5 · 3.6 · 4.4 · 4.9 · 5.3 · 5.12 · 5.17 · 6.4 · 6.8 · 6.11) added to reach the 510s target at the corrected 14.281 c/s key. PASS after two edits — 4.9's new clause asserted an unconditional tax reduction that its own staging row's ₹1.25 lakh exemption contradicts at every rung this cut works, and 6.8 spoke a derived income figure on a frame carrying neither its rate nor an ILLUSTRATIVE marker (a row the script's own completeness table had omitted). 4.4's claimed closure VERIFIED true. Attempt 2's full body is retained below.
 updated: 2026-08-08
-source: script-hi.md (fin-script hi attempt 2, style E) audited against facts-staging.md, run.json.constraints, tools/format.json, knowledge/money-facts-2026.md. Sources re-fetched live 2026-08-08 by this stage, not trusted from the staging file. Attempt 1's audit (style A) is superseded and was not carried over.
-stage: fin-audit, cut hi, attempt 2
+source: script-hi.md (fin-script hi attempt 3, targeted expansion) audited against facts-staging.md, run.json.constraints, tools/format.json. Sources re-fetched live 2026-08-08 by this stage, not trusted from the staging file — Trinity 1998 read as primary PDF (6 pages, 4 tables), RBI FY27 projection recovered on Forbes India after both recorded hosts DNS-died, freefincal re-read direct, §112A LTCG surface re-read.
+stage: fin-audit, cut hi, attempt 3 — SCOPED to the ten expanded lines
 ---
 
 # audit-hi — passive-income-number (style E)
 
 PASS
 
-Passing **with edits**. The rung ladder, the rate discipline and the sourcing survived
-adversarial re-checking. Three defects were rewritten in place; none required re-opening the
-thesis. **The script file changed — voice work must re-run against the edited file.**
+## ATTEMPT 3 — the scoped audit (2026-08-08)
+
+**Scope, as briefed:** the ten lines the expansion touched, and only those —
+**3.5 · 3.6 · 4.4 · 4.9 · 5.3 · 5.12 · 5.17 · 6.4 · 6.8 · 6.11**. The hook gate (measured
+8.682 s on 1.3) was not re-litigated and chapters 1–2 were not re-opened, per the brief.
+Attempt 2's PASS on the other 71 lines stands and its body is retained below.
+
+**Passing with two edits.** No claim was killed. Nothing structural moved.
+
+### The independence re-fetch — every load-bearing figure inside the ten
+
+| Figure | Line | Re-fetch this run | Verdict |
+|---|---|---|---|
+| **RBI CPI ~5% for FY27** | 5.17 | Staging's Business Today URL is **DNS-dead** (`EREFUSED`), and so is Business Standard from this host. Recovered on **Forbes India**, which staging also records: *"lowered its CPI inflation projection to **5 percent** from 5.1 percent"*, repo **5.25%**, MPC **3–5 Aug 2026**, announced **5 Aug 2026** | **CONFIRMED** — figure, date and repo all match the frame's foot exactly. This is the injected-RBI-line shape and it is real |
+| **The inflation MECHANISM** (next year's ration costs more, so the draw must rise) — 5.17's *added* clause | 5.17 | Trinity 1998 PDF, **read as primary this run**, p.19 verbatim: *"To counteract the effect of inflation, the dollar withdrawal in a given year must be increased by the inflation rate for that year."* | **CONFIRMED PRIMARY.** The most at-risk added sentence in the draft is the best-sourced one |
+| **4% as the internet's number** | 5.12 | Trinity PDF read direct — Tables 1–3 carry the 3%–12% withdrawal grid; *"withdrawal rates of 3% and 4% represent exceedingly conservative behavior"* | **CONFIRMED.** The added clause claims only that repetition made it *sound like* a rule, which is staging A.1's own framing ("a 1994 paper and a 1998 paper, not a law") |
+| **3.0% as the working rate** | 3.6, 4.4 | SSRN **403'd for the fourth stage running**. freefincal **re-read direct**, independent: *"IWR < 3.5% … The corpus is likely adequate"* · *"3.5% < IWR < 4.5% … grey area"* · *"IWR > 4.5% … likely inadequate"* | **CONFIRMED on the band.** 3.0% is declared a *chosen* number at 2.6/2.7 and never asserted as a fact about the future |
+| **Withdrawals are taxable** | 4.9 | All four AMC pages **403'd**; §112A surface read: **12.5%** on equity-MF LTCG **above ₹1.25 lakh per year**, holding period **over 12 months** | **CONFIRMED that tax exists — and it is what killed the added clause.** See E1 |
+
+**No new number, decimal, date or rate entered the cut.** Verified line by line: the only
+figures spoken across the ten are 3% (3.6, 4.4), «दस हज़ार» (4.4), 4% (5.12), «पाँच परसेंट»
+(5.17) and «पच्चीस हज़ार» (6.8) — every one of them already spoken elsewhere in the cut and
+already traced. 3.5, 5.3, 6.4 and 6.11 speak no figure at all.
+
+### E1 — 4.9's new clause asserted a certainty its own source contradicts *(edited)*
+
+The expansion turned one tax clause into two sentences, and the second one was
+**«काग़ज़ पर जो हिसाब बना, हाथ में उससे थोड़ा कम आता है।»** — *what was worked out on paper, a
+little less than that reaches your hand.* Stated unconditionally, in the present habitual.
+
+Staging B.2's LTCG row is **SOFT**, and the script correctly refused to put a number on it. But
+dropping the number does not make the *deduction* sourced. The re-fetched §112A surface carries
+the condition the claim needs and does not have: LTCG is charged **only above ₹1.25 lakh of
+gains per financial year**, and only the **gain** portion of a redemption counts. Run this
+cut's own arithmetic against it:
+
+| rung | withdrawn per year | tax, at the video's own numbers |
+|---|---|---|
+| ₹10,00,000 | ₹30,000 | **zero** |
+| ₹20,00,000 | ₹60,000 | **zero** |
+| **₹40,00,000 — the rung 4.9 actually sits on** | **₹1,20,000** | **zero, even if the whole withdrawal were gain** |
+| ₹50,00,000 | ₹1,50,000 | zero on any realistic gain fraction |
+| ₹1,00,00,000 | ₹3,00,000 | zero to small |
+
+So the line taught, in a monetised finance video, a reduction that does not happen at four of
+five rungs and sits immediately after the one where it certainly does not. That is the exact
+failure the brief named: prose that sounds explanatory while asserting something unsourced.
+
+**Not killed — hedged**, because the beat is worth keeping and the honest form is three
+characters longer:
+
+- VO: `…हाथ में उससे थोड़ा कम **आता है।**` → `…हाथ में उससे थोड़ा कम **आ सकता है।**`
+- Frame: `stmt: Withdrawals are taxable — the hand **gets a little less than** the ledger` →
+  `… the hand **may get less than** the ledger`
+- **117 → 120 chars** (+3). Modelled scene 8.06 → **8.27 s**, still inside `max_scene_seconds`.
+- Still **zero tax figures**, spoken or shown. The change is from *certainty* to *possibility*,
+  which is the only claim the evidence supports.
+- Devanagari safety: the replaced span carries **no nukta and no chandrabindu** (`कम आता है।` →
+  `कम आ सकता है।`), so the edit cannot silently swap a character the way §1's warning describes.
+
+### E2 — 6.8 spoke a derived income figure on a frame with no rate and no ILLUSTRATIVE *(edited)*
+
+6.8 speaks **«इस पच्चीस हज़ार»** — ₹25,000/month, the hero's derived income. Its frame carried
+`bar` + `stmt` and nothing else: **no rate token, no `ILLUSTRATIVE` marker**.
+
+`derived_income_carries_assumption` binds on *a derived income figure*, and the script's own
+mechanical restatement (§THE SCRIPT preamble) is stricter still — *"the VO line speaks the rate
+in the same sentence wherever the line is not creator-approved verbatim."* 6.8 is not
+creator-approved verbatim, does not speak the rate, and its frame did not carry it either.
+
+**Why nobody caught it before:** the script's rate-in-the-line table claims to re-read *"every
+corpus line and every derived-income line"* — and **6.8 is not in it.** Attempt 2 graded the
+seven declared exceptions and found all seven sound, which they were; the table's *completeness*
+was the untested claim. The build assert (handoff §8) would not have caught it either, because
+that assert keys on **on-screen** tokens and 6.8 renders no figure.
+
+The first sentence of 6.8 is byte-identical attempt-2 text, so this gap is **inherited, not
+introduced** — but attempt 3 rewrote that frame (its `stmt:` was empty before), which made it
+the moment to close it at zero cost.
+
+- Frame gains `foot: AT A 3.0% WITHDRAWAL RATE · ILLUSTRATIVE` — the exact string already used
+  at 2.11, 3.4, 4.5 and 6.3.
+- **VO untouched**, so this costs nothing and cannot disturb the beat.
+- **No ₹ figure added to the frame on purpose.** 6.8's job is to clear the stage for 6.9's
+  sourced ₹24,217; a second rupee figure there would fight it.
+- The rate table gained its missing 6.8 row, and the "three lines" tally under it is corrected
+  to **four**.
+
+### 4.4 — the one closure the expansion claimed. VERIFIED TRUE
+
+4.4 now reads **«अब देखिए कि उसी तीन परसेंट पर दस हज़ार महीने में क्या आता है…»** The rate is
+spoken **inside the same sentence as the derived figure**, not in a neighbouring clip and not
+only in the frame. Arithmetic re-derived: ₹40,00,000 × 3% ÷ 12 = **₹10,000**, matching 4.3.
+The frame keeps `AT A 3.0% WITHDRAWAL RATE · ILLUSTRATIVE`. Both limbs of the constraint now
+hold on that line, where attempt 2 could only rule the frame sufficient. **This is a real
+closure, not a cosmetic one** — it is the only one of the seven declared exceptions the
+expansion could reach without touching creator-approved copy, and it took it.
+
+### The other seven, and the contradiction sweep
+
+- **3.5** — no figure spoken; asserts only *which pocket pays the bill*, and its frame's `foot:`
+  carries `3.0% · ILLUSTRATIVE` accordingly. Rhymes with 2.13 deliberately; does not contradict
+  3.4 (₹5,000 covers the summer bill all year).
+- **3.6** — speaks the rate, `num: 3.0%`, no corpus in the line. The stamp metaphor is
+  on-spine with 1.8 and 7.4, both untouched.
+- **5.3** — no figure. Its claim (*the division still comes out right; the tank is the question*)
+  is precisely what the Trinity grid shows at 12%. Hands into 5.4's tank callback one clip
+  earlier, the only structural effect anywhere in the expansion, and handoff §12 correctly
+  forbids a seventh tank photograph for it.
+- **5.12** — 4% only as the rule being corrected, `--warn` on a frame carrying no 3.0%
+  comparator. Its new `foot:` names no source, leaving provenance to 5.13 where it belongs.
+- **6.4** — no figure; closes 1.5's open loop using 1.5's own words («ख़ास नंबर»), and lets 6.5
+  carry the number. Fifth rung is consistent with 1.7's five.
+- **6.11** — hardens `no_unsourced_retire_early` with *no date, no promise*. Checked against
+  6.15/6.16's twenty-year horizon: a horizon stated as a **cost per month** is what PART D
+  permits, an achievement date is what it forbids, and 6.11 lands **before** either growth
+  figure is spoken.
+- **Contradiction sweep against the 71 untouched lines: clean.** The needs ladder still
+  escalates (recharge → electricity → ration → rent), the rate is still identical on every
+  rung, and no addition re-opens a beat a later line depends on.
+
+### Gate checks (attempt 3)
+
+| # | Check | Result |
+|---|---|---|
+| 1 | Numbers trace to staging **and** survive re-fetch | **PASS after E1** |
+| 2 | Char total within ±10% of budget | **PASS at +1.07%** — `(510 − 81 × 0.8) × 14.281 = 6,357`; **6,425** after E1's +3. 4.4 hand-verified at exactly **119** codepoints against the table, so the char accounting is trustworthy |
+| 3 | Hook payoff inside 15 s | **PASS, not re-litigated** — measured 8.682 s on 1.3, chapter 1 untouched |
+| 4 | No product/platform recommended | **PASS** — the ten name no fund, AMC, bank, app or scheme. 5.17 names the RBI as the source of a projection; 4.9's frame is a government challan |
+| 5 | Currency purity | **PASS** — `$` and the banned word both grep to **zero** across the whole file, re-verified here rather than assumed |
+| 6 | No cite refs, no bare Latin digits in VO | **PASS** — all ten spell their figures («तीन परसेंट», «दस हज़ार», «चार परसेंट», «पाँच परसेंट», «पच्चीस हज़ार»). Citations live in `foot:`, which is never spoken |
+| 7 | Persona rules | **PASS** — every signpost is an imperative (`ध्यान दीजिए`, `देखिए`, `याद रखिए`, `रखिए`). No first person; 3.5's «मई» is the month, not «मैं». No investment pick, no age |
+| 8 | Text-level layout lints | **PASS** — no chip row in the ten, so the ≤3/≤22 lints have nothing to bite; the only declared cascades are chapter 1's (3 items at 0.6 s, inside `cascade`). Densest touched frame is now 4 elements on a ~8.3 s scene, which fits `first_cue_by_seconds` 0.5 + three 0.8 s gaps with room. Colour: `--warn` lands only on 4% (5.12), `--target` only on 3.0% (3.6) and the RBI 5% (5.17) — red never on India's rate, amber never on the imported one. **The hi storyboard does not exist yet** (superseded in `run.json`), so there is no colour table to argue with; `_carry_forward_to_storyboard_hi` still governs 5.2 and 6.13 |
+
+### Carried forward
+
+1. **Both recorded RBI hosts are now unreachable from this environment** (`businesstoday.in`
+   and `business-standard.com`, DNS `EREFUSED`). Forbes India carried it. Repoint the staging
+   row before that fact is promoted to `money-facts-2026.md`.
+2. **SSRN 403'd for the fourth stage running.** The 3.0–3.5% band still rests on secondary
+   summaries plus one independent practitioner surface. A primary read is still owed.
+3. **All four AMC SWP pages now 403.** The SWP definition is HARD terminology on four
+   issuer pages that no stage has been able to open for two runs. If 4.9 or 2.2 is ever
+   strengthened, that is the row to re-source first.
+4. **Char total moved 6,422 → 6,425.** The per-scene table's 4.9 cell and the change table were
+   updated; the aggregate columns were deliberately **not** hand-recomputed — handoff §4 already
+   orders a programmatic recount, and hand-patching a twelve-column timing table is how a wrong
+   number gets born. Budget the build against **6,425**.
+5. **Re-voice is still exactly ten clips.** E1 changes 4.9, which was already on that list; E2
+   is a cue, not VO. **No eleventh call.** Cost stays 290 → 300 of 350.
+
+**Cleared for TTS.** The script file changed — downstream voice work must re-run against the
+edited file (the pipeline hash-checks this).
+
+---
+
+## ATTEMPT 2 — retained record (superseded by the scoped attempt-3 audit above)
+
+Verdict at the time: **PASS with three edits**, all three still in force in the script.
 
 ---
 
