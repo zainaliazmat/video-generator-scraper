@@ -9,7 +9,8 @@ You are the composition-build stage. Runs once per cut.
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; design constants from `tools/format.json` and
-  `vault/knowledge/design-finance-blockframe.md`.
+  `vault/knowledge/design-finance-blockframe.md` (**its BOX; the body only for a
+  value the CSS and format.json did not answer**).
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-build-<cut>-<attempt>.md`.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
@@ -66,10 +67,13 @@ the project dir. Nothing else — no render (that is fin-render's stage).
 
 1a. **THE ARCHETYPE LAYER — every chapter scene, MEDIUM/LONG.**
    Constants: `format.json chapter_design`. Rationale and the full rule list:
-   `vault/knowledge/design-chapter-archetypes.md` — **read it before your first
-   chapter of a run**, then build from format.json. Reference implementations
+   `vault/knowledge/design-chapter-archetypes.md` — **read its BOX before your
+   first chapter of a run, plus the two sections the box sends you to ("What a
+   drawn layer has to look like", "The gotchas that cost renders"). You build, so
+   those two are yours; the rest of the file is not.** Then build from
+   format.json. Reference implementations
    (creator-approved 2026-08-05):
-   `studio/videos/japanese-money-methods-hi-ch1/index-claudedesign.html` + `-ch2`.
+   `vault/videos/japanese-money-methods/src/hi-ch1/index-claudedesign.html` + `-ch2`.
 
    The storyboard assigns each scene an **archetype**, a **ground** and a
    **role**; you do not choose them. Apply them literally:
@@ -144,7 +148,9 @@ the project dir. Nothing else — no render (that is fin-render's stage).
 
    **Vector art (only where the storyboard asked for it).** Constants in
    format.json `vector_art`; the why in
-   `vault/knowledge/design-icons-emoji-lottie.md`. It sits ON the photograph —
+   `vault/knowledge/design-icons-emoji-lottie.md` — **its BOX is the whole rule;
+   open the body only to hand-write Lottie or SVG timeline JS.** It sits ON the
+   photograph —
    the scene keeps its `.bg`.
    - **Icon:** `ls assets/icons/` FIRST — that library is git-tracked and
      outlives every cut. If one reads the storyboard's shape, Read it and paste

@@ -39,7 +39,9 @@ dedup (the ₹/India Pixabay pool is small and largely spent). Needs `PEXELS_API
    `_cand/<slot>.json`. Nothing full-size is fetched yet.
 2. **View ONE sheet per slot with Read** — six options at once. LOOKING is still the
    whole job; the grid just makes it one pass, not six. Reject cells on the measured
-   trap list (`vault/knowledge/stock-photo-sourcing.md`):
+   trap list (`vault/knowledge/stock-photo-sourcing.md` — **its BOX is the whole
+   sourcing rule; open the body only when a fetch keeps failing and you need the
+   measured numbers**):
    - demonetised pre-2016 ₹500 notes (current series is stone grey)
    - dollars answering a ₹ query, and vice versa
    - readable brand marks — payment terminals, cards, logos
@@ -120,7 +122,9 @@ cold-open hook — the highest-stakes frames in the video.
 ## Lottie slots (only if the storyboard asked for one)
 
 Same job as a photo — LOOK before you take it. Constants: format.json
-`vector_art.lottie`; the why: `vault/knowledge/design-icons-emoji-lottie.md`.
+`vector_art.lottie`; the why: `vault/knowledge/design-icons-emoji-lottie.md` —
+**its BOX is the whole rule for you; you source and tint, you never write the
+timeline JS that the body exists for.**
 
 **Reuse before you fetch.** `assets/lottie/` is a git-tracked library that
 outlives every cut — `studio/` does not. An asset already in it costs nothing,

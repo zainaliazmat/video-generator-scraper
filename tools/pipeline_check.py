@@ -748,6 +748,24 @@ def next_architecture(fmt=None):
 
 # --------------------------------------------------------------------- doctor
 
+def dangling_studio_refs():
+    """A prompt citing `studio/videos/<slug>` is a time bomb: archive_cut.py deletes that
+    directory the day the video ships, and the citation keeps reading as authority with
+    nothing behind it. It has happened twice — the firaun VO-line rule, and the japanese
+    archetype reference implementations, which fin-build had been citing into a hole ever
+    since japanese was archived. The surviving copy is always under
+    vault/videos/<slug>/src/, so the fix is always a repoint, never a re-creation."""
+    bad = []
+    for path in glob.glob(os.path.join(ROOT, ".claude", "**", "*.md"), recursive=True):
+        text = open(path, encoding="utf-8").read()
+        for ref in set(re.findall(r"studio/videos/[A-Za-z0-9._-]+", text)):
+            if "<slug>" in ref or os.path.exists(os.path.join(ROOT, ref)):
+                continue
+            bad.append(f"{os.path.relpath(path, ROOT)} cites {ref}, which does not exist "
+                       f"— archived source lives under vault/videos/<slug>/src/")
+    return sorted(bad)
+
+
 def doctor(tier):
     """X-11: fail in five seconds with the fix command, not at minute 95."""
     import shutil
@@ -773,6 +791,7 @@ def doctor(tier):
         problems.append("faster-whisper not importable in venv — "
                         "fix: venv/bin/pip install faster-whisper")
     problems += architecture_lock_problems(fmt)
+    problems += dangling_studio_refs()
     need_gb = 2 * fmt["tiers"][tier]["disk_gb_per_pair"]  # R-9: 2× headroom
     free_gb = shutil.disk_usage(ROOT).free / 1e9
     if free_gb < need_gb:
@@ -835,6 +854,99 @@ def stale_log(log, slug, cut, stage=None):
     return None
 
 
+# ------------------------------------------------------------- run.json shape
+
+# run.json is STATE: what the pipeline needs to resume. It became a notebook because
+# session memory had nowhere else to live — 161 KB, of which 16% was state, re-read by
+# the orchestrator at every stage transition and every mark (75% of the standing token
+# bill of the passive-income-number run). These two whitelists are the shape; everything
+# else drains to notes.md, which nothing loads on a transition.
+RUN_STATE_KEYS = {
+    "slug", "topic", "tier", "cuts", "started", "target_seconds",
+    "architecture", "architecture_default", "architecture_differs_from_default",
+    "architecture_override", "constraints", "style_decision", "budget",
+    "stages", "chapters", "vidiq_spend",
+}
+CHAPTER_STATE_KEYS = {
+    "status", "scenes", "lines", "seconds", "fps", "frames", "round", "at",
+    "assets", "build", "render", "draft", "sheet", "editor", "ceo",
+}
+
+
+def _drain(obj, keep, path, out):
+    """Pop every off-schema key from obj into out as (dotted_path, value). A key
+    starting with `_` is narrative ANYWHERE, at any depth — that convention is already
+    how this run.json spells `_spend_log`, `_ceiling_note`, `_carry_forward_*` and
+    `_creator_<date>`; it just never meant anything. Now it does."""
+    for k in [k for k in obj if k.startswith("_") or (keep is not None and k not in keep)]:
+        out.append((f"{path}.{k}" if path else k, obj.pop(k)))
+
+
+def _render(key, val):
+    """(heading, body) pairs for one drained value. Recurse into dicts so a section like
+    `rulings_binding_on_both_cuts` lands as one readable block per ruling — a whole dict
+    dumped as indented JSON escapes every newline, and a 2,800-character CEO ruling read
+    back through `\\n` is not a record anybody will use."""
+    if isinstance(val, dict) and val:
+        for k, v in val.items():
+            yield from _render(f"{key}.{k}", v)
+    elif isinstance(val, list) and val and all(isinstance(v, str) for v in val):
+        yield key, "\n".join(f"- {v}" for v in val)
+    elif isinstance(val, str):
+        yield key, val
+    else:
+        yield key, "```json\n" + json.dumps(val, ensure_ascii=False, indent=2) + "\n```"
+
+
+def drain_to_notes(run, slug):
+    """Move run.json's narrative to notes.md. Returns the number of keys moved.
+
+    Append to notes.md FIRST and flush it, then let the caller rewrite run.json —
+    copy, verify, delete, the same order archive_cut.py uses, because the drained text
+    is the only copy of a ruling somebody spent a CEO round arriving at. A block already
+    present in notes.md is not written twice, so re-draining is idempotent."""
+    moved = []
+    _drain(run, RUN_STATE_KEYS, "", moved)
+    for section in ("budget", "constraints", "style_decision", "vidiq_spend"):
+        if isinstance(run.get(section), dict):
+            _drain(run[section], None, section, moved)   # underscore rule only
+    chapters = run.get("chapters")
+    if isinstance(chapters, dict):
+        _drain(chapters, {"hi", "en"}, "chapters", moved)
+        for cut, cuts in chapters.items():
+            if not isinstance(cuts, dict):
+                continue
+            _drain(cuts, None, f"chapters.{cut}", moved)
+            for ch, body in cuts.items():
+                if isinstance(body, dict):
+                    _drain(body, CHAPTER_STATE_KEYS, f"chapters.{cut}.{ch}", moved)
+    if not moved:
+        return 0
+    path = os.path.join(vault_dir(slug), "notes.md")
+    existing = open(path, encoding="utf-8").read() if os.path.exists(path) else ""
+    if not existing:
+        existing = (f"# {slug} — run notes\n\nDrained out of `run.json` so the orchestrator "
+                    f"stops re-reading it at every stage transition. Nothing here is loaded "
+                    f"by the pipeline; it is the record, not the state.\n")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(existing)
+    blocks, written = [], 0
+    for key, val in moved:
+        for k, body in _render(key, val):
+            block = f"\n## `{k}`\n\n{body}\n"
+            if block in existing or block in "".join(blocks):
+                continue
+            blocks.append(block)
+            written += 1
+    if blocks:
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write(f"\n<!-- drained {datetime.now(timezone.utc).isoformat(timespec='seconds')} -->\n")
+            fh.write("".join(blocks))
+            fh.flush()
+            os.fsync(fh.fileno())
+    return written
+
+
 def mark(stage, slug, cut, problems, attempt, log, rescue=False):
     """Record the checked result in run.json — {status, reason, log, at} per DX X-3,
     retry counter as its own field. Atomic; the only writer of `done`.
@@ -861,7 +973,11 @@ def mark(stage, slug, cut, problems, attempt, log, rescue=False):
         entry["script_sha256"] = script_hash(slug, cut)
     run.setdefault("stages", {})[key] = entry
     os.makedirs(vault_dir(slug), exist_ok=True)
+    drained = drain_to_notes(run, slug)
     atomic_write_json(path, run)
+    if drained:
+        print(f"drained {drained} narrative key(s) from run.json -> "
+              f"{os.path.relpath(os.path.join(vault_dir(slug), 'notes.md'), ROOT)}")
 
 
 # ------------------------------------------------------------------- selftest
@@ -1105,6 +1221,21 @@ def _selftest():
         with open(os.path.join(vault_dir(slug), "script-hi.md"), "a", encoding="utf-8") as fh:
             fh.write("\naudit rewrote this line")
         assert any("stale" in p for p in stale_script_problems(slug, cut))
+
+        # run.json stays state: narrative drains, state survives, nothing is lost.
+        ruling = "RULED at the ch2 CEO gate.\nBinding on ch3-6." + "x" * 200
+        run = {"slug": slug, "tier": "medium", "budget": {"elevenlabs_calls": 12,
+               "_spend_log": ruling}, "owed": {"a_thing": ruling},
+               "chapters": {"hi": {"1": {"status": "done", "scenes": 9,
+                                         "why_s16_was_prop_money": ruling}}}}
+        moved = drain_to_notes(run, slug)
+        assert moved == 3, moved
+        assert run == {"slug": slug, "tier": "medium", "budget": {"elevenlabs_calls": 12},
+                       "chapters": {"hi": {"1": {"status": "done", "scenes": 9}}}}, run
+        notes = open(os.path.join(vault_dir(slug), "notes.md"), encoding="utf-8").read()
+        assert notes.count(ruling) == 3, notes.count(ruling)   # verbatim, not JSON-escaped
+        assert "\\n" not in notes, "a drained ruling must stay readable prose"
+        assert drain_to_notes(json.loads(json.dumps(run)), slug) == 0, "drain must be idempotent"
         print("selftest OK")
     finally:
         ROOT = real_root

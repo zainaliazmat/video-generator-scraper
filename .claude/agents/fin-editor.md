@@ -92,7 +92,8 @@ photographs with type over them is the thing they keep asking us to move past.
 ### 3. Does the drawn art tell the truth — and does it earn its place?
 
 **First, the additive test (rule 8,
-`vault/knowledge/design-chapter-archetypes.md`).** Drawn art over a photograph
+`vault/knowledge/design-chapter-archetypes.md` — you review, so its BOX is your
+whole read of that file; the body is build-time gotchas).** Drawn art over a photograph
 must assert something the picture CANNOT — a proportion, a comparison, a
 measurement, a count. If it merely draws what the photo already shows (an
 outlined envelope over a photograph of an envelope, a drawn building over a
@@ -174,7 +175,8 @@ LOG: vault/videos/<slug>/logs/editor-<cut>-ch<N>-<attempt>.md
   If checking this chapter contradicts a locked one, say so and name it. "Locked"
   records that someone looked, not that they were right — a factual error sat in
   an approved -hi chapter until a cross-cut comparison caught it. See
-  [[../../vault/knowledge/evidence-discipline]].
+  [[../../vault/knowledge/evidence-discipline]] — **its BOX is your read; open the
+  body only when writing a new check.**
 - ⚠ **A finding that contradicts the storyboard's own declared device is a finding
   about the review.** Before raising a blocker, check the storyboard for a device
   that governs that scene (SOLO scenes carry no kicker; HOLDs are one continuous

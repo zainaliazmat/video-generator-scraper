@@ -92,7 +92,8 @@ The correct fix when it does read flat is **NOT** "add more layouts" — a layou
 with nothing to hold is a hole, and the creator has already rejected empty
 halves. It is to give two or three scenes something real to put on the other
 side: a comparison, a count, a measurement. Say which scenes and what they
-should assert. See `vault/knowledge/design-chapter-archetypes.md`.
+should assert. See `vault/knowledge/design-chapter-archetypes.md` — you review,
+so its BOX is your whole read of that file; the body is build-time gotchas.
 
 ## Output
 

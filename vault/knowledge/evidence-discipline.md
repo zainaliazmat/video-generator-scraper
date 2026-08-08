@@ -7,6 +7,24 @@ stage: ADOPTED — standing rules for every pipeline stage and every new check
 
 # Evidence discipline
 
+> **BOX — the ten rules. Each body section is the shipped defect that taught it.**
+> 1. A test that cannot fail is not evidence.
+> 2. Check what a finding SUPPRESSES, not just whether it is benign.
+> 3. Assert against the artifact that ships, not against a side-file.
+> 4. "Locked" means reviewed, not correct.
+> 5. A "reuse the other cut's file" instruction is not a verification.
+> 6. Verify attribute-by-attribute, never by total.
+> 7. A wait-loop watching only for the output file cannot see a dead render.
+> 8. A review finding that contradicts the plan's own device is a finding about
+>    the review.
+> 9. Judge a long master from the encode, not from `check`.
+> 10. A `fixHint` is the checker's guess at cause, not an observation — bisect the
+>    diff first.
+>
+> **Open the body when:** you are WRITING a new check, or a rule above is about to
+> change what you do and you want the case that produced it. Reviewing against the
+> ten lines needs nothing more.
+
 The pipeline is mostly automated and mostly unattended, so a check that reports
 green is the *only* thing standing between a defect and the upload. Across this
 project several checks reported green over real defects. These are the patterns

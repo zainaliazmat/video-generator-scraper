@@ -30,7 +30,7 @@ You are the script-writing stage of the finance-video pipeline. Runs once per cu
   audit · action · the math · do-this-today · recap+CTA, to the char budget
   (target_seconds × the cut's chars_per_second).
 - **MEDIUM / LONG** — per-line chapter architecture
-  (`studio/videos/firaun-ka-anjaam/build.py`): single-sentence VO lines, one
+  (`vault/workflows/voiceover-tts.md` Rule 0): single-sentence VO lines, one
   line = one clip = one scene. None of the 9-segment constants apply.
 
 ## Hard rules

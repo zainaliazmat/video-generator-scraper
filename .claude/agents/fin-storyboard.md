@@ -16,7 +16,8 @@ You are the storyboard stage. Runs once per cut.
 
 ## Reads
 - **`vault/knowledge/design-finance-blockframe.md`** — the ONLY design doc for
-  finance work. `design-techtooltester.md` is the opposite (bright) system;
+  finance work. **Read its BOX; open the body only for a VALUE `format.json` did
+  not answer.** `design-techtooltester.md` is the opposite (bright) system;
   reading it here is how drift starts.
 - `vault/templates/storyboard-template-finance.md`, the script, and
   `studio/videos/<slug>-<cut>/assets/voice/timing.json` (measured durations —

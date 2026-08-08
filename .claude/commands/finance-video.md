@@ -111,6 +111,12 @@ formula FIRST, then the rate" since 2026-07-31.
 Initialize `run.json`: intake answers, `started`, an empty `stages` map, and a
 `budget` block `{elevenlabs_calls: 0, max_elevenlabs_calls: <derived>, pixabay_calls: 0}`.
 
+**`run.json` is STATE, not a notebook.** It holds what a resume needs and nothing
+else; `pipeline_check.py RUN_STATE_KEYS` / `CHAPTER_STATE_KEYS` are the shape.
+Rulings, incidents, tool fixes, carry-forwards and anything you would prefix with
+`_` go to `vault/videos/<slug>/notes.md`. `mark()` drains the rest there for you —
+this is not a warning you can ignore, the key will be gone on the next transition.
+
 **Derive the TTS ceiling from the tier — never hardcode it.** One clip per VO
 line per cut, so `max_elevenlabs_calls = format.json tiers.<tier>.lines × 2 cuts
 × 1.2` (the 20% covers per-line regens). SHORT ⇒ 9×2×1.2 ≈ **22**, MEDIUM ⇒
@@ -286,7 +292,7 @@ re-reviewed.
 Chapter cuts are built on `tools/scaffold/assets/chapter-design.css` on top of
 `blockframe.css`. Constants: `format.json chapter_design`. Rules and rationale:
 `vault/knowledge/design-chapter-archetypes.md`. Reference implementations,
-creator-approved: `studio/videos/japanese-money-methods-hi-ch{1,2}/index-claudedesign.html`.
+creator-approved: `vault/videos/japanese-money-methods/src/hi-ch{1,2}/index-claudedesign.html`.
 
 You do not design; you make sure the stages did. Four things to verify per
 chapter before you let it lock:
@@ -335,6 +341,10 @@ Guardrails that make overlap safe (MUST):
 - **Serialize `run.json`:** only you write it, and you process
   task-notifications ONE AT A TIME, so every `mark` read-modify-write stays
   atomic even with parallel agents in flight.
+- **Narrative lives in `notes.md`, and you read it on purpose.** When a chapter
+  brief needs a prior ruling, open `notes.md` and quote that ONE ruling into that
+  agent's prompt. Never park it in `run.json` so the next fourteen transitions
+  re-read it — that was 75% of the last run's standing token bill.
 - **Budget is shared:** before a spend stage (`voice`/`assets`) on either cut,
   check the `budget` ceiling against BOTH cuts' in-flight spend, not just this
   cut's.

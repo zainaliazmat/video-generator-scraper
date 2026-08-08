@@ -6,6 +6,36 @@ source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-
 
 # DESIGN — Finance blockframe (dark grade)
 
+> **BOX — the decisions. The CSS below is the authority for every value; this box
+> carries only what the CSS cannot say.**
+> 1. **blockframe-9 is LOCKED** (creator 2026-07-30, thirteen styles reviewed side
+>    by side). This supersedes every "the next cut MUST change architecture" flag
+>    in the vault. The sameness budget moves onto the non-layout levers.
+> 2. **Every architecture must carry a photograph in every scene.** Machine-enforced:
+>    `format.json architectures[*].image_per_scene: true`, and `doctor` refuses one
+>    that does not. A style that renders type on flat colour cannot be added, however
+>    good the mockup.
+> 3. **Live style verdicts** — `x-post`/`reddit-post` usable as a COMPONENT, never an
+>    architecture; `swiss-grid`/`vignelli` approved to pursue; `news-ticker`,
+>    `code-snippet`, `code-typing` rejected as off-genre. `ledger-rail` was built,
+>    rendered and rejected — do not re-propose it.
+> 4. **Colour is roles, never meanings. One role colour per scene.**
+> 5. **The type ladder is stepped, never interpolated.** Do not substitute Archivo
+>    Black, despite [[design-techtooltester]] naming it.
+> 6. **`.scene { isolation: isolate }` and the four-layer scrim order are
+>    load-bearing** — changing either silently changes every frame.
+> 7. **Determinism: everything vendored.** GSAP and fonts self-hosted, no CDN, no
+>    `Date.now()`, no unseeded random, no render-time fetch. A slow CDN produces a
+>    render that SUCCEEDS with every element frozen at frame 0 and passes `check`.
+> 8. **The checker is evidence, not authority.** Fail loudly on a NEW finding; never
+>    edit a design token to satisfy a checker.
+> 9. **Supersedes [[design-techtooltester]] for all finance work.** MEDIUM/LONG cuts
+>    extend this with [[design-chapter-archetypes]], which owns the archetype layer.
+>
+> **Open the body when:** you need a VALUE (a token, a timing, a component's markup,
+> the grade constants) and `blockframe.css` / `format.json` did not answer it — which
+> should be rare, because they are the code home and they win.
+
 > **The system now has a code home (2026-07-29). This file is the rationale;
 > the implementation is two files and they are linked, never copied:**
 >

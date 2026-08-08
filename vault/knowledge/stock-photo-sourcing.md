@@ -6,6 +6,35 @@ source: 50-30-20-rule-hi / -en build, 2026-07-27. ~35 fetches, every one eyeball
 
 # Stock-photo sourcing (Pixabay)
 
+> **BOX — the whole rule for sourcing. Read the body only where it sends you.**
+> 1. **Object-led, never scene-led.** The photograph is texture under a locked grade
+>    with heavy type on it, not information. Pick the object carrying the cultural
+>    signal — ₹500 notes and coins say "India" more reliably than a photo of a person,
+>    and they're actually available.
+> 2. **The densest scene gets the calmest background.** Reach for a plain texture
+>    FIRST on any scene with more than ~4 stacked elements, not as a fallback.
+> 3. **Faces fight the typography; hands and objects don't.**
+> 4. **Drop a cut-in rather than fake it.** Single-photo scenes read fine.
+> 5. **`YHIGH ≥ 110`, enforced by `pipeline_check check assets`.** The predictor is the
+>    HIGHLIGHT CEILING, not average brightness — a frame with no highlights has nothing
+>    for the grade to leave behind. Two review rounds and a re-fetch missed this.
+> 6. ⚠ **The failure is contrast collapse and emptiness, NOT darkness** (corrected
+>    2026-08-09; the older "flat charcoal" mechanism is wrong and drove two days of
+>    fetches). White grades to 159.6, a mid-grey — nothing goes dark. A bright frame
+>    with a real subject, real edges and real falloff PASSES. A dark frame holding
+>    nothing still fails. **Anything in the body below that reasons from darkness is
+>    superseded by this line.**
+> 7. **Currency: check whether two notes in one frame SHARE A SERIAL**, not whether one
+>    serial is valid — prop money is printed from a single plate, so the tell is
+>    repetition inside the frame. Reject on sight: `ILR 176177`, the whole `6UW 643492`
+>    shoot. This shipped once on a hero corpus frame that had already been "verified".
+> 8. **Know your regime before reaching for an inline `filter:`.** The per-scene grade
+>    override exists under plain blockframe; the chapter archetype layer CLOSES it
+>    (`storyboard-*.md §9`), so under a chapter cut the photograph is your only variable.
+>
+> **Open the body when:** a fetch keeps failing and you need the measured numbers, the
+> per-market hit rates, or the Pixabay query mechanics.
+
 ## The tool
 
 `tools/stock/pixabay_fetch.py` — stdlib only, reads `PIXABAY_API_KEY` from `.env`.

@@ -6,6 +6,36 @@ verified_by: /tmp probe `fxtest` — `hyperframes check` + `snapshot` + full `re
 
 # Icons, emoji and Lottie in a cut
 
+> **BOX — read this, not the body.** Code homes: `tools/scaffold/assets/`,
+> `tools/lottie/tint.py`, and `check_build` in `tools/pipeline_check.py`. Where this
+> prose and a file disagree, **the file wins.**
+>
+> 1. **Inline `<svg>` + GSAP is the default.** Fewest moving parts, tints from the
+>    palette. Stroke-draw is a non-spatial tween, so the transform-alias rule does
+>    not apply.
+> 2. **External `.svg` as `<img>` only for brand marks** — its fill is baked in and
+>    cannot take the cut's accent colour.
+> 3. **Emoji ignore the grade.** `.bg` is graded, `.stack` is not, so an emoji is the
+>    most saturated object on screen and reads as a sticker on a film. House style is
+>    a monochrome SVG in a palette colour. Tint deliberately or don't use them.
+> 4. **Lottie has four ways to render a silent blank** — adapter-seeks absolute time,
+>    `discover()` sweeps unregistered animations, `path:` resolves too late, and a
+>    per-cut cap. **All four are enforced by `check_build`, which names the fix.**
+>    Drive from the GSAP timeline; load with `animationData`.
+> 5. **Reuse before you fetch.** `assets/lottie/` and `assets/icons/` are git-tracked
+>    and outside `studio/`; every asset a cut finds gets saved back.
+> 6. **Stored pristine, never pre-tinted** — `tint.py` colours a copy, records
+>    `used_in`, and warns from the second use on. Previews are a 320px `.png`, never
+>    a `.gif`.
+> 7. **Free LottieFiles catalogue is cleared** — Lottie Simple License, commercial ok,
+>    modification ok, no attribution. Don't redistribute the raw file.
+> 8. **Don't unify this with the audio kit.** A prompt regenerates its audio exactly;
+>    a Lottie has no prompt, so the artwork itself is the reproducing text. Same
+>    instinct, opposite answer, on purpose.
+>
+> **Open the body when:** hand-writing Lottie or SVG timeline JS, or sourcing a Lottie
+> for the first time in this cut. Everything else above is the whole rule.
+
 All four paths were probed end-to-end on the blockframe scaffold and survive a
 real encode. Ranked by how little can go wrong.
 

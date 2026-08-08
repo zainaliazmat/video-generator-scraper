@@ -1,0 +1,1345 @@
+# passive-income-number — run notes
+
+Drained out of `run.json` so the orchestrator stops re-reading it at every stage transition. Nothing here is loaded by the pipeline; it is the record, not the state.
+
+<!-- drained 2026-08-08T23:19:26+00:00 -->
+
+## `source_note`
+
+vault/knowledge/niches/finance-topics-2026-07-31.md — Revision 2026-08-07 'Replacement A', creator pick 2026-08-07, topic #9. Chosen after a vidIQ R1 re-check demoted the ranked #3 (saved-by-age). Format evidence: the same title cloned per country by six small channels in 3 months, every clone a breakout — Singapore Finance With Jim 5,560 subs→106,210 (19×), Kab Invests 1,870→26,488 (14×), Aussie Finance With Luke 24,900→292,989 (11.8×), Dark Ledger 24,600→231,862 (9.4×), Effortless Investor UK 3,070→26,414 (8.6×), Canadian Finance with David 9,190→68,235 (7.4×). India is the unclaimed slot in that chain. Hindi format proof: Varsha Saini 2,000 subs→37,497 (18.7×) on SIP compounding.
+
+## `owed.real_study_packet`
+
+fin-research attempt 1 died on a YouTube bot-check (yt-dlp auth wall, not a 429 — it never clears on retry) AND on a thin library: only 2 usable long-form rows in this lane, so no LOW performer existed to autopsy. Attempt 2 was grounded in two BOUGHT transcripts instead (vidIQ R2). Still owed: `venv/bin/python backend/study.py --ids JiuVKaO2a6c Jn3N9OzSY1c` once cookies exist (YTAUTO_COOKIES / YTAUTO_COOKIES_BROWSER, added to study.py 2026-08-07), plus a scrape of this lane so library.db holds a real top/mid/low triple. The visual half of the study (keyframes, hook frames, on-screen text) is recorded MISSING, not faked.
+
+## `owed.vidiq_packaging_pass`
+
+Close-out §5.2 budgets ~35 credits for R3 + R3b across both packs; only 13 remain until the 2026-08-29 reset. Ration it or defer the title lock — do not skip it silently.
+
+## `owed.orphan_clip_en`
+
+studio/videos/passive-income-number-en/assets/voice/3.17.mp3 is an orphan from the style-A script — 82 clips on disk for 81 timing.json lines. Inert (timing.json is authoritative and check_voice iterates it), so it was left rather than deleted; nothing under studio/ is backed up by any git. Noted because check_voice does not detect orphans.
+
+## `owed.derived_income_assert_is_frame_only`
+
+CLOSED 2026-08-08 — tools/check_vo_frame.py. The gap was real and is described in this run's history: the in-page assert scans ON-SCREEN tokens, so it cannot see a VO line that SPEAKS money over a bare frame (hi 6.8). The new tool anchors scene sN to timing.json lines[N-1] (one line = one clip = one scene, the pipeline's own invariant), reads the VO sidecar assets/voice/<id>.txt, and fails when a spoken money MAGNITUDE has no rate or ILLUSTRATIVE marker in the same frame. Detection is on magnitude words (हज़ार/लाख/करोड़/thousand/lakh/crore/million), NOT on a currency mark — digits are spelled out for the TTS engine and the currency word is routinely dropped once the unit is established (hi 6.8 is literally 'इस पच्चीस हज़ार को', no रुपये), so a check requiring the mark would have missed the one line it exists for. --ack takes scene ids already ruled. PROVEN, not asserted: run against the built hi ch2 it caught s18 and s19 — both speak ₹2,500/month over frames reading only 'ALL TWELVE MONTHS' and 'THE FIRST BRICK' — which the frame-only assert passed clean. RATE/MARKER patterns are lifted from each build's OWN assert rather than restated (one home per fact; a drifting per-cut rate list is worse than no checker), MARKER defaults to /ILLUSTRATIVE/ because the hi build inlines it instead of naming it. HTML comments are stripped before matching — these builds quote the constraint verbatim in prose comments, so an unstripped comment saying ILLUSTRATIVE would satisfy the check it was explaining, the same shape as the Lottie guard that fired on the comment describing the trap it prevented. --selftest covers both poisonings. STILL OWED: wire it into pipeline_check check_build so it outlives this run — deferred only because live agents shell out to that file.
+
+## `owed.overlay_count_in_the_assembled_master`
+
+DECISION OWED BEFORE THE FULL RENDER, not before chapter review. en ch2 carries 30 overlays = 15 `.scrim` + 15 `.glow`, exactly two per scene, both static radial-gradients — so x81 scenes = 162 in the assembled cut is plain arithmetic, not an estimate. `composition_heavy_overlay_count_high` warns at 25; the field reproduction is ~40. At DRAFT the cost is measurably zero: no black, no first-half darkening (the first three scenes weigh p90 50.0, ABOVE the chapter average), 3166/3166 frames captured. The exposure is that tools/cut_assemble.py's docstring is explicit the master is 'ONE composition, rendered' and NOT a concat, so the assembled cut gets captured with ~162 heavy overlays — 4x the field repro — in the single 18-minute render before delivery. Orchestrator's call, and it does not block a chapter gate.
+
+## `owed.cue_rung_5_does_two_jobs`
+
+FOUND 2026-08-08 by fin-render, RULED by fin-editor, deliberately NOT fixed mid-run. cues.py's tick rung is `find('span', '#<sid>-mf') or find('pulse', '#<sid>-.*')` — one rung serving two different events. The symptom looks like a wildcard bug but is not: fin-editor ruled s22's tick CORRECT (bound to a real pulse on the rate token, and a smaller sound after s21's hero is right). The real defect is the inverse — the chapter's one GENUINE measure bar, span('#s21-mf'), emits NO tick because s21 matched `hero` first in a ladder that picks exactly ONE cue per scene. So tick is on the frame with no bar and absent from the frame that has one. The fix is a cue-model change (a measure bar is a second, non-competing event, not a rung in the single-pick ladder), which would alter sound in every chapter of both cuts. Not a thing to change with eleven chapters mid-flight. Scope today: s22 fires, s42 is in the cut's `dry` list so it structurally cannot, s60 will fire when ch5 is built.
+
+## `owed.two_cross_chapter_rulings_before_ch3_ch4_assets`
+
+RAISED by fin-editor on hi ch2, and it asked for them to be settled BEFORE ch3/ch4 assets are sourced, because both are through-lines that later fetches inherit rather than one-chapter defects. (1) CONTAINER LADDER — s16 has no container, so rung 1 of the ladder is missing. The ladder is meant to escalate across chapters, and a missing first rung means every later rung refers back to nothing. (2) THE TANK THROUGH-LINE — three materials across three scenes with NO CONSTANT. Compare the en cut, where the same problem was resolved by reading the actual file and fixing the rhyme as 'aged brass lever tap + industrial pipework under daylight', with the further refinement that neither s10 nor s10b shows a lever in a readable position so the callbacks must be briefed for 'the lever visible at a different angle plus flow'. The hi cut needs its own equivalent constant, chosen once. DECISION: do not rule these in the abstract. hi ch2's re-fetch has to re-source s12 and s19 anyway — both in the tap/container families — so the constant will be chosen there, WITH THE FRAMES IN HAND, and whatever it lands on is then BINDING on ch3-7 and recorded here. Choosing it on paper first would be choosing it without the one thing that has decided every image question on this run: the file at full resolution.
+
+## `owed.cascade_offsets_ignore_the_voice`
+
+RAISED by fin-ceo on hi ch1 as a pipeline note, explicitly not gating that chapter. `popEach(S.sN + 1.10, ..., 0.45)` is a FIXED OFFSET that ignores the voice track entirely, so a cascade lands where the template puts it rather than where the words are. hi ch1 s6 is the severe case (5.07s dead tail, all three cells finishing before the first noun is spoken); en ch1 s6 has the SAME defect more mildly (2.9s dead tail) and is NOT being reopened. The CEO's instruction: the DEFAULT should derive cascade offsets from measured clause boundaries before ch3-7 build. This is the 'correct default' rung of the fix ladder, not a check — a check would only tell each chapter it got it wrong again.
+
+## `owed.fade_clobbers_authored_opacity`
+
+FOUND 2026-08-08 on en ch2 s14, and it is a CORRECT-DEFAULT fix, not a documentation item. `fade(sel, at, dur)` in tools/scaffold/assets/js/motion.js is `tl.fromTo(sel, {opacity: 0}, {opacity: 1, ...})` — it animates to a HARDCODED 1, so any authored partial opacity on the target is silently destroyed. s14's grey half was authored at .22 and had been rendering at 1.0 since it was drawn; the reported defect ('the empty half is 21.7 luma louder than the filled half') was the SYMPTOM, and 'one opacity line' would have changed a value that was not in effect. The chapter now sidesteps it with `fill-opacity`, which fade() does not touch — a workaround, not a fix. THE FIX: fade() should animate to the element's AUTHORED opacity, not to 1. BLAST RADIUS MEASURED before touching it: no fade target in ANY of the four built chapters carries an authored `opacity` attribute (en ch1 has 0 fade targets, hi ch1 has 1, hi ch2 has 6, none with one), and en ch2 — the only chapter with an authored-opacity fade target — holds its OWN COPY of motion.js rather than the scaffold symlink. So the change is a no-op for everything already reviewed, including both LOCKED chapters. DEFERRED ONLY because hi ch2 is mid-draft-render on that symlink; apply as soon as it returns, before ch3 draws anything.
+
+## `owed.hi_ch2_s14_foot_divided_by`
+
+RIDE-ALONG ONLY — logged by the CEO as a note, not a blocker, and the editor missed it. s14's foot says the rate is 'the assumption every figure in this video is DIVIDED BY', while s16/s18 print 'corpus TIMES 3.0% divided by 12'. One chapter, two meanings for 'divided by', and the foot states the INVERSE of what s16-s18 actually do. Defensible for ch6's income->corpus direction, loose here. ONE-STRING build edit — take it the next time this chapter is opened for any other reason; do not re-open a locked chapter for it alone.
+
+## `owed.two_defects_in_the_ruling_TEXT_for_the_ceo`
+
+⚠ RAISED BY fin-editor ON en ch3 AND IT IS ABOUT THE RULINGS THEMSELVES, NOT THE CHAPTER. Both bear on ch4-7 of both cuts.
+1. **THE STOPPING RULE IS BRITTLE IN THE SAME WAY THE RETIRED RANK TEST WAS.** As written it turns on 'longest-held' — and on this chapter s37 lost that title to s26 BY 0.76 SECONDS, i.e. by how long the voice takes to say line 3.3, not by argumentative weight. That is precisely the brittleness the CEO already retired once when it closed the `#1 of N` payoff rank. PROPOSED FIX: a relocated floor is a defect when the new bottom is the payoff, OR the longest-held, **OR AN OUTLIER AGAINST ITS OWN CHAPTER**. s31 fails all three; s37 fails none.
+2. **THE INVARIANT'S SENTENCE SAYS THE CONVERSE OF WHAT IT ENFORCES.** `ground_and_payoff_legibility_2026-08-08` reads 'the darkest longest-held frame must be the chapter's most substantive beat'. READ LITERALLY, s37 SATISFIES that — it is dark and its beat is substantive. But the clause the s21 and s31 blockers actually enforced is the OPPOSITE one: a substantive beat must not be left in the darkest frame. Those are converses, and the text states the wrong direction. The sentence must be rewritten to say ONLY ONE of those things. Until it is, the rule can be quoted to justify the exact defect it was written to stop. || THIRD ITEM AND A PROPOSED UNIFICATION, from the hi ch3 editor: **a rank or superlative clause is decided only by separations that EXCEED THE NOISE of the thing it measures; frames inside the noise band are TIED and the clause is satisfied by any member of the tie — for the legibility measures the band is 1.0 LUMA POINT.** The 1.0 is not invented: fin-build reports three scenes tying at an integer 31 before in-bin interpolation (8-bit grain = 1.0), and the CEO's own re-measure of hi ch2's s16 p10 disagreed with the editor by exactly 1.0 and was called 'inside method noise'. VALIDITY CHECKED IN BOTH DIRECTIONS, as the CEO required of the last clause: it changes NO verdict reached on a real gap (en ch2's s21 was ~25 points down; hi ch2's hero still fails it; hi ch3's own floor is 4.98 clear) — and it COSTS THE PROPOSER SOMETHING, because applied to 'longest-held' it dissolves fin-build's s26-is-second-longest escape on en ch3. **ALL THREE ITEMS ARE ONE RULE**: this qualifier loosens a rank at the top, the en editor's outlier clause tightens one at the bottom, and both are *rank out, separation in*. The CEO's existing near-flat-host patch becomes a worked example rather than a standing exception. ⚠ AND DEFECT 2 IS NO LONGER HYPOTHETICAL: **both fin-assets AND fin-build discharged clause 1 by writing 'the invariant is satisfied by construction'** — i.e. by quoting the literal converse, exactly what the en ch3 editor warned the sentence permits. It has now been exploited twice by agents acting in good faith.
+
+## `owed.ch5_s41_collides_with_the_new_ch3_opener`
+
+⚠ RE-BRIEF BEFORE ch5 IS FETCHED. hi ch5's s41 is briefed as 'a hairline crack running across a dry clay pot' — the same material and near-same object as the NEW ch3 opener (a stacked yard of terracotta gullaks), two chapters apart. Caught by the fetch that created the collision, before either was built.
+
+## `owed.storyboard_hi_ladder_stale_in_three_places`
+
+storyboard-hi.md §9c, §10 and §12 ALL still carry the retired FIVE-rung ladder starting at s16. §10 additionally describes 'two cash boxes … each visibly bigger than the last' where the file is one. The live ladder is FOUR rungs: s22 -> s31 -> s58 -> s62. Three agents have now had to be told to follow the ruling instead of the storyboard; the storyboard should be corrected once rather than worked around again.
+
+## `hook_gate_hi._decision_style_A_superseded`
+
+ACCEPTED at ≈15.0s by the orchestrator, 2026-08-07. fin-voice measured the number-naming clause in 1.4 starting 1.618s into its clip (a 0.469s em-dash pause plus four preceding words), putting onset at 14.9–15.1s against the 15s gate — met at its boundary, with no margin. Not re-cut: the fix is one ElevenLabs call but the chain around it is not (script edit → audit-hi goes stale → re-voice → new script hash), and the format twins this video copies land their number at 0:40–0:54 of an 8–11 minute cut, so 15.0s is ~3x ahead of the field it competes with. Recorded rather than swallowed: if retention on this cut falls off before 0:20, this is the first thing to re-test.
+
+## `hook_gate_hi._decision`
+
+RULED 2026-08-08 by the orchestrator on the style-E restyle: the hi gate is measured on THE PROMISE (line 1.3), the same object the en gate was measured on. Verified, not assumed — logs/fin-voice-en-2.md:145 records hook_gate_en=9.571s as the onset of en 1.3 'And on that same day, before noon, money is deposited into your account', which is a promise, not a number. The two cuts had silently been judged on different objects: en on the promise, hi (style A) on the number-naming clause in 1.4. One object across both cuts, or the gate compares nothing. Chapters 1-2 of the hi script are the creator-approved style-E reference VERBATIM, and a sub-15s number-naming clause is arithmetically impossible inside them, so forcing one means editing text the creator signed off on after a listening test. Not done.
+
+## `hook_gate_hi.promise_onset_seconds_MODELLED`
+
+```json
+10.4
+```
+
+## `hook_gate_hi.promise_close_seconds_MODELLED`
+
+```json
+14.7
+```
+
+## `hook_gate_hi.number_naming_onset_seconds_MODELLED`
+
+```json
+22.9
+```
+
+## `hook_gate_hi.gate_seconds`
+
+```json
+15
+```
+
+## `hook_gate_hi._status`
+
+MEASURED 2026-08-08 by fin-voice-hi with silencedetect on the rendered clips, superseding the modelled figures below. All three came in BETTER than modelled.
+
+## `hook_gate_hi._tracked_risk`
+
+The number-naming clause moved from 15.0s (style A) to ~22.9s (style E) — 8s later, on the very dimension style A's note already flagged as the first thing to re-test. Recorded rather than swallowed. Two things make it acceptable: the promise now lands ~4.6s EARLIER than style A's number did, so the viewer learns what they are getting sooner; and the format twins this video copies land their number at 0:40-0:54 of an 8-11 minute cut, so 22.9s is still ~2x ahead of the field. If hi retention falls off before 0:30, this is the first thing to re-test.
+
+## `hook_gate_hi.promise_onset_seconds`
+
+```json
+8.682
+```
+
+## `hook_gate_hi.promise_close_seconds`
+
+```json
+11.294
+```
+
+## `hook_gate_hi.number_naming_onset_seconds`
+
+```json
+18.299
+```
+
+## `hook_gate_hi._outcome`
+
+Gate cleared with 6.32s of headroom (8.682s against 15s) — better than the modelled 10.4s and better than the en cut's own 9.571s. The tracked risk shrank too: the number-naming clause measured 18.299s, not the modelled 22.9s, so it slipped 3.3s from style A's 15.0s rather than 7.9s. Still the first thing to re-test if hi retention falls off before 0:30, but a far smaller bet than it looked from text. Modelled values kept above as the record of how badly text predicts this — 10.4 vs 8.682 measured.
+
+## `tool_fixes_this_run`
+
+- chapter_sheet.py: scenes with a countUp now settle at +4.5s instead of +2.6s. The rung-one corpus counts to ₹10,00,000 over 1.2s from +1.90, so every sheet cell — and therefore every downstream reviewer and the CEO — was shown ₹8,36,874: plausible, wrong, and the figure the rung would have been judged on. Five more rungs in ch3-7 would each have shown their own fabricated total. A partial chart looks broken; a partial count looks like a real number.
+- pipeline_check.py check_build (2026-08-08, found by fin-build on en ch1): TWO defects, both the run's recurring shape — a check aimed at the wrong thing. (1) The Lottie guard regex-scanned raw HTML, so `loadAnimation(`, `path:` and `__hfLottie` matched inside comments — it fired on the CSS comment explaining the pixel-stage trap, i.e. it punished the note that prevents the bug and rewarded deleting it. Fixed with strip_comments(): HTML comments globally, /* */ inside <style> ONLY, because stripping /* */ globally would eat JS string and regex-literal content and turn a false positive into a false NEGATIVE. (2) check_build used studio_dir() not project_dir(), so `--chapter` was refused by argparse outright and the whole chapter loop had NO build postcondition — fin-build had to verify through a hand-built scratch mirror. Fixed: project_dir() + chapter_timing(), which slices the cut's 81-line timing.json to the chapter's `C.x` lines rebased to 0, keeping the last scene's BARE duration. Validated against fin-build's independently-measured ch1=46.420s, exact; all six en chapters chain with no drift. Selftest gained 4 cases.
+- .claude/agents/fin-audit.md (2026-08-08, found on hi attempt 2): the stage is REQUIRED to write a log and its contract correctly forbids Bash, but its tools were `Read, Edit, Grep, WebFetch, WebSearch` — no Write, and Edit refuses a path that does not exist. So fin-audit could never create its own log, and returned STATUS: fail on a PASSING audit. Same shape as the six check defects, one level up: a stage judged against an artifact it had no tool to produce. Added Write; the contract now names Write explicitly and states that the ORCHESTRATOR runs pipeline_check, so the stage must not report failure for being unable to run it. The hi-2 log was persisted by hand from the agent's verbatim body.
+- pipeline_check.expected_seconds (2026-08-08, found by fin-voice-hi on 5.3): the duration check charged every pause mark its full pause_seconds ON TOP of chars_per_second — but the key is measured as total_chars / total_SPEECH, which already contains the pause silence, so the average pause was counted twice. Measured over both 81-line cuts: flat estimate mean +1.43% en / -0.94% hi and TWO-SIDED (41/81, 47/81 negative); pause-charged mean -3.80% / -7.32% and ONE-SIDED (59/81, 61/81) — this repo's own documented signature of a wrong model. It failed line 5.3, which whisper proved complete at glyph-ratio 0.96. Fixed by making the estimate a RANGE (flat .. flat+pauses) instead of a point, because a pause mark is a REQUEST and ElevenLabs honours it on one line and runs through it on the next. Keeps the protection the charge was built for — the Harsh cold open at 5.88s vs 3.84s flat sits inside its band — while a truncated clip is still far below the floor. Selftest gained 8 assertions.
+- tools/tts/batch.py (2026-08-08, found by fin-voice-hi): the <id>.txt sidecar records WHAT a clip says and nothing about WHO said it, so a voice change was invisible to the resume. 17 lines survived the Harsh->Amrut switch byte-identical and would have shipped in the retired voice with every downstream check green — check_voice_dir tests bytes, duration, silence and scene arithmetic, and not one of those is a function of timbre. Fixed by stamping the voice id in assets/voice/.voice: a mismatch makes every clip stale, and clips with NO stamp stop the run rather than guess. Unrepresentable beats documented (creator rule 2026-07-29). Existing dirs migrated by hand — both cuts verified to resume in 0 calls.
+- vault/knowledge/stock-photo-sourcing.md — RETIRED the `mean R−B >= ~+40` warmth screen (2026-08-08, derived by fin-render on en ch1). Not a tool bug but the same shape: a rule calibrated on the SOURCE FILE and enforced as if it described the screen. fin-render measured the encoded frames and fitted, from scene pairs with no model, `encoded R−B = 0.0927 x source R−B - 6.43` (residual std 1.43) — only ~9% of a photograph's warmth survives, under a fixed -6.43 from the layer stack. s1's source is +73.53 and renders at +0.76; hitting the +40 target needs a source near +500, which does not exist. The rule cost this chapter four fetch rounds chasing an unreachable number, and would have cost five more chapters the same. Warmth is CHROME: --bg (#0d1017, R−B -10) is every scrim, the band and the far stop of .field, so raising .field opacity makes a chapter COLDER — fin-build's proposed fix was backwards. Corrected in the knowledge note and in storyboard-en §11 so chapters 2-6 do not repeat it. No agent or tool hardcoded the rule (they read the note by path), which is the two-home rule paying off.
+- vault/knowledge/stock-photo-sourcing.md — recorded the md5 dedupe HOLE (2026-08-08, found by fin-assets on en ch2). s14 came back byte-unique and was the hi cut's own s16: Pexels has ingested part of Pixabay's library, so one photograph lives in both pools at different resolutions and hashes differently. It would have shipped the same image in both language cuts of the same video with every check green — the exact thing cross-cut dedupe exists to stop. Tell: Pexels credits those contributors 'by Pixabay'. I swept all 44 promoted images across both cuts with an 8x8 dHash and the run is otherwise CLEAN — the only pair inside Hamming 6 is hi-ch2 s13<->s14 at d=5, which is that chapter's deliberate continuous-zoom crop. Deliberately NOT wired into pipeline_check: every intentional derived crop sits at d<=5, so as a hard gate it would fire on the pipeline's own design. Recorded as a per-chapter sweep whose hits are questions.
+- chapter_sheet.py, SECOND fix (2026-08-08, found by fin-render on en ch1 s6): the late-settle was keyed off `class="lottie` alone, so the tick cascade fin-build drew as inline SVG (`.v-ticks`) matched nothing and fell to the 2.6 default. The cell sampled at 28.151 — 0.35s BEFORE the third checkbox began drawing — so the editor and the CEO would have judged s6 with a third of its art missing. This is the same failure as the countUp fix recorded above and the japanese-money stub bar before it: THIRD occurrence, third kind of art. Fixed at the class rather than by adding a fourth constant: the settle now keys off the whole `v-` vector-art family, and the settles are a MAX rather than an elif chain (a scene holding drawn art AND a counting number used to take whichever branch tested first). Over-settling is harmless — a sheet exists to show the finished frame, motion is what the mp4 is for. Gained a --selftest covering all four art kinds, the both-at-once case, short-scene clamping and per-framing sampling. en ch1's sheet regenerated: s6 now samples at 30.172 against a last tick at 28.667.
+
+## `hook_gate_en.measured_onset_seconds`
+
+```json
+9.571
+```
+
+## `hook_gate_en.measured_close_seconds`
+
+```json
+13.683
+```
+
+## `hook_gate_en.gate_seconds`
+
+```json
+15
+```
+
+## `hook_gate_en._note`
+
+MEASURED with silencedetect on the rendered clips, not modelled — fin-audit could not settle it from text (flat model said 10.9-13.0s, pause-loaded said ~15.5s). Clears the gate with 5.43s of headroom. Worth contrasting with hook_gate_hi, which sat at 14.9-15.1s with none: the creator's what-if open («Imagine a day when your phone does not ring once») reaches its promise FASTER than the declarative open it replaced, not slower. When the hi cut is restyled to match, expect its hook gate to improve too.
+
+## `rate_key_en_followup`
+
+fin-voice measured 17.313 c/s flat on style E against 17.588 on the same voice reading the style-A draft — the key is ~1.5% optimistic for this register, because style E added an em-dash signpost to nine lines and stepped the arithmetic into shorter sentences, so more of each clip is pause. Same mechanic as the documented SHORT caveat. A four-cut mean would only move the key to 17.505, so 17.57 STANDS and fin-script carries a register note instead. The important signal is the shape: attempt 1 had all 78 lines drifting negative (a wrong key), this cut drifts two-sided (a roughly-correct one).
+
+## `hi_length_decision._creator_2026-08-08`
+
+Expand to the 510s target rather than ship at 7:59 or make a minimum edit.
+
+## `hi_length_decision._cause`
+
+Not editorial. The script was budgeted at Harsh's 13.03 c/s; Amrut measures 14.281, so the same 5,922 chars came in 435 short of the tier's own budget and the voiced cut landed at 479.259s = 7:59.259 — 0.741s under YouTube's 8:00 mid-roll floor, which is the stated reason MEDIUM tier exists.
+
+## `hi_length_decision._how`
+
+fin-script attempt 3 added 503 chars across exactly ten lines in chapters 3-7 (3.5 3.6 4.4 4.9 5.3 5.12 5.17 6.4 6.11 6.8). No new lines, scenes, facts or numbers. Chapters 1-2 untouched (creator-approved verbatim, and the measured hook gate lives there); 6.13 untouched (already the cut's only max_scene_seconds breach). Re-audited scoped to those ten, re-voiced with --only.
+
+## `hi_length_decision._result`
+
+MEASURED 519.331s = 8:39.331. Clears the mid-roll floor by 39.3s and the 510s target by +1.8%. Hook gate re-measured IDENTICAL to the millisecond (8.682 / 11.294 / 18.299), confirming chapters 1-2 were untouched.
+
+## `hi_length_decision._cost`
+
+10 ElevenLabs calls. A whole-file Write was required (Edit unavailable), so all 81 Devanagari lines were rewritten; verified read-only twice that exactly ten drifted, and armed an eleventh-REGEN tripwire in the voice stage. Both passes and the stage itself came back at exactly ten — zero silent character drift.
+
+## `hi_length_decision._trade_taken`
+
+The mid-roll drop zone now opens on a reveal (5.8, the government scheme and its cap) rather than on the warning — 5.6 moved to 53.7%, ~1.5s before the 55% mark. A real 0.8-point trade, recorded rather than smoothed over.
+
+## `rate_key_hi_followup`
+
+Amrut on style-E Hindi: attempt 2 measured 14.281 c/s across 81 clips, attempt 3 measured 14.136 across the final cut. Drift against expected_seconds is TWO-SIDED (50 negative / 31 positive) versus 71/10 for the wrong Harsh key and 78/0 for the wrong en key, so 14.281 STANDS — a 1% key is not a wrong key, and the 0.145 gap is a selection artefact: fin-script expanded the ten FASTEST lines in the cut (16.68 c/s as attempt 2 voiced them, 14.574 after), pulling the mean down. Use 14.136 if a future measurement corroborates it; do not flip the key on this one observation. Separately, rate_key_en_followup's prediction did NOT reproduce here: it expected style E to run ~1.5% pause-HEAVIER than the key, and freshly-written style-E Hindi ran 14.574 c/s, 2.1% FASTER. That note's mechanic is en/Brian-specific, not a property of style E.
+
+## `storyboard_hi_decisions.s11b_reuse_closes_a_blocker`
+
+ch2's cleared s11b.jpg (current stone-grey notes, MAHATMA GANDHI microtext) becomes the background of the cut's FIRST CORPUS FIGURE — the exact frame that the demonetised pre-2016 Mahatma Gandhi Series notes blocked on the superseded build. The standing blocker is closed by reuse at zero fetch cost, and s11b was already serial-checked, so it must not be re-fetched.
+
+## `storyboard_hi_decisions.measure_bar_backport_declined`
+
+The en cut's §9c drawn measure bar was NOT back-ported. This cut already climbs PHOTOGRAPHICALLY — cash box -> two cash boxes -> steel trunk -> bank locker -> safe door — so a drawn bar over it is rule 8's depictive failure (drawing what the photograph already says). Saves a component this cut has never rendered.
+
+## `storyboard_hi_decisions.s4_dissolve_overrides_the_script_cue`
+
+OPEN FOR THE EDITOR. The script declares 1.3->1.4 as ONE continuous zoom; the storyboard makes s4 a DISSOLVE instead, because s3 is the reused chai-glass counter and contains no phone, so no crop of it can produce 1.4's frame. The s4 fetch is briefed on the same counter material so the place still reads as one place. The alternative — fetch one new photograph carrying both the counter and the phone — would restore the continuous zoom at the cost of the reuse. Flag this to fin-editor at hi ch1 review and let it rule from the encode; the en cut's equivalent joint was an editor blocker when it read as two pictures.
+
+## `tool_fixes_this_session.cues_py_popeach_off_by_one`
+
+FIXED 2026-08-08, tools/audio/cues.py. The `counted` cascade branch read popEach's ARG 4 (dur) where it meant ARG 3 (stagger) — motion.js:48 is popEach(sel, at, stagger, dur). On hi ch1 s6 it therefore wanted chips at 22.759/23.209/23.659 against the build's correct 22.759/23.359/23.959 (0.45 = the duration, not the 0.60 spacing the build draws; corroborated by the draw('#s6-tickN') calls at +1.45/+2.05/+2.65). `cues.py --write` would have REGRESSED a correct chapter, and the bug was live for every counted cascade on either cut. Found by fin-render diffing the build's audio.json against the tool — the diff exists as a stage step precisely so the tool and the build can disagree out loud. Verified after the fix: the tool now emits the build's three times byte-identically. Also marked, not fixed: n=3 clicks is hardcoded, fine for every cascade shipped so far, count the selector's elements if a 4-chip cascade ever appears.
+
+## `tool_fixes_this_session.chapter_design_css_centred_padding`
+
+FIXED UPSTREAM 2026-08-08, tools/scaffold/assets/chapter-design.css. `.scene.centred .stack` resets everything `.arch-b .stack` sets EXCEPT `padding-left: 62px`, so a centred archetype-B scene rendered its 'centred' content 31px RIGHT of frame centre. The 62px exists only to hold type off `.vrule` — and `.vrule` is `display: none` three rules down on exactly these scenes, so on a centred scene the padding has nothing to hold off. Invisible in isolation, which is why it survived: it only shows when something genuinely centred shares the frame. en 2.13 is that frame — `.measure.under` sits at `left: calc(50% - 460px)` and IS centred, so the ladder bar and the figure above it disagreed by 31px. Found by fin-build on en ch2, which correctly patched it LOCALLY and reported it as a system gap instead of silently fixing one build. PROPAGATION, checked not assumed: every chapter project symlinks chapter-design.css straight to the scaffold (assets/chapter-design.css -> ../../../../tools/scaffold/assets/chapter-design.css), so the edit reaches all of them live, including built ones. Blast radius measured: en ch1 (LOCKED) has 0 centred arch-b scenes so the lock HOLDS and needs no re-review; en ch2 has the 4 fin-build named and its local patch sets the identical value, so upstream is a no-op there; hi ch2 has 3 and was mid-build, so it inherits the fix; hi ch1 has 1 and its draft predates the change, so that draft is 31px stale on one scene — harmless only because hi ch1 is already in REWORK and will be re-drafted after its re-fetch. Do not review hi ch1's current draft as current. CUT-LEVEL COPY — checked, NOT the assembly risk it first looked like. studio/videos/passive-income-number-hi/assets/chapter-design.css was a REAL FILE (md5 cb4cbd08, 2026-08-07) left over from the retired style-A full build, and it had drifted 25 lines behind the scaffold — missing BOTH the comma-descender fix (`.arch-b .mega { padding-bottom: .11em }`, the very defect this run found on hi ch2 s15) and the padding-left fix above. But tools/cut_assemble.py already SYMLINKS both stylesheets to tools/scaffold and says so at line 406 — 'chapter-design.css comes from tools/scaffold, NOT from the cut's copy' — so the assembly was never going to load it. Verified by reading cut_assemble.py rather than assuming either way. The stale file was dead weight, not a live bug. Replaced anyway with a symlink to the scaffold (old file kept as chapter-design.css.styleA-stale) so it cannot be read by mistake, and blockframe.css symlinked too though it had not drifted. Nothing about the assembly changed.
+
+## `tool_fixes_this_session.cue_min_gap_never_enforced`
+
+FIXED 2026-08-08, tools/audio/cues.py. `format.json cue_min_gap_seconds: 0.8` had NO READER ANYWHERE IN THE TREE — grep returned only its own definition. It was a documented constant that nothing enforced, so en ch2 shipped a 0.600s gap at s18 that the build wrote, the render passed and only fin-editor caught, by ear. Now validated on BOTH the generated list and the SHIPPED audio.json, because the build writes that file by hand and it is what mix.py lays down. THE EXEMPTION IS THE WHOLE DESIGN: a chip CASCADE is exempt, because format.json cascade.gap_seconds is [0.6, 0.7] and a counted cascade deliberately draws at 0.60 — tighter than the floor on purpose. The floor is about two SEPARATE events crowding, not the clicks inside one run. Without that exemption the check fires on every counted cascade, which is how a new check earns itself a bypass. Calibration measured, not assumed: across the four built chapters it is 1 true positive (en ch2 s18, 62.658 -> 63.258, transition -> reveal) and 0 false positives — including hi ch1, whose 0.60 cascade would have fired without the exemption. --selftest covers both directions plus the boundary and untimed `_dry` rows.
+
+## `tool_fixes_this_session.chapter_design_css_centred_arch_b_caps`
+
+PORTED UPSTREAM 2026-08-08, tools/scaffold/assets/chapter-design.css — and it is the SAME SHAPE as the padding-left fix, found the same way, by two different chapters independently. `.arch-b .huge/.foot` are capped at 900px because in the FIGURE archetype the type shares the frame with the art plate. On a centred scene `.plate` is `display: none` ONE RULE UP, so the plate is gone and the cap is the leftover of a layout that is not on screen: `.scene.centred .stack` allows 1500px and its own children refuse to use it. en ch2 hit it on 2.14 and patched it as a 'ONE-OFF, this composition only'; hi ch2 hit it independently and called it a SYSTEM GAP, which is the correct read — two independent hits is the definition. Now `.scene.centred.arch-b .huge/.foot { max-width: 1500px }` upstream, placed after the base cap so source order wins. Blast radius measured: en ch1 (LOCKED) 0 centred arch-b scenes, so the lock holds AGAIN; en ch2 has 4 and is mid-rework, told to drop its local one-off; hi ch1 has 1 and is mid-rework; hi ch2 has 5 and ALREADY carried the patch locally, so the port is a no-op there and its QA snapshots stay valid. GENERAL LESSON for the remaining chapters: `.scene.centred` retires the plate, so EVERY `.arch-b` property that exists only because the plate shares the frame is suspect on a centred scene. Two have been found this way. Look for the third before it is found by a chapter.
+
+## `tool_fixes_this_session.comma_fix_protects_the_wrong_class`
+
+⚠ NOT A FIX — A CORRECTION TO A CLAIM THIS RUN HAS BEEN REPEATING, found by fin-render on hi ch2 and verified arithmetically by the orchestrator. run.json and several stage prompts have said the comma-descender defect 'was fixed system-side' and that 'every rung in ch3-7 depends on it'. The fix is `.arch-b .mega { padding-bottom: .11em }` — but IN STYLE E THE LAKH/CRORE RUNGS ARE `.huge`, NOT `.mega`. So the fix is correct and does nothing for the rungs it was credited with protecting. THE ARITHMETIC, because it decides whether to patch: `.mega` is 300px at line-height .84, where the line box ends 0.0317em under the baseline while comma ink descends 0.1406em — a 0.109em overhang, hence .11em. `.huge` is 112px at line-height .98; the extra 0.14em of leading splits half above and half below, putting the box 0.1017em under the baseline, so the overhang is only ~0.039em ≈ 4.4px, which the 18px arch-b stack gap absorbs. That predicts a positive clearance and fin-render MEASURED 12px at hi ch2 s17 (line1 commas -> line2 caps, the chapter's tightest). DECISION: do NOT add padding to `.huge`. It would shift layout in already-reviewed chapters to prevent a collision that is not occurring, and the clearance is comfortable. But it is INCIDENTAL, not guaranteed — a tighter gap or a larger `.huge` in ch3-7 would eat 4.4px with no rule to stop it. The control is the one that actually caught this: fin-render measuring comma clearance FROM THE ENCODE per chapter, now aimed at `.huge` rather than `.mega`. Every remaining render prompt must say so explicitly.
+
+## `tool_fixes_this_session.stale_log_guard`
+
+ADDED 2026-08-08, tools/pipeline_check.py `stale_log()`, wired into mark(). The rule 'an agent that returns without its log failed' assumes the log's ABSENCE is detectable; it is not, when a same-named log survives from an earlier attempt or session. It happened TWICE today — fin-assets-hi-ch2-2.md (an older s16-only log) and fin-build-hi-ch2-2.md (dated the previous day) — and either, read as this attempt's record, would have certified unverified work as done. mark() now fails a stage whose log is missing or older than the artifact that stage produces. ⚠ IT TOOK THREE TRIES AND THE FIRST TWO WERE MINE, BOTH TOO STRICT: (1) comparing against the newest file anywhere in the project false-fired on a correct ASSETS log because a BUILD was running in the same chapter — stages are sequential, so a later stage always postdates an earlier stage's log; narrowed to the stage's own artifact. (2) a 1-second tolerance false-fired on hi ch2 attempt 3, which wrote its log at 16:12:26 and regenerated index.html at 16:12:41 — a legitimate write-log-then-verify ordering; widened to 600s, which sits in the empty gap between that population and real leftovers at ~2h and ~27h. Both false positives were caught by running the guard against REAL logs, not by the selftest. Discrimination now asserted both ways.
+
+## `incidents.api_outage_2026-08-08`
+
+Three agents died simultaneously on `API Error: Unable to connect to API (ENOTIMP)` — fin-assets hi ch1 attempt 7, fin-build hi ch2 attempt 1, fin-editor en ch2. Infrastructure, not a stage failure, so none counts against its stage's retry budget. None wrote a log. Two left half-states, and the recovery is worth recording because the SAME shape has now bitten this run three times (session limit, watchdog stall, API outage): (1) hi ch2 — build.mjs 11:49 was NEWER than index.html 11:37, so the composition did not reflect its source. Left for the re-dispatch to regenerate, warned that build.mjs may itself be mid-edit (the killed agent's last action was moving s19's rate below its statement). (2) hi ch1 — the re-fetch had already REPLACED s3 with an off-brief image ('black smartphone lying on a folded newspaper on a wooden table'): no chai glass, and a THIRD dark-phone-on-dark-wood frame — it failed the editor's blocker from the opposite side (kept the phone, dropped the glass) while worsening the near-pair should-fix. It had archived outgoing s1 and s3 to assets-ch1/retired-attempt6/ but replaced only s3. The orchestrator moved the bad file to assets-ch1/killed-attempt7/ and restored the reviewed original from the archive, md5-verified back to the exact bytes fin-editor reviewed, so attempt 8 starts from clean ground rather than inheriting a wrong image nobody had ruled on. THE GENERAL LESSON, already true twice before today: when an agent dies mid-flight the danger is not the missing log — it is the ARTIFACT THAT IS NEWER THAN THE THING THAT GENERATED IT, or newer than the review that blessed it. Check mtimes against each other, not merely for existence.
+
+## `incidents.api_outage_2_2026-08-08`
+
+Second ENOTIMP outage, same three-way kill: fin-build hi ch1 attempt 4, fin-render en ch2 attempt 2, fin-assets hi ch2 attempt 2. Infrastructure again, so none counts against a retry budget. Three DIFFERENT half-states, and the triage is the reusable part: (1) hi ch1 — build.mjs 13:52 NEWER than index.html 13:28 and DRAFT 13:34. The band edit is in the source and in neither output. Regenerate, and verify build.mjs parses first: this chapter has already been bitten once by a complete-but-unparseable build.mjs. (2) en ch2 — the OPPOSITE, and worth noticing rather than reflexively re-rendering: DRAFT 13:41 and SHEET 13:42 are NEWER than every input (index.html 13:15, build.mjs 13:15, s20.jpg 13:27). The render HAPPENED and only the measurement was lost, so the re-dispatch is MEASURE-ONLY. Re-rendering would have burned wall-clock to reproduce a file that was already correct. (3) hi ch2 — partial: s9 (13:46) and s12 (13:50) replaced, s19 and s20 not. ⚠ THE NEAR-MISS WORTH RECORDING: `logs/fin-assets-hi-ch2-2.md` EXISTS and is NOT that run's log. It is an older file from a previous session, scoped 's16 only', about the style-A graph-paper defect. Read as the killed agent's output it would have certified s9 and s12 as verified when nothing had verified them. The rule 'an agent without its log failed' assumes the log's ABSENCE is detectable — it is not, when a same-named log already exists from an earlier attempt. Read the log's CONTENT and scope, never just its path. The re-dispatch writes to -3.md and treats s9/s12 as unverified.
+
+## `incidents.session_limit_2026-08-08_1849`
+
+Session limit (resets 19:30 Asia/Karachi) killed two agents mid-flight: fin-build hi ch2 attempt 5 (the s16 re-frame) and fin-assets en ch3 attempt 2 (the s31/s27 re-fetch). NEITHER WROTE A LOG. Both left the dangerous shape — an artifact newer than the thing that describes it. State mapped immediately:
+hi ch2: build.mjs and index.html BOTH 18:49 and build.mjs parses; DRAFT-ch2.mp4 is 18:42 and SHEET-ch2.jpg 17:46, so BOTH PREDATE the composition and neither shows the re-frame. The re-frame itself is real and substantial (see chapters.hi.2). ⚠ ITS OWN NOTE SAYS the median/p10 re-measurement 'is in fin-build-hi-ch2-5.md ... deliberately NOT restated here, because a number copied into a comment is the thing this slot has now been wrong about twice' — and THAT LOG DOES NOT EXIST. So the discipline was right and the number is simply gone. It must be re-measured, not recovered.
+en ch3: s27.jpg (18:44) and s31.jpg (18:48) WERE replaced, predecessors archived at assets-ch3/superseded-invariant-r1/, but index.html and build.mjs are 18:23 — OLDER THAN BOTH NEW IMAGES. The composition points at photographs nobody has composed against. No log, so neither file is verified: s27 is 'car door handle on a white car body in bright daylight close up' and s31 'sunlit entryway of an american home white front door brass knob'. ⚠ BOTH ARE WHITE-DOMINANT SUBJECTS, which is the one thing the locked grade cannot carry — unverified and suspicious, not unverified and probably fine.
+
+## `method_learned.asset_sourcing_2026-08-08`
+
+Two cheap techniques that came out of this run's fetches and are now in every fin-assets brief: (1) PER-CELL signalstats on the CONTACT SHEET rejects a candidate on tone before any full-size fetch — tone is knowable from the sheet, subject is not. (2) md5-sweep across SIBLING CHAPTERS OF THE SAME CUT, not just within the chapter: en ch2's best doorstep fallback was byte-identical to ch1's s6 and was caught only that way. The standing rule was 'zero duplicate md5s across all of studio/', but the sweep in practice was being run at chapter scope.
+
+## `method_learned.tone_prediction_overestimates`
+
+The predicted-encoded-p90 arithmetic (`y' = ((0.62y/255 - 0.5)*1.05 + 0.5)*255`, then x the measured encoded/predicted factor 0.418) OVER-PREDICTED en ch2 s20 by 7 points: predicted 50, encoded 43. That is large enough to invert a sourcing decision — it is the difference between 'this fixes the joint' and 'this moves the joint into the hero', and here both derived claims were wrong. Treat the prediction as a SHORTLISTING tool, the same status as the contact sheet: good enough to reject a candidate, never good enough to certify one. Only fin-render's measurement from the encode settles tone.
+
+## `rulings_binding_on_both_cuts.ground_and_payoff_legibility_2026-08-08`
+
+RULED at the en ch2 CEO gate, binding on ch3-6 (en) and ch3-7 (hi). Read this before briefing ANY remaining chapter's assets or build.
+THE PREMISE WAS FALSE AND THE CEO MEASURED IT. fin-editor escalated the question as 'en's hero is dark because of a DECLARED device, the --fund green ground, whereas hi's is undeclared drift'. Measured, `#12351f` has relative luma 43.9 — THE BRIGHTEST OF THE EIGHT GROUNDS IN THE CHAPTER, ten points above the amber `#2a2113` (33.9) that carries the whole evidence body — and the encode agrees (green scenes measure 50.7 / 43.7 / 46.0 / 44.0, with s18 above the chapter average). So there was NO declared device to grant an exception to. en's hero is dark because S21'S PHOTOGRAPH IS DARK (p10 15, under a global .bg brightness(.62) that no per-scene knob overrides). Same cause as hi, wearing a colour role as an alibi.
+THE INVARIANT STANDS UNQUALIFIED FOR BOTH CUTS: ground temperature is assigned by ARGUMENTATIVE WEIGHT, not mood — the darkest longest-held frame must be the chapter's most substantive beat.
+PLUS THE OPERABLE CLAUSE THAT WAS MISSING: the PAYOFF FRAME'S PHOTOGRAPH MUST BE THE MOST LEGIBLE IN ITS CHAPTER, NEVER THE LEAST.
+AND THE LEVER IS ALWAYS THE PHOTOGRAPH — never the ground, the scrim or the grade. s20 proved it empirically: one swap moved its scene's p90 +8 while its p10 moved 0. The hi ch1 CEO's formulation, offered and now superseded by the measurement, was 'a device may set a ground; only content can justify holding it' — true, but it turned out no device was setting anything.
+
+## `rulings_binding_on_both_cuts.payoff_clause_and_metric_2026-08-08`
+
+RULED at the en ch2 CEO gate, round 2. Binding on ch3-6 (en) and ch3-7 (hi). This REPLACES the rank test in `ground_and_payoff_legibility_2026-08-08`; the invariant itself (ground temperature by argumentative weight; the lever is always the photograph) stands unchanged.
+1. THE PAYOFF CLAUSE IS CLOSED AND REPLACED. 'The payoff frame's photograph must be THE MOST LEGIBLE' was a '#1 of N' rank, which makes compliance a function of how good the OTHER frames are and flips on a 1.4-point measurement error. NEW CLAUSE: **sound-off pass · top quartile on median · #1 or #2 on p10 · non-negative median step in.** CEO AMENDMENT: top quartile = `ceil(N/4)` FLOORED AT 3, or a short chapter collapses the quartile back into the point-rank being retired. The `>=55` p90 target is RETIRED, not carried as a miss. Validity check that earned the clause its adoption: the editor scored its own proposal against the other cut and hi ch2's hero STILL FAILS IT — not a rule written to let en through.
+2. THE METRIC. **Median ranks; `p90 - p50` is reported beside it; a BINARY SOUND-OFF GATE runs FIRST as a floor.** p90 is RETIRED for this purpose: it gets the SIGN of two joints wrong (s14->s15 +18.2 p90 vs +2.3 median, where one white page enters and nothing brightens; s15->s16 -16.5 vs +6.1, where p90 says darker and the eye says clearer), and it penalises the evenness the ruling asks for. CEO SHARPENING: **near-zero spread is NOT a credit** — a blank field is both even and empty. The gate is *with the type covered, can a viewer name a concrete object?* It is not new machinery: it is the editor's existing read given STANDING TO DISQUALIFY. Rationale of record: every purely numerical measure tried on this run has eventually crowned an empty frame (the blank notebook page, the pale-sky field, the closed notebook cover), while the sound-off read returned the same verdict four times across two cuts.
+3. ⚠ IMMEDIATE CONSEQUENCE FOR hi ch2, stated by the CEO: **a flat pale-sky field with zero spread FAILS the gate — no nameable object, INELIGIBLE TO LEAD.** || ARITHMETIC CORRECTION 2026-08-08: the orchestrator's ch2 brief read `ceil(13/4)` as top 3. It is TOP 4. The ruling text is right; the orchestrator's application of it was wrong, caught by fin-render. For a 9-scene chapter it is ceil(9/4)=3; for 13 it is 4; for 16 it is 4.
+
+## `rulings_binding_on_both_cuts.floor_stopping_rule_and_p10_comparator_2026-08-09`
+
+RULED at the hi ch2 CEO gate. Binding on ch3-7 (hi) and ch4-6 (en). Three parts:
+1. **THE STOPPING RULE, ADOPTED.** A relocated floor is a defect ONLY when the new bottom is the PAYOFF frame or the LONGEST-HELD frame. Fixing a floor moves it rather than removing it — hi ch2 and en ch3 hit that independently within an hour — and without this every remaining chapter pays a fetch round for a treadmill that already produced one wrong fix. It is a clarification of the invariant, which was always about WHICH frame sits at the bottom, not how deep the bottom is.
+2. **THE SOUND-OFF GATE GAINS STANDING ON THE CHAPTER'S OPENING FRAME** — deliberately a GATE, not a rank, because a rank test is exactly what the payoff clause retired. Uses no new machinery: it is the same binary read (type covered, can a viewer name a concrete object?) applied to one more slot.
+3. **A NEAR-FLAT HOST FRAME IS NOT A VALID COMPARATOR ON THE p10 CLAUSE.** Where the only frame above the payoff on p10 is an admitted host/backdrop, the payoff reads as #1. Reached by re-measurement rather than inheritance: the CEO measured s16's p10 at 24.0, TIED with s20, where the editor had 23 vs 24 — the gap is inside method noise, which is precisely why the clause says '#1 or #2'.
+
+## `rulings_binding_on_both_cuts.container_ladder_2026-08-09`
+
+RULED at the hi ch2 CEO gate, and resolved WITHOUT a re-fetch because the CEO read the file rather than the brief: `assets-ch3/final/s22.jpg.src` shows ch3 ALREADY sourced a carved money box with a brass coin slot and self-labelled it rung 1. **The ladder starts at s22 and has FOUR rungs: s22 -> s31 -> s58 -> s62.** Rung 1 could not stay at s16, which is now pinned simultaneously by the payoff clause, the serial constraint and §8's no-drawn-layer rule. ⚠ ch3 MUST NOT brief s22 as 'bigger than s16'. ⚠ storyboard-hi.md §12's row is STALE IN TWO PLACES.
+
+## `budget._spend_log`
+
+style-A scripts (discarded): fin-voice-hi 78 on Harsh, fin-voice-en 78 on Brian = 156. style-E: fin-voice-en attempt 2 (2026-08-07) = 53 calls, NOT 81 — 28 lines were byte-identical to attempt 1 and resumed off their .txt sidecars, while the other 53 printed REGEN, which proves the comparison was live. Cumulative 209 of 350. The hi restyle on Amrut still needs a full ~81, since the voice changed as well as the text. | fin-voice-hi attempt 2 (2026-08-08) = 81 calls on Amrut with --force, NOT a resume: 17 style-E lines were byte-identical to the style-A take, so a bare resume would have made 64 calls and shipped chapter 5 more than half in Harsh's retired voice. Cumulative 290 of 350. | fin-voice-hi attempt 3 (2026-08-08) = 10 calls, the ten expanded lines only, via --only. Cumulative 300 of 350.
+
+## `budget._ceiling_note`
+
+Raised 78x2x1.2=188 -> 350 on 2026-08-07. The restyle means both cuts get voiced TWICE: 156 calls are already spent on the style-A scripts (78 hi on Harsh, 78 en on Brian) and are now discarded, and style E runs ~81 lines per cut. 156 + 81x2 + 20% headroom on the new work = ~350. The ceiling exists to catch a runaway loop, not to cap a decision the creator made deliberately.
+
+## `budget._discarded`
+
+The 78 hi clips on Harsh are dead twice over — wrong voice AND wrong script. The 78 en clips on Brian are dead once — right voice, wrong script.
+
+## `constraints._note`
+
+Creator constraints set at intake 2026-08-07. fin-facts and fin-audit both enforce these; they are not suggestions.
+
+## `style_decision._creator_2026-08-07`
+
+Use STYLE E for BOTH cuts. Start with the English one. English voice stays Brian. Hindi voice changes to Amrut Deshmukh LHJy3mhZWsvhUjy0zUM1.
+
+## `style_decision._what_style_E_is_full`
+
+(1) The cold open is a WHAT-IF, not a statement — «सोचिए, एक ऐसा दिन…» / «Imagine a day when your phone does not ring once» — and the phone's silence is the promise while its single buzz is the payoff. (2) The teaching register is signposted throughout: «यहाँ ध्यान दीजिए» / «Notice this», «इसे ऐसे समझिए» / «Think of it this way», «Now watch what it buys», «Work it through». (3) An analogy that PAYS OFF LATER: the tank and the two taps — 'how much can you draw each year without emptying it' IS the safe-withdrawal question, so the later yield-trap beat becomes a callback rather than a new idea. (4) Arithmetic is stepped across lines, not compressed into one.
+
+## `vidiq_spend._note`
+
+vidIQ runs AROUND the pipeline (topic selection before, packaging at close-out, autopsy after) — never inside a fin-* stage, which has no credit budget to reason about.
+
+## `chapters._note`
+
+Chapter-first production (orchestrator §3b): each chapter is a standalone project at studio/videos/<slug>-<cut>-ch<N>/, timings rebased to play from 0 but relative gaps exact so chapters concatenate frame-exact. hi has 7 chapters, en has 6. A chapter locks only after fin-editor PASS and fin-ceo SHIP; locked chapters are never rebuilt on --resume. The per-cut fin-assets/fin-build stage entries in `stages` are marked once, at the end of that cut's loop — not per chapter — because a per-chapter mark would read as the whole stage being done.
+
+## `chapters._THIS_MAP_IS_AUTHORITATIVE`
+
+⚠ 2026-08-08: `stages` DOES now carry `fin-assets-en`, `fin-build-en` and `fin-assets-hi` as done, and that is misleading — each was written by `pipeline_check mark <stage> --chapter <N>`, so it records ONE CHAPTER passing, not the whole cut. `mark` has no way to say 'chapter 1 of 6'. Every chapter of both cuts is therefore listed explicitly below, including the ones never started. **Read chapter progress ONLY from here, never from `stages`.** This is the same failure this run kept hitting elsewhere — a green signal covering something it was never measuring.
+
+## `chapters._carry_forward_from_ch1_assets`
+
+fin-assets could not land a window photograph for s2 (three rounds across both pools returned coffee, book spines and a church rose window), so two LATER briefs must adjust rather than assume: s77's callback should rhyme with the chai GLASS, not the window; and s25 must put its brass weights visibly in frame or it reads as s7 reused. Carried here because the agent that found it does not run again until its own chapter. ⚠ SUPERSEDED 2026-08-08 by fin-storyboard-hi attempt 2. That note was written against the style-A scene numbering, which no longer exists (the restyle renumbered to 81 scenes). The window problem it worked around is GONE on its own: style E's 1.3 names a counter and a steel glass, not a window, so s2's blocker never arises. Do not apply the s77/s25 instructions to the new numbering — they refer to scenes that are not the same scenes.
+
+## `chapters._carry_forward_to_storyboard_hi`
+
+From fin-audit-hi-2 (2026-08-08): 5.2 and 6.13 are `--warn` frames whose strings contain India's 3.0% as the COMPARATOR. The tint must land on the 10/12/4% token, not on the 3.0%, or the frame argues against its own thesis. Carried here because the agent that found it does not run again before the storyboard. ALSO from fin-script-hi attempt 3 (2026-08-08): the two-`data-framings` instruction was INVERTED. It named 2.4, which measures 7.853s and needs one framing; the cut's only max_scene_seconds breach is 6.13 at 9.812s. Point the framings at 6.13. MEASURED 2026-08-08 after the re-voice: FOUR scenes breach max_scene_seconds (9.0) and need two data-framings each — 6.13 (9.812s), 5.12 (9.603s), 5.17 (9.185s), 4.4 (9.159s) — and two sit within 0.1s of the cap: 3.6 (8.976s), 6.8 (8.924s). Note 5.12 breached HARDEST at only 105 chars: the script's 117-char flat ceiling screened 4.4 and 5.17 and let 5.12 straight through, because Amrut slows on spelled-out rates («चार परसेंट»), the same mechanic as 6.13. A char ceiling does not predict a scene breach; only measurement does.
+
+## `chapters._carry_forward_en_ch2_to_ch4_ch5`
+
+fin-assets en ch2 could not source THE TANK — six contact sheets and 36 candidates returned tanks with no tap or taps with no tank, so s10/s10b resolve it as a brass tap on a plain steel body, taking the constant §10 itself names as load-bearing rather than a near-miss on the silhouette. Nothing was faked and the weakness is declared: sound-off gate 3 is genuinely weakest there. **s46, s47 and s57 in ch4/ch5 INHERIT this object family**, so if fin-editor rejects s10 the fix is a storyboard decision about the object family, not another fetch round. Stakes are higher than one frame: the tank-and-two-taps analogy is style E's load-bearing device — 'how much can you draw each year without emptying it' IS the safe-withdrawal question, and the mid-video yield-trap beat is written as its callback. If the image cannot say TANK, the callback lands on an object the viewer was never shown.
+
+## `chapters._lottie_glyph_grep_is_a_false_negative`
+
+VERIFIED 2026-08-08. The hi ch1 round-1 blocker 'notification card carries no ₹ glyph' is CLOSED, but `grep '₹' assets/lottie/phone-notify-credit.json` returns 0 and always will: assets/lottie/src/phone-notify-credit.py draws the mark in rupee() as FIVE ROUND-CAPPED STROKES, not as text. Same for the `$` on the -en twin. So a glyph check against the artefact reports a false BLOCKER — the inverse of this run's usual defect, a check going RED over something correct. Verify from the GENERATOR or from encoded frames (fin-build already proved the $ legible in the en encode); never from a grep of the JSON.
+
+## `chapters._carry_forward_en_ch1_to_ch2_ch6`
+
+From fin-editor en ch1 round 3 (2026-08-08): (1) **s41/s42 and s75/s76 are the same matched-frame-hold shape as s3/s4** — build them pointing at ONE file under one chained ken push the FIRST time, not as two files dissolving. s3/s4 cost three rounds to learn this. (2) **s8 has eaten s74's territory** — its ladder reads full-height, which §10 had planned as ch6's move for s74, so s74 needs re-planning when ch6 is built or it repeats a frame the viewer has already seen.
+
+## `chapters.hi.1.build_note`
+
+Rebuilt from scratch on style E at attempt 1, retiring the style-A composition that pointed at the rotated photographs. The killed session's build.mjs turned out to be COMPLETE but unparseable — one stray backtick pair inside a comment inside the html template literal. 8 scenes, root 42.475s, timings byte-exact from timing.json with gap asserts, no rail, both rate asserts positively controlled.
+
+## `chapters.hi.1.declared`
+
+```json
+42.475
+```
+
+## `chapters.hi.1.fix_attempt_2`
+
+#s4-stmt had no motion call — five of six statement-bearing scenes have one (rise on s1/s3/s5/s7, pop on s8) and s4 had none, against the file's OWN declared ladder. So s4's headline was at full local opacity from its first frame and double-painted against s3's outgoing headline across the whole 0.45s dissolve. Fixed with the one line its siblings use: rise('#s4-stmt', S.s4 + 1.10, 0.7, 40).
+
+## `chapters.hi.1.⚠_attempt_2_HAS_NO_AGENT_LOG`
+
+The fin-build attempt-2 agent STALLED (watchdog, no progress 600s) after applying the fix and re-drafting but before writing vault/.../logs/fin-build-hi-ch1-2.md. Per §4 an unlogged agent claim is worth nothing, so the orchestrator re-verified every postcondition from disk INDEPENDENTLY rather than accepting the artifacts on the agent's word. That verification is below and is the only reason this chapter advanced.
+
+## `chapters.hi.1.orchestrator_verification_2026-08-08`
+
+ffprobe: 1275 frames / 42.500000s / r_frame_rate 30/1 — exactly ceil(42.475x30), no residue. blackdetect d=0.05:pic_th=0.98:pix_th=0.10: 0 segments. `hyperframes check`: passed, 10/10 text checks WCAG AA. `check_vo_frame --cut hi --chapter 1`: PASS. THE FIX ITSELF confirmed from the encode, not the source: the frame at 12.447s (mid-dissolve, the exact timestamp fin-render caught the defect at) now shows ONE headline — s3's 'Money lands in the account.' with its BEFORE NOON kicker — and s4's 'That one buzz is the money arriving.' is absent, i.e. at opacity 0 as intended. SHEET-ch1.jpg regenerated from the fixed draft (the previous sheet predated the re-render by 14 minutes and would have been reviewed as current).
+
+## `chapters.hi.1.joint_s3_s4_measured`
+
+0.45s dissolve at 12.222->12.672, sceneTransitions default with no HOLDS entry. Peak scdet 0.232 — highest of the seven joints but by only 0.008 over s1->s2, and below three ordinary IN-scene motion peaks (global max 0.384 @ 1.133s). Luminance step -3.160 Y (-7.2%), second-smallest of seven; max per-frame dY 0.556, ramp monotonic across f369-f379, flat after. No step, no pop — the two photographs match photometrically. Measured, NOT ruled: fin-editor owns the storyboard-override question (dissolve where the script declared a continuous zoom, because the reused s3 chai-glass counter contains no phone).
+
+## `chapters.hi.1.open_for_the_editor`
+
+fin-render observed s4's Lottie banner carries the ₹ mark but renders as an icon-tile plus three plain grey bars, not the `₹ • • • •` its scene comment claims. Unresolved — nobody has said whether the comment is wrong or the Lottie is. NOTE the standing trap: a grep for ₹ on that Lottie returns 0 and always will, because the generator draws the mark as five round-capped strokes, not text. Verify from the generator or the encode, never the artefact.
+
+## `chapters.hi.1.editor_verdict`
+
+REWORK — 1 blocker, 4 should-fix (round 1 on the style-E rebuild)
+
+## `chapters.hi.1.blocker`
+
+s3 shows a chai glass on a window sill under the headline 'Money lands in the account.' — no money, no account, no phone in frame, ON THE BEAT THE HOOK GATE IS MEASURED ON (1.3, the promise, measured at 8.682s). The continuous-zoom device that was supposed to let s3 lean on s4 for the phone was overridden away into a dissolve, so nothing carries it.
+
+## `chapters.hi.1.editor_rulings.1_s3_s4_joint`
+
+TWO PICTURES, NOT ONE PLACE — should-fix, and it is CLEARED by fixing the blocker. The editor did not contradict fin-render's measurements (scdet 0.232, dY -3.160, monotonic ramp); it ruled on what the numbers cannot see: the two frames share no object, no depth and no light direction — a mid-shot of a mullioned sill against a warm macro of a black phone slab. The 'same counter material' brief FAILS because wood is not an identifier in this chapter: six of eight grounds are wood. It reads as a mood cut rather than a glitch, which is why it is not a blocker on its own.
+
+## `chapters.hi.1.editor_rulings.2_s4_lottie`
+
+THE LOTTIE IS RIGHT, THE COMMENT IS WRONG — comment edit only, no art change. assets/lottie/src/phone-notify-credit.py rupee() draws one ₹ as five round-capped strokes on the app tile and DELIBERATELY leaves the amount as bars ('the digits stay bars; only the currency is named'). Legible in the encode at 16.9s, so the style-A round-1 currency blocker is genuinely closed. index.html's 'the card reads ₹ • • • •' is the stale artefact. Verified from the GENERATOR and the ENCODE, never the artefact — a grep for ₹ on that Lottie returns 0 and always will.
+
+## `chapters.hi.1.editor_rulings.3_ground_and_s8`
+
+6/8 wood, not the 5/8 fin-assets declared — and still NOT a blocker: the subjects differ strongly enough that the sheet does not read as sameness. But s1 and s4 are a real near-pair (dark phone on dark wood), and fixing the blocker makes s1 the THIRD such frame, so s1 moves to textile — which is its own script cue anyway. s8 at 1280px drawn 1.63x is ACCEPTED: 1:1 crops show real micro-texture and a crisp handle edge, and the soft stamp impression is the source's own DOF, not upscaling.
+
+## `chapters.hi.1.queued_refetch`
+
+TWO fetches, both blocked on the assets pipe (single-file by the dedupe/rate guardrail): (a) s3 BLOCKER — one frame holding a chai glass AND a whole dark-screen phone on one counter. That makes s4 a CROP of s3 and gives back the script's declared continuous zoom, closing the blocker and ruling 1 at the same time. The en cut proved this shot class is buyable, but its file is a US coffee mug on white terrazzo and MUST NOT be reused in the INR cut. (b) s1 SHOULD-FIX — move to textile, away from the dark-phone-on-dark-wood near-pair.
+
+## `chapters.hi.1.refetch`
+
+vault/videos/passive-income-number/logs/fin-assets-hi-ch1-8.md
+
+## `chapters.hi.1.refetch_verdict`
+
+PASS — 2 accepted, ~150 cells rejected across 25 sheets, nothing dropped, both hashes unique across all 151 studio jpgs, `check assets --chapter 1` PASS. Two of the rejects died only at FULL RESOLUTION: an outdoor-café mug shot with the phone cut off by the frame edge, and a warm flatlay whose face-down phone showed a legible Apple logo.
+
+## `chapters.hi.1.blocker_closed`
+
+CONFIRMED AT FULL RESOLUTION, which is the whole point of this fetch and what the killed attempt 7 got wrong: s3.jpg (1880x1253) contains BOTH a glass of tea (clear glass mug, spoon, amber tea) AND a whole face-up phone with a completely dark screen, on one table. No logo, no legible text, no hands, no faces.
+
+## `chapters.hi.1.two_declared_deviations_for_the_editor.s3_is_a_european_cafe_not_an_indian_chai_glass`
+
+⚠ NEEDS A RULING and I am not pre-ruling it. The vessel is a tea glass in a EUROPEAN CAFÉ setting, not an Indian chai glass. fin-assets searched 25 sheets across both pools and reports the chai-glass-plus-phone still life DOES NOT EXIST in either. So the choice was: the declared object family in the wrong country, or the right country without the object that closes the blocker. It took the former. This is the ₹/India cut, so it is a real market question — but note the locked grade is grayscale(.32) brightness(.62) contrast(1.05), which strips most of what reads as 'European café' in the raw. RULE IT FROM THE ENCODE, after the grade, not from the source file.
+
+## `chapters.hi.1.two_declared_deviations_for_the_editor.s1_textile_has_no_phone`
+
+s1 moved to textile as instructed, but the textile frame contains no phone — every phone-on-textile cell was a face, a lit screen, or high-key white. s1's script cue is the textile, so this may be fine; flagged because the chapter's opening object continuity changes.
+
+## `chapters.hi.1.build_instructions_from_assets`
+
+fin-assets hands the build a specific recipe for restoring the continuous zoom: point `#s4-bg` at s3.jpg with the same background-position (~`center 90%`; the phone sits at y75-87% of the source) and chain the ken 1.00->1.08->1.30, so s4 becomes a CROP of s3 rather than a second photograph. Also re-derive s3's ground hex — `#241d15` no longer matches, the new photograph is cooler.
+
+## `chapters.hi.1.build_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-build-hi-ch1-3.md
+
+## `chapters.hi.1.blocker_closed_by_construction`
+
+VERIFIED INDEPENDENTLY by the orchestrator, not taken on the agent's word: `#s3-bg` and `#s4-bg` now resolve to THE SAME FILE (assets-ch1/final/s3.jpg), with one background-position and one chained plateKen 1.00->1.08->1.30, and the hold declared in cues-tables.json so the joint takes no transition SFX. That single change closes the blocker AND the separate should-fix on the s3->s4 joint: the joint is now a genuine crop, not two pictures, which is the answer the en cut reached for its equivalent joint. Grounds re-derived from the pixels (#24201c for the pair, #161f2b for s1's new textile), the Lottie stage re-derived onto the new crop, and s4's stale `₹ • • • •` comment corrected from the GENERATOR.
+
+## `chapters.hi.1.reverified_after_rework`
+
+check_vo_frame PASS · cues.py exit 0 · hyperframes check 10/10 WCAG AA · 1275 frames / 42.500s / 30fps unchanged · 8/8 has-photo · no rail · sheet (13:35) newer than draft (13:34), so the sheet is of this draft.
+
+## `chapters.hi.1.outstanding_should_fix`
+
+⚠ Round-1 finding 4 — s7's five drawn rungs — WAS NOT BUILT in this pass and fin-build says so. Sent back to fin-editor to re-rule: still a should-fix, now a blocker, or droppable.
+
+## `chapters.hi.1.editor_r2`
+
+vault/videos/passive-income-number/logs/editor-hi-ch1-styleE-2.md
+
+## `chapters.hi.1.editor_r2_verdict`
+
+REWORK — 1 blocker, 2 should-fix
+
+## `chapters.hi.1.editor_r2_blocker`
+
+s4's `.band` (full-width, bottom 54%, ramping to .72 near-black) DARKENS EXACTLY WHERE THE PHONE LIES. Measured from the encode: the field under the ₹ card is a flat luma 15-27 with NO PHONE EDGE AT ALL — so the payoff beat of the cold open floats its banner on nothing. The irony is that the whole rework was to put a phone in that frame, and a decorative scrim was erasing it. FIX: delete the one element. The card is an opaque panel and needs no darkened field behind it.
+
+## `chapters.hi.1.editor_r2_rulings.round1_blocker_CLOSED`
+
+Confirmed FROM THE ENCODE at 12.45s, not from the construction argument — the editor explicitly refused to accept 'they point at the same file' as proof. The hold reads as one continuous crop and s3 carries both the tea glass and a whole dark-screen phone under its line.
+
+## `chapters.hi.1.editor_r2_rulings.s3_european_tea_ACCEPTED`
+
+Should-fix only. After the locked grade it asserts no country — no currency, text, signage or face. The editor also tested whether the porcelain could be cropped out and it CANNOT: cover fits by WIDTH, so background-position-x is a no-op, and excising it needs a 1.9-2.9x upscale. ⚠ CARRY-FORWARD TO ch7: s80 is a callback to this frame, and two European tea services BOOK-ENDING an INR cut is a different and worse problem than one in the middle. Re-read s80's brief against this file before ch7 assets are sourced.
+
+## `chapters.hi.1.editor_r2_rulings.s1_missing_phone_KEEP`
+
+KEEP the bed — and the editor INVERTED ITS OWN ROUND-1 RATIONALE to get there, having opened retired-attempt6/s1.jpg before saying so. Restoring the phone frame would make s1/s3/s4 three consecutive dark-phone-on-a-surface frames, which is the exact repeat the round-1 note existed to break, just relocated. The round-1 advice stopped being right the moment s4 changed.
+
+## `chapters.hi.1.editor_r2_rulings.s7_five_rungs_HELD`
+
+HELD at should-fix, deliberately NOT escalated to blocker, and referred to the CEO instead. Storyboard §8 refuses drawn rungs BY NAME and bans icons beyond s6, and ch1 sits exactly at its declared drawn density of 2. The editor's reasoning: overriding an argued design decision is the CEO's call, not checkpoint one's. Correct division of labour — flagged for the ch1 CEO gate.
+
+## `chapters.hi.1.tone_measured_at_last`
+
+ch1 duration-weighted p90 45.1, opens 45.9, closes 49.9, arc +4.0. UNLIKE ch2 THE SHAPE IS RIGHT: the darkest frame (s6, 37.7) is also the longest-held and most substantive, where ch2's brightest longest-held frame is a blank notebook page and its darkest is the hero corpus. Across the 124s opening the combined figure is ~47.0, and the arc work belongs ENTIRELY to ch2. ⚠ ch1 MUST NOT BE FLATTENED to match ch2 — the instinct to make two chapters agree would break the one that is already correct.
+
+## `chapters.hi.1.build_attempt_5`
+
+vault/videos/passive-income-number/logs/fin-build-hi-ch1-5.md
+
+## `chapters.hi.1.band_fix_measured`
+
+Attempt 4's build.mjs edit turned out COMPLETE and parsing (the band was narrowed to art==='ticks', i.e. s6 only) — only the regeneration was lost to the outage. Regenerating removed EXACTLY ONE LINE: diff shows `181d180 < <div class="band"></div>` and nothing else, and audio.json is byte-identical. MEASURED IN THE EDITOR'S OWN SAMPLE BOX (x627-1267, y780-1080), which is what makes it a fix rather than a claim: at 14.90s the field is now 7-54, median 38, std 11.8, with a 20-level VERTICAL STEP — against the editor's 'flat 15-27, no edge' — and it matches the band-free s3 control at 10.17s. The phone's lit top edge, dark screen and body are visible at 1:1 under the ₹ card at 17.00s and 17.90s. s4's p90 luma 40.3 -> 47.9. Chain verified clean: build.mjs 13:52 < index.html 14:34 < DRAFT 14:37 < SHEET 14:39.
+
+## `chapters.hi.1.tone_note_now_stale`
+
+⚠ The ch1 curve recorded above (duration-weighted 45.1, open 45.9, close 49.9, arc +4.0) predates the band deletion, which moved s4 from 40.3 to 47.9 at the chapter's PAYOFF beat. The direction is right but the numbers the CEO will reason from have changed; editor round 3 re-gives the curve.
+
+## `chapters.hi.1.editor_r3`
+
+vault/videos/passive-income-number/logs/editor-hi-ch1-styleE-3.md
+
+## `chapters.hi.1.editor_r3_verdict`
+
+PASS — 0 blockers, 2 should-fix (both carried, neither actionable in this chapter)
+
+## `chapters.hi.1.editor_r3_verification`
+
+VERIFIED, NOT TRUSTED — the editor regenerated the sheet ITSELF and got md5 0cba85fc..., identical to the shipped SHEET-ch1.jpg, so the sheet is provably of this draft. It then DELETED its own temp SHEET.jpg / SHEET.json, which is the bare-name landmine round 1 had flagged. It also confirmed index.html carries `<div class="band"></div>` at line 208 under s6 ONLY, and that the `art==="ticks"` guard is exactly s6 because off/lottie/ticks are the only three values — i.e. it checked the guard's SCOPE, not just its presence.
+
+## `chapters.hi.1.round2_blocker_closed`
+
+Confirmed BY EYE from the encode, which is what the luma numbers stood in for. Crops at 13.30 / 14.90 / 17.00 / 17.90s show the whole phone slab across the lower-left: specular top edge, black screen, warm body return. At 17.00s the ₹ card overlaps the phone body with the corner and edge reading below-left, so the banner is demonstrably ON A DEVICE. The card is an opaque slate panel and never needed a scrim. The phone reads as a phone from s4's FIRST SECOND (13.30s).
+
+## `chapters.hi.1.tone_remeasured`
+
+Independently re-measured at round 3, 7 p90 reads per scene body: weighted 45.1 -> 46.1, opens 45.7, closes 49.6, arc +3.9 — agrees with fin-build to rounding. THE ARC IS STILL RIGHT AND MUST NOT BE FLATTENED TO MATCH ch2: s6 (37.7) is still both the darkest and the longest-held frame, and the trough that used to sit on the payoff beat is gone.
+
+## `chapters.hi.1.s7_recommendation_to_the_ceo`
+
+EXPLICIT: uphold storyboard §8, ship as is. A drawn rung over a photographed tread is DEPICTIVE, which is the rule-8 defect the creator-approved reference chapters were rebuilt to remove. If the CEO wants the count anyway, the §8-compatible route is a RE-FETCH where five treads are the readable unit, not an overlay. To be decided once at the gate, because ch3-7 inherit it either way.
+
+## `chapters.hi.1.ceo_verdict`
+
+REWORK — 1 blocker
+
+## `chapters.hi.1.ceo_blocker`
+
+s6's three-cell cascade is anchored to a FIXED OFFSET and not to the voice. Measured from 1.6.mp3's own envelope: all three cells and all three clicks complete 0.20s BEFORE the first noun's clause begins — bulb -1.40s, sack -2.25s, house -2.80s — leaving 24.759->29.825, i.e. 5.07s WITH NO EVENT on the chapter's longest scene, while the voice names three things the picture has already finished showing. FIX (exact, no new asset): re-anchor the cells to S.s6 +2.50 / +3.95 / +5.10, ticks at +0.35, the three `chip` cues moved to match, replacing `popEach` with three `pop()` calls. Cuts the dead tail to 2.72s.
+
+## `chapters.hi.1.ceo_rulings_BINDING_ON_CH3_7.s7_five_rungs_UPHELD`
+
+UPHELD §8 — ship as is, NO overlay and NO re-fetch. Two reasons the editor could not have given: boosted, the stairwell shows ~A DOZEN TREADS, so an overlay of five would make the mismatch VISIBLE and read as a diagram on a photo; and the staircase RETURNS at s21/s40/s61/s79, so a five-tread re-fetch would constrain four future scenes to buy a count nobody counts. RULE INHERITED BY ch3-7: the staircase is the ladder's METAPHOR, never its INVENTORY.
+
+## `chapters.hi.1.ceo_rulings_BINDING_ON_CH3_7.tone_ch1_stands`
+
+ch1 stands, not to be flattened. The invariant, stated once and binding: GROUND TEMPERATURE IS ASSIGNED BY ARGUMENTATIVE WEIGHT, NOT MOOD — the darkest longest-held frame must be the chapter's most substantive beat. ch1 satisfies it; hi ch2 INVERTS it. ⚠ The consequence for ch2's rework: brightening ch2 without UN-INVERTING it fixes the number and leaves the defect. A tone fix that only moves p90 is not a fix.
+
+## `chapters.hi.1.ceo_r2`
+
+vault/videos/passive-income-number/logs/ceo-hi-ch1-2.md
+
+## `chapters.hi.1.ceo_r2_verdict`
+
+SHIP — 0 blockers
+
+## `chapters.hi.1.ceo_r2_verification`
+
+Why this is a SHIP and not a trust exercise: the CEO RE-MEASURED 1.6.mp3 from scratch rather than reading the build's table, getting the same four pauses as round 1 (1.65-2.25 / 3.35-3.70 / 4.55-4.85 / 5.75-6.15). Against timing.json's 21.909 the list clauses open at 24.159 / 25.609 / 26.759 and the three pop() calls fire at exactly those times — DEAD ON, not 0.05s early as the build reported; the build's residual is quantisation in its own pause-end read and errs safe. Ten frames off the new encode confirm it in the picture: one item per clause, in order, nothing arriving before its word. Last pixel moves 27.559 against the s7 cut at 29.825, a 2.27s tail carrying «चुपचाप भरते रहना» over the completed row. No regressions, checked FROM THE ENCODE rather than from 'only three numbers changed': one headline at 12.45s, phone slab readable under the ₹ card at 17.00s, s6's .band still scoped to s6 at index.html:208, s7 untouched, sheet regenerated and md5-matching the shipped one.
+
+## `chapters.hi.1.ground_curve_final`
+
+46 · 55 · 46 · 47 · 49 · 38 · 42 · 50. The trough is still the longest-held and most substantive frame, and s6 now EARNS its 8.17s.
+
+## `chapters.hi.1.carry_forward_to_ch2`
+
+⚠ The one change the CEO would still take is dropping s8's foot line — and it is now CH2's problem, not ch1's. The foot has ALREADY told the viewer the condition is a withdrawal rate, so ch2 must not spend its opening arriving at a fact the audience has.
+
+## `chapters.hi.2.assets_verdict`
+
+PASS — 13/13 scenes carry a real photograph: 4 reused verbatim from style A under rotated names with credit rows re-keyed, 1 derived crop, 8 fetched over 8 sheet rounds (47 cells seen, 39 rejected). Zero duplicate md5s across all 45 shipping images, every source >=1600px, `check assets --chapter 2` PASS.
+
+## `chapters.hi.2.storyboard_override_accepted`
+
+§10a's s13 reuse row was factually wrong about what the existing file depicts — it is a white-marble kitchen sink, not a steel bucket — and fin-assets overrode it and said so. Correct behaviour: a reuse row describes a file, and a file can be checked.
+
+## `chapters.hi.2.closed_here`
+
+The queued s16 graph-paper defect from the style-A review (high-key still reading as a UI panel) is CLOSED. It tried to return twice and was caught both times — once by md5 and once by a full-resolution read, which in the same pass also killed a 'Dodge Pickup' US ledger and a Thai restaurant bill from an INR cut.
+
+## `chapters.hi.2.caveats_for_the_editor`
+
+Five declared, deliberately left for fin-editor to rule from the encode rather than pre-ruled: s19 busy frame · s11 pale sky · s17 numeric keys · the s10/s17 adding-machine through-line · s9 chests vs the ch4 trunk.
+
+## `chapters.hi.2.superseded_style_A_note`
+
+The style-A set is archived at assets-ch2/style-a/, not deleted. The style-A composition and its scene numbering are dead — match a reuse by BRIEF, never by number.
+
+## `chapters.hi.2.build_verdict`
+
+13 scenes s9-s21, root 81.531s, offset 42.475s (= hi ch1's root exactly, so the chapters abut). hyperframes check clean 0 errors 12/12 AA, check_vo_frame PASS, pipeline_check check build --chapter 2 PASS, all FOUR rate-assert branches proven to throw by planting a violation.
+
+## `chapters.hi.2.half_state_resolved`
+
+The killed attempt's one defect was its OWN last edit — an eagerly-evaluated `rateP` template threw `esc(undefined)` on the eight scenes that carry no rate. Fixed as a thunk, and its intended s19 placement (the rate as a qualifier UNDER the claim, matching its +1.90 cue) was kept and is live. So the interrupted edit was right in intent and wrong in evaluation order.
+
+## `chapters.hi.2.orchestrator_gate_3c`
+
+PASS — 13/13 has-photo, no rail, every data-start exact against timing.json, root 81.531s = the declared value, offset 42.475s = hi ch1's root so the chapters abut.
+
+## `chapters.hi.2.for_the_editor`
+
+Five declared caveats — s19 busy frame · s11 pale sky · s17 numeric keys · the s10/s17 adding-machine through-line · s9 chests vs the ch4 trunk — plus TWO declared deviations: s15's 'The reason comes later.' and the s17->s18 push-in. All to be ruled from the ENCODE.
+
+## `chapters.hi.2.declared`
+
+```json
+81.531
+```
+
+## `chapters.hi.2.encode_verified`
+
+2446 frames against ceil(81.531x30)=2446. CFR from PACKET TIMESTAMPS: 2445 deltas, exactly two values, 0.033333 x1630 and 0.033334 x815, no third. blackdetect 0 segments. Audio peak -3.80 dB, RMS -26.23, flat factor 0; eleven silences 1.212-1.397s, all at joints, no dead zone.
+
+## `chapters.hi.2.tone_no_arc`
+
+Duration-weighted chapter p90 48.0 (settled spans, dissolves excluded). Range 37.3 (s16) to 59.0 (s14/s15). The curve: opens 43.5, one lift to 55 at s11, an 11.6s PLATEAU at 59.0 across the s14/s15 hold, a -21.7 drop into s16's cash frame, 39.0 at s20, closes 43.0. Same 48 ceiling en ch2 hit, reached differently — and strip the plateau and the other eleven scenes average 44.9, i.e. ONE BAND. Open and close are the identical value, so THERE IS NO ARC. The hi cut now has the same tonal problem the en cut's CEO gate raised, arrived at independently.
+
+## `chapters.hi.2.joints`
+
+scdet at joints 0.063-0.546; top IN-scene peaks are 0.592 (s16 countUp landing) and 0.524 (s9 statement rise), so two of the chapter's three highest scores are text rises and ELEVEN OF TWELVE joints score below the top in-scene peak. scdet places only the two holds correctly (s14->s15 0.063, s17->s18 0.101). BY PICTURE: s10->s11 (night interior -> pale exterior sky, nothing shared) and s19->s20 (cables -> textiles, 0.546, -15.0) read as two pictures; s12->s13 is the strongest continuity.
+
+## `chapters.hi.2.dissolves_clean`
+
+Sampled at both qa.dissolve_sample_offsets (0.225, 0.38) at all twelve joints, plus a fine strip on s10->s11 and a FULL-RES text-band crop on s16->s17 — the worst case, since both scenes carry the string ₹10,00,000. Outgoing stack fades monotonically and is gone by +0.44. Not the japanese-money-methods defect.
+
+## `chapters.hi.2.cues_clean`
+
+cues.py exit 0, empty stderr, no gap violation. 17 cues both sides, identical times, music bed-resolve both sides, min gap 1.100s against the 0.8s floor. One deliberate, self-documenting difference: build.mjs downgrades the derived s14 `hero` to `reveal` per storyboard §2, recorded in `_hero`. Both suppressed joints (s15, s18) match declared holds and the encode agrees they are not cuts.
+
+## `chapters.hi.2.three_findings_for_the_editor`
+
+s18's ₹2,500 — THE VIDEO'S FIRST DERIVED INCOME FIGURE — counts 58.533->59.433 then holds at its final value for only 0.629s before the dissolve starts, against 2.244s for s16's hero. · s20's picture does not say its line. · No luminance arc (above). Also: the empty-looking s14 cell in the sheet is HONEST, not a missing number — the mega is anchored to the spoken «तीन परसेंट» at start+4.49 while the sheet samples start+2.6; it renders fine at t=36.8.
+
+## `chapters.hi.2.editor_verdict`
+
+REWORK — 5 blockers, plus should-fixes
+
+## `chapters.hi.2.blockers.s19_cables`
+
+Cable tangle under 'the phone recharge and the home internet' — THE EXACT DEFECT THE STORYBOARD'S OWN REJECT LIST ALREADY KILLED, scaled up. fin-assets had declared s19 'busy frame' as a caveat; the ruling is that it is not merely busy, it is the rejected subject.
+
+## `chapters.hi.2.blockers.s20_card_index`
+
+Card-index drawer that reads as FOLDED GREEN CLOTH in the encode, and states no count under `ALL TWELVE MONTHS`. Fails twice over — wrong subject AND destroyed by the green tint. (Note: en ch2's s20 was ALSO a blocker, for a different reason. Different cut, different image, coincidence of slot number.)
+
+## `chapters.hi.2.blockers.s12_five_taps`
+
+Five outlet taps under the kicker `TWO TAPS`, with no inlet. The frame contradicts the words it sits under.
+
+## `chapters.hi.2.blockers.s12_s13_duplicate`
+
+s12 and s13 read as the same brass-tap picture twice.
+
+## `chapters.hi.2.blockers.s9_trunks`
+
+Opens the chapter on two steamer trunks under 'How saved money pays a monthly amount'.
+
+## `chapters.hi.2.editor_rulings_requested.s18_0629s_TOO_SHORT`
+
+RULED TOO SHORT, with a fix that costs no re-time: countUp duration 1.2 -> 0.45 and the foot from +3.61 to +3.11. That buys 1.38s SETTLED without touching the +2.81 spoken anchor or timing.json. This is the video's first derived income figure, so the number the whole constraint set exists to protect now gets read.
+
+## `chapters.hi.2.editor_rulings_requested.luminance_arc`
+
+SHOULD-FIX with a specific diagnosis: the brightest, longest-held frame is A BLANK NOTEBOOK PAGE and the darkest is s16, THE HERO CORPUS — exactly inverted. Must be set across ch1+ch2 TOGETHER, and hi ch1 has never been tone-measured.
+
+## `chapters.hi.2.editor_rulings_requested.joints`
+
+s10->s11 and s19->s20 ARE two pictures AND THAT IS CORRECT — both are declared `dis` between two topics. This is the distinction from hi ch1's s3->s4, where a continuous zoom had been DECLARED and then overridden. Two pictures is a defect only when the composition promised one place.
+
+## `chapters.hi.2.declared_items_accepted`
+
+Five of seven accepted: s11 pale sky · s17 numeric keys · the s10/s17 adding-machine rhyme · s15's 'The reason comes later.' · the s17->s18 push-in, whose geometry was verified continuous (the 0.9174 crop x 1/0.9174 = 1.090 = s17's exact end scale).
+
+## `chapters.hi.2.rate_constraint`
+
+MET ON SCREEN at every money frame, verified from the encode. s16's ₹500 notes confirmed post-2016 current-series at full resolution — the kind of thing that only fails in front of an Indian audience.
+
+## `chapters.hi.2.ceo_ruling_changes_the_refetch_target`
+
+⚠ hi ch2's TARGET IS UN-INVERTED, NOT BRIGHTER. Ruled at the en ch2 gate. Re-fetch the file under its HERO and the file under its 59.0 BLANK-NOTEBOOK PLATEAU. Raising the chapter's weighted average without moving those two files fixes the number and leaves the defect. The re-fetch in flight was briefed on s9/s12/s19/s20 and does NOT cover the hero or the plateau.
+
+## `chapters.hi.2.refetch`
+
+vault/videos/passive-income-number/logs/fin-assets-hi-ch2-3.md
+
+## `chapters.hi.2.refetch_verdict`
+
+Six slots replaced (s9, s14, s15, s16, s19, s20) over ~44 sheets and ~250 cells, all read at full resolution. Chapter now UN-INVERTED: hero 37.3 -> predicted 54.2, the brightest frame; the 11.6s blank-page plateau 59.0 -> 44.7. Zero shipping md5 duplicates, `check assets --chapter 2` PASS.
+
+## `chapters.hi.2.s16_was_prop_money`
+
+⚠ THE FINDING OF THE RUN. The hero corpus frame — the payoff of the chapter — was PROP MONEY: two visibly distinct ₹500 notes in one frame both read serial `ILR 176177`. It carried a standing DO-NOT-RE-FETCH and had been VERIFIED: an earlier pass confirmed the notes were post-2016 current series at full resolution, which was true and beside the point. The protection was written against DEMONETISATION; the defect was COUNTERFEIT. The check read ONE serial and cleared the frame, when the question is whether TWO notes share one — prop money is printed from a single plate, so repetition inside the frame is the tell. The same defect disqualifies the entire `6UW 643492` shoot, which surfaced on five separate ₹ queries. Both serials recorded as known-bad in vault/knowledge/stock-photo-sourcing.md. Only found because the un-invert ruling forced a re-fetch of a slot nobody was allowed to touch.
+
+## `chapters.hi.2.s15_derived_crop_near_miss`
+
+s15 is a 91.754% crop of s14's SOURCE, and s14 was being re-fetched in the same pass. Re-sourcing the parent without re-deriving the crop would have dissolved MID-HOLD to an unrelated photograph WITH EVERY CHECK GREEN. Re-derived at the verified geometry and its credit row — stale the moment the crop moved — re-keyed in the same move. Rule recorded in stock-photo-sourcing.md.
+
+## `chapters.hi.2.md5_sweep_earned_it_again`
+
+A phone frame passed the contact sheet AND the full-resolution read, and was byte-identical to hi ch1's s4.jpg. Caught only by the cross-chapter md5 sweep.
+
+## `chapters.hi.2.for_the_build`
+
+s20 IS A DEPENDENCY, NOT A FIX: twelve is not photographable in these pools (every year calendar is Portuguese, or the 2021 clipboard at YAVG 185), so THE COUNT MUST BE DRAWN or that scene asserts nothing. fin-build must knowingly choose ONE drawn layer — the `÷12` at s17->s18 OR twelve marks at s20 — not both, per §8 density. Also: s19 carries only one of its two named subjects; a drawn wifi arc closes that cheaply.
+
+## `chapters.hi.2.two_hedges_not_papered_over`
+
+(1) s16 leads s11 by only 1.4 PREDICTED points, inside a method that over-predicted by 7 on en ch2 — fin-render must settle the un-inversion FROM THE ENCODE, and s11 is the correct next file to move if s16 loses. (2) s19 carries only one of its two named subjects.
+
+## `chapters.hi.2.build_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-build-hi-ch2-3.md
+
+## `chapters.hi.2.build_attempt_3_verdict`
+
+Regenerated against the six replaced photographs. ⚠ It also found and wired the s18 countUp 1.2 -> 0.45 / foot +3.11 fix THAT ATTEMPT 2 DECLARED BUT NEVER EMITTED — settled time 0.629s -> 1.380s, spoken anchor and timing.json untouched. A declared fix that was never emitted is the same failure family as everything else today: the record said done, the artifact did not. THE DRAWN LAYER went to s20's twelve cells, with both alternatives DECLINED IN WRITING: the `÷12` (already stated three times in type) and the s19 wifi arc (its second subject is carried by its own focal). hyperframes check 0 errors / 13-13 AA, check_vo_frame PASS, cues.py exit 0 with 17 cues at min gap 1.100s, pipeline_check check build --chapter 2 PASS. Root 81.531s, offset 42.475s.
+
+## `chapters.hi.2.render_attempt_2`
+
+vault/videos/passive-income-number/logs/fin-render-hi-ch2-2.md
+
+## `chapters.hi.2.render_attempt_2_verdict`
+
+MECHANICALLY CLEAN, RULING MEASUREMENT FAILED. 2446/2446 frames, CFR, 0 black, peak -3.80 dBTP, cues 17/17, and all three build fixes verified FROM THE ENCODE: s18 settles 1.380s, s20's twelve cells render and clear the fill floor, s14->s15 is one continuous move on one photograph. THE UN-INVERSION FAILED: s16 measures 47.1 p90 and ranks 7TH OF 13 (4th by median, 7th by mean), while s11 leads on all three. Four distinct photographs sit above the hero — s11, s14/s15, s12, s17/s18 — and s19 at 38.6 is the NEW TROUGH, on a consequence example. The chapter does not lock.
+
+## `chapters.hi.2.predictor_failed_in_both_directions`
+
+s16 predicted 54.2, measured 47.1 (-7.1). The plateau predicted 44.7, measured 53.3/52.2 (+8.6/+7.5). The errors COMPOUNDED: a declared 1.4-point lead became an 8.0-point deficit. fin-assets had flagged the ±7 risk on itself and it is now measured twice more on this one chapter. Third and fourth instances this run. The rule is settled: a prediction or a source-side number shortlists a candidate; ONLY THE ENCODE SETTLES.
+
+## `chapters.hi.2.seventh_photograph_changed_undeclared`
+
+⚠ fin-render caught s12 replaced in attempt 3 WITHOUT being declared — mtime 13:50, 48 minutes after the attempt-1 draft, predecessor at assets-ch2/superseded-r1/s12.jpg, 1880x1253 -> 1733x1300, p90 46.0 -> 52.7. It is the ONLY replacement in that pass shipped with a bare query string as its `.src` note instead of a rationale, and it is now one of the four files blocking the un-inversion. Caught by diffing against the superseded directory, not by any check.
+
+## `chapters.hi.2.strategy_for_attempt_4`
+
+THE LEADER HAS THE SHAPE OF THE ORIGINAL DEFECT. s11 wins on all three measures and fin-render describes it as 'a flat even pale-sky field with ZERO p90 spread' — a bright EMPTY frame outranking a substantive one, which is the identical failure to the blank-notebook page that started this rework, in different weather. Its lead is WIDER on the fairer measures (+1.8 p90, +4.0 median, +5.7 mean) PRECISELY BECAUSE it is featureless. So attempt 4 is briefed to consider bringing the undeserving bright frames DOWN rather than chasing the hero UP against the no-high-key cap — a race already lost once. A substantive frame may be dark; an EMPTY frame may not be the brightest.
+
+## `chapters.hi.2.metric_question_partly_answered`
+
+median/mean genuinely IS the fairer proxy for 'most legible': hi ch2's s10 ranks 8th on p90 but 12th on median — a black desk with one white lamp shade, exactly the failure mode en's fin-assets described. s16 gains three places on median. BUT it does not rescue s16 here, because s11 wins on all three. So the metric ruling, whichever way the CEO takes it, does not by itself unblock this chapter.
+
+## `chapters.hi.2.refetch_attempt_4`
+
+vault/videos/passive-income-number/logs/fin-assets-hi-ch2-4.md
+
+## `chapters.hi.2.refetch_attempt_4_verdict`
+
+Four photographs changed: s11 pale-sky field -> INDIAN STEPPED WATER TANK, s14 blank page -> sharpened pencils, s15 re-derived crop, s16 hero -> an evenly-lit ₹500 field. Against the round-2 ruling the hero is now #1 of 13 on MEDIAN, #1 of 13 on p10, spread 10.8, median step in +13.8 — all four clauses pass. 3 fetched + 1 derived accepted, ~145 cells rejected over 24 sheets. Outgoing archived at assets-ch2/superseded-r2/.
+
+## `chapters.hi.2.ruling_changed_the_work_mid_flight`
+
+⚠ THE RULING ARRIVED WHILE THIS AGENT WAS WORKING AND IT REVERSED TWO OF ITS OWN DECISIONS. s19 and s12 had been PROMOTED against the >=55 p90 target; once p90 was retired and the sound-off gate given standing, both were REVERTED. That is the ruling doing real work rather than ratifying what had already happened — and it is why the s12 undeclared-change problem resolved itself rather than needing a separate pass. s11's replacement is better than a number fix: a pale-sky field with zero spread was ineligible to lead under the gate, and the Indian stepped water tank that replaced it also FEEDS THE TANK THROUGH-LINE the chapter owed. One fetch answering a legibility ruling and a narrative constant at once.
+
+## `chapters.hi.2.currency_purity_catch`
+
+s17 was killed AT FULL RESOLUTION for LEGIBLE DOLLAR SIGNS on the ₹30,000 line. In the INR cut that is a hard constraint breach, not a taste call, and the contact sheet could not have shown it.
+
+## `chapters.hi.2.margin_the_agent_would_not_call_safe`
+
+⚠ DECLARED, NOT BURIED: the hero's median lead over s12 is only ~1.3 points. Given this run's record — the predictor has been wrong by 7-8 points four times, in both directions, and a declared 1.4-point lead became an 8.0-point deficit once already on THIS chapter — that margin is inside the error bar. fin-render must settle it from the encode before the chapter goes to the editor.
+
+## `chapters.hi.2.render_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-render-hi-ch2-3.md
+
+## `chapters.hi.2.hero_margin_SETTLED`
+
+SETTLED PROPERLY, and the precision was stated rather than implied. s16 leads s12 by +1.053 MEDIAN, measured on EVERY FRAME of both settled spans at full resolution — complete population, not a sample — with NON-OVERLAPPING per-frame distributions (gap 0.57), bootstrap CI [+1.000, +1.137], and a stable sign across ten different span definitions. 8-bit quantisation removed by in-bin interpolation (step ~5e-08 DN); uncertainty ~±0.07 on a +1.05 margin, i.e. ~15x resolved. The agent stated it would have declared the clause UNSETTLED if it were unresolvable, which is what the brief asked for. ALL FOUR CLAUSES PASS: sound-off pass · #1 of 13 on median · #1 of 13 on p10 · step in +7.43.
+
+## `chapters.hi.2.⚠_serial_legible_reframe_required`
+
+THE ONE FAILURE, and it is the verification the orchestrator specifically asked for: the serial `962971` is LEGIBLE ACROSS THE HERO FRAME FOR ITS WHOLE 5.35s, and LARGEST AT THE SCENE OPEN — because s16's ken PULLS BACK (1.16 -> 1.00) rather than pushing in. This chapter's PREVIOUS hero was prop money caught by a repeated serial, so a legible serial on the replacement is exactly the surface that invites the scrutiny the last one failed. ⚠ THE FIX IS NOT FREE: the s16/s12 margin is only +0.494 PHOTOGRAPH-ONLY, so a re-crop can INVERT the clause just settled. The build must push the serial panel out of frame AND hold the median lead, then re-measure. Do not treat the +1.053 as banked.
+
+## `chapters.hi.2.stale_comment_again`
+
+index.html's s16 note says 'full-bleed under a 1.00->1.16 ken', but the emitted call is `ken("#s16-bg", S.s16, D.s16, false)` and build.mjs emits that flag as `s.ken === "i"`, so s16 ships as 'o' — matching the encode. THE NOTE IS WRONG AND THE CODE IS RIGHT. Third stale-comment finding this run (after ch1's ₹ Lottie note and en ch2's 'SYSTEM GAP'), and this one matters more: that sentence is the one used to clear this slot.
+
+## `chapters.hi.2.measured_clean_do_not_recheck`
+
+s14->s15 IS ONE PHOTOGRAPH: no mid-overlap edge-energy dip (0.715 min vs 0.731 after, monotonic) where both real dissolves dip deeply; MAD peak 0.161 against 1.267/2.120; registration residual 1.60 against 6.92 for a control dissolve that registers at no scale at all. CROSS-DISSOLVES CLEAN: at +0.38 two scenes' type is visible, so it was measured rather than eyeballed — outgoing TEXT alpha tracks outgoing BACKGROUND alpha within 0.02-0.03 at every offset (1.000 -> 0.02-0.05 by +0.38 -> 0 by +0.44). Not the japanese-money defect; the agent explicitly recorded that its own eye over-read the contact frames and the mix model settled it. 2446 frames, CFR from 2445 packet deltas (two values only), 0 black, draft true peak -3.7 dBFS.
+
+## `chapters.hi.2.honestly_not_measured`
+
+TWO THINGS DECLARED UNMEASURABLE RATHER THAN GUESSED: s11's and s16's ken DIRECTION by scale search — the method FAILED ITS OWN CONTROL (s14, a declared 1.000->1.090 push-in, measured 0.992 on a flat residual curve). s16's direction was then established unambiguously off the serial's size at the two ends; s11's was left OPEN. A method that fails its control is not evidence, and saying so is worth more than a number.
+
+## `chapters.hi.2.s16_reframe_landed_but_unmeasured`
+
+THE RE-FRAME IS REAL AND WELL-ARGUED, and it is in build.mjs with index.html regenerated at 18:49. What it does: a 792x445.5 SERIAL-SAFE WINDOW expressed as an explicit background-size/background-position on the `.bg`, so NOT ONE PIXEL OF THE FILE IS REWRITTEN — md5, manifest row and CREDITS entry all stand, and the re-frame is a composition edit rather than an asset edit. Crucially it bounds THE KEN SWEEP UNION, not one frame: ken sweeps 1.16->1.00 with xPercent +2.5->-2.5, so the region reaching the viewport at ANY point is the union of those rectangles, and the window pins that union. The serial's leftmost ink is source x=815; the window's right edge is x=800 — 15 source px of margin at the widest, tightening from there. Bounding one end is exactly what let `962971` ship for 5.35s. THE TRADE, DECLARED AND PAID KNOWINGLY: the window is 792 source px against 1621 full-bleed, so the frame upscales 2.42x instead of 1.19x. Affordable only because the window sits ON the focus plane and holds the photograph's highest-contrast content — what now leads is the note's own ₹500 (₹ + Devanagari ५००) with the guilloche, Ashoka watermark panel and security thread, i.e. THE DENOMINATION rather than the portrait, and it clears the composition's own ₹10,00,000 instead of sitting behind it. Two other serial-free windows were built and rejected on the frame: the lower band (1232px, only 1.56x, but BELOW the focus plane — reads as a dark formless blur, sound-off FAIL) and the same window 84px higher (the note's ₹500 landed behind the focal). Snapshots at snapshots/qa/b5,b6,b7. The stale ken comment is also corrected.
+
+## `chapters.hi.2.⚠_what_is_still_owed_on_this_chapter`
+
+1. THE MARGIN IS UNKNOWN. The s16/s12 median gap was +1.053 before the re-frame and only +0.494 PHOTOGRAPH-ONLY, and a 2.42x window on a different region of the file changes the photograph's contribution completely. The re-frame can have inverted the clause. RE-MEASURE, do not assume.
+2. DRAFT AND SHEET ARE STALE (18:42 / 17:46 against index.html 18:49). Re-draft before any review.
+3. VERIFY THE SERIAL IS ACTUALLY GONE from the ENCODE at scene open, middle and end — the window maths is convincing but it has not been checked against a rendered frame, and the previous clearance of this slot was also convincing and also wrong.
+
+## `chapters.hi.2.editor_r2`
+
+vault/videos/passive-income-number/logs/editor-hi-ch2-styleE-2.md
+
+## `chapters.hi.2.editor_r2_verdict`
+
+PASS — 0 blockers, 6 should-fix
+
+## `chapters.hi.2.editor_r2_verification`
+
+All five round-1 blockers verified closed ON THE 00:34 ENCODE, not on report: s12 now carries exactly TWO taps, s19's rejected cable subject is gone, s20's card index is replaced by twelve progressively-filling drawn cells, s9 carries Indian coins, and s12/s13 no longer twin on the sheet. Zero duplicate md5s across the thirteen images. The editor also REPRODUCED THE PAYOFF MEASUREMENT INDEPENDENTLY off the current encode rather than accepting fin-render's: s16 median #1 of 13, p10 #2 of 13, step in +8, sound-off pass — all four clauses. The serial is verifiably absent from six brightness-lifted frames spanning the whole 5.35s, both ends of the ken and the middle.
+
+## `chapters.hi.2.editor_r2_rulings.s16_ships`
+
+#2 on p10 with 0.5 to spare IS a pass, because the clause says '#1 or #2' DELIBERATELY — it was written at the en gate to retire a rank test that flips on measurement error. And the frame beating it is s20, A NEAR-FLAT HOST WALL whose p10 is precisely the 'even and empty' artefact the CEO's own sharpening says is not a credit. The trade is not close: 0.5 points of cushion against putting a legible serial back on the payoff frame of the chapter whose last hero was prop money caught by its serial. The weakened sound-off is a SHOULD-FIX — the top half names an Indian ₹500 note unambiguously and sits above the type; the lower half is dead space, not a false statement.
+
+## `chapters.hi.2.editor_r2_rulings.s20_sound_off_passes`
+
+Decided by SAMPLING THE SPAN rather than one frame: the cells are empty at 67.0, half-filled at 70.0, all twelve by 71.0. Type covered, a viewer reads twelve things ACCUMULATING — which is the beat. Additive by construction under rule 8.
+
+## `chapters.hi.2.editor_r2_rulings.relocated_floor_NOT_a_defect`
+
+The bottom now sits on s13 and s10 by median, s19 by p10 — ALL DARK PHOTOGRAPHS, not empty bright frames. s13 does hold a substantive beat, but it is a deliberately dry QUESTION, the second-shortest span, answered two scenes later by what is now the brightest frame.
+
+## `chapters.hi.2.editor_r2_top_should_fix`
+
+s19 — the line names TWO subjects and the frame carries ONE: the home internet has no picture. The editor UPHELD the build's written decline of the wifi arc (a glyph asserts no proportion or count, so rule 8 makes it decoration), which means the slot wants a ROUTER PHOTOGRAPH or nothing. First slot to spend a fetch on if a round opens for any reason.
+
+## `chapters.hi.2.ceo_verdict`
+
+SHIP — 0 blockers
+
+## `chapters.hi.2.ceo_verification`
+
+Re-measured rather than inherited, and the serial independently re-verified absent at 45.20s and 49.90s.
+
+## `chapters.hi.2.cost_of_this_chapter`
+
+Five blockers, three fetch rounds, seven replaced photographs, six build attempts. Its original hero was PROP MONEY, found only because an unrelated ruling forced a re-fetch of a slot carrying a standing DO-NOT-RE-FETCH that had been verified against the wrong question.
+
+## `chapters.hi.2.top_carry_forward`
+
+s9 — the chapter's FRONT DOOR (0:42.5-0:54 assembled) is its two dimmest, thinnest frames under its only definitional VO. Give s9 a container that reads as SAVED money (steel almirah with a key in the lock). Spend it AHEAD OF s19 the moment any fetch round opens. s9 passes the new opening-frame sound-off gate only NARROWLY, which is why the chapter ships and why this finding exists.
+
+## `chapters.hi.3.assets_verdict`
+
+9/9 scenes carry a real photograph — 8 fetched over ~47 sheets / ~270 cells, 1 derived crop, 0 reused. The storyboard's s28 REUSE ROW WAS REJECTED ON THE FILE (second time this run a reuse row described something the file is not).
+
+## `chapters.hi.3.md5_sweep_earned_it_again`
+
+⚠ The cross-cut md5 sweep killed TWO shipping duplicates that had already passed BOTH the contact sheet AND the full-resolution read — and one of them was the graph-paper ledger this cut has now refused THREE separate times. Neither the sheet nor a full-res read can see a duplicate; only the sweep can.
+
+## `chapters.hi.3.payoff_s27_margins_declared_unsafe`
+
+s27 passes all four clauses ON PREDICTIONS — gate pass · median #2 of 9 (31.9) · p10 #2 of 9 (21.0) · step in +9.6 — but its 1.6-point median and 1.2-point p10 leads are DECLARED UNSAFE by the agent itself. Correct call: this run's predictor has been wrong by 7-8 points four times, and hi ch2 needed a full-population measurement to resolve a 1.05-point margin. fin-render settles both from the encode.
+
+## `chapters.hi.3.for_the_build`
+
+HOLD_A/HOLD_B unchanged for the s23->s24 pair; `corpus-doubles` still owed on s28. Re-run `pipeline_check check assets --chapter 3` after the build so its attribution-vs-composition assertion actually reaches the rendered images.
+
+## `chapters.hi.3.offset`
+
+```json
+124.007
+```
+
+## `chapters.hi.3.build_verdict`
+
+9 scenes, root 61.143s at offset 124.007s. hyperframes check 0 errors / 17-17 AA, check_vo_frame PASS, cues.py exit 0 (12 cues, min gap 1.100s), `check build` AND a post-build `check assets` both PASS, all five guard branches proven to throw by planting violations.
+
+## `chapters.hi.3.container_ladder_applied`
+
+Applied as ruled, and the build NAMED THE STALE ROWS the CEO warned about: §10 lists FIVE rungs starting at s16, and s22's cell says 'two cash boxes … each visibly bigger than the last' where the file is ONE carved money box with no predecessor. Both followed the ruling, not the storyboard.
+
+## `chapters.hi.3.⚠_payoff_clause_fails_on_a_FLAT_chapter`
+
+MEASURED on every frame at full resolution across four span definitions. s27 PASSES the sound-off gate and the step-in (+11.41, the largest in the chapter) but is **#4 of 9 on median (30.91)** — needs top 3 — and **#3 of 9 on p10 (19.74)** — needs #1 or #2. ⚠ THE REASON IS THE POINT: **the top four frames sit inside 0.39 points and the top three inside 0.06.** The chapter is FLAT AT THE TOP; the payoff is not dark. A rank test over a 0.06-point spread is measuring noise, which is EXACTLY the brittleness the CEO retired the `#1 of N` test for — now recurring inside its replacement. The CEO has already patched one instance of this ('a near-flat host frame is not a valid comparator on the p10 clause'); this is the general case. The build's read: the lever is RAISING s27 (a brighter, evenly-lit stamp counter), not lowering s25/s22 on a 0.03-point edge — and s28 is NOT the p10 lever fin-assets predicted.
+
+## `chapters.hi.3.editor_verdict`
+
+REWORK — 2 blockers, 2 should-fix
+
+## `chapters.hi.3.editor_blocker_s22`
+
+⚠ THE MONEY BOX IS A MONEY BOX IN THE FILE BUT NOT ON THE ENCODE — graded, it is a pale slab with a slot and no silhouette. So the chapter's OPENING FRAME fails the sound-off gate (which the hi ch2 CEO had just given standing on openers), AND rung 1 of the four-chapter container ladder is ILLEGIBLE. **THE LADDER WAS RULED FROM THE SOURCE FILE AND THE ENCODE CONTRADICTS IT.** The CEO resolved the ladder by reading `s22.jpg.src` — which was better than reading the brief, and still not the frame. Third time this run a source-side judgement has been overturned by the composed result, and the first time it overturned a RULING rather than a fetch.
+
+## `chapters.hi.3.payoff_clause_SATISFIED_under_the_qualifier`
+
+s27 needs NO fix and neither s25 nor s22 should be touched FOR BRIGHTNESS. Its #4-of-9 median and #3-of-9 p10 are inside the 1.0-point noise band — the top three sit within 0.06 points. The rank was resolving grain.
+
+## `chapters.hi.3.for_the_ceo_beyond_the_blockers`
+
+ch3 carries only 1 of 4 permitted drawn layers while its TWO ARITHMETIC BEATS (x3.0%, ÷12) run over a static abacus. And storyboard §9c holds a THIRD copy of the dead five-rung ladder — §10 and §12 were already known stale — and §9c is the copy ch4 reads for s31. The running hi ch4 assets agent has been warned directly.
+
+## `chapters.hi.3.s22_refetch`
+
+vault/videos/passive-income-number/logs/fin-assets-hi-ch3-2.md
+
+## `chapters.hi.3.s22_refetch_verdict`
+
+s22 is now a STACKED YARD OF TERRACOTTA GULLAKS, every pot carrying a cut coin slit — and it was accepted ON THE SIMULATED COMPOSED FRAME AT THE OPENING KEN SCALE 1.16, not on the source, which is the whole lesson of the frame it replaces. Predicted median 26.6 / p10 15.0 / p90-p50 13.5, anchored on the OUTGOING file's own encode residual (±3) rather than on the raw arithmetic. DELIBERATELY DARKER than the 30.97 it replaces, so the payoff s27 gains a rank; s26 stays the floor at 19.49, still 4.98 clear. 1 accepted, ~75 rejected across 13 sheets. md5-unique against all 141 images in studio/. check assets --chapter 3 PASS.
+
+## `chapters.hi.3.⚠_REQUIRED_at_next_build`
+
+DROP the inline `background-size:2781.37px auto;background-position:38.74px 79.00px` on `#s22-bg`. The new file is 16:9 and takes plain `cover`. Both framings pass the gate, so this is a tidy-up rather than a risk — but leaving a hand-tuned window pinned to a file that no longer exists is exactly the stale-artifact shape this run keeps hitting.
+
+## `chapters.hi.3.data_loss_declared`
+
+⚠ The agent OVERWROTE `originals/s22-original.jpg` (the outgoing carved-box shoot's uncropped parent) before renaming the new parent to `-r2`. Nothing shipping depended on it and it is one fetch from the archived Pexels URL, but it is GONE. Declared rather than hidden.
+
+## `chapters.hi.3.rung_1_declared_imperfection`
+
+RUNG 1 IS *MANY* CONTAINERS WHERE RUNGS 2-4 ARE ONE EACH. 13 sheets could not buy a single isolated Indian money pot — Pexels answers `gullak` with euro coins and `clay piggy bank` with pink cartoon pigs, and `@commons` returns zero for both `gullak` and `money box india`. The escalation to s31 reads on SIZE and reads unmistakably, but it is a declared imperfection, not a clean match. Fourth time this run a declared subject turned out not to exist as briefed.
+
+## `chapters.hi.4.assets_verdict`
+
+12/12 slots carry a real photograph (10 fetched over ~40 sheets / ~230 cells, 2 derived crops, 0 reused, 0 dropped). check assets --chapter 4 PASS, zero md5 duplicates anywhere in studio/, all >=1600px, all YHIGH >=130.
+
+## `chapters.hi.4.payoff_s34_on_predictions`
+
+s34 (4.4, the ration) passes all four ON PREDICTIONS — sound-off PASS · median #1 of 10 (42.6, +4.9 margin) · p10 #1 (28.5, but only +0.13 over s38, IMMUNISED by the '#1 or #2' wording) · step in +12.9. Floor sits on s35 (median) and s31 (p10), neither the payoff nor the longest-held, so not a defect under the stopping rule. ⚠ fin-render settles the s34/s38 p10 order from the encode — +0.13 is far inside the 1.0-point noise band the hi ch3 editor just proposed.
+
+## `chapters.hi.4.the_s22_lesson_propagated`
+
+⚠ THE CORRECTION LANDED MID-FLIGHT AND CHANGED THE WORK: s31 was re-briefed on the CONTAINER IDEA rather than on s22's specific silhouette, and — the part that matters — EVERY ROW's sound-off verdict in this log was taken on a SIMULATED COMPOSED FRAME rather than the source. That is exactly what s22 failed: a money box in the file and a pale slab on the encode.
+
+## `chapters.hi.4.md5_sweep_caught_three_more`
+
+Three shipping duplicates that had passed BOTH the contact sheet AND the full-resolution read: en-ch4's s46, and this cut's own ch2 s10 and s13 — the last of which explains why the pool's best brass tap kept returning. The sweep has now caught seven frames no other check could see.
+
+## `chapters.hi.4.full_resolution_kills`
+
+Four, including a Thai baht restaurant bill and a payoff candidate carrying a `Ball` brand, Italian pasta and SIX EMPTY CANISTERS under 'the month's ration'.
+
+## `chapters.hi.4.for_the_build`
+
+Take `data-framings` 5.020/4.139 for the s34->s34b swap and the verified 0.917553 hold geometry for s32->s33. §10's ladder row confirmed stale in the two places checkable from the files (five rungs starting at s16; 'two cash boxes' where the file is one).
+
+## `chapters.hi.5.note`
+
+not started
+
+## `chapters.hi.6.note`
+
+not started
+
+## `chapters.hi.7.note`
+
+not started
+
+## `chapters.en.1.declared`
+
+```json
+46.42
+```
+
+## `chapters.en.1.editor_verdict`
+
+PASS — 0 blockers, 0 should-fix (round 3)
+
+## `chapters.en.1.ceo_verdict`
+
+SHIP — 0 blockers
+
+## `chapters.en.1.orchestrator_gate_3c`
+
+PASS 2026-08-08 — 8/8 scenes has-photo, no rail token, every data-start rebased exact against timing.json (max drift 0.000s), check_vo_frame PASS (ch1 renders no figure by design, so both rate asserts are vacuously true and the VO speaks none either).
+
+## `chapters.en.1.ceo_carry_forward_to_ch2`
+
+TONE: ch1 runs one tonal band end to end (p90 36-48 on all eight scenes, nothing bright in 46s). Nothing to fix in ch1 — it carries no figure by design — but ch2's opening ground must be measurably LIGHTER or the first ninety seconds is one temperature and the rung-one drop lands inside it.
+
+## `chapters.en.1.ceo_carry_forward_s10`
+
+THE TANK, RULED. It does not bear on ch1 (s1-s8 neither show nor name the tank) and the brass-tap resolution is the storyboard's OWN written fallback, not a sourcing failure — §10 already says 'the tap is what carries the rhyme, not the tank's silhouette.' The live risk is 2.2's VO saying 'tank' over a frame with no vessel. Fix in ch2's BUILD, not by re-fetching: s10 already has a kicker and a statement, so have them NAME the object and the word and the picture arrive together. Rule this at the ch2 gate with the frame on screen.
+
+## `chapters.en.1.known_exposure_for_concat_review`
+
+s3->s4 holds ONE photograph for 12.76s (9.254->22.014). Ruled acceptable and deliberately not reopened: it is a build, not a hold (three events inside the span plus a continuous 1.00->1.30 ken), and the alternative is the double-exposure defect that already cost three rounds. Flagged for the concat review, not for a re-render.
+
+## `chapters.en.2.assets_verdict`
+
+PASS — 15 backgrounds + the s10b second framing, every file >=1600px, every YHIGH >=138 against the 110 gate, zero md5 collisions across both cuts. Accepted 16, rejected 128, dropped 0.
+
+## `chapters.en.2.note`
+
+Two flags live in `_carry_forward_en_ch2_to_ch4_ch5`: THE TANK could not be sourced (s10 resolves as a brass tap on a plain steel body; sound-off gate 3 declared weakest there; ch4/ch5 s46/s47/s57 inherit the object family), and one candidate was the hi cut's own s16 arriving byte-unique through the other pool.
+
+## `chapters.en.2.declared`
+
+```json
+105.518
+```
+
+## `chapters.en.2.encode_verified`
+
+3166 frames exactly against ceil(105.518x30)=3166. CFR verified from PACKET TIMESTAMPS rather than the fps tag: all 3165 deltas are one of 0.033333/0.033334, which is 1/30 exact in the 90kHz timebase, no third delta — so frames will sum with the siblings. blackdetect 0 segments, blackframe 0 frames.
+
+## `chapters.en.2.rate_asserts_live_here`
+
+ch1 rendered no figure so both asserts were vacuously true; ch2 is where they go live. The block gained a THIRD `BILL` branch for published numerators, and all three were proven to throw by planting a violation. check_vo_frame PASS.
+
+## `chapters.en.2.carry_forwards_implemented`
+
+Both ch1 CEO carry-forwards were implemented AND measured. s10's on-screen noun is now THE TAP with the tank/tap pair named at +1.90, inside the half-second the word 'tank' is spoken. Tone: opens at p90 57 against ch1's 45.
+
+## `chapters.en.2.tone_curve_the_honest_version`
+
+The requirement was met at the open but the endpoints hide the shape. Duration-weighted by segment: amber head 50.0 -> C run 49.5 -> verdict 50.2 -> green method 47.9 -> green close 44.7, chapter 48.4. So the lighter open is REAL but only 5.16s long (s10 drops straight to 44), and the chapter as a whole sits at ch1's CEILING (48.4 vs ch1's 36-48) rather than above it. What ch2 actually gained over ch1 is an ARC — span 24 vs ch1's 12, descending into the green close — not a lighter band. Brightest scene is s19 (59) at 70s, not the open. The p10 floor is 15-24 on all fifteen scenes, so ALL variation is in highlights and the lever is `.scrim`, not the photographs.
+
+## `chapters.en.2.joints_flagged_on_content`
+
+Four, with a standing warning: scdet CANNOT rank these and no gate should let it try — every in-scene text rise scores higher than every dissolve (max 0.482 at 35.800s on s14's rise) because 0.45s over 13 frames beats nothing. s19->s20 dp90 -23, the largest, produce->produce, the INVERSE of hi ch1's s3->s4 risk ('same place, lights off' not 'two places') · s9->s10 dp90 -15, bright flat-lay -> deep dark manifold, shares the grade and nothing else, structurally hi ch1's s3->s4 shape · s13->s14 dp90 -18 · s17->s18 peak 0.137, the GENTLEST joint carrying the chapter's biggest semantic step (amber finding -> green method), which no measurement will ever flag.
+
+## `chapters.en.2.not_the_japanese_money_defect`
+
+The joint montage shows outgoing text mid-overlap, which is that signature — but it was measured and it is NOT the defect: outgoing band contrast decays 217 -> 13 -> 9 and reaches the incoming floor at +0.44, exactly the overlap end, and `.scene` carries `isolation: isolate` (assets/blockframe.css:63). Dissolves are correct. Do not re-report.
+
+## `chapters.en.2.dead_code_for_ch3_6`
+
+The `.scene.centred .stack { padding-left: 0 }` patch at build.mjs:495 is now DEAD CODE — the upstream port makes the project copy byte-identical to the scaffold. Harmless here, but chapters 3-6 must not copy it forward along with its 'SYSTEM GAP' comment, which is no longer true.
+
+## `chapters.en.2.editor_verdict`
+
+REWORK — 3 blockers, 4 should-fix
+
+## `chapters.en.2.blockers.s17_date`
+
+Shows a box of rubber stamps under '4.0% — a finding with a DATE'. No date anywhere in frame, and format.json names 'a date being circled' as a FAIL as a flat photo. FIX: DRAW it — assets/lottie/calendar-20th-circled.json is already in the library — or re-fetch the script's ringed diary page. Drawing is preferred: no fetch, and the library asset already exists.
+
+## `chapters.en.2.blockers.s14_ratio`
+
+Card catalogue under '50% stocks · 50% bonds' — the ONLY ratio in the chapter with neither a photograph nor a drawing saying it. FIX: a third drawn layer, a bar split at exactly 0.500, which stays inside §8's density calibration.
+
+## `chapters.en.2.blockers.s20_person`
+
+A person's torso and arms in a cut whose §10 says 'hands and objects only' — off its own spec. Also p90 35 and the far side of the -23 joint, so ONE re-fetch to the declared car-back-seat bags fixes all three at once.
+
+## `chapters.en.2.editor_rulings.rate_constraint_MET_ON_SCREEN`
+
+Verified in the ENCODE on all four figure frames, not from the source: s19 BLS foot · s20 '$10,169 divided by 12' · s21 40px 'AT A 4.0% WITHDRAWAL RATE' plus 'ILLUSTRATIVE ARITHMETIC' · s22 inline 'at 4.0%'. The new BILL branch is doing real work.
+
+## `chapters.en.2.editor_rulings.tank_mitigation_LANDS`
+
+s10b pushes onto one tap, the sub defines the pair, and the word lands inside the half-second. ⚠ CARRY-FORWARD SHARPENED: neither s10 nor s10b shows a LEVER IN A READABLE POSITION, so s46/s47/s57 must be briefed for 'the lever visible at a different angle PLUS flow', or they inherit a rhyme they cannot articulate.
+
+## `chapters.en.2.editor_rulings.s22_tick_KEEP`
+
+Ruled KEEP. It is bound to a real pulse on the rate token, and a smaller sound after s21's `hero` is right. The genuine defect is the INVERSE and is not a ch2 edit — see owed.cue_rung_5_does_two_jobs.
+
+## `chapters.en.2.editor_rulings.joints_all_four_PASS`
+
+Ruled by eye, all four pass as cuts. s19->s20 is two pictures, NOT one place with the lights off. s17->s18's green reads as an ARRIVAL (three simultaneous changes) and gets cleaner once the s18 cue gap is fixed.
+
+## `chapters.en.2.editor_rulings.tone_the_arc_is_right`
+
+The arc is the right answer; the OPEN IS TOO SHORT to establish it. s10 is 10% of the runtime at p90 44, back inside ch1's band. ⚠ The lever is s10's PHOTOGRAPH, not `.scrim` — the p10 floor is flat at 15-24 and raising it greys the stills. This corrects fin-render's suggestion that .scrim was the control.
+
+## `chapters.en.2.build_attempt_2`
+
+vault/videos/passive-income-number/logs/fin-build-en-ch2-2.md
+
+## `chapters.en.2.build_attempt_2_verdict`
+
+Both build-owned blockers fixed BY DRAWING, not by re-fetching. s14 now carries a bar split at exactly 0.500 on p-c — the scene leaves `.centred` and its focal becomes a line break at the ladder's top step; `.art-lift` was TRIED AND REJECTED on the frame because a full-height plate lift erases the photograph. s17 rings the chapter's own OCTOBER 1994 / FEBRUARY 1998 on p-a under a `.band`, which answers 'a finding with a DATE' with the dates the script already owns rather than a generic calendar. The s18 reveal moved to +1.10 so all 25 cues are now >=1.100s apart. Both dead local CSS patches and the `v-widefocal` hook are gone. Chapter still 105.518s / 15 scenes with NO timing, framing, rate-assert, s20, s10 or s22 edit. npm run check 0 errors + 11/11 AA, cues.py exit 0, check_vo_frame PASS, 16 frames read across four batch dirs.
+
+## `chapters.en.2.awaiting`
+
+fin-assets landing the s20 car-back-seat re-fetch at assets-ch2/final/s20.jpg (same filename, so no rebuild), then ONE draft covering both fixes.
+
+## `chapters.en.2.s20_refetch`
+
+vault/videos/passive-income-number/logs/fin-assets-en-ch2-2.md
+
+## `chapters.en.2.s20_refetch_verdict`
+
+Replaced IN PLACE (same filename, so no rebuild). US grocery produce shelf with handwritten $/LB price tags, Pexels/Greta Hoffman, 1880x1253, source p90 195 against the outgoing 138. Read at full resolution plus three 2x zoom tiles: NO person, torso, arm, hand or face; no brand mark; every word and price in English and dollars per pound. Accepted 1, rejected ~101 cells over 17 sheets. Predicted encoded p90 ~50 against the outgoing 35. check assets --chapter 2 PASS. Old file archived at _cand/_archived-s20-attempt1-person.jpg.
+
+## `chapters.en.2.s20_declared_deviation`
+
+The storyboard's DECLARED car-back-seat bags frame does not exist object-only in either pool (7 sheets) — bags-in-a-car is a delivery-driver genre and always carries a person. So the SUBJECT changed while the line's 'store' stayed. Third time this run a declared subject turned out not to exist as briefed (hi ch1's window, hi ch1's chai-glass-plus-phone, en ch2's back-seat bags); the storyboard writes subjects that stock does not stock.
+
+## `chapters.en.2.joint_moved_check_at_redraft`
+
+⚠ The fix MOVES the problem rather than only removing it: s19->s20 narrows from -23 to about -8, but s20->s21 becomes about -15 INTO THE HERO. fin-editor must check the moved joint at the re-draft — a brighter s20 is right for s20 and makes the step into s21 steeper.
+
+## `chapters.en.2.render_attempt_2`
+
+vault/videos/passive-income-number/logs/fin-render-en-ch2-2.md
+
+## `chapters.en.2.render_attempt_2_verdict`
+
+MEASURE-ONLY pass on the existing 13:41 draft — nothing re-rendered, because the draft was already newer than every input. 3166/3166 frames, true CFR 30 from 3165 packet deltas (only 0.033333 x2110 / 0.033334 x1055), 0 black, cues.py exit 0 with min gap 1.100s. All four changes verified: s14 splits at 0.5006, both s17 dates legible, and the geometry SURVIVED the local-patch removal (centred focals within 1.0px of 960, s21 track 500-1419 mid 959.5) — which is the real test that the upstream port replaced the local patch rather than merely duplicating it.
+
+## `chapters.en.2.s20_trade_predictions_were_wrong`
+
+The trade is FAVOURABLE but BOTH predictions were wrong in magnitude, and the direction of the error matters for every future fetch. s19->s20 narrowed to -17, not the predicted -8; s20->s21 FLATTENED to +0, not the predicted -15 into the hero. Cause: s20 encoded at p90 43, not the predicted 50. So the worry that the fix merely moved the joint into the hero was unfounded — but only by accident of the prediction being off. COST: the arc fin-editor approved (50.0 -> 49.5 -> 50.2 -> 47.9 -> 44.7) is now a PLATEAU-AND-STEP (50.0 -> 50.6 -> 50.2 -> 50.7 -> 44.7), range span 24 -> 16, so the open reads LESS distinct than before without s9 having changed at all. fin-editor must rule whether losing the 35 floor is worth it.
+
+## `chapters.en.2.mega_rule_has_no_element_here`
+
+⚠ CONFIRMS the correction recorded in tool_fixes_this_session.comma_fix_protects_the_wrong_class, now with a direct count rather than an inference: `grep -c 'class="mega'` returns 0 in this chapter and `.huge` returns 15. The `.arch-b .mega { padding-bottom: .11em }` scaffold rule HAS NO ELEMENT TO APPLY TO here. Actual ink clearance on the comma figures: s19 $10,169 26px, s21 $254,225 27px, s20 $847 (no comma) 35px, against an 18px arch-b gap. Derived overhang from the scaffold comment's own numbers is 4.36px = 0.039em, matching the ~.04em the orchestrator computed when deciding NOT to patch `.huge`. Nothing collides, and the decision to leave already-reviewed layouts alone was correct.
+
+## `chapters.en.2.new_for_the_editor`
+
+s20: 'PER MONTH' lands on the photograph's BRIGHTEST price card — glyph 161.1 over backdrop 60.4, ratio 2.67, the lowest of eight kickers against a chapter median of 2.95 — and the card's own type crosses its baseline. Three legible non-scene dollar amounts are in frame but measure Weber 0.28-1.55 against the focal's 21.57, so they do not compete. s14: the UNFILLED grey half of the bar reads 21.7 luma BRIGHTER than the amber half, i.e. the empty side is louder than the filled side. Dissolves clean at all 14 boundaries (outgoing alpha 1.2-3.5% at +0.380); the $847 ghost under s21's 'RUNG ONE' measures 3.1% and is visible only because s21's ground is the chapter's darkest.
+
+## `chapters.en.2.draft_audio`
+
+True peak -3.22 dBTP, integrated -21.18 LUFS at draft. Master QA still owed — the -14 LUFS normalisation happens at tools/loudnorm.py after the full render, not here.
+
+## `chapters.en.2.editor_r2`
+
+vault/videos/passive-income-number/logs/editor-en-ch2-2.md
+
+## `chapters.en.2.editor_r2_verdict`
+
+PASS — 0 blockers, 3 should-fix (none false, none worth another round)
+
+## `chapters.en.2.editor_r2_self_correction`
+
+⚠ The editor CORRECTED ITS OWN ROUND-1 READING, and this supersedes the 'the fix cost the chapter its arc' framing recorded above and repeated by the orchestrator. The arc it approved in round 1 (50.0->49.5->50.2->47.9->44.7) was ALREADY FLAT within 0.7 of a point across its first three segments, and the 47.9 that made the fourth look like a descent was pulled down by a SINGLE SCENE AT p90 35 — s20, the blocker it was calling out in the same log. The 24-point span was 35->59 and the 35 end of it WAS THE DEFECT. So removing it did not destroy a shape; it revealed the shape was always plateau-then-step, and it moved the one remaining step onto the boundary where the colour, the ground and the meaning all turn at once. One tonal event on the chapter's one structural event beats two, one of which meant nothing. RULING: the trade is favourable, take it, s20 stays, move no frame.
+
+## `chapters.en.2.editor_r2_should_fixes`
+
+Three, none false, none worth another round: s15 is the one photograph that fails SOUND-OFF on its own (the ken push turns it into an unidentifiable pale curve) — but it was graded should-fix in round 1 on unchanged evidence and its content is a name and a date, both on screen. s20's `PER MONTH` collides with the price card's own `$5.` ink (build-only fix: a `.band` or a ken offset). s14's unfilled grey half is 21.7 luma LOUDER than the amber filled half (one opacity line).
+
+## `chapters.en.2.tone_recommendation_to_ceo`
+
+ACCEPT AS-IS. Against ch1 the requirement is met on BOTH readings — s9 opens at p90 57 vs ch1's 45, and the chapter now weighs 49.2 duration-weighted against ch1's 36-48 band, i.e. ABOVE its ceiling rather than at it. If the lighter open must be FELT rather than measured, the single lever is s10's photograph (10.6s at p90 44), NOT `.scrim` — and s20 just proved that empirically by moving its scene's p90 +8 while its p10 moved 0.
+
+## `chapters.en.2.ceo_verdict`
+
+REWORK — 2 blockers
+
+## `chapters.en.2.ceo_blockers.s21_payoff_frame`
+
+THE CHAPTER'S PAYOFF FRAME. `$254,225` — the FIRST CORPUS IN THE WHOLE VIDEO — sits over an unreadable dark green mass at the chapter's luma floor. Re-fetch briefed for maximum YHIGH, target encoded p90 >= 55 against s16/s19's 59, and it becomes the frame the chapter has earned.
+
+## `chapters.en.2.ceo_blockers.s15_escalated`
+
+ESCALATED from should-fix to blocker: it is the SECOND sound-off failure, and it sits inside the 39-second document run the study identifies as the structurally risky stretch.
+
+## `chapters.en.2.ceo_scope`
+
+Total rework: 2 files fetched, 2 lines changed, 1 rebuild, 1 draft. The two remaining editor should-fixes ride along BECAUSE THEY ARE FREE on a rebuild that is happening anyway — s20's `.band` and s14's opacity are one line each. Nothing between s9 and s20 otherwise moves. The CEO EXPLICITLY DECLINED fin-editor's offered s10 lever: s10 is correctly dark under the invariant just ruled, and the budget belongs to s21.
+
+## `chapters.en.2.refetch_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-assets-en-ch2-3.md
+
+## `chapters.en.2.refetch_verdict`
+
+Both blockers closed IN PLACE (same filenames, no rebuild forced by the fetch). s21 is now a cut loaf on a maple board and goes from LAST to FIRST of fifteen on graded mean (36.7 -> 95.1) and on floor (p10 4.7 -> 54.8). s15 is a bound volume open flat beside three cracked-spine volumes and survives its 1.16x ken. Accepted 2, rejected 40 — 38 at sheet, 2 only at full resolution: a library aisle whose spines read 'Physical Review D' under an AAII Journal citation, and a reading room with two people and UK signage in a US cut.
+
+## `chapters.en.2.honest_miss_for_the_ceo`
+
+⚠ DECLARED, NOT ROUNDED AWAY, and it refines the binding clause rather than just missing it. s21's PREDICTED encoded p90 is 53-55 against the >=55 target and cannot go higher without banned high-key stock. But the agent's measurement shows p90 RANKS s15's dark-frame-with-one-white-page ABOVE s21 — because p90 is the brightest decile, so a mostly-dark frame containing one white page scores high while a uniformly legible frame does not. Its argument: clause 2 of the binding ruling ('the payoff frame's photograph must be the MOST LEGIBLE in its chapter') should be judged on MEDIAN/MEAN, where s21 is #1 of fifteen, not on p90. That is a metric question the CEO owns, and it bears on ch3-7 of both cuts because every future payoff frame will be briefed against whichever measure is chosen. NOTE also the standing caution: predictions over-predicted en ch2's own s20 by 7 points, so fin-render must settle this from the encode either way.
+
+## `chapters.en.2.build_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-build-en-ch2-3.md
+
+## `chapters.en.2.build_attempt_3_verdict`
+
+Regenerated over the two replaced photographs — s21 reads unmistakably as bread, s15 as an open volume beside cracked-spine volumes, both verified at the 1.16x tightest ken. Both one-line fixes landed, and ⚠ EACH TURNED OUT TO BE A DIFFERENT DEFECT THAN REPORTED:
+(1) s20's `.band` was GEOMETRICALLY INCAPABLE of the job it was assigned — it starts at y497 with alpha 0 while the kicker glyphs sit at y438-459, so it could never have touched them. The real fix is a one-line `background-position: center bottom`, spending the source's 231.6px of vertical cover-slack: kicker backdrop 40.9 -> 18.3, luma ratio 3.78 -> 8.52 on identical boxes.
+(2) s14's grey half WAS NEVER AT .22 AT ALL — `fade()` had been overwriting that attribute to 1.0 since the layer was drawn, so 'one opacity line' was fixing a value that was not in effect. Real fix `fill-opacity: 0.55`, which fade() does not touch: grey 82.1 -> 61.0 against amber 60.0.
+Chapter unchanged at 105.518s / 15 scenes. npm run check 0 errors + 11/11 AA, check_vo_frame PASS, cues.py exit 0, pipeline_check check build PASS, mtimes strictly ordered.
+
+## `chapters.en.2.s21_measurement_CORRECTED`
+
+⚠ CORRECTS THE REFETCH'S HEADLINE, and the orchestrator repeated the wrong version. fin-assets measured 'LAST to FIRST of fifteen on graded mean (36.7 -> 95.1)' ON THE RAW SOURCE. Measured COMPOSED, s21's p90 is 52.9 against the ruling's >=55 (declared, not rounded), and its composed rank is #1 ON p10 but only #3 ON MEAN — not #1. A source measurement is not a frame measurement: the composition crops, kens and overlays type on it. This is now the third time on this run that a prediction or a source-side number has been wrong about the composed result (the others: s20's encoded p90 43 against a predicted 50, and the tone-prediction arithmetic over-predicting by 7). fin-render settles it from the encode.
+
+## `chapters.en.2.render_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-render-en-ch2-3.md
+
+## `chapters.en.2.render_attempt_3_verdict`
+
+Re-rendered 16:44 over the 13:41 pre-fix file. 3166 frames / true CFR 30 / 0 black / true peak -3.2 dBTP. Both one-line fixes CONFIRMED ON THE ENCODE and s15's ken now survives sound-off.
+
+## `chapters.en.2.payoff_table_s21`
+
+Measured composed, full-res 10fps, settled spans, same method as hi ch2 so the two cuts compare: p10 27.1 = #1 of 15 (+3.3 clear) · median 42.5 = #3 (behind s9 45.4, s13 45.2) · mean 41.8 = #3 (behind s13 44.9, s9 44.3) · p90 51.5 = #7. So 'NEVER THE LEAST' is met on every measure; 'THE MOST LEGIBLE' on none, missing by 2.7 points on the fairest one. The >=55 p90 target is a MISS at 51.5 — and note fin-build had composed it at 52.9, so even that was not rounded up. Only TWO photographs stand above s21, against four on hi ch2.
+
+## `chapters.en.2.fixes_confirmed`
+
+s20's kicker: no card ink above luma 65 anywhere in its columns at 78.0/80.5/83.0; backdrop 60.4 -> 24.2, contrast ratio 2.67 -> 6.56 — from LAST OF EIGHT to SECOND OF FIFTEEN against a 3.71 median. s14's bar: amber 61.0 vs grey 61.7, so the +22.1 inversion is now +0.7 luma, and amber wins decisively on chroma (|R-B| 54.5 vs 6.0); split unchanged at tick centre 1486.0 on a track midpoint of 1486.0. s20->s21 CHANGED CHARACTER: attempt 2 measured +0 p90 / +3 median into the hero; it now measures +7.8 / +20.4, the largest median rise in the chapter — the payoff arrives on a STEP UP, not a plateau.
+
+## `chapters.en.2.editor_r3`
+
+vault/videos/passive-income-number/logs/editor-en-ch2-3.md
+
+## `chapters.en.2.editor_r3_verdict`
+
+PASS — 0 blockers, 1 should-fix (deliberately not actioned)
+
+## `chapters.en.2.editor_r3_verification`
+
+Rebuilt the sheet from the 16:44 encode and read it as a grid first, then pulled 13 frames for what the grid could not settle. md5sum across all 35 en-ch2 finals PLUS the en-ch1 and hi-ch2 pools — zero collisions. s21 reads unmistakably as bread (crumb, crust, cut slices, board grain) at 85.2/86.5/88.81/90.0 including the ken's first instant. s15 says 'bound volumes on a library table' sound-off at 44.34/46.5/48.5; at 42.30 — the 1.16x tightest — it is genuinely its weakest second and reads as 'a pale sheet and something stacked beside it' for about a second, but NOTHING IS ASSERTED OVER IT (the statement rises at 42.837) and it is unambiguous for 6.5 of 7.5s. Not a defect. ⚠ It also accepted the correction to its own prescription: 'my `.band` prescription could never have reached the glyphs. Finding right, fix wrong.'
+
+## `chapters.en.2.editor_r3_payoff_recommendation`
+
+CLOSE the ruling — on principle, explicitly not fatigue. s21 is p10 last -> #1 by 3.3, holds the chapter's NARROWEST SPREAD (9.0), passes sound-off, and now ARRIVES ON +20.4 MEDIAN, the largest step in the chapter (it was +3, a plateau). THE ARGUMENT THAT MATTERS: a '#1 of N' rank test is the WRONG INSTRUMENT — it makes the payoff's compliance a function of how good the other frames are, and a 1.4-point measurement error flips it. PROPOSED REPLACEMENT CLAUSE: sound-off pass · top quartile on median · #1 or #2 on p10 · NON-NEGATIVE MEDIAN STEP IN. s21 scores pass / #3 / #1 / +20.4. ⚠ And the editor CHECKED ITS OWN PROPOSAL AGAINST THE OTHER CUT: hi ch2's hero STILL FAILS IT, so it is not a rule written to let en through. That self-check is why it is worth adopting rather than suspecting. Also recommends RETIRING the >=55 p90 target rather than carrying it as a miss on a statistic about to be ruled invalid. And: do NOT move s21, s9 or s13 — s13 is the best-matched picture in the document run and darkening it would breach the invariant's FIRST clause.
+
+## `chapters.en.2.editor_r3_metric_recommendation`
+
+MEDIAN + `p90 - p50` reported beside it + A BINARY SOUND-OFF QUALIFYING GATE, shaped as: *with the type covered, can a viewer name a concrete object?* It runs BEFORE the ranking, it is binary, and it is A FLOOR NOT A RANKER — it will never separate s13 from s21, so it must not be asked to. CONSISTENCY RECORD OFFERED AS EVIDENCE: the sound-off read has returned the same verdict FOUR TIMES across two cuts, three of them before anyone asked for a gate, while EVERY purely numerical measure on this run has been overturned at least once.
+
+## `chapters.en.2.editor_r3_should_fix_not_actioned`
+
+s9 — the frame MEDIAN CROWNS at 45.4, #1 — is a CLOSED notebook cover with no subject, where the storyboard asked for a ruled page with a pencil across it. Declared as NEW EVIDENCE, not moved goalposts: the CEO's ruling was written on p90, where the brightest two were substantive. It is the in-hand proof that median ALONE crowns an empty frame, which is precisely the argument for the qualifying gate.
+
+## `chapters.en.2.ceo_r2`
+
+vault/videos/passive-income-number/logs/ceo-en-ch2-2.md
+
+## `chapters.en.2.ceo_r2_verdict`
+
+SHIP — 0 blockers
+
+## `chapters.en.2.ceo_r2_verification`
+
+Both blockers verified on the CEO's OWN frames, not on the claim: s21 at 85.2/88.81 is crumb, crust, cut slices and board grain; s15 at 46.5 is an open volume beside cracked-spine stacks.
+
+## `chapters.en.2.do_not_touch`
+
+Do NOT re-fetch s21; do NOT darken s9 or s13. s13 is the best-matched picture in the document run and darkening it would breach the invariant's first clause.
+
+## `chapters.en.2.carry_forward_to_ch3`
+
+ch3's OPENER MUST SHOW A SUBJECT, NOT A SURFACE — s9 is a closed notebook cover and it is the frame median crowns, which is the in-hand proof that a numerical measure alone rewards emptiness.
+
+## `chapters.en.2.noted_not_gated`
+
+The chapter's weakest stretch has moved to s10/s10.2/s11 — 18.8s of three consecutive out-of-focus macros. Noted for ch3, explicitly NOT gated: the CEO declined that exact lever in round 1 on invariant grounds and would not reverse over pacing taste at the cost of a render.
+
+## `chapters.en.3.assets_verdict`
+
+PASS — 16 accepted, 216 rejected over 40 contact sheets, 0 dropped. Every file >=1600px, every source p90 >=126 against the 110 gate, zero md5 AND zero source-URL collisions. `check assets --chapter 3` PASS, and FAIL without the flag as the negative control.
+
+## `chapters.en.3.full_resolution_kills`
+
+TEN images passed their contact sheet and were killed only at full resolution — PEUGEOT on a keyfob, EMCO WHEATON on a nozzle, a German Bible under the Trinity quote, `1040-NR-EZ` (NONRESIDENT, wrong form) on five of six tax cells, and a MacBook the sheet showed as 'closed' whose screen was lit and whose p90 was 12. The contact sheet is a shortlist, never a verdict.
+
+## `chapters.en.3.p90_answers_the_ch1_tone_note`
+
+Source YHIGH 126 (s24) to 231 (s35), spread 105; pushed through the locked grade arithmetically for comparability with ch1's RENDERED 36-48 / spread 12, that is 76 to 144, spread 68. Per scene post-grade: s24 76 · s27 79 · s30 83 · s33 90 · s38 100 · s31 103 · s36 111 · s39 115 · s37 120 · s26 123 · s32 124 · s28 132 · s29 134 · s34 135 · s25 137 · s35 144. Opens dark on a night street, peaks on the two white-paper fine-print frames; NOTHING sits in ch1's band. These are PREDICTED, not rendered — fin-render must confirm from the encode.
+
+## `chapters.en.3.tank_family_resolved_for_ch5`
+
+⚠ INHERITED BRIEF for s46/s47/s57. fin-assets read en-ch2's s10.jpg at full resolution rather than trusting the storyboard's word: it is A ROW OF SEVEN AGED BRASS TAP VALVES with turned brass lever handles bolted along a horizontal steel manifold above a long copper-brown trough, white tiled wall, raking daylight. THERE IS NO VESSEL IN THE FRAME AT ALL. So the callbacks must rhyme on 'aged brass lever tap + industrial metal pipework under daylight', with TAP POSITION AND FLOW carrying the beat. A domestic faucet or a barrel bung will NOT read as a callback. No scene in s24-s39 touches the family.
+
+## `chapters.en.3.for_the_build`
+
+No code, geometry or timing change; no `bgpos` on either slot (s26 is already 16:9). ⚠ WATCH AA ON s30's TYPE BAND — the new frame's median is 104.4 there.
+
+## `chapters.en.3.two_judgement_calls_for_the_editor`
+
+s30 is a roof ridge with pigeons (the storyboard's OWN override, and the chapter's one art-forward frame, so it was routed to the calmest subject). s35's 1040 is legibly dated 2020 — no ch3 line makes a year claim, and every tax-form photograph in both pools carries some year.
+
+## `chapters.en.3.build_verdict`
+
+16 scenes / 96.601s / s24-s39. hyperframes check 0 errors + 14/14 AA, check_vo_frame PASS, cues.py exit 0 (24 cues, min gap 1.100s), pipeline_check check build --chapter 3 PASS. All three rate-assert branches RE-PROVEN to throw by planting a violation in s33. One drawn layer: s30 `housing-share` at exactly 0.334. The s26 cascade is SPEECH-ANCHORED to measured word onsets — the first chapter built on tools/tts/clauses.py rather than the fixed +1.10. s27/s31 added to `dry` in the cut's cues-tables.json. It also caught and fixed a real defect in its own snapshot pass: s26's `brule` ran through the `$1,110` glyphs (252 -> 400).
+
+## `chapters.en.3.payoff_passes`
+
+s34 named as the payoff and it satisfies all four clauses: sound-off pass · median #2 · p10 #1 · step-in +70.6.
+
+## `chapters.en.3.⚠_s31_invariant_breach`
+
+THE BUILD CAUGHT THE s21 SHAPE ITSELF, BEFORE ANY GATE — which is the ch1/ch2 rulings compounding rather than being rediscovered. s31 carries THE CHAPTER'S LARGEST FIGURE, $656,650, and sits on the chapter's LUMINANCE FLOOR: composed median 7.1 (LAST of 16), p10 0.0, arriving on a -52.8 step. That is a breach of the invariant's FIRST clause — the darkest frame holding a substantive beat — not a payoff-clause failure (the payoff s34 passes). It is the same shape the ch2 CEO blocked on s21. NOT FIXABLE FROM THE BUILD STAGE, and the build proved it rather than asserting it: the source has ZERO horizontal slack and vertical framing moves its median by HALF A POINT. So it is a re-fetch, queued behind hi ch3 on the single-file assets pipe. s27 is the same defect one step milder and rides along. DO NOT DRAFT THIS CHAPTER until the fetch lands — a draft of a known-failing frame buys nothing, and the frame is about to change.
+
+## `chapters.en.3.⚠_unverified_replacements`
+
+s27 (18:44) and s31 (18:48) were replaced before the session limit killed the agent; predecessors are at assets-ch3/superseded-invariant-r1/. NO LOG, so nothing verifies them, and index.html/build.mjs (18:23) PREDATE both — the composition points at photographs nobody has composed against. ⚠ AND THE .src NOTES ARE A WARNING, NOT A REASSURANCE: s27 is 'car door handle on a white car body in bright daylight close up' and s31 'sunlit entryway of an american home white front door brass knob'. BOTH ARE WHITE-DOMINANT. The locked grade is grayscale(.32) brightness(.62) contrast(1.05) with no per-scene override, and a white-dominant subject can only become flat charcoal — the standing rule that has cost this run more re-fetches than any other. Chasing s31 off the luminance floor with a white subject is the predictable wrong answer to the brief. Treat both as SUSPECT: verify at full resolution and against the COMPOSED median before accepting, and be ready to re-fetch rather than compose them.
+
+## `chapters.en.3.refetch_verified`
+
+vault/videos/passive-income-number/logs/fin-assets-en-ch3-3.md
+
+## `chapters.en.3.refetch_verdict`
+
+BOTH KEPT, zero files changed on disk — and the agent EARNED that by first re-validating its composed-median method against the 14 UNTOUCHED scenes, reproducing fin-build's table to <=0.5 pt including both outgoing files at 25.4/7.2. Only then did it trust its own numbers on the new ones. s31: median 7.1 (LAST) -> 70.6 (#10), p10 0.0 -> 43.2 (#3), step-in -52.8 -> +8.5. s27: median 25.4 (#14) -> 97.0 (#4), p10 0.0 -> 82.2 (#2), step-in -67.0 -> +4.4. Both pass the sound-off gate; full-resolution plus crop-zoom found no text, badge, signage or reflected wordmark; no md5 or URL collision; both 1880px; check assets --chapter 3 PASS.
+
+## `chapters.en.3.orchestrator_warning_was_WRONG`
+
+⚠ THE ORCHESTRATOR'S 'white-dominant = flat charcoal, treat as suspect' WARNING WAS MEASURED FALSE, and it was repeating a standing vault rule rather than inventing one. White grades to 159.6 under this chain, not to charcoal — verified independently: brightness(.62) then contrast(1.05) puts 255 at 159.6, 240 at 149.9, 128 at 77.0, 40 at 19.7, and grayscale(.32) is a SATURATION operation that does not move a neutral's luminance at all. The real risk was EMPTINESS, not darkness. s27 is the chapter's emptiest frame and still passes, because it reads as a car door handle and is the correct quiet ground for its heavy type stack. vault/knowledge/stock-photo-sourcing.md corrected — the observation there was real, the mechanism was wrong, and the wrong mechanism had been sending fetches hunting for darkness when the missing thing was structure.
+
+## `chapters.en.3.⚠_floor_relocated_gate_must_rule`
+
+FIXING s31 MOVED THE CHAPTER'S LUMINANCE FLOOR ONTO s37 — median 20.5, p10 7.5, line 3.14. The invariant is about WHICH frame sits at the bottom, not about the bottom's depth, so relocating the floor is only a defect if s37's beat is substantive. The gate must rule that; it is not automatically the next re-fetch. This is the whack-a-mole the invariant creates and it should be ruled once here rather than chased chapter by chapter.
+
+## `chapters.en.3.build_attempt_2`
+
+vault/videos/passive-income-number/logs/fin-build-en-ch3-2.md
+
+## `chapters.en.3.build_attempt_2_verdict`
+
+Rebuilt against the two replaced photographs, and the build RE-MEASURED ON ITS OWN CHAIN rather than accepting fin-assets' table — agreement <=0.2 pt on every cell, superseded files included. Took the `bgpos: center top` recommendation on s27 after looking at both graded crops. check 0 errors + 14/14 AA, check_vo_frame PASS, cues.py exit 0, check build PASS, 2899 frames. All three rate-assert branches re-proven by planting a violation in s33.
+
+## `chapters.en.3.measured_on_the_encode`
+
+s31 median 35.0 (#8) / p10 24.0 (#4) / step-in +5.0 — was 7.1 LAST / 0.0 / -52.8. s27 median 42.0 (#3) / p10 31.0 (#2). Payoff s34 passes all four clauses: median #2, p10 #1, step-in +17.0, sound-off pass.
+
+## `chapters.en.3.⚠_prediction_gap_widest_yet`
+
+The same two frames were PREDICTED at composed median 70.6 and 97.0 and ENCODED at 35.0 and 42.0 — roughly HALF, both times. The RANKS held (s31 last -> #8), which is what the decision needed, but the absolute values did not. Sixth instance this run. The prediction method is usable for ordering candidates and NOT for any claim about where a frame will land; that is now demonstrated across both cuts and three chapters.
+
+## `chapters.en.3.floor_now_s37_referred_to_the_gate`
+
+s37 is the new floor at median 21.0 (LAST of 16) / p10 15.0, holding line 3.14 — the chapter's verbatim-conclusion beat. Referred to fin-editor, deliberately not pre-ruled, AND cross-referenced to the stopping rule being decided at the hi ch2 CEO gate. If this chapter is the case that BREAKS the proposed rule, that is worth more than a chapter-local verdict, because the rule is about to govern ch4-7 on both cuts.
+
+## `chapters.en.3.editor_verdict`
+
+REWORK — 1 blocker, 2 should-fix
+
+## `chapters.en.3.editor_blocker`
+
+s30 — the chapter's ONE drawn layer sits on birds on a brick parapet with NO ROOF, NO BUILDING and a black void across the lower 55%. Cover the type and the frame says 'a third of something' and never says HOUSING, which is the noun the whole scene quantifies. The drawn bar is correct (0.342 fill, tick at 0.334, matching BLS 33.4% of $78,535) — the photograph under it is the failure.
+
+## `chapters.en.3.editor_should_fixes`
+
+s34, THE PAYOFF FRAME, has LEGIBLE CONTRACT WORDING — `The Contractor`, `10. Assignment`, `the prior written consent of the C…` — under a citation to the AAII Journal. Fixable by CROP; the file has 1733x1300 of slack, so no fetch. · s26 puts an AERIAL CAR PARK OF ~80 VEHICLES under a line about the monthly cost of ONE car, and holds it for the chapter's longest span, 8.355s. That one is a fetch.
+
+## `chapters.en.3.editor_verified_independently`
+
+Re-measured off the encode rather than accepting handed numbers: s27 resolves to `$332,950` (the sheet's `$317,240` is a MID-COUNT-UP SAMPLE — a sheet reads one instant, not the settled value) · brule at 400px clears the glyphs · the s26 cascade lands within 0.13s of clauses.py onsets with 1.6s of hold left · s30's bar measures 0.342 fill with the tick at 0.334 · check_vo_frame re-run by the editor itself · s34 passes all four payoff clauses (median #2, p10 #1, step-in +17) · zero md5 collisions across ch1-ch3 · s35's 2020-dated 1040 ACCEPTED, no line makes a year claim.
+
+## `chapters.en.3.floor_ruling`
+
+s37 MAY HOLD THE FLOOR — not a defect. Checked rather than assumed: s37 is not the payoff (s34 is) and NOT the longest-held — **s26 is, at 8.355s against s37's 7.598s**. Nor is it an outlier: s37 measures median 22 / p10 15 against s24's 23 / 17, a ONE-POINT gap, arriving on a -6 step. s31's breach was 7.1 / 0.0 arriving on -52.8, a 3x outlier. Different objects wearing the same word.
+
+## `chapters.en.3.refetch_attempt_4`
+
+vault/videos/passive-income-number/logs/fin-assets-en-ch3-4.md
+
+## `chapters.en.3.refetch_attempt_4_verdict`
+
+s30's blocker fixed AT THE NOUN — a shingle roof with three brick chimneys against sky (predicted composed median 97.7 / p10 36.1, against 62.1 / 12.6). The agent RENDERED THE 33.4% BAR OVER THE GRADED FRAME to confirm the drawn layer sits on a low-frequency ground, rather than judging the photograph alone. s26's eighty-car aerial replaced by a full-frame TYRE MACRO (85.3 / 8.4). Accepted 2 of 131 cells across 13 sheets. Floor stays on s37 at 20.5; the longest-held s26 is #9 of 16; payoff s34 still passes all four.
+
+## `chapters.en.3.prop_money_rule_catches_a_SECOND_instance`
+
+⚠ Four promoted candidates died only at FULL RESOLUTION, and one was PROP MONEY WITH A REPEATED SERIAL `E 74116815 B` — in the en cut this time. The rule written after hi ch2's `ILR 176177` has now caught a second, independent instance in a different currency and a different pool. It is not a one-off lesson.
+
+## `chapters.en.3.judgement_call_for_the_editor`
+
+s26's tyre macro FIXES THE SCALE ERROR (eighty cars under a line about one car's monthly cost) but names a car PART rather than a car. Declared by the agent as a judgement call, not resolved. It holds the chapter's longest span at 8.355s, so it has to survive that.
+
+## `chapters.en.3.build_attempt_3`
+
+vault/videos/passive-income-number/logs/fin-build-en-ch3-3.md
+
+## `chapters.en.3.build_attempt_3_verdict`
+
+Regenerated and redrafted — 16 scenes / 96.601s / 2899 frames, check 0 errors + 14/14 AA, check_vo_frame PASS, cues.py exit 0, check build PASS, all three rate asserts re-proven BEFORE the render. s30's blocker CLOSED on the encode: median 30.0 #12 -> 37.0 #7, p10 15.0 -> 22.7 #5, and AA held at 14/14 despite its 104.3 type band. s26 sits #10 of 16, so the longest-held scene did NOT become the floor. Payoff s34 passes all four clauses (median #2 45.0, p10 #1 35.5, step-in +18.4). Floor stays s37 at 20.1, untouched. Predictions missed magnitude by ~2.6x for a SEVENTH time but held order within two places.
+
+## `chapters.en.3.s34_crop_REFUSED_with_evidence`
+
+⚠ THE BUILD REFUSED THE CROP AND SHOWED ITS WORKING, which is what was asked of it. The sharp band carrying every legible word occupies rows ~430-900 of 1300 — DEAD CENTRE of any 16:9 window — so `bgpos` cannot reach it and only a zoom crop can. **The pen lies along that same focal plane**: every pen-keeping crop takes p10 from 92.1 to 9-11, failing clause 3 outright against s27's 82.9. The only word-free crop is the top blurred band (124.0 / 110.3 / 9.1) — clauses 2-4 pass and CLAUSE 1 FAILS: rendered graded at composed size it is a soft grey field with no nameable object, which is the exact shape the CEO's rationale of record names. The bottom band's one object is the word `SIGNATURE`. All crops also cost a 2.9x upscale against today's 1.29x. **The remaining lever is a fetch, not framing.**
+
+## `chapters.en.4.assets_verdict`
+
+13 accepted (12 fetched + the s42 derived crop of s41), ~238 cells rejected over 45 sheets, 0 dropped. NINE died only at FULL RESOLUTION (TI-606/STABILO/barcode, ZEPPELIN, PRODUCT OF TAIWAN with lbs/kg, Cyrillic roubles, a cast `3Kg`, an Apple wordmark, a legible `-50%`) and the md5 sweep caught two more — one of them hi-ch3's LIVE s23.
+
+## `chapters.en.4.⚠_REQUIRED_build_instruction`
+
+Payoff s41 passes all four clauses (sound-off · median #3 of 13 · p10 #2 · step-in +8.5) ONLY IF the build applies the measured `bgpos: "center 35%"` on s40. At default centre the step is -4.5 and CLAUSE 4 FAILS. This is a requirement, not a suggestion. Also recommended: `bgpos: "center bottom"` on s51 — +17.5 median, and it crops the archival banner out of frame.
+
+## `chapters.en.4.gate_question_s48_retired_dir_duplicate`
+
+s48 is BYTE-IDENTICAL to passive-income-number-hi-ch1/assets-ch1/style-a/s7.jpg. KEPT, with the argument stated: hi ch1 is locked on a REBUILT style-E composition and `style-a/` is a retired directory beside `retired-attempt6/` and `killed-attempt7/`, so the file ships in exactly one place. Both alternatives were worse — an on-screen `3Kg` metric mark, or a composed median of 9.2. The gate should confirm that a duplicate against a RETIRED directory is not a duplicate.
+
+## `chapters.en.4.gate_question_s51_faces`
+
+s51 (NARA, Chicago breadline, Feb 1931) has DISTINCT FACES IN THE FRONT ROW, against the storyboard's 'faces indistinct'. Declared, not resolved.
+
+## `chapters.en.4.⚠_tank_brief_SPLIT_not_met`
+
+The inherited brief was 'the lever visible at a different angle PLUS flow'. NO CELL in 24 tank candidates carried a readable lever AND flow, so it was SPLIT: s46 carries FLOW with a visibly turned brass handle, s47 carries the brass valve on copper pipework, OPEN AND DRY. s57 STILL OWES THE THIRD STATEMENT. ⚠ AND THE ONE FRAME THAT MET THE BRIEF WHOLE (Pexels, Romualdo Segura, green lever + hard shadow) WAS REJECTED ON RESOLUTION ALONE AT 1555px against the >=1600 rule — worth reconsidering at the gate, because that threshold has already been ruled flexible once (hi ch1's s8 was ACCEPTED at 1280px drawn 1.63x on the strength of 1:1 micro-texture), and the tank is style E's load-bearing device rather than an ordinary frame.
+
+## `chapters.en.5.note`
+
+not started
+
+## `chapters.en.6.note`
+
+not started — see _carry_forward_en_ch1_to_ch2_ch6: s74 needs re-planning because s8 already used the full-height ladder

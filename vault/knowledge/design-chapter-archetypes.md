@@ -12,6 +12,37 @@ stage: ADOPTED — the standing layout system for chapter-based cuts
 > wins** — it is what renders. Constants: `tools/format.json chapter_design`.
 > Supersedes nothing in [[design-finance-blockframe]]; it *extends* it. That note
 > still owns the tokens, the grade, the scrim, the type ladder and the watermark.
+>
+> **BOX — the standing decisions.**
+> 1. **Four archetypes** — A plate (opens, hand-offs) · B figure (the point is a
+>    number) · C ledger (a document or artefact) · D band (the MOTION is the
+>    argument). Assigned by what the scene DOES, never for variety. Holding one
+>    across consecutive scenes is correct when they are one argument.
+> 2. **Art lives in a declared, clipped plate rect**, never a full-bleed field.
+>    A plate is a LIFTED PANEL, not a transparent window.
+> 3. **Ground temperature tracks the argument**, one role colour per scene, and
+>    push it harder than looks right at document scale.
+> 4. **Every frame carries a graded photograph** (`image_per_scene`), grade locked.
+> 5. **Rule 8 — drawn art over a photograph is ADDITIVE, never depictive.** It must
+>    assert what the picture cannot: a proportion, a comparison, a measurement, a
+>    count. Most scenes end with the drawn layer switched off; that is correct.
+> 6. **Rule 9 — never darken a photograph to make drawn art readable.** Darken
+>    behind it with `.band`, or `.art-lift` inside the plate.
+> 7. **`.centred`** — once `.art-off` retires the drawn layer, the split is a hole;
+>    re-centre and drop the plate and rules. A flat chapter is fixed by giving two
+>    or three scenes something real on the other side, never by adding layouts.
+> 8. **No rail, ever** — no chapter title, no scene counter. It reads as courseware.
+> 9. **Density: three or four drawn layers in a 12–14 scene chapter is the TOP of
+>    the range, not the target.** The approved ch1 ships one.
+> 10. **Building a chapter is a generator job** — `tools/chapter_project.py`. The
+>    generator owns timings, strings, `.bg`, audio and shipped motion; the spec owns
+>    archetype, ground, whether art survives, the art, the measure bar. Chapter
+>    membership comes from the VO line id, so `-en` is never `-hi`'s map.
+>
+> **Open the body when:** you are BUILDING or FIXING a composition — §"What a drawn
+> layer has to look like" and §"The gotchas that cost renders" are eight failures
+> that each shipped past a passing check, and no box substitutes for them.
+> **Reviewing** (fin-editor, fin-ceo) needs this box and nothing else.
 
 ## Why it exists
 
