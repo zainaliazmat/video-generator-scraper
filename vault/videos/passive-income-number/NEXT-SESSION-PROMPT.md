@@ -20,32 +20,38 @@ written by `pipeline_check mark --chapter N` and record ONE CHAPTER passing, not
 
 ## Where it stands
 
-**Locked: hi ch1, en ch1, en ch2.** Three of thirteen.
+**Locked: hi ch1, hi ch2, en ch1, en ch2.** Four of thirteen.
+**Stopped cleanly 2026-08-09 at the creator's request** — no agents in flight, nothing half-written.
 
 | | hi (7 chapters) | en (6 chapters) |
 |---|---|---|
-| locked | ch1 | ch1, ch2 |
-| in flight | ch2 — re-draft + re-measure | ch3 — verify/replace s27, s31 |
-| assets done | ch3 | — |
-| not started | ch4–7 | ch4–6 |
+| locked | ch1, ch2 | ch1, ch2 |
+| assets + build done, in review | ch3 — s22 replaced, REBUILD PENDING | ch3 — redrafted, awaiting editor r2 |
+| assets done, not built | ch4 | ch4 |
+| not started | ch5–7 | ch5–6 |
 
-Phase 1, and script/audit/voice/storyboard for both cuts, were already done and verified.
+Phase 1, and script/audit/voice/storyboard for both cuts, were done and verified before this session.
 
-## The two things in flight, both recovering from a session-limit stop
+## The first three things to do on resume
 
-Neither killed agent wrote a log, and both left an artifact newer than the thing
-describing it. Details in `run.json.incidents.session_limit_2026-08-08_1849`.
-
-1. **hi ch2 — the s16 re-frame is IN PLACE and good; its measurement is GONE.** A
-   792×445.5 serial-safe window bounding the *ken sweep union* (not one frame), as a
-   `background-size`/`background-position` on the `.bg`, so the file is untouched and its
-   md5/manifest/CREDITS all stand. The slot's own note says the re-measurement lives in
-   `fin-build-hi-ch2-5.md` — **that log does not exist.** The margin must be re-measured:
-   s16 led s12 by +1.053 median but only **+0.494 photograph-only**, and a 2.42× window on
-   a different region changes that completely.
-2. **en ch3 — s27 and s31 were replaced, unverified, and the composition predates them.**
-   Both `.src` notes describe **white-dominant subjects**, which the locked grade cannot
-   carry. Treat as suspect, not as done.
+1. **A CEO must rule THREE RULING-TEXT DEFECTS AS ONE RULE** — `owed.two_defects_in_the_ruling_TEXT_for_the_ceo`.
+   They are the same defect (a rank test resolving differences smaller than the
+   measurement) and fixing them piecemeal will produce a fourth. The unified proposal,
+   from the hi ch3 editor: *a rank or superlative clause is decided only by separations
+   that exceed the noise of the thing it measures; frames inside the noise band are tied
+   and the clause is satisfied by any member — for the legibility measures the band is
+   **1.0 luma point**.* It was validity-checked in both directions and it costs its own
+   author something. ⚠ Defect 2 is **already being exploited**: two agents discharged the
+   invariant by writing "satisfied by construction", quoting the sentence's literal
+   converse.
+2. **hi ch3 rebuild** — s22 is replaced; the build must DROP the inline
+   `background-size`/`background-position` on `#s22-bg` (the new file is 16:9, plain
+   `cover`). Then draft, editor, CEO.
+3. **en ch3 editor round 2** — two open questions, both declared not hidden: s26's tyre
+   macro names a car *part* under a line about one car's cost and holds 8.355s; and
+   **s34's crop was refused with evidence** (no window drops the contract wording without
+   dropping the pen; losing the pen fails the sound-off gate on the payoff frame), so the
+   only remaining lever is a fetch.
 
 ## The rulings that govern everything remaining
 
