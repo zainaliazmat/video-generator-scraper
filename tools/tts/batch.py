@@ -53,6 +53,33 @@ def run(project, cut, voice=None, model=None, seed=None, force=False, only=None)
             sys.exit(f"ERROR: --only names ids not in lines.json: {sorted(missing)}")
         print(f"--only: regenerating {len(want)} clip(s): {sorted(want)}")
 
+    # Which VOICE the clips on disk were read by. The <id>.txt sidecar records what
+    # each mp3 says and nothing about who said it, so a voice change was invisible to
+    # the resume: on passive-income-number-hi the voice moved Harsh -> Amrut while 17
+    # style-E lines stayed byte-identical to their style-A take, and a bare resume
+    # would have made 64 calls and shipped a cut with chapter 5 more than half in the
+    # retired voice. Nothing downstream could catch it — check_voice_dir tests bytes,
+    # duration, silence and scene arithmetic, and not one of those is a function of
+    # timbre. So the voice is recorded here, and a mismatch makes every clip stale.
+    # (2026-08-08. Recording it beats documenting it: the wrong state stops existing.)
+    voice_stamp = os.path.join(vdir, ".voice")
+    prev_voice = None
+    if os.path.exists(voice_stamp):
+        with open(voice_stamp, encoding="utf-8") as fh:
+            prev_voice = fh.read().strip()
+    voice_changed = prev_voice is not None and prev_voice != voice
+    if voice_changed:
+        print(f"VOICE CHANGED {prev_voice} -> {voice}: every existing clip is stale")
+    elif prev_voice is None and any(
+            os.path.exists(os.path.join(vdir, f"{l['id']}.mp3")) for l in lines):
+        # Clips predating the stamp. Their voice is unknowable, and guessing costs
+        # either a silently mixed-voice cut or a full re-spend — so say so and stop.
+        sys.exit(
+            f"ERROR: {vdir} holds clips but no .voice stamp, so the voice they were "
+            f"read by cannot be established.\n"
+            f"  If they are already {voice}: printf %s {voice} > {voice_stamp}\n"
+            f"  If they are not, or you cannot tell: re-run with --force.")
+
     # NOTE: `only` scopes GENERATION, never the timing rebuild below. Filtering
     # `lines` itself would write a timing.json containing one entry and silently
     # drop the other 91 — caught by the selftest, 2026-08-01.
@@ -71,16 +98,24 @@ def run(project, cut, voice=None, model=None, seed=None, force=False, only=None)
             with open(txt, encoding="utf-8") as fh:
                 stale = fh.read() != line["text"]
         if os.path.exists(out) and os.path.getsize(out) > 0 and not force and want is None:
-            if not stale:
+            if not stale and not voice_changed:
                 print(f"skip (exists): {out}")
                 continue
-            print(f"REGEN (text changed since last take): {line['id']}")
+            print(f"REGEN ({'voice' if voice_changed else 'text'} changed since last "
+                  f"take): {line['id']}")
         with open(os.path.join(vdir, f"{line['id']}.txt"), "w", encoding="utf-8") as fh:
             fh.write(line["text"])
         print(f"=== {line['id']} ({len(line['text'])} chars) ===")
         tts.synthesize(key, voice, line["text"], out, model,
                        stability=0.5, similarity=0.75,
                        style=fmt["tts"]["style"], seed=seed)
+
+    # Stamped only after the loop: a run that dies halfway must not leave a stamp
+    # claiming a voice the surviving clips do not all share. --only is exempt for
+    # the same reason — it deliberately regenerates a subset.
+    if want is None:
+        with open(voice_stamp, "w", encoding="utf-8") as fh:
+            fh.write(voice)
 
     # tier-aware: this padding is charged per line, so SHORT's value overpays at
     # MEDIUM/LONG line counts. pipeline_check.scene_padding is the same rule.
@@ -143,6 +178,25 @@ def _selftest():
         try:
             run(tmp, "hi", only=["nope"])
             raise AssertionError("--only accepted an id not in lines.json")
+        except SystemExit:
+            pass
+        # A VOICE change regenerates every clip, including ones whose text did not
+        # move. Text-only staleness cannot see this: on passive-income-number-hi 17
+        # lines were byte-identical across the restyle, so a bare resume would have
+        # shipped them in the retired voice with every downstream check green.
+        assert open(os.path.join(vdir, ".voice"), encoding="utf-8").read() \
+            == pc.load_format()["cuts"]["hi"]["voice_id"]
+        before = {i: os.path.getmtime(os.path.join(vdir, f"{i}.mp3")) for i in ("h1", "h2")}
+        assert run(tmp, "hi", voice="SOME_OTHER_VOICE_ID") == 0
+        for i in ("h1", "h2"):
+            assert os.path.getmtime(os.path.join(vdir, f"{i}.mp3")) != before[i], \
+                f"{i} kept its old-voice audio after the voice changed"
+        assert open(os.path.join(vdir, ".voice"), encoding="utf-8").read() == "SOME_OTHER_VOICE_ID"
+        # …and clips with no stamp at all stop the run rather than guess.
+        os.remove(os.path.join(vdir, ".voice"))
+        try:
+            run(tmp, "hi")
+            raise AssertionError("unstamped clips were resumed on an unknown voice")
         except SystemExit:
             pass
         print("selftest OK")

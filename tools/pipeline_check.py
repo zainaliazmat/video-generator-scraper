@@ -63,6 +63,43 @@ def assets_img_dir(slug, cut):
     return os.path.join(studio_dir(slug, cut), "assets", "img")
 
 
+def strip_comments(html):
+    """HTML comments, and /* */ inside <style> only.
+
+    Every behavioural regex below asks "does the composition DO x", and a comment
+    does nothing. Scanning raw text made the Lottie guard fire on the CSS comment
+    that explains the pixel-stage trap — i.e. it punished the note that prevents
+    the bug (found by fin-build on passive-income-number en ch1, 2026-08-08).
+    `/* */` is stripped only inside <style>, where it is unambiguously a comment:
+    globally it would eat JS string and regex-literal content and turn a false
+    positive into a false NEGATIVE, which is the worse trade for a checker.
+    """
+    html = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+    return re.sub(
+        r"<style[^>]*>.*?</style>",
+        lambda m: re.sub(r"/\*.*?\*/", "", m.group(0), flags=re.S),
+        html, flags=re.S)
+
+
+def chapter_timing(timing):
+    """Slice a cut's timing.json to CHAPTER's lines, rebased to play from 0.
+
+    A line belongs to chapter C when its id is `C.x`, so this needs no new
+    bookkeeping (command §3b). Rebasing mirrors what fin-build does to the
+    composition, which is why the two agree; the last scene keeps its BARE
+    scene_duration, because a chapter has no successor to cross-dissolve into
+    and cut_assemble.py adds the +0.45 back at assembly.
+    """
+    lines = [l for l in timing.get("lines", []) if l["id"].split(".")[0] == str(CHAPTER)]
+    if not lines:
+        return timing
+    base = lines[0]["scene_start"]
+    lines = [dict(l, scene_start=round(l["scene_start"] - base, 3),
+                  audio_start=round(l["audio_start"] - base, 3)) for l in lines]
+    total = round(lines[-1]["scene_start"] + lines[-1]["scene_duration"], 3)
+    return dict(timing, lines=lines, total=total)
+
+
 # ---------------------------------------------------------------- ffmpeg utils
 
 def ffprobe_duration(path):
@@ -196,13 +233,46 @@ def expected_seconds(text, rate, tts):
     what scene_padding is for) but no audio. Charging it flagged two -en lines as
     truncated while an unflagged sibling was measurably faster — 244 wpm against
     239 — i.e. the flag was tracking punctuation, not delivery.
+
+    Returns a RANGE (lo, hi), not a point — see expected_span().
     """
     pauses = tts.get("pause_seconds", {})
     body = text.strip()
     while body and body[-1] in pauses:
         body = body[:-1].rstrip()
-    return len(text) / rate + sum(
+    flat = len(text) / rate
+    return flat, flat + sum(
         body.count(mark) * secs for mark, secs in pauses.items())
+
+
+def drift_from_span(real, span):
+    """Signed drift of `real` outside (lo, hi); 0.0 while it is inside.
+
+    The estimate is a RANGE because a pause mark is a REQUEST, not a guarantee —
+    ElevenLabs honours the danda and the em-dash on one line and runs straight
+    through them on the next, so both readings are legitimate deliveries of the
+    same text. Charging every mark as if it were always taken double-counts the
+    pause silence that `chars_per_second` already contains: the key is measured
+    as total_chars / total_SPEECH, pauses included. Measured over both 81-line
+    cuts of passive-income-number, 2026-08-08:
+
+        cut          flat mean   flat neg    +pause mean   +pause neg
+        en (Brian)     +1.43%     41/81        -3.80%        59/81
+        hi (Amrut)     -0.94%     47/81        -7.32%        61/81
+
+    Flat is near-unbiased and TWO-SIDED on both voices; adding the full charge
+    makes both one-sided negative — this repo's own documented signature of a
+    wrong model (cuts.en._chars_per_second_trap). The band keeps the protection
+    the charge was built for: the Harsh cold open that measured 5.88s against a
+    3.84s flat estimate sits inside its own band and stays unflagged, while a
+    genuinely truncated clip is still far below `lo`.
+    """
+    lo, hi = span
+    if real < lo:
+        return (real - lo) / lo
+    if real > hi:
+        return (real - hi) / hi
+    return 0.0
 
 
 def check_voice(slug, cut, fmt):
@@ -244,10 +314,12 @@ def check_voice_dir(vdir, cut, fmt, slug=None):
         # R-3: timing.json must carry MEASURED durations, not a char estimate.
         if abs(t.get("duration", -1) - real) > tts["timing_ffprobe_tolerance_s"]:
             problems.append(f"{lid}: timing.json says {t.get('duration')}s, ffprobe says {real:.2f}s")
-        expected = expected_seconds(text, rate, tts)
-        if expected > 0 and abs(real - expected) / expected > tts["duration_tolerance_pct"] / 100:
-            problems.append(f"{lid}: duration {real:.2f}s is >{tts['duration_tolerance_pct']}% off "
-                            f"chars/rate estimate {expected:.2f}s — wrong text or truncated clip")
+        span = expected_seconds(text, rate, tts)
+        drift = drift_from_span(real, span)
+        if span[0] > 0 and abs(drift) > tts["duration_tolerance_pct"] / 100:
+            problems.append(f"{lid}: duration {real:.2f}s is {drift*100:+.0f}% outside the "
+                            f"{span[0]:.2f}–{span[1]:.2f}s estimate (tolerance "
+                            f"±{tts['duration_tolerance_pct']}%) — wrong text or truncated clip")
         vol = mean_volume_db(mp3)
         if vol < tts["silence_mean_volume_db"]:
             problems.append(f"{lid}: mean volume {vol:.1f} dB — silent clip")
@@ -406,11 +478,11 @@ def check_assets(slug, cut, fmt):
 
 
 def check_build(slug, cut, fmt):
-    sdir = studio_dir(slug, cut)
+    sdir = project_dir(slug, cut)
     index = os.path.join(sdir, "index.html")
     if not os.path.exists(index):
         return [f"missing {index}"]
-    html = open(index, encoding="utf-8").read()
+    html = strip_comments(open(index, encoding="utf-8").read())
     problems = stale_script_problems(slug, cut)
     # determinism: no render-time network fetches (E-3 class of silent corruption)
     for m in re.finditer(r'(?:src|href)="(https?://[^"]+)"', html):
@@ -444,6 +516,11 @@ def check_build(slug, cut, fmt):
     timing_path = os.path.join(sdir, "assets", "voice", "timing.json")
     if root and scenes and os.path.exists(timing_path):
         timing = json.load(open(timing_path, encoding="utf-8"))
+        # In chapter mode assets/ symlinks the CUT, so timing.json is all 81 lines.
+        # Compared raw it reports "8 scenes but timing.json has 81 lines" on a
+        # correct chapter — the checker going red over the thing it exists to pass.
+        if CHAPTER:
+            timing = chapter_timing(timing)
         last_end = float(scenes[-1][0]) + float(scenes[-1][1])
         if abs(float(root.group(1)) - last_end) > 0.5:
             problems.append(f"root data-duration {root.group(1)} ≠ last scene end {last_end:.2f}")
@@ -842,6 +919,51 @@ def _selftest():
         write_html(good, extra='<script>window.__hfLottie = [a];</script>')
         assert check_build(slug, cut, fmt) == [], check_build(slug, cut, fmt)
 
+        # …nor for a trap that is only NAMED, in an HTML or CSS comment. Warning a
+        # build away from lottie.loadAnimation() is how the note gets written; the
+        # guard used to fire on the note and reward deleting it.
+        for commented in ['<!-- never call lottie.loadAnimation() here -->',
+                          '<style>/* not path: "assets/x.json" — inline it */</style>']:
+            write_html(good, extra=ok + commented)
+            assert check_build(slug, cut, fmt) == [], (commented, check_build(slug, cut, fmt))
+        # but a real call on the same line as a comment still fires
+        write_html(good, extra=ok + '<script>lottie.loadAnimation({}); // inline note</script>')
+        assert any("loadAnimation" in p for p in check_build(slug, cut, fmt))
+
+        # duration band: a pause mark is a request, not a guarantee, so both the
+        # ran-through and the fully-paused delivery of one text are legitimate.
+        tts_t = {"pause_seconds": {"।": 0.55, "—": 0.45, ",": 0.15}}
+        lo, hi = expected_seconds("अ" * 60 + "—" + "अ" * 40 + "।", 10.0, tts_t)
+        assert abs(lo - 10.2) < 1e-9, lo          # 102 chars / 10.0
+        assert abs(hi - 10.65) < 1e-9, hi         # + the em-dash only; trailing danda free
+        assert drift_from_span(lo, (lo, hi)) == 0.0        # both ends inclusive
+        assert drift_from_span(hi, (lo, hi)) == 0.0
+        assert drift_from_span(10.4, (lo, hi)) == 0.0      # ran through one mark, not the other
+        assert abs(drift_from_span(lo * 0.5, (lo, hi)) + 0.5) < 1e-9   # truncated: still caught
+        assert drift_from_span(hi * 1.5, (lo, hi)) > 0.49              # overlong: still caught
+        # the Harsh cold open the charge was built for: 5.88s real, 3.84s flat.
+        # Flat alone called it truncated at +53%; inside its own band it is silent.
+        assert drift_from_span(5.88, (3.84, 5.90)) == 0.0
+
+        # chapter slicing: `C.x` selects the chapter, rebased to play from 0, and
+        # the last scene keeps its BARE duration (cut_assemble.py re-adds the 0.45).
+        whole = {"total": 100.0, "lines": [
+            {"id": "1.1", "scene_start": 0.0,  "scene_duration": 4.0, "audio_start": 0.25},
+            {"id": "1.2", "scene_start": 4.0,  "scene_duration": 6.0, "audio_start": 4.25},
+            {"id": "2.1", "scene_start": 10.0, "scene_duration": 5.0, "audio_start": 10.25},
+            {"id": "2.2", "scene_start": 15.0, "scene_duration": 7.0, "audio_start": 15.25}]}
+        try:
+            globals()["CHAPTER"] = 2
+            ch = chapter_timing(whole)
+            assert [l["id"] for l in ch["lines"]] == ["2.1", "2.2"], ch
+            assert ch["lines"][0]["scene_start"] == 0.0, ch
+            assert ch["lines"][0]["audio_start"] == 0.25, ch
+            assert ch["total"] == 12.0, ch          # 5.0 + 7.0, not 22.0 and not 12.45
+            globals()["CHAPTER"] = 9                # a chapter that does not exist
+            assert chapter_timing(whole) == whole
+        finally:
+            globals()["CHAPTER"] = None
+
         # data-framings: a panel swap is measured per framing, not per section.
         # An over-long scene fails; the same scene split into real framings passes;
         # framings that do not add up to the scene, or that are individually still
@@ -946,9 +1068,9 @@ def main(argv=None):
     if args.stage in PER_CUT and not args.cut:
         p.error(f"stage '{args.stage}' needs --cut")
     if args.chapter:
-        if args.stage != "assets":
-            p.error("--chapter is only implemented for 'assets'; the other chapter "
-                    "artifacts are verified by `hyperframes check` and the draft render")
+        if args.stage not in ("assets", "build"):
+            p.error(f"--chapter is not implemented for '{args.stage}'; that chapter "
+                    "artifact is verified by `hyperframes check` and the draft render")
         globals()["CHAPTER"] = args.chapter
 
     problems = CHECKS[args.stage](args.slug, args.cut, load_format())

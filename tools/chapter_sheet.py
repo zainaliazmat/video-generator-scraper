@@ -43,7 +43,16 @@ import sys
 
 CELL_W, CELL_H, COLS = 480, 270, 4
 SETTLE = 2.6          # cue ladder is done by here (kicker .30 -> stmt 1.10 -> cue 1.90)
-SETTLE_LOTTIE = 6.0   # a drawn scene is only worth judging once its art has FINISHED
+SETTLE_VECTOR = 6.0   # a drawn scene is only worth judging once its art has FINISHED
+# Keyed off ANY drawn vector art, not off Lottie specifically. It was Lottie-only
+# until 2026-08-08, when en ch1 s6 sheeted a tick cascade one third built: the cell
+# showed the third checkbox EMPTY, because `.v-ticks` is inline SVG rather than a
+# Lottie and nothing matched it, so it fell to the 2.6 default while the last tick
+# only lands at +3.116. Same failure as the countUp below and the japanese-money
+# stub bar before it, arriving a third time through a fourth kind of art. Matching
+# the `v-` family instead of one class name is what stops a fifth kind repeating it —
+# over-settling only shows a finished frame, which is what a sheet is FOR; motion is
+# what the mp4 is for.
 # A counting number is the same failure as a half-drawn Lottie, and worse in kind:
 # a partial chart looks broken, but a partial count looks like a REAL NUMBER. On
 # passive-income-number ch2 the rung-one corpus counts to Rs 10,00,000 over 1.2s
@@ -72,29 +81,33 @@ def scenes(html_path):
             continue
         fr = re.search(r'data-framings="([\d.,\s]+)"', tag)
         framings = [float(x) for x in fr.group(1).split(",") if x.strip()] if fr else []
-        has_lottie = 'class="lottie' in chunk.split("</section>")[0]
+        markup = chunk.split("</section>")[0]
+        has_vector = 'class="lottie' in markup or 'class="v-' in markup
         # countUp lives in the <script>, not in the section markup, so look for a
         # call naming this scene anywhere in the file.
         has_countup = f'countUp("#{sid.group(1)}-' in html
         out.append((sid.group(1), float(st.group(1)), float(du.group(1)), framings,
-                    has_lottie, has_countup))
+                    has_vector, has_countup))
     return out
 
 
-def sample_times(start, duration, framings, has_lottie=False, has_countup=False):
+def sample_times(start, duration, framings, has_vector=False, has_countup=False):
     """One time per framing; settle into each, clamped inside it.
 
-    A Lottie scene is sampled LATE. Drawn art typically starts at cue slot 3
-    (+1.90) and runs 3.5-4.5s, so the default +2.6 catches it a third built —
+    A scene carrying drawn art is sampled LATE. Drawn art typically starts at cue
+    slot 3 (+1.90) and runs 3.5-4.5s, so the default +2.6 catches it a third built —
     japanese-money-methods ch2 s17 sheeted as a single stub bar and read as a
     broken frame when the finished chart was fine. Judge the end state; motion
     is what the mp4 is for.
+
+    The settles are a MAX, not a chain of elifs: a scene can hold drawn art AND a
+    counting number, and the old `elif` meant whichever test ran first silently won.
     """
     settle = SETTLE
-    if has_lottie:
-        settle = SETTLE_LOTTIE
-    elif has_countup:
-        settle = SETTLE_COUNTUP
+    if has_vector:
+        settle = max(settle, SETTLE_VECTOR)
+    if has_countup:
+        settle = max(settle, SETTLE_COUNTUP)
     spans, t = [], start
     for f in (framings if len(framings) > 1 else [duration]):
         spans.append((t, f))
@@ -134,8 +147,8 @@ def main():
     os.makedirs(tmp, exist_ok=True)
 
     cells, index = [], []
-    for sid, start, dur, framings, has_lottie, has_countup in scenes(html):
-        for n, t in enumerate(sample_times(start, dur, framings, has_lottie, has_countup)):
+    for sid, start, dur, framings, has_vector, has_countup in scenes(html):
+        for n, t in enumerate(sample_times(start, dur, framings, has_vector, has_countup)):
             # plain ASCII: montage's -label renders an escape sequence literally,
             # so "\u2192" sheeted as the cell name "s19u21922".
             label = sid if n == 0 else f"{sid}.{n + 1}"
@@ -162,5 +175,33 @@ def main():
     print(f"INDEX {os.path.splitext(out)[0]}.json")
 
 
+def _selftest():
+    """Every kind of drawn art must sheet its FINISHED state, not a third of it."""
+    # plain scene: the cue ladder is done by +2.6
+    assert sample_times(0.0, 8.0, [], False, False) == [2.6]
+    # inline-SVG art (`.v-ticks`) is drawn art too — this is the 2026-08-08 bug:
+    # en ch1 s6 sampled +2.6 = 28.151 while its last tick only landed at +3.116.
+    assert sample_times(25.551, 6.161, [], True, False)[0] > 25.551 + 3.116
+    # a Lottie long enough to clear the settle takes it flat
+    assert sample_times(14.599, 7.415, [], True, False) == [20.599]
+    # a countUp still gets its own 4.5
+    assert sample_times(0.0, 8.0, [], False, True) == [4.5]
+    # …and a scene holding BOTH takes the LARGER, which the old elif chain did not:
+    # whichever branch ran first won, so drawn art next to a counting number could
+    # be sheeted at 4.5 with the art still building.
+    assert sample_times(0.0, 12.0, [], True, True) == [6.0]
+    # short scenes clamp inside themselves rather than sampling past the end
+    for span in (1.0, 2.0, 3.5):
+        t = sample_times(10.0, span, [], True, True)[0]
+        assert 10.0 < t < 10.0 + span, (span, t)
+    # one sample per framing, each settled inside its own framing
+    ts = sample_times(0.0, 20.0, [8.0, 12.0], False, False)
+    assert ts == [2.6, 10.6], ts
+    print("selftest OK")
+
+
 if __name__ == "__main__":
-    main()
+    if "--selftest" in sys.argv:
+        _selftest()
+    else:
+        main()
