@@ -1,111 +1,92 @@
 ---
-summary: fin-audit gate for passive-income-number script-hi.md, attempt 1. PASS after five direct edits — two corpus frames shipped without their withdrawal rate (5.9, 7.6), one VO line attributed a methodology claim to a paper nobody read (5.14), one on-screen foot over-claimed a source as a backtest (5.15), and the role-colour legend contradicted its own cues on the two scenes carrying the thesis. Every load-bearing figure re-fetched from its recorded source independently of facts-staging.md.
-updated: 2026-08-07
-source: script-hi.md (fin-script hi attempt 1) audited against facts-staging.md, knowledge/video-studies/passive-income-number.md, run.json.constraints, tools/format.json. Sources re-fetched live 2026-08-07 by this stage, not trusted from the staging file.
-stage: fin-audit, cut hi, attempt 1
+summary: fin-audit gate for passive-income-number script-hi.md, attempt 2 (style E, 81 lines, 7 chapters). PASS after three edits — the restyle silently REGRESSED attempt 1's D3 (5.14 re-bound a methodology claim to a paper nobody has read), 6.9 spoke a men-only PLFS average as the all-India average, and the fact trace upgraded a SOFT single decimal to HARD. Every load-bearing figure re-fetched independently of facts-staging.md; Bengen 1994 was text-extracted for the first time on this slug, which is what proved the first defect.
+updated: 2026-08-08
+source: script-hi.md (fin-script hi attempt 2, style E) audited against facts-staging.md, run.json.constraints, tools/format.json, knowledge/money-facts-2026.md. Sources re-fetched live 2026-08-08 by this stage, not trusted from the staging file. Attempt 1's audit (style A) is superseded and was not carried over.
+stage: fin-audit, cut hi, attempt 2
 ---
 
-# audit-hi — passive-income-number
+# audit-hi — passive-income-number (style E)
 
 PASS
 
-Passing **with edits**. The script's argument, structure and sourcing survived; five
-defects were rewritten in place rather than bounced, because each was mechanical and none
-required re-opening the thesis. **The script file changed — voice work must re-run against
-the edited file.**
+Passing **with edits**. The rung ladder, the rate discipline and the sourcing survived
+adversarial re-checking. Three defects were rewritten in place; none required re-opening the
+thesis. **The script file changed — voice work must re-run against the edited file.**
 
 ---
 
 ## 1. The independence rule — every load-bearing figure re-fetched
 
-`facts-staging.md` was written by this same run, so no figure below is graded against the
-claim text. Each was re-retrieved from the URL the staging file records, by this stage.
+`facts-staging.md` was written by this same run, so nothing below is graded against the claim
+text. Each figure was re-retrieved by this stage from the URL the staging file records.
 
 | Figure | Script lines | Re-fetch result | Verdict |
 |---|---|---|---|
-| **RBI CPI 5.0% for FY27** | 5.17 | Business Today (read direct): *"CPI inflation outlook for FY2026–27 at 5.0 per cent"*, Q1 5.3 / Q2 4.7 / Q3 5.9 / Q4 5.5, repo held **5.25%**, neutral, MPC **2026-08-05** | **CONFIRMED — exact, including the quarterly split and the date.** This was the highest-risk row in the file (a plausible dated RBI line is the classic injection shape); it is real |
-| **POMIS 7.4% p.a., paid monthly** | 5.7, 5.8 | Upstox (read direct): 7.4%, unchanged since 2023-04-01, monthly income | **CONFIRMED** |
-| **₹9 lakh single / ₹15 lakh joint ceiling** | 5.9 | Upstox (read direct), same page | **CONFIRMED** |
-| **₹5,550/month on ₹9 lakh** | 5.10 | Source prints **₹5,500**; ₹9,00,000 × 7.4% ÷ 12 = **₹5,550** exactly | **CONFIRMED as COMPUTED.** PART E already caught the secondaries' bad rounding. Script speaks "क़रीब पचपन सौ" and prints ₹5,550 — correct on both surfaces |
-| **India SWR 3.0–3.5%, best 3.0%, failure risk above 3.75%** | 2.6→7.3 (20 lines), 5.15, 5.16 | SSRN **403'd to me as well**. Recovered independently via search index: Raju & Saraogi, *Balancing Acts*, **2024-01-17**; 3.0–3.5% recommended over 4%; 3% average investor, 2.6% risk-averse; failure risk rises "especially beyond 3.75%" | **CONFIRMED on the band and on 3.75%.** Primary still unreached — the tag stays HARD-on-band / SOFT-on-decimal, and the script already speaks only the band |
-| **freefincal corroboration** | 5.15 foot | Read direct: bands are **<3.5% adequate · 3.5–4.5% grey · >4.5% inadequate** | **CONFIRMED as an independent surface** — but it discloses **no backtest**. See defect D4 |
-| **Trinity: no tax, no costs; 30-year horizon** | 5.14 | AAII Journal PDF **read direct, full paper**. Verbatim bullet: *"The study did not adjust for taxes or transaction costs."* Payout periods 15/20/25/30 yrs; Cooley, Hubbard & Walz, Trinity University; **AAII Journal, February 1998, p. 16**. Also verbatim: *"young retirees who anticipate long payout periods should plan on lower withdrawal rates"* | **CONFIRMED PRIMARY.** The strongest-sourced claim in the cut |
-| **4% originates in a 1994 US paper** | 5.12, 5.13 | Bengen 1994 PDF retrieved but not text-extractable this run; author/journal/date corroborated across the staged surfaces | **CONFIRMED on origin, author, year.** The 1994 paper's *contents* remain unread — which is why D3 below is a defect |
-| **₹24,217 regular wage/salaried avg monthly earnings** | 6.9, 6.10 | PIB PLFS Annual Report 2025 (Jan–Dec 2025): male ₹22,891 (2024) → **₹24,217** (2025); female ₹17,126 → **₹18,353** | **CONFIRMED.** Script's foot correctly labels it men ₹24,217 / women ₹18,353 rather than passing the male figure off as the all-India average |
-| **PPF 7.1% p.a., Q2 FY27** | 6.15 | Banked HARD in `knowledge/money-facts-2026.md` (DEA notification, two independents) | **CONFIRMED via the vault's own HARD row** |
-| **~12% index shape** | 6.16 | SOFT by construction — all three NSE hosts 403'd for the second run running | **CORRECTLY HANDLED**: no decimal spoken, no decimal shown, labelled "ASSUMED", and the index measure is never explained |
+| **RBI CPI 5.0% for FY27** | 5.17 | Staging's Business Today URL is **DNS-dead this run** (`EREFUSED`). Recovered on **three independent surfaces** — Business Standard, Forbes India, prokerala — all agreeing: FY27 CPI cut to **5%** from 5.1%, **Q1 5.3 / Q2 4.7 / Q3 5.9 / Q4 5.5**, repo held **5.25%**, neutral stance, MPC **2026-08-05** | **CONFIRMED — exact, including the quarterly split and the date.** This is the classic injection shape (a plausible dated RBI line) and it is real. Note the recorded URL no longer resolves |
+| **POMIS 7.4% p.a., paid monthly** | 5.7, 5.8 | Upstox, **read direct**: *"The ministry has kept the POMIS interest rate unchanged at 7.4%"* | **CONFIRMED** |
+| **₹9,00,000 single / ₹15 lakh joint ceiling** | 5.9, 5.10 | Same page, read direct: *"a maximum of ₹9 lakh in his/her individual account"* · *"₹15 lakh can be invested in a joint POMIS account"* | **CONFIRMED** |
+| **≈₹5,550/month on ₹9,00,000** | 5.10 | Re-derived: ₹9,00,000 × 0.074 ÷ 12 = **₹5,550** exactly. Secondaries print ₹5,500 | **CONFIRMED as COMPUTED.** VO says «क़रीब पचपन सौ», frame prints ₹5,550 — correct on both surfaces |
+| **Trinity: no tax, no costs; 30-year horizon** | 5.14 | **AAII Journal PDF read direct, all 6 pages, all 4 tables.** Verbatim: *"The study did not adjust for taxes or transaction costs."* · *"Early retirees who anticipate long payout periods should plan on lower withdrawal rates."* Payouts 15/20/25/30 yrs, data **1926–1995**, Ibbotson SBBI 1996. Table 3 (inflation-adjusted, 30-yr) at 4%: 95 / 98 / 95 / 71 / 20 — matches staging cell for cell | **CONFIRMED PRIMARY.** The strongest-sourced claim in the cut |
+| **4% originates in a 1994 US paper** | 5.12, 5.13 | **Bengen review text-extracted this run** (attempt 1 could not): *"Determining Withdrawal Rates Using Historical Data" by William P. Bengen, Journal of Financial Planning, October 1994*; 50% equity / 50% bond; retirement years **1926 to 1966**; 4% → *"at least 50 years in the majority of cases"*, worst case *"around 30 years (for a person who retired in 1976)"*; 5% → *"as short as 20 years"*; 3.5% → *"always lasting at least 50 years"* | **CONFIRMED on origin, author, journal, date and findings.** **And it says NOTHING about taxes or transaction costs** — which is what turned D1 from a style quibble into a defect |
+| **India SWR 3.0–3.5%** | 5.15, and the 3.0% spine | SSRN **403'd again** (third stage running). Band recovered from secondary summaries of Raju & Saraogi, *Balancing Acts*, 2024-01-17. **freefincal read direct**, independent: *"IWR < 3.5% … corpus is likely adequate"* · *"3.5% < IWR < 4.5% … grey area"* · *"IWR > 4.5% … likely inadequate"* | **CONFIRMED on the band.** The script speaks the band, attributes it to one paper + ONE practitioner surface, and never fakes a consensus |
+| **3.75% failure edge** | 5.16 | Recovered **only** from secondary summaries (*"raise the risk of portfolio failure, especially beyond 3.75%"*). Primary unreached | **SURVIVES, but SOFT** — see D3. Staging's own tag is *"SOFT on any single decimal"* and the script had filed it HARD |
+| **₹24,217 avg monthly earnings** | 6.9, 6.10 | PIB PLFS Annual Report 2025 (Jan–Dec 2025): **male** ₹22,891 (2024) → **₹24,217** (2025); **female** ₹17,126 → **₹18,353** | **CONFIRMED as a figure — but the script's spoken claim was broader than the source.** See D2 |
+| **PPF / 3-yr TD 7.1% p.a., Q2 FY27** | 6.15 | Banked HARD in `knowledge/money-facts-2026.md` (DEA notification, two independents) | **CONFIRMED via the vault's own HARD row** |
+| **~12% index shape** | 6.16 | SOFT by construction — all three NSE hosts 403'd again | **CORRECTLY HANDLED**: no decimal spoken or shown, labelled ASSUMED, and the total-return measure is never named or explained (which is also what keeps the banned word out) |
 
-**Arithmetic re-derived independently, every rung:** 10L→₹2,500 · 20L→₹5,000 · 40L→₹10,000
-· 50L→₹12,500 · 1cr→₹25,000, all at 3.0% ÷ 12 — exact. ₹75L at 4.0% → ₹25,000 — exact.
-₹75L vs ₹1cr = **25% smaller** — exact. SIP to ₹1 crore over 240 months: at 7.1% monthly
-compounding **₹18,964** (script says "क़रीब उन्नीस हज़ार"), at 12% **₹10,109** (script says
-"क़रीब दस हज़ार"). Both round honestly and both are labelled illustrative.
+**Arithmetic re-derived independently, every rung:** ₹10L→₹2,500 · ₹20L→₹5,000 · ₹40L→₹10,000
+· ₹50L→₹12,500 · ₹1cr→₹25,000, each `corpus × 0.03 ÷ 12`, exact. ₹3,00,000 ÷ 0.04 =
+**₹75,00,000** exact; ₹75L vs ₹1cr = **25% smaller**, exact, and «एक-चौथाई छोटा» points the right
+way (the imported rule *under*-states the target). SIP to ₹1 crore over 240 months, monthly
+compounding: at 7.1% **₹18,963** (VO «क़रीब उन्नीस हज़ार»), at 12% **₹10,109** (VO «क़रीब दस हज़ार»).
+Both round honestly, both labelled ILLUSTRATIVE, both columns shown.
 
 **No untraceable number found.** Every figure spoken or shown maps to a staging row.
 
 ---
 
-## 2. The five run-specific checks
+## 2. The 29-row rate table — fin-script's first-target claim, checked row by row
 
-### Check 1 — rate with every corpus, at EVERY rung. **fin-script's claim verified true; two frames outside the ladder failed.**
+`withdrawal_rate_on_screen` + the 2026-08-07 `derived_income_carries_assumption` extension.
+All 29 rows re-read against the actual VO line and the actual frame, never against the
+table's own description of them.
 
-fin-script claims 20 VO lines carry the rate across five rungs. Checked line by line: **all
-20 verified** — 2.6, 2.7, 2.8, 2.9, 3.1, 3.2, 3.5, 3.6, 4.1, 4.2, 4.9, 5.2, 5.15, 6.1,
-6.2, 6.6, 6.7, 6.10, 6.13, 7.3 each speak a rate in the same sentence (6.13 speaks "चार
-परसेंट" beside an on-screen 3.0%, which the fact-trace mis-files under the 3.0% row —
-harmless, the line does carry a rate with its corpus). Add 6.12 and 5.10, which also
-qualify but are not in fin-script's list.
+**All 29 hold.** Every corpus figure (₹10L, ₹20L, ₹40L, ₹50L, ₹75L, ₹1cr, ₹9L) and every
+derived monthly figure (₹2,500, ₹5,000, ₹10,000, ₹12,500, ₹25,000, ₹5,550, ₹19,000, ₹10,000)
+carries a rate token or an explicit `ILLUSTRATIVE` marker in its own frame. **Nothing is
+bare.** The Dark Ledger failure — state the rate once, then ship six bare numbers — is not
+reproduced. Rung four (6.1/6.2), the exact rung where the twin drops it, re-speaks the rate.
 
-**Every one of the five rungs holds at every occurrence.** ₹10L, ₹20L, ₹40L, ₹50L and
-₹1 crore never appear bare. The Dark Ledger failure — state it once, then ship six bare
-numbers — is **not** reproduced. Rung four (6.1/6.2), the exact rung where the twin drops
-it, re-speaks the rate twice.
+The seven lines whose *spoken* sentence omits the rate are exactly the seven fin-script
+declared, and each is covered:
 
-**Two corpus frames outside the rung ladder did fail** (D1, D2 below). Both are on the
-script's own build-time invariant token list, so the build assert in Build handoff §5 would
-have hard-failed on them — or, worse, someone would have weakened the assert.
+- **2.10, 2.11, 2.12** — creator-approved verbatim, not editable here. Every frame carries
+  `AT A 3.0% WITHDRAWAL RATE` **and** `ILLUSTRATIVE`, and 2.9 speaks the rate in the
+  immediately preceding clip. **Ruled sufficient.** This is the exact beat the
+  `derived_income_carries_assumption` extension was written for — the old bare
+  `WHAT ₹2,500 BUYS` is gone; 2.11 now carries both markers. The letter that let it through
+  last time no longer applies.
+- **3.4, 4.4, 4.5, 6.3** — the "what X buys" beat in each chapter, same shape, frames carry
+  rate + ILLUSTRATIVE, rate spoken in the preceding clip. **Ruled sufficient.**
 
-### Check 2 — no corpus-to-age conversion. **CLEAN.**
-Grepped `उम्र` / `साल की` / `बरस` / `रिटायर` / `नौकरी छोड़`. The only hit is **6.11**, which
-is the refusal itself: *"यह उम्र का नहीं, सिर्फ़ रक़म और दर का हिसाब है"*. No age appears
-anywhere in the cut. The 20-year horizon at 6.15/6.16 is a **cost-per-month** input, framed
-by 6.14 as "what it costs per month" — PART D permits exactly this and forbids the
-achievement-date form, which is absent. The study's named counter-example ("financially
-free at 50") has no analogue here.
+The constraint's own words are *"ON SCREEN in the same frame as the number"*, and that is met
+in all seven. Nothing here needed an edit.
 
-### Check 3 — no return promise. **CLEAN.**
-2.6 declares 3% as "मान लिया गया" (assumed); 2.7 says outright *"तीन परसेंट कोई वादा नहीं
-है; यह एक चुना हुआ, सावधान नंबर है"*; 6.15/6.16 say "मानी हुई बढ़त" and close on *"दोनों
-हिसाब हैं, वादे नहीं"*; 7.5 makes the rule itself the moral. 6.14 separates withdrawal rate
-from growth rate on screen before either growth figure is spoken — a guard neither twin has.
-4.7 ("so what is left has time to grow back") is purposive, carries no figure, and sits
-directly under 4.6's admission that the money comes out of capital. Not a forecast.
+**Also clean, re-checked independently of the table:**
 
-### Check 4 — the banned payout word. **CLEAN, including the TRI trap.**
-Grepped `dividend` / `डिविडेंड` / `डिवीडेंड` / `लाभांश` / `डिव` across the whole file: **zero
-hits in any form** — VO, on-screen text, cues, titles, prose. The script never writes the
-word even when discussing its own ban (it says "the banned word" / "the English payout
-word"). The TRI trap is closed correctly: **6.16 quotes only the shape** ("क़रीब बारह
-परसेंट", `ASSUMED ~12% GROWTH`) and the index measure is never named or explained anywhere,
-which is the only way to quote a total-return figure in Hindi without forcing the word.
-
-### Check 5 — provenance of 3.0% vs the internet's 4%. **HONEST after D4.**
-5.12–5.15 attribute in the correct order: 4% is named as *America's* number from a **1994**
-paper (5.13), what that research excluded is stated with the **1998** primary in the foot
-(5.14), and India's own research is credited to **Raju & Saraogi, Jan 2024** by name and
-date (5.15). The band is **never** presented as a multi-source consensus — the foot names
-**one** paper and **one** practitioner surface, which is exactly what fin-facts established
-(PART E: five India blogs repackage the same two papers, and treating them as independent
-"would fake a consensus that is one author group"). None of those five blogs appears
-anywhere in the script. D4 tightened the one remaining over-claim.
-
-### Hero pairing — ₹25,000 vs PLFS ₹24,217. **CORRECT.**
-6.7 derives ₹25,000 from ₹1 crore × 3.0% ÷ 12. 6.8 sets up the comparison. 6.9 states the
-PLFS figure with its survey, period and both sexes' figures in the foot. 6.10 draws the
-equivalence as *"औसत तनख़्वाह के बराबर"* (equal to the average salary) — not "replaces your
-salary forever", not "you never work again". The two numbers are 3.2% apart and the script
-says "बराबर", which is the honest read at that distance. The corpus is on a round crore by
-arithmetic, not by rounding — verified.
+- **No corpus-to-age conversion.** No age appears anywhere in the cut. **6.11** is the
+  refusal itself — «यह उम्र का नहीं, सिर्फ़ रक़म और दर का हिसाब है». The 20-year horizon at
+  6.15/6.16 is a **cost-per-month** input, framed by 6.14 as "what it costs per month", which
+  is exactly what PART D permits; the forbidden achievement-date form is absent.
+- **No return promise.** 2.6 declares 3% as «मान लिया गया»; 2.7 says «यह नंबर कोई वादा नहीं
+  है»; 6.15/6.16 say «मानी हुई बढ़त» and close on «दोनों हिसाब हैं, वादे नहीं». 6.14 separates
+  withdrawal rate from growth rate **on screen before either growth figure is spoken** — a
+  guard neither format twin has.
+- **Hero pairing.** 6.7 derives ₹25,000 from ₹1 crore × 3.0% ÷ 12. 6.10 draws the equivalence
+  as «औसत तनख़्वाह के बराबर» — not "replaces your salary forever", not "you never work again".
+  The corpus lands on a round crore by arithmetic, not by rounding — verified. The two figures
+  are 3.2% apart, and «बराबर» is the honest read at that distance **once D2's qualifier is in
+  place**.
 
 ---
 
@@ -113,134 +94,137 @@ arithmetic, not by rounding — verified.
 
 | # | Check | Result |
 |---|---|---|
-| 1 | Numbers trace to staging **and** survive re-fetch | **PASS** — see §1; nothing untraceable, nothing unsupported |
-| 2 | Char total within ±10% of budget | **PASS at +0.8%** — see the budget note below |
-| 3 | Hook payoff promise inside 15 s | **PASS, tight** — see below |
-| 4 | No product/platform recommended | **PASS** — POMIS and PPF appear only as published rates with "price evidence, not a recommendation" foots; SWP/SIP are generic vehicles, which `money-facts-2026` explicitly permits; no fund, AMC, bank, app or scheme is named anywhere |
-| 5 | Currency purity | **PASS** — grepped `$`: **zero occurrences** in the file, including inside claim IDs. PART C of the staging file contributes nothing |
-| 6 | No cite refs, no bare Latin digits in VO | **PASS** — grepped `^> .*[0-9]`: the only matches are the guard-rail blockquote at the head of the file, which is prose, not VO. **No VO line contains a Latin digit.** Every figure is spelled in Devanagari ("उन्नीस सौ चौरानवे", "चौबीस हज़ार दो सौ सत्रह", "सात दशमलव चार परसेंट"). No `(28:4)`-style refs |
-| 7 | Persona rules | **PASS** — grepped `मैं` / `हमने` / `हमारा` / `हमें`: zero in VO. Second person throughout, no host persona, no first-person expertise, no investment pick. Monetisation-safe |
-| 8 | Text-level layout lints | **PASS after D5** — see below |
+| 1 | Numbers trace to staging **and** survive re-fetch | **PASS after D1–D3** — see §1 |
+| 2 | Char total within ±10% of budget | **PASS at +2.1%** — `(510 − 81 × 0.8) × 13.03 = 5,801`; post-edit **5,922** |
+| 3 | Hook payoff promise inside 15 s | **PASS per the orchestrator's 2026-08-08 ruling** — not re-litigated. The gate is on the promise (1.3), the same object as the en gate's measured 9.571 s. Modelled 10.4 s onset / 14.7 s close |
+| 4 | No product/platform recommended | **PASS** — POMIS and the 7.1% small-savings rate appear only as published rates, each with an on-screen "price evidence / not a recommendation / used as an assumption" foot. SWP and SIP are generic vehicles. No fund, AMC, bank, app or scheme is named |
+| 5 | Currency purity | **PASS** — verified by the orchestrator before launch; not re-proved here, per the brief |
+| 6 | No cite refs, no bare Latin digits in VO | **PASS** — `^> .*[0-9]` matches **only** the guard blockquotes and the budget prose, never a `**N.M**` VO line. Every figure is spelled in Devanagari («उन्नीस सौ चौरानवे», «चौबीस हज़ार दो सौ सत्रह», «सात दशमलव चार परसेंट», «पौने चार परसेंट»). The two `\([0-9]+:[0-9]+\)` hits are `(8:38)` — a runtime label in prose, not a cite ref, and in no VO or on-screen string |
+| 7 | Persona rules | **PASS** — grepped `मैं\|हमने\|हमारा\|हमें\|हमारी\|मुझे\|मेरा`: the **only** hit in the whole file is the persona-rule prose at line 28. No host persona, no first-person expertise, no investment pick, no age claim. Monetisation-safe |
+| 8 | Text-level layout lints | **PASS** — see below |
 
-**Budget (check 2) — read this before "fixing" the length.** The naive reading
-`13.03 × 510 = 6,645` would put this script at **−11.9%** and tempt a later stage to pad it
-by ~800 characters. That reading is **wrong** and `format.json` says so itself: 13.03 c/s is
-the *flat delivered rate per second of audio*, and MEDIUM charges 0.8 s of non-audio padding
-per line (`tiers.medium`), so the budget is `(510 − 0.8 × 78) × 13.03 = 5,832`. This is the
-same correction `cuts.en._chars_per_second_trap` demands ("Fix the budget formula FIRST").
-Post-edit total **5,876 = +0.8%**. Spot-recounting confirmed the long lines are exact
-(6.13 counts 100 against a printed 100) while several short lines are printed ~3–6 high, so
-the true total sits at or below 5,876 — the safe direction. **Do not pad this script.**
+**Budget (check 2) — do not re-derive it.** `510 × 13.03 = 6,645` is the wrong formula: 13.03
+is the flat delivered rate *per second of audio*, and MEDIUM charges 0.8 s of non-audio
+padding per line (`tiers.medium`). The correct budget is **5,801**. At 5,922 the script is
+**+2.1%**, landing 519.3 s against the 510 s target (+1.8%) — tighter than the en cut's
+accepted +3.5%. Two lines were spot-recounted by hand against the printed table (1.1 = 55,
+2.4 = 107) and both matched exactly, so the table is trustworthy. **Do not pad and do not cut.**
 
-**Hook gate (check 3).** Recounted from actual character counts rather than the printed
-table: 1.1 ends 3.6 s, 1.2 ends 9.2 s, 1.3 ends 11.6 s, so 1.4 opens at **11.6 s** and the
-withheld-number phrase *"एक ख़ास नंबर"* lands at **≈13.9 s**. Inside the 15 s gate, with
-~1 s of margin. This is B's form (name it, refuse to say it), which the study records as the
-`no_return_promise`-safe shape. **Margin note for the build: if 1.1–1.3 come in slow, this
-gate breaks.** Both twins sit outside it (A ≈0:22, B ≈0:45); the gate still wins.
+**Layout lints (check 8).** One focal per scene holds: where a frame carries both `num:` and
+`stmt:`, the `stmt` is the mandated rate qualifier or the working, not a second focal. **No
+`chips:` cue exists anywhere**, so the ≤3-per-row and ≤22-char lints have nothing to bite on;
+the two declared cascades (1.2, 1.6) are **3 items at 0.6 s** — inside `cascade.max_items` 5
+and `cascade.gap_seconds` [0.6, 0.7]. No per-scene cue offsets are declared at script stage,
+so `cue_min_gap_seconds` 0.8 carries forward to storyboard; the densest frame is 4 cues on a
+6.6 s scene (5.10), which fits 0.5 / 1.3 / 2.1 / 2.9 with room.
 
-**Layout lints (check 8).** One focal element per scene holds — where a frame carries both
-`num:` and `stmt:`, the `stmt` is the mandated rate qualifier or the working, not a second
-focal. **No `chips:` cue exists anywhere in the script**, so the ≤3-per-row and ≤22-char
-lints have nothing to bite on. No per-scene cue offsets are declared at script stage, so
-`cue_min_gap_seconds` and the cascade rule are storyboard-stage and carry forward. The
-colour table is the one that failed — D5.
+**Colour table vs thesis.** Rebuilt all three lists from the cues rather than from the legend:
+**8** `--fund` (2.10, 2.12, 3.3, 4.3, 6.2, 6.7, 6.10, 7.6), **11** `--warn` (3.8, 4.7, 5.2,
+5.4, 5.5, 5.6, 5.12, 5.14, 5.16, 6.12, 6.13), **14** `--target`. Every entry matches its cue —
+the legend and the cues agree, which is the defect attempt 1 had to fix and this draft does
+not carry. Thesis check holds: green never lands on a figure lacking its rate (all 8
+verified), red never lands on India's 3.0% as the subject, amber never lands on the imported
+4%. One storyboard-stage caveat is carried in §5.3.
 
 ---
 
 ## 4. What was rewritten, and why
 
-Five edits. Nothing was killed; the argument is intact.
+Three edits. Nothing was killed; the argument is intact.
 
-### D1 — 5.9 shipped a corpus with no rate. *(the documented failure mode, hit once)*
-`₹9,00,000` appeared in the VO and in the frame with **no rate token anywhere in either**.
-This breaches `run.json.constraints.withdrawal_rate_on_screen` ("A number without its
-assumption visible is a fabricated promise") **and the script's own build-time invariant**,
-which names `₹9,00,000` on its corpus-token list (Build handoff §5). The build assert would
-have failed here.
+### D1 — 5.14 re-bound a methodology claim to a paper nobody has read. *(a REGRESSION)*
 
-- VO: `पर उसमें ज़्यादा से ज़्यादा नौ लाख रुपये रखे जा सकते हैं।`
-- → `पर उसी सात दशमलव चार परसेंट पर ज़्यादा से ज़्यादा नौ लाख रुपये ही रखे जा सकते हैं।`
-- Frame: `stmt: ₹9,00,000 maximum, single account` → `stmt: ₹9,00,000 maximum at 7.4%, single account`
-- 57 → 82 chars (6.3 s + 0.8 = 7.1 s scene, under the 9.0 s hold ceiling).
+The VO opened **«वो रिसर्च»** — "that research" — whose only antecedent is 5.13's «उन्नीस सौ
+चौरानवे के एक रिसर्च पेपर» (a 1994 research paper). It then asserted «उसमें टैक्स और ख़र्चे जोड़े
+ही नहीं गए» — *tax and costs were never added to it*. But the frame's foot credits **Cooley,
+Hubbard and Walz, AAII Journal, February 1998**. VO and frame were pointing at two different
+documents, on the one beat whose entire job is provenance honesty.
 
-### D2 — 7.6 shipped the hero corpus with no rate.
-`एक करोड़` / `₹1,00,00,000` spoken and shown bare in the callback. Same breach, same token
-list. Rhetorically it is a negation ("it did *not* start at a crore"), but the constraint is
-mechanical and the token still renders.
+This is **attempt 1's D3, silently reintroduced by the restyle.** Attempt 1 had already
+changed «वो पेपर» → «उस नियम की रिसर्च» for precisely this reason; style E reverted it.
 
-- VO: `और यह सीढ़ी एक करोड़ से शुरू नहीं हुई थी — यह ढाई हज़ार वाले उस पहले रिचार्ज के बिल से शुरू हुई थी।`
-- → `और यह सीढ़ी एक करोड़ से नहीं, तीन परसेंट वाले उस ढाई हज़ार के पहले रिचार्ज बिल से शुरू हुई थी।`
-- Frame: `stmt:` gains `, both at 3.0%`
-- 99 → 94 chars. The callback and the 2.10 recharge reference both survive.
+I could settle it harder than attempt 1 could, because I text-extracted the Bengen review it
+failed to read: **that review covers allocation, start years and portfolio longevity and says
+nothing whatever about taxes or transaction costs.** The "did not adjust for taxes or
+transaction costs" bullet is **Trinity 1998's, verbatim and self-stated** — read in the
+primary this run. So the spoken claim attributed to a 1994 paper a property evidenced only
+for a 1998 one, and `facts-staging.md` records the 1994 paper as never retrieved.
 
-### D3 — 5.14's VO attributed a methodology claim to a paper nobody read.
-The line said **"वो पेपर"** ("that paper"), whose only antecedent is the **1994** paper named
-in 5.13. But the "no tax, no transaction costs" statement is **Trinity 1998's**, verbatim
-and self-stated — and `facts-staging.md` records that the 1994 paper "was NOT read (FPA PDF
-403'd)". The frame's foot already credited Cooley/Hubbard/Walz 1998 correctly, so the VO and
-the frame were pointing at **different documents**. On the one beat whose entire job is
-provenance honesty, that is not survivable.
+- `वो रिसर्च वहाँ के आँकड़ों पर बनी थी…` → `उस नियम की रिसर्च वहाँ के आँकड़ों पर बनी थी…`
+- "That **rule's** research" scopes the claim to the 4%-rule literature, which the frame then
+  pins to the paper actually read. Restores attempt 1's adjudicated wording verbatim.
+- 95 → **103 chars** (7.9 s + 0.8 = 8.7 s scene). Under the 106-char line ceiling and under
+  `max_scene_seconds` 9.0, but now the second-longest line in the cut. **Do not lengthen 5.14.**
 
-- `वो पेपर वहाँ के आँकड़ों पर बना था…` → `उस नियम की रिसर्च वहाँ के आँकड़ों पर बनी थी…`
-- "That rule's research" scopes the claim to the 4%-rule literature, which the frame then
-  pins to the paper actually read. 93 → 103 chars — **now the longest line in the cut**, at
-  8.70 s against the 9.0 s ceiling. Flagged in the timing section: do not lengthen 5.14.
+### D2 — 6.9 spoke a men-only average as the all-India average.
 
-### D4 — 5.15's foot called freefincal "a backtest".
-The foot claimed the band was *"corroborated independently by an Indian practitioner
-backtest"*. Re-fetched: the article states three threshold bands as conclusions and
-discloses **no backtest data** — `facts-staging.md` says so itself ("no backtest data
-disclosed in the article", tagged SOFT). Asserting a methodology a source does not show is
-the same class of error as D3, on a frame cited to a named real person.
+The re-fetch is unambiguous: PLFS 2025 reports **male** regular wage/salaried earnings at
+**₹24,217** and **female** at **₹18,353**. The VO said «नियमित तनख़्वाह पाने वाले **भारतीय** की
+औसत महीने की कमाई … चौबीस हज़ार दो सौ सत्रह» — *the average monthly earnings of a
+regular-salaried Indian* — which is false as stated, since the both-sexes average is lower.
+The `foot:` disclosed "men ₹24,217, women ₹18,353" correctly, but the **spoken** claim and the
+`num:` focal both asserted the broader one, and the `stmt:` carried no qualifier either.
 
-- → `· independently corroborated by ONE Indian practitioner surface (freefincal, Feb 2026)`
-- The capitalised **ONE** is deliberate: it is the on-screen guard against the five-blog
-  fake consensus PART E identified.
+This is the video's single sourced external validation statistic, sitting at the climax and
+carrying the whole «औसत तनख़्वाह के बराबर» equivalence. A six-character fix makes it exactly true.
 
-### D5 — the role-colour legend contradicted its own cues, on the thesis scenes.
-The legend filed **4.7** under `--warn` (cue says `--target`) and **5.16** under `--target`
-(cue says `--warn`), and omitted 2.11, 3.8, 5.14, 6.4, 6.6 and 7.6 entirely. A storyboard
-colouring from the legend rather than the cues would have painted *"why the rate is kept
-small"* as a danger and *"above 3.75% it breaks"* as merely under examination — the two
-scenes that carry the argument, both inverted. Rebuilt all three lists from the cues and
-added a thesis check.
+- VO: `…वाले भारतीय की औसत…` → `…वाले भारतीय पुरुष की औसत…`
+- Frame: `stmt: Average monthly earnings, regular wage or salaried` → `… salaried · men`
+- 88 → **94 chars** (7.2 s + 0.8 = 8.0 s scene). Well inside every ceiling.
+- 6.10 deliberately left alone: it speaks no figure, its «औसत तनख़्वाह» now inherits 6.9's
+  qualifier, and its frame already carries ₹24,217 with the PLFS foot.
 
-**Post-edit colour verdict:** green never lands on a figure lacking its rate, red never
-lands on India's 3.0%, amber never lands on the imported 4%. **The colour table argues with
-the thesis, not against it.**
+### D3 — the fact trace upgraded a SOFT single decimal to HARD.
+
+The trace filed **3.75%** (line 5.16) as **"HARD (same paper)"**. Staging A.3's own tag on that
+row is *"**HARD on the 3.0–3.5% band** · **SOFT on any single decimal**"* — and 3.75% is a
+single decimal. My re-fetch confirms staging's posture, not the trace's: **SSRN 403'd again**,
+and the figure came back only from secondary summaries of the paper.
+
+The figure is **kept, not killed**: it survives re-fetch on two independent secondary
+surfaces, and it is a *caution* — it can only make the video more conservative, never inflate
+a promise, so it is not the fabricated-promise class this gate exists to stop. What was wrong
+was the evidence tier claimed for it, which downstream stages read to decide how hard to
+present a number.
+
+- Trace tag → **SOFT**, with the reason and the owed primary read written into the row.
+- No VO or frame change. 5.16 keeps `num: 3.75%` and `--warn`.
 
 ---
 
-## 5. Carried forward — not defects, but they will cost money if ignored
+## 5. Carried forward — not defects, but they will cost something if ignored
 
-1. **The `>` extraction hazard (TTS spend).** VO lines are `>`-quoted, but so are the
-   24-line guard block at the head of the file and the 9-line VO-block-rule block. A naive
-   `^> ` extractor yields **~111 lines, not 78** — 33 of them English markdown prose that
-   would be read aloud in Hindi, at ~33 wasted ElevenLabs calls against a 188 ceiling.
-   Build handoff §1 already specifies keyed extraction (`1.1 … 7.8`) gated by a
-   byte-for-byte reconstruction check. **Use it. Do not grep for `>`.**
-2. **The 2.6/2.7 image hold still breaches `max_scene_seconds`.** Build handoff §7 flags it
-   (5.7 + 6.8 + padding ≈ 14.1 s on one photograph) and prescribes a second tighter crop.
-   Unresolved at script stage by design; it is a build fix, and `check_build` will catch it
-   if it is skipped.
-3. **The hook gate has ~1 s of margin.** See check 3.
-4. **5.14 has 0.30 s of hold-ceiling margin.** See D3.
-5. **SSRN remains unreachable** for the second stage running. The 3.0–3.5% band and the
-   3.75% edge are confirmed on a secondary index, not on the paper. The script speaks only
-   the band and attributes it by author and date, which is the correct posture for that tag
-   — but a primary read is owed before this rate is promoted to `money-facts-2026.md`.
+1. **Staging's RBI URL is dead.** `businesstoday.in` returned `EREFUSED` at DNS. The figure is
+   real and confirmed three ways, but the *recorded* source no longer resolves — repoint the
+   staging row at the Business Standard surface before that row is promoted to
+   `money-facts-2026.md`.
+2. **SSRN unreachable for the third stage running.** The 3.0–3.5% band and the 3.75% edge are
+   confirmed on secondary indices only. A primary read is owed before this rate is promoted.
+3. **Two `--warn` frames put India's 3.0% inside a red string** — 5.2 (`10% OR 12% … INSTEAD
+   OF 3.0%`) and 6.13 (`₹75,00,000 AT 4% vs ₹1,00,00,000 AT 3.0%`). The thesis survives only
+   if the tint lands on the 10 / 12 / 4% token and **not** on the 3.0%. Storyboard must colour
+   the token, not the line, or the frame argues against the thesis it is making.
+4. **5.14 now has ~0.3 s of hold-ceiling margin** (8.7 s against 9.0 s). Do not lengthen it.
+5. **2.4 still exceeds the line ceiling at 107 chars / 9.01 s**, deliberately and with creator
+   approval. Build handoff §7's two `data-framings` is not optional — `check_build` fails it.
+6. **The `>` extraction hazard stands.** VO lines are `>`-quoted and so are the guard
+   blockquotes; a naive `^> ` extractor sweeps in English prose that would be read aloud in
+   Hindi, at ~30 wasted ElevenLabs calls. Extract by the `**N.M**` key, gated by a
+   byte-for-byte reconstruction check, exactly as Build handoff §1 specifies.
+7. **Char total moved 5,908 → 5,922.** The per-scene cells for 5.14 and 6.9 and all five
+   aggregate figures were updated in place, so the file stays internally consistent.
 
 ---
 
 ## 6. Verdict
 
-**PASS** — five defects rewritten, none killed, no claim unsupported after re-fetch.
+**PASS** — three defects rewritten, none killed, no claim unsupported after re-fetch.
 
-The two rate-token breaches are the exact failure this gate exists to catch, and they were
-in the two places least likely to be noticed: a ceiling frame that is not a rung, and an
-emotional callback where the number is being *denied* rather than asserted. The ladder
-itself — the part everyone checks — was already clean at all five rungs.
+The one that mattered is D1: a defect this pipeline had already found, ruled on and fixed at
+attempt 1, which a register-only restyle quietly undid. **"Restyle, not rewrite" is not a
+guarantee that adjudicated fixes survive the restyle** — they have to be re-checked, and this
+one did not survive. It was catchable only by re-reading the provenance beat against the
+primaries, because the fact-trace table asserted the correct attribution the whole time.
 
 **Cleared for TTS.** The script file changed; downstream voice work must re-run against the
 edited file (the pipeline hash-checks this).

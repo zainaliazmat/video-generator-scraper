@@ -647,9 +647,18 @@ not earned.
 - **Stage in PIXELS.** `.p-d` band, `left/top/width/height` declared in px with
   `.stage svg { width:100% !important; height:100% !important }`. A stage without pixel
   dimensions renders the artwork at native size pinned top-left and every check passes.
-- Cue: `playLottie` **anchored +1.85** on *"buzzes"*; `s4-stmt` `rise` at **+2.75** (the words
-  are the consequence, so they follow the banner). `buzz` SFX at the same +1.85 — the kit's only
+- Cue: `playLottie` **anchored +1.13**; `s4-stmt` `rise` at **+2.75** (the words are the
+  consequence, so they follow the banner). `buzz` SFX at **+1.85** on *"buzzes"* — the kit's only
   diegetic sound, legal here precisely because the frame shows the object making the noise.
+  ⚠ **+1.13 is CORRECTED, 2026-08-08, fin-editor en ch1 r1 — measured in the encode, not argued
+  from the source.** Firing at +1.13 puts the card outline on screen ≈+1.50 and the `$` badge
+  plus the first masked line visibly building at +1.85, so the buzz lands on a banner that is
+  *lighting*. Firing at +1.85 instead would put the first drawn pixel at ≈+2.25 and let the
+  sound precede the picture by ~0.4s — the exact failure this section's diegetic argument
+  exists to prevent. The amount bar fills through ≈+3.6 and the whole thing lands 3.3s before
+  the cut. Knock-on checked and accepted: `s4-stmt` at +2.75 now rises while the bar is still
+  filling, but the card's identity (`$` + line 1) is established by ≈+2.0, so the words still
+  read as the consequence. **Chapter 2 onward inherits +1.13; the SFX offset is unchanged.**
 
 **One Lottie, not four.** The cap is `max_per_chapter: 4` — a threshold at which you must
 justify the next one, never a target. `lottie-web` redraws the whole illustration every frame
@@ -783,9 +792,18 @@ variable there is.
 ### The grade decides the photograph — write the LIGHT, not the object
 
 Enforced: `pipeline_check check assets --chapter <N>` fails any promoted image with source
-**`YHIGH < 110`**, and warmth has its own predictor (**mean R−B ≥ ~+40** on the raw). Every query
-in `manifest.json` therefore names the lighting. Three rules from this run's own hi ch1, where
-three of seven backgrounds failed for one reason:
+**`YHIGH < 110`**. Every query in `manifest.json` therefore names the lighting. Three rules from
+this run's own hi ch1, where three of seven backgrounds failed for one reason:
+
+> **⚠ The companion warmth rule — `mean R−B ≥ ~+40` on the raw — was RETIRED 2026-08-08.**
+> It is unreachable and it cost this chapter four fetch rounds. Measured on the encoded
+> frames of en ch1: `encoded R−B = 0.0927 × source R−B − 6.43`, so only ~9% of a
+> photograph's warmth reaches the screen under a fixed −6.43 from the layer stack. s1's
+> source is **+73.53** and it renders at **+0.76**. Reaching +40 on screen would need a
+> source near +500. **Warmth is chrome, not photograph** — the `--bg` ink (`#0d1017`,
+> R−B −10) is every scrim, the band, and the far stop of `.field`, so raising `.field`
+> opacity makes a chapter colder, not warmer. Do not reject a candidate on source R−B and
+> never send a slot back twice for warmth. Full derivation: [[knowledge/stock-photo-sourcing]].
 
 1. **Never buy high-key stock.** A white-dominant subject cannot survive `brightness(.62)`; it
    lands as a flat charcoal slab. Ask for the subject **lit against a dark ground**.
@@ -802,11 +820,11 @@ three of seven backgrounds failed for one reason:
 
 | scene | script cue | this storyboard | why |
 |---|---|---|---|
-| s3 / s4 (1.3, 1.4) | "the phone now face-up beside the mug, notification glow" | phone **face-down**, its edge and the wood lit by the glow; the notification is the Lottie | **Never a phone-screen photo as a background.** Shipped undetected three times |
+| s3 / s4 (1.3, 1.4) | "the phone now face-up beside the mug, notification glow" | phone screen visible and **completely BLACK**, the notification is the Lottie | **Never a phone-screen photo as a background.** Shipped undetected three times. ⚠ **AMENDED 2026-08-08, fin-editor en ch1 r1 — a BLACK-SCREEN phone on s1 / s3 / s4 is APPROVED and is not a violation of this rule.** The standing rejection targets *a lit screen carrying someone's brand and being the brightest thing in frame*; on all three frames the screen is the **darkest** object, carries nothing, and states the beat more plainly than face-down (you can see the phone is off). Applied identically to all three, which is what makes it a decision and not an exception. It also fixes a structural gate failure: a face-down black phone in a dark room has no highlights **by construction** and cannot clear `YHIGH ≥ 110` — 30 candidates over five sheets confirmed it. **Do not re-argue this in a later chapter**; s79 (6.11) inherits the same treatment |
 | s7 (1.7) | "a laptop showing a blurred search results page" | laptop **from behind**, screen not visible, hands on the keys, one lamp | same rule; a search page is also someone's brand |
 | s45 (4.6) | "a phone held up showing a blurred short-video feed" | hand holding a phone with the **screen turned away**, only the glow on the fingers | same rule, and this is the most tempting violation in the cut because the frame is *about* a feed |
 | s55 (5.3) | "a market data screen photographed at a shallow angle" | a **printed** index chart pinned to a bare office wall | same rule for a monitor — and this is the `.mega` frame, which needs the calmest background in the chapter |
-| s5 (1.5) | "a single blank index card… hard side light" | a blank white **enamel** tag on dark oak | matte card measures dead under the grade (material rule above) |
+| s5 (1.5) | "a single blank index card… hard side light" | ~~a blank white **enamel** tag on dark oak~~ → **a single arrow in the dead centre of an archery target**, no numeral legible | matte card measures dead under the grade (material rule above). ⚠ **RE-SPECIFIED 2026-08-08 after two rejections.** A *blank* tag fails sound-off gate 3 — the line names *"one specific number"* and a blank tag has none (fin-assets, upheld by fin-editor). A tag stamped `5` fails worse: it plants a figure at the exact beat the chapter exists to **withhold** the number, and a brass table-tent reads as *table five in a restaurant* (fin-editor). The instrument family the editor suggested was worked through **eight sheets** and is exhausted: gauges and dial indicators return car dashboards, `km/h` speedometers, and — on the one cell that cleared every numeric gate — a legible `bar` + `EN 837-1` European standards mark, invisible at contact-sheet size. **One arrow, dead centre** says *you reached exactly the mark you aimed at, not more* — which is both halves of the line (`NOT RICH` / `One specific number`) — prints **no figure at all**, and cannot be mistaken for a pre-echo of s41/s42's vault dial or s25's pump display |
 | s31 (3.8) | "a single house key on a plain paper envelope" | a **brass** house key on dark slate | same; and brass gives the specular ceiling the gate needs |
 | s30 (3.7) | "a printed pie-slice diagram on a statistical release page" | a house roofline silhouetted against a warm dusk sky | the cue is **depictive** (the drawn share bar states 33.4%, §8) **and** a generic pie chart cited to BLS is the fabricated-source-document failure |
 | s69 (6.1) | "a single chair in an empty room" | a **brass plumb bob** hanging still against a dark workshop wall | s80 (6.12) is already an empty chair by a window; two chair frames read as one image reused, which the sound-off rule forbids |

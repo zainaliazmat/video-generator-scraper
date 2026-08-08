@@ -37,12 +37,12 @@
       "at": "2026-08-06T22:14:21+00:00"
     },
     "fin-script-hi": {
-      "status": "superseded",
+      "status": "done",
       "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/fin-script-hi-1.md",
-      "at": "2026-08-06T22:46:31+00:00",
-      "superseded_reason": "style E adopted for both cuts 2026-08-07 + hi voice changed to Amrut; script, audit, voice and storyboard all re-run. fin-research and fin-facts stand — the facts did not change."
+      "attempt": 2,
+      "log": "vault/videos/passive-income-number/logs/fin-script-hi-2.md",
+      "at": "2026-08-07T22:15:31+00:00",
+      "superseded_reason": ""
     },
     "fin-script-en": {
       "status": "done",
@@ -52,21 +52,19 @@
       "at": "2026-08-07T18:22:19+00:00"
     },
     "fin-audit-hi": {
-      "status": "superseded",
+      "status": "done",
       "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/fin-audit-hi-1.md",
-      "at": "2026-08-06T22:59:55+00:00",
-      "superseded_reason": "style E adopted for both cuts 2026-08-07 + hi voice changed to Amrut; script, audit, voice and storyboard all re-run. fin-research and fin-facts stand — the facts did not change."
+      "attempt": 2,
+      "log": "vault/videos/passive-income-number/logs/fin-audit-hi-2.md",
+      "at": "2026-08-07T23:32:29+00:00"
     },
     "fin-voice-hi": {
-      "status": "superseded",
+      "status": "done",
       "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/fin-voice-hi-1.md",
-      "at": "2026-08-06T23:10:56+00:00",
-      "script_sha256": "4d68d2fd5c87491fddea3027d3b22d8eaf3b6f96440fedbc7e11b1f2e12dc2a3",
-      "superseded_reason": "style E adopted for both cuts 2026-08-07 + hi voice changed to Amrut; script, audit, voice and storyboard all re-run. fin-research and fin-facts stand — the facts did not change."
+      "attempt": 2,
+      "log": "vault/videos/passive-income-number/logs/fin-voice-hi-2.md",
+      "at": "2026-08-07T23:55:21+00:00",
+      "script_sha256": "da6fdb01c769868c824b681b225e12c6e441cb1ab608f99b08b66c41217c63d5"
     },
     "fin-audit-en": {
       "status": "done",
@@ -97,11 +95,26 @@
       "attempt": 2,
       "log": "vault/videos/passive-income-number/logs/fin-storyboard-en-2.md",
       "at": "2026-08-07T19:22:25+00:00"
+    },
+    "fin-assets-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 3,
+      "log": "vault/videos/passive-income-number/logs/fin-assets-en-ch1-3.md",
+      "at": "2026-08-08T00:50:30+00:00"
+    },
+    "fin-build-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/passive-income-number/logs/fin-build-en-ch1-2.md",
+      "at": "2026-08-08T01:08:36+00:00"
     }
   },
   "owed": {
     "real_study_packet": "fin-research attempt 1 died on a YouTube bot-check (yt-dlp auth wall, not a 429 — it never clears on retry) AND on a thin library: only 2 usable long-form rows in this lane, so no LOW performer existed to autopsy. Attempt 2 was grounded in two BOUGHT transcripts instead (vidIQ R2). Still owed: `venv/bin/python backend/study.py --ids JiuVKaO2a6c Jn3N9OzSY1c` once cookies exist (YTAUTO_COOKIES / YTAUTO_COOKIES_BROWSER, added to study.py 2026-08-07), plus a scrape of this lane so library.db holds a real top/mid/low triple. The visual half of the study (keyframes, hook frames, on-screen text) is recorded MISSING, not faked.",
-    "vidiq_packaging_pass": "Close-out §5.2 budgets ~35 credits for R3 + R3b across both packs; only 13 remain until the 2026-08-29 reset. Ration it or defer the title lock — do not skip it silently."
+    "vidiq_packaging_pass": "Close-out §5.2 budgets ~35 credits for R3 + R3b across both packs; only 13 remain until the 2026-08-29 reset. Ration it or defer the title lock — do not skip it silently.",
+    "orphan_clip_en": "studio/videos/passive-income-number-en/assets/voice/3.17.mp3 is an orphan from the style-A script — 82 clips on disk for 81 timing.json lines. Inert (timing.json is authoritative and check_voice iterates it), so it was left rather than deleted; nothing under studio/ is backed up by any git. Noted because check_voice does not detect orphans."
   },
   "vidiq_spend": {
     "_note": "vidIQ runs AROUND the pipeline (topic selection before, packaging at close-out, autopsy after) — never inside a fin-* stage, which has no credit budget to reason about.",
@@ -111,15 +124,24 @@
     "remaining": 13
   },
   "hook_gate_hi": {
-    "_decision": "ACCEPTED at ≈15.0s by the orchestrator, 2026-08-07. fin-voice measured the number-naming clause in 1.4 starting 1.618s into its clip (a 0.469s em-dash pause plus four preceding words), putting onset at 14.9–15.1s against the 15s gate — met at its boundary, with no margin. Not re-cut: the fix is one ElevenLabs call but the chain around it is not (script edit → audit-hi goes stale → re-voice → new script hash), and the format twins this video copies land their number at 0:40–0:54 of an 8–11 minute cut, so 15.0s is ~3x ahead of the field it competes with. Recorded rather than swallowed: if retention on this cut falls off before 0:20, this is the first thing to re-test.",
-    "measured_seconds": "14.9-15.1",
-    "gate_seconds": 15
+    "_decision_style_A_superseded": "ACCEPTED at ≈15.0s by the orchestrator, 2026-08-07. fin-voice measured the number-naming clause in 1.4 starting 1.618s into its clip (a 0.469s em-dash pause plus four preceding words), putting onset at 14.9–15.1s against the 15s gate — met at its boundary, with no margin. Not re-cut: the fix is one ElevenLabs call but the chain around it is not (script edit → audit-hi goes stale → re-voice → new script hash), and the format twins this video copies land their number at 0:40–0:54 of an 8–11 minute cut, so 15.0s is ~3x ahead of the field it competes with. Recorded rather than swallowed: if retention on this cut falls off before 0:20, this is the first thing to re-test.",
+    "_decision": "RULED 2026-08-08 by the orchestrator on the style-E restyle: the hi gate is measured on THE PROMISE (line 1.3), the same object the en gate was measured on. Verified, not assumed — logs/fin-voice-en-2.md:145 records hook_gate_en=9.571s as the onset of en 1.3 'And on that same day, before noon, money is deposited into your account', which is a promise, not a number. The two cuts had silently been judged on different objects: en on the promise, hi (style A) on the number-naming clause in 1.4. One object across both cuts, or the gate compares nothing. Chapters 1-2 of the hi script are the creator-approved style-E reference VERBATIM, and a sub-15s number-naming clause is arithmetically impossible inside them, so forcing one means editing text the creator signed off on after a listening test. Not done.",
+    "promise_onset_seconds_MODELLED": 10.4,
+    "promise_close_seconds_MODELLED": 14.7,
+    "number_naming_onset_seconds_MODELLED": 22.9,
+    "gate_seconds": 15,
+    "_status": "MEASURED 2026-08-08 by fin-voice-hi with silencedetect on the rendered clips, superseding the modelled figures below. All three came in BETTER than modelled.",
+    "_tracked_risk": "The number-naming clause moved from 15.0s (style A) to ~22.9s (style E) — 8s later, on the very dimension style A's note already flagged as the first thing to re-test. Recorded rather than swallowed. Two things make it acceptable: the promise now lands ~4.6s EARLIER than style A's number did, so the viewer learns what they are getting sooner; and the format twins this video copies land their number at 0:40-0:54 of an 8-11 minute cut, so 22.9s is still ~2x ahead of the field. If hi retention falls off before 0:30, this is the first thing to re-test.",
+    "promise_onset_seconds": 8.682,
+    "promise_close_seconds": 11.294,
+    "number_naming_onset_seconds": 18.299,
+    "_outcome": "Gate cleared with 6.32s of headroom (8.682s against 15s) — better than the modelled 10.4s and better than the en cut's own 9.571s. The tracked risk shrank too: the number-naming clause measured 18.299s, not the modelled 22.9s, so it slipped 3.3s from style A's 15.0s rather than 7.9s. Still the first thing to re-test if hi retention falls off before 0:30, but a far smaller bet than it looked from text. Modelled values kept above as the record of how badly text predicts this — 10.4 vs 8.682 measured."
   },
   "budget": {
-    "elevenlabs_calls": 209,
+    "elevenlabs_calls": 290,
     "max_elevenlabs_calls": 350,
     "pixabay_calls": 0,
-    "_spend_log": "style-A scripts (discarded): fin-voice-hi 78 on Harsh, fin-voice-en 78 on Brian = 156. style-E: fin-voice-en attempt 2 (2026-08-07) = 53 calls, NOT 81 — 28 lines were byte-identical to attempt 1 and resumed off their .txt sidecars, while the other 53 printed REGEN, which proves the comparison was live. Cumulative 209 of 350. The hi restyle on Amrut still needs a full ~81, since the voice changed as well as the text.",
+    "_spend_log": "style-A scripts (discarded): fin-voice-hi 78 on Harsh, fin-voice-en 78 on Brian = 156. style-E: fin-voice-en attempt 2 (2026-08-07) = 53 calls, NOT 81 — 28 lines were byte-identical to attempt 1 and resumed off their .txt sidecars, while the other 53 printed REGEN, which proves the comparison was live. Cumulative 209 of 350. The hi restyle on Amrut still needs a full ~81, since the voice changed as well as the text. | fin-voice-hi attempt 2 (2026-08-08) = 81 calls on Amrut with --force, NOT a resume: 17 style-E lines were byte-identical to the style-A take, so a bare resume would have made 64 calls and shipped chapter 5 more than half in Harsh's retired voice. Cumulative 290 of 350.",
     "_ceiling_note": "Raised 78x2x1.2=188 -> 350 on 2026-08-07. The restyle means both cuts get voiced TWICE: 156 calls are already spent on the style-A scripts (78 hi on Harsh, 78 en on Brian) and are now discarded, and style E runs ~81 lines per cut. 156 + 81x2 + 20% headroom on the new work = ~350. The ceiling exists to catch a runaway loop, not to cap a decision the creator made deliberately.",
     "_discarded": "The 78 hi clips on Harsh are dead twice over — wrong voice AND wrong script. The 78 en clips on Brian are dead once — right voice, wrong script."
   },
@@ -167,10 +189,16 @@
         "superseded_reason": "built on style A and the Harsh voice; both changed 2026-08-07. The image work survives and should be reused — every photograph in ch1 and ch2 is verified and passes the YHIGH gate; only script, voice, timing and layout are re-done."
       }
     },
-    "en": {}
+    "en": {},
+    "_carry_forward_to_storyboard_hi": "From fin-audit-hi-2 (2026-08-08): 5.2 and 6.13 are `--warn` frames whose strings contain India's 3.0% as the COMPARATOR. The tint must land on the 10/12/4% token, not on the 3.0%, or the frame argues against its own thesis. Carried here because the agent that found it does not run again before the storyboard. ALSO from fin-script-hi attempt 3 (2026-08-08): the two-`data-framings` instruction was INVERTED. It named 2.4, which measures 7.853s and needs one framing; the cut's only max_scene_seconds breach is 6.13 at 9.812s. Point the framings at 6.13."
   },
   "tool_fixes_this_run": [
-    "chapter_sheet.py: scenes with a countUp now settle at +4.5s instead of +2.6s. The rung-one corpus counts to ₹10,00,000 over 1.2s from +1.90, so every sheet cell — and therefore every downstream reviewer and the CEO — was shown ₹8,36,874: plausible, wrong, and the figure the rung would have been judged on. Five more rungs in ch3-7 would each have shown their own fabricated total. A partial chart looks broken; a partial count looks like a real number."
+    "chapter_sheet.py: scenes with a countUp now settle at +4.5s instead of +2.6s. The rung-one corpus counts to ₹10,00,000 over 1.2s from +1.90, so every sheet cell — and therefore every downstream reviewer and the CEO — was shown ₹8,36,874: plausible, wrong, and the figure the rung would have been judged on. Five more rungs in ch3-7 would each have shown their own fabricated total. A partial chart looks broken; a partial count looks like a real number.",
+    "pipeline_check.py check_build (2026-08-08, found by fin-build on en ch1): TWO defects, both the run's recurring shape — a check aimed at the wrong thing. (1) The Lottie guard regex-scanned raw HTML, so `loadAnimation(`, `path:` and `__hfLottie` matched inside comments — it fired on the CSS comment explaining the pixel-stage trap, i.e. it punished the note that prevents the bug and rewarded deleting it. Fixed with strip_comments(): HTML comments globally, /* */ inside <style> ONLY, because stripping /* */ globally would eat JS string and regex-literal content and turn a false positive into a false NEGATIVE. (2) check_build used studio_dir() not project_dir(), so `--chapter` was refused by argparse outright and the whole chapter loop had NO build postcondition — fin-build had to verify through a hand-built scratch mirror. Fixed: project_dir() + chapter_timing(), which slices the cut's 81-line timing.json to the chapter's `C.x` lines rebased to 0, keeping the last scene's BARE duration. Validated against fin-build's independently-measured ch1=46.420s, exact; all six en chapters chain with no drift. Selftest gained 4 cases.",
+    ".claude/agents/fin-audit.md (2026-08-08, found on hi attempt 2): the stage is REQUIRED to write a log and its contract correctly forbids Bash, but its tools were `Read, Edit, Grep, WebFetch, WebSearch` — no Write, and Edit refuses a path that does not exist. So fin-audit could never create its own log, and returned STATUS: fail on a PASSING audit. Same shape as the six check defects, one level up: a stage judged against an artifact it had no tool to produce. Added Write; the contract now names Write explicitly and states that the ORCHESTRATOR runs pipeline_check, so the stage must not report failure for being unable to run it. The hi-2 log was persisted by hand from the agent's verbatim body.",
+    "pipeline_check.expected_seconds (2026-08-08, found by fin-voice-hi on 5.3): the duration check charged every pause mark its full pause_seconds ON TOP of chars_per_second — but the key is measured as total_chars / total_SPEECH, which already contains the pause silence, so the average pause was counted twice. Measured over both 81-line cuts: flat estimate mean +1.43% en / -0.94% hi and TWO-SIDED (41/81, 47/81 negative); pause-charged mean -3.80% / -7.32% and ONE-SIDED (59/81, 61/81) — this repo's own documented signature of a wrong model. It failed line 5.3, which whisper proved complete at glyph-ratio 0.96. Fixed by making the estimate a RANGE (flat .. flat+pauses) instead of a point, because a pause mark is a REQUEST and ElevenLabs honours it on one line and runs through it on the next. Keeps the protection the charge was built for — the Harsh cold open at 5.88s vs 3.84s flat sits inside its band — while a truncated clip is still far below the floor. Selftest gained 8 assertions.",
+    "tools/tts/batch.py (2026-08-08, found by fin-voice-hi): the <id>.txt sidecar records WHAT a clip says and nothing about WHO said it, so a voice change was invisible to the resume. 17 lines survived the Harsh->Amrut switch byte-identical and would have shipped in the retired voice with every downstream check green — check_voice_dir tests bytes, duration, silence and scene arithmetic, and not one of those is a function of timbre. Fixed by stamping the voice id in assets/voice/.voice: a mismatch makes every clip stale, and clips with NO stamp stop the run rather than guess. Unrepresentable beats documented (creator rule 2026-07-29). Existing dirs migrated by hand — both cuts verified to resume in 0 calls.",
+    "vault/knowledge/stock-photo-sourcing.md — RETIRED the `mean R−B >= ~+40` warmth screen (2026-08-08, derived by fin-render on en ch1). Not a tool bug but the same shape: a rule calibrated on the SOURCE FILE and enforced as if it described the screen. fin-render measured the encoded frames and fitted, from scene pairs with no model, `encoded R−B = 0.0927 x source R−B - 6.43` (residual std 1.43) — only ~9% of a photograph's warmth survives, under a fixed -6.43 from the layer stack. s1's source is +73.53 and renders at +0.76; hitting the +40 target needs a source near +500, which does not exist. The rule cost this chapter four fetch rounds chasing an unreachable number, and would have cost five more chapters the same. Warmth is CHROME: --bg (#0d1017, R−B -10) is every scrim, the band and the far stop of .field, so raising .field opacity makes a chapter COLDER — fin-build's proposed fix was backwards. Corrected in the knowledge note and in storyboard-en §11 so chapters 2-6 do not repeat it. No agent or tool hardcoded the rule (they read the note by path), which is the two-home rule paying off."
   ],
   "style_decision": {
     "_creator_2026-08-07": "Use STYLE E for BOTH cuts. Start with the English one. English voice stays Brian. Hindi voice changes to Amrut Deshmukh LHJy3mhZWsvhUjy0zUM1.",
