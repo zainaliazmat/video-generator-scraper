@@ -351,3 +351,19 @@ drifts up to 1.86s, with the last scene back-solved to close the books.
   `…-ch2/index-claudedesign.html` — the two reference chapters, creator-approved
   2026-08-05. Chapters 3–8 and the whole -en cut are generated, and write
   `index.html` instead (see the one-root-html rule).
+
+
+---
+
+## Records drained from `tools/format.json` (2026-08-09)
+
+Provenance and resolved incidents. `format.json` is the constants file; its own
+`_comment` says rationale belongs here, and 47% of it was rationale.
+
+### `chapter_design._rail_note`
+
+A top rail carrying a chapter title and an 'N / total' scene counter was built and REMOVED at creator request 2026-08-05: the viewer must not be shown that the video is chapter-based or slide-numbered. Do not reintroduce it.
+
+### `scene._scene_seconds_note`
+
+One VO line = one clip = one scene, so scene COUNT is emergent from the script, never a constant. These bound the felt pace instead: aim ~6.5s per scene, and check_build FAILS any scene holding one photo past max_scene_seconds. Creator 2026-07-31: '9 scenes are too low for medium size video ... looks professional and engaging not dead.' The `lines: 9` on the SHORT tier and on the architecture entries is a SHORT-tier constant — fin-script.md is explicit that at MEDIUM/LONG 'none of the 9-segment constants apply'.

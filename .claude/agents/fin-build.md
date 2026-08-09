@@ -8,9 +8,9 @@ You are the composition-build stage. Runs once per cut.
 
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
-  Read `vault/CLAUDE.md` first; design constants from `tools/format.json` and
+  Read `vault/CLAUDE.md` first; design constants from `tools/format/fin-build.json` and
   `vault/knowledge/design-finance-blockframe.md` (**its BOX; the body only for a
-  value the CSS and format.json did not answer**).
+  value the CSS and tools/format/fin-build.json did not answer**).
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-build-<cut>-<attempt>.md`.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
@@ -60,18 +60,18 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    after the link, named `.v-<thing>` so it is visibly not the system.
 
    **Architecture.** `run.json` carries an `architecture` name — **the creator
-   chose it at intake**; apply its `body_class` from format.json to `#root`
+   chose it at intake**; apply its `body_class` from tools/format/fin-build.json to `#root`
    — e.g. `ledger-rail` ⇒ `<div id="root" class="rail" …>`. An empty
    `body_class` is the default centred stack. It is not yours to override or to
    "improve" because the last few videos looked alike.
 
 1a. **THE ARCHETYPE LAYER — every chapter scene, MEDIUM/LONG.**
-   Constants: `format.json chapter_design`. Rationale and the full rule list:
+   Constants: `tools/format/fin-build.json chapter_design`. Rationale and the full rule list:
    `vault/knowledge/design-chapter-archetypes.md` — **read its BOX before your
    first chapter of a run, plus the two sections the box sends you to ("What a
    drawn layer has to look like", "The gotchas that cost renders"). You build, so
    those two are yours; the rest of the file is not.** Then build from
-   format.json. Reference implementations
+   tools/format/fin-build.json. Reference implementations
    (creator-approved 2026-08-05):
    `vault/videos/japanese-money-methods/src/hi-ch1/index-claudedesign.html` + `-ch2`.
 
@@ -131,7 +131,7 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    **Footage (optional, per scene).** Supported and already shipped
    (`compositions/video-02-claude-edits-video/index.html`) — the renderer
    pre-extracts frames with ffmpeg and injects them, so it stays deterministic.
-   Rules live in `format.json` `video_scene`; the one that will cost you a whole
+   Rules live in `tools/format/fin-build.json` `video_scene`; the one that will cost you a whole
    render is first:
    - **A `<video>` must be a direct child of `#root`.** Put one inside
      `<section class="scene">` — where `.bg` lives — and it renders **black**,
@@ -147,7 +147,7 @@ the project dir. Nothing else — no render (that is fin-render's stage).
      copied onto the injected frame.
 
    **Vector art (only where the storyboard asked for it).** Constants in
-   format.json `vector_art`; the why in
+   tools/format/fin-build.json `vector_art`; the why in
    `vault/knowledge/design-icons-emoji-lottie.md` — **its BOX is the whole rule;
    open the body only to hand-write Lottie or SVG timeline JS.** It sits ON the
    photograph —
@@ -221,7 +221,7 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    automation and a bed that silently fails to duck would bury the voice in a
    video that still passes every check. Do not add music or SFX `<audio>` rows to
    `index.html`.
-4. Font sizes only from the type ladder in format.json — step DOWN the ladder,
+4. Font sizes only from the type ladder in tools/format/fin-build.json — step DOWN the ladder,
    never interpolate, never shrink a focal below 76 to make it fit
    (restructure instead). Counters use `Intl.NumberFormat` with the cut's
    locale and `tabular-nums`.
@@ -249,7 +249,7 @@ the project dir. Nothing else — no render (that is fin-render's stage).
 7. Run `npm run check`; fix until clean — with one exception:
 
 ## The checker is evidence, not authority
-A finding listed in format.json `known_benign` is not a defect. **Never edit a
+A finding listed in tools/format/fin-build.json `known_benign` is not a defect. **Never edit a
 design token (colour, size, weight) to satisfy the checker** — a NEW finding
 you cannot fix structurally is a loud failure, not a token edit. Lightening a
 stamp to appease a contrast check degrades the signature element forever.

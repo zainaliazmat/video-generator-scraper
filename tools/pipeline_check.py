@@ -262,7 +262,8 @@ def drift_from_span(real, span):
 
     Flat is near-unbiased and TWO-SIDED on both voices; adding the full charge
     makes both one-sided negative — this repo's own documented signature of a
-    wrong model (cuts.en._chars_per_second_trap). The band keeps the protection
+    wrong model (vault/workflows/voiceover-tts.md, the drained rate records). The
+    band keeps the protection
     the charge was built for: the Harsh cold open that measured 5.88s against a
     3.84s flat estimate sits inside its own band and stays unflagged, while a
     genuinely truncated clip is still far below `lo`.
@@ -748,6 +749,75 @@ def next_architecture(fmt=None):
 
 # --------------------------------------------------------------------- doctor
 
+# --------------------------------------------------------- per-agent format views
+
+# format.json has two readers with opposite needs: tools call json.load() and want
+# everything at zero cost, agents Read it and pay per byte for keys they never use.
+# So the file does NOT split — it stays the one source — and `doctor` derives a view
+# per agent beside it. Measured on the passive-income-number run: 1.86 MB of agent
+# reads becomes 856 KB, ~250k tokens. The diet is per agent and not per cut: an agent
+# working one cut still gets both, because halving `cuts` is not worth doubling the
+# generated files and threading --cut through every read.
+VIEW_DIR = os.path.join(ROOT, "tools", "format")
+AGENT_DIET = {
+    "fin-research":   ["tiers", "cuts"],
+    "fin-facts":      ["cuts"],
+    "fin-script":     ["tiers", "cuts", "tts", "scene"],
+    "fin-audit":      ["tiers", "cuts", "scene", "layout"],
+    "fin-voice":      ["cuts", "tts"],
+    "fin-storyboard": ["tiers", "cuts", "scene", "layout", "architectures",
+                       "architecture_lock", "chapter_design", "vector_art"],
+    "fin-assets":     ["cuts", "scene", "layout", "vector_art"],
+    "fin-build":      ["cuts", "scene", "layout", "colors", "architectures",
+                       "architecture_lock", "chapter_design", "vector_art",
+                       "video_scene", "known_benign"],
+    "fin-editor":     ["cuts", "scene", "layout", "chapter_design", "vector_art"],
+    "fin-render":     ["tiers", "scene", "qa"],
+    "fin-package":    ["cuts", "layout", "hyperframes_pin"],
+    # fin-ceo and fin-archive are deliberately absent: neither prompt reads a
+    # constants file at all, and a view nobody opens is a file to keep in sync for
+    # nothing. Add one the same day its prompt names the keys it needs.
+}
+VIEW_HEADER = ["_comment", "design_doc"]
+# A note rides along with the key it explains, so no view has to claim prose by hand.
+NOTE_ATTACH = {
+    "_architecture_lock_note": "architecture_lock",
+    "_architectures_note": "architectures",
+    "_image_per_scene_note": "architectures",
+    "components": "architectures",
+    "_known_benign_note": "known_benign",
+    "_stock_video_note": "video_scene",
+}
+
+
+def write_agent_views(fmt=None):
+    """Derive tools/format/<agent>.json from format.json. Returns problems.
+
+    Rewritten unconditionally at every preflight, which is what makes a stale view
+    impossible rather than merely unlikely — §1 runs before the --resume branch, so
+    there is no path into a stage that skips this."""
+    fmt = fmt or load_format()
+    claimed = set(VIEW_HEADER) | set(NOTE_ATTACH)
+    for keys in AGENT_DIET.values():
+        claimed |= set(keys)
+    # An unclaimed key is a key no agent can see: either a view is missing it, or it
+    # is dead weight in the constants file. Both are worth failing preflight over.
+    problems = [f"format.json key '{k}' is claimed by no agent view — add it to a "
+                f"diet in AGENT_DIET or delete it" for k in sorted(set(fmt) - claimed)]
+    problems += [f"AGENT_DIET names '{k}' for {a}, which is not in format.json"
+                 for a, keys in AGENT_DIET.items() for k in keys if k not in fmt]
+    if problems:
+        return problems
+    os.makedirs(VIEW_DIR, exist_ok=True)
+    for agent, keys in AGENT_DIET.items():
+        want = set(VIEW_HEADER) | set(keys) | {n for n, sub in NOTE_ATTACH.items()
+                                               if sub in keys}
+        # preserve format.json's own key order so a diff between views reads straight
+        atomic_write_json(os.path.join(VIEW_DIR, f"{agent}.json"),
+                          {k: v for k, v in fmt.items() if k in want})
+    return []
+
+
 def dangling_studio_refs():
     """A prompt citing `studio/videos/<slug>` is a time bomb: archive_cut.py deletes that
     directory the day the video ships, and the citation keeps reading as authority with
@@ -756,7 +826,9 @@ def dangling_studio_refs():
     since japanese was archived. The surviving copy is always under
     vault/videos/<slug>/src/, so the fix is always a repoint, never a re-creation."""
     bad = []
-    for path in glob.glob(os.path.join(ROOT, ".claude", "**", "*.md"), recursive=True):
+    scan = glob.glob(os.path.join(ROOT, ".claude", "**", "*.md"), recursive=True)
+    scan.append(FORMAT_PATH)          # tiers.*.reference points into studio/ too
+    for path in scan:
         text = open(path, encoding="utf-8").read()
         for ref in set(re.findall(r"studio/videos/[A-Za-z0-9._-]+", text)):
             if "<slug>" in ref or os.path.exists(os.path.join(ROOT, ref)):
@@ -792,6 +864,7 @@ def doctor(tier):
                         "fix: venv/bin/pip install faster-whisper")
     problems += architecture_lock_problems(fmt)
     problems += dangling_studio_refs()
+    problems += write_agent_views(fmt)
     need_gb = 2 * fmt["tiers"][tier]["disk_gb_per_pair"]  # R-9: 2× headroom
     free_gb = shutil.disk_usage(ROOT).free / 1e9
     if free_gb < need_gb:
@@ -1236,6 +1309,22 @@ def _selftest():
         assert notes.count(ruling) == 3, notes.count(ruling)   # verbatim, not JSON-escaped
         assert "\\n" not in notes, "a drained ruling must stay readable prose"
         assert drain_to_notes(json.loads(json.dumps(run)), slug) == 0, "drain must be idempotent"
+
+        # per-agent format views: every key reaches someone, every view is a subset
+        global VIEW_DIR
+        real_views, VIEW_DIR = VIEW_DIR, os.path.join(tmp, "tools", "format")
+        try:
+            assert write_agent_views(fmt) == [], write_agent_views(fmt)
+            for agent, keys in AGENT_DIET.items():
+                v = json.load(open(os.path.join(VIEW_DIR, f"{agent}.json"), encoding="utf-8"))
+                assert set(v) <= set(fmt), agent            # never invents a key
+                assert all(v[k] == fmt[k] for k in v), agent  # never edits a value
+                assert set(keys) <= set(v), (agent, set(keys) - set(v))
+            # an unclaimed key must fail preflight, not ship a key nobody can read
+            assert any("claimed by no agent" in p
+                       for p in write_agent_views(dict(fmt, orphan_key=1)))
+        finally:
+            VIEW_DIR = real_views
         print("selftest OK")
     finally:
         ROOT = real_root

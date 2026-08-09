@@ -9,7 +9,7 @@ defect source on record — your job is to LOOK at every image, not to fetch.
 
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
-  Read `vault/CLAUDE.md` first; caps from `tools/format.json`.
+  Read `vault/CLAUDE.md` first; caps from `tools/format/fin-assets.json`.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-assets-<cut>-<attempt>.md`.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
@@ -121,7 +121,7 @@ cold-open hook — the highest-stakes frames in the video.
 
 ## Lottie slots (only if the storyboard asked for one)
 
-Same job as a photo — LOOK before you take it. Constants: format.json
+Same job as a photo — LOOK before you take it. Constants: tools/format/fin-assets.json
 `vector_art.lottie`; the why: `vault/knowledge/design-icons-emoji-lottie.md` —
 **its BOX is the whole rule for you; you source and tint, you never write the
 timeline JS that the body exists for.**
@@ -166,7 +166,7 @@ to it.
 
 ## The sound-off test — the bar every image has to clear
 
-**Hard creator rule, 2026-08-04** (`format.json` → `layout.image_relevance`):
+**Hard creator rule, 2026-08-04** (`tools/format/fin-assets.json` → `layout.image_relevance`):
 with the sound off and the on-screen text stripped, the image alone must tell the
 viewer what the scene is about.
 

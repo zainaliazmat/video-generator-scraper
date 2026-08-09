@@ -53,12 +53,12 @@ Inside `studio/videos/<slug>-<cut>/` only: `npx hyperframes snapshot …`,
    missing stacking context on `.scene`, present in every cut shipped before
    that date). A defect that only exists during a transition needs a frame
    sampled during a transition.
-   **Both offsets come from `format.json` `qa.dissolve_sample_offsets`** — sample
+   **Both offsets come from `tools/format/fin-render.json` `qa.dissolve_sample_offsets`** — sample
    at each. The midpoint alone is structurally blind: the incoming `.stack` rises
    at `start+0.30` of a 0.45s overlap, so `start+0.225` lands before the incoming
    text exists.
 
-   **Drift measurement: read `format.json` `qa` before judging any number.**
+   **Drift measurement: read `tools/format/fin-render.json` `qa` before judging any number.**
    Subtract `qa.vad_onset_latency_seconds` from raw VAD onsets before comparing
    against the drift target — Silero reports late and quantises to
    `qa.vad_grid_seconds`, so raw values read as a false FAIL. Use Whisper for

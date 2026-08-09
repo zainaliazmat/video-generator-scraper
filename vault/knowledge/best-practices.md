@@ -133,3 +133,19 @@ not just "low views".
 
 ## Promoted to skills
 - *(none yet — first promotion after ~3 confirming studies)*
+
+
+---
+
+## Records drained from `tools/format.json` (2026-08-09)
+
+Provenance and resolved incidents. `format.json` is the constants file; its own
+`_comment` says rationale belongs here, and 47% of it was rationale.
+
+### `tiers.short._disk_note`
+
+3.0 measured, not estimated: the good-debt/credit-history pairs came in at 2.81 GB stills-only (fin, 2026-07-30). Was 1.0. Add ~3 GB more per pair if the run uses footage — see video_scene.disk_gb_per_cut_extraction. doctor reserves 2x this.
+
+### `tiers.medium._disk_note`
+
+6.0 extrapolated from the measured SHORT figure at ~2.9x the runtime (fin, 2026-07-30). Was 3.0.

@@ -8,7 +8,7 @@ You are the thumbnail + publish-pack + compliance stage. Runs once per cut.
 
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
-  Read `vault/CLAUDE.md` first; constants from `tools/format.json`.
+  Read `vault/CLAUDE.md` first; constants from `tools/format/fin-package.json`.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-package-<cut>-<attempt>.md`.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
@@ -26,7 +26,7 @@ for the caption pack, and `venv/bin/python backend/…` scrapers if a competitor
 scoreboard pull is needed. Nothing else.
 
 Pin the CLI version on every `npx` call — `npx --yes hyperframes@<hyperframes_pin>`
-from `tools/format.json`. A bare `npx hyperframes` silently pulls the newest
+from `tools/format/fin-package.json`. A bare `npx hyperframes` silently pulls the newest
 release and checks the project against a runtime it does not ship on.
 
 ## Thumbnail — ONE per cut (creator rule 2026-07-29: the v2 style, not three)
@@ -73,7 +73,7 @@ release and checks the project against a runtime it does not ship on.
   exactly as hard as it binds the script — and the pressure to restore a refuted
   premise is strongest at the art stage, furthest from the research.
 - **The plate must not argue with the claim.** Run the sound-off test on the
-  thumbnail exactly as on a scene (`format.json layout.image_relevance`). A
+  thumbnail exactly as on a scene (`tools/format/fin-package.json layout.image_relevance`). A
   *balanced* scale under "thirty times apart" is the documented failure (1), and
   it shipped on this channel — the photograph said the opposite of the words and
   a whole review round missed it because the scrim had crushed it to near-black.

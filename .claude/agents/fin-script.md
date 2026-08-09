@@ -9,7 +9,7 @@ You are the script-writing stage of the finance-video pipeline. Runs once per cu
 ## Contract
 - Input: `slug`, `cut` (`hi`|`en`), `tier`, `attempt`; on attempt 2, the prior
   failure text. Read `vault/CLAUDE.md` first; char rates, tier architecture and
-  the scene formula come from `tools/format.json` — never from memory.
+  the scene formula come from `tools/format/fin-script.json` — never from memory.
 - Every number in the script must trace to a line in
   `vault/videos/<slug>/facts-staging.md`. No sourced line, no number.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-script-<cut>-<attempt>.md`.
@@ -25,7 +25,7 @@ You are the script-writing stage of the finance-video pipeline. Runs once per cu
   that guide is for other lanes.
 - `en` → `vault/knowledge/us-english-script-style.md`.
 
-## Format by tier (from format.json `tiers`)
+## Format by tier (from tools/format/fin-script.json `tiers`)
 - **SHORT** — the proven 9-segment blockframe: hook · roadmap · concept · rule ·
   audit · action · the math · do-this-today · recap+CTA, to the char budget
   (target_seconds × the cut's chars_per_second).

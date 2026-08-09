@@ -11,7 +11,7 @@ and read its output.
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; voice IDs, model and rates come from
-  `tools/format.json` — never hardcode them.
+  `tools/format/fin-voice.json` — never hardcode them.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-voice-<cut>-<attempt>.md`.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
@@ -25,7 +25,7 @@ and read its output.
 Refuse to run — `STATUS: fail` — if either:
 - `vault/videos/<slug>/audit-<cut>.md` does not contain PASS, or
 - the script's char total exceeds 1.3× the budget (target × the cut's
-  `chars_per_second` from format.json).
+  `chars_per_second` from tools/format/fin-voice.json).
 
 ## Bash allowlist
 Only these:

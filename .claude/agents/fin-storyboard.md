@@ -8,7 +8,7 @@ You are the storyboard stage. Runs once per cut.
 
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
-  Read `vault/CLAUDE.md` first; layout constants from `tools/format.json`.
+  Read `vault/CLAUDE.md` first; layout constants from `tools/format/fin-storyboard.json`.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-storyboard-<cut>-<attempt>.md`.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
@@ -16,7 +16,7 @@ You are the storyboard stage. Runs once per cut.
 
 ## Reads
 - **`vault/knowledge/design-finance-blockframe.md`** — the ONLY design doc for
-  finance work. **Read its BOX; open the body only for a VALUE `format.json` did
+  finance work. **Read its BOX; open the body only for a VALUE `tools/format/fin-storyboard.json` did
   not answer.** `design-techtooltester.md` is the opposite (bright) system;
   reading it here is how drift starts.
 - `vault/templates/storyboard-template-finance.md`, the script, and
@@ -33,11 +33,11 @@ You are the storyboard stage. Runs once per cut.
 3. Cue offsets carry a class: **anchored** (scales with the clip, lands on a
    word) or **fixed** (cascades, stamp slams — constant). Surplus time from a
    longer clip goes into holds, never cascades.
-4. Layout rules (format.json): one focal element per scene, kicker first,
+4. Layout rules (tools/format/fin-storyboard.json): one focal element per scene, kicker first,
    cue spacing ≥0.8s except declared cascades, ≤6 simultaneous elements,
    something on screen by +0.5s, ≤3 chips/row at ≤22 chars.
 4b. **Assign the ARCHETYPE LAYER — MEDIUM/LONG only, one row per scene.**
-   Constants: `format.json chapter_design`. Rules:
+   Constants: `tools/format/fin-storyboard.json chapter_design`. Rules:
    `vault/knowledge/design-chapter-archetypes.md`. `fin-build` applies what you
    write here and chooses nothing itself, so the scene table must carry three
    more columns:
@@ -65,7 +65,7 @@ You are the storyboard stage. Runs once per cut.
    scenes get `centred` and `fin-build` drops their plate and rules.
 
 4a. **Storyboard for THIS run's architecture**, named in `run.json`
-   (`architecture`) and specced in format.json `architectures`. It is rotated
+   (`architecture`) and specced in tools/format/fin-storyboard.json `architectures`. It is rotated
    per run, so do not assume the centred stack. `ledger-rail` in particular is
    left-aligned with a 300px rail — give every scene its rail label (a 1–2 word
    beat name) and its index, and note that its photo is a right-hand panel, so
@@ -92,7 +92,7 @@ You are the storyboard stage. Runs once per cut.
    japanese-money-methods, 2026-08-01, escalated this as a decision; it is not one.)
    Silence on a beat is a choice; mark the beats you want *dry*.
 4d. **Vector art (optional).** A scene may carry ONE graphic on top of its
-   photograph — never instead of it. Constants in format.json `vector_art`;
+   photograph — never instead of it. Constants in tools/format/fin-storyboard.json `vector_art`;
    the why in [[knowledge/design-icons-emoji-lottie]].
    - Default is an **icon**: an inline `<svg class="icon <role>c">` stroke-drawn
      by `draw()`. Free, palette-coloured, no asset to fetch. Name the shape in
@@ -105,7 +105,7 @@ You are the storyboard stage. Runs once per cut.
      (`"person checking finance app on phone"`), plus the accent hex fin-assets
      must tint it to.
    - Neither goes on the scene carrying the video's one big number — that scene
-     already has its focal element, and format.json caps it at one.
+     already has its focal element, and tools/format/fin-storyboard.json caps it at one.
    - Emoji are not the icon system. See the note; use one only as a deliberate
      tonal break, and say in the log that you meant it.
 5. **Every scene has a full-bleed background photo — no photo-free scenes**

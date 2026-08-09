@@ -201,3 +201,23 @@ just cost time, it silently voids the evidence you thought you had. Same shape a
 Related: [[design-chapter-sound]] · [[design-chapter-archetypes]] ·
 [[stock-photo-sourcing]] · [[design-finance-blockframe]] ·
 `tools/pipeline_check.py` (where most of these become executable)
+
+
+---
+
+## Records drained from `tools/format.json` (2026-08-09)
+
+Provenance and resolved incidents. `format.json` is the constants file; its own
+`_comment` says rationale belongs here, and 47% of it was rationale.
+
+### `qa._vad_note`
+
+Silero VAD reports speech onset LATE and quantised: every onset lands on a multiple of 0.032s (its 512-sample window), and the detector adds a systematic positive bias measured at +0.101s median across 92 lines (japanese-money-methods-hi, 2026-08-01). Subtract this bias before comparing against the 0.1s drift target — raw VAD max on that cut was +0.167s (a false FAIL) against a true residual of 0.068s. Re-measure the bias if the VAD model or window changes.
+
+### `qa._dissolve_note`
+
+Sample transitions at BOTH offsets into the overlap. The incoming .stack rises at start+0.30 of a 0.45s dissolve, so a midpoint frame (start+0.225) lands before the incoming text exists and CANNOT see a double-paint — the exact blind spot that let the missing `.scene` stacking context ship. start+0.38 is inside the only ~0.15s window where both scenes' text can be up.
+
+### `qa._whisper_note`
+
+Do NOT derive per-line drift from Whisper segment starts: `base` merged 92 lines into 173 segments and produced a phantom 7.675s outlier. Use Whisper for COVERAGE (gaps, dropped clips), VAD for onsets.

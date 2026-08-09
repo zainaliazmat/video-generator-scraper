@@ -206,3 +206,35 @@ z/f/q/gh/kh words, Islamic terms and spelled-out numbers need a human ear before
 - [[../videos/video-hist-02-firaun/script-v1-devanagari-tts]] — engine-input layer, first full Rule-0 run.
 - [[../videos/video-hist-02-firaun/script-v2-nastaliq-lines]] — human canonical, 307 lines + scene cues + cites (line-granularity rebuild).
 - [[../videos/video-hist-02-firaun/script-v2-devanagari-lines]] — TTS engine input, line-driven.
+
+
+---
+
+## Records drained from `tools/format.json` (2026-08-09)
+
+Provenance and resolved incidents. `format.json` is the constants file; its own
+`_comment` says rationale belongs here, and 47% of it was rationale.
+
+### `cuts.en._chars_per_second_trap`
+
+RESOLVED 2026-08-07 — kept as the record of how it was resolved, because the ordering rule still applies to the hi key. The bug was never the rate alone: fin-script budgeted chars as target_seconds × rate, which ignores the per-line scene padding that is not audio, so a wrong rate and a wrong formula cancelled and both cuts still hit target. Fixing either one alone breaks that cancellation — raising the rate first would have made every script ~17% long. Order followed: (1) fin-script and fin-audit both derived (target − lines × (lead_in + tail)) × rate independently on passive-income-number and logged the override; (2) the orchestrator's confirm-block formula was corrected in .claude/commands/finance-video.md; (3) only then was chars_per_second raised. Evidence that the key was wrong rather than noisy: across 78 lines of passive-income-number-en, ALL 78 drifted negative against expected_seconds. Noise is two-sided; a wrong key is one-sided.
+
+### `cuts.hi._chars_per_second_note`
+
+14.281 measured 2026-08-08 across all 81 per-line clips of passive-income-number-hi on AMRUT (5,919 chars / 414.454s of audio). Was 13.03, measured on HARSH across first-lakh-first-thousand-hi and carried over on the assumption the voices matched. They do not: Amrut is 9.60% faster per line, and the drift was ONE-SIDED — 71 of 81 lines short against expected — which is the documented signature of a wrong key, not noise (see cuts.en._chars_per_second_trap; en showed 78/78). Ordering rule was already satisfied: the speech-time budget formula was corrected 2026-08-07, so raising the rate now does not un-cancel a second error. This is the FLAT delivered rate including pause silence, which is what script budgeting needs; pipeline_check adds tts.pause_seconds on top per line.
+
+### `cuts.en._chars_per_second_note`
+
+17.57 = the mean of three FLAT measurements on the cuts we actually ship (first-lakh-first-thousand-en MEDIUM 17.73 · japanese-money-methods-en LONG 17.39 · passive-income-number-en MEDIUM 17.588). Raised from 16.1 on 2026-08-07, once the both-or-neither precondition below was finally met. ⚠ SHORT CAVEAT: the 16.1 it replaces was itself measured, on SHORT cuts (16.11, 16.64). The gap is mechanical, not noise — SHORT writes shorter lines, so punctuation-pause time is a bigger share of each clip and the flat chars/second comes out lower. This single key is now tuned for MEDIUM/LONG, which is all the channel has shipped since 2026-07-30. If a SHORT cut is ever made again, expect scripts ~9% long and re-measure before trusting this number.
+
+### `cuts.hi._voice_note`
+
+Creator pick 2026-08-07 after an A/B listening test: Amrut Deshmukh (Educational Hindi Voice) replaces Harsh (Clear & Calm Documentary Narrator), the locked channel voice since 2026-07-28. Chosen to match style E. Samples: studio/voice-tests/passive-income-number/. RUNTIME: free. ⚠ CORRECTED 2026-08-08 — this note previously said the two voices landed within 0.2s on a 58-second passage so no re-budget was needed. That was measured on a CONTINUOUS read, and it was wrong by 9.6% at the per-line level. A continuous read carries inter-sentence pause INSIDE the audio; per-line clips push that same pause out into lead_in + tail padding, where it stops counting as speech. Measure every future voice A/B on PER-LINE CLIPS or it will always under-report the flat rate by roughly the padding it absorbs. Same copy: 118.0s continuous vs 107.20s as 21 per-line clips.
+
+### `tts._pause_seconds_note`
+
+Silence the voice actually takes at each mark, added to the flat chars/rate estimate in pipeline_check.expected_seconds. Without it the cold-open hook — short punched clauses, the winning format in this niche — self-flags as truncated: first-lakh-first-thousand line 1.1 measured 5.88s against a 3.84s flat estimate (+53%) purely from one danda and one em-dash. Symmetric tolerance means this makes genuinely SHORT clips easier to catch, not harder.
+
+### `scene._lead_tail_tier_note`
+
+lead_in/tail are charged PER LINE, so they scale with line count and a value tuned at SHORT's 9 lines is wrong at MEDIUM's ~86. At 0.4+1.0 the hi cut spent 120.4s of its 566s on inter-line padding; with tts.pause_seconds already buying 80.5s of in-line pause that is 35% of the video in silence. MEDIUM/LONG override to 0.25+0.55 (68.8s), landing 514.8s against the 510s target. Creator 2026-07-31: 'looks professional and engaging not dead.'

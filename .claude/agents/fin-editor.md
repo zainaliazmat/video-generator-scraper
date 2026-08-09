@@ -85,7 +85,7 @@ photographs with type over them is the thing they keep asking us to move past.
   COUNT is a candidate for drawn art, and is a finding if it is a flat photo.
 - A beat no photograph can serve — a ratio, a subset, a date being circled — is
   a **FAIL**, not a suggestion. That is what drawing is for.
-- Check `tools/format.json` → `vector_art.lottie.max_per_chapter` before asking
+- Check `tools/format/fin-editor.json` → `vector_art.lottie.max_per_chapter` before asking
   for more. If the chapter is at cap and you still want art, say which existing
   one earns its place least.
 

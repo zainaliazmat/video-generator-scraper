@@ -557,3 +557,35 @@ finding; never edit a token to satisfy a checker.
 [[channels]] · [[stock-photo-sourcing]] · [[niches/india-finance-market]] ·
 [[us-english-script-style]] · [[../workflows/voiceover-tts]] ·
 [[design-techtooltester]] (the *other* system — bright, non-finance)
+
+
+---
+
+## Records drained from `tools/format.json` (2026-08-09)
+
+Provenance and resolved incidents. `format.json` is the constants file; its own
+`_comment` says rationale belongs here, and 47% of it was rationale.
+
+### `_architecture_lock_note`
+
+When set, this WINS over the rotation above and every run uses it — no per-run override, nothing to remember. Creator decision 2026-07-30: the creator reviewed all thirteen candidate styles side by side (nine of them registry-backed) and chose to keep blockframe-9, so the rotation would otherwise hand the next run ledger-rail and silently contradict a decision that was actually made. A lock is the honest representation of 'we picked one'. Delete this key to resume rotating; `doctor` refuses a lock that names an architecture that does not exist, so a typo cannot degrade to silent rotation. The sameness risk this rotation existed to manage is now carried by the non-layout levers instead — transitions (live), the SFX kit (present), and the music bed (see tools/audio/kit.json).
+
+### `_architectures_note`
+
+The pipeline ROTATES these — `pipeline_check.py architecture` returns the one least recently used, and the orchestrator writes it into run.json before fin-script runs. Six consecutive blockframe-9 cuts shipped because the only control was a warning written into notes that no code read; the fix is that the default now varies by construction rather than being flagged after the fact. Add an entry here to put a new layout into the rotation.
+
+### `_styles_rejected_note`
+
+Reviewed and rejected 2026-07-30 — do not re-propose without new reason. 'news-ticker': we are not making news videos, irrelevant to finance education. 'code-snippet' and 'code-typing': we are not making coding videos. The other registry directions were rejected for carrying no photograph; the ones that can be re-cut to carry one may return. 'x-post'/'reddit-post' was ACCEPTED as an occasional component (not an architecture) — usable only when a real, topical social post exists; see _components.
+
+### `_image_per_scene_note`
+
+HARD creator rule, restated 2026-07-30 while rejecting most of the thirteen candidate styles: 'images are compulsury'. Every architecture MUST declare image_per_scene: true and actually carry a photograph in EVERY frame — a style that renders type on flat colour is out of scope no matter how good it looks. `doctor` refuses an architecture without the flag, so a new style cannot be added that quietly drops the image. Pairs with layout.photo_free_scene_ratio = 0.
+
+### `_known_benign_note`
+
+Empty is the correct state. The one entry ever added — invalid_parent_traversal_in_asset_path — was WRONG, and cost four cuts their browser checks: it reasoned the ../ urls were a static-analysis false positive because the render looked right, which was true. What it missed is that a lint ERROR makes `hyperframes check` SKIP the layout and contrast passes entirely, so those four cuts shipped with WCAG and layout never actually run. Fixed at the root 2026-08-01 by moving blockframe.css to assets/blockframe.css so the urls need no ../ at all. Lesson: 'the output looks fine' does not establish that a finding is benign — check what the finding SUPPRESSES.
+
+### `_stock_video_note`
+
+SUPPORTED — corrected 2026-07-30 (an earlier version of this note said the opposite; it was wrong). HyperFrames does not play video in real time: it pre-extracts the clip to frames with ffmpeg and injects the right one as an <img> before each capture (studio/packages/engine/src/services/videoFrameInjector.ts), so rendering stays deterministic. We have already shipped it — compositions/video-02-claude-edits-video/index.html has eight root <video> clips. The grade survives: `filter` and `transform` are in MEDIA_VISUAL_STYLE_PROPERTIES and are copied onto the injected frame.

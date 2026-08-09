@@ -117,3 +117,100 @@ standing context per run   ~5.72M → ~1.5M tokens   (74%)
 
 Verification: `pipeline_check.py --selftest` OK (new drain self-check included),
 `doctor --tier medium` PASS, 31 backend tests pass.
+
+---
+
+## 2026-08-09 — Phase 2a: `format.json`
+
+After item 1, `format.json` was the largest remaining line item: 27,183 b read
+whole by 13 agents, ~550k tokens/run.
+
+### A — the prose drained (30%)
+
+**47% of the file was `_`-prefixed prose** — the same disease and the same
+convention as `run.json`, and against the file's own `_comment`, which says
+*"Prose/design rationale lives in vault/knowledge/design-finance-blockframe.md —
+never duplicate it here."*
+
+No code reads any `_` key (verified: the two apparent hits were `strip_comments`
+and `cut_assemble` writing its own `_comment`). 21 keys drained into 6 vault docs
+by domain — rate/voice records to `workflows/voiceover-tts.md`, architecture and
+style verdicts to `design-finance-blockframe.md`, VAD/dissolve/Whisper mechanics
+to `evidence-discipline.md`, the Lottie cap to `design-icons-emoji-lottie.md`.
+
+It is 30%, not 47%, because a shortened live kernel stayed wherever a note was
+doing real work at read time (`art_opacity._important_note`, the `video_scene`
+traps, `scene._transition_note`). Only the records went.
+
+```
+tools/format.json   27,183 → 18,957 b   0 strings >60 chars lost (leaf-set diff vs HEAD)
+```
+
+**The live citation was worse than stale.** Both worked examples in
+`.claude/commands/finance-video.md` computed the char budget at `13.03` — the
+**retired Harsh rate**, when live `cuts.hi.chars_per_second` is `14.281`. The
+orchestrator was teaching every run a budget ~9% too small; that is the same
+failure that landed the hi cut at 7:59.259, under the 8:00 mid-roll floor. Now
+reads live, with dated examples and an explicit "never copy a worked example's
+number."
+
+Also: `_components` → `components` (structured config, not prose — the underscore
+would have made it a drain target), and `dangling_studio_refs()` now scans
+`format.json`, where `tiers.medium/long.reference` points into `studio/` and
+becomes a dangler the day firaun ships.
+
+### B — per-agent views (a further 50%)
+
+`format.json` has two readers with opposite needs: tools call `json.load()` and
+want everything at zero cost; agents `Read` it and pay per byte. So the file does
+**not** split — `doctor` derives `tools/format/<agent>.json` beside it at every
+preflight, which runs before the `--resume` branch, so a stale view is impossible
+rather than unlikely. Views are gitignored; the source is tracked.
+
+A `_<key>_note` rides along with the key it explains, so no view claims prose by
+hand. `doctor` fails preflight if any `format.json` key is claimed by no view —
+the "every key belongs to at least one robot" check.
+
+| agent | view | % of file | inv/run |
+|---|---|---|---|
+| fin-build | 17,758 b | 93% | 19 |
+| fin-storyboard | 16,802 b | 88% | 4 |
+| fin-editor | 12,988 b | 68% | 16 |
+| fin-assets | 7,686 b | 40% | 23 |
+| fin-audit | 4,533 b | 24% | 5 |
+| fin-script | 3,363 b | 18% | 5 |
+| fin-package | 3,081 b | 16% | 0 |
+| fin-render | 2,397 b | 13% | 12 |
+| fin-research | 1,943 b | 10% | 2 |
+| fin-voice | 1,880 b | 10% | 5 |
+| fin-facts | 1,198 b | 6% | 1 |
+
+```
+format.json reads per run   2,500,836 → 871,924 b   65% off   ≈ 407k tokens
+```
+
+`fin-research` and `fin-facts` had prompts saying only "constants from
+format.json." Rather than infer their diet, **both prompts now name the keys they
+use and why** — research reads `tiers.<tier>` and `cuts.*.channel`, facts reads
+`cuts.<cut>.currency` / `forbidden_currency` — and the slices come from those
+declarations.
+
+`fin-ceo` and `fin-archive` are deliberately absent: neither prompt reads a
+constants file at all, and a view nobody opens is a file to keep in sync for
+nothing.
+
+### The benchmark chapter in the brief was the wrong one
+
+`japanese-money-methods` **hi**-ch1 and hi-ch2 are the two hand-built vector-only
+chapters — zero archetype classes, `.field` deliberately redeclared to the legacy
+full-bleed. Tracing `fin-build`'s diet against hi-ch2 proves nothing about the
+archetype layer because that chapter bypasses it. `en`-ch2 *is* generator-built.
+
+Traced instead against all **14 generator-built chapters** of that video:
+**10 distinctive `format.json` constants used, 0 missing from `fin-build`'s
+view.** Plus: every cited view file exists and parses, `doctor` passes on all
+three tiers, and the orphan-key assert fires in the selftest.
+
+This proves the views are sufficient for work that has actually shipped. It does
+not prove an agent will never reach for a key its prompt never named — only a
+live run does that.

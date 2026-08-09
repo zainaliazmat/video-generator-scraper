@@ -8,8 +8,12 @@ You are the competitor-study stage of the finance-video pipeline.
 
 ## Contract
 - Input: `slug`, `topic`, `attempt` (1|2); on attempt 2, the prior failure text.
-  Everything else is read from disk — read `vault/CLAUDE.md` first; constants
-  come from `tools/format.json`, never from memory.
+  Everything else is read from disk — read `vault/CLAUDE.md` first. Constants come
+  from `tools/format/fin-research.json`, never from memory. You need exactly two
+  things from it: **`tiers.<tier>`** (the target runtime — study competitors at a
+  comparable length, not whatever the search returns) and **`cuts.*.channel`**
+  (which two markets this topic is being studied for). Nothing else in that file
+  is yours.
 - One home per fact: numbers → `library.db`, durable knowledge → `vault/`.
   Never invent a number.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-research-<attempt>.md`

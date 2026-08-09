@@ -252,3 +252,19 @@ renders `.icon.fundc` green and a tinted `.lottie` in `.aside`.
 No attribution is required by the licence; recording the author here is so a
 future run can find more from the same hand — style consistency across a video
 matters more than the individual asset.
+
+
+---
+
+## Records drained from `tools/format.json` (2026-08-09)
+
+Provenance and resolved incidents. `format.json` is the constants file; its own
+`_comment` says rationale belongs here, and 47% of it was rationale.
+
+### `vector_art.lottie._cap_note`
+
+Was max_per_video: 3. Raised and re-scoped to PER CHAPTER on 2026-08-04: the creator asked for Lotties 'as much as we can', and the pipeline now builds and draft-renders one chapter at a time, so the render-time cost the old cap protected against is discovered in a 3-minute draft instead of a 40-minute final. The cost is still real (see _cost_note) — the cap is the point at which you must justify the next one, not a target to hit.
+
+### `vector_art.lottie._cost_note`
+
+lottie-web redraws the whole illustration every frame: two heavy ones took a 20s 1080p render from 1m27 to 3m56 (2.7x). The cap is about render time AND about not turning the cut into a template deck.

@@ -10,7 +10,7 @@ once per cut.
 
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
-  Read `vault/CLAUDE.md` first; constants from `tools/format.json`.
+  Read `vault/CLAUDE.md` first; constants from `tools/format/fin-audit.json`.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-audit-<cut>-<attempt>.md`.
   Use **Write** — the file does not exist yet and Edit refuses to create one. (This
   stage had no Write until 2026-08-08 and so could not create its own log; on
@@ -37,7 +37,7 @@ shipping.
 ## Checks (all must hold)
 1. Every number traces to a staging line AND survives the source re-fetch.
    Untraceable ⇒ cut it or replace it from a verified line.
-2. Char total within ±10% of the budget (from format.json rates × target).
+2. Char total within ±10% of the budget (from tools/format/fin-audit.json rates × target).
 3. The hook's payoff promise lands inside 15 seconds.
 4. No product or platform recommended; names appear only as price evidence.
 5. Currency purity: no ₹ in `-en`, no $ in `-hi` — anywhere in the file.
@@ -45,7 +45,7 @@ shipping.
    known silent TTS failures.
 7. Persona rules: no host persona, no first-person expertise, no
    investment picks (YouTube 2026 carve-out — this is a monetisation gate).
-8. Text-level layout lints from format.json: exactly one focal element per
+8. Text-level layout lints from tools/format/fin-audit.json: exactly one focal element per
    scene; consecutive cues ≥ `cue_min_gap_seconds` apart except a declared
    cascade (≤5 items); ≤3 chips per row, ≤22 chars per chip; the storyboard's
    colour table must not argue against the script's thesis.

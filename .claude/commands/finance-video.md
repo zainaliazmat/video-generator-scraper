@@ -100,13 +100,13 @@ budget = (target_seconds − lines × (lead_in_seconds + tail_seconds)) × chars
 
 reading `lines`, `lead_in_seconds` and `tail_seconds` from `format.json
 tiers.<tier>` (falling back to the `scene` block when the tier omits them), and
-`chars_per_second` from `cuts.<cut>`. SHORT ⇒ `(165 − 9×1.4) × 13.03 ≈ 1,986` hi.
-The naive `target × rate` overshoots by ~12% and invites a script to pad itself
-that much: on passive-income-number (MEDIUM) it printed 6,645 for a cut whose
-real budget is `(510 − 78×0.8) × 13.03 = 5,832`. Both `fin-script` and
-`fin-audit` caught and overrode it independently on 2026-08-07 — do not make
-them; `format.json cuts.en._chars_per_second_trap` has said "fix the budget
-formula FIRST, then the rate" since 2026-07-31.
+`chars_per_second` from `cuts.<cut>`. **Always read the rate live — never copy a
+worked example's number.** At the hi rate of 2026-08-08 (14.281, Amrut) that is
+SHORT ⇒ `(165 − 9×1.4) × 14.281 ≈ 2,176` and MEDIUM ⇒ `(510 − 78×0.8) × 14.281 ≈
+6,392`; the naive `target × rate` gives 2,356 and 7,283, overshooting by 8–14%
+and inviting a script to pad itself that much. The rate changes whenever the
+voice does — it moved 13.03 → 14.281 when hi went from Harsh to Amrut, and a
+script budgeted at the old rate lands short of the tier's own floor.
 
 Initialize `run.json`: intake answers, `started`, an empty `stages` map, and a
 `budget` block `{elevenlabs_calls: 0, max_elevenlabs_calls: <derived>, pixabay_calls: 0}`.
