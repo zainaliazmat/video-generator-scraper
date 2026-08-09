@@ -255,9 +255,13 @@ For chapter N = 1..last:
 1  fin-assets  --chapter N     images + Lotties for this chapter only
 2  fin-build   --chapter N     the chapter project (archetype layer, §3c)
 3  hyperframes check           must pass
-4  DRAFT RENDER + SHEET (fin-render --chapter N):
-     hyperframes render -q draft -f <final fps> -o renders/DRAFT-ch<N>.mp4
-     tools/chapter_sheet.py … -o renders/SHEET-ch<N>.jpg
+4  DRAFT RENDER + SHEET — **you run this yourself, it is not a stage**:
+     python3 tools/render_chapter.py <slug> --cut <cut> --chapter N [--check]
+   It renders at `-q draft` and at the composition's own `data-fps`, builds the
+   contact sheet, and refuses to run when `build.mjs` is newer than `index.html`
+   (the stale-composition trap, §3b below). This was `fin-render --chapter N`
+   until 2026-08-09: an agent wrapping two commands with no decision between
+   them, measured at 318,807 tokens per invocation across 21 invocations.
 5  fin-editor  chapter N       -> PASS | REWORK
      REWORK -> fin-build fix -> re-draft -> fin-editor (max 3 editor rounds)
 6  fin-ceo     chapter N       -> SHIP | REWORK

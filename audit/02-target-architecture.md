@@ -94,31 +94,59 @@ to read only that box**: `fin-storyboard.md:31-33`, `fin-build.md:73-76`, `fin-e
 different from what their prompts already tell them to read. It is the cleanest measured
 number in the audit.
 
-### Lever 2 — the shared contract, written once instead of eleven times
+### ~~Lever 2 — the shared contract, written once instead of eleven times~~ — **WITHDRAWN, measured wrong**
 
-Four blocks are restated verbatim across 11 agent files: the 4-line return envelope, the
-five-heading log format, the untrusted-input rule, and the never-write list
-([01 §1 rows 3, 55, 56](01-capability-matrix.md)). One `packs/contract.md` (~2,000 B) replaces
-roughly 1,100 B × 11 ≈ 12,000 B of duplication **and** makes the I/O contract a single
-editable thing.
+**Corrected 2026-08-09 before implementation.** The claim was that extracting four repeated
+blocks into one `packs/contract.md` saves ~12,000 B. It does not, and would make token cost
+**worse**.
 
-### Lever 3 — stop over-slicing `tools/format/`
+Measured across all 13 agents: the four blocks total **6,309 B**, a mean of **485 B per
+agent** — not 1,100.
 
-`tools/format.json` is **24,403 B of JSON**. Its 11 derived per-agent views total **102,312 B**
-— **4.2× the source**, because shared keys are copied into every slice.
+The arithmetic error was counting duplication *across files* as if it were paid at runtime.
+**Each invocation loads exactly one agent definition**; `fin-storyboard`'s copy of the
+boilerplate is never in `fin-build`'s context. So the per-invocation cost is 485 B, and
+replacing it with a pointer (~80 B) plus a `Read` of a ~2,000 B shared file costs **2,080 B —
+4× worse**.
 
-For the two largest consumers the slicing buys almost nothing:
+The 6,309 B is a **maintenance** cost (13 places to edit), not a token cost. At 485 B ≈ 121
+tokens against `fin-build`'s measured **439,515 tokens per invocation**, it is 0.03%. Not
+worth a change in either direction. **Step 5 is dropped.**
 
-| Slice | Size | vs. reading all of `format.json` |
-|---|---|---|
-| `fin-storyboard.json` | 20,307 | saves 4,096 B (17%) |
-| `fin-build.json` | 19,799 | saves 4,604 B (19%) |
-| `fin-editor.json` | 14,566 | saves 9,837 B (40%) |
+### ~~Lever 3 — stop over-slicing `tools/format/`~~ — **WITHDRAWN, not safely actionable**
 
-Slicing is worth keeping for the small consumers (`fin-facts.json` 2,075) and should be
-**re-cut, not abandoned**: the three large slices carry `chapter_design` (4,702 B in source)
-and `architectures`/`layout`/`vector_art` that belong in `packs/design-system.md` instead of
-in three JSON copies.
+Same arithmetic error, plus a second problem. `tools/format.json` is 24,403 B and its 11
+derived views total 102,312 B — but again, each agent reads only its own slice, so the 4.2×
+"duplication" costs nothing at runtime. The only real question is whether a given slice is
+wider than its agent needs.
+
+Testing that by grepping each prompt for its slice's key names gives this:
+
+| Slice | Size | Bytes of keys never named in the prompt |
+|---|---:|---:|
+| `fin-editor.json` | 14,566 | 6,774 (`layout`, `chapter_design`) |
+| `fin-voice.json` | 4,966 | 3,291 (`cuts`, `tiers`) |
+| `fin-audit.json` | 9,014 | 3,291 (`cuts`, `tiers`) |
+| all 11 | 102,312 | 21,716 |
+
+**That evidence is not good enough to act on.** `fin-voice` never writes the word `cuts`, but
+`fin-voice.md:14` needs `cuts.<cut>.voice_id` and `:31` needs the cut's `chars_per_second` —
+the key is required and unnamed. Trimming on a grep would produce exactly the silent
+too-narrow diet that `write_agent_views` already warns about in its own `_if_a_constant_is_missing`
+escape hatch.
+
+The mechanism to do this safely already exists and points the other way: the
+`MISSING-CONSTANT: <key>` log line detects a diet that is **too narrow**, from evidence.
+Detecting one that is **too wide** needs run evidence this refactor does not have. **Step 6 is
+deferred until the `MISSING-CONSTANT` lines from several runs can be read**, which is
+`fin-retro`'s job (Phase 6), not a guess made now.
+
+### What actually paid
+
+Lever 1 (BOX extraction) was the whole win: **−84.4% on notes, −49.8% on static context for
+the five affected agents.** Levers 2 and 3 were arithmetic, and the arithmetic was wrong.
+The remaining large, safe reduction is **step 7 — deleting the three agents that carry no
+judgment**, measured at **12.0% of subagent tokens**.
 
 ### 2.1 · The packs
 

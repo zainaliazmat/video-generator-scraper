@@ -26,22 +26,17 @@ Inside `studio/videos/<slug>-<cut>/` only: `npx hyperframes snapshot …`,
 
 ## Procedure — strictly in order
 
-0. **Chapter draft mode (`--chapter N`).** In the chapter loop you do NOT run
-   gate two or the encode. You draft-render the chapter, build its contact
-   sheet, and stop:
+0. **Chapter draft mode — REMOVED 2026-08-09. Not yours any more.**
+   The orchestrator runs `python3 tools/render_chapter.py <slug> --cut <cut>
+   --chapter N` itself. If you are ever invoked with `--chapter`, return
+   `STATUS: fail` with `NEXT: orchestrator runs tools/render_chapter.py` rather
+   than rendering — two paths to the same artifact is how one of them goes stale.
 
-   ```
-   npx hyperframes render . -c index.html -o renders/DRAFT-ch<N>.mp4 -q draft -f <final fps>
-   python3 tools/chapter_sheet.py studio/videos/<slug>-<cut>-ch<N> renders/DRAFT-ch<N>.mp4 \
-           -o studio/videos/<slug>-<cut>-ch<N>/renders/SHEET-ch<N>.jpg
-   ```
-
-   `-f <final fps>` is not optional — a draft at a different fps produces frame
-   counts that do not sum and the chapters drift at every joint. No
-   `--resolution`, no `--gpu`, no chunked encode: a draft is for judging images,
-   motion and timing, all identical at draft quality. Report the sheet path;
-   `fin-editor` and `fin-ceo` read it, and the orchestrator builds the creator's
-   numbered cross-chapter PNG from the `SHEET-*.json` you leave behind.
+   Why it left: it was two fixed commands with no decision between them, measured
+   at 318,807 tokens per invocation over 21 invocations on `passive-income-number`
+   (`audit/05-baseline.md`). The script also enforces something this stage could
+   not: it refuses to render when `build.mjs` is newer than `index.html`, which is
+   the trap that cost two drafts and an editor pass on hi ch3.
 
 1. **Frame check (gate two, before any encode):** `snapshot --at` one frame per
    scene at that scene's last cue time, and LOOK at each: layout inside the
