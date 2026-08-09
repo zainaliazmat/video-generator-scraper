@@ -2,6 +2,7 @@
 summary: The /finance-video pipeline — one topic in, a rendered Hindi/₹ video (@cashguruguides) and a US-English/$ video (@moneymavens101) out, each with 3 thumbnail variants and a researched publish pack. Eleven fin-* agents own judgment; scripts in tools/ own mechanics; pipeline_check.py is the only thing that can mark a stage done.
 updated: 2026-07-28
 source: docs/superpowers/specs/2026-07-27-finance-video-agent-pipeline-design.md (spec + 5 review rounds, 24/24 consensus) — this note is the human-facing operating doc
+stage: ADOPTED — the human doc for /finance-video
 ---
 
 # Workflow — /finance-video

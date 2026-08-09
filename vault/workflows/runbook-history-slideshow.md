@@ -1,3 +1,9 @@
+---
+summary: The build runbook for the cinematic-history slideshow format — the parallax slideshow pipeline proven on the Pompeii and Firaun cuts.
+updated: 2026-08-09
+stage: ADOPTED — the standing runbook for the cinematic-history lane
+---
+
 # 🎬 PRODUCTION RUNBOOK — "A Century of Travel"
 ### A vintage parallax historical slideshow, built with HyperFrames + Claude Code
 

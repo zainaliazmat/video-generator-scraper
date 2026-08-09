@@ -2,6 +2,7 @@
 summary: The four HyperFrames projects built for practice and never uploaded (soul-of-coffee, iron-horse-of-the-indus, watercolor-ink-brand-film, dark-truth-social) — what each was, the durable technique each proved, and where its code now lives. Creator decision 2026-07-31 — learning-only, will not ship; studio dirs deleted, code kept text-only in `../../compositions/`.
 updated: 2026-07-31
 source: the four projects' own DESIGN/runbook/script docs, read before deletion 2026-07-31
+stage: RECORD — four practice builds that will never ship; compositions/ is their only copy
 ---
 
 # Unshipped experiments — what the practice builds taught

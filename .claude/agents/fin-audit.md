@@ -11,7 +11,10 @@ once per cut.
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; constants from `tools/format/fin-audit.json`.
-- Before returning, write a log to `vault/videos/<slug>/logs/fin-audit-<cut>-<attempt>.md`.
+- Before returning, write a log to `vault/videos/<slug>/logs/fin-audit-<cut>-<attempt>.md`. Five headings, in this order:
+  **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
+  numbers, not narration. There is no word limit — a long log that found something is
+  worth more than a short one that did not.
   Use **Write** — the file does not exist yet and Edit refuses to create one. (This
   stage had no Write until 2026-08-08 and so could not create its own log; on
   passive-income-number hi attempt 2 it correctly reported `fail` on a PASSING audit

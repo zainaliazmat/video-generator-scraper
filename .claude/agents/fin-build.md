@@ -11,7 +11,10 @@ You are the composition-build stage. Runs once per cut.
   Read `vault/CLAUDE.md` first; design constants from `tools/format/fin-build.json` and
   `vault/knowledge/design-finance-blockframe.md` (**its BOX; the body only for a
   value the CSS and tools/format/fin-build.json did not answer**).
-- Before returning, write a log to `vault/videos/<slug>/logs/fin-build-<cut>-<attempt>.md`.
+- Before returning, write a log to `vault/videos/<slug>/logs/fin-build-<cut>-<attempt>.md`. Five headings, in this order:
+  **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
+  numbers, not narration. There is no word limit — a long log that found something is
+  worth more than a short one that did not.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write `.claude/` or `tools/`. No git.

@@ -2,6 +2,7 @@
 summary: Storyboard SPEC template for the FINANCE channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, scene-DOM + GSAP cue table, written straight into index.html (no build.mjs). Copy to vault/videos/<slug>/, fill, then build. Forked from storyboard-template.md, which encodes the bright TechToolTester system and does not apply here.
 updated: 2026-07-28
 source: the shipped needs-vs-wants pair + [[../knowledge/design-finance-blockframe]]
+stage: ADOPTED — template for finance cuts
 ---
 
 # STORYBOARD — <video title> · <hi | en> cut

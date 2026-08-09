@@ -1,6 +1,7 @@
 ---
 summary: The production script skeleton — the exact structure every script ships in (mirrors the proven Video-#1 v2 layout; implements long_form_scripting.md §11). Copy into videos/<video>/script.md and fill.
 updated: 2026-07-04
+stage: ADOPTED — template
 ---
 
 # VIDEO #N — "<Working Title>" — v1

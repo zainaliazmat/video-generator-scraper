@@ -2,6 +2,7 @@
 summary: The LIVING synthesis of what our own video studies prove about hooks, structure, and failure modes. Evidence accumulates here; patterns confirmed ~3× get promoted into the skills.
 updated: 2026-07-27
 source: video studies under knowledge/video-studies/ + publish-pack research under videos/*/youtube-metadata* (evidence lines carry their study + date)
+stage: ADOPTED — standing production lessons
 ---
 
 # Best practices — earned from our own studies

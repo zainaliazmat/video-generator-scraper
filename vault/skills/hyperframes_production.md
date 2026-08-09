@@ -2,6 +2,7 @@
 summary: The production engine — turns a finished script into a rendered HyperFrames video. The HyperFrames contract, the storyboard-as-spec convention, the deliver-and-verify QA loop, the earned design system, and every gotcha distilled from video-02's 8-draft build. Load after long_form_scripting once a script is locked. Canonical (v1, 2026-07-07) — replaces the 2026-07-01 stub.
 updated: 2026-07-22
 source: distilled from studio/videos/video-02-claude-edits-video/ (8 drafts, 2026-07-04→06) + the HyperFrames contract facts (2026-07-01) + workflow-improvement research (research/workflow-improvement-research-2026-07-07.md) + the Pompeii build (2026-07-13→18: per-line TTS rule, chapter-wise production, music sourcing/mixing)
+stage: ADOPTED — HyperFrames production practice
 ---
 
 # SKILL — HyperFrames Production (v1)

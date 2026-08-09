@@ -2,6 +2,7 @@
 summary: Study of 3 cinematic-history references for Channel B's Pompeii video — Astraway 4.7M (giant ceiling), Fading Lore 557k-on-52k (THE template), How So 3.3M (motion-graphics format). Visual recipe = AI-cinematic reconstructions + desaturated ruins footage + parchment infographic cards.
 updated: 2026-07-07
 source: study packet research/f2n9Nbt_jMk/ (480p + transcripts + keyframes), built 2026-07-07
+stage: RECORD — one video's competitor study, written by fin-research
 ---
 
 # Study: Pompeii last day (cinematic history) — 2026-07-07

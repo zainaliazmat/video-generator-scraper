@@ -1,17 +1,28 @@
 ---
-summary: The India pivot for the personal-finance channel — audience, currency (INR ₹), language (Haryanvi-flavored Hindi VO), and the money context for 20-28yo Indians. Retarget of the earlier Pakistan/PKR framing.
+summary: The India pivot for the personal-finance channel — audience, currency (INR ₹), language, and the money context for 20-28yo Indians. Retarget of the earlier Pakistan/PKR framing. ⚠ LANGUAGE CORRECTED — the hi cut is **Standard Hindi** (creator 2026-07-28), not the Haryanvi-flavoured Hindi this file was written for; §"Language" below is the live rule and everything above it that says Haryanvi is superseded. Voice and rate live in tools/format.json, never here.
 updated: 2026-07-22
 source: creator direction 2026-07-22 + deep-research run wf_388d2df8-2e0. INR salary/expense figures below are LOW-confidence (that half of the research returned no verified claims) — verify before publishing.
+stage: ADOPTED — niche research; figures carry their own dates
 ---
 
 # India finance market — channel retarget
 
 Creator direction (2026-07-22): the finance videos move to **India**. Currency **INR (₹)**, audience **young Indian adults 20-28** (first salaries), narration in **Hindi with a Haryanvi accent** (funny, attention-grabbing, real-person). See [[haryanvi-hindi-script-style]] for how to write it and [[indian-business-culture-slang]] for flavor. Replaces the Pakistan/PKR/Rs. framing in the earlier scripts.
 
+## Language — the live rule (creator 2026-07-28)
+
+**The hi cut is written in Standard Hindi.** Haryanvi was tried on one video and
+retired: it did not survive contact with the finance register, and every cut since
+50-30-20 is standard. [[../haryanvi-hindi-script-style]] and
+[[../indian-business-culture-slang]] are kept as reference if a Haryanvi lane ever
+returns — **do not read them for a finance script.** This decision previously lived
+only in `.claude/agents/fin-script.md`, which is procedure, not memory; it belongs
+here (`vault/CLAUDE.md`, the two-home rule).
+
 ## Fixed decisions
 
-- **Currency:** ₹ / INR everywhere. On-screen text stays **English/Hinglish** (₹40,000, SAVE, 3 MONTHS) — clearest, matches the English-titles rule. Narration = Haryanvi Hindi.
-- **Voice:** ElevenLabs `9BHTbeEKC5ZqMmvZfLW6` (Haryanvi voice one), `eleven_multilingual_v2`.
+- **Currency:** ₹ / INR everywhere. On-screen text stays **English/Hinglish** (₹40,000, SAVE, 3 MONTHS) — clearest, matches the English-titles rule. Narration = Standard Hindi.
+- **Voice and rate:** `tools/format.json cuts.hi` is the only home — it changes when the voice does, and a copy here would go stale the day it did. (It already had: this line named the retired Haryanvi voice.)
 - **Business-culture flavor:** lean on Marwari/Gujarati thrift + dhandho framings for credibility and humor.
 - **Titles/descriptions:** English (unchanged rule).
 

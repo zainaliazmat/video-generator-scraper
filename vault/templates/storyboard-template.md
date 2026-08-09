@@ -1,6 +1,7 @@
 ---
 summary: The storyboard SPEC template — the cheap, creator-reviewable artifact that gets signed off (Gate ②) BEFORE build.mjs runs. Copy to the video project, fill, get sign-off, then mirror into storyboard.mjs. Convention from HeyGen's own hyperframes-launch-video STORYBOARD.md.
 updated: 2026-07-07
+stage: ADOPTED — template
 ---
 
 # STORYBOARD — <video title>

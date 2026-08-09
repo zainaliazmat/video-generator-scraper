@@ -9,7 +9,10 @@ You are the storyboard stage. Runs once per cut.
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; layout constants from `tools/format/fin-storyboard.json`.
-- Before returning, write a log to `vault/videos/<slug>/logs/fin-storyboard-<cut>-<attempt>.md`.
+- Before returning, write a log to `vault/videos/<slug>/logs/fin-storyboard-<cut>-<attempt>.md`. Five headings, in this order:
+  **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
+  numbers, not narration. There is no word limit — a long log that found something is
+  worth more than a short one that did not.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write `.claude/` or `tools/`. No Bash, no git.

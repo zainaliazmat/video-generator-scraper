@@ -2,6 +2,7 @@
 summary: Verified 2026 numbers for the "Needs vs Wants / subscription leak" topic in both target markets — India (INR) and USA (USD). Salary anchors, real subscription prices, and the forgotten-subscription evidence the scripts are built on.
 updated: 2026-07-27
 source: Deloitte Digital Media Trends 2026 (via Variety), C+R Research 2022 (via CNBC), Ormax OTT Audience Report 2025 (via IBEF), PLFS/Economic Survey 2024-25, BLS Q1 2026, NPCI UPI AutoPay, published platform price cards.
+stage: ADOPTED — sourced subscription-cost corpus
 ---
 
 # Subscription economics 2026 — India + USA

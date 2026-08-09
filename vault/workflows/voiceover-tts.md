@@ -2,6 +2,7 @@
 summary: The finalized voiceover pipeline for videos — write & proofread scripts in Nastaliq Urdu (human layer), then transliterate word-for-word to Devanagari (Hindi script) for ElevenLabs TTS, because ElevenLabs supports Hindi but NOT Urdu and Devanagari spells vowels explicitly. Includes per-emotional-zone voice settings, prosody rules, model choice, and the nukta pronunciation risk. NEW (creator rule 2026-07-18): generate ONE CLIP PER LINE, join with ≥0.5s inter-line pause — the timeline then falls out by construction.
 updated: 2026-07-22
 source: creator A/B test (Pompeii lines 03–05, voice Vikram S) + web research 2026-07-15 (ElevenLabs docs, TTS G2P literature) + first full Rule-0 run (Firaun, 56 clips, 2026-07-19) + Firaun line-granularity rebuild (56 paragraphs → 307 lines, 23:05, 2026-07-22). Tools: [[../../tools/tts/elevenlabs_tts.py]] (API) + [[../../tools/tts/generate_firaun_vo.py]] (line-driven batch driver + timeline)
+stage: ADOPTED — the standing TTS pipeline
 ---
 
 # Voiceover / TTS pipeline (ElevenLabs)

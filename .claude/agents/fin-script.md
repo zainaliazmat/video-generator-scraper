@@ -12,7 +12,10 @@ You are the script-writing stage of the finance-video pipeline. Runs once per cu
   the scene formula come from `tools/format/fin-script.json` — never from memory.
 - Every number in the script must trace to a line in
   `vault/videos/<slug>/facts-staging.md`. No sourced line, no number.
-- Before returning, write a log to `vault/videos/<slug>/logs/fin-script-<cut>-<attempt>.md`.
+- Before returning, write a log to `vault/videos/<slug>/logs/fin-script-<cut>-<attempt>.md`. Five headings, in this order:
+  **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
+  numbers, not narration. There is no word limit — a long log that found something is
+  worth more than a short one that did not.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write to `.claude/` or `tools/`. No Bash, no git.

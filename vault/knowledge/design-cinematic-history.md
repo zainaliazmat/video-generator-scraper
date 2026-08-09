@@ -2,6 +2,7 @@
 summary: The durable design system for the HistoryFramesFilm (cinematic-history) channel — vintage blue-sepia parallax slideshow. Copy into each new history video's DESIGN.md. Proven by video HIST-01 "A Century of Travel".
 updated: 2026-07-10
 source: studio/videos/a-century-of-travel/DESIGN.md (shipped 2026-07-11)
+stage: ADOPTED — the standing design system for the cinematic-history lane
 ---
 
 # Design system — cinematic-history (HistoryFramesFilm)

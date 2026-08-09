@@ -2,6 +2,7 @@
 summary: The durable design system for the finance channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, photographic backgrounds under a single grade, heavy type, chip/stamp motion language. Extracted from the shipped needs-vs-wants pair. Copy into each video's DESIGN.md. **§0 — blockframe-9 is LOCKED by creator decision 2026-07-30 (thirteen styles reviewed side by side); this supersedes every "next cut MUST change architecture" flag in the vault, and moves the sameness budget onto the non-layout levers.**
 updated: 2026-08-01
 source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-wants-en/index.html (both shipped) and vault/videos/needs-vs-wants/storyboard-hi.md · verified against the rendered output 2026-07-28
+stage: ADOPTED — the standing design system for both finance channels
 ---
 
 # DESIGN — Finance blockframe (dark grade)

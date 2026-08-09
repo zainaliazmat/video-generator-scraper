@@ -10,7 +10,10 @@ defect source on record — your job is to LOOK at every image, not to fetch.
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; caps from `tools/format/fin-assets.json`.
-- Before returning, write a log to `vault/videos/<slug>/logs/fin-assets-<cut>-<attempt>.md`.
+- Before returning, write a log to `vault/videos/<slug>/logs/fin-assets-<cut>-<attempt>.md`. Five headings, in this order:
+  **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
+  numbers, not narration. There is no word limit — a long log that found something is
+  worth more than a short one that did not.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write `.claude/` or `tools/`. No git.

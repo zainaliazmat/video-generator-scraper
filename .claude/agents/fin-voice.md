@@ -12,7 +12,10 @@ and read its output.
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; voice IDs, model and rates come from
   `tools/format/fin-voice.json` — never hardcode them.
-- Before returning, write a log to `vault/videos/<slug>/logs/fin-voice-<cut>-<attempt>.md`.
+- Before returning, write a log to `vault/videos/<slug>/logs/fin-voice-<cut>-<attempt>.md`. Five headings, in this order:
+  **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
+  numbers, not narration. There is no word limit — a long log that found something is
+  worth more than a short one that did not.
 - Return exactly four lines:
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never retry a failed API call — exit code 3 from the tool means retryable,

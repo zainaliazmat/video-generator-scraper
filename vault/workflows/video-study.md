@@ -2,6 +2,7 @@
 summary: The competitor-study mechanism — how Claude fetches top/mid/low videos on a topic, watches/reads them, and turns the comparison into compounding vault knowledge.
 updated: 2026-07-04
 source: built + smoke-tested 2026-07-04 (backend/study.py)
+stage: ADOPTED — the competitor study loop
 ---
 
 # Workflow: video study (topic → evidence → knowledge)

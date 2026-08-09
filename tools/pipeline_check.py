@@ -830,6 +830,42 @@ def write_agent_views(fmt=None):
     return []
 
 
+STANDING_DIRS = ("knowledge", "skills", "workflows", "templates")
+
+
+def standing_stage_problems():
+    """Every STANDING vault note must declare `stage:`. Returns problems.
+
+    A replaced rule used to look identical to a live one — the vault tripled in
+    eleven days partly because nothing was ever marked dead. `urdu-script-style.md`
+    is the shape of the failure: the Roman-Urdu register was retired on 2026-07-18,
+    the correction sits at line 94, and the frontmatter still told every reader to
+    ALWAYS follow the retired thing. Declaring the stage is cheap; the expensive
+    part is a reader trusting a summary that is no longer true.
+
+    `SUPERSEDED BY <path>` must name a file that exists, so a rename cannot quietly
+    turn a supersession into a dangling claim — the same failure as
+    dangling_studio_refs(), one layer up."""
+    problems = []
+    for d in STANDING_DIRS:
+        for path in sorted(glob.glob(os.path.join(ROOT, "vault", d, "**", "*.md"),
+                                     recursive=True)):
+            if os.sep + "_archive" + os.sep in path:      # retired, out of the read path
+                continue
+            rel = os.path.relpath(path, ROOT)
+            head = open(path, encoding="utf-8").read(1500)
+            m = re.search(r"^stage:\s*(.+)$", head, re.M)
+            if not m:
+                problems.append(f"{rel} has no `stage:` — every standing note declares "
+                                f"ADOPTED / experiment / RECORD / SUPERSEDED BY <path>")
+                continue
+            sup = re.search(r"SUPERSEDED BY\s+([^\s,(]+)", m.group(1), re.I)
+            if sup and not os.path.exists(os.path.join(ROOT, "vault", sup.group(1))) \
+                   and not os.path.exists(os.path.join(ROOT, sup.group(1))):
+                problems.append(f"{rel} says SUPERSEDED BY {sup.group(1)}, which does not exist")
+    return problems
+
+
 def dangling_studio_refs():
     """A prompt citing `studio/videos/<slug>` is a time bomb: archive_cut.py deletes that
     directory the day the video ships, and the citation keeps reading as authority with
@@ -901,6 +937,7 @@ def doctor(tier):
                         "fix: venv/bin/pip install faster-whisper")
     problems += architecture_lock_problems(fmt)
     problems += dangling_studio_refs()
+    problems += standing_stage_problems()
     problems += write_agent_views(fmt)
     need_gb = 2 * fmt["tiers"][tier]["disk_gb_per_pair"]  # R-9: 2× headroom
     free_gb = shutil.disk_usage(ROOT).free / 1e9
@@ -1349,6 +1386,9 @@ def _selftest():
         assert notes.count(ruling) == 3, notes.count(ruling)   # verbatim, not JSON-escaped
         assert "\\n" not in notes, "a drained ruling must stay readable prose"
         assert drain_to_notes(json.loads(json.dumps(run)), slug) == 0, "drain must be idempotent"
+
+        # supersession is declared, and a supersession must name a file that exists
+        assert standing_stage_problems() == [], standing_stage_problems()
 
         # per-agent format views: every key reaches someone, every view is a subset
         global VIEW_DIR

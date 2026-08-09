@@ -2,6 +2,7 @@
 summary: Live YouTube scrape (1,881 videos, last-30-days uploads, 2026-07-31) picking the next 5 finance topics — **revised 2026-08-07 by a vidIQ re-check: topic #3 (saved-by-age) demoted, two replacements added; see the revision section** for @cashguruguides (₹) + @moneymavens101 ($). Ranked by views-per-subscriber, not raw views — the small-channel breakouts are the winnable ones.
 updated: 2026-08-07
 source: yt-dlp scrape via backend/youtube_scraper.py, 50 keywords × month filter, rows in ../../../library.db (first_seen 2026-07-31); 70-video full-detail pass for subscriber counts + exact upload dates.
+stage: ADOPTED — niche research; figures carry their own dates
 ---
 
 # Next 5 finance topics — evidence (2026-07-31)

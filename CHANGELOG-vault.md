@@ -308,3 +308,89 @@ Fake mode makes images flat colour and voice a sine tone, so `fin-assets`' visua
 rejection pass — the stage's actual job — was not exercised, and `check assets`
 is red on all 11 slots for the 10 KB gate. `fin-editor`, `fin-ceo`, `fin-render`
 and `fin-package` never ran.
+
+---
+
+## 2026-08-09 — Phase 1 items 3–6
+
+### Item 3 (1d) — supersession is now declared, and enforced
+
+`standing_stage_problems()`, wired into `doctor`: every note under
+`vault/{knowledge,skills,workflows,templates}` must declare `stage:`, and a
+`SUPERSEDED BY <path>` must name a file that exists — so a rename cannot quietly
+turn a supersession into a dangling claim, the same failure as
+`dangling_studio_refs()` one layer up. `_archive/` is skipped by design.
+
+**41 files backfilled.** Three were genuinely superseded and had no marker:
+
+- `haryanvi-hindi-script-style.md` → SUPERSEDED for finance-hi (Standard Hindi,
+  creator 2026-07-28); kept as reference if a Haryanvi lane returns.
+- `indian-business-culture-slang.md` → SUPERSEDED with it — its vocabulary exists
+  to season Haryanvi scripts.
+- `design-techtooltester.md` → ADOPTED for its own channel, SUPERSEDED by
+  `design-finance-blockframe.md` for all finance work (blockframe already said so;
+  the marker just moved to where a reader sees it).
+
+**Two live correctness bugs found while backfilling — both the same disease the
+item exists to kill: a summary asserting a rule that was retired in the body.**
+
+1. `urdu-script-style.md`'s frontmatter said *"Roman Urdu… ALWAYS follow this for
+   every Urdu script."* The rule change to Nastaliq (creator 2026-07-18) sits at
+   **line 94**. A reader trusting the summary would have written the retired
+   script. Summary rewritten: the file is live for VOICE, retired for ORTHOGRAPHY.
+2. `niches/india-finance-market.md` said *"Haryanvi-flavored Hindi VO"* in its
+   summary and named the retired Haryanvi voice ID in Fixed decisions, while line
+   32 of the same file said Standard Hindi. Corrected, and the voice ID replaced
+   with a pointer to `format.json` — it had already gone stale exactly as a
+   duplicated fact does.
+
+**A third un-promoted rule rescued.** The Standard-Hindi decision (creator
+2026-07-28) lived *only* in `.claude/agents/fin-script.md` — procedure, not
+memory, against `vault/CLAUDE.md`'s own two-home rule. Now in
+`niches/india-finance-market.md` under a Language heading. Same class as the
+firaun VO-line rule and the japanese archetype references.
+
+### Item 4 (1a) — the shelf labels were not built, deliberately
+
+`vault/videos/` is already RECORD and already unread — verified in Phase 0 and
+re-verified here. The directory structure *is* the shelf, so a `shelf:`
+frontmatter field would be a second home for a fact the path already carries.
+The valuable half of 1a was the audit, and it is done: three un-promoted STANDING
+rules found and rescued (firaun VO lines, japanese archetype references,
+Standard Hindi).
+
+### Item 5 (1f) — the shape, not the ceiling
+
+Logs got a required shape — **Ran · Failed · Evidence · Changed · Owed** — in the
+11 agents that write freeform logs. `fin-editor` and `fin-ceo` were left alone;
+their severity-scored findings table is already a stricter template.
+
+**The 600-word ceiling was NOT implemented.** Measured: mean 1,582, median 1,352,
+**86% of all 256 logs exceed 600 words.** A cap there is a blocking gate on nearly
+every normal stage — the worst rung of `fix-defaults-not-gates`. And the logs are
+not in the read path: no agent declares reading a prior log, and log *content*
+reached context through `run.json`, which item 1 already fixed. Capping them saves
+git weight and nothing else.
+
+The decisive evidence is the rehearsal itself. Its most valuable output — the
+`batch.py` ordering bug that made rehearsal mode free only by accident, and the
+md5 sweep that had been reading zero files for four days — came out of long
+`fin-voice` and `fin-assets` logs. A 600-word cap would have destroyed both. The
+instruction now says so explicitly: *a long log that found something is worth more
+than a short one that did not.*
+
+### Item 6 (1c) — the audit appendices moved
+
+`vault/knowledge/finance-audit-2026-07-29/` → the twelve appendices and
+`transcripts/` moved to `_archive/` inside that folder; `index.md` stays in place
+because three files reference it, and its 34 wikilinks were repointed. Nothing
+deleted, nothing renamed.
+
+```
+in the read path   80,614 w  ->  4,873 w   (index only)
+archived           75,741 w of appendices + 19,753 w of .txt + ~114k w of .vtt
+```
+
+Token saving: **zero** — no agent ever read them, which is exactly why they could
+move. This was hygiene and human legibility, and it is the item whose value I
+argued was lowest at Gate 1.

@@ -2,6 +2,7 @@
 summary: The business engine — money-first niche selection (Gate 0), angle validation (Gate 1), fact-finding, monetization ops, platform compliance (Gate 2). Load for any channel decision; companion long_form_scripting.md writes the scripts.
 updated: 2026-07-04
 source: creator's v5 skill (claude.ai project) + v5.1 vault refinement
+stage: ADOPTED — channel strategy and compliance
 ---
 
 SKILL — Faceless YouTube Channel: Money-First Research → Validation → Compliant Publish (v5.1)

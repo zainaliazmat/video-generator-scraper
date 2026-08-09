@@ -2,6 +2,7 @@
 summary: Evidence review of the US faceless-YouTube market. Kills the open-web CPM tables as fiction, establishes that AdSense is ~1.5% of income at small scale, and reframes niche choice around what the audience buys rather than niche CPM.
 updated: 2026-07-21
 source: Two deep-research passes (206 agents, adversarial verification). Primary sources only — Google Help, YouTube Creator Liaison, Fortune, Tubefilter, Indie Hackers creator dashboards, OpenSponsorship transaction data.
+stage: ADOPTED — niche research; figures carry their own dates
 ---
 
 # US faceless market — evidence review (2026-07-21)

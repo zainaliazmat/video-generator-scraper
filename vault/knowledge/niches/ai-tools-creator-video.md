@@ -2,6 +2,7 @@
 summary: The LOCKED niche — "AI tools & workflows for content creators / faceless video." Why it won, the comp channels to study, and the load-bearing strategic finding that drove the pivot.
 updated: 2026-07-04
 source: channel decisions log (historical), validated 2026-06-30; re-checked in the 2026-07-04 scrape
+stage: ADOPTED — niche research; figures carry their own dates
 ---
 
 # Niche: AI tools → creator/video (✅ LOCKED 2026-06-30)

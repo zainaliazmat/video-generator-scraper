@@ -2,6 +2,7 @@
 summary: How emoji, SVG and Lottie actually behave inside a HyperFrames render — all four paths probed on a real 20s 1080p encode (hyperframes 0.7.66). Includes the two traps that render a silent blank.
 updated: 2026-07-31
 verified_by: /tmp probe `fxtest` — `hyperframes check` + `snapshot` + full `render`, frames read back with ffmpeg
+stage: ADOPTED — how icons, emoji and Lottie behave in a render
 ---
 
 # Icons, emoji and Lottie in a cut

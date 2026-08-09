@@ -1,6 +1,7 @@
 ---
 summary: Template for a per-topic study note (knowledge/video-studies/<slug>.md). Copy, fill, link evidence into best-practices.md.
 updated: 2026-07-04
+stage: ADOPTED — template
 ---
 
 # Study: <topic> — <date>

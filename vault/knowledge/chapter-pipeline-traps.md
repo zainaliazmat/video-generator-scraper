@@ -2,6 +2,7 @@
 summary: The tooling trap ledger for chapter-wise production — every entry cost real time on a real cut, most of them on japanese-money-methods (2026-08-04/06). Renderer timeouts, Lottie sizing, stale sheet files, symlinked assets, lying stock metadata. Rescued from that video's HANDOVER.md when it shipped, because a session file dies with its session and these recur.
 updated: 2026-08-06
 source: japanese-money-methods HANDOVER §6/§7 (sessions of 2026-08-04/05/06), plus the tool fixes made from them
+stage: ADOPTED — the tooling trap ledger for chapter-wise production
 ---
 
 # Chapter-pipeline traps

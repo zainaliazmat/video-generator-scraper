@@ -2,6 +2,7 @@
 summary: Study for "the first ₹1 lakh / first $1,000" — the `lakh` lane's raw-view leaders are 47–55 min founder podcasts that both cold-open with a spliced sizzle of the guest's best lines; the LOW is a NotebookLM auto-generated 10:32 Hindi explainer (102 views @ 2,110 subs) whose failure is machine-default visuals and digits missing from the VO.
 updated: 2026-07-31
 source: research/lakh/ packet (backend/study.py "lakh" --skip-video, 2026-07-31, 3/3 transcripts); frames from the 2026-07-31 480p pull of the LOW; ranking context from [[../niches/finance-topics-2026-07-31]]
+stage: RECORD — one video's competitor study, written by fin-research
 ---
 
 # Study: the first ₹1 lakh / first $1,000 — 2026-07-31

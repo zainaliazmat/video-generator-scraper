@@ -2,6 +2,7 @@
 summary: How to write the English (`-en`) cut of a finance video. Core rule — an `-en` cut is a US rewrite, not a translation of the Hindi one. Currency, institutions, examples, register, voice.
 updated: 2026-07-27
 source: Creator direction 2026-07-27 ("for english version we always have to use price in $ and all the script will be according to us standard"), applied on emergency-fund-en. Numbers live in [[money-facts-2026]].
+stage: ADOPTED — the register for every -en cut
 ---
 
 # US-English script style — the `-en` cut

@@ -2,6 +2,7 @@
 summary: Study for "Japanese money methods / why Japanese people don't go broke" — the TOP is the exact video our topic was picked from (Story of Success, 74,114 views @ 4,690 subs = 15.8×), a 17:25 faceless Hindi narration that opens on a pain-mirror of the viewer's own salary month and localises every Japanese idea into an Indian kitchen; the LOW is a 90-sub AI history channel whose Japan footage is more beautiful than anything we can make and which still died at 2,131 views because it carries no number, no on-screen text and no stake for the viewer.
 updated: 2026-08-01
 source: research/japan/ packet (backend/study.py "japan", 2026-08-01, 2/3 transcripts + frames for all 3); ranking context from [[../niches/finance-topics-2026-07-31]]
+stage: RECORD — one video's competitor study, written by fin-research
 ---
 
 # Study: Japanese money methods (Kakeibo & co.) — 2026-08-01

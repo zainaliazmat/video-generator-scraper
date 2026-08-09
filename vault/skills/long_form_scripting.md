@@ -2,6 +2,7 @@
 summary: The creative engine — script structure, hooks, retention architecture, persuasion psychology, packaging/A-B, the 9-habit human-delivery system with script-as-score markup, framework + analogy banks, deliverable template. Load after Gate 1 passes to write or revise a long-form script.
 updated: 2026-07-22
 source: creator's v1 skill (claude.ai project); vault copy canonical. v1.1 (2026-07-07) adds four externally-corroborated rules (hook-written-last, 5–7 STP loops per 10–15 min, data-driven CTA placement, CTR/AVD/AVP KPIs) from research/workflow-improvement-research-2026-07-07.md
+stage: ADOPTED — the long-form scripting method
 ---
 
 # SKILL — Long-Form YouTube Scripting & Delivery (v1.1)

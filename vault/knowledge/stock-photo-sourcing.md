@@ -2,6 +2,7 @@
 summary: How stock photos get sourced for studio videos — the scripted Pixabay fetcher, the verified hit-rate per market, the object-led rule from the 50-30-20 build, and (2026-08-07) the grade rule: never buy high-key stock, because the locked grayscale/brightness grade turns any white-dominant subject into a flat charcoal slab.
 updated: 2026-08-07
 source: 50-30-20-rule-hi / -en build, 2026-07-27. ~35 fetches, every one eyeballed before it went in a composition.
+stage: ADOPTED — the standing sourcing rules for every cut
 ---
 
 # Stock-photo sourcing (Pixabay)

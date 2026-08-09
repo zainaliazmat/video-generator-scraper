@@ -2,6 +2,7 @@
 summary: Marwari & Gujarati trading-community money mindset + usable business/finance vocabulary and framing phrases to lift into Haryanvi-Hindi finance scripts. India finance channel.
 updated: 2026-07-22
 source: deep-research run 2026-07-22 (wf_388d2df8-2e0) — IIT Jodhpur frugality study, businesstenet, talkpal, marwarimigrants, caclubindia, Medium. Blog-tier + one academic; frugality themes high-confidence, some framing phrases medium.
+stage: SUPERSEDED BY knowledge/niches/india-finance-market.md — its vocabulary was written to season Haryanvi scripts, and Haryanvi is retired for finance
 ---
 
 # Indian business-culture money mindset & slang

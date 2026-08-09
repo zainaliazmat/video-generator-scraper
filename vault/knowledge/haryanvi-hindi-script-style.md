@@ -2,6 +2,7 @@
 summary: How to write Hindi video scripts that read and sound Haryanvi — the flavor-not-rewrite strategy, the high-leverage dialect markers, humor register, and the ElevenLabs TTS reality. For the India finance channel.
 updated: 2026-07-22
 source: deep-research run 2026-07-22 (wf_388d2df8-2e0) — Jatland Wiki, Wikipedia (Haryanvi language), haryanvitale, viralbake, dnoun, omniglot, ElevenLabs docs. Blog-tier lexicon, cross-corroborated. NEEDS a native-speaker pass before locking spellings.
+stage: SUPERSEDED BY knowledge/niches/india-finance-market.md for finance-hi (creator 2026-07-28, Standard Hindi) — kept as the reference if a Haryanvi lane ever returns
 ---
 
 # Haryanvi-flavored Hindi — script style guide

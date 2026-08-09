@@ -2,6 +2,7 @@
 summary: Transcript-only study of two format twins running the identical title "How Much You Need Invested to Live Off Dividends" — a suspected geo-clone (Singapore Finance With Jim, 19× subs) and an independent operator (Dark Ledger, 9.4×). They share a near-verbatim cold open (wake / coffee / window / phone / money arrived while you slept), a stated yield the arithmetic is derived from, a yield-trap warning at ≈5:00 wall-clock in both, and no mid-roll CTA — but they are structurally opposite: Jim is an explainer that withholds the number to ~45%, Dark Ledger is a second-person age ladder that gives it at ~9% and repeats it seven times. NOT a study.py packet — no keyframes, no LOW autopsy.
 updated: 2026-08-07
 source: vidIQ `video_transcript` (recipe R2, .claude/skills/vidiq/SKILL.md), fetched 2026-08-07 into research/passive-income/twins/. Bought because yt-dlp is behind YouTube's bot-check on this machine — see [[../../videos/passive-income-number/logs/fin-research-1]] and [[../../workflows/video-study]] §2.
+stage: RECORD — one video's competitor study, written by fin-research
 ---
 
 # Study: the passive-income number — 2026-08-07

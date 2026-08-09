@@ -2,6 +2,7 @@
 summary: The calibrated money reality ($10K/mo = ceiling not target; $1–3K/mo in 12–18 months = realistic first milestone), the income ladder, and the Video-#1 affiliate program table with commission models.
 updated: 2026-07-04
 source: channel decisions log (historical) + 2026-06-30 entry (affiliate terms as of ~Jun 2026 — re-verify per program before publish)
+stage: ADOPTED — the calibrated income reality
 ---
 
 # Monetization — the honest model

@@ -2,6 +2,7 @@
 summary: The two-channel plan — Channel A "TechToolTester" (AI-tools, locked niche, LIVE) and Channel B (cinematic history, planned). How they cross-feed.
 updated: 2026-08-01
 source: creator, 2026-07-05 (channel created); niche evidence per [[niches/ai-tools-creator-video]]
+stage: ADOPTED — the two finance channels and their positioning
 ---
 
 # Channels

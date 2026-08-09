@@ -2,6 +2,7 @@
 summary: Full-stack audit of the finance video system (8 parallel research agents, 2026-07-29) — script, design, storyboard, visuals, motion, sound, packaging, performance. Two structural root causes explained most defects: fin-build scaffolded each cut by copying the previous cut's HTML, and every control in the pipeline RECORDED rather than changing anything. **Six fixes shipped the same day (§8)**: the shared blockframe.css + motion.js template, architecture rotation, scene transitions, loudness normalisation, the en chars/sec correction, and the `#N` stock-search bug. What remains is ranked in §2; open creator decisions in §5. Raw agent reports are the numbered appendices.
 updated: 2026-07-29
 source: 8 general-purpose research agents run 2026-07-29 against the repo + open web; every figure re-derived from a shipped artifact or a cited primary source. §0 (publishing status) corrected by the creator the same day — the videos are scheduled, not failed.
+stage: RECORD — this index is live; the twelve full appendices moved to `_archive/` on 2026-08-09 (80,614 words that no agent ever read). Anything still binding was pulled into the STANDING file that owns its domain. Nothing was deleted.
 ---
 
 # Finance video system — full audit, 2026-07-29
@@ -12,12 +13,12 @@ and the difference between measurement and belief is the whole value of this
 document.
 
 Appendices (raw agent output, kept verbatim):
-[[01-performance]] · [[02-script]] · [[03-design]] · [[04-storyboard]] ·
-[[05-visuals]] · [[06-motion]] · [[07-sound]] · [[08-packaging]]
+[[_archive/01-performance]] · [[_archive/02-script]] · [[_archive/03-design]] · [[_archive/04-storyboard]] ·
+[[_archive/05-visuals]] · [[_archive/06-motion]] · [[_archive/07-sound]] · [[_archive/08-packaging]]
 
 Follow-up research, 2026-07-30, after the creator approved 8-minute videos (§9):
-[[09-longform-story]] (structure + the worked-example ruling) ·
-[[10-medium-tier]] (production cost + breakage) · `transcripts/` (18 caption
+[[_archive/09-longform-story]] (structure + the worked-example ruling) ·
+[[_archive/10-medium-tier]] (production cost + breakage) · `transcripts/` (18 caption
 files from the benchmark set — the evidence behind §9's structural claims)
 
 ---
@@ -59,8 +60,8 @@ without these buys one clean video and then drifts again.
 
 `.claude/agents/fin-build.md` step 1 points the build agent at the **previous
 cut's `index.html`**. There is no shared stylesheet, no committed generator.
-Found independently by three agents ([[03-design]] #2, [[06-motion]] #4,
-[[04-storyboard]] #2). Consequences, all measured:
+Found independently by three agents ([[_archive/03-design]] #2, [[_archive/06-motion]] #4,
+[[_archive/04-storyboard]] #2). Consequences, all measured:
 
 - **Five divergent implementations.** `hi` and `en` have drifted for five videos;
   `.decision` names two different components inside one run.
@@ -76,7 +77,7 @@ Found independently by three agents ([[03-design]] #2, [[06-motion]] #4,
   retroactively false and those archives are not reproducible at parity.
 - It is also a large part of the sameness itself: each video inherits its
   predecessor wholesale, then grows bespoke components nobody reuses. **The
-  variance budget is being spent on the layer that doesn't move** ([[03-design]]).
+  variance budget is being spent on the layer that doesn't move** ([[_archive/03-design]]).
 
 **Fix:** extract `tools/scaffold/assets/css/blockframe.css` +
 `tools/scaffold/motion.js` + the parameterised generator; delete "read the newest
@@ -86,7 +87,7 @@ archive" from `fin-build.md` step 1.
 
 The architecture-repetition warning was written **four** times — three milestone
 notes *and* structured JSON in `good-debt-vs-bad-debt/run.json` `owed[3]`.
-`grep -rn owed tools/ .claude/commands/` returns **no readers** ([[03-design]]).
+`grep -rn owed tools/ .claude/commands/` returns **no readers** ([[_archive/03-design]]).
 Six identical videos shipped anyway.
 
 The same pattern elsewhere: `format.json`'s `colors`, `type_ladder_px` and
@@ -150,7 +151,7 @@ brand marks. Detailed below.
 
 ## 3. Per-domain findings
 
-**Performance** ([[01-performance]]). No public numbers exist, so the agent
+**Performance** ([[_archive/01-performance]]). No public numbers exist, so the agent
 measured the market instead: across 235 scraped videos, our **90–300 s band is the
 worst-performing band in both markets** (median 11 views IN / 33 US, n=44) against
 20 m+ at 140,076 / 59,114. Every breakout in its set is ≥8 minutes — including a
@@ -161,7 +162,7 @@ at any threshold, stale since 2026-07-07; `run.sh` + `SP_FILTERS["year"]` fills 
 as-is, but note `study.py`'s ≥240 s floor structurally excludes our own format from
 its own comparison set.
 
-**Script** ([[02-script]]). The sameness is **lexical**, and that half is recorded
+**Script** ([[_archive/02-script]]). The sameness is **lexical**, and that half is recorded
 nowhere: `Four things:` opens 4/4 English roadmaps verbatim, `Then don't say nobody
 warned you` closes 4/4, `DO THIS TODAY` appears in 8/8. The "US rewrite, not a
 translation" rule holds for *facts* (genuinely strong — different statutes,
@@ -173,7 +174,7 @@ restating the title at 0:20–0:32, inside the drop window, in the exact form
 loop — **0 of 8 scripts has one.** Credit where due: the hooks are the strongest
 part and have improved unprompted; the peak sits correctly at 65–81%.
 
-**Design** ([[03-design]]). 108 of 108 shipped scenes are a centred column over a
+**Design** ([[_archive/03-design]]). 108 of 108 shipped scenes are a centred column over a
 graded photo. Three alternatives costed, all reusing every existing token:
 **`ledger-rail`** (kill `place-items:center`, 300px left rail with the scene index
 at the unused thin weight axis, photo to a hard-edged right panel — deletes the
@@ -184,7 +185,7 @@ different at 3 seconds); **`split-register`** (hard 62/38 split, nothing ever on
 the photo — cheapest CSS, most expensive storyboard). Free fourth: drop the
 roadmap and recap bookends → 7 scenes, ~30 s shorter, out of the 2:46–2:59 band.
 
-**Storyboard** ([[04-storyboard]]). Word-level cue timing was **never implemented
+**Storyboard** ([[_archive/04-storyboard]]). Word-level cue timing was **never implemented
 on any cut** — `fin-build`'s Bash allowlist has no `venv/bin/python`, so whisper is
 unrunnable in the only stage that writes cue times. And it is **not worth building
 as specified**: modelled against the real VO, worst cue drift is −0.36 s, mean
@@ -195,7 +196,7 @@ Cheaper route if wanted: piggyback one `silencedetect` pass in `batch.py`
 sentence boundaries — ~15 lines, no new dependency, vs ~80 + an allowlist edit.
 **This supersedes the design doc's §6 prescription.**
 
-**Visuals** ([[05-visuals]]). A pair needs 18–32 images and costs 75–144 stock
+**Visuals** ([[_archive/05-visuals]]). A pair needs 18–32 images and costs 75–144 stock
 calls over 8–12 retry rounds; the API is free, the cost is agent time plus roughly
 one extra build+render cycle per pair. Recommendation: **generate everything except
 currency, ~$15/month** at ~8.7 pairs/mo (Imagen 4 Standard $0.04 → $11.80; Nano
@@ -210,7 +211,7 @@ India signifiers per hi cut went 3 → 2 → **0** (credit-history shipped `mano
 deeper one (measured). Don't add Unsplash — its API Terms require on-screen
 attribution that `CREDITS.txt` doesn't discharge.
 
-**Motion** ([[06-motion]]). **65.4% of the English cut has zero foreground
+**Motion** ([[_archive/06-motion]]). **65.4% of the English cut has zero foreground
 motion**; 21 static runs over 2 s (28 in hi), worst 6.6 s — against a documented
 "no static frame beyond ~2 s" rule with zero assertions behind it. Eight new
 helpers specced seek-safe and deterministic: `wipe`, `parallax`, `countDown`,
@@ -223,7 +224,7 @@ that the finance template dropped. **Honesty flag from the agent itself:** its
 competitor benchmark rests on SEO listicles and is low-signal; ~2 h of running the
 same `scdet` method over three competitor videos would convert it to measurement.
 
-**Sound** ([[07-sound]]). Root cause of the loudness miss: ElevenLabs returns clips
+**Sound** ([[_archive/07-sound]]). Root cause of the loudness miss: ElevenLabs returns clips
 at −24.1 LUFS (en) / −25.2 (hi) and there is **no gain staging anywhere**. A flat
 +8 dB is impossible (crest 17.8 dB). Music: **YouTube Audio Library, $0/mo** — the
 only source with a first-party *"won't be claimed through Content ID"* guarantee
@@ -238,7 +239,7 @@ runtime. TTS `style: 0.0` is the flattest value the API accepts, unseeded takes
 aren't reproducible, and `batch.py` hardcodes two voice params in violation of the
 one-home rule.
 
-**Packaging** ([[08-packaging]]). See §4 — the policy verdict is the important
+**Packaging** ([[_archive/08-packaging]]). See §4 — the policy verdict is the important
 part. Also: `-en` titles run 60–67 chars against a US market average of **50.2**
 (n=240); **0%** of live hi titles use "?" against India's **34%** (n=254);
 captions appear in **0 of 11** packs though `timing.json` + VO lines are both
@@ -256,7 +257,7 @@ works" exemplars in the vault — have **both moved to faces**.
 
 ## 4. Policy — real vs speculation
 
-Separated against primary sources ([[08-packaging]]).
+Separated against primary sources ([[_archive/08-packaging]]).
 
 **Real policy.** `answer/1311392`, updated 2025-07-15, renamed "repetitious" →
 **"inauthentic content"**, three buckets, clarified 2026-07-16 by Matt Halprin on
@@ -297,11 +298,11 @@ downside. Take the hedge.
    (story structure + `medium`-tier production cost); this section is the brief.
 3. **Architecture — rotation is live, the set is being chosen.** `blockframe-9`
    and `ledger-rail` are in `format.json`; `statement-card` and `split-register`
-   are specced in [[03-design]] and previewed for the creator at true 1920×1080
+   are specced in [[_archive/03-design]] and previewed for the creator at true 1920×1080
    geometry. Composes with the free 7-scene bookend cut.
 4. **Faceless — SETTLED, permanently.** Creator: *"no i dont want to show my
    face."* This closes the question; the 22/22-competitors-use-a-face finding in
-   [[08-packaging]] is noted and **overridden by creator preference**. Do not
+   [[_archive/08-packaging]] is noted and **overridden by creator preference**. Do not
    re-raise it, and do not propose a synthetic or AI presenter as a workaround —
    that lands in exactly the policy bucket §4 warns about ("AI personas on
    sensitive topics", named verbatim for financial guidance). Every future
@@ -310,7 +311,7 @@ downside. Take the hedge.
    ElevenLabs API per the creator's instruction.
 6. **Images — DEFERRED.** Creator: *"no i dont want to switch to ai images now
    may be in future."* Stock stays; the `#N` fix and the asset ledger are the
-   mitigations. Note [[10-medium-tier]] may find the image pool is the binding
+   mitigations. Note [[_archive/10-medium-tier]] may find the image pool is the binding
    constraint on 8-minute videos — if so, this decision needs revisiting on
    evidence, not preference.
 
@@ -371,9 +372,9 @@ constant-velocity `ken`; the thumbnail layout check; SRT captions; music and SFX
 
 ## 9. The 8-minute format — research in, one fork to settle
 
-Two agents, 2026-07-30: [[09-longform-story]] (structure + words, evidence base =
+Two agents, 2026-07-30: [[_archive/09-longform-story]] (structure + words, evidence base =
 8 real videos pulled with the repo's own yt-dlp, transcripts kept in
-`transcripts/`) and [[10-medium-tier]] (production cost + breakage, measured
+`transcripts/`) and [[_archive/10-medium-tier]] (production cost + breakage, measured
 against real masters).
 
 **Agreed.** Target 510s. The structure is `story-ladder-12` — twelve beats, first
@@ -404,7 +405,7 @@ when `fin-facts` can find one.
 The two agents disagree, and it is not a detail — it decides whether
 `fin-build`'s core 1:1 assumption survives.
 
-| | [[10-medium-tier]] | [[09-longform-story]] |
+| | [[_archive/10-medium-tier]] | [[_archive/09-longform-story]] |
 |---|---|---|
 | VO lines per cut | **28** | **~86** |
 | Line shape | ~18s paragraph | single sentence |
@@ -423,7 +424,7 @@ The two agents disagree, and it is not a detail — it decides whether
    lines, one clip per line, tiered gaps ([[../../workflows/voiceover-tts]]).
    blockframe-9's 18s paragraphs already violate it; scaling that to 28 scales
    the violation.
-3. **It is the only version that fixes cue timing.** [[04-storyboard]] measured
+3. **It is the only version that fixes cue timing.** [[_archive/04-storyboard]] measured
    char-interpolated cues drifting up to −0.36s. Short lines make each clip's
    boundary a real anchor, which is cheaper and more accurate than the
    faster-whisper work that note priced and rejected.
@@ -434,7 +435,7 @@ The two agents disagree, and it is not a detail — it decides whether
 Cost of the recommendation over the 28-line path: `timing.json` lines gain a
 `scene` field, `check_build`'s 1:1 assert becomes a grouping check, and
 `fin-build` places N audio rows per scene instead of one. Everything else in
-[[10-medium-tier]]'s change list is unaffected.
+[[_archive/10-medium-tier]]'s change list is unaffected.
 
 ### Blockers to clear before the first 8-minute run
 
@@ -464,7 +465,7 @@ Everything about audience *response*. No CTR, no retention curve, no impressions
 and none can exist until §0 is resolved. Engineering facts (drift, loudness, hash
 collisions, glyph coverage, cut detection) are reproducible and stated as facts;
 every claim that a change will *perform* better is a prior. The runtime-band
-evidence in [[01-performance]] is the strongest market signal here and it is still
+evidence in [[_archive/01-performance]] is the strongest market signal here and it is still
 correlation across other people's channels, not a test of ours.
 
 Related: [[../design-finance-blockframe]] · [[../channels]] ·

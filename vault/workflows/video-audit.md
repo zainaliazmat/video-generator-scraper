@@ -2,6 +2,7 @@
 summary: Reusable open-handed prompt to have Claude audit a finished video for engagement/retention — hook, script, visuals, motion, audio-sync — and return prioritized fixes + reusable rules. Deliberately non-prescriptive.
 updated: 2026-07-22
 source: creator request 2026-07-22 — wants an open prompt that lets Claude use its own judgment, not a fixed checklist.
+stage: ADOPTED — the audit method
 ---
 
 # Workflow — video engagement audit (open-handed)

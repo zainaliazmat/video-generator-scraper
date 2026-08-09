@@ -2,6 +2,7 @@
 summary: Every niche tested and killed, with the kill reason — so none is ever re-tested from scratch. Protected memory; add lines, never delete them.
 updated: 2026-07-04
 source: channel decisions log (historical) — validation history
+stage: ADOPTED — niche research; figures carry their own dates
 ---
 
 # Closed niches (do not revisit without NEW evidence)

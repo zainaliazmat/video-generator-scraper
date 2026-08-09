@@ -2,6 +2,7 @@
 summary: Verified consumer-money numbers for the India (₹) and USA ($) finance videos — salaries, rent, savings rates, debt. Every figure carries its source. This is the pool scripts draw from; nothing goes on screen unless it's here.
 updated: 2026-07-31 (first-lakh-first-thousand pass — India small-savings rates; BEA saving rate corrected to 2.7%)
 source: RBI Annual Report (via Business Standard, May 2026), PLFS Annual Report 2025 (PIB), AMFI, US Census P60-286, BEA Personal Income & Outlays May 2026, Harvard JCHS America's Rental Housing 2026, NY Fed HHDC Q1 2026, TransUnion via Forbes/WalletHub. Researched 2026-07-27 for the 50-30-20 video pair. + Federal Reserve SHED 2025 (rel. May 2026), Fed G.19 / LendingTree Q2 2026, FDIC — added 2026-07-27 for emergency-fund-en.
+stage: ADOPTED — the sourced money-fact corpus; entries carry their own dates
 ---
 
 # Consumer money facts — India & USA (2026)

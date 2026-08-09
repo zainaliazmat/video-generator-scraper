@@ -2,6 +2,7 @@
 summary: Study for the launch video ("Claude edited this video"). Nate Herk 363k (giant frame), Simon Crowe 140k on 7.4k subs (the breakout to emulate), MSG Encrypted 139 views (autopsy — our exact topic, failed). Verdict — anchor to CLAUDE + a result people want, never to the unknown tool name.
 updated: 2026-07-04
 source: study packet research/ZNbgOhxhzXg/ (480p + transcripts + frames) + web research 2026-07-04
+stage: RECORD — one video's competitor study, written by fin-research
 ---
 
 # Study: Claude-edits-video launch piece — 2026-07-04

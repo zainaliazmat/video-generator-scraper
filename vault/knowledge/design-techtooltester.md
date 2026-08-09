@@ -2,6 +2,7 @@
 summary: The durable design system for the TechToolTester channel (@techtooltester) — tokens, type, layout rules, motion, SFX, outro. Earned over video-02's 8 drafts. Copy these into each video's project DESIGN.md so every video inherits the learning. NOT auto-read by build.mjs (yet) — it's the human/author reference of record.
 updated: 2026-07-07
 source: distilled from studio/videos/video-02-claude-edits-video/build.mjs (draft-3→8, the CURRENT bright grade) + build-log; supersedes the stale dark grade still sitting in that project's DESIGN.md
+stage: ADOPTED for the TechToolTester lane — SUPERSEDED BY knowledge/design-finance-blockframe.md for all finance work
 ---
 
 # DESIGN — TechToolTester (bright grade)

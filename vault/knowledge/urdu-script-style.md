@@ -1,7 +1,8 @@
 ---
-summary: The creator's Urdu scriptwriting style — Roman Urdu with his chat-spelling conventions, casual first-person tone, digits for numbers, no affiliate talk. ALWAYS follow this for every Urdu script. Ground truth = his 11 sample lines (2026-07-05).
-updated: 2026-07-05
+summary: The creator's Urdu scriptwriting VOICE — casual first-person tone, digits for numbers, no affiliate talk. Ground truth = his 11 sample lines (2026-07-05). ⚠ The SCRIPT it was originally written in, Roman Urdu, is RETIRED (creator 2026-07-18): every script file is now Nastaliq, transliterated to Devanagari for TTS — see §3 and [[../workflows/voiceover-tts]]. Read this for register, never for orthography.
+updated: 2026-08-09
 source: Creator's own rewrite of video-02 Urdu script lines 01–11 (2026-07-05 session)
+stage: ADOPTED for tone and register — the ROMAN-URDU SCRIPT is SUPERSEDED BY workflows/voiceover-tts.md (creator 2026-07-18: scripts are always Nastaliq)
 ---
 
 # Urdu script style — the creator's voice (ALWAYS follow)

@@ -2,6 +2,7 @@
 summary: Gate 0/1 validation for Channel B (HistoryFramesFilm) — cinematic history. Scrape of 10 lanes / 577 videos (2026-07-07, This-year filter): huge demand, two repeatable small-channel breakout formats (compressed "entire history" + sensory day-in-the-life). First topic locked — Pompeii, The Last Day.
 updated: 2026-07-07
 source: library.db scrape 2026-07-07 (10 lanes, This-year filter) + web research 2026-07-07
+stage: ADOPTED — niche research; figures carry their own dates
 ---
 
 # Niche: cinematic history (Channel B — HistoryFramesFilm)
