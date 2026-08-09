@@ -1,0 +1,447 @@
+{
+  "generated": "2026-08-09T19:31:16",
+  "summary": {
+    "targets": 6,
+    "totals": {
+      "PASS": 48,
+      "NA": 12
+    },
+    "blocker_failures": 0,
+    "per_check": {
+      "currency_purity": {
+        "PASS": 6
+      },
+      "no_network_fetch": {
+        "PASS": 6
+      },
+      "photo_every_scene": {
+        "PASS": 6
+      },
+      "image_credits": {
+        "PASS": 6
+      },
+      "no_repeated_image": {
+        "PASS": 6
+      },
+      "vo_text_hygiene": {
+        "NA": 6
+      },
+      "timing_coherence": {
+        "PASS": 6
+      },
+      "track_alternation": {
+        "PASS": 6
+      },
+      "watermark": {
+        "PASS": 6
+      },
+      "captions": {
+        "NA": 6
+      }
+    }
+  },
+  "targets": [
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-en-ch1",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 8 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 7 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "7 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 46.42s vs last scene end 46.42s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "8 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-en-ch2",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 15 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 16 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "16 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 105.52s vs last scene end 105.52s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "15 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-en-ch3",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 16 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 16 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "16 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 96.60s vs last scene end 96.60s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "16 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-hi-ch1",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 8 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 7 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "7 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 42.48s vs last scene end 42.48s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "8 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-hi-ch2",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 13 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 13 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "13 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 81.53s vs last scene end 81.53s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "13 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-hi-ch3",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 9 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "9 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 61.14s vs last scene end 61.14s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "9 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    }
+  ]
+}

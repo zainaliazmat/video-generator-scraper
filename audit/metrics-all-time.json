@@ -1,0 +1,4082 @@
+{
+  "summary": {
+    "sessions": 59,
+    "by_agent": {
+      "Explore": {
+        "n": 10,
+        "covered": 2,
+        "tokens": 111102,
+        "duration_s": 404.7,
+        "tool_calls": 32
+      },
+      "general-purpose": {
+        "n": 46,
+        "covered": 14,
+        "tokens": 1358378,
+        "duration_s": 4602.8,
+        "tool_calls": 307
+      },
+      "<unknown>": {
+        "n": 9,
+        "covered": 0,
+        "tokens": 0,
+        "duration_s": 0.0,
+        "tool_calls": 0
+      },
+      "fin-render": {
+        "n": 41,
+        "covered": 9,
+        "tokens": 797198,
+        "duration_s": 13661.300000000001,
+        "tool_calls": 437
+      },
+      "fin-package": {
+        "n": 10,
+        "covered": 2,
+        "tokens": 177360,
+        "duration_s": 937.5,
+        "tool_calls": 81
+      },
+      "fin-script": {
+        "n": 17,
+        "covered": 4,
+        "tokens": 611818,
+        "duration_s": 5033.1,
+        "tool_calls": 74
+      },
+      "fin-audit": {
+        "n": 16,
+        "covered": 3,
+        "tokens": 276498,
+        "duration_s": 1598.9,
+        "tool_calls": 100
+      },
+      "fin-voice": {
+        "n": 18,
+        "covered": 3,
+        "tokens": 221743,
+        "duration_s": 1113.8,
+        "tool_calls": 60
+      },
+      "fin-storyboard": {
+        "n": 17,
+        "covered": 4,
+        "tokens": 612780,
+        "duration_s": 3149.6,
+        "tool_calls": 86
+      },
+      "fin-assets": {
+        "n": 58,
+        "covered": 7,
+        "tokens": 841311,
+        "duration_s": 6199.4,
+        "tool_calls": 489
+      },
+      "fin-build": {
+        "n": 50,
+        "covered": 5,
+        "tokens": 802186,
+        "duration_s": 6107.799999999999,
+        "tool_calls": 297
+      },
+      "fin-archive": {
+        "n": 4,
+        "covered": 2,
+        "tokens": 171222,
+        "duration_s": 371.79999999999995,
+        "tool_calls": 46
+      },
+      "fin-research": {
+        "n": 8,
+        "covered": 4,
+        "tokens": 239351,
+        "duration_s": 1393.3,
+        "tool_calls": 99
+      },
+      "fin-facts": {
+        "n": 7,
+        "covered": 3,
+        "tokens": 359819,
+        "duration_s": 2628.3999999999996,
+        "tool_calls": 170
+      },
+      "fin-editor": {
+        "n": 28,
+        "covered": 2,
+        "tokens": 178458,
+        "duration_s": 1125.8,
+        "tool_calls": 71
+      },
+      "fin-ceo": {
+        "n": 17,
+        "covered": 2,
+        "tokens": 176697,
+        "duration_s": 956.3,
+        "tool_calls": 68
+      }
+    },
+    "main_loop": {
+      "input_tokens": 867599,
+      "cache_creation_input_tokens": 106901393,
+      "output_tokens": 20193112,
+      "cache_read_input_tokens": 3315355924
+    },
+    "main_loop_turns": 14600
+  },
+  "sessions": [
+    {
+      "session": "0f1cd323-32c3-411c-87a6-1b7edb14a847",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 91630,
+        "cache_creation_input_tokens": 378157,
+        "output_tokens": 66807,
+        "cache_read_input_tokens": 5972511
+      },
+      "main_loop_turns": 76,
+      "slugs": []
+    },
+    {
+      "session": "d47cd4e6-4f92-48bd-b012-f3b1a3079077",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 99283,
+        "cache_creation_input_tokens": 13615503,
+        "output_tokens": 799439,
+        "cache_read_input_tokens": 51827759
+      },
+      "main_loop_turns": 260,
+      "slugs": []
+    },
+    {
+      "session": "2a049146-ad24-4358-8d3f-327c331b95e0",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 196408,
+        "cache_creation_input_tokens": 13008342,
+        "output_tokens": 1038176,
+        "cache_read_input_tokens": 127362268
+      },
+      "main_loop_turns": 472,
+      "slugs": []
+    },
+    {
+      "session": "7f2fb94e-b0db-40a5-a5a7-d477ae56920e",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 88529,
+        "cache_creation_input_tokens": 518106,
+        "output_tokens": 194342,
+        "cache_read_input_tokens": 17994641
+      },
+      "main_loop_turns": 157,
+      "slugs": []
+    },
+    {
+      "session": "91122814-bdc9-4402-9d60-885acfb03777",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 125952,
+        "cache_creation_input_tokens": 1338611,
+        "output_tokens": 264845,
+        "cache_read_input_tokens": 15755461
+      },
+      "main_loop_turns": 129,
+      "slugs": []
+    },
+    {
+      "session": "54049a62-0950-4a1a-bcd6-e38e88a77cef",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 1525,
+        "cache_creation_input_tokens": 1099154,
+        "output_tokens": 641091,
+        "cache_read_input_tokens": 55460320
+      },
+      "main_loop_turns": 270,
+      "slugs": []
+    },
+    {
+      "session": "fa586995-5377-412b-868c-ae4570d837e6",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 385,
+        "cache_creation_input_tokens": 584865,
+        "output_tokens": 284892,
+        "cache_read_input_tokens": 33463269
+      },
+      "main_loop_turns": 197,
+      "slugs": []
+    },
+    {
+      "session": "4b4b46cb-e4b0-496f-bdc3-9153d0e8b5dc",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 226,
+        "cache_creation_input_tokens": 673036,
+        "output_tokens": 193778,
+        "cache_read_input_tokens": 16425498
+      },
+      "main_loop_turns": 122,
+      "slugs": []
+    },
+    {
+      "session": "f8f34a35-c964-4ec1-bf15-cf2efd2da5f6",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 485,
+        "cache_creation_input_tokens": 1502519,
+        "output_tokens": 247069,
+        "cache_read_input_tokens": 39267393
+      },
+      "main_loop_turns": 264,
+      "slugs": []
+    },
+    {
+      "session": "5f1915c4-7167-4bab-9f6d-0479e15ff26d",
+      "agents": [
+        {
+          "agent": "Explore",
+          "description": "Phase A: project cartography",
+          "background": false,
+          "at": "2026-07-16T22:02:30.363Z",
+          "tokens": 54201,
+          "duration_s": 165.1,
+          "tool_calls": 18
+        },
+        {
+          "agent": "Explore",
+          "description": "B1: Pipeline Archaeologist",
+          "background": false,
+          "at": "2026-07-16T22:07:03.419Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "Explore",
+          "description": "B2: Vault Analyst",
+          "background": false,
+          "at": "2026-07-16T22:07:17.975Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "Explore",
+          "description": "B3: Security and continuity",
+          "background": false,
+          "at": "2026-07-16T22:07:35.831Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "Explore",
+          "description": "B4: Assets, cost, provenance",
+          "background": false,
+          "at": "2026-07-16T22:07:53.427Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "Explore",
+          "description": "B5: Output forensics",
+          "background": false,
+          "at": "2026-07-16T22:08:12.459Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "Explore",
+          "description": "Phase D: red-team the audit",
+          "background": false,
+          "at": "2026-07-16T22:22:05.310Z",
+          "tokens": 56901,
+          "duration_s": 239.6,
+          "tool_calls": 14
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 83,
+        "cache_creation_input_tokens": 283983,
+        "output_tokens": 134012,
+        "cache_read_input_tokens": 3380546
+      },
+      "main_loop_turns": 44,
+      "slugs": [
+        "video-hist-01-pompeii"
+      ]
+    },
+    {
+      "session": "55e5b80e-5d7e-498f-9dae-46989c3b2975",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 322,
+        "cache_creation_input_tokens": 844131,
+        "output_tokens": 170112,
+        "cache_read_input_tokens": 19917340
+      },
+      "main_loop_turns": 179,
+      "slugs": []
+    },
+    {
+      "session": "15111750-434b-4063-b29e-845f7b175bf6",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 137,
+        "cache_creation_input_tokens": 486099,
+        "output_tokens": 182222,
+        "cache_read_input_tokens": 9256019
+      },
+      "main_loop_turns": 73,
+      "slugs": []
+    },
+    {
+      "session": "8a3d08be-acc0-4d69-bef0-4abab42a26c3",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 8645,
+        "cache_creation_input_tokens": 7966897,
+        "output_tokens": 731601,
+        "cache_read_input_tokens": 54474235
+      },
+      "main_loop_turns": 260,
+      "slugs": []
+    },
+    {
+      "session": "49fad478-278b-4a9a-86d1-d69a90850287",
+      "agents": [
+        {
+          "agent": "general-purpose",
+          "description": "Verify evidence image licences",
+          "background": false,
+          "at": "2026-07-18T21:43:58.320Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 6658,
+        "cache_creation_input_tokens": 1700089,
+        "output_tokens": 551635,
+        "cache_read_input_tokens": 48937418
+      },
+      "main_loop_turns": 215,
+      "slugs": []
+    },
+    {
+      "session": "bd77eeb2-8528-4e5d-9c1d-4c8fb3d0952e",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 156,
+        "cache_creation_input_tokens": 494321,
+        "output_tokens": 149537,
+        "cache_read_input_tokens": 8394789
+      },
+      "main_loop_turns": 82,
+      "slugs": []
+    },
+    {
+      "session": "d4dfbda9-3fa4-45b1-bf04-dafb414fb42d",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 4254,
+        "cache_creation_input_tokens": 186976,
+        "output_tokens": 8753,
+        "cache_read_input_tokens": 669142
+      },
+      "main_loop_turns": 15,
+      "slugs": []
+    },
+    {
+      "session": "aec702a6-0967-4891-b53b-950f5d395a33",
+      "agents": [
+        {
+          "agent": null,
+          "description": "Audit hook + museum scenes",
+          "background": false,
+          "at": "2026-07-19T00:23:30.295Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit 1881 1976 shoreline scenes",
+          "background": false,
+          "at": "2026-07-19T00:23:37.360Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit slave city scenes",
+          "background": false,
+          "at": "2026-07-19T00:23:43.948Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit chest and river scenes",
+          "background": false,
+          "at": "2026-07-19T00:23:56.250Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit Madyan scenes part 1",
+          "background": false,
+          "at": "2026-07-19T00:24:07.268Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit Tuwa scenes part 2",
+          "background": false,
+          "at": "2026-07-19T00:24:17.833Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit court and duel scenes",
+          "background": false,
+          "at": "2026-07-19T00:24:27.298Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit plague scenes",
+          "background": false,
+          "at": "2026-07-19T00:24:38.003Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": null,
+          "description": "Audit exodus and sea scenes",
+          "background": false,
+          "at": "2026-07-19T00:24:47.960Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 164,
+        "cache_creation_input_tokens": 633667,
+        "output_tokens": 261116,
+        "cache_read_input_tokens": 11902897
+      },
+      "main_loop_turns": 88,
+      "slugs": [
+        "video-hist-02-firaun"
+      ]
+    },
+    {
+      "session": "1e78d9c0-2b6b-419d-911d-e6e3f0903c58",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 289,
+        "cache_creation_input_tokens": 1370863,
+        "output_tokens": 186332,
+        "cache_read_input_tokens": 31667516
+      },
+      "main_loop_turns": 157,
+      "slugs": []
+    },
+    {
+      "session": "3f510650-7bc2-41d6-829c-0f58faa4f4d6",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 70,
+        "cache_creation_input_tokens": 504401,
+        "output_tokens": 38018,
+        "cache_read_input_tokens": 2657626
+      },
+      "main_loop_turns": 39,
+      "slugs": []
+    },
+    {
+      "session": "57e5ff3b-6eea-40c9-a29f-6bbbda515951",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 113,
+        "cache_creation_input_tokens": 508670,
+        "output_tokens": 35895,
+        "cache_read_input_tokens": 4743062
+      },
+      "main_loop_turns": 62,
+      "slugs": []
+    },
+    {
+      "session": "33faee21-4fe0-4832-b308-593cc146f874",
+      "agents": [
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 1",
+          "background": false,
+          "at": "2026-07-22T01:38:20.295Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 2",
+          "background": false,
+          "at": "2026-07-22T01:38:29.358Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 3",
+          "background": false,
+          "at": "2026-07-22T01:38:36.248Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 4",
+          "background": false,
+          "at": "2026-07-22T01:38:45.308Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 5",
+          "background": false,
+          "at": "2026-07-22T01:38:55.311Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 6",
+          "background": false,
+          "at": "2026-07-22T01:39:02.315Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 7",
+          "background": false,
+          "at": "2026-07-22T01:39:09.875Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 8",
+          "background": false,
+          "at": "2026-07-22T01:39:18.873Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 9",
+          "background": false,
+          "at": "2026-07-22T01:39:26.892Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Re-line chapter 10",
+          "background": false,
+          "at": "2026-07-22T01:39:34.542Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Rebuild build.py per-line",
+          "background": false,
+          "at": "2026-07-22T02:02:52.651Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Update vault skills with lines learning",
+          "background": false,
+          "at": "2026-07-22T02:23:21.601Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 381,
+        "cache_creation_input_tokens": 2332305,
+        "output_tokens": 499759,
+        "cache_read_input_tokens": 34083630
+      },
+      "main_loop_turns": 193,
+      "slugs": [
+        "firaun-ka-anjaam",
+        "video-hist-02-firaun"
+      ]
+    },
+    {
+      "session": "e92b4f75-40c6-4b18-9018-e17cc74ba393",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 408,
+        "cache_creation_input_tokens": 2361649,
+        "output_tokens": 388806,
+        "cache_read_input_tokens": 36885089
+      },
+      "main_loop_turns": 218,
+      "slugs": []
+    },
+    {
+      "session": "a2fd11b9-5caa-47e1-865b-b334ae1eb66f",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 657,
+        "cache_creation_input_tokens": 872279,
+        "output_tokens": 545955,
+        "cache_read_input_tokens": 76048173
+      },
+      "main_loop_turns": 354,
+      "slugs": []
+    },
+    {
+      "session": "1c5c854b-8d77-4dd5-b0cd-0ce12007a6cc",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 13881,
+        "cache_creation_input_tokens": 2737564,
+        "output_tokens": 759026,
+        "cache_read_input_tokens": 58128037
+      },
+      "main_loop_turns": 280,
+      "slugs": []
+    },
+    {
+      "session": "eec0e050-4fbf-4508-ab9b-79f325120a7a",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 335,
+        "cache_creation_input_tokens": 873753,
+        "output_tokens": 201241,
+        "cache_read_input_tokens": 26936006
+      },
+      "main_loop_turns": 171,
+      "slugs": []
+    },
+    {
+      "session": "82f6473f-c3c7-4838-b649-817b586b151a",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 10136,
+        "cache_creation_input_tokens": 1898682,
+        "output_tokens": 411631,
+        "cache_read_input_tokens": 78294320
+      },
+      "main_loop_turns": 330,
+      "slugs": []
+    },
+    {
+      "session": "df62b4f3-eb40-42bb-a085-3d1e48dae05e",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 14743,
+        "cache_creation_input_tokens": 1195067,
+        "output_tokens": 272532,
+        "cache_read_input_tokens": 50635444
+      },
+      "main_loop_turns": 243,
+      "slugs": []
+    },
+    {
+      "session": "7eec6485-c8cf-443b-8df6-0b323883b8b4",
+      "agents": [
+        {
+          "agent": "general-purpose",
+          "description": "CEO independent plan review",
+          "background": false,
+          "at": "2026-07-27T19:01:57.949Z",
+          "tokens": 93545,
+          "duration_s": 244.5,
+          "tool_calls": 16
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Design independent plan review",
+          "background": false,
+          "at": "2026-07-27T19:40:20.711Z",
+          "tokens": 123581,
+          "duration_s": 384.9,
+          "tool_calls": 17
+        },
+        {
+          "agent": "general-purpose",
+          "description": "DX independent plan review",
+          "background": false,
+          "at": "2026-07-27T19:52:56.451Z",
+          "tokens": 114726,
+          "duration_s": 258.3,
+          "tool_calls": 18
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Eng independent plan review",
+          "background": false,
+          "at": "2026-07-27T19:52:48.065Z",
+          "tokens": 117362,
+          "duration_s": 292.5,
+          "tool_calls": 12
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Fresh full-pipeline re-review",
+          "background": false,
+          "at": "2026-07-27T20:21:44.111Z",
+          "tokens": 135858,
+          "duration_s": 525.2,
+          "tool_calls": 30
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 31176,
+        "cache_creation_input_tokens": 3337385,
+        "output_tokens": 490415,
+        "cache_read_input_tokens": 94339565
+      },
+      "main_loop_turns": 296,
+      "slugs": [
+        "needs-vs-wants"
+      ]
+    },
+    {
+      "session": "9a7c2f3a-105e-40ea-8207-67cb3571bb06",
+      "agents": [
+        {
+          "agent": "general-purpose",
+          "description": "fin-research: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T22:43:02.939Z",
+          "tokens": 46704,
+          "duration_s": 56.5,
+          "tool_calls": 11
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-facts: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T22:44:34.636Z",
+          "tokens": 70035,
+          "duration_s": 246.0,
+          "tool_calls": 21
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-script hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T22:49:07.187Z",
+          "tokens": 78176,
+          "duration_s": 205.5,
+          "tool_calls": 11
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-audit hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T22:52:51.679Z",
+          "tokens": 73643,
+          "duration_s": 244.4,
+          "tool_calls": 21
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-voice hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T22:57:20.455Z",
+          "tokens": 59359,
+          "duration_s": 142.8,
+          "tool_calls": 12
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-storyboard hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T23:00:17.043Z",
+          "tokens": 88736,
+          "duration_s": 290.6,
+          "tool_calls": 14
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-assets hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T23:05:26.823Z",
+          "tokens": 115889,
+          "duration_s": 659.3,
+          "tool_calls": 63
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-build hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T23:16:52.956Z",
+          "tokens": 151169,
+          "duration_s": 862.1,
+          "tool_calls": 37
+        },
+        {
+          "agent": "general-purpose",
+          "description": "fin-render hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-27T23:31:38.992Z",
+          "tokens": 89595,
+          "duration_s": 190.2,
+          "tool_calls": 24
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render QA hi cut",
+          "background": false,
+          "at": "2026-07-28T00:39:19.974Z",
+          "tokens": 74159,
+          "duration_s": 563.9,
+          "tool_calls": 28
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package hi: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T00:49:08.710Z",
+          "tokens": 94386,
+          "duration_s": 559.4,
+          "tool_calls": 45
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T00:59:02.336Z",
+          "tokens": 56975,
+          "duration_s": 159.4,
+          "tool_calls": 12
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T01:02:01.686Z",
+          "tokens": 53772,
+          "duration_s": 280.2,
+          "tool_calls": 32
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T01:07:00.341Z",
+          "tokens": 32495,
+          "duration_s": 113.7,
+          "tool_calls": 10
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T01:09:16.707Z",
+          "tokens": 66610,
+          "duration_s": 269.8,
+          "tool_calls": 11
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T01:14:05.281Z",
+          "tokens": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T02:25:41.600Z",
+          "tokens": 64476,
+          "duration_s": 229.2,
+          "tool_calls": 30
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T02:29:53.133Z",
+          "tokens": 126762,
+          "duration_s": 608.1,
+          "tool_calls": 34
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render QA en cut",
+          "background": false,
+          "at": "2026-07-28T02:51:37.169Z",
+          "tokens": 67852,
+          "duration_s": 471.8,
+          "tool_calls": 31
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package en: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T02:59:52.981Z",
+          "tokens": 82974,
+          "duration_s": 378.1,
+          "tool_calls": 36
+        },
+        {
+          "agent": "fin-archive",
+          "description": "fin-archive: pay-yourself-first",
+          "background": false,
+          "at": "2026-07-28T03:07:24.940Z",
+          "tokens": 62535,
+          "duration_s": 128.1,
+          "tool_calls": 23
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 748,
+        "cache_creation_input_tokens": 2066427,
+        "output_tokens": 406077,
+        "cache_read_input_tokens": 84776000
+      },
+      "main_loop_turns": 381,
+      "slugs": [
+        "needs-vs-wants",
+        "needs-vs-wants-thumbs",
+        "pay-yourself-first",
+        "pay-yourself-first-thumbs"
+      ]
+    },
+    {
+      "session": "cca91e22-655e-4b9d-9d2d-fb55d1bf75d3",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 98409,
+        "output_tokens": 834,
+        "cache_read_input_tokens": 61728
+      },
+      "main_loop_turns": 3,
+      "slugs": []
+    },
+    {
+      "session": "0653dacf-21d6-4120-b179-23f81f7b0b8e",
+      "agents": [
+        {
+          "agent": "fin-research",
+          "description": "fin-research stage",
+          "background": false,
+          "at": "2026-07-28T14:00:21.816Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts stage",
+          "background": false,
+          "at": "2026-07-28T14:05:58.176Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-hi stage",
+          "background": false,
+          "at": "2026-07-28T14:18:38.692Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-hi retry",
+          "background": false,
+          "at": "2026-07-28T14:30:31.663Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit-hi stage",
+          "background": false,
+          "at": "2026-07-28T14:40:33.176Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice-hi stage",
+          "background": false,
+          "at": "2026-07-28T14:53:27.325Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard-hi stage",
+          "background": false,
+          "at": "2026-07-28T15:01:27.874Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets-hi stage",
+          "background": false,
+          "at": "2026-07-28T15:16:25.074Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build-hi stage",
+          "background": false,
+          "at": "2026-07-28T15:56:37.917Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render-hi frame check",
+          "background": false,
+          "at": "2026-07-28T16:33:15.753Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets-hi re-source",
+          "background": false,
+          "at": "2026-07-28T16:47:54.997Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render-hi frame recheck",
+          "background": false,
+          "at": "2026-07-28T17:33:26.154Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-en stage",
+          "background": false,
+          "at": "2026-07-28T17:46:47.621Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render-hi QA",
+          "background": false,
+          "at": "2026-07-28T18:00:31.838Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit-en stage",
+          "background": false,
+          "at": "2026-07-28T18:03:22.397Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice-en stage",
+          "background": false,
+          "at": "2026-07-28T18:13:35.118Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package-hi stage",
+          "background": false,
+          "at": "2026-07-28T18:25:58.250Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard-en stage",
+          "background": false,
+          "at": "2026-07-28T18:26:44.245Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets-en stage",
+          "background": false,
+          "at": "2026-07-28T18:41:23.605Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build-en stage",
+          "background": false,
+          "at": "2026-07-28T19:25:39.509Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build-en glyph-fix retry",
+          "background": false,
+          "at": "2026-07-29T06:23:53.354Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render-en frame check",
+          "background": false,
+          "at": "2026-07-29T06:44:12.479Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render-en QA",
+          "background": false,
+          "at": "2026-07-29T07:07:16.206Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package-en stage",
+          "background": false,
+          "at": "2026-07-29T07:07:50.201Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-archive",
+          "description": "fin-archive stage",
+          "background": false,
+          "at": "2026-07-29T07:25:28.924Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 43116,
+        "cache_creation_input_tokens": 3223104,
+        "output_tokens": 1039998,
+        "cache_read_input_tokens": 126120501
+      },
+      "main_loop_turns": 470,
+      "slugs": [
+        "good-debt-vs-bad-debt",
+        "good-debt-vs-bad-debt-thumbs",
+        "pay-yourself-first",
+        "pay-yourself-first-thumbs"
+      ]
+    },
+    {
+      "session": "a180ad55-f261-4b2a-b6b6-5a579cff3b5c",
+      "agents": [
+        {
+          "agent": "fin-research",
+          "description": "fin-research credit-history",
+          "background": false,
+          "at": "2026-07-28T19:28:33.910Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts credit-history",
+          "background": false,
+          "at": "2026-07-28T19:31:16.997Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts credit-history attempt 2",
+          "background": false,
+          "at": "2026-07-29T06:21:05.151Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script hi credit-history",
+          "background": false,
+          "at": "2026-07-29T06:50:46.279Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script hi attempt 2 currency purity",
+          "background": false,
+          "at": "2026-07-29T07:01:58.579Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit hi credit-history",
+          "background": false,
+          "at": "2026-07-29T07:05:24.378Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice hi credit-history",
+          "background": false,
+          "at": "2026-07-29T07:27:04.140Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard hi credit-history",
+          "background": false,
+          "at": "2026-07-29T07:31:17.322Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi credit-history",
+          "background": false,
+          "at": "2026-07-29T07:44:35.616Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi credit-history",
+          "background": false,
+          "at": "2026-07-29T08:06:20.606Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi frame check",
+          "background": false,
+          "at": "2026-07-29T08:36:04.491Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi s7 fix pass",
+          "background": false,
+          "at": "2026-07-29T08:47:13.107Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi frame check attempt 2",
+          "background": false,
+          "at": "2026-07-29T08:56:37.579Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script en credit-history",
+          "background": false,
+          "at": "2026-07-29T09:04:39.574Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit en credit-history",
+          "background": false,
+          "at": "2026-07-29T09:12:20.030Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice en credit-history",
+          "background": false,
+          "at": "2026-07-29T09:22:49.052Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi QA pass",
+          "background": false,
+          "at": "2026-07-29T09:26:59.803Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard en credit-history",
+          "background": false,
+          "at": "2026-07-29T09:28:22.541Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en credit-history",
+          "background": false,
+          "at": "2026-07-29T09:40:51.075Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package hi credit-history",
+          "background": false,
+          "at": "2026-07-29T09:54:40.316Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en credit-history",
+          "background": false,
+          "at": "2026-07-29T10:10:57.091Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en frame check",
+          "background": false,
+          "at": "2026-07-29T10:38:57.026Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package en credit-history",
+          "background": false,
+          "at": "2026-07-29T10:53:57.407Z",
+          "tokens": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en QA pass",
+          "background": false,
+          "at": "2026-07-29T11:20:43.026Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package en credit-history",
+          "background": false,
+          "at": "2026-07-29T11:20:48.671Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-archive",
+          "description": "fin-archive credit-history",
+          "background": false,
+          "at": "2026-07-29T11:38:50.623Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 373,
+        "cache_creation_input_tokens": 420771,
+        "output_tokens": 129424,
+        "cache_read_input_tokens": 21487187
+      },
+      "main_loop_turns": 203,
+      "slugs": [
+        "credit-history"
+      ]
+    },
+    {
+      "session": "77fcf5f6-c56e-4249-be14-3ea273fbe0fd",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 482,
+        "cache_creation_input_tokens": 624986,
+        "output_tokens": 318201,
+        "cache_read_input_tokens": 45814511
+      },
+      "main_loop_turns": 261,
+      "slugs": []
+    },
+    {
+      "session": "deb5ff6d-125e-463a-a29e-31068098b82d",
+      "agents": [
+        {
+          "agent": "general-purpose",
+          "description": "Performance and competitor benchmark",
+          "background": false,
+          "at": "2026-07-29T16:43:42.214Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Script and writing research",
+          "background": false,
+          "at": "2026-07-29T16:44:03.995Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Design system and video style",
+          "background": false,
+          "at": "2026-07-29T16:44:26.570Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Storyboard and pacing research",
+          "background": false,
+          "at": "2026-07-29T16:44:47.282Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Visuals and imagery sourcing",
+          "background": false,
+          "at": "2026-07-29T16:45:15.049Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Animation motion and effects",
+          "background": false,
+          "at": "2026-07-29T16:45:43.480Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Sound design and audio",
+          "background": false,
+          "at": "2026-07-29T16:46:13.571Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Packaging titles thumbnails policy",
+          "background": false,
+          "at": "2026-07-29T16:46:47.154Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Long-form story finance script research",
+          "background": false,
+          "at": "2026-07-29T20:04:48.927Z",
+          "tokens": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Medium tier production reality",
+          "background": false,
+          "at": "2026-07-29T20:05:17.967Z",
+          "tokens": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Long-form story finance script research",
+          "background": false,
+          "at": "2026-07-29T20:06:09.161Z",
+          "tokens": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Medium tier production reality",
+          "background": false,
+          "at": "2026-07-29T20:06:29.443Z",
+          "tokens": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Long-form story finance script research",
+          "background": false,
+          "at": "2026-07-29T20:11:23.831Z",
+          "tokens": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Medium tier production reality",
+          "background": false,
+          "at": "2026-07-29T20:11:46.918Z",
+          "tokens": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Long-form story finance script research",
+          "background": false,
+          "at": "2026-07-30T02:34:36.883Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Medium tier production cost and breakage",
+          "background": false,
+          "at": "2026-07-30T02:34:59.185Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Swiss grid Vignelli design research",
+          "background": false,
+          "at": "2026-07-30T10:58:04.630Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Stock video and grid implementation",
+          "background": false,
+          "at": "2026-07-30T10:58:39.800Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 678,
+        "cache_creation_input_tokens": 2892632,
+        "output_tokens": 738732,
+        "cache_read_input_tokens": 90488061
+      },
+      "main_loop_turns": 368,
+      "slugs": [
+        "credit-history",
+        "firaun-ka-anjaam",
+        "good-debt-vs-bad-debt"
+      ]
+    },
+    {
+      "session": "811112cb-78fd-4654-80e7-368ec7bff3e1",
+      "agents": [
+        {
+          "agent": "Explore",
+          "description": "Map current finance video style",
+          "background": false,
+          "at": "2026-07-29T19:41:55.770Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "Explore",
+          "description": "Find style precedents in repo",
+          "background": false,
+          "at": "2026-07-29T19:42:04.068Z",
+          "tokens": null
+        },
+        {
+          "agent": "Explore",
+          "description": "Find style precedents in repo",
+          "background": false,
+          "at": "2026-07-29T19:44:11.193Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 5903,
+        "cache_creation_input_tokens": 2318892,
+        "output_tokens": 222910,
+        "cache_read_input_tokens": 36565875
+      },
+      "main_loop_turns": 223,
+      "slugs": [
+        "good-debt-vs-bad-debt"
+      ]
+    },
+    {
+      "session": "19bff376-9d7b-49f8-9ba0-999e286ea16c",
+      "agents": [
+        {
+          "agent": "fin-research",
+          "description": "fin-research stage",
+          "background": false,
+          "at": "2026-07-30T21:28:44.243Z",
+          "tokens": 42087,
+          "duration_s": 127.3,
+          "tool_calls": 16
+        },
+        {
+          "agent": "fin-research",
+          "description": "fin-research retry",
+          "background": false,
+          "at": "2026-07-30T21:31:31.533Z",
+          "tokens": 73785,
+          "duration_s": 383.9,
+          "tool_calls": 28
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts stage",
+          "background": false,
+          "at": "2026-07-30T21:38:15.033Z",
+          "tokens": 89574,
+          "duration_s": 609.0,
+          "tool_calls": 45
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script hi cut",
+          "background": false,
+          "at": "2026-07-30T21:53:32.609Z",
+          "tokens": 172561,
+          "duration_s": 1084.3,
+          "tool_calls": 25
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit hi cut",
+          "background": false,
+          "at": "2026-07-30T22:12:10.361Z",
+          "tokens": 91990,
+          "duration_s": 474.5,
+          "tool_calls": 27
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script en cut",
+          "background": true,
+          "at": "2026-07-30T22:20:31.374Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice hi cut",
+          "background": false,
+          "at": "2026-07-30T22:20:37.611Z",
+          "tokens": 84770,
+          "duration_s": 516.8,
+          "tool_calls": 27
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit en cut",
+          "background": true,
+          "at": "2026-07-30T22:38:23.006Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard hi cut",
+          "background": false,
+          "at": "2026-07-30T22:38:27.955Z",
+          "tokens": 138375,
+          "duration_s": 552.1,
+          "tool_calls": 12
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice en cut",
+          "background": true,
+          "at": "2026-07-30T22:48:41.412Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi cut",
+          "background": false,
+          "at": "2026-07-30T22:48:48.059Z",
+          "tokens": 322488,
+          "duration_s": 2909.8,
+          "tool_calls": 195
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard en cut",
+          "background": true,
+          "at": "2026-07-30T23:40:03.137Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi cut",
+          "background": false,
+          "at": "2026-07-30T23:40:09.025Z",
+          "tokens": 277336,
+          "duration_s": 2875.7,
+          "tool_calls": 100
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en cut",
+          "background": true,
+          "at": "2026-07-31T00:28:43.146Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi frame check",
+          "background": false,
+          "at": "2026-07-31T00:28:51.049Z",
+          "tokens": 119446,
+          "duration_s": 2409.5,
+          "tool_calls": 51
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi currency fix",
+          "background": false,
+          "at": "2026-07-31T01:10:15.374Z",
+          "tokens": 97129,
+          "duration_s": 775.2,
+          "tool_calls": 61
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi frame recheck",
+          "background": false,
+          "at": "2026-07-31T01:23:29.144Z",
+          "tokens": 51244,
+          "duration_s": 646.6,
+          "tool_calls": 26
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en cut",
+          "background": true,
+          "at": "2026-07-31T02:20:39.971Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi master QA",
+          "background": false,
+          "at": "2026-07-31T02:23:51.121Z",
+          "tokens": 64322,
+          "duration_s": 2278.2,
+          "tool_calls": 39
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package hi cut",
+          "background": true,
+          "at": "2026-07-31T03:02:48.334Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en currency fix",
+          "background": false,
+          "at": "2026-07-31T03:03:05.936Z",
+          "tokens": 92954,
+          "duration_s": 594.9,
+          "tool_calls": 51
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en rebuild",
+          "background": true,
+          "at": "2026-07-31T03:35:26.737Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en frame check",
+          "background": false,
+          "at": "2026-07-31T03:45:15.945Z",
+          "tokens": 202257,
+          "duration_s": 3043.2,
+          "tool_calls": 165
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en gate-two fix",
+          "background": false,
+          "at": "2026-07-31T04:36:40.100Z",
+          "tokens": 80090,
+          "duration_s": 496.8,
+          "tool_calls": 55
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en rebuild 3",
+          "background": false,
+          "at": "2026-07-31T04:45:16.728Z",
+          "tokens": 110340,
+          "duration_s": 737.7,
+          "tool_calls": 46
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en gate two recheck",
+          "background": false,
+          "at": "2026-07-31T04:58:30.038Z",
+          "tokens": 83860,
+          "duration_s": 896.9,
+          "tool_calls": 38
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi blankBar port",
+          "background": false,
+          "at": "2026-07-31T05:15:17.110Z",
+          "tokens": 52264,
+          "duration_s": 303.9,
+          "tool_calls": 28
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package en cut",
+          "background": true,
+          "at": "2026-07-31T06:04:25.151Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi re-QA",
+          "background": false,
+          "at": "2026-07-31T06:53:27.551Z",
+          "tokens": 49366,
+          "duration_s": 2316.3,
+          "tool_calls": 28
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en master QA",
+          "background": false,
+          "at": "2026-07-31T07:32:44.792Z",
+          "tokens": 84692,
+          "duration_s": 1034.9,
+          "tool_calls": 31
+        },
+        {
+          "agent": "fin-archive",
+          "description": "fin-archive close-out",
+          "background": false,
+          "at": "2026-07-31T07:51:51.826Z",
+          "tokens": 108687,
+          "duration_s": 243.7,
+          "tool_calls": 23
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 685,
+        "cache_creation_input_tokens": 657257,
+        "output_tokens": 305879,
+        "cache_read_input_tokens": 68763409
+      },
+      "main_loop_turns": 366,
+      "slugs": [
+        "first-lakh-first-thousand"
+      ]
+    },
+    {
+      "session": "03d85e27-cec8-4b80-919c-5205416e7590",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 289,
+        "cache_creation_input_tokens": 740284,
+        "output_tokens": 99385,
+        "cache_read_input_tokens": 18813784
+      },
+      "main_loop_turns": 156,
+      "slugs": []
+    },
+    {
+      "session": "ad3571d2-69b5-41c2-8e03-cb761ec045e2",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 152,
+        "cache_creation_input_tokens": 200371,
+        "output_tokens": 38804,
+        "cache_read_input_tokens": 6430050
+      },
+      "main_loop_turns": 81,
+      "slugs": []
+    },
+    {
+      "session": "f48630b9-f9ca-4b31-8546-bd8788829264",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 5170,
+        "cache_creation_input_tokens": 121851,
+        "output_tokens": 8551,
+        "cache_read_input_tokens": 1591666
+      },
+      "main_loop_turns": 28,
+      "slugs": []
+    },
+    {
+      "session": "702386e0-bc66-449e-93bf-a19d9ef06d36",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 7457,
+        "cache_creation_input_tokens": 468733,
+        "output_tokens": 203233,
+        "cache_read_input_tokens": 50645071
+      },
+      "main_loop_turns": 307,
+      "slugs": []
+    },
+    {
+      "session": "4ba0cefa-e2e7-451c-8cfd-68d03e56b182",
+      "agents": [
+        {
+          "agent": "fin-research",
+          "description": "fin-research japanese-money-methods",
+          "background": false,
+          "at": "2026-07-31T19:29:18.295Z",
+          "tokens": 84253,
+          "duration_s": 765.9,
+          "tool_calls": 46
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts japanese-money-methods",
+          "background": false,
+          "at": "2026-07-31T19:42:19.602Z",
+          "tokens": 139661,
+          "duration_s": 846.3,
+          "tool_calls": 52
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script hi",
+          "background": false,
+          "at": "2026-07-31T19:57:09.928Z",
+          "tokens": 222019,
+          "duration_s": 1473.2,
+          "tool_calls": 15
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit hi",
+          "background": true,
+          "at": "2026-07-31T20:22:47.217Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script en",
+          "background": true,
+          "at": "2026-07-31T20:22:56.742Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit en",
+          "background": true,
+          "at": "2026-07-31T20:40:33.552Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice hi",
+          "background": true,
+          "at": "2026-07-31T20:40:36.341Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard hi",
+          "background": true,
+          "at": "2026-07-31T20:49:09.500Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice en",
+          "background": true,
+          "at": "2026-07-31T20:56:36.940Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi",
+          "background": true,
+          "at": "2026-07-31T21:08:04.701Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard en",
+          "background": true,
+          "at": "2026-07-31T21:08:11.272Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en",
+          "background": true,
+          "at": "2026-07-31T22:23:22.785Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en attempt 2",
+          "background": true,
+          "at": "2026-08-01T01:46:41.292Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi",
+          "background": true,
+          "at": "2026-08-01T01:47:03.057Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi attempt 2",
+          "background": true,
+          "at": "2026-08-01T01:57:15.756Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en visual verify",
+          "background": true,
+          "at": "2026-08-01T02:07:50.635Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "recut s65/s66 both cuts",
+          "background": false,
+          "at": "2026-08-01T04:39:21.306Z",
+          "tokens": 213714,
+          "duration_s": 1111.6,
+          "tool_calls": 37
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets s65 both cuts",
+          "background": false,
+          "at": "2026-08-01T04:58:43.382Z",
+          "tokens": 95023,
+          "duration_s": 868.4,
+          "tool_calls": 66
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi attempt 3",
+          "background": true,
+          "at": "2026-08-01T05:14:22.134Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en",
+          "background": true,
+          "at": "2026-08-01T05:14:35.198Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi gate two",
+          "background": true,
+          "at": "2026-08-01T05:31:53.507Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi boundary recheck",
+          "background": true,
+          "at": "2026-08-01T06:23:18.707Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fix en s32b and s77",
+          "background": true,
+          "at": "2026-08-01T06:27:15.606Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "en s76 square-opening basin",
+          "background": true,
+          "at": "2026-08-01T06:51:27.479Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en gate two",
+          "background": true,
+          "at": "2026-08-01T06:58:13.951Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice hi reline 7.4",
+          "background": true,
+          "at": "2026-08-01T08:24:25.870Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice en reline 7.4",
+          "background": true,
+          "at": "2026-08-01T08:24:31.634Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice en attempt 3",
+          "background": true,
+          "at": "2026-08-01T08:29:45.148Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard hi blockframe-9",
+          "background": true,
+          "at": "2026-08-01T08:35:40.686Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard en blockframe-9",
+          "background": true,
+          "at": "2026-08-01T08:35:52.249Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "re-source en s91",
+          "background": true,
+          "at": "2026-08-01T08:47:27.437Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "re-source hi s53 and s91",
+          "background": true,
+          "at": "2026-08-01T08:57:44.107Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi blockframe-9",
+          "background": true,
+          "at": "2026-08-01T09:11:21.336Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en blockframe-9",
+          "background": true,
+          "at": "2026-08-01T09:11:31.511Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi master QA",
+          "background": true,
+          "at": "2026-08-01T17:30:21.304Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-package",
+          "description": "fin-package hi",
+          "background": true,
+          "at": "2026-08-01T17:51:33.269Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en QA",
+          "background": true,
+          "at": "2026-08-01T18:44:35.473Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 893,
+        "cache_creation_input_tokens": 3809534,
+        "output_tokens": 335953,
+        "cache_read_input_tokens": 97808869
+      },
+      "main_loop_turns": 475,
+      "slugs": [
+        "japanese-money-methods"
+      ]
+    },
+    {
+      "session": "f466a6d7-7062-42de-8835-2458203c8791",
+      "agents": [
+        {
+          "agent": "fin-editor",
+          "description": "Editor review of ch2",
+          "background": false,
+          "at": "2026-08-04T18:52:57.265Z",
+          "tokens": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 8030,
+        "cache_creation_input_tokens": 2491159,
+        "output_tokens": 553973,
+        "cache_read_input_tokens": 165721342
+      },
+      "main_loop_turns": 541,
+      "slugs": [
+        "japanese-money-methods"
+      ]
+    },
+    {
+      "session": "f8f0a43d-daa7-4afc-856c-6c9a0316be5c",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 117,
+        "cache_creation_input_tokens": 448518,
+        "output_tokens": 105663,
+        "cache_read_input_tokens": 8854479
+      },
+      "main_loop_turns": 62,
+      "slugs": []
+    },
+    {
+      "session": "2770e13a-4632-40a7-b350-f90776f7eca0",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 45297,
+        "cache_creation_input_tokens": 1676928,
+        "output_tokens": 845745,
+        "cache_read_input_tokens": 141399138
+      },
+      "main_loop_turns": 429,
+      "slugs": []
+    },
+    {
+      "session": "84205615-c598-4b7c-951d-ef3e36366edc",
+      "agents": [
+        {
+          "agent": "fin-editor",
+          "description": "Review ch2 attempt 2",
+          "background": false,
+          "at": "2026-08-04T19:58:58.377Z",
+          "tokens": 93618,
+          "duration_s": 624.3,
+          "tool_calls": 36
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Review ch2 attempt 3",
+          "background": false,
+          "at": "2026-08-04T21:01:46.256Z",
+          "tokens": 84840,
+          "duration_s": 501.5,
+          "tool_calls": 35
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review ch2",
+          "background": false,
+          "at": "2026-08-04T21:10:42.250Z",
+          "tokens": 98761,
+          "duration_s": 558.3,
+          "tool_calls": 40
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review ch2 attempt 2",
+          "background": false,
+          "at": "2026-08-04T21:43:53.807Z",
+          "tokens": 77936,
+          "duration_s": 398.0,
+          "tool_calls": 28
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 15694,
+        "cache_creation_input_tokens": 685936,
+        "output_tokens": 276563,
+        "cache_read_input_tokens": 56619717
+      },
+      "main_loop_turns": 314,
+      "slugs": [
+        "japanese-money-methods"
+      ]
+    },
+    {
+      "session": "fe4938a8-f3ac-4bbe-9fb0-0eabc92eb3f3",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 610,
+        "cache_creation_input_tokens": 2047993,
+        "output_tokens": 360195,
+        "cache_read_input_tokens": 94670805
+      },
+      "main_loop_turns": 309,
+      "slugs": []
+    },
+    {
+      "session": "92c20eea-c232-4edf-9fec-8cd7e100c577",
+      "agents": [
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch1",
+          "background": false,
+          "at": "2026-08-05T19:10:09.656Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch2",
+          "background": false,
+          "at": "2026-08-05T19:10:20.543Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch3",
+          "background": false,
+          "at": "2026-08-05T19:10:29.430Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch4",
+          "background": false,
+          "at": "2026-08-05T19:10:36.086Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch5",
+          "background": false,
+          "at": "2026-08-05T19:10:55.996Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch6",
+          "background": false,
+          "at": "2026-08-05T19:11:03.460Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch7",
+          "background": false,
+          "at": "2026-08-05T19:11:10.110Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "Editor audit en ch8",
+          "background": false,
+          "at": "2026-08-05T19:11:16.304Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "Source new photos en ch1-ch2",
+          "background": false,
+          "at": "2026-08-05T19:23:12.017Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "Source new photos en ch3-ch5",
+          "background": false,
+          "at": "2026-08-05T19:23:20.713Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "Source new photos en ch6-ch8",
+          "background": false,
+          "at": "2026-08-05T19:23:32.897Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "Wire ch1 art and Lotties",
+          "background": false,
+          "at": "2026-08-05T19:33:23.610Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "Wire ch2 art and Lotties",
+          "background": false,
+          "at": "2026-08-05T19:33:43.381Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "Source s7 photo for en ch1",
+          "background": false,
+          "at": "2026-08-05T19:59:02.843Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch1",
+          "background": false,
+          "at": "2026-08-05T21:01:05.049Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch2",
+          "background": false,
+          "at": "2026-08-05T21:01:15.515Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch3",
+          "background": false,
+          "at": "2026-08-05T21:01:24.408Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch4",
+          "background": false,
+          "at": "2026-08-05T21:01:33.201Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch5",
+          "background": false,
+          "at": "2026-08-05T21:01:54.392Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch6",
+          "background": false,
+          "at": "2026-08-05T21:02:02.804Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch7",
+          "background": false,
+          "at": "2026-08-05T21:02:13.630Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "CEO review en ch8",
+          "background": false,
+          "at": "2026-08-05T21:02:22.343Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "Re-source s39 subscriptions screen",
+          "background": false,
+          "at": "2026-08-05T21:13:57.493Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 1066,
+        "cache_creation_input_tokens": 1030292,
+        "output_tokens": 512327,
+        "cache_read_input_tokens": 165235036
+      },
+      "main_loop_turns": 566,
+      "slugs": [
+        "japanese-money-methods"
+      ]
+    },
+    {
+      "session": "a9e35b2c-ea3c-491f-b592-0da5b08b96ca",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 6344,
+        "cache_creation_input_tokens": 1377610,
+        "output_tokens": 506542,
+        "cache_read_input_tokens": 114275029
+      },
+      "main_loop_turns": 373,
+      "slugs": []
+    },
+    {
+      "session": "4577150b-154b-4a83-8fb7-4e5baaa4fa1e",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 863,
+        "cache_creation_input_tokens": 905889,
+        "output_tokens": 347884,
+        "cache_read_input_tokens": 74626889
+      },
+      "main_loop_turns": 337,
+      "slugs": []
+    },
+    {
+      "session": "6a67358a-9bc9-4783-966b-61a9056c0f7d",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 11641,
+        "cache_creation_input_tokens": 1517453,
+        "output_tokens": 296061,
+        "cache_read_input_tokens": 125942834
+      },
+      "main_loop_turns": 395,
+      "slugs": []
+    },
+    {
+      "session": "f69d04a2-b25f-4dce-8309-3b79fac6c288",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 170,
+        "cache_creation_input_tokens": 377495,
+        "output_tokens": 118639,
+        "cache_read_input_tokens": 10419150
+      },
+      "main_loop_turns": 91,
+      "slugs": []
+    },
+    {
+      "session": "e3cdf0b8-a5e1-4710-8ada-b5f5b74a3eae",
+      "agents": [
+        {
+          "agent": "fin-research",
+          "description": "fin-research passive-income-number",
+          "background": false,
+          "at": "2026-08-06T21:48:22.522Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "general-purpose",
+          "description": "Pull two format-twin transcripts",
+          "background": false,
+          "at": "2026-08-06T21:52:59.520Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts passive-income-number",
+          "background": false,
+          "at": "2026-08-06T21:56:07.661Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-research",
+          "description": "fin-research attempt 2 from transcripts",
+          "background": false,
+          "at": "2026-08-06T21:57:04.507Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-hi passive-income-number",
+          "background": false,
+          "at": "2026-08-06T22:14:55.268Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-en passive-income-number",
+          "background": false,
+          "at": "2026-08-06T22:15:14.989Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit-hi passive-income-number",
+          "background": false,
+          "at": "2026-08-06T22:46:57.905Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit-en passive-income-number",
+          "background": false,
+          "at": "2026-08-06T22:59:08.820Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice-hi passive-income-number",
+          "background": false,
+          "at": "2026-08-06T23:00:13.484Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard-hi passive-income-number",
+          "background": false,
+          "at": "2026-08-06T23:11:23.663Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice-en passive-income-number",
+          "background": false,
+          "at": "2026-08-06T23:12:03.841Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard-en passive-income-number",
+          "background": false,
+          "at": "2026-08-06T23:23:29.796Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi chapter 1",
+          "background": false,
+          "at": "2026-08-06T23:31:30.129Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi chapter 1",
+          "background": false,
+          "at": "2026-08-06T23:57:36.756Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch1 draft",
+          "background": false,
+          "at": "2026-08-07T00:20:41.759Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi chapter 2",
+          "background": false,
+          "at": "2026-08-07T00:24:02.258Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi chapter 1",
+          "background": false,
+          "at": "2026-08-07T00:28:57.069Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch1 rework",
+          "background": false,
+          "at": "2026-08-07T00:52:31.929Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi chapter 2",
+          "background": false,
+          "at": "2026-08-07T00:52:57.136Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch1 rework finish",
+          "background": false,
+          "at": "2026-08-07T07:21:26.382Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch2 draft",
+          "background": false,
+          "at": "2026-08-07T07:21:44.930Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 fix pass",
+          "background": false,
+          "at": "2026-08-07T07:38:07.539Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch1 draft round 2",
+          "background": false,
+          "at": "2026-08-07T07:46:13.087Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch1 s4 re-fetch",
+          "background": false,
+          "at": "2026-08-07T07:57:25.667Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch1 draft v3",
+          "background": false,
+          "at": "2026-08-07T08:11:24.792Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch2 draft v2",
+          "background": false,
+          "at": "2026-08-07T08:11:47.042Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi ch1 round 2",
+          "background": false,
+          "at": "2026-08-07T08:24:55.738Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch2 s16 re-source",
+          "background": false,
+          "at": "2026-08-07T08:25:17.993Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi ch2 round 1",
+          "background": false,
+          "at": "2026-08-07T08:25:42.020Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch1 s5",
+          "background": false,
+          "at": "2026-08-07T09:10:32.341Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch1 s5 drawn art",
+          "background": false,
+          "at": "2026-08-07T09:17:36.372Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch2 rework",
+          "background": false,
+          "at": "2026-08-07T09:18:13.998Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch1 draft v4",
+          "background": false,
+          "at": "2026-08-07T09:35:45.798Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-en style E restyle",
+          "background": false,
+          "at": "2026-08-07T17:42:34.618Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit-en style E",
+          "background": false,
+          "at": "2026-08-07T18:22:39.248Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice-en style E",
+          "background": false,
+          "at": "2026-08-07T18:41:50.593Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard-en style E",
+          "background": false,
+          "at": "2026-08-07T18:55:35.559Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en chapter 1",
+          "background": false,
+          "at": "2026-08-07T19:25:38.214Z",
+          "tokens": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en chapter 1",
+          "background": false,
+          "at": "2026-08-07T21:18:29.313Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 1026,
+        "cache_creation_input_tokens": 6327360,
+        "output_tokens": 575271,
+        "cache_read_input_tokens": 171792262
+      },
+      "main_loop_turns": 548,
+      "slugs": [
+        "passive-income-number"
+      ]
+    },
+    {
+      "session": "256591ad-42c1-4375-a6dc-fe8d9a81a1ca",
+      "agents": [
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en chapter 1",
+          "background": false,
+          "at": "2026-08-07T21:28:43.003Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script hi style E restyle",
+          "background": false,
+          "at": "2026-08-07T21:29:40.603Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en chapter 1",
+          "background": false,
+          "at": "2026-08-07T22:00:49.376Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit hi style E",
+          "background": false,
+          "at": "2026-08-07T22:16:09.689Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch1 resume",
+          "background": false,
+          "at": "2026-08-07T23:14:07.427Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit hi style E relaunch",
+          "background": false,
+          "at": "2026-08-07T23:14:19.050Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "draft render en ch1",
+          "background": false,
+          "at": "2026-08-07T23:33:06.233Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice hi style E on Amrut",
+          "background": false,
+          "at": "2026-08-07T23:33:22.003Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en ch1 round 1",
+          "background": false,
+          "at": "2026-08-07T23:42:14.926Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch1 re-fetch",
+          "background": false,
+          "at": "2026-08-07T23:53:06.706Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch1 s3/s4 only",
+          "background": false,
+          "at": "2026-08-08T00:22:25.112Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch1 fix pass",
+          "background": false,
+          "at": "2026-08-08T00:50:50.321Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script hi length expansion",
+          "background": false,
+          "at": "2026-08-08T00:51:08.069Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "draft render en ch1 round 2",
+          "background": false,
+          "at": "2026-08-08T01:08:51.420Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit hi expanded lines",
+          "background": false,
+          "at": "2026-08-08T01:16:36.566Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en ch1 round 2",
+          "background": false,
+          "at": "2026-08-08T01:23:58.223Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en chapter 2",
+          "background": false,
+          "at": "2026-08-08T01:26:22.384Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice hi ten lines",
+          "background": false,
+          "at": "2026-08-08T01:30:37.073Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch1 round 3",
+          "background": false,
+          "at": "2026-08-08T01:38:41.626Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard hi style E",
+          "background": false,
+          "at": "2026-08-08T01:39:03.256Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "draft render en ch1 round 3",
+          "background": false,
+          "at": "2026-08-08T02:03:33.294Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi chapter 1",
+          "background": false,
+          "at": "2026-08-08T02:12:58.114Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en ch1 round 3",
+          "background": false,
+          "at": "2026-08-08T02:22:13.638Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi chapter 1",
+          "background": false,
+          "at": "2026-08-08T02:27:38.271Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo en chapter 1",
+          "background": false,
+          "at": "2026-08-08T02:30:01.491Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 725,
+        "cache_creation_input_tokens": 1685406,
+        "output_tokens": 434544,
+        "cache_read_input_tokens": 81203813
+      },
+      "main_loop_turns": 400,
+      "slugs": [
+        "passive-income-number"
+      ]
+    },
+    {
+      "session": "dc2786d4-37ad-4eb3-ba64-d9e7ede04048",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 246,
+        "cache_creation_input_tokens": 196132,
+        "output_tokens": 66685,
+        "cache_read_input_tokens": 12819560
+      },
+      "main_loop_turns": 129,
+      "slugs": []
+    },
+    {
+      "session": "644456a8-c588-4605-8a51-e17a86420d9a",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 91,
+        "cache_creation_input_tokens": 155473,
+        "output_tokens": 23189,
+        "cache_read_input_tokens": 3272795
+      },
+      "main_loop_turns": 49,
+      "slugs": []
+    },
+    {
+      "session": "ef74ec6d-7d80-4829-a9f1-84380d88025a",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 63362,
+        "output_tokens": 1206,
+        "cache_read_input_tokens": 147866
+      },
+      "main_loop_turns": 4,
+      "slugs": []
+    },
+    {
+      "session": "a29b0ce5-5fa2-4550-93c8-4c875b171396",
+      "agents": [
+        {
+          "agent": "fin-research",
+          "description": "fin-research rehearsal",
+          "background": false,
+          "at": "2026-08-09T00:11:34.620Z",
+          "tokens": 39226,
+          "duration_s": 116.2,
+          "tool_calls": 9
+        },
+        {
+          "agent": "fin-facts",
+          "description": "fin-facts rehearsal",
+          "background": false,
+          "at": "2026-08-09T00:13:54.890Z",
+          "tokens": 130584,
+          "duration_s": 1173.1,
+          "tool_calls": 73
+        },
+        {
+          "agent": "fin-script",
+          "description": "fin-script-hi rehearsal",
+          "background": false,
+          "at": "2026-08-09T00:33:54.196Z",
+          "tokens": 160263,
+          "duration_s": 2316.2,
+          "tool_calls": 22
+        },
+        {
+          "agent": "fin-audit",
+          "description": "fin-audit-hi rehearsal",
+          "background": false,
+          "at": "2026-08-09T01:13:08.570Z",
+          "tokens": 130736,
+          "duration_s": 844.2,
+          "tool_calls": 41
+        },
+        {
+          "agent": "fin-voice",
+          "description": "fin-voice-hi rehearsal",
+          "background": false,
+          "at": "2026-08-09T01:27:33.129Z",
+          "tokens": 104478,
+          "duration_s": 483.3,
+          "tool_calls": 23
+        },
+        {
+          "agent": "fin-storyboard",
+          "description": "fin-storyboard-hi rehearsal",
+          "background": false,
+          "at": "2026-08-09T01:37:38.278Z",
+          "tokens": 194081,
+          "duration_s": 1216.1,
+          "tool_calls": 26
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets-hi ch1 rehearsal",
+          "background": false,
+          "at": "2026-08-09T01:58:23.893Z",
+          "tokens": 89151,
+          "duration_s": 325.1,
+          "tool_calls": 31
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build-hi ch1 rehearsal",
+          "background": false,
+          "at": "2026-08-09T02:05:23.073Z",
+          "tokens": 235484,
+          "duration_s": 1582.4,
+          "tool_calls": 89
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 1270,
+        "cache_creation_input_tokens": 1289715,
+        "output_tokens": 529371,
+        "cache_read_input_tokens": 202813749
+      },
+      "main_loop_turns": 681,
+      "slugs": [
+        "japanese-money-methods"
+      ]
+    },
+    {
+      "session": "2a8cff1e-7f85-4dfb-b7fb-ce0c47466430",
+      "agents": [
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo en chapter 1",
+          "background": false,
+          "at": "2026-08-08T05:08:57.957Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi chapter 1",
+          "background": false,
+          "at": "2026-08-08T05:09:12.383Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi chapter 2",
+          "background": false,
+          "at": "2026-08-08T05:14:07.752Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render draft hi ch1",
+          "background": false,
+          "at": "2026-08-08T05:23:15.659Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en chapter 2",
+          "background": false,
+          "at": "2026-08-08T05:23:37.340Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch1 s4 fix + redraft",
+          "background": false,
+          "at": "2026-08-08T05:38:25.804Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en chapter 3",
+          "background": false,
+          "at": "2026-08-08T05:50:44.754Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi chapter 1",
+          "background": false,
+          "at": "2026-08-08T05:59:14.178Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render draft en ch2",
+          "background": false,
+          "at": "2026-08-08T06:20:10.508Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi chapter 2",
+          "background": false,
+          "at": "2026-08-08T06:20:31.471Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch1 refetch",
+          "background": false,
+          "at": "2026-08-08T06:25:27.897Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en chapter 2",
+          "background": false,
+          "at": "2026-08-08T06:43:59.563Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch1 refetch retry",
+          "background": false,
+          "at": "2026-08-08T07:42:35.193Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 retry",
+          "background": false,
+          "at": "2026-08-08T07:42:56.408Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en ch2 retry",
+          "background": false,
+          "at": "2026-08-08T07:43:27.572Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render draft hi ch2",
+          "background": false,
+          "at": "2026-08-08T07:58:59.141Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch2 fix pass",
+          "background": false,
+          "at": "2026-08-08T07:59:20.814Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch2 s20 refetch",
+          "background": false,
+          "at": "2026-08-08T08:06:41.716Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch1 rework",
+          "background": false,
+          "at": "2026-08-08T08:18:27.766Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi chapter 2",
+          "background": false,
+          "at": "2026-08-08T08:18:50.752Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch2 refetch",
+          "background": false,
+          "at": "2026-08-08T08:31:35.892Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi ch1 round 2",
+          "background": false,
+          "at": "2026-08-08T08:37:36.950Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render redraft en ch2",
+          "background": false,
+          "at": "2026-08-08T08:37:59.296Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch1 band fix",
+          "background": false,
+          "at": "2026-08-08T08:51:45.455Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch1 band fix retry",
+          "background": false,
+          "at": "2026-08-08T09:33:43.293Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch2 refetch resume",
+          "background": false,
+          "at": "2026-08-08T09:34:08.920Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render en ch2 measure only",
+          "background": false,
+          "at": "2026-08-08T09:34:36.150Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi ch1 round 3",
+          "background": false,
+          "at": "2026-08-08T09:42:01.257Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo hi chapter 1",
+          "background": false,
+          "at": "2026-08-08T09:47:23.253Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en ch2 round 2",
+          "background": false,
+          "at": "2026-08-08T09:53:53.265Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch1 cascade resync",
+          "background": false,
+          "at": "2026-08-08T09:58:58.026Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo en chapter 2",
+          "background": false,
+          "at": "2026-08-08T10:03:18.320Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo hi ch1 round 2",
+          "background": false,
+          "at": "2026-08-08T10:08:51.322Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch2 s21 s15",
+          "background": false,
+          "at": "2026-08-08T10:36:40.382Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 rework",
+          "background": false,
+          "at": "2026-08-08T10:37:04.496Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 rework resume",
+          "background": false,
+          "at": "2026-08-08T10:56:35.500Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render draft hi ch2 v2",
+          "background": false,
+          "at": "2026-08-08T11:15:43.556Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch2 final fixes",
+          "background": false,
+          "at": "2026-08-08T11:16:00.888Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch2 un-invert round 2",
+          "background": false,
+          "at": "2026-08-08T11:39:58.737Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render draft en ch2 v3",
+          "background": false,
+          "at": "2026-08-08T11:40:19.606Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en ch2 round 3",
+          "background": false,
+          "at": "2026-08-08T12:00:34.053Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo en ch2 round 2",
+          "background": false,
+          "at": "2026-08-08T12:08:25.142Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 round 4",
+          "background": false,
+          "at": "2026-08-08T12:27:25.920Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi chapter 3",
+          "background": false,
+          "at": "2026-08-08T12:29:13.032Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-render",
+          "description": "fin-render hi ch2 settle margin",
+          "background": false,
+          "at": "2026-08-08T12:53:24.697Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en chapter 3",
+          "background": false,
+          "at": "2026-08-08T12:53:51.494Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 reframe s16",
+          "background": false,
+          "at": "2026-08-08T13:18:28.129Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch3 s31 s27",
+          "background": false,
+          "at": "2026-08-08T13:37:25.461Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi ch2 redraft remeasure",
+          "background": false,
+          "at": "2026-08-08T19:31:15.808Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch3 verify s31 s27",
+          "background": false,
+          "at": "2026-08-08T19:31:47.394Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi chapter 2 round 2",
+          "background": false,
+          "at": "2026-08-08T19:43:54.125Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch3 rebuild",
+          "background": false,
+          "at": "2026-08-08T19:44:15.084Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en chapter 4",
+          "background": false,
+          "at": "2026-08-08T19:44:56.278Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-ceo",
+          "description": "fin-ceo hi chapter 2",
+          "background": false,
+          "at": "2026-08-08T19:57:25.068Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor en chapter 3",
+          "background": false,
+          "at": "2026-08-08T20:02:44.420Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build hi chapter 3",
+          "background": false,
+          "at": "2026-08-08T20:11:10.861Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets en ch3 s30 s26",
+          "background": false,
+          "at": "2026-08-08T20:43:28.572Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi chapter 4",
+          "background": false,
+          "at": "2026-08-08T21:19:07.646Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-editor",
+          "description": "fin-editor hi chapter 3",
+          "background": false,
+          "at": "2026-08-08T21:20:11.503Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-assets",
+          "description": "fin-assets hi ch3 s22 blocker",
+          "background": false,
+          "at": "2026-08-08T22:17:41.481Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        },
+        {
+          "agent": "fin-build",
+          "description": "fin-build en ch3 regenerate",
+          "background": false,
+          "at": "2026-08-08T22:18:03.014Z",
+          "tokens": null,
+          "duration_s": 0.0,
+          "tool_calls": null
+        }
+      ],
+      "main_loop": {
+        "input_tokens": 1191,
+        "cache_creation_input_tokens": 2578213,
+        "output_tokens": 802882,
+        "cache_read_input_tokens": 195086715
+      },
+      "main_loop_turns": 637,
+      "slugs": [
+        "passive-income-number"
+      ]
+    },
+    {
+      "session": "e500e49b-d77a-4ee5-b61f-1c4b2e0fdcf2",
+      "agents": [],
+      "main_loop": {
+        "input_tokens": 10227,
+        "cache_creation_input_tokens": 1096134,
+        "output_tokens": 239354,
+        "cache_read_input_tokens": 26208059
+      },
+      "main_loop_turns": 167,
+      "slugs": []
+    }
+  ]
+}

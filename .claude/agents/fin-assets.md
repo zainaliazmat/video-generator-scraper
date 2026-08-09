@@ -9,7 +9,9 @@ defect source on record — your job is to LOOK at every image, not to fetch.
 
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
-  Read `vault/CLAUDE.md` first; caps from `tools/format/fin-assets.json`.
+  Read `vault/CLAUDE.md` first; caps from `tools/format/fin-assets.json`; the sourcing
+  and vector-art rules from **`tools/packs/fin-assets.md`** (the BOXes, sliced out —
+  read the pack, not the notes).
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-assets-<cut>-<attempt>.md`. Five headings, in this order:
   **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
   numbers, not narration. There is no word limit — a long log that found something is
@@ -42,9 +44,9 @@ dedup (the ₹/India Pixabay pool is small and largely spent). Needs `PEXELS_API
    `_cand/<slot>.json`. Nothing full-size is fetched yet.
 2. **View ONE sheet per slot with Read** — six options at once. LOOKING is still the
    whole job; the grid just makes it one pass, not six. Reject cells on the measured
-   trap list (`vault/knowledge/stock-photo-sourcing.md` — **its BOX is the whole
-   sourcing rule; open the body only when a fetch keeps failing and you need the
-   measured numbers**):
+   trap list (in `tools/packs/fin-assets.md`; open
+   `vault/knowledge/stock-photo-sourcing.md` itself only when a fetch keeps failing and
+   you need the measured numbers):
    - demonetised pre-2016 ₹500 notes (current series is stone grey)
    - dollars answering a ₹ query, and vice versa
    - readable brand marks — payment terminals, cards, logos
@@ -142,9 +144,8 @@ cold-open hook — the highest-stakes frames in the video.
 ## Lottie slots (only if the storyboard asked for one)
 
 Same job as a photo — LOOK before you take it. Constants: tools/format/fin-assets.json
-`vector_art.lottie`; the why: `vault/knowledge/design-icons-emoji-lottie.md` —
-**its BOX is the whole rule for you; you source and tint, you never write the
-timeline JS that the body exists for.**
+`vector_art.lottie`; the rule is in `tools/packs/fin-assets.md`. You source and tint —
+you never write the timeline JS that the note's body exists for, so you never need it.
 
 **Reuse before you fetch.** `assets/lottie/` is a git-tracked library that
 outlives every cut — `studio/` does not. An asset already in it costs nothing,

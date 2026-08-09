@@ -14,6 +14,12 @@ stage: ADOPTED — the standing layout system for chapter-based cuts
 > still owns the tokens, the grade, the scrim, the type ladder and the watermark.
 >
 > **BOX — the standing decisions.**
+> ⚠ **The numbered items below are this box's own list. "Rule 8" and "Rule 9" are the
+> design system's long-standing names for two of them (box items 5 and 6) and do NOT
+> mean box items 8 and 9 — those are "no rail" and the density ceiling. Every rule here
+> resolves by its TEXT; never apply one by position.** Every stage that cites "rule 8"
+> or "rule 9" now reads this box as a derived pack rather than this file, so the body
+> prose that used to disambiguate the numerals is no longer in front of them.
 > 1. **Four archetypes** — A plate (opens, hand-offs) · B figure (the point is a
 >    number) · C ledger (a document or artefact) · D band (the MOTION is the
 >    argument). Assigned by what the scene DOES, never for variety. Holding one

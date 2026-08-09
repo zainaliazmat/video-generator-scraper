@@ -9,8 +9,10 @@ You are the composition-build stage. Runs once per cut.
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
   Read `vault/CLAUDE.md` first; design constants from `tools/format/fin-build.json` and
-  `vault/knowledge/design-finance-blockframe.md` (**its BOX; the body only for a
-  value the CSS and tools/format/fin-build.json did not answer**).
+  **`tools/packs/fin-build.md`** — the BOXes of every design note you build against,
+  plus the two archetype body sections that are genuinely yours, sliced out. Read the
+  pack, not the notes; open `vault/knowledge/design-finance-blockframe.md` itself only
+  for a value that neither the CSS, the pack, nor `tools/format/fin-build.json` answered.
 - Before returning, write a log to `vault/videos/<slug>/logs/fin-build-<cut>-<attempt>.md`. Five headings, in this order:
   **Ran · Failed · Evidence · Changed · Owed.** Evidence carries paths and measured
   numbers, not narration. There is no word limit — a long log that found something is
@@ -69,11 +71,11 @@ the project dir. Nothing else — no render (that is fin-render's stage).
    "improve" because the last few videos looked alike.
 
 1a. **THE ARCHETYPE LAYER — every chapter scene, MEDIUM/LONG.**
-   Constants: `tools/format/fin-build.json chapter_design`. Rationale and the full rule list:
-   `vault/knowledge/design-chapter-archetypes.md` — **read its BOX before your
-   first chapter of a run, plus the two sections the box sends you to ("What a
-   drawn layer has to look like", "The gotchas that cost renders"). You build, so
-   those two are yours; the rest of the file is not.** Then build from
+   Constants: `tools/format/fin-build.json chapter_design`. Rationale and the full rule
+   list: **`tools/packs/fin-build.md`** — it already carries the archetype BOX plus the
+   two body sections that are yours ("What a drawn layer has to look like to survive the
+   encode", "The gotchas that cost renders"). Read it before your first chapter of a
+   run; the rest of that note is not yours. Then build from
    tools/format/fin-build.json. Reference implementations
    (creator-approved 2026-08-05):
    `vault/videos/japanese-money-methods/src/hi-ch1/index-claudedesign.html` + `-ch2`.
@@ -150,9 +152,9 @@ the project dir. Nothing else — no render (that is fin-render's stage).
      copied onto the injected frame.
 
    **Vector art (only where the storyboard asked for it).** Constants in
-   tools/format/fin-build.json `vector_art`; the why in
-   `vault/knowledge/design-icons-emoji-lottie.md` — **its BOX is the whole rule;
-   open the body only to hand-write Lottie or SVG timeline JS.** It sits ON the
+   tools/format/fin-build.json `vector_art`; the rule is in `tools/packs/fin-build.md`.
+   Open `vault/knowledge/design-icons-emoji-lottie.md` itself only to hand-write Lottie
+   or SVG timeline JS — that is what its body exists for. It sits ON the
    photograph —
    the scene keeps its `.bg`.
    - **Icon:** `ls assets/icons/` FIRST — that library is git-tracked and

@@ -20,6 +20,7 @@ Same sources as the editor, plus:
 
 | what | where |
 |---|---|
+| **your knowledge pack** | **`tools/packs/fin-ceo.md`** — the BOX of every design note you review against, sliced out. Read this, not the notes. |
 | editor's findings | `vault/videos/<slug>/logs/editor-<cut>-ch<N>-*.md` |
 | the channel's positioning | `vault/knowledge/channels.md` |
 | what this topic's audience rewards | `vault/knowledge/video-studies/<slug>.md` |
@@ -92,8 +93,8 @@ The correct fix when it does read flat is **NOT** "add more layouts" — a layou
 with nothing to hold is a hole, and the creator has already rejected empty
 halves. It is to give two or three scenes something real to put on the other
 side: a comparison, a count, a measurement. Say which scenes and what they
-should assert. See `vault/knowledge/design-chapter-archetypes.md` — you review,
-so its BOX is your whole read of that file; the body is build-time gotchas.
+should assert. The archetype rules are in `tools/packs/fin-ceo.md`; the note's body
+is build-time gotchas and is not yours.
 
 ## Output
 

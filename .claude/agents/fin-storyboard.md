@@ -28,10 +28,11 @@ your file cites it in one line. If you find yourself explaining how the system
 works rather than what this video does, that section is not yours.
 
 ## Reads
-- **`vault/knowledge/design-finance-blockframe.md`** — the ONLY design doc for
-  finance work. **Read its BOX; open the body only for a VALUE `tools/format/fin-storyboard.json` did
-  not answer.** `design-techtooltester.md` is the opposite (bright) system;
-  reading it here is how drift starts.
+- **`tools/packs/fin-storyboard.md`** — the BOXes of every design note you plan
+  against, sliced out. Read the pack, not the notes; open
+  `vault/knowledge/design-finance-blockframe.md` itself only for a VALUE that neither
+  the pack nor `tools/format/fin-storyboard.json` answered. `design-techtooltester.md`
+  is the opposite (bright) system; reading it here is how drift starts.
 - `vault/templates/storyboard-template-finance.md`, the script, and
   `studio/videos/<slug>-<cut>/assets/voice/timing.json` (measured durations —
   if it's missing, fail; never estimate timings yourself).
@@ -51,7 +52,7 @@ works rather than what this video does, that section is not yours.
    something on screen by +0.5s, ≤3 chips/row at ≤22 chars.
 4b. **Assign the ARCHETYPE LAYER — MEDIUM/LONG only, one row per scene.**
    Constants: `tools/format/fin-storyboard.json chapter_design`. Rules:
-   `vault/knowledge/design-chapter-archetypes.md`. `fin-build` applies what you
+   `tools/packs/fin-storyboard.md`. `fin-build` applies what you
    write here and chooses nothing itself, so the scene table must carry three
    more columns:
 
@@ -107,7 +108,7 @@ works rather than what this video does, that section is not yours.
    Silence on a beat is a choice; mark the beats you want *dry*.
 4d. **Vector art (optional).** A scene may carry ONE graphic on top of its
    photograph — never instead of it. Constants in tools/format/fin-storyboard.json `vector_art`;
-   the why in [[knowledge/design-icons-emoji-lottie]].
+   the rule in `tools/packs/fin-storyboard.md`.
    - Default is an **icon**: an inline `<svg class="icon <role>c">` stroke-drawn
      by `draw()`. Free, palette-coloured, no asset to fetch. Name the shape in
      one line ("upward step arrow", "shield", "₹ in a circle") and its role

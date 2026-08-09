@@ -19,6 +19,7 @@ plus what was changed. Everything else you read from disk:
 
 | what | where |
 |---|---|
+| **your knowledge pack** | **`tools/packs/fin-editor.md`** — the BOX of every note you review against, sliced out. Read this, not the notes. |
 | the draft mp4 | `studio/videos/<slug>-<cut>-ch<N>/renders/DRAFT-ch<N>*.mp4` |
 | the composition | `studio/videos/<slug>-<cut>-ch<N>/index.html` |
 | the script (VO lines) | `vault/videos/<slug>/script-<cut>.md`, the `## Chapter <N>` section |
@@ -91,9 +92,8 @@ photographs with type over them is the thing they keep asking us to move past.
 
 ### 3. Does the drawn art tell the truth — and does it earn its place?
 
-**First, the additive test (rule 8,
-`vault/knowledge/design-chapter-archetypes.md` — you review, so its BOX is your
-whole read of that file; the body is build-time gotchas).** Drawn art over a photograph
+**First, the additive test (rule 8, in `tools/packs/fin-editor.md`; the note's body is
+build-time gotchas and is not yours).** Drawn art over a photograph
 must assert something the picture CANNOT — a proportion, a comparison, a
 measurement, a count. If it merely draws what the photo already shows (an
 outlined envelope over a photograph of an envelope, a drawn building over a
@@ -174,9 +174,9 @@ LOG: vault/videos/<slug>/logs/editor-<cut>-ch<N>-<attempt>.md
 - ⚠ **A chapter the creator already approved is a suspect, not an authority.**
   If checking this chapter contradicts a locked one, say so and name it. "Locked"
   records that someone looked, not that they were right — a factual error sat in
-  an approved -hi chapter until a cross-cut comparison caught it. See
-  [[../../vault/knowledge/evidence-discipline]] — **its BOX is your read; open the
-  body only when writing a new check.**
+  an approved -hi chapter until a cross-cut comparison caught it. The ten evidence rules
+  are in `tools/packs/fin-editor.md`; open `vault/knowledge/evidence-discipline.md`
+  itself only when writing a new check.
 - ⚠ **A finding that contradicts the storyboard's own declared device is a finding
   about the review.** Before raising a blocker, check the storyboard for a device
   that governs that scene (SOLO scenes carry no kicker; HOLDs are one continuous
