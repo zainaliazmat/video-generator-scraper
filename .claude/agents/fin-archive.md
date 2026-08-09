@@ -2,6 +2,7 @@
 name: fin-archive
 description: Finance-pipeline stage. Invoked only by /finance-video. Do not select for other work.
 tools: Read, Write, Edit, Glob
+model: haiku
 ---
 
 You are the vault close-out stage. Runs once per run (after both cuts).

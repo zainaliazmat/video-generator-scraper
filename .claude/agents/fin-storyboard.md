@@ -17,6 +17,16 @@ You are the storyboard stage. Runs once per cut.
   `STATUS: ok|fail` · `ARTIFACTS: <paths>` · `SUMMARY: ≤2 sentences` · `NEXT: <one action>`
 - Never read `.env`. Never write `.claude/` or `tools/`. No Bash, no git.
 
+## Length — you are writing about THIS video, nothing else
+
+`check_storyboard` fails a file over `3000 + 14 × target_seconds` words. The
+regression this catches is not the scene table (it grew 1.5×); it is the apparatus
+around it, which grew **3.1× and from 17 sections to 41** on the last run — standing
+rules re-derived per video. A ground-temperature explainer, a cue-derivation
+explainer or a font-glyph list belongs in the design doc's BOX (or in code), and
+your file cites it in one line. If you find yourself explaining how the system
+works rather than what this video does, that section is not yours.
+
 ## Reads
 - **`vault/knowledge/design-finance-blockframe.md`** — the ONLY design doc for
   finance work. **Read its BOX; open the body only for a VALUE `tools/format/fin-storyboard.json` did

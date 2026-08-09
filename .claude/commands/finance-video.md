@@ -108,8 +108,27 @@ and inviting a script to pad itself that much. The rate changes whenever the
 voice does — it moved 13.03 → 14.281 when hi went from Harsh to Amrut, and a
 script budgeted at the old rate lands short of the tier's own floor.
 
-Initialize `run.json`: intake answers, `started`, an empty `stages` map, and a
-`budget` block `{elevenlabs_calls: 0, max_elevenlabs_calls: <derived>, pixabay_calls: 0}`.
+Initialize `run.json`: intake answers, `started`, an empty `stages` map, a
+`budget` block `{elevenlabs_calls: 0, max_elevenlabs_calls: <derived>, pixabay_calls: 0}`,
+and **`voices: {hi: <id>, en: <id>}` copied from `format.json cuts.<cut>.voice_id`.**
+
+**Two decisions bind before they can be seen, so both are locked here and
+`pipeline_check` enforces it** (`decided_late_problems`): the **style** (the script
+is written to it) and the **voice** (`chars_per_second` is a property of the voice,
+so a swap re-budgets the script). `check_script` refuses a run with no
+`architecture`; `check_voice` refuses one whose `voices.<cut>` is missing or no
+longer matches `format.json`.
+
+**Sample two lines before you voice eighty.** After `fin-script` passes and before
+`fin-voice`, generate the first two VO lines only —
+`python3 tools/tts/batch.py --project studio/videos/<slug>-<cut> --cut <cut> --only 1.1,1.2`
+— and hand them over with the script's opening. Two calls, ~30 seconds. This exists
+because `passive-income-number` spent **156 calls, 52% of its whole TTS budget**, on
+style-A scripts discarded after both cuts were fully voiced; the cheap comparison
+that settled it (`studio/voice-tests/passive-income-number/style-E-*.txt`, ch1–ch2
+only) was run 156 calls too late. If the creator changes style or voice on hearing
+the sample, re-run `fin-script` — that is the whole point, and it now costs two
+clips instead of a budget.
 
 **`run.json` is STATE, not a notebook.** It holds what a resume needs and nothing
 else; `pipeline_check.py RUN_STATE_KEYS` / `CHAPTER_STATE_KEYS` are the shape.

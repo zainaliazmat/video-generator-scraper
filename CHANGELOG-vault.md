@@ -439,3 +439,88 @@ cannot draw. All seven `passive-income-number` chapters in production are clean.
 lighter resolve would have turned the guard into a silent no-op — the exact
 disease it was written to cure. Now declared in `tools/requirements.txt`, and
 `doctor` fails preflight if it is not importable.
+
+---
+
+## 2026-08-09 — Phase 2b–2e
+
+### 2b — decide before you spend
+
+`passive-income-number` burned **156 ElevenLabs calls, 52% of its budget**, on
+style-A scripts discarded after both cuts were fully voiced. The intake question
+for style already existed and was answered; nothing stopped the decision moving
+afterwards.
+
+`decided_late_problems()` now asserts the two things that bind before they can be
+seen. `check_script` refuses a run with no `run.json.architecture`. `check_voice`
+refuses one whose `voices.<cut>` is missing or no longer matches `format.json` —
+because `chars_per_second` is a property of the VOICE, and the Harsh → Amrut swap
+moved it 13.03 → 14.281 and landed the hi cut at 7:59.259, **0.741 s under the
+8:00 mid-roll floor that is the whole reason MEDIUM tier exists.**
+
+And the default that would actually have caught it: the orchestrator now voices
+**two lines** after `fin-script` and hands them over before the full run. Two calls,
+~30 seconds. The cheap comparison that settled the style
+(`studio/voice-tests/passive-income-number/style-E-*.txt`, ch1–ch2 only) was run
+156 calls too late.
+
+### 2e — the density regression was in the apparatus, not the scenes
+
+|  | scenes | apparatus | sections |
+|---|---|---|---|
+| japanese | 4.05 w/s | 9.16 w/s | 17 |
+| passive | 6.26 w/s | **28.77 w/s** | **41** |
+| | 1.5× | **3.1×** | 2.4× |
+
+The scene table barely moved. What tripled is the prose around it — *"11. The
+ground temperature arc"* (968 w, which is `design-chapter-archetypes`'s job), *"the
+cue list is DERIVED per chapter"* (694 w, a pipeline mechanic), *"what this file
+ports and where it diverges"* (886 w, meta-commentary), and the font-subset guard
+that turned out to be inverted. Standing rules re-derived per video — the same
+disease as the vault, one layer down.
+
+`check_storyboard` now fails a file over **`3000 + 14 × target_seconds`** words. The
+budget is affine, not a flat w/s rate, because a storyboard has fixed overhead and a
+flat rate false-fires on SHORT where the overhead is the whole file. Fitted so all
+six reference cuts pass (japanese en is closest at 12,153/12,240) and both
+`passive-income-number` storyboards fail (17,864 and 15,346 against 10,140).
+
+### 2d — one bucket, and the biggest one was refused
+
+63% of 155 reviewer findings are mechanical. **Bucket 1 — composed-frame
+legibility, 32%, the biggest — was not built, and the reason is disqualifying:
+there is no ground truth.** `archive_cut.py` drops renders and jpgs by design, so
+`japanese-money-methods` — the only cut anyone calls good — has **no surviving
+frames**. The only composed frames on disk belong to `passive-income-number`, the
+cut that needed eight build attempts. Calibrating the check against the regression
+would teach it to accept the thing it exists to catch. Worse than a false-fire:
+unfalsifiable.
+
+It is also the metric the humans needed **three successive rulings** to define
+(`ground_and_payoff_legibility` → `payoff_clause_and_metric` → `floor_stopping_rule`,
+all now in `notes.md`). A script encoding one version of a definition that moved
+twice mid-run would be wrong in a way nobody could see.
+
+Built instead: **off-canvas plate art** (archetypes gotcha 8). `.p-b` is
+`left:1120 width:860` on a 1920 frame, so 60px hangs off the right edge and
+anything past viewBox `x=800` renders nowhere — one chapter lost the X of a
+decision fork exactly this way and every check passed. Deliberately narrow: bare
+geometry attributes only, and anything under a `transform` is skipped, because this
+check does not do matrix maths and would rather miss a defect than invent one.
+
+Validated in both directions: **0 false fires across the 14 creator-approved
+japanese chapters and all 7 in-production passive chapters**, catches a synthetic
+`vx=815`, stays silent at `vx=700` and under a transform.
+
+Also corrected: my keyword classification put "stale comment" findings in the
+mechanical bucket. Reading them, they are all *a scene comment asserting something
+the frame does not show* — prose-vs-pixels, which needs eyes. The mechanical share
+is smaller than 63%.
+
+### 2c — render and archive only
+
+`model: haiku` on `fin-render` and `fin-archive`. `fin-voice` and `fin-assets` were
+left on the strong model deliberately: `fin-voice` spent 104k tokens in the
+rehearsal and used them to find the `batch.py` ordering bug — that was judgement,
+not button-pressing — and `fin-assets` is the highest-rework stage in the pipeline,
+where a downgrade would likely cost more in retries than it saves.

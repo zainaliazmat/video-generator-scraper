@@ -167,12 +167,54 @@ def check_facts(slug, cut, fmt):
     return []
 
 
+def load_run(slug):
+    try:
+        return json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def decided_late_problems(slug, cut, fmt, stage):
+    """Decisions that BIND early must be MADE early. Returns problems.
+
+    passive-income-number burned 156 ElevenLabs calls — 52% of its budget — on
+    style-A scripts discarded after both cuts were voiced, because the style was
+    changed on 2026-08-07 with the artifacts already on disk. The intake question
+    for style already existed and was answered; what was missing is that nothing
+    stopped the decision moving afterwards.
+
+    Two things bind before they can be seen, so both are asserted here:
+      style — the script is written to it; changing it discards the script AND
+              every clip generated from it.
+      voice — chars_per_second is a property of the VOICE, so a voice swap
+              re-budgets the script. Harsh -> Amrut moved it 13.03 -> 14.281 and
+              landed the hi cut at 7:59.259, 0.741s under the 8:00 mid-roll floor
+              that is the whole reason MEDIUM tier exists."""
+    run = load_run(slug)
+    problems = []
+    if not run.get("architecture"):
+        problems.append("run.json has no `architecture` — the style must be recorded "
+                        "at intake, before a script is written to it")
+    if stage == "voice":
+        want = fmt["cuts"][cut].get("voice_id")
+        got = run.get("voices", {}).get(cut)
+        if not got:
+            problems.append(f"run.json has no voices.{cut} — record the voice at intake; "
+                            f"chars_per_second belongs to the voice, so a swap re-budgets "
+                            f"the script")
+        elif want and got != want:
+            problems.append(f"run.json voices.{cut} is {got} but format.json says {want} — "
+                            f"the voice changed after intake, so the char budget the script "
+                            f"was written to is wrong. Re-run fin-script before voicing.")
+    return problems
+
+
 def check_script(slug, cut, fmt):
     path = os.path.join(vault_dir(slug), f"script-{cut}.md")
     if not os.path.exists(path):
         return [f"missing script: {path}"]
     text = open(path, encoding="utf-8").read()
-    problems = []
+    problems = decided_late_problems(slug, cut, fmt, "script")
     if len(text) < 500:
         problems.append("script suspiciously small (<500 bytes)")
     bad = fmt["cuts"][cut]["forbidden_currency"]
@@ -277,8 +319,9 @@ def drift_from_span(real, span):
 
 
 def check_voice(slug, cut, fmt):
-    return check_voice_dir(os.path.join(studio_dir(slug, cut), "assets", "voice"),
-                           cut, fmt, slug)
+    return (decided_late_problems(slug, cut, fmt, "voice") +
+            check_voice_dir(os.path.join(studio_dir(slug, cut), "assets", "voice"),
+                            cut, fmt, slug))
 
 
 def check_voice_dir(vdir, cut, fmt, slug=None):
@@ -361,11 +404,39 @@ def stale_script_problems(slug, cut):
     return []
 
 
+# A storyboard has fixed overhead plus per-second scene work, so the budget is
+# affine, not a flat words-per-second — a flat rate false-fires on SHORT, where the
+# overhead is the whole file. Fitted so that all six reference cuts pass and both
+# passive-income-number storyboards fail:
+#   japanese hi 8,721/12,240 · japanese en 12,153/12,240 · first-lakh en 9,319/10,140
+#   pay-yourself en 4,100/5,310   vs   passive hi 17,864/10,140 · passive en 15,346
+# The regression it exists to catch is NOT in the scene table (4.05 -> 6.26 w/s,
+# 1.5x) but in the apparatus around it (9.16 -> 28.77 w/s, 3.1x; 17 sections -> 41)
+# — standing rules re-derived per video instead of cited from the design doc's BOX.
+STORYBOARD_BASE_WORDS = 3000
+STORYBOARD_WORDS_PER_SECOND = 14
+
+
+def storyboard_budget(target_seconds):
+    return STORYBOARD_BASE_WORDS + STORYBOARD_WORDS_PER_SECOND * target_seconds
+
+
 def check_storyboard(slug, cut, fmt):
     problems = stale_script_problems(slug, cut)
     sb = os.path.join(vault_dir(slug), f"storyboard-{cut}.md")
     if not os.path.exists(sb):
         problems.append(f"missing storyboard: {sb}")
+    else:
+        target = load_run(slug).get("target_seconds")
+        if target:
+            words = len(open(sb, encoding="utf-8").read().split())
+            cap = storyboard_budget(target)
+            if words > cap:
+                problems.append(
+                    f"storyboard is {words:,} words against a {cap:,} budget for a "
+                    f"{target}s cut ({words / target:.1f} w/s). The scene table is not "
+                    f"the problem — cite the design doc's BOX instead of restating a "
+                    f"standing rule, and delete any section that is not about THIS video.")
     manifest = os.path.join(studio_dir(slug, cut), "assets", "img", "manifest.json")
     if not os.path.exists(manifest):
         problems.append(f"missing image manifest: {manifest}")
@@ -538,6 +609,48 @@ def uncovered_glyphs(html):
             f"Rewrite the string; do not add a fallback font (it breaks determinism)."]
 
 
+def offcanvas_art(html, fmt):
+    """Drawn art placed outside the part of its plate that is actually on screen.
+
+    `chapter_design.archetypes[X].plate` is [left, top, w, h] on a 1920x1080 frame,
+    and .p-b is left:1120 width:860 — so 60px of it hangs off the right edge and
+    anything past viewBox x=800 does not exist on the encode. One chapter lost the
+    X of a decision fork exactly this way, and every check passed (archetypes
+    gotcha 8). The art svg's viewBox IS the plate's w/h, so the comparison is direct.
+
+    Deliberately narrow: only bare geometry attributes on elements that are not
+    under a `transform`, because a transform moves the coordinate frame and this
+    check does not do matrix maths. It would rather miss a defect than invent one."""
+    plates = {v["class"]: v["plate"] for v in fmt["chapter_design"]["archetypes"].values()
+              if "class" in v and "plate" in v}
+    # class is e.g. "arch-b" while the plate helper is "p-b"; map on the letter
+    byletter = {c.rsplit("-", 1)[-1]: p for c, p in plates.items()}
+    problems = []
+    for m in re.finditer(r'class="plate\s+p-([abcd])[^"]*"(.*?)</svg>', html, re.S):
+        letter, block = m.group(1), m.group(2)
+        rect = byletter.get(letter)
+        vb = re.search(r'<svg class="art"[^>]*viewBox="[\d.\-]+ [\d.\-]+ ([\d.]+) ([\d.]+)"', block)
+        if not rect or not vb:
+            continue
+        left, top, w, h = rect
+        vw, vh = float(vb.group(1)), float(vb.group(2))
+        # visible fraction of the plate, expressed in the art's own viewBox units
+        vis_x = min(w, 1920 - left) / w * vw
+        vis_y = min(h, 1080 - max(top, 0)) / h * vh
+        for el in re.finditer(r'<(rect|circle|line|text|image)\b([^>]*)>', block):
+            attrs = el.group(2)
+            if "transform" in attrs:
+                continue
+            for a in ("x", "cx", "x1", "x2"):
+                v = re.search(rf'\b{a}="([\d.]+)"', attrs)
+                if v and float(v.group(1)) > vis_x:
+                    problems.append(
+                        f"plate p-{letter}: <{el.group(1)} {a}={v.group(1)}> is past "
+                        f"viewBox x={vis_x:.0f}, the last column of the plate that is "
+                        f"on screen — it renders nowhere and every check passes")
+    return problems
+
+
 def check_build(slug, cut, fmt):
     sdir = project_dir(slug, cut)
     index = os.path.join(sdir, "index.html")
@@ -546,6 +659,7 @@ def check_build(slug, cut, fmt):
     html = strip_comments(open(index, encoding="utf-8").read())
     problems = stale_script_problems(slug, cut)
     problems += uncovered_glyphs(html)
+    problems += offcanvas_art(html, fmt)
     # determinism: no render-time network fetches (E-3 class of silent corruption)
     for m in re.finditer(r'(?:src|href)="(https?://[^"]+)"', html):
         problems.append(f"network fetch in composition: {m.group(1)}")
@@ -1074,7 +1188,7 @@ def stale_log(log, slug, cut, stage=None):
 # bill of the passive-income-number run). These two whitelists are the shape; everything
 # else drains to notes.md, which nothing loads on a transition.
 RUN_STATE_KEYS = {
-    "slug", "topic", "tier", "cuts", "started", "target_seconds",
+    "slug", "topic", "tier", "cuts", "started", "target_seconds", "voices",
     "architecture", "architecture_default", "architecture_differs_from_default",
     "architecture_override", "constraints", "style_decision", "budget",
     "stages", "chapters", "vidiq_spend",
@@ -1208,6 +1322,11 @@ def _selftest():
         slug, cut = "selftest-topic", "hi"
         vdir = os.path.join(studio_dir(slug, cut), "assets", "voice")
         os.makedirs(vdir)
+        # a well-formed run decides style and voice at intake (2b)
+        os.makedirs(vault_dir(slug), exist_ok=True)
+        atomic_write_json(os.path.join(vault_dir(slug), "run.json"),
+                          {"architecture": "blockframe-9",
+                           "voices": {cut: fmt["cuts"][cut]["voice_id"]}})
 
         # voice fixtures: two audible clips whose length matches chars/rate
         rate = fmt["cuts"][cut]["chars_per_second"]
@@ -1247,7 +1366,7 @@ def _selftest():
         assert any("silent" in p for p in check_voice(slug, cut, fmt))
 
         # currency purity: ₹ in an -en script must fail
-        os.makedirs(vault_dir(slug))
+        os.makedirs(vault_dir(slug), exist_ok=True)
         with open(os.path.join(vault_dir(slug), "script-en.md"), "w", encoding="utf-8") as fh:
             fh.write("x" * 600 + " costs ₹500 ")
         assert any("currency purity" in p for p in check_script(slug, "en", fmt))
@@ -1454,6 +1573,29 @@ def _selftest():
 
         # supersession is declared, and a supersession must name a file that exists
         assert standing_stage_problems() == [], standing_stage_problems()
+
+        # 2d: off-canvas plate art — caught, but never invented under a transform
+        pb = '<div class="plate p-b"><svg class="art" viewBox="0 0 860 610">%s</svg>'
+        assert offcanvas_art(pb % '<rect x="815" y="10"/>', fmt)
+        assert offcanvas_art(pb % '<rect x="700" y="10"/>', fmt) == []
+        assert offcanvas_art(pb % '<rect transform="translate(-200)" x="815"/>', fmt) == []
+
+        # 2e: the storyboard budget passes the reference cuts, fails the regression
+        assert storyboard_budget(660) == 12240 and storyboard_budget(510) == 10140
+        assert 12153 <= storyboard_budget(660), "japanese en is the densest cut we keep"
+        assert 17864 > storyboard_budget(510), "passive hi is the regression we catch"
+
+        # 2b: a decision that binds early must be made early
+        rp = os.path.join(vault_dir(slug), "run.json")
+        atomic_write_json(rp, {"architecture": "blockframe-9",
+                               "voices": {cut: fmt["cuts"][cut]["voice_id"]}})
+        assert decided_late_problems(slug, cut, fmt, "voice") == []
+        atomic_write_json(rp, {"architecture": "blockframe-9", "voices": {cut: "OLD-ID"}})
+        assert any("changed after intake" in p
+                   for p in decided_late_problems(slug, cut, fmt, "voice"))
+        atomic_write_json(rp, {"voices": {cut: fmt["cuts"][cut]["voice_id"]}})
+        assert any("no `architecture`" in p
+                   for p in decided_late_problems(slug, cut, fmt, "script"))
 
         # tofu guard: derived from the font, scoped to compositions that link it
         FS = '<head><title>वो</title></head><body>'
