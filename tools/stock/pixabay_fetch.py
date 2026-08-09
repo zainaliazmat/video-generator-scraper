@@ -560,8 +560,11 @@ def main(argv=None):
         _selftest()
         return
 
-    if os.environ.get("FIN_FAKE_APIS") != "1":
-        load_env()  # provider keys are read lazily per-provider inside search()
+    # Unconditionally, and BEFORE anything reads FIN_FAKE_APIS: .env is the only
+    # channel that reaches a subagent's Bash call, so gating load_env() on the flag
+    # means the flag decides whether it can be seen. Provider keys are still read
+    # lazily per-provider inside search(), so this costs nothing in fake mode.
+    load_env()
 
     if args.manifest and args.candidates:
         cmd_candidates(args.manifest, args.candidates, args.only)

@@ -214,3 +214,97 @@ three tiers, and the orphan-key assert fires in the selftest.
 This proves the views are sufficient for work that has actually shipped. It does
 not prove an agent will never reach for a key its prompt never named — only a
 live run does that.
+
+---
+
+## 2026-08-09 — the rehearsal, and what it found
+
+`FIN_FAKE_APIS=1`, MEDIUM tier (SHORT never enters the chapter loop, so it would
+have left `chapter_design` — the largest block in `fin-build`'s view — untested),
+Phase 1 + hi cut through the chapter-1 build. Eight stages, **1,084,003 subagent
+tokens, 134 min, zero credits.**
+
+Every view carries an `_if_a_constant_is_missing` key telling the agent to log
+`MISSING-CONSTANT: <key> — <why>` rather than guess, because a diet that is too
+narrow otherwise fails silently and leaves no trace.
+
+### The diet held
+
+17 `MISSING-CONSTANT` reports; **two were real diet gaps.**
+
+- `fin-voice` needed `tiers` — its cost-guard formula references `target_seconds`
+  and the per-line padding, so without it the stage cannot check its own report.
+  **Added.**
+- `fin-script` reached for `chapter_design.archetypes`. **Refused, and the
+  boundary written into the prompt instead:** archetype assignment is
+  `fin-storyboard`'s job and `fin-build` applies only what the storyboard wrote.
+  A script cue says what the frame must SHOW; naming a layout is a cue the
+  storyboard has to undo.
+
+**`fin-build` reported zero** — the 93% slice, on the highest-invocation heavy
+agent, with `npm run check` at 0 errors and Contrast 9/9 AA. `fin-facts`:
+"your slice was sufficient, the four keys are exactly the job." `fin-storyboard`:
+"sufficient for layout, cues, archetypes and audio."
+
+### The other 14 are gaps in `format.json` itself
+
+Keys that exist nowhere, so no slicing decision could have supplied them. This is
+the backlog the instrumentation surfaced — each was reached for by a real stage
+doing real work:
+
+| key | wanted by | for |
+|---|---|---|
+| `assets.min_image_bytes` | fin-assets | the 10 KB gate that failed the run, "named nowhere I can see" |
+| `assets.min_source_yhigh` | fin-assets | the 110 floor; prose is in the slice, the number only in a vault note |
+| `assets.min_width_px` | fin-assets | 1600, plus the Pexels-1880/Pixabay-1280 split that drives pool choice |
+| `layout.font_subset` | fin-storyboard | the FinanceSans subset guard — **silently renders tofu with every check passing**; 12 strings needed rewriting |
+| `audio.max_sfx_cues` per tier | fin-storyboard | the ≤10 figure is a SHORT constant; literally applied to a 9:29 cut it gives one transition for 86 boundaries |
+| `layout.cascade.rows` | fin-storyboard | whether a cascade counts toward max_simultaneous_elements |
+| `tiers.<tier>.char_budget_formula` | fin-audit | gate one currently derives the rule it enforces |
+| `scene.max_hold_seconds` | fin-audit | — |
+| `hook_gate_seconds` | fin-script | placing the payoff promise; 15 s was assumed and happened to be right |
+| `mid_roll_threshold_seconds` | fin-script | whether a +2% overrun matters |
+| `tiers.<tier>.length_tolerance_pct` | fin-script | whether 6,443 chars passes |
+| `cuts.hi.number_scale` | fin-facts | `locale: en-IN` does not say whether ₹ renders `₹1,17,000` or `₹1.2 lakh` |
+| `tiers.medium.comparable_length_band_seconds` | fin-research | study.py's 240 s floor has no upper bound to match the 510 s target |
+| `architecture` resolution at MEDIUM | fin-storyboard | `run.json.architecture: blockframe-9` vs `tiers.medium.architecture: per-line-chapters` — no rule for which wins |
+
+Not fixed. They are a real backlog, but inventing fourteen constants is a
+separate decision from slicing the ones that exist.
+
+### Three bugs it found that have nothing to do with the diet
+
+1. **The md5 cross-project dedupe had been reading zero files since 2026-08-05.**
+   `fin-assets.md` globbed `studio/videos/*/assets/img/*.jpg`; chapter projects
+   write to `assets-ch<N>/final/`. Measured: **0 matched where 106 exist**, and
+   under zsh a non-matching glob kills the command line, so it reported "no
+   collisions" having compared nothing. Covered `japanese-money-methods` and
+   `passive-income-number`. This is `evidence-discipline` rule 1 — a test that
+   cannot fail is not evidence. **Fixed**: a `find` sweep that walks both layouts,
+   survives an empty tree, and excludes `_cand/`, `renders/` and retired takes.
+   204 in-use images, zero false positives.
+
+2. **Rehearsal mode was free by accident.** `.env` is the only channel that
+   reaches a subagent's Bash call — env does not persist between calls — and
+   `batch.py` computed `fake` *before* parsing `.env`. It stayed free only because
+   the not-fake branch called `load_env()`, which `setdefault`-ed the flag in time
+   for `synthesize()` to re-check it. Reorder or remove that call and a rehearsal
+   becomes a full-price run with no visible difference. **Fixed** in `batch.py`
+   and `pixabay_fetch.py`; `doctor` now prints a REHEARSAL banner and `mark()`
+   stamps `fake_apis: true` on every stage it records, so a rehearsed stage can
+   never be mistaken for a real one by a later resume.
+
+3. **`sfx.py --selftest` fails at HEAD** — `kit.json` holds 8 sfx (`buzz`), the
+   assert says 7, and the vault calls it "the seven-sound kit." Not fixed:
+   whether `buzz` is legitimate or a mistake is not mine to decide.
+
+`fin-assets` also reports `check_assets` has no `_`-prefix skip, so an authored
+manifest's prose keys and its `HOLD - no fetch` slots report as missing images.
+Not fixed.
+
+### What the rehearsal could not test
+
+Fake mode makes images flat colour and voice a sine tone, so `fin-assets`' visual
+rejection pass — the stage's actual job — was not exercised, and `check assets`
+is red on all 11 slots for the 10 KB gate. `fin-editor`, `fin-ceo`, `fin-render`
+and `fin-package` never ran.

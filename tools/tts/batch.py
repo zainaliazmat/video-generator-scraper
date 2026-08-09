@@ -34,11 +34,16 @@ def run(project, cut, voice=None, model=None, seed=None, force=False, only=None)
     slug = os.path.basename(project.rstrip("/")).rsplit("-", 1)[0]
     lines = pc.load_lines(vdir)
 
+    # .env FIRST, then read the flag. Setting FIN_FAKE_APIS in .env is the only way
+    # to reach a subagent's Bash call (env does not persist between them), and this
+    # used to compute `fake` before .env was parsed: the run stayed free only because
+    # the not-fake branch called load_env(), which setdefault()-ed the flag in time
+    # for synthesize() to re-check it. Reordering or removing that call turned a
+    # rehearsal into a full-price run with no visible difference. Found by the
+    # rehearsal of 2026-08-09, reported by fin-voice.
+    tts.load_env()
     fake = os.environ.get("FIN_FAKE_APIS") == "1"
-    key = ""
-    if not fake:
-        tts.load_env()
-        key = tts.api_key()
+    key = "" if fake else tts.api_key()
 
     # --only: regenerate exactly these ids. A one-line re-voice is the NORMAL
     # outcome of a gate-one audit, and the skip guard is all-or-nothing at the cut

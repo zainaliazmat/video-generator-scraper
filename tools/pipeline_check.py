@@ -764,7 +764,10 @@ AGENT_DIET = {
     "fin-facts":      ["cuts"],
     "fin-script":     ["tiers", "cuts", "tts", "scene"],
     "fin-audit":      ["tiers", "cuts", "scene", "layout"],
-    "fin-voice":      ["cuts", "tts"],
+    # tiers: the cost guard's own formula references target_seconds and the per-line
+    # padding, so without it the stage cannot check its own report. Reported by
+    # fin-voice in the 2026-08-09 rehearsal, which is what MISSING-CONSTANT is for.
+    "fin-voice":      ["cuts", "tts", "tiers"],
     "fin-storyboard": ["tiers", "cuts", "scene", "layout", "architectures",
                        "architecture_lock", "chapter_design", "vector_art"],
     "fin-assets":     ["cuts", "scene", "layout", "vector_art"],
@@ -813,8 +816,17 @@ def write_agent_views(fmt=None):
         want = set(VIEW_HEADER) | set(keys) | {n for n, sub in NOTE_ATTACH.items()
                                                if sub in keys}
         # preserve format.json's own key order so a diff between views reads straight
-        atomic_write_json(os.path.join(VIEW_DIR, f"{agent}.json"),
-                          {k: v for k, v in fmt.items() if k in want})
+        view = {k: v for k, v in fmt.items() if k in want}
+        # A diet that is too narrow fails SILENTLY — the agent guesses a constant and
+        # nothing records that it did. This turns that into a log line, which is the
+        # only way the diet can be corrected from evidence instead of from opinion.
+        view["_if_a_constant_is_missing"] = (
+            "This file is YOUR slice of tools/format.json, not the whole file. If you "
+            "need a constant that is not here, do NOT guess it and do NOT read "
+            "tools/format.json — write the line MISSING-CONSTANT: <key> — <what you "
+            "needed it for> in your stage log and carry on with your best judgement. "
+            "The slice is corrected from those lines.")
+        atomic_write_json(os.path.join(VIEW_DIR, f"{agent}.json"), view)
     return []
 
 
@@ -838,11 +850,36 @@ def dangling_studio_refs():
     return sorted(bad)
 
 
+def rehearsing():
+    """True when the run is faking every paid API. Read from .env as well as the
+    environment, because that is the ONLY channel that reaches a subagent's Bash
+    call — env does not persist between them, and every spend tool setdefault()s
+    from .env. Which also means a leftover FIN_FAKE_APIS=1 would silently ship a
+    video with sine-tone audio and flat-colour images, so it is surfaced by doctor
+    and stamped onto every stage it marks."""
+    if os.environ.get("FIN_FAKE_APIS") == "1":
+        return True
+    path = os.path.join(ROOT, ".env")
+    if not os.path.exists(path):
+        return False
+    for line in open(path, encoding="utf-8"):
+        line = line.strip()
+        if line.startswith("FIN_FAKE_APIS") and line.partition("=")[2].strip().strip('"\'') == "1":
+            return True
+    return False
+
+
 def doctor(tier):
     """X-11: fail in five seconds with the fix command, not at minute 95."""
     import shutil
     fmt = load_format()
     problems = []
+    if rehearsing():
+        print("=" * 72)
+        print("REHEARSAL MODE — FIN_FAKE_APIS=1. Every paid API is faked: TTS is a")
+        print("sine tone, stock images are flat colour, SFX are local tones. NOTHING")
+        print("this run produces is shippable. Remove FIN_FAKE_APIS from .env to go live.")
+        print("=" * 72)
     for exe in ("ffmpeg", "ffprobe", "node"):
         if not shutil.which(exe):
             problems.append(f"{exe} not on PATH")
@@ -1040,6 +1077,9 @@ def mark(stage, slug, cut, problems, attempt, log, rescue=False):
         "log": log or "",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
+    if rehearsing():
+        # A rehearsed stage must never be mistaken for a real one by a later resume.
+        entry["fake_apis"] = True
     if stage == "voice" and not problems:
         # X-8: freeze the script the clips were generated from, so any later
         # edit invalidates every downstream stage
@@ -1317,6 +1357,7 @@ def _selftest():
             assert write_agent_views(fmt) == [], write_agent_views(fmt)
             for agent, keys in AGENT_DIET.items():
                 v = json.load(open(os.path.join(VIEW_DIR, f"{agent}.json"), encoding="utf-8"))
+                assert "MISSING-CONSTANT" in v.pop("_if_a_constant_is_missing"), agent
                 assert set(v) <= set(fmt), agent            # never invents a key
                 assert all(v[k] == fmt[k] for k in v), agent  # never edits a value
                 assert set(keys) <= set(v), (agent, set(keys) - set(v))

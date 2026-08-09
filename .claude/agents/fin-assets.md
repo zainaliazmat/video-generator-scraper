@@ -58,12 +58,27 @@ dedup (the ₹/India Pixabay pool is small and largely spent). Needs `PEXELS_API
 3. **Promote picks:** `--manifest … --pick "s1=2,s4=5,…"` downloads the chosen cells
    at FULL resolution into the slots (+ CREDITS). Only the picked image is fetched
    full-size — the sheet is preview-only, so there is **no quality loss**.
-4. **md5 dedupe across ALL projects** (`md5sum studio/videos/*/assets/img/*.jpg` —
-   the `_cand/` sheets sit in a subdir and are NOT counted): an image whose hash
-   already exists anywhere on either channel is rejected. On a collision, **re-pick a
-   different cell** (`--pick s2=4` — no new fetch) or re-`--candidates` that slot with
-   a `@pexels`/synonym query. Byte-identical images across the grid are
-   mass-production evidence.
+4. **md5 dedupe across ALL projects** — an image whose hash already exists
+   anywhere on either channel is rejected. Run exactly this:
+
+   ```bash
+   find studio/videos vault/videos \( -path '*/final/*.jpg' -o -path '*/assets/img/*.jpg' \) \
+     -print0 | xargs -0 md5sum | sort | uniq -Dw32
+   ```
+
+   Empty output means no collision. ⚠ **The old form was
+   `md5sum studio/videos/*/assets/img/*.jpg`, and it read ZERO files for every
+   chapter-based cut** — chapter projects write to `assets-ch<N>/final/`, so the
+   glob matched nothing, and under zsh a non-matching glob kills the whole command
+   line, so it reported "no collisions" having compared nothing. It was a check
+   that could not fail from 2026-08-05 until 2026-08-09. `find` walks both layouts,
+   survives an empty tree, and the two `-path` filters keep `_cand/` sheets,
+   `renders/` frames and `retired-*`/`superseded-*` working copies out — those are
+   your own rejected takes, not other videos' images.
+
+   On a collision, **re-pick a different cell** (`--pick s2=4` — no new fetch) or
+   re-`--candidates` that slot with a `@pexels`/synonym query. Byte-identical
+   images across the grid are mass-production evidence.
 5. Mean-luminance check any near-black texture and set the per-scene `filter:`
    override note yourself — at most ONE per video (the grade is load-bearing).
 

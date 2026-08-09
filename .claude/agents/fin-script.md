@@ -50,6 +50,13 @@ You are the script-writing stage of the finance-video pipeline. Runs once per cu
   evidence, never recommendations.
 - Include the per-scene timing budget table (chars → estimated seconds at the
   cut's rate).
+- **You do not assign layout.** A scene cue says what the frame must SHOW — the
+  object, the comparison, the number that has to be legible. It never names an
+  archetype (A/B/C/D), a ground, a plate or a modifier: `fin-storyboard` owns
+  those and `fin-build` applies only what the storyboard wrote. A cue that names
+  a layout is a cue the storyboard has to undo. (Your constants slice carries no
+  `chapter_design` for this reason — if you feel you need it, you are writing a
+  storyboard, not a script.)
 
 ## Writes
 `vault/videos/<slug>/script-<cut>.md`
