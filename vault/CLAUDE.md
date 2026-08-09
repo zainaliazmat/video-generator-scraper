@@ -56,9 +56,21 @@ unrecoverable. It refuses to delete anything without a URL.
 2. **Kept** (~1–5 MB per video): `index.html`, `meta.json`, `hyperframes.json`,
    `package.json`, `gen_vo_*.sh`, `gen_timing.mjs`, `*.md`, `assets/voice/*.txt`
    (the VO lines), `assets/img/*.src` (the image prompts), `CREDITS.txt` (stock
-   attribution), `thumbnail*.png` (the shipped deliverable).
+   attribution), `thumbnail*.png` (the shipped deliverable), `renders/*.srt` (the
+   shipped subtitles), and **`renders/SHEET-ch*.jpg`** — added 2026-08-09.
 3. **Dropped**: renders, `*.jpg`/`*.mp3`/`*.wav`, fonts, `gsap.min.js`,
    `package-lock.json`, `node_modules/`, `snapshots/`, `grain.png` — regenerable.
+
+   **Why the contact sheets are the one exception to "drop the pixels."** They are
+   the only *composed* frames that survive an archive, so they are the only ground
+   truth a future check can be calibrated against. Learned the hard way on
+   2026-08-09: the composed-frame legibility check — **32% of all reviewer findings,
+   the single biggest bucket** — could not be built, because
+   `japanese-money-methods`, the one cut anyone calls good, kept no frames, and the
+   only frames on disk belonged to the cut that took eight build attempts.
+   Calibrating a check against the regression teaches it to accept the thing it
+   exists to catch, and nothing would reveal that you had. A few MB per video buys
+   the next approved cut as permanent ground truth.
 4. **The trade this makes:** the archive is *reproducible*, not *free*. Prompts
    and VO lines survive; the generated images and audio do not, so a re-render
    re-pays ElevenLabs + image credits. That is the accepted price of a delivered

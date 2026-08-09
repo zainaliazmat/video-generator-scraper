@@ -20,7 +20,7 @@ stage: ADOPTED — the standing sound system for MEDIUM/LONG chapter cuts
 
 The first shipped full-cut lists carried **one `transition` in ten minutes** —
 about one cue per 26 seconds. That is why scene changes read as silent. The fix
-was never new sounds; the kit was already designed and is still seven sounds.
+was never new sounds; the kit was already designed and is still the kit in tools/audio/kit.json.
 The fix was **density**: the shipped cuts now run about one cue per 3.4 seconds
 (187 cues on -hi, 188 on -en).
 

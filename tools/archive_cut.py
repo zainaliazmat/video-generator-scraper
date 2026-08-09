@@ -34,6 +34,15 @@ KEEP = (
     # + the composition — but only while BOTH still exist, and this delete is what
     # removes the composition. Kilobytes; keep them next to the cut they belong to.
     "renders/*.srt",
+    # The chapter contact sheets — the ONLY composed frames that survive an archive,
+    # and therefore the only ground truth a future check can be calibrated against.
+    # Learned 2026-08-09: the composed-frame legibility check (32% of all reviewer
+    # findings) could not be built, because japanese-money-methods — the one cut
+    # anyone calls good — kept no frames, and the only frames on disk belonged to the
+    # cut that took eight build attempts. Calibrating a check against the regression
+    # teaches it to accept what it exists to catch. A few MB per video buys the next
+    # approved cut as permanent ground truth.
+    "renders/SHEET-ch*.jpg",
     # the re-tinted Lottie, ~400 KB each, capped at 3 per cut. Kept rather than
     # dropped as regenerable: a LottieFiles asset URL can rotate, and the tint is
     # a derivative of whatever tools/lottie/tint.py did that day.
@@ -175,6 +184,11 @@ def self_check():
         (cut / "assets" / "voice" / "h1.txt").write_text("a line")
         (cut / "assets" / "voice" / "h1.mp3").write_bytes(b"\x00" * 99)
         (cut / "node_modules" / "junk" / "readme.md").write_text("noise")
+        # the contact sheet survives; the draft and the master do not
+        (cut / "renders").mkdir()
+        (cut / "renders" / "SHEET-ch1.jpg").write_bytes(b"\xff" * 99)
+        (cut / "renders" / "DRAFT-ch1.mp4").write_bytes(b"\x00" * 99)
+        (cut / "renders" / "FINAL-1080p-hi.mp4").write_bytes(b"\x00" * 99)
         thumbs = root / "studio" / "videos" / "demo-thumbs"
         thumbs.mkdir()
         (thumbs / "thumbnail-hi-v2.png").write_bytes(b"\x89PNG")
@@ -184,7 +198,8 @@ def self_check():
         src = root / "vault" / "videos" / "demo" / "src"
         kept = {str(p.relative_to(src)) for p in src.rglob("*") if p.is_file()}
         assert kept == {"hi/index.html", "hi/assets/img/s1.jpg.src",
-                        "hi/assets/voice/h1.txt", "thumbs/thumbnail-hi-v2.png"}, kept
+                        "hi/assets/voice/h1.txt", "hi/renders/SHEET-ch1.jpg",
+                        "thumbs/thumbnail-hi-v2.png"}, kept
         assert not cut.exists() and not thumbs.exists(), "studio dirs not deleted"
         note = (root / "vault" / "videos" / "demo" / "index.md").read_text()
         assert "https://youtu.be/X" in note and "@cashguruguides" in note, note

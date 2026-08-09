@@ -524,3 +524,50 @@ left on the strong model deliberately: `fin-voice` spent 104k tokens in the
 rehearsal and used them to find the `batch.py` ordering bug — that was judgement,
 not button-pressing — and `fin-assets` is the highest-rework stage in the pipeline,
 where a downgrade would likely cost more in retries than it saves.
+
+---
+
+## 2026-08-09 — contact sheets kept; two rehearsal bugs closed
+
+### `SHEET-ch*.jpg` survives the archive
+
+`archive_cut.py` KEEP gains `renders/SHEET-ch*.jpg`. The contact sheets are the
+only **composed** frames that survive an archive, and therefore the only ground
+truth a future check can be calibrated against.
+
+This is the direct consequence of 2d: the composed-frame legibility check — 32% of
+all reviewer findings, the biggest single bucket — could not be built, because
+`japanese-money-methods` kept no frames and the only frames on disk belonged to the
+cut that took eight build attempts. A few MB per video buys the next approved cut
+as permanent ground truth. Rationale recorded in `vault/CLAUDE.md` beside the
+keep/drop list, since that is the list's home.
+
+### The SFX kit had eight sounds and an assert that said seven
+
+`buzz` is legitimate — a fully-formed entry (`helper: playLottie`, seconds, peak,
+prompt) added for the style-E phone payoff, where the phone's silence is the
+promise and its single buzz is the payoff. The test was stale, not the kit.
+
+Fixed as **shape, never cardinality**: `len(kit) >= 7` (catching a deletion) plus
+the existing per-entry asserts that every sound names the motion helper it scores.
+A `== 7` only ever encoded how many sounds existed the day it was written, and it
+broke the first time the catalogue legitimately grew. The generation assert now
+follows the kit's own size instead of a literal.
+
+Retired the same stale count from three prose homes
+(`design-chapter-sound.md`, `design-finance-blockframe.md` ×2,
+`fin-storyboard.md`), which now point at `tools/audio/kit.json` and say it grows.
+`fin-storyboard` also learns `buzz` exists.
+
+### A note in a manifest was being bought as a query
+
+The authored full-cut manifest carries `_note`, `_reuse_note`, `_grade_note`,
+`_routing_note`. `pixabay_fetch.py` iterated them as image slots — **spending a
+real API search on each, using the prose as the search query** — and
+`check_assets` reported all four as missing images.
+
+One helper, `load_manifest()`, used at both of `pixabay_fetch`'s load sites, plus
+the same skip in `check_assets`. Same convention as `run.json` and `format.json`:
+**an underscore means narrative, everywhere.** Measured on
+`passive-income-number-hi-ch1`: 91 keys → 87 slots, four paid searches saved per
+invocation. Self-check added so it cannot regress.

@@ -92,10 +92,11 @@ works rather than what this video does, that section is not yours.
 4c. **Audio.** Name ONE music bed for the video from `tools/audio/kit.json`
    (`bed-tension` for a video whose argument is a trap or a cost, `bed-resolve`
    for one whose argument is a habit or a fix), then add an `SFX` column.
-   The kit is seven sounds, each bound to one motion helper:
+   The kit (`tools/audio/kit.json`) binds each sound to one motion helper:
    `chip`→pop · `reveal`→rise · `tick`→pulse · `stamp`→the verdict slam ·
    `hero`→the scene's one big number · `transition`→a scene boundary ·
-   `cta`→the closing block.
+   `cta`→the closing block · `buzz`→playLottie, a device or object event the
+   picture actually shows. **Read the file for the current set — it grows.**
    **Budget: at most 10 SFX cues in a short cut, and never two inside 0.8s.**
    A sound is punctuation — if every reveal has one, none of them means anything.
    **Bed length is not your problem — do not flag it.** The beds are ~248s and

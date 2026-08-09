@@ -99,7 +99,7 @@ policy is about templating, and all ten thumbnails are still one layout):
 layout is no longer the variance axis, so the non-layout levers are. Live
 already: scene transitions (`dissolve`/`shove`/`sceneTransitions` in
 `tools/scaffold/assets/js/motion.js`, asserted by `check_build`) and the
-seven-sound SFX kit. **Owed: the music bed** — fully specced in
+SFX kit (tools/audio/kit.json). **Owed: the music bed** — fully specced in
 `tools/audio/kit.json` (two beds, prompts, levels) and mixed by
 `tools/audio/mix.py`, but `studio/library/music/` is empty because ElevenLabs
 music generation needs the `music_generation` permission on the key. Either add
@@ -372,7 +372,7 @@ A plain `\B(?=(\d{3})+(?!\d))` regex is **wrong for India** and prints `124,564`
 - **`.arrow` / `.arr` / `.tri`** — `→` and `▶` are **drawn in CSS**, not typed.
   Both are absent from the subset; em-based so they scale with the host font-size.
 
-**Audio: one bed + a seven-sound kit** (creator rule 2026-07-30, supersedes
+**Audio: one bed + the SFX kit** (`tools/audio/kit.json` — count lives there, not here) (creator rule 2026-07-30, supersedes
 "No SFX — voice + motion only", which the audit found was a fork artefact from
 the bright TechToolTester system rather than a tested decision, and which never
 mentioned music at all).

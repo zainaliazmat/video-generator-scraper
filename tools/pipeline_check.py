@@ -475,7 +475,11 @@ def check_assets(slug, cut, fmt):
     manifest_path = os.path.join(idir, "manifest.json")
     if not os.path.exists(manifest_path):
         return [f"missing manifest: {manifest_path}"]
-    manifest = json.load(open(manifest_path, encoding="utf-8"))
+    # `_`-prefixed keys are notes, not slots — same convention as run.json and
+    # format.json. The authored full-cut manifest carries four, and each was
+    # reported as a missing image while pixabay_fetch spent an API search on it.
+    manifest = {k: v for k, v in json.load(open(manifest_path, encoding="utf-8")).items()
+                if not k.startswith("_")}
     problems = []
     credits = ""
     credits_path = os.path.join(idir, "CREDITS.txt")

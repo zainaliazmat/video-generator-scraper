@@ -419,6 +419,17 @@ def fetch_one(raw_query, out, force):
 
 # ---------------------------------------------------------------- contact-sheet mode (mode 1)
 
+def load_manifest(path):
+    """Image slots only. A `_`-prefixed key is a note, not a slot.
+
+    An authored full-cut manifest carries `_note`, `_reuse_note`, `_grade_note`,
+    `_routing_note` — and this used to spend a real API search on each one, using
+    the prose as the query. Same convention as run.json and format.json: an
+    underscore means narrative, everywhere."""
+    return {k: v for k, v in json.load(open(path, encoding="utf-8")).items()
+            if not k.startswith("_")}
+
+
 def cand_dir_for(manifest_path):
     return os.path.join(os.path.dirname(os.path.abspath(manifest_path)), "_cand")
 
@@ -434,7 +445,7 @@ def cmd_candidates(manifest_path, n, only=None):
     outdir = os.path.dirname(os.path.abspath(manifest_path))
     cdir = cand_dir_for(manifest_path)
     os.makedirs(cdir, exist_ok=True)
-    manifest = json.load(open(manifest_path, encoding="utf-8"))
+    manifest = load_manifest(manifest_path)
     if only:
         want_slots = {s if s.endswith((".jpg", ".png")) else s + ".jpg" for s in only}
         unknown = want_slots - set(manifest)
@@ -576,7 +587,7 @@ def main(argv=None):
     missing = []
     if args.manifest:
         outdir = os.path.dirname(os.path.abspath(args.manifest))
-        manifest = json.load(open(args.manifest, encoding="utf-8"))
+        manifest = load_manifest(args.manifest)
         for name, query in manifest.items():
             if not fetch_one(query, os.path.join(outdir, name), args.force):
                 missing.append(name)
@@ -650,6 +661,11 @@ def _selftest():
     with tempfile.NamedTemporaryFile("w", suffix=".env", delete=False, encoding="utf-8") as fh:
         fh.write('PIXABAY_API_KEY="abc123"\nPEXELS_API_KEY=xyz789\n')
         tmp = fh.name
+    # a note in the manifest is not a slot, and must never become a paid query
+    npath = os.path.join(tempfile.mkdtemp(prefix="manifest-"), "manifest.json")
+    with open(npath, "w", encoding="utf-8") as fh:
+        json.dump({"_note": "87 slots for the STYLE-E hi cut", "s1.jpg": "a query"}, fh)
+    assert load_manifest(npath) == {"s1.jpg": "a query"}, load_manifest(npath)
     for k in ("PIXABAY_API_KEY", "PEXELS_API_KEY"):
         os.environ.pop(k, None)
     load_env(tmp)

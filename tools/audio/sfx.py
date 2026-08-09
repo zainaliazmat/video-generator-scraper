@@ -193,13 +193,19 @@ def _selftest():
     try:
         OUT = {"sfx": os.path.join(d, "sfx"), "music": os.path.join(d, "music")}
         kit = json.load(open(KIT, encoding="utf-8"))
-        assert len(kit["sfx"]) == 7, f"kit should hold 7 sfx, has {len(kit['sfx'])}"
+        # Shape, never cardinality. The old `== 7` broke the day `buzz` was added
+        # for the style-E phone payoff — a legitimate eighth sound failing a test
+        # that only ever encoded how many there were when it was written. Every
+        # entry must earn its place by naming the motion helper it scores; that is
+        # the property worth asserting.
+        n_sfx = len(kit["sfx"])
+        assert n_sfx >= 7, f"kit has shrunk to {n_sfx} sfx — was something deleted?"
         for name, spec in kit["sfx"].items():
             assert spec["peak_dbfs"] < -10, f"{name} peak target is too hot"
             assert spec["helper"], f"{name} has no motion helper — it shouldn't be in the kit"
 
         n1 = run(["sfx"])
-        assert n1 == 7, f"first run should generate 7, made {n1}"
+        assert n1 == n_sfx, f"first run should generate {n_sfx}, made {n1}"
         p = os.path.join(OUT["sfx"], "stamp.mp3")
         got = peak_dbfs(p)
         want = kit["sfx"]["stamp"]["peak_dbfs"]
