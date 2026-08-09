@@ -269,6 +269,14 @@ Replaces the old single `fin-assets → fin-build → fin-render` pass. Chapters
 from the script's `## Chapter <N>` headings; a scene belongs to chapter `C` when
 its VO line is `C.x`, so the mapping needs no new bookkeeping.
 
+**Image defects are decided at step 1, not at step 5 (changed 2026-08-09).** The
+sound-off test used to run twice — once on a lossy 6-cell *candidate* preview, then
+again after a ~3-minute draft render — so one wrong photograph cost four invocations
+(re-fetch → rebuild → re-draft → re-review). It now costs one. `fin-review` still
+watches the encoded draft, because a jpg sheet cannot see a blank Lottie, but it
+stops being the place image *choices* are argued. A selection defect that reaches it
+is still a blocker, and it is also evidence the early gate missed something.
+
 **Each chapter is a standalone HyperFrames project** —
 `studio/videos/<slug>-<cut>-ch<N>/` — with its own `index.html`, its own
 `assets-ch<N>/` (the ONLY place its new files land) and an `assets/` symlink to
@@ -280,6 +288,10 @@ For chapter N = 1..last:
 
 ```
 1  fin-assets  --chapter N     images + Lotties for this chapter only
+     GATE 2: image acceptance is TERMINAL here. fin-assets builds its own sheet of
+     the PROMOTED full-res jpgs (`tools/image_sheet.py <slug> --cut <cut>
+     --chapter N`) and reads it before returning; `check assets --chapter N`
+     fails if the sheet is missing or older than the newest image.
 2  fin-build   --chapter N     the chapter project (archetype layer, §3c)
 3  hyperframes check           must pass
 4  DRAFT RENDER + SHEET — **you run this yourself, it is not a stage**:

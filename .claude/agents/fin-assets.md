@@ -211,6 +211,39 @@ pick, ask of that cell:
 All five have shipped as defects at least once. They are the reason this section
 exists.
 
+### Acceptance is TERMINAL here — the sheet you must read before you return
+
+**Changed 2026-08-09.** This test used to run twice: once here, on a 6-cell
+*candidate* preview, and again at review, after a ~3-minute draft render. A defect
+caught late cost four invocations (re-fetch → rebuild → re-draft → re-review). It is
+now decided here, once, on the images you actually **promoted**:
+
+```bash
+python3 tools/image_sheet.py <slug> --cut <cut> --chapter <N>
+```
+
+`Read` the sheet before you return. It tiles every promoted full-res jpg for the
+chapter, in the order the video plays them, and it fails loudly rather than dropping
+cells. A failure you find here is re-picked right now, by you, without `fin-build`
+ever running.
+
+**The sheet answers ONE question the per-image read cannot: do any two of these say
+the same thing?** Repetition and sameness are not properties of any single image, so
+no amount of looking at them one at a time will show you. That is the whole reason
+the grid exists — one photograph of books behind three different points passed every
+per-scene look.
+
+⚠ **It does NOT replace the full-resolution read of each promoted image** (the two
+rules above). A cell is a thumbnail whatever the source resolution was, and legible
+text inside the photograph — `1 ZŁOTY`, `ONE CENT`, a FICO mark — is invisible at
+grid size by construction. Both looks are owed, and they answer different questions.
+
+⚠ **A labelled `HOLD crop of sNN` cell is not a repeat.** A HOLD ships its second
+scene as a centre crop of the first so the pair reads as one continuous push rather
+than a self-dissolve (creator rule 2026-07-23, `storyboard-<cut>.md` §6b). The tool
+reads that from the `.src` sidecar and prints the HOLD list; two cells that look
+identical and carry that label are correct and must not be re-picked.
+
 **When a slot cannot be photographed, change the SOURCE — never accept a
 near-miss.** The ladder now has a third rung:
 

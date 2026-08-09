@@ -60,33 +60,36 @@ same sheet, read as a strip. If you do pass 2 scene by scene it adds nothing.
 
 # PASS 1 — correctness
 
-### 1.1 Does the picture say the line? — the sound-off test
+### 1.1 What the picture does INSIDE the composition
 
-**The creator's standing rule (2026-08-04):** with the sound off and the text
-stripped, the image alone must tell the viewer what the scene is about.
+**Image *selection* is not litigated here any more (changed 2026-08-09).** The
+sound-off test is terminal at `fin-assets`, which now reads its own sheet of the
+promoted full-res jpgs before it returns (`tools/image_sheet.py`). Re-running that
+checklist here is what made an image defect cost four invocations instead of one,
+and it is the single most expensive habit this pipeline had.
 
-Apply it per line, not per chapter. Every point in the script got its own line
-because it is its own idea, so it gets its own picture. For each cell ask:
+So: **do not raise "wrong photo, re-pick it" as a routine finding.** What you judge
+is what the *composition* did with an image `fin-assets` already accepted:
 
-- If I covered the words, would I know what this point is? If not → **FAIL**.
-- Does the picture argue with the line? A balanced scale under "thirty times
-  apart" says *equal*; a calendar reading "Tuesday 8" under "by the 20th" says
-  the wrong date. A frame that contradicts its line is worse than a bland one →
-  **FAIL**.
-- Is the subject NAMED in the line actually present? "The internet says" needs a
-  screen, not a book. "Japan's government publishes it" needs a Japanese
-  government building, not a rubber stamp. "Rent goes out" needs money changing
-  hands, not a stack of paper → **FAIL** if absent.
-- **Is any image used twice in this chapter?** Two cells that look alike is a
-  finding even when both are individually defensible. One image per point →
-  **FAIL** on the repeat.
-- Is the country/currency right? An Indian shopkeeper cannot illustrate Japan's
-  national accounts; a demonetised ₹500 cannot illustrate today's money. A frame
-  that asserts the wrong place is a factual error, not a taste call → **FAIL**.
+- Is the subject still readable after the grade, the scrim and the ken? A photograph
+  that was right at 1:1 and is grey mush at the framing the build chose is a build
+  finding, and the fix is the framing or the filter, not a new fetch.
+- Does the crop cut the subject out? A ken that pushes past the one thing the line
+  names leaves a frame that no longer says its line.
+- Does the image survive the transition — is it still on screen when the cue that
+  depends on it lands?
 
-When a slot genuinely cannot be photographed, say so and propose the alternative
-rather than accepting a near-miss: `@commons` for named buildings, institutions
-and monuments (stock providers index moods, not names), or a drawn Lottie.
+**If, and only if, you find a selection defect that got through** — a picture that
+argues with its line, a subject the line names that is simply absent, the wrong
+country or currency, or two scenes saying the same thing — raise it as a **blocker
+tagged `P1`, and say plainly that it escaped `fin-assets`.** Those are the five
+questions in `tools/packs/fin-review.md`, and they are still failures; they are just
+no longer *yours to run as a sweep*. A defect that reaches you is evidence the early
+gate missed something, which is worth knowing on its own.
+
+⚠ A `HOLD` keeps one photograph across two lines as one continuous push, its second
+scene a centre crop of the first (`storyboard-<cut>.md` §6b). Two cells that look
+identical there are correct. Check the storyboard before calling a repeat.
 
 ### 1.2 Is there enough motion?
 

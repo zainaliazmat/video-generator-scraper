@@ -659,6 +659,27 @@ def check_assets(slug, cut, fmt):
             if name not in credits:
                 problems.append(f"{name}: rendered by index.html with no attribution line "
                                 "in CREDITS.txt (licence requirement)")
+
+    # GATE 2 (2026-08-09): image acceptance is TERMINAL at fin-assets, on the
+    # promoted full-res frames, so the sheet it accepted against must EXIST and must
+    # postdate the images. A sheet older than the newest jpg was built before the
+    # last re-pick, which means the grid nobody looked at is the only artifact
+    # claiming anyone looked — the exact shape of "a checker that cannot see the
+    # work reports green", and this whole change is only worth making if it cannot
+    # be skipped silently. Chapter mode only: the sheet is per chapter.
+    if CHAPTER:
+        sheet = os.path.join(idir, f"IMAGES-ch{CHAPTER}.jpg")
+        newest = max((os.path.getmtime(os.path.join(idir, f)) for f in on_disk),
+                     default=0)
+        if not os.path.exists(sheet):
+            problems.append(
+                f"no {os.path.basename(sheet)} — image acceptance is terminal here, so "
+                f"run `python3 tools/image_sheet.py {slug} --cut {cut} "
+                f"--chapter {CHAPTER}` and READ it before returning")
+        elif newest and os.path.getmtime(sheet) < newest - 1:
+            problems.append(
+                f"{os.path.basename(sheet)} is older than the newest promoted image — "
+                f"it shows the picks BEFORE the last change. Rebuild it and look again")
     return problems
 
 

@@ -368,7 +368,7 @@ Ordered. Each step independently revertible. Branch `refactor/pipeline-v2`; remo
 | 6 | Re-cut `tools/format/` slices | `pipeline_check doctor` | regenerate | step 5 |
 | 7 | ✅ **done 2026-08-09** — **Mechanical deletions**: `fin-voice` + `fin-archive` deleted, `fin-render` reduced to gate two → `tools/tts/prepare.py`, `tools/render_chapter.py`, `tools/close_out.py`, `pipeline_check check render` | 2 agents → `_deprecated/`, 3 new `tools/*.py`, orchestrator | restore 2 files + revert | step 6 |
 | 8 | ✅ **done 2026-08-09** — **Merges**: `fin-editor`+`fin-ceo`+`fin-render`'s gate two → `fin-review`; `fin-research`+`fin-facts` → `fin-evidence`; round budget unified at 3; new `pipeline_check check evidence` / `check review` | 5 agents → `_deprecated/`, 2 new | restore 5 files | step 7 + evals |
-| 9 | **The behavioural change**: `tools/image_sheet.py`, image acceptance terminal at `fin-assets` | 1 new script, `fin-assets`, `fin-review` | revert 2 files | step 8 + evals |
+| 9 | ✅ **done 2026-08-09** — **The behavioural change**: `tools/image_sheet.py`, image acceptance terminal at `fin-assets`, enforced by `check assets --chapter N` | 1 new script, `fin-assets`, `fin-review`, `check_assets` | revert 3 files | step 8 + evals |
 | 10 | `storyboard.json` schema; `fin-plan` emits data + ≤1 page | `fin-plan`, `fin-build`, `fin-assets`, `fin-review`, `pipeline_check` | revert | step 9 + evals |
 | 11 | Structured journal + `fin-retro` (Phase 6) | new `runs/`, 1 new agent | delete | step 10 |
 | 12 | **HyperFrames 0.7.66 → 0.7.102**, re-run evals | project `package.json` pins | re-pin 0.7.66 | step 11 |
@@ -445,6 +445,44 @@ already said, **cosmetic**: 3 of 153 invocations, 2.4% of tokens. It buys a rost
 slot, not money, and both the agent file and the manifest say so in those words.
 
 Eval state unchanged again: 41 targets · 302 pass · 43 fail · 16 blocker failures.
+
+### 7.3 · Step 9 — and the false-positive it would have shipped
+
+`tools/image_sheet.py` tiles a chapter's **promoted full-res jpgs**, in play order,
+into one labelled sheet. `fin-assets` reads its own sheet before returning, and
+`check assets --chapter N` fails when the sheet is missing **or older than the newest
+promoted image** — a sheet built before the last re-pick is the grid nobody looked
+at, claiming someone did.
+
+The tool's docstring states what it cannot do, because the temptation to over-claim
+here is exactly the §8 risk-2 failure. **It does not replace the full-resolution read
+of each image** (`fin-assets.md:94-102`): a cell is a thumbnail whatever the source
+resolution, and legible text inside a photograph — `1 ZŁOTY`, `ONE CENT`, a FICO
+mark — is invisible at grid size by construction. What the grid answers is the one
+question no per-image look can, because it is not a property of any single image:
+**do any two of these say the same thing?** And the post-render sheet stays: a jpg
+sheet has no idea what the composition will do with these files, and cannot see a
+blank Lottie.
+
+**The first real run of the tool found a false positive, not a defect.** `hi ch2`
+shows two pairs of apparently identical cells (s14/s15, s17/s18) — and both are
+correct: a HOLD ships its second scene as a centre crop of the first so the pair
+reads as one continuous push rather than a self-dissolve (creator rule 2026-07-23,
+`storyboard-<cut>.md` §6b). Unlabelled, every hold in the pipeline would have read as
+a repetition finding and cost a re-pick round for doing exactly what the storyboard
+asked — the failure `fin-review`'s own last rule names. The `.src` sidecar already
+recorded it; the tool now reads it, labels the cell `HOLD crop of sNN`, and prints
+the hold list. **Four of the six locked chapters contain at least one hold**, so this
+was not an edge case, it was the common case.
+
+**Post-lock image-defect baseline, for the before/after this step owes.** Sheets were
+generated for all six locked chapters (they had already been reviewed under the old
+two-agent path, so the gate is satisfied by real artifacts rather than grandfathered).
+No exact repeats survive in any of the six. What the grid does show, and what nothing
+in the old per-scene path could, is *sameness*: `en ch3` runs three suburban-house
+exteriors at s29/s30/s32 and two paper-document close-ups at s33/s34. That is a pass-2
+flat-stretch finding, it is recorded here as the "before", and it is deliberately not
+acted on — the chapters are locked and the run is paused.
 
 ⚠ **Steps 8 and 9 change behaviour and CANNOT be measured while the run is paused.**
 Every number in this document that a merge would move — tokens per locked chapter,
