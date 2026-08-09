@@ -1,7 +1,7 @@
 {
  "_comment": "The finance channels' audio kit. Prompts are the reproducing text — the generated mp3s live in studio/library/{sfx,music}/, which is gitignored and regenerable from this file, exactly like image .src prompts and VO .txt lines. Generate with tools/audio/sfx.py --kit. Cached by name, so the cost is ~10 API calls ONCE, not per video.",
  "_levels": "peak_dbfs is where each file is normalised. SFX sit far under the voice: the VO mix lands at -14 LUFS, so a -20 dBFS peak SFX reads as punctuation, not as an event. Raise a value only if a sound is inaudible in a real render — never to make it 'pop'.",
- "_discipline": "Seven sounds, each bound to ONE motion helper. A sound with no helper does not belong in the kit. If a scene wants a noise the kit lacks, the answer is usually that the scene wants less.",
+ "_discipline": "Every sound bound to ONE motion helper. A sound with no helper does not belong in the kit. If a scene wants a noise the kit lacks, the answer is usually that the scene wants less.",
  "sfx": {
   "chip": {
    "helper": "pop / popEach",

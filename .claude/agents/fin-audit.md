@@ -40,7 +40,9 @@ shipping.
 ## Checks (all must hold)
 1. Every number traces to a staging line AND survives the source re-fetch.
    Untraceable ⇒ cut it or replace it from a verified line.
-2. Char total within ±10% of the budget (from tools/format/fin-audit.json rates × target).
+2. Char total inside the band `script.char_budget_formula` defines, at
+   `script.length_tolerance_pct`. Both are in tools/format/fin-audit.json — READ
+   them; a gate that re-derives its own rule can only ever agree with itself.
 3. The hook's payoff promise lands inside 15 seconds.
 4. No product or platform recommended; names appear only as price evidence.
 5. Currency purity: no ₹ in `-en`, no $ in `-hi` — anywhere in the file.

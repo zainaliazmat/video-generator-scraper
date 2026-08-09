@@ -378,14 +378,16 @@ the bright TechToolTester system rather than a tested decision, and which never
 mentioned music at all).
 
 - Kit + prompts: `tools/audio/kit.json`. Generate once with
-  `tools/audio/sfx.py --kit` — cached by name, so it costs ~7 API calls **ever**,
-  not per video. Files land in `studio/library/sfx/`, peak-normalised to the
-  level named in the kit.
-- Seven sounds, each bound to ONE motion helper: `chip`→pop · `reveal`→rise ·
-  `tick`→pulse · `stamp`→the verdict slam · `hero`→the big number ·
-  `transition`→a scene boundary · `cta`→the closing block. **A sound with no
-  helper does not belong in the kit.** Budget ≤10 cues per short cut; a sound is
-  punctuation, and if every reveal has one then none of them means anything.
+  `tools/audio/sfx.py --kit` — cached by name, so it costs one API call per
+  sound **ever**, not per video. Files land in `studio/library/sfx/`,
+  peak-normalised to the level named in the kit.
+- Each sound is bound to ONE motion helper (`chip`→pop, `stamp`→the verdict
+  slam, and so on — the kit names them, and it grows). **A sound with no
+  helper does not belong in the kit.** The cue budget is per TIER —
+  `format.json tiers.<tier>.max_sfx_cues`, because the short-cut figure applied
+  literally to a chapter cut gives one transition for eighty-odd boundaries. A
+  sound is punctuation, and if every reveal has one then none of them means
+  anything.
 - One music bed per video, ducked ~6 dB under speech (≈18 LU below the voice).
   Deliberately featureless — anything with a melody competes with a spoken number.
 - **Mixed in post, never in the composition.** `tools/audio/mix.py` reads the

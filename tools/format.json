@@ -8,6 +8,8 @@
    "currency": "₹",
    "forbidden_currency": "$",
    "locale": "en-IN",
+   "number_scale": "indian",
+   "_number_scale_note": "`locale` alone does not say how a figure reaches the screen. INDIAN = 2,2,3 digit grouping in every on-screen numeral (₹1,17,000 · ₹10,00,000 · ₹1,00,00,000) and lakh/crore WORDS in the spoken line once a figure passes ₹1,00,000 — never `1.2 lakh` as a numeral, never a western-grouped ₹117,000. Codifies what shipped on passive-income-number-hi; en is `western` (1,000s grouping, thousand/million words).",
    "voice_id": "LHJy3mhZWsvhUjy0zUM1",
    "voice_name": "Amrut Deshmukh",
    "chars_per_second": 14.281,
@@ -18,6 +20,7 @@
    "currency": "$",
    "forbidden_currency": "₹",
    "locale": "en-US",
+   "number_scale": "western",
    "voice_id": "nPczCjzI2devNBz1zQrb",
    "voice_name": "Brian",
    "_chars_per_second_note": "17.57 is tuned for MEDIUM/LONG. ⚠ A SHORT cut will run ~9% long on this key — re-measure before trusting it. Provenance: vault/workflows/voiceover-tts.md.",
@@ -47,6 +50,9 @@
   "_pause_seconds_note": "Silence the voice actually takes at each mark, added to the flat chars/rate estimate in pipeline_check.expected_seconds. Without it a punched cold-open self-flags as truncated."
  },
  "tiers": {
+  "_tier_seconds_note": "The tier's own target is named differently per tier by design — short `default_target_seconds` (a default inside a range), medium `target_seconds` (fixed), long `min_seconds` (a floor). Anything computing a budget must read the one its tier declares.",
+  "_max_sfx_cues_note": "A cue budget, not a target: a sound is punctuation, and if every reveal has one then none of them means anything. Only the SHORT number is earned (≤10 on a 165 s cut, creator-era rule); MEDIUM and LONG are that same ~3.6 cues/min rate carried to their targets, because the SHORT figure taken literally gives a 9:29 chapter cut one transition for 86 scene boundaries. Kit and per-sound discipline: tools/audio/kit.json.",
+  "_comparable_length_band_note": "What counts as a COMPARABLE video when studying competitors. backend/study.py hard-filters below MIN_DURATION_SEC = 240 s (it is a general vault tool and does not read this file), so the SHORT band lies entirely under its floor — short-tier comparables come from vidIQ, not from a study packet. The ceiling is what this key adds: a 40-minute video is not a comparable for an 8:30 cut.",
   "short": {
    "range_seconds": [
     60,
@@ -55,7 +61,12 @@
    "default_target_seconds": 165,
    "architecture": "blockframe-9",
    "lines": 9,
-   "disk_gb_per_pair": 3.0
+   "disk_gb_per_pair": 3.0,
+   "max_sfx_cues": 10,
+   "comparable_length_band_seconds": [
+    60,
+    300
+   ]
   },
   "medium": {
    "target_seconds": 510,
@@ -64,7 +75,12 @@
    "disk_gb_per_pair": 6.0,
    "lines": 78,
    "lead_in_seconds": 0.25,
-   "tail_seconds": 0.55
+   "tail_seconds": 0.55,
+   "max_sfx_cues": 30,
+   "comparable_length_band_seconds": [
+    240,
+    900
+   ]
   },
   "long": {
    "min_seconds": 600,
@@ -73,8 +89,22 @@
    "disk_gb_per_pair": 8.0,
    "lines": 92,
    "lead_in_seconds": 0.25,
-   "tail_seconds": 0.55
+   "tail_seconds": 0.55,
+   "max_sfx_cues": 36,
+   "comparable_length_band_seconds": [
+    480,
+    1800
+   ]
   }
+ },
+ "script": {
+  "_note": "Length and pacing constants the script/audit gates enforce. They span tier and cut (a budget needs both), which is why they are not inside `tiers` or `cuts`.",
+  "char_budget_formula": "chars = <the tier's target seconds, per tiers._tier_seconds_note> × cuts.<cut>.chars_per_second. A cut passes at ±length_tolerance_pct of that. fin-audit gate one enforces it and must READ this, not re-derive it: a gate that invents the rule it enforces can only ever agree with itself.",
+  "length_tolerance_pct": 10,
+  "hook_gate_seconds": 15,
+  "_hook_gate_note": "The payoff promise — the line that says what the viewer gets, not the number that proves it — must have STARTED by this mark. Measured on the rendered clip with silencedetect and recorded in run.json as hook_gate_<cut>, never modelled from char counts: on passive-income-number the flat model said 10.9-13.0 s and the pause-loaded model ~15.5 s for the same line. 15 s was assumed for four cuts before it was written down here and happened to be right. Both cuts must gate on the SAME object or the number compares nothing.",
+  "mid_roll_threshold_seconds": 480,
+  "_mid_roll_note": "YouTube's mid-roll eligibility floor. MEDIUM targets 510 s to clear it with 30 s of margin, which is why a MEDIUM overrun is harmless and an UNDERRUN is not — a 2% miss on the wrong side costs the ad break, and nothing else about the cut changes."
  },
  "scene": {
   "lead_in_seconds": 0.4,
@@ -84,10 +114,23 @@
   "transition_seconds": 0.45,
   "target_scene_seconds": 6.5,
   "max_scene_seconds": 9.0,
-  "_scene_seconds_note": "Scene COUNT is emergent from the script (one VO line = one clip = one scene), never a constant. These bound felt pace: aim ~6.5s, and check_build FAILS a scene holding one photo past max_scene_seconds. `lines: 9` is a SHORT-tier constant only."
+  "_scene_seconds_note": "Scene COUNT is emergent from the script (one VO line = one clip = one scene), never a constant. These bound felt pace: aim ~6.5s, and check_build FAILS a scene holding one photo past max_scene_seconds. `lines: 9` is a SHORT-tier constant only.",
+  "_no_max_hold_seconds": "There is no `scene.max_hold_seconds` and there must not be — it would be a second home for a number that already has two precise ones. A STILL frame with no motion on it: max_static_hold_seconds. A whole scene, motion included: max_scene_seconds. Reach for the one you mean."
  },
- "_architectures_note": "The pipeline ROTATES these — `pipeline_check.py architecture` returns the least recently used, written into run.json before fin-script. Add an entry to put a new layout into the rotation.",
- "_architecture_lock_note": "When set, this WINS over the rotation and every run uses it. Delete the key to resume rotating; `doctor` refuses a lock naming an architecture that does not exist. Why blockframe-9 is locked: vault/knowledge/design-finance-blockframe.md §0.",
+ "assets": {
+  "_note": "Acceptance floors for a sourced photograph. Every one of these is enforced in tools/pipeline_check.py check_assets — they live here so the stage that FETCHES can honour them at fetch time, which is the only cheap moment: none of the three is fixable after the pick.",
+  "min_image_bytes": 10240,
+  "min_source_yhigh": 110,
+  "_min_source_yhigh_note": "90th-percentile luma of the SOURCE still (ffprobe signalstats YHIGH). Under the chapter archetype layer the grade is locked (grayscale .32 / brightness .62) and per-scene filter overrides are forbidden, so a source with no highlights has nothing for the grade to leave behind. Calibrated on the 20 promoted images of passive-income-number-hi ch1+ch2, not on one bad frame: s4 = 93 (failed by eye twice), a 30-point gap to s11b = 123 (looked at, passed), everything else ≥134. ONE-SIDED ON PURPOSE — the opposite failure (a high-key flat texture reading as a UI panel, ch2's s16 at 242) is real but luma does not predict it: ch2's s10 measures 246 and reads fine, because numerals and red pins give it structure. That one still needs eyes. Chapter mode only; plain blockframe keeps the inline filter escape hatch.",
+  "min_width_px": 1600,
+  "pick_width_px": {
+   "pexels": 1880,
+   "pixabay": 1280
+  },
+  "_min_width_note": "1600 is the floor for any scene that gets a long full-bleed zoom — 1280 was first-lakh-first-thousand's library norm and the hook hit ~1.6× upscale, soft at 1:1. Only Pexels clears it (`--pick` returns 1880 at dpr=2&w=940; Pixabay's largeImageURL is 1280), so a zoom or hero-number slot picks the pool by this key, independent of the dedupe reason to switch pools."
+ },
+ "_architectures_note": "The pipeline ROTATES these — `pipeline_check.py architecture --tier <t>` returns the least recently used, written into run.json before fin-script. Add an entry to put a new layout into the rotation. EVERY entry declares the tier it belongs to, and the rotation only ever considers entries of the RUNNING tier: these are all `short`, so at MEDIUM/LONG `tiers.<tier>.architecture` wins and the rotation (and the lock) do not apply. Without that rule a MEDIUM run recorded `architecture: blockframe-9` in run.json while its tier said per-line-chapters, and nothing said which the build should follow.",
+ "_architecture_lock_note": "When set, this WINS over the rotation and every run OF ITS OWN TIER uses it; a run at another tier never sees it. Delete the key to resume rotating; `doctor` refuses a lock naming an architecture that does not exist. Why blockframe-9 is locked: vault/knowledge/design-finance-blockframe.md §0.",
  "architecture_lock": "blockframe-9",
  "_image_per_scene_note": "HARD creator rule: every architecture MUST declare image_per_scene: true and carry a photograph in EVERY frame. `doctor` refuses one without it. Pairs with layout.photo_free_scene_ratio = 0.",
  "_stock_video_note": "Footage behind a scene is SUPPORTED and shipped; HyperFrames pre-extracts frames so rendering stays deterministic. Mechanism and evidence: vault/knowledge/design-finance-blockframe.md.",
@@ -178,7 +221,10 @@
    "gap_seconds": [
     0.6,
     0.7
-   ]
+   ],
+   "rows": 2,
+   "counts_as_elements": 1,
+   "_note": "A declared cascade is ONE focal group arriving in sequence, so it counts as a SINGLE element against max_simultaneous_elements (five chips are not five elements) and is the one exemption from cue_min_gap_seconds. Five items at max_chips_per_row: 3 is two rows; more rows than that is a table, and a table is a different frame."
   },
   "first_cue_by_seconds": 0.5,
   "max_simultaneous_elements": 6,

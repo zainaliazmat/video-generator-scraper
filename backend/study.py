@@ -36,7 +36,11 @@ import yt_dlp
 import library
 
 RESEARCH_DIR = Path(__file__).resolve().parent.parent / "research"
-MIN_DURATION_SEC = 240      # comparable long-form only (skip Shorts/clips)
+# comparable long-form only (skip Shorts/clips). A hard floor for every study,
+# not a per-video rule: the finance pipeline's per-tier band (and its ceiling,
+# which this tool has no opinion about) is format.json
+# tiers.<tier>.comparable_length_band_seconds.
+MIN_DURATION_SEC = 240
 MIN_VIEWS = 100             # below this a "low performer" teaches nothing
 
 

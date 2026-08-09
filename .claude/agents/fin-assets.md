@@ -101,10 +101,12 @@ works for a one-off, but sheets are the default — viewing six at once is where
    A currency-NEUTRAL object always beats a wrong-currency one; if the right
    currency isn't sourceable, pick a neutral subject rather than settling.
 
-2. **≥1600 px wide for any scene that gets a long full-bleed zoom.**
-   1280 px was this cut's library norm and the hook hit ~1.6× upscale — soft note
-   paper at 1:1, though vector type stays sharp. Cheap to honour at fetch time,
-   impossible to fix afterwards.
+2. **`assets.min_width_px` wide for any scene that gets a long full-bleed zoom.**
+   The pool default was this cut's library norm and the hook hit ~1.6× upscale —
+   soft note paper at 1:1, though vector type stays sharp. Cheap to honour at
+   fetch time, impossible to fix afterwards. The floor, the two pools' actual
+   widths and the whole acceptance set (`min_image_bytes`, `min_source_yhigh`)
+   are in your `assets` slice — read them, do not carry numbers in your head.
 
 3. **Name the DENOMINATION in the query — the root-cause fix for rule 1.**
    `coin tray`, `coin pile`, `jar of coins` are country-blind, and both pools
@@ -118,9 +120,9 @@ works for a one-off, but sheets are the default — viewing six at once is where
    returned six clean cells each, no props in any of the three sheets.
    Filtering after the fetch is the expensive way to do what the query does free.
 
-4. **Prefer `@pexels` for any slot with a zoom or a hero number.** Pexels
-   `--pick` returns 1880 px (`dpr=2&w=940`); Pixabay returns 1280 px
-   (`largeImageURL`). This is independent of the dedupe reason to switch pools.
+4. **Prefer `@pexels` for any slot with a zoom or a hero number.** Only one pool
+   clears `assets.min_width_px` — compare `assets.pick_width_px`. This is
+   independent of the dedupe reason to switch pools.
 
 Also note `build_sheet` silently tiles only the previews that downloaded — a
 sheet can come back 1-of-6 without saying so. Count the cells you actually got.

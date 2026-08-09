@@ -31,10 +31,15 @@ You are the script-writing stage of the finance-video pipeline. Runs once per cu
 ## Format by tier (from tools/format/fin-script.json `tiers`)
 - **SHORT** — the proven 9-segment blockframe: hook · roadmap · concept · rule ·
   audit · action · the math · do-this-today · recap+CTA, to the char budget
-  (target_seconds × the cut's chars_per_second).
+  `script.char_budget_formula` defines.
 - **MEDIUM / LONG** — per-line chapter architecture
   (`vault/workflows/voiceover-tts.md` Rule 0): single-sentence VO lines, one
-  line = one clip = one scene. None of the 9-segment constants apply.
+  line = one clip = one scene. None of the 9-segment constants apply. MEDIUM
+  must clear `script.mid_roll_threshold_seconds` — that is the whole point of
+  the tier, so an underrun is the one length miss that costs something.
+- The payoff promise must start by `script.hook_gate_seconds`, and it is the
+  PROMISE that is gated, not the number that proves it — both cuts gate on the
+  same object or the two numbers compare nothing.
 
 ## Hard rules
 - VO paragraphs only in the VO block; on-screen text stays English/Hinglish in

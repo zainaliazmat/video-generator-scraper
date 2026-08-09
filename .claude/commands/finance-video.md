@@ -51,11 +51,18 @@ slug". Never silently overwrite a run.
 2a. **Ask the STYLE too — a second question, exactly like the tier**
    (creator instruction 2026-07-30: *"ask when i start a new finance video run
    as you ask question for length as for style"*). Run
-   `python3 tools/pipeline_check.py architecture` to get the **default**, then
-   offer every entry in format.json `architectures` by name with its one-line
-   `summary`, default pre-selected. Write the answer into `run.json` as a
-   top-level `architecture` **before fin-script runs**, and show it in the
-   confirm block. fin-storyboard and fin-build both read it.
+   `python3 tools/pipeline_check.py architecture --tier <the tier just chosen>`
+   to get the **default**, then offer every entry in format.json `architectures`
+   **of that tier** by name with its one-line `summary`, default pre-selected.
+   Write the answer into `run.json` as a top-level `architecture` **before
+   fin-script runs**, and show it in the confirm block. fin-storyboard and
+   fin-build both read it.
+
+   At MEDIUM/LONG there is nothing to ask: every rotating entry is a SHORT
+   layout, so the command returns `tiers.<tier>.architecture`
+   (`per-line-chapters`) and says so. Record that and skip the style question —
+   asking it there is what produced a run.json claiming `blockframe-9` on a
+   chapter cut.
 
    How the default is computed, and why it is only a default: normally the
    command rotates, returning the least recently used entry; if

@@ -448,16 +448,6 @@ def check_storyboard(slug, cut, fmt):
     return problems
 
 
-# Calibrated on the 20 promoted images of passive-income-number-hi ch1+ch2, not
-# on one bad frame: s4 = 93 (failed by eye TWICE, in both directions), then a
-# 30-point gap to s11b = 123 (looked at and passed), then everything else >= 134.
-# 110 sits in that gap with margin on both sides. ONE-SIDED ON PURPOSE — the
-# opposite failure (a high-key flat TEXTURE reading as a UI panel, e.g. ch2's s16
-# at 242) is real but luma does not predict it: ch2's s10 measures 246 and reads
-# fine, because numerals and red pins give it structure. That one still needs eyes.
-MIN_SOURCE_YHIGH = 110
-
-
 def luma_high(path):
     """90th-percentile luma of a still. None if ffprobe can't read it."""
     out = subprocess.run(
@@ -471,6 +461,10 @@ def luma_high(path):
 
 
 def check_assets(slug, cut, fmt):
+    # The floors are format.json's (assets.*), not this file's: fin-assets has to
+    # honour them at FETCH time — the only moment any of them is cheap — and it
+    # cannot read a constant that lives in a checker's source.
+    floors = fmt["assets"]
     idir = assets_img_dir(slug, cut)
     manifest_path = os.path.join(idir, "manifest.json")
     if not os.path.exists(manifest_path):
@@ -500,8 +494,9 @@ def check_assets(slug, cut, fmt):
         if not os.path.exists(path):
             problems.append(f"manifest names {name} but it is not on disk "
                             "(dropped cut-ins must be removed from the manifest)")
-        elif os.path.getsize(path) < 10240:
-            problems.append(f"{name}: under 10KB, not a usable photo")
+        elif os.path.getsize(path) < floors["min_image_bytes"]:
+            problems.append(f"{name}: under {floors['min_image_bytes'] // 1024}KB, "
+                            "not a usable photo")
         elif name not in credits:
             problems.append(f"{name}: no attribution line in CREDITS.txt (licence requirement)")
         elif CHAPTER:
@@ -515,10 +510,11 @@ def check_assets(slug, cut, fmt):
             # a re-fetch missed it; one ffprobe call catches it before the render.
             # Chapter mode only: plain blockframe still permits an inline filter:
             # override, which is the documented escape hatch for near-black stock.
+            # Where the 110 comes from: format.json assets._min_source_yhigh_note.
             y = luma_high(path)
-            if y is not None and y < MIN_SOURCE_YHIGH:
+            if y is not None and y < floors["min_source_yhigh"]:
                 problems.append(
-                    f"{name}: source YHIGH {y:.0f} < {MIN_SOURCE_YHIGH} — no "
+                    f"{name}: source YHIGH {y:.0f} < {floors['min_source_yhigh']} — no "
                     f"highlights to survive the locked grade; it will render as a "
                     f"flat slab. Pick a frame with light falling on the subject.")
 
@@ -897,9 +893,9 @@ def architecture_lock_problems(fmt):
     return problems
 
 
-def next_architecture(fmt=None):
-    """The architecture the NEXT run should use: the least recently used one,
-    unless format.json pins one with `architecture_lock`.
+def next_architecture(fmt=None, tier="short"):
+    """The architecture the NEXT run should use AT THIS TIER: the least recently
+    used one, unless format.json pins one with `architecture_lock`.
 
     Six consecutive blockframe-9 cuts shipped on both channels. The warning had
     been written four times — three milestone notes and a structured `owed` entry
@@ -912,11 +908,19 @@ def next_architecture(fmt=None):
     actually chosen a layout, rotating away from it is the pipeline overriding a
     decision. `doctor` rejects a lock naming an unknown architecture, so a typo
     fails at preflight instead of quietly falling through to rotation.
+
+    The rotation is PER TIER. Every `architectures` entry is a SHORT layout, so a
+    MEDIUM run used to be handed blockframe-9 by the lock and record it in
+    run.json while `tiers.medium.architecture` said per-line-chapters — two
+    answers, no rule for which wins. Filtering by tier and falling back to the
+    tier's own declaration makes that contradiction unrepresentable instead of
+    merely documented.
     """
     fmt = fmt or load_format()
-    names = list(fmt.get("architectures", {}))
+    names = [n for n, spec in fmt.get("architectures", {}).items()
+             if spec.get("tier") == tier]
     if not names:
-        return None
+        return fmt.get("tiers", {}).get(tier, {}).get("architecture")
     if fmt.get("architecture_lock") in names:
         return fmt["architecture_lock"]
     recent = recent_architectures(len(names))
@@ -941,15 +945,15 @@ VIEW_DIR = os.path.join(ROOT, "tools", "format")
 AGENT_DIET = {
     "fin-research":   ["tiers", "cuts"],
     "fin-facts":      ["cuts"],
-    "fin-script":     ["tiers", "cuts", "tts", "scene"],
-    "fin-audit":      ["tiers", "cuts", "scene", "layout"],
+    "fin-script":     ["tiers", "cuts", "tts", "scene", "script"],
+    "fin-audit":      ["tiers", "cuts", "scene", "layout", "script"],
     # tiers: the cost guard's own formula references target_seconds and the per-line
     # padding, so without it the stage cannot check its own report. Reported by
     # fin-voice in the 2026-08-09 rehearsal, which is what MISSING-CONSTANT is for.
     "fin-voice":      ["cuts", "tts", "tiers"],
     "fin-storyboard": ["tiers", "cuts", "scene", "layout", "architectures",
                        "architecture_lock", "chapter_design", "vector_art"],
-    "fin-assets":     ["cuts", "scene", "layout", "vector_art"],
+    "fin-assets":     ["cuts", "scene", "layout", "vector_art", "assets"],
     "fin-build":      ["cuts", "scene", "layout", "colors", "architectures",
                        "architecture_lock", "chapter_design", "vector_art",
                        "video_scene", "known_benign"],
@@ -1536,6 +1540,19 @@ def _selftest():
         write_framed(f' data-framings="{round(long_own - 0.5, 3)},0.5"')   # still too long
         assert any("longest framing" in p for p in check_build(slug, cut, fmt))
 
+        # the image floors are format.json's, not this file's: prove the check
+        # READS assets.min_image_bytes rather than carrying its own copy, which is
+        # the whole point of moving it (fin-assets has to honour it at fetch time).
+        idir = assets_img_dir(slug, cut)
+        os.makedirs(idir, exist_ok=True)
+        atomic_write_json(os.path.join(idir, "manifest.json"), {"s1.jpg": "q", "_note": "prose"})
+        open(os.path.join(idir, "CREDITS.txt"), "w", encoding="utf-8").write("s1.jpg — someone")
+        open(os.path.join(idir, "s1.jpg"), "wb").write(b"\0" * 20000)
+        assert not any("KB" in p for p in check_assets(slug, cut, fmt)), check_assets(slug, cut, fmt)
+        raised = dict(fmt, assets=dict(fmt["assets"], min_image_bytes=32768))
+        assert any("under 32KB" in p for p in check_assets(slug, cut, raised)), \
+            "the byte floor must come from format.json, not from this file"
+
         # rotation: the next run must not repeat the architecture just used
         assert next_architecture() in load_format()["architectures"]
 
@@ -1553,6 +1570,16 @@ def _selftest():
         assert architecture_lock_problems(bogus), "unknown lock must fail doctor"
         assert next_architecture(bogus) in names, "bogus lock must not return itself"
         assert next_architecture(dict(fmt, architecture_lock=None)) in names
+
+        # ...and the rotation is SHORT-tier only: a chapter tier gets its own
+        # architecture, never the lock, so run.json cannot record a layout that
+        # contradicts the tier it is running (the MEDIUM ambiguity, 2026-08-09).
+        for chapter_tier in ("medium", "long"):
+            got = next_architecture(fmt, chapter_tier)
+            assert got == fmt["tiers"][chapter_tier]["architecture"], got
+            assert got not in fmt["architectures"], f"{got} must not be in the rotation"
+        assert all(spec.get("tier") for spec in fmt["architectures"].values()), \
+            "every architecture must declare its tier, or the rotation cannot filter"
 
         # X-8: editing the script after voice ran must invalidate downstream stages
         assert stale_script_problems(slug, cut) == []
@@ -1654,12 +1681,18 @@ def main(argv=None):
         _selftest()
         return 0
     if args.mode == "architecture":
-        name = next_architecture()
-        if not name:
-            print("no architectures defined in tools/format.json")
-            return 1
         fmt = load_format()
-        arch = fmt["architectures"][name]
+        name = next_architecture(fmt, args.tier)
+        if not name:
+            print(f"no architecture for tier '{args.tier}' in tools/format.json")
+            return 1
+        arch = fmt["architectures"].get(name)
+        if arch is None:      # the tier declares its own, outside the rotation
+            print(name)
+            print(f"  tiers.{args.tier}.architecture — not a rotating layout; the "
+                  f"rotation and `architecture_lock` are SHORT-tier only.")
+            print(f"  spec: {fmt['tiers'][args.tier].get('reference', '')}")
+            return 0
         print(name)
         if fmt.get("architecture_lock") == name:
             print("  LOCKED — rotation is off (creator decision 2026-07-30). "

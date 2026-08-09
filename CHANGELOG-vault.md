@@ -252,25 +252,51 @@ Keys that exist nowhere, so no slicing decision could have supplied them. This i
 the backlog the instrumentation surfaced — each was reached for by a real stage
 doing real work:
 
-| key | wanted by | for |
-|---|---|---|
-| `assets.min_image_bytes` | fin-assets | the 10 KB gate that failed the run, "named nowhere I can see" |
-| `assets.min_source_yhigh` | fin-assets | the 110 floor; prose is in the slice, the number only in a vault note |
-| `assets.min_width_px` | fin-assets | 1600, plus the Pexels-1880/Pixabay-1280 split that drives pool choice |
-| `layout.font_subset` | fin-storyboard | the FinanceSans subset guard — **silently renders tofu with every check passing**; 12 strings needed rewriting |
-| `audio.max_sfx_cues` per tier | fin-storyboard | the ≤10 figure is a SHORT constant; literally applied to a 9:29 cut it gives one transition for 86 boundaries |
-| `layout.cascade.rows` | fin-storyboard | whether a cascade counts toward max_simultaneous_elements |
-| `tiers.<tier>.char_budget_formula` | fin-audit | gate one currently derives the rule it enforces |
-| `scene.max_hold_seconds` | fin-audit | — |
-| `hook_gate_seconds` | fin-script | placing the payoff promise; 15 s was assumed and happened to be right |
-| `mid_roll_threshold_seconds` | fin-script | whether a +2% overrun matters |
-| `tiers.<tier>.length_tolerance_pct` | fin-script | whether 6,443 chars passes |
-| `cuts.hi.number_scale` | fin-facts | `locale: en-IN` does not say whether ₹ renders `₹1,17,000` or `₹1.2 lakh` |
-| `tiers.medium.comparable_length_band_seconds` | fin-research | study.py's 240 s floor has no upper bound to match the 510 s target |
-| `architecture` resolution at MEDIUM | fin-storyboard | `run.json.architecture: blockframe-9` vs `tiers.medium.architecture: per-line-chapters` — no rule for which wins |
+| key | wanted by | for | where it landed |
+|---|---|---|---|
+| `assets.min_image_bytes` | fin-assets | the 10 KB gate that failed the run, "named nowhere I can see" | `assets.min_image_bytes` |
+| `assets.min_source_yhigh` | fin-assets | the 110 floor; prose is in the slice, the number only in a vault note | `assets.min_source_yhigh` + its calibration note |
+| `assets.min_width_px` | fin-assets | 1600, plus the Pexels-1880/Pixabay-1280 split that drives pool choice | `assets.min_width_px` + `assets.pick_width_px` |
+| `layout.font_subset` | fin-storyboard | the FinanceSans subset guard — **silently renders tofu with every check passing**; 12 strings needed rewriting | fixed 2026-08-09 by deriving coverage from the font |
+| `audio.max_sfx_cues` per tier | fin-storyboard | the ≤10 figure is a SHORT constant; literally applied to a 9:29 cut it gives one transition for 86 boundaries | `tiers.<tier>.max_sfx_cues` (10 / 30 / 36) |
+| `layout.cascade.rows` | fin-storyboard | whether a cascade counts toward max_simultaneous_elements | `layout.cascade.rows` + `counts_as_elements: 1` |
+| `tiers.<tier>.char_budget_formula` | fin-audit | gate one currently derives the rule it enforces | `script.char_budget_formula` |
+| `scene.max_hold_seconds` | fin-audit | — | **refused**: `scene._no_max_hold_seconds` names the two that exist |
+| `hook_gate_seconds` | fin-script | placing the payoff promise; 15 s was assumed and happened to be right | `script.hook_gate_seconds` |
+| `mid_roll_threshold_seconds` | fin-script | whether a +2% overrun matters | `script.mid_roll_threshold_seconds` |
+| `tiers.<tier>.length_tolerance_pct` | fin-script | whether 6,443 chars passes | `script.length_tolerance_pct` |
+| `cuts.hi.number_scale` | fin-facts | `locale: en-IN` does not say whether ₹ renders `₹1,17,000` or `₹1.2 lakh` | `cuts.<cut>.number_scale` |
+| `tiers.medium.comparable_length_band_seconds` | fin-research | study.py's 240 s floor has no upper bound to match the 510 s target | that key, on all three tiers |
+| `architecture` resolution at MEDIUM | fin-storyboard | `run.json.architecture: blockframe-9` vs `tiers.medium.architecture: per-line-chapters` — no rule for which wins | **code, not a constant** — see below |
 
-Not fixed. They are a real backlog, but inventing fourteen constants is a
-separate decision from slicing the ones that exist.
+**Closed 2026-08-09.** Three things are worth saying about how.
+
+*Not every request became the key it asked for.* `scene.max_hold_seconds` was a
+NAMING gap, not a value gap: `max_static_hold_seconds` and `max_scene_seconds`
+already exist and are different numbers, so adding the requested key would have
+created a third home for a fact that had two. It is answered with a note that
+sends the reader to the one they mean. `char_budget_formula` and
+`length_tolerance_pct` were asked for per tier and are identical across all
+three, so they live once, in a new `script` block, beside the two other
+length gates (`hook_gate_seconds`, `mid_roll_threshold_seconds`) — a budget
+spans tier × cut, which is why it sits in neither.
+
+*The architecture conflict is not a constant at all.* A rule saying "the tier
+wins at MEDIUM" would be prose that no code reads — the shape that let six
+consecutive blockframe-9 cuts ship. `next_architecture()` now takes the tier and
+rotates only among entries declaring it, falling back to
+`tiers.<tier>.architecture`; every `architectures` entry already declared
+`tier: short`, so a MEDIUM run can no longer be handed a SHORT layout. The
+contradictory run.json is unrepresentable rather than documented.
+
+*Two of the fourteen were already enforced in code with the number written in
+Python.* `10240` was inline in `check_assets` and `MIN_SOURCE_YHIGH = 110` was a
+module constant with its calibration in a comment. The stage that has to HONOUR
+a floor is `fin-assets`, at fetch time — the only moment any of them is cheap —
+and it cannot read a constant that lives in a checker's source. Both moved,
+their rationale with them, and each prose home that restated a number now points
+at the key instead: fin-assets rules 2 and 4, fin-audit gate one, fin-script's
+tier block, fin-research's intake, the blockframe SFX section.
 
 ### Three bugs it found that have nothing to do with the diet
 
