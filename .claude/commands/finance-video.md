@@ -80,7 +80,7 @@ slug". Never silently overwrite a run.
    that quietly drops the image. Do not invent a style at intake: the menu is
    whatever is in `architectures`, nothing else.
 3. Whether fresh numbers are needed is a **grep, not a question**: during
-   Phase 1, `fin-facts` verify-only mode applies when
+   Phase 1, `fin-evidence`'s Part B runs verify-only when
    `vault/knowledge/money-facts-2026.md` already covers the topic's figures.
 4. Print the confirm block and wait for `y` (unless `--yes`):
 
@@ -154,10 +154,10 @@ The ceiling exists to catch a runaway loop, not to cap a legitimately long video
 ## 3 · The stage machine
 
 ```
-Phase 1 (sequential — both edit shared vault paths):
-    fin-research → fin-facts
+Phase 1:            fin-evidence          (lane study, then every money number)
 Phase 2 (hi cut):   fin-script → fin-audit → tts/prepare.py → fin-storyboard
-                    → THE CHAPTER LOOP (§3b) → concat → fin-render → fin-package
+                    → THE CHAPTER LOOP (§3b) → concat → fin-review (gate 2)
+                    → encode → check render → fin-package
 Phase 3 (en cut):   the same, reusing Phase 1 output
 Phase 4:            close_out.py (see §5)
 ```
@@ -184,7 +184,7 @@ draft would have told you.*
 
 For each stage:
 
-1. Print the transition line: `▶ fin-<stage>[-<cut>] · <n>/18 · <elapsed>`.
+1. Print the transition line: `▶ fin-<stage>[-<cut>] · <n>/<total> · <elapsed>`.
 2. Invoke the matching `fin-*` agent (Task tool) with exactly: `slug`, `cut`,
    `tier`, `attempt`, and — on attempt 2 — the full prior failure text
    (check output + the agent's log). Nothing else; the agent reads disk.
@@ -208,11 +208,11 @@ over 1.3× its char budget.
 
 Hard gates (no retry loops past them):
 - `fin-audit` FAIL ×2 ⇒ stop before any TTS spend.
-- `fin-render` frame-check fail ⇒ one `fin-build` fix pass, then stop.
+- gate-two frame-check fail ⇒ one `fin-build` fix pass, then stop.
 
 The render stage is split three ways (a subagent's background task dies when
-the subagent returns — verified 2026-07-28): `fin-render` does the gate-two
-frame check only; then YOU run the encode as YOUR OWN background task
+the subagent returns — verified 2026-07-28): **`fin-review` with no `--chapter`**
+does the gate-two frame check only; then YOU run the encode as YOUR OWN background task
 (`PRODUCER_ENABLE_CHUNKED_ENCODE=true npm run render -- -q high --resolution
 1080p --video-bitrate 12M -o renders/FINAL-1080p-<cut>.mp4` in the project
 dir); when it completes, **YOU run the master QA** — it is no longer a second
@@ -289,12 +289,23 @@ For chapter N = 1..last:
    (the stale-composition trap, §3b below). This was `fin-render --chapter N`
    until 2026-08-09: an agent wrapping two commands with no decision between
    them, measured at 318,807 tokens per invocation across 21 invocations.
-5  fin-editor  chapter N       -> PASS | REWORK
-     REWORK -> fin-build fix -> re-draft -> fin-editor (max 3 editor rounds)
-6  fin-ceo     chapter N       -> SHIP | REWORK
-     REWORK -> fin-build fix -> re-draft -> fin-editor -> fin-ceo (max 2 CEO rounds)
-7  lock: record in run.json chapters[N] = {status: locked, draft, editor, ceo}
+5  fin-review  chapter N       -> PASS | REWORK   (pass 1 correctness, pass 2 retention)
+     REWORK -> fin-build fix -> re-draft -> fin-review
+     **THREE ROUNDS IN TOTAL**, then escalate to the creator
+6  python3 tools/pipeline_check.py mark review --slug <slug> --cut <cut> --chapter N \
+     --attempt <n> --log vault/videos/<slug>/logs/review-<cut>-ch<N>-<n>.md
+7  lock: record in run.json chapters[<cut>][N] = {status: locked, draft, review, round}
 ```
+
+**One reviewer, one budget, since 2026-08-09.** `fin-editor` and `fin-ceo` were two
+agents reading the same contact sheet, built by the same command, from the same
+chapter — with 3 editor rounds *plus* 2 CEO rounds, i.e. up to **five** rebuilds and
+five draft renders per chapter before anyone escalated. `fin-review` runs both
+checklists against **one** sheet read and has **one** budget of 3. The lenses are
+not merged: every finding is tagged `P1` (correctness) or `P2` (retention/brand/
+honesty), each pass reports its own blocker count, and `check review` fails a log
+that reports only one of them — which is what stops the merge quietly becoming one
+lens (`audit/02` §8 risk 4).
 
 **The creator reviews chapters, not scenes — and they review in batches.** After
 each chapter locks, keep going. Do **not** stop and ask per chapter. When every
@@ -330,15 +341,18 @@ Draft render flags: `-q draft` only. Do NOT add `--resolution`, `--gpu`,
 `--video-bitrate` or chunked encode — a draft is for judging images, motion and
 timing, all of which are identical at draft quality. ~3 min for a 70 s chapter.
 
-Escalation: if the editor still says REWORK after three rounds, or the CEO after
-two, **stop and hand the chapter to the creator** with both logs and the latest
-draft path. Do not keep spending renders on a disagreement; two rounds is the
-budget, and a human settles the rest.
+Escalation: if `fin-review` still says REWORK after **three** rounds, **stop and
+hand the chapter to the creator** with the review log and the latest draft path. Do
+not keep spending renders on a disagreement; three rounds is the whole budget for
+both lenses together, and a human settles the rest.
 
 When every chapter is locked, concatenate and run the ONE full-quality render
-(§3, the split three-way render stage). `fin-render`'s frame check then runs
-against a video whose every scene has already been seen — it is a safety net, not
-the first look.
+(§3, the split three-way render stage). Gate two — `fin-review` invoked with no
+`--chapter` — then runs against a video whose every scene has already been seen, so
+it is a safety net and not the first look. **Its one job that the chapter passes
+could not do is sampling INSIDE the cross-dissolves**: a boundary does not exist
+until the cut is assembled, and one-frame-per-scene sampling lands between
+transitions by construction.
 
 **Resume:** `run.json.chapters` is authoritative. `--resume` re-enters at the
 first chapter that is not `locked`; locked chapters are never rebuilt or
@@ -409,7 +423,7 @@ Guardrails that make overlap safe (MUST):
   stops the other; a finished hi cut still ships if en fails (§3.5).
 
 Canonical shape: `fin-script-en` during the hi encode; `fin-audit-en` /
-`fin-voice-en` during hi render-QA; `fin-package-hi` during en voice/storyboard;
+`tts/prepare.py --cut en` during hi render-QA; `fin-package-hi` during en voice/storyboard;
 the two `fin-assets` and the two encodes always staggered. The machine-bound
 stages are the floor — pipelining hides the model-bound work inside them but
 cannot beat the core count; going below it needs cloud/Lambda encode, not more

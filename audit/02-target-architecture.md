@@ -367,7 +367,7 @@ Ordered. Each step independently revertible. Branch `refactor/pipeline-v2`; remo
 | 5 | `packs/contract.md`; strip the 4 duplicated blocks from 11 agents | 11 agent files | revert | step 4 |
 | 6 | Re-cut `tools/format/` slices | `pipeline_check doctor` | regenerate | step 5 |
 | 7 | ✅ **done 2026-08-09** — **Mechanical deletions**: `fin-voice` + `fin-archive` deleted, `fin-render` reduced to gate two → `tools/tts/prepare.py`, `tools/render_chapter.py`, `tools/close_out.py`, `pipeline_check check render` | 2 agents → `_deprecated/`, 3 new `tools/*.py`, orchestrator | restore 2 files + revert | step 6 |
-| 8 | **Merges**: `fin-editor`+`fin-ceo` → `fin-review`; `fin-research`+`fin-facts` → `fin-evidence`; unify round budget | 4 agents → `_deprecated/`, 2 new | restore 4 files | step 7 + evals |
+| 8 | ✅ **done 2026-08-09** — **Merges**: `fin-editor`+`fin-ceo`+`fin-render`'s gate two → `fin-review`; `fin-research`+`fin-facts` → `fin-evidence`; round budget unified at 3; new `pipeline_check check evidence` / `check review` | 5 agents → `_deprecated/`, 2 new | restore 5 files | step 7 + evals |
 | 9 | **The behavioural change**: `tools/image_sheet.py`, image acceptance terminal at `fin-assets` | 1 new script, `fin-assets`, `fin-review` | revert 2 files | step 8 + evals |
 | 10 | `storyboard.json` schema; `fin-plan` emits data + ≤1 page | `fin-plan`, `fin-build`, `fin-assets`, `fin-review`, `pipeline_check` | revert | step 9 + evals |
 | 11 | Structured journal + `fin-retro` (Phase 6) | new `runs/`, 1 new agent | delete | step 10 |
@@ -415,6 +415,42 @@ chapter directory since 2026-08-04 (logged at baseline, deferred until the run
 finished). Eval state is unchanged from the baseline — **41 targets · 302 pass ·
 43 fail · 16 blocker failures**, and 6 targets · 48 pass · 0 fail on the current run
 ([evals/results/after-step7-2026-08-09.json](../evals/results/after-step7-2026-08-09.json)).
+
+### 7.2 · Step 8 landed the roster at 8, and `fin-render` died with it
+
+The §1 roster is now exactly what is on disk: `fin-evidence`, `fin-script`,
+`fin-audit`, `fin-storyboard`, `fin-assets`, `fin-build`, `fin-review`,
+`fin-package`. **13 → 8.**
+
+`fin-render` was scheduled to survive step 7 for its gate-two frame check. It did
+not survive step 8, because [01 §1 row 33](01-capability-matrix.md) always said that
+check merges into `fin-review` — so `fin-review` takes it as a mode: **invoked with
+no `--chapter`, on the assembled cut, before the encode.** Gate two keeps exactly one
+job the chapter passes cannot do, and it is a real one: **a cross-dissolve boundary
+does not exist until the cut is assembled**, and one-frame-per-scene sampling lands
+between transitions by construction. That blindness shipped a double-paint at all 91
+boundaries of `japanese-money-methods-hi`. `qa.dissolve_sample_offsets` moved from
+`fin-render`'s format slice to `fin-review`'s with it.
+
+Two things guard the risk that merging two lenses becomes one lens (§8 risk 4):
+findings carry a `P1`/`P2` tag and each pass reports its own blocker count, and the
+**new `pipeline_check check review`** fails a log that reports only one pass, or that
+claims PASS with a non-zero blocker count. That is also the gate `fin-editor`/`fin-ceo`
+never had ([00 §2.1](00-discovery.md), and [01 §1 row 54](01-capability-matrix.md)).
+
+**The round budget is where the money is.** It was 3 editor rounds *plus* 2 CEO
+rounds — up to five rebuilds and five draft renders per chapter. It is now **3 in
+total**. The `fin-research`+`fin-facts` merge is, as [01 §5](01-capability-matrix.md)
+already said, **cosmetic**: 3 of 153 invocations, 2.4% of tokens. It buys a roster
+slot, not money, and both the agent file and the manifest say so in those words.
+
+Eval state unchanged again: 41 targets · 302 pass · 43 fail · 16 blocker failures.
+
+⚠ **Steps 8 and 9 change behaviour and CANNOT be measured while the run is paused.**
+Every number in this document that a merge would move — tokens per locked chapter,
+rounds per chapter, post-lock image defects — needs a chapter to actually be built.
+The evals prove nothing regressed in the artifacts on disk; they cannot prove the new
+round budget converges. **That measurement is the first thing a resumed run owes.**
 
 ---
 

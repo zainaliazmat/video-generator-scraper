@@ -12,10 +12,10 @@ commands with no decision between them: it cost 318,807 tokens per invocation ac
     npx hyperframes render . -c index.html -o renders/DRAFT-ch<N>.mp4 -q draft -f <fps>
     python3 tools/chapter_sheet.py <project> <mp4> -o <project>/renders/SHEET-ch<N>.jpg
 
-`fin-render`'s other steps are NOT here and the agent is not deleted yet: its gate-two
-frame check is a vision pass that moves to `fin-review` (migration step 8), and its
-master QA is numeric and moves into `pipeline_check check render`. This file owns only
-the part that was never judgement.
+`fin-render` is gone entirely as of 2026-08-09: its gate-two frame check was a vision
+pass and moved to `fin-review` (invoked with no `--chapter`), and its master QA was
+four numeric thresholds and moved into `pipeline_check check render`. This file owns
+only the part that was never judgement.
 
 WHY THE FLAGS ARE FIXED
 -----------------------

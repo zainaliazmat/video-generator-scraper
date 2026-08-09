@@ -323,7 +323,8 @@ register();
     # and the default 41.8-minute encode timeout kills it at about frame 11000
     # of 18800 with the mp4 never written (measured on -en, 2026-08-06). The
     # pipeline's own orchestrator command carries PRODUCER_ENABLE_CHUNKED_ENCODE
-    # for the same reason (.claude/agents/fin-render.md step 2); either works.
+    # for the same reason (a subagent's background task dies when it returns);
+    # either works.
     print(f"""
   render it with (the env var is load-bearing — see the note in this file):
     cd studio/videos/{slug}-{cut}-full

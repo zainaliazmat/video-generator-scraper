@@ -1101,13 +1101,54 @@ def check_package(slug, cut, fmt):
     return problems
 
 
+def check_evidence(slug, cut, fmt):
+    """Both of `fin-evidence`'s artifacts. Was `check research` + `check facts`.
+
+    A failed study does NOT stop the run (the agent is told to carry on to the money
+    numbers and record the scrape as owed), but it is still reported — the study note
+    missing and nobody noticing is how a cut gets scripted against no lane at all."""
+    return check_research(slug, cut, fmt) + check_facts(slug, cut, fmt)
+
+
+def check_review(slug, cut, fmt):
+    """The chapter review actually ran BOTH lenses and recorded a verdict.
+
+    The gate `fin-editor`/`fin-ceo` never had (00-discovery §2.1 — three of thirteen
+    agents had no gate at all). It cannot judge a photograph; it can prove that the
+    artifact a lock is recorded against exists, parses, and reports each pass
+    separately — which is the whole mechanism keeping the merge from collapsing two
+    lenses into one (02 §8 risk 4)."""
+    which = f"ch{CHAPTER}" if CHAPTER else "gate2"
+    logs = sorted(glob.glob(os.path.join(vault_dir(slug), "logs",
+                                         f"review-{cut}-{which}-*.md")))
+    if not logs:
+        return [f"no review log for {cut} {which} in {vault_dir(slug)}/logs/"]
+    text = open(logs[-1], encoding="utf-8").read()
+    rel = os.path.relpath(logs[-1], ROOT)
+    problems = []
+    verdict = re.search(r"^VERDICT:\s*(PASS|REWORK)\s*$", text, re.M)
+    if not verdict:
+        problems.append(f"{rel} has no `VERDICT: PASS|REWORK` line")
+    for label in ("PASS 1", "PASS 2"):
+        if not re.search(rf"^{label}:\s*\d+\s+blockers?", text, re.M):
+            problems.append(f"{rel} does not report `{label}: <n> blockers` — both "
+                            f"lenses report separately or the merge has quietly "
+                            f"become one lens")
+    if verdict and verdict.group(1) == "PASS":
+        counts = [int(n) for n in re.findall(r"^PASS \d:\s*(\d+)\s+blockers?", text, re.M)]
+        if any(counts):
+            problems.append(f"{rel} says PASS with {sum(counts)} blocker(s) — PASS "
+                            f"means zero blockers in BOTH passes")
+    return problems
+
+
 CHECKS = {
-    "research": check_research, "facts": check_facts, "script": check_script,
+    "evidence": check_evidence, "script": check_script,
     "audit": check_audit, "voice": check_voice, "storyboard": check_storyboard,
-    "assets": check_assets, "build": check_build, "render": check_render,
-    "package": check_package,
+    "assets": check_assets, "build": check_build, "review": check_review,
+    "render": check_render, "package": check_package,
 }
-PER_CUT = set(CHECKS) - {"research", "facts"}
+PER_CUT = set(CHECKS) - {"evidence"}
 
 
 # -------------------------------------------------------------- architecture
@@ -1198,8 +1239,7 @@ def next_architecture(fmt=None, tier="short"):
 # generated files and threading --cut through every read.
 VIEW_DIR = os.path.join(ROOT, "tools", "format")
 AGENT_DIET = {
-    "fin-research":   ["tiers", "cuts"],
-    "fin-facts":      ["cuts"],
+    "fin-evidence":   ["tiers", "cuts"],
     "fin-script":     ["tiers", "cuts", "tts", "scene", "script"],
     "fin-audit":      ["tiers", "cuts", "scene", "layout", "script"],
     # fin-voice had a view until 2026-08-09; the stage is now tools/tts/prepare.py,
@@ -1213,12 +1253,16 @@ AGENT_DIET = {
     "fin-build":      ["cuts", "scene", "layout", "colors", "architectures",
                        "architecture_lock", "chapter_design", "vector_art",
                        "video_scene", "known_benign"],
-    "fin-editor":     ["cuts", "scene", "layout", "chapter_design", "vector_art"],
-    "fin-render":     ["tiers", "scene", "qa"],
+    # fin-review = the old fin-editor view. fin-ceo never had one — its prompt named
+    # no constants — and pass 2 still names none, so the merged diet is unchanged.
+    # `qa` is fin-render's old row: gate two samples inside cross-dissolves at
+    # qa.dissolve_sample_offsets, and that is the one thing the chapter passes cannot
+    # see because a boundary does not exist until the cut is assembled.
+    "fin-review":     ["cuts", "scene", "layout", "chapter_design", "vector_art", "qa"],
     "fin-package":    ["cuts", "layout", "hyperframes_pin"],
-    # fin-ceo and fin-archive are deliberately absent: neither prompt reads a
-    # constants file at all, and a view nobody opens is a file to keep in sync for
-    # nothing. Add one the same day its prompt names the keys it needs.
+    # An agent whose prompt reads no constants file gets no view: a file nobody opens
+    # is a file to keep in sync for nothing. Add one the same day its prompt names
+    # the keys it needs.
 }
 VIEW_HEADER = ["_comment", "design_doc"]
 # A note rides along with the key it explains, so no view has to claim prose by hand.
@@ -1254,9 +1298,10 @@ BOX_DIET = {
                   ("design-icons-emoji-lottie", [])],
     "fin-assets": [("stock-photo-sourcing", []),
                    ("design-icons-emoji-lottie", [])],
-    "fin-editor": [("design-chapter-archetypes", []),
+    # fin-review is fin-editor's pack ∪ fin-ceo's; fin-ceo's was a strict subset, so
+    # the merged stage reads the same two BOXes the two stages read between them.
+    "fin-review": [("design-chapter-archetypes", []),
                    ("evidence-discipline", [])],
-    "fin-ceo": [("design-chapter-archetypes", [])],
 }
 
 PACK_HEADER = """<!-- GENERATED by `pipeline_check doctor` — do not edit, edit the note. -->
@@ -1588,7 +1633,10 @@ RUN_STATE_KEYS = {
 }
 CHAPTER_STATE_KEYS = {
     "status", "scenes", "lines", "seconds", "fps", "frames", "round", "at",
-    "assets", "build", "render", "draft", "sheet", "editor", "ceo",
+    "assets", "build", "render", "draft", "sheet", "review",
+    # `editor` and `ceo` are kept so a run.json written before the 2026-08-09 merge
+    # still resumes instead of having its two review-log pointers drained to notes.
+    "editor", "ceo",
 }
 
 
@@ -2035,6 +2083,29 @@ def _selftest():
         assert uncovered_glyphs(page.replace("blockframe", "nope"), linked) == [], \
             "a stylesheet that is not on disk is not evidence of a face"
 
+        # the review gate: two lenses must report separately, and PASS means zero
+        global CHAPTER
+        CHAPTER = 4
+        try:
+            assert "needs --chapter" not in " ".join(check_review(slug, cut, fmt))
+            log = os.path.join(vault_dir(slug), "logs", f"review-{cut}-ch4-1.md")
+            os.makedirs(os.path.dirname(log), exist_ok=True)
+
+            def review(text):
+                open(log, "w", encoding="utf-8").write(text)
+                return check_review(slug, cut, fmt)
+
+            assert review("VERDICT: PASS\nPASS 1: 0 blockers\nPASS 2: 0 blockers\n") == []
+            one = review("VERDICT: PASS\nPASS 1: 0 blockers\n")
+            assert any("PASS 2" in p for p in one), one
+            lie = review("VERDICT: PASS\nPASS 1: 2 blockers\nPASS 2: 0 blockers\n")
+            assert any("says PASS with 2 blocker" in p for p in lie), lie
+            assert review("PASS 1: 0 blockers\nPASS 2: 0 blockers\n"), "no VERDICT accepted"
+            os.remove(log)
+            assert check_review(slug, cut, fmt), "a missing review log passed"
+        finally:
+            CHAPTER = None
+
         # black frames: a dead scene passes every static check
         black = os.path.join(tmp, "black.mp4")
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "lavfi",
@@ -2133,7 +2204,7 @@ def main(argv=None):
     if args.stage in PER_CUT and not args.cut:
         p.error(f"stage '{args.stage}' needs --cut")
     if args.chapter:
-        if args.stage not in ("assets", "build"):
+        if args.stage not in ("assets", "build", "review"):
             p.error(f"--chapter is not implemented for '{args.stage}'; that chapter "
                     "artifact is verified by `hyperframes check` and the draft render")
         globals()["CHAPTER"] = args.chapter

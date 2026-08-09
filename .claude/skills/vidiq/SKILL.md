@@ -154,7 +154,7 @@ phrase is searched at all. A topic needs both. Note the runtime of the breakouts
 — `vault/knowledge/niches/finance-topics-2026-07-31.md` found ours all ran 15–22
 min, not 8–10, and that finding came from exactly this shape of data.
 
-### R2 — Study loop (feeds `fin-research`) · 5–15 credits
+### R2 — Study loop (feeds `fin-evidence`) · 5–15 credits
 `video_transcript` (5) on the top 2–3 outliers is faster and cheaper than
 downloading 480p copies, and it is the right input for
 `vault/workflows/video-study.md`.

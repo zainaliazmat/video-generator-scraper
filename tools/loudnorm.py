@@ -17,8 +17,8 @@ A flat +8 dB is not available: the crest factor is ~17.8 dB, so the peak would
 land near +3.8 dBTP. Two-pass loudnorm redistributes instead of just amplifying.
 
 TP=-1.5, not -1.0. AAC encoding overshoots the limiter slightly; measured, a
--1.0 target lands at about -0.76 dBTP and fails fin-render's own "below -1 dBTP"
-gate. -1.5 measured -1.26 on the first real master, but only -0.98 on
+-1.0 target lands at about -0.76 dBTP and fails the "below -1 dBTP" gate
+(`format.json qa.peak_dbtp_max`, asserted by `pipeline_check check render`). -1.5 measured -1.26 on the first real master, but only -0.98 on
 japanese-money-methods-hi (2026-08-01) — a FAIL — because that mix carries 24 SFX
 transients and the AAC overshoot scales with them. -2.0 is the ceiling that holds
 with a music bed and a full SFX kit under the voice. The ceiling costs nothing

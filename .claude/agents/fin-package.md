@@ -159,7 +159,7 @@ image, not on the pre-enhance render. It is a different picture.
 - Sanity-check the tool's own numbers before shipping: 0 cues over 84 characters,
   0 out of order, and the last cue inside the runtime.
 - A `chosen:` line recording the shipped thumbnail — one per cut now, so it's a
-  record, not an A/B pick; fin-archive still reads it back to keep the trail complete.
+  record, not an A/B pick; `tools/close_out.py` still reads it back to keep the trail complete.
 
 ## Gate 2 compliance (record in the pack)
 - The altered-content disclosure toggle: state the required setting and WHERE

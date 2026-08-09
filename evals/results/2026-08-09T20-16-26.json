@@ -1,0 +1,2980 @@
+{
+  "generated": "2026-08-09T20:16:26",
+  "summary": {
+    "targets": 41,
+    "totals": {
+      "PASS": 302,
+      "FAIL": 43,
+      "NA": 65
+    },
+    "blocker_failures": 16,
+    "per_check": {
+      "currency_purity": {
+        "PASS": 40,
+        "NA": 1
+      },
+      "no_network_fetch": {
+        "FAIL": 5,
+        "PASS": 36
+      },
+      "photo_every_scene": {
+        "PASS": 35,
+        "FAIL": 6
+      },
+      "image_credits": {
+        "PASS": 38,
+        "NA": 1,
+        "FAIL": 2
+      },
+      "no_repeated_image": {
+        "PASS": 38,
+        "FAIL": 3
+      },
+      "vo_text_hygiene": {
+        "PASS": 18,
+        "NA": 23
+      },
+      "timing_coherence": {
+        "PASS": 41
+      },
+      "track_alternation": {
+        "FAIL": 13,
+        "PASS": 28
+      },
+      "watermark": {
+        "FAIL": 14,
+        "NA": 1,
+        "PASS": 26
+      },
+      "captions": {
+        "NA": 39,
+        "PASS": 2
+      }
+    }
+  },
+  "targets": [
+    {
+      "slug": "50-30-20-rule",
+      "project": "vault/videos/50-30-20-rule/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "FAIL",
+          "detail": "1 remote reference(s)",
+          "evidence": [
+            "src=\"https://"
+          ],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 10 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "10 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 223.25s vs last scene end 223.25s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "50-30-20-rule",
+      "project": "vault/videos/50-30-20-rule/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "FAIL",
+          "detail": "1 remote reference(s)",
+          "evidence": [
+            "src=\"https://"
+          ],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 10 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "10 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 193.45s vs last scene end 193.45s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "50-30-20-rule",
+      "project": "vault/videos/50-30-20-rule/src/legacy",
+      "cut": null,
+      "checks": {
+        "currency_purity": {
+          "status": "NA",
+          "detail": "no cut or no composition",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "FAIL",
+          "detail": "1 remote reference(s)",
+          "evidence": [
+            "src=\"https://"
+          ],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "FAIL",
+          "detail": "9 of 9 scenes have no background image",
+          "evidence": [
+            "hf-r5nr",
+            "hf-73k6",
+            "hf-diqg",
+            "hf-9evf",
+            "hf-liui",
+            "hf-tc28",
+            "hf-xt9b",
+            "hf-34dg"
+          ],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "NA",
+          "detail": "composition renders no images",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "0 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 135.90s vs last scene end 135.87s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "hf-r5nr+hf-73k6@track1",
+            "hf-73k6+hf-diqg@track1",
+            "hf-diqg+hf-9evf@track1",
+            "hf-9evf+hf-liui@track1",
+            "hf-liui+hf-tc28@track1",
+            "hf-tc28+hf-xt9b@track1",
+            "hf-xt9b+hf-34dg@track1",
+            "hf-34dg+hf-i7pc@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "NA",
+          "detail": "no composition or no cut",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "credit-history",
+      "project": "vault/videos/credit-history/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 11 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "11 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 173.23s vs last scene end 173.23s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "credit-history",
+      "project": "vault/videos/credit-history/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 13 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "13 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 177.64s vs last scene end 177.64s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "emergency-fund",
+      "project": "vault/videos/emergency-fund/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "FAIL",
+          "detail": "1 remote reference(s)",
+          "evidence": [
+            "src=\"https://"
+          ],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "FAIL",
+          "detail": "14 image(s) rendered, no CREDITS file found anywhere under the project",
+          "evidence": [
+            "s1-bill.jpg",
+            "s1-car.jpg",
+            "s1.jpg",
+            "s2.jpg",
+            "s3-car.jpg",
+            "s3-job.jpg"
+          ],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "FAIL",
+          "detail": "1 image(s) reused across non-adjacent scenes",
+          "evidence": [
+            "s3-job.jpg -> hf-4wft,hf-8cn6"
+          ],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "27 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 166.30s vs last scene end 166.30s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "hf-4wft+hf-aage@track1",
+            "hf-aage+hf-8cn6@track1",
+            "hf-8cn6+hf-ikg8@track1",
+            "hf-ikg8+hf-ewsb@track1",
+            "hf-ewsb+hf-tvuq@track1",
+            "hf-tvuq+hf-9vf3@track1",
+            "hf-9vf3+hf-ib0s@track1",
+            "hf-ib0s+hf-zpdo@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "emergency-fund",
+      "project": "vault/videos/emergency-fund/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "FAIL",
+          "detail": "1 remote reference(s)",
+          "evidence": [
+            "src=\"https://"
+          ],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "FAIL",
+          "detail": "15 image(s) rendered, no CREDITS file found anywhere under the project",
+          "evidence": [
+            "s1-bike.jpg",
+            "s1-bill.jpg",
+            "s1-phone.jpg",
+            "s1.jpg",
+            "s2.jpg",
+            "s3-job.jpg"
+          ],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "15 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "18 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 144.36s vs last scene end 144.36s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "hf-4wft+hf-aage@track1",
+            "hf-aage+hf-8cn6@track1",
+            "hf-8cn6+hf-ikg8@track1",
+            "hf-ikg8+hf-ewsb@track1",
+            "hf-ewsb+hf-tvuq@track1",
+            "hf-tvuq+hf-9vf3@track1",
+            "hf-9vf3+hf-ib0s@track1",
+            "hf-ib0s+hf-zpdo@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "first-lakh-first-thousand",
+      "project": "vault/videos/first-lakh-first-thousand/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 92 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 93 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "FAIL",
+          "detail": "4 image(s) reused across non-adjacent scenes",
+          "evidence": [
+            "s11.jpg -> s11,s59",
+            "s13.jpg -> s13,s38",
+            "s28.jpg -> s28,s29,s88",
+            "s43.jpg -> s43,s44,s46"
+          ],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "92 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 505.56s vs last scene end 505.56s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "92 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "#root class is \"swiss-band\" \u2014 missing cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "first-lakh-first-thousand",
+      "project": "vault/videos/first-lakh-first-thousand/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 86 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 86 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "FAIL",
+          "detail": "3 image(s) reused across non-adjacent scenes",
+          "evidence": [
+            "s23.jpg -> s23,s82",
+            "s26.jpg -> s26,s82",
+            "s43.jpg -> s43,s83"
+          ],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "86 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 514.79s vs last scene end 514.79s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "86 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "#root class is \"swiss-band\" \u2014 missing cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "good-debt-vs-bad-debt",
+      "project": "vault/videos/good-debt-vs-bad-debt/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 178.58s vs last scene end 178.58s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "good-debt-vs-bad-debt",
+      "project": "vault/videos/good-debt-vs-bad-debt/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 195.17s vs last scene end 195.17s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 92 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 96 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "96 background images, no non-adjacent reuse (4 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "92 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 626.74s vs last scene end 626.74s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "92 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "PASS",
+          "detail": "180 cues, all \u226484 chars and in order",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch1",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 10 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 57.19s vs last scene end 57.19s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "10 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch2",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 11 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 74.86s vs last scene end 74.86s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "11 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch3",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 12 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 88.67s vs last scene end 88.67s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "12 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch4",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 13 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 15 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "15 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 84.95s vs last scene end 84.95s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "13 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch5",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 12 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 88.02s vs last scene end 88.02s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "12 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch6",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 15 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 14 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "14 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 104.29s vs last scene end 104.29s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "15 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch7",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 11 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 11 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "11 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 76.14s vs last scene end 76.14s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "11 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-ch8",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 8 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 8 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "8 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 52.61s vs last scene end 52.61s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "8 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/en-full",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 92 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 96 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "96 background images, no non-adjacent reuse (4 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 626.74s vs last scene end 626.74s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "92 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 92 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 94 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "94 background images, no non-adjacent reuse (3 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "92 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 659.13s vs last scene end 659.13s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "92 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "PASS",
+          "detail": "134 cues, all \u226484 chars and in order",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch1",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "FAIL",
+          "detail": "2 of 10 scenes have no background image",
+          "evidence": [
+            "s1",
+            "s2"
+          ],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 10 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "10 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 55.91s vs last scene end 55.91s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "10 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch2",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 11 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 73.48s vs last scene end 73.48s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "11 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch3",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 12 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 14 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "14 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 92.90s vs last scene end 92.90s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "12 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch4",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 13 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 15 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "15 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 94.83s vs last scene end 94.83s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "13 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch5",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 12 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 12 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "12 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 93.38s vs last scene end 93.38s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "12 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch6",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 14 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 13 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "13 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 104.72s vs last scene end 104.72s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "14 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch7",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 12 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 11 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "11 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 84.08s vs last scene end 84.08s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "12 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-ch8",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 8 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 8 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "8 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 59.85s vs last scene end 59.85s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "8 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "japanese-money-methods",
+      "project": "vault/videos/japanese-money-methods/src/hi-full",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 92 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 97 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "97 background images, no non-adjacent reuse (3 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "92 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 659.13s vs last scene end 659.13s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "92 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "needs-vs-wants",
+      "project": "vault/videos/needs-vs-wants/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "FAIL",
+          "detail": "2 of 9 scenes have no background image",
+          "evidence": [
+            "s2",
+            "s7"
+          ],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 11 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "11 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 169.60s vs last scene end 169.57s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "needs-vs-wants",
+      "project": "vault/videos/needs-vs-wants/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "FAIL",
+          "detail": "2 of 9 scenes have no background image",
+          "evidence": [
+            "s2",
+            "s7"
+          ],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 11 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "11 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 178.70s vs last scene end 178.69s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-en-ch1",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 8 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 7 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "7 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 46.42s vs last scene end 46.42s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "8 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-en-ch2",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 15 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 16 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "16 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 105.52s vs last scene end 105.52s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "15 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-en-ch3",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 16 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 16 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "16 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 96.60s vs last scene end 96.60s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "16 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-en",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-hi-ch1",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 8 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 7 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "7 background images, no non-adjacent reuse (1 adjacent HOLD(s), allowed)",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 42.48s vs last scene end 42.48s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "8 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-hi-ch2",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 13 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 13 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "13 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 81.53s vs last scene end 81.53s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "13 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "passive-income-number",
+      "project": "studio/videos/passive-income-number-hi-ch3",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "PASS",
+          "detail": "all 9 scenes carry a background image",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 9 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "9 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "NA",
+          "detail": "no assets/voice/*.txt on disk",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 61.14s vs last scene end 61.14s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "PASS",
+          "detail": "9 scenes alternate cleanly",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "PASS",
+          "detail": "#root carries cut-hi",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "pay-yourself-first",
+      "project": "vault/videos/pay-yourself-first/src/en",
+      "cut": "en",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '\u20b9' in a -en cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "FAIL",
+          "detail": "2 of 9 scenes have no background image",
+          "evidence": [
+            "s2",
+            "s7"
+          ],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 9 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "9 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 177.77s vs last scene end 177.77s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    },
+    {
+      "slug": "pay-yourself-first",
+      "project": "vault/videos/pay-yourself-first/src/hi",
+      "cut": "hi",
+      "checks": {
+        "currency_purity": {
+          "status": "PASS",
+          "detail": "no '$' in a -hi cut",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_network_fetch": {
+          "status": "PASS",
+          "detail": "no remote references",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "photo_every_scene": {
+          "status": "FAIL",
+          "detail": "2 of 9 scenes have no background image",
+          "evidence": [
+            "s2",
+            "s7"
+          ],
+          "severity": "blocker"
+        },
+        "image_credits": {
+          "status": "PASS",
+          "detail": "all 9 rendered images credited",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "no_repeated_image": {
+          "status": "PASS",
+          "detail": "9 background images, no non-adjacent reuse",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "vo_text_hygiene": {
+          "status": "PASS",
+          "detail": "9 VO lines clean",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "timing_coherence": {
+          "status": "PASS",
+          "detail": "root 178.90s vs last scene end 178.90s",
+          "evidence": [],
+          "severity": "blocker"
+        },
+        "track_alternation": {
+          "status": "FAIL",
+          "detail": "8 adjacent scene pair(s) share a track",
+          "evidence": [
+            "s1+s2@track1",
+            "s2+s3@track1",
+            "s3+s4@track1",
+            "s4+s5@track1",
+            "s5+s6@track1",
+            "s6+s7@track1",
+            "s7+s8@track1",
+            "s8+s9@track1"
+          ],
+          "severity": "should-fix"
+        },
+        "watermark": {
+          "status": "FAIL",
+          "detail": "no #root element with a class attribute",
+          "evidence": [],
+          "severity": "should-fix"
+        },
+        "captions": {
+          "status": "NA",
+          "detail": "no .srt on disk",
+          "evidence": [],
+          "severity": "should-fix"
+        }
+      }
+    }
+  ]
+}

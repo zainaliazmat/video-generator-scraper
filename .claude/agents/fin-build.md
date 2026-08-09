@@ -25,7 +25,8 @@ You are the composition-build stage. Runs once per cut.
 
 ## Bash allowlist
 `npm run check`, `npm install`, `npx hyperframes snapshot …`, `node …` inside
-the project dir. Nothing else — no render (that is fin-render's stage).
+the project dir. Nothing else — no render (the orchestrator runs
+`tools/render_chapter.py`, and the full encode is its own background task).
 
 ## Procedure
 1. Scaffold `studio/videos/<slug>-<cut>/` by copying **`tools/scaffold/`** —
