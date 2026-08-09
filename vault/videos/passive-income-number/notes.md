@@ -1343,3 +1343,39 @@ not started
 ## `chapters.en.6.note`
 
 not started — see _carry_forward_en_ch1_to_ch2_ch6: s74 needs re-planning because s8 already used the full-height ladder
+
+## `rulings_binding_on_both_cuts.never_a_screen_vs_sound_off_2026-08-09`
+
+RULED by fin-ceo on the s29 referral (hi ch3), log `logs/ceo-hi-ch3-1.md`. **The collision was not real.** The storyboard's actual text (§Overrides l.952, l.765) is *"Never a **lit** phone-screen photo as a background"* — a dark/off screen already ships on s1/s4/s74/s75. s52's stricter "no phone screen and no monitor in frame" is a SCENE-LOCAL tightening, because s52's beat is *what the internet shows* and any screen there would have to be lit and legible, i.e. a fabricated results page. **The routing test: *what the internet shows* needs the results layout (→ print); *what the internet does* does not.** The rule stands unamended, binds s52 and every later internet scene, and nothing grants a screen — s4 and s52 do not reopen.
+
+⚠ **Why seven sheets were spent in the wrong family, and it is on the brief not the agent.** fin-editor and fin-assets both collapsed "non-screen" onto "print" because print is s52's answer. Print answers a LAYOUT requirement s29 does not have, and s29's own no-confusable-with-s52 clause then deletes the only feature that made print work — so the brief was unsatisfiable by construction. fin-assets diagnosed this correctly and refused to substitute a third object, which is the escalation clause working as designed.
+
+RESOLVED: s29 ships the overhead cable/fibre tangle on an Indian street pole (Pexels 18082922) — neither a screen nor a page, keeps the outgoing frame's pole geometry and darkness, and a knot of two hundred wires where six would do carries "made very big and very fast" as the object's own meaning. Declared for the editor: an `AMR-Bld 8` equipment asset tag at ~6% of frame width, and s29 now takes the chapter's darkest-frame floor off s26.
+
+## `tool_fixes_this_session.tofu_guard_was_dead_under_system_python`
+
+FOUND 2026-08-09 at baseline preflight. `pipeline_check.font_codepoints()` did a bare `from fontTools.ttLib import TTFont` in the CURRENT interpreter and returned None on failure. Every agent and the orchestrator invoke `python3 tools/pipeline_check.py`, and system python3 here is PEP 668 EXTERNALLY-MANAGED, so fontTools lives only in the venv — the tofu guard silently skipped every build (exactly what its own message warns of) while `doctor` returned FAIL and refused to start any run. The sibling faster-whisper probe already shells out to `venv/bin/python`; fontTools now matches it via `_font_codepoints_via_venv()`. FIXED; doctor PASSes and font_codepoints() returns 97 codepoints under system python3.
+
+⚠ STILL INERT, DELIBERATELY NOT FIXED: `uncovered_glyphs()` returns [] unless the literal string `FinanceSans` appears in the composition HTML. Chapter compositions declare `font-family: var(--font)` and name the face only in the LINKED `blockframe.css` — which is what fin-build.md:37-45 mandates ("Link the system; never copy it"). Verified: all six current chapter projects report links_FinanceSans=False and score clean regardless of content. Activating a gate that has never once fired, mid-run, would contaminate the baseline this run exists to produce. See audit/05-baseline.md.
+
+## `rulings_binding_on_both_cuts.citation_bearing_document_slots_2026-08-09`
+
+RULED by fin-ceo at the en ch3 gate, log `logs/ceo-en-ch3-2.md`, **reversing its own attempt-1 blocker**. s34 ships as it stands. **On every remaining citation-bearing document slot — s62, s66, s70, BOTH CUTS — the photograph must NOT resolve (the s37 pattern), and that slot class carries NO tone floor.** `p10 ≥ 80` is REPLACED there, not relaxed to 35.
+
+WHY the re-fetch was abandoned after 19 sheets / 111 cells / 5 full-res fetches (`logs/fin-assets-en-ch3-5.md`): payoff clause 3's `p10 ≥ 80` on the COMPOSED frame inverts to a source 10th-percentile luma of ~133 — a near-full-frame bright page. Everything in either pool clearing that bar is a book, a Bible, a headline, a foreign-language page, a brand mark or a table of figures. The subject the ruling actually named — an annotated two-column research paper — exists and measures 110.0/38.1, failing the clause by a wide margin. **The brief named a subject and a tone that cannot coexist in these pools**, which the CEO recorded as its own error, not the agent's.
+
+Options (b) and (c) were rejected on reasoning, not cost: a GENUINE two-column article is MORE likely to resolve a real title and real authors, so a real wrong paper title under *Cooley, Hubbard and Walz* would breach §10 in the LETTER (fabricated source) where today's frame breaches only the spirit; and removing the foot leaves a verbatim quotation unattributed, which is worse for credibility than the mismatch. s34's photograph asserts nothing — no title, no figure, no journal, no agency, no number.
+
+## `method_learned.an_asset_swap_needs_a_REBUILD_not_only_a_re-render_2026-08-09`
+
+FOUND by fin-build on hi ch3 (`logs/fin-build-hi-ch3-2.md`). After fin-assets replaced s22 with a file of a different aspect (2.541 → 16:9), `node build.mjs` **was already throwing**: `s22: s22.jpg is 1880,1058 but win was cut against 1880,740` (build.mjs:474). The guard that catches a re-sourced file under a declared window worked correctly — it was simply **never run**, because the swap was followed by a re-render rather than a rebuild. So the emitted `index.html` outlived the generator that could produce it, and two drafts plus one editor pass were spent on a composition carrying a 1.249× stale crop and a 79px uncovered band.
+
+**Root cause was a missing rebuild, not a missing check.** Standing rule for the remaining chapters: **when fin-assets replaces a file, fin-build re-runs before fin-render**, even when the path is unchanged — the path being unchanged is exactly what makes this invisible.
+
+## `rulings_binding_on_both_cuts.equal_cell_proudness_2026-08-09`
+
+RULED by fin-ceo at the hi ch3 SHIP gate, log `logs/ceo-hi-ch3-3.md`. On `divide-by-12` (s24) the lit cell and its neighbours sit at the **same luma** — rgb(14,60,41) against rgb(38,48,49) — so the **22px proudness is the only non-colour cue** that marks which cell is taken.
+
+**Both halves are binding on every later drawn layer of this shape:** the proudness MUST STAY while cells are equal-width, and MUST GO the moment a variant adds unequal widths or a baseline, because at that point a raised cell reads as a *magnitude* rather than a *selection* and the layer starts asserting a quantity it did not measure. fin-editor raised the same constraint independently ("it must not survive into a variant with unequal cells").
+
+Related, from the same gate: **s24's `.art-lift` is load-bearing** — it is the chapter's busiest photograph carrying its most detailed layer. The owed content-agnostic ~48px inset feather promotion into `tools/scaffold/assets/chapter-design.css` must re-measure s24 as well as en-ch2 s16, not assume a no-op. Two reviewers have now been wrong about a feather being a no-op by inferring instead of measuring.
