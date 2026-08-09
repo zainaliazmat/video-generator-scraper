@@ -30,6 +30,14 @@ KEEP = (
     "thumbnail*.png",
     "assets/voice/*.txt",
     "assets/img/*.src", "assets/img/CREDITS.txt",
+    # A chapter project writes its prompts and attribution to assets-ch<N>/final/,
+    # which the assets/img/ globs above cannot match — so every chapter directory
+    # archived since 2026-08-04 carried no CREDITS of its own. Attribution was not
+    # lost (the cut-level file covers the same images), but a chapter directory alone
+    # was not the complete reproducing record the archive claims to be. Same class of
+    # bug as the md5 dedupe glob at `fin-assets.md:72-80`: a glob that matched zero
+    # files and therefore never complained.
+    "assets-ch*/final/*.src", "assets-ch*/final/CREDITS.txt",
     # The shipped subtitles. Regenerable by tools/transcript.py from script-<cut>.md
     # + the composition — but only while BOTH still exist, and this delete is what
     # removes the composition. Kilobytes; keep them next to the cut they belong to.

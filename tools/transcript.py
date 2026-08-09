@@ -17,6 +17,7 @@ and studio/videos/<slug>-<cut>/renders/captions-<cut>.srt (the upload).
 """
 import argparse
 import html
+import os
 import pathlib
 import re
 import sys
@@ -40,7 +41,14 @@ def read_script(path):
             title = re.sub(r"^\d+\s*[—-]\s*", "", title)
             chapter = re.sub(r"\s*\(.*$", "", title).strip()
             continue
-        m = re.fullmatch(r"\*\*(\d+\.\d+)\*\*", line)
+        # `**3.5**`, and also `**3.5** ★ *expanded +45*` — fin-script annotates a line
+        # it has rewritten, and matching the WHOLE line dropped every annotated one.
+        # Ten of passive-income-number-hi's 81 lines carry a marker; a slicer built on
+        # the strict form found 71 and would have voiced a cut missing ten lines, with
+        # timing.json derived from the same short list so nothing downstream disagreed.
+        # Anchored at the start on purpose: the script also carries budget TABLES whose
+        # rows open `| **3.5** | 65 | …`, and those are not lines.
+        m = re.match(r"\*\*(\d+\.\d+)\*\*(?:\s|$)", line)
         if m:
             pending = m.group(1)
             continue
@@ -183,6 +191,19 @@ def demo():
     # no punctuation at all still splits rather than overflowing
     assert len(split_cue(" ".join(["word"] * 30), 0.0, 5.0)) == 2
     assert ts(3661.5) == "01:01:01,500"
+
+    # An annotated id is still an id, a table row is still not one.
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".md", encoding="utf-8",
+                                     delete=False) as fh:
+        fh.write("## Chapter 3 — x\n"
+                 "| **3.9** | 65 | 110 | a budget table row, not a line |\n"
+                 "**3.1**\n> plain\n"
+                 "**3.2** ★ *expanded +45*\n> annotated\n")
+        p = fh.name
+    got = read_script(pathlib.Path(p))
+    os.unlink(p)
+    assert [(i, t) for i, _, t in got] == [("3.1", "plain"), ("3.2", "annotated")], got
     print("ok")
 
 

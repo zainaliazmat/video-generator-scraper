@@ -127,8 +127,8 @@ so a swap re-budgets the script). `check_script` refuses a run with no
 longer matches `format.json`.
 
 **Sample two lines before you voice eighty.** After `fin-script` passes and before
-`fin-voice`, generate the first two VO lines only —
-`python3 tools/tts/batch.py --project studio/videos/<slug>-<cut> --cut <cut> --only 1.1,1.2`
+the voice stage, generate the first two VO lines only —
+`python3 tools/tts/prepare.py <slug> --cut <cut> --only 1.1 1.2`
 — and hand them over with the script's opening. Two calls, ~30 seconds. This exists
 because `passive-income-number` spent **156 calls, 52% of its whole TTS budget**, on
 style-A scripts discarded after both cuts were fully voiced; the cheap comparison
@@ -156,11 +156,25 @@ The ceiling exists to catch a runaway loop, not to cap a legitimately long video
 ```
 Phase 1 (sequential — both edit shared vault paths):
     fin-research → fin-facts
-Phase 2 (hi cut):   fin-script → fin-audit → fin-voice → fin-storyboard
+Phase 2 (hi cut):   fin-script → fin-audit → tts/prepare.py → fin-storyboard
                     → THE CHAPTER LOOP (§3b) → concat → fin-render → fin-package
 Phase 3 (en cut):   the same, reusing Phase 1 output
-Phase 4:            promote-facts (orchestrator, see §5) → fin-archive
+Phase 4:            close_out.py (see §5)
 ```
+
+**Three stages are scripts you run yourself, not agents** (migration step 7,
+`_deprecated/MANIFEST.md`). They still `mark`, so `run.json` and `--resume` are
+unchanged; only the thing between the transition line and the `mark` differs:
+
+| Stage | You run | Then |
+|---|---|---|
+| voice | `python3 tools/tts/prepare.py <slug> --cut <cut>` | `mark voice` |
+| chapter draft | `python3 tools/render_chapter.py <slug> --cut <cut> --chapter N` | §3b |
+| render QA | `python3 tools/pipeline_check.py check render --slug <slug> --cut <cut>` | `mark render` |
+| close-out | `python3 tools/close_out.py <slug>` | §5 |
+
+A script's exit code IS its 4-line return: 0 is `ok`, anything else is `fail` and
+its stdout is the failure text you would have pasted into a retry.
 
 **Everything visual is built and reviewed one chapter at a time (§3b).** A
 full-length 1080p render is 30–40 minutes; discovering a wrong image in it costs
@@ -186,21 +200,34 @@ For each stage:
      hi cut is usable as-is**; report its render path.
 
 Retry arbitration (one owner): agents never retry, scripts never retry — only
-you retry, once. Before invoking `fin-voice` or `fin-assets`, check the
-`budget` block; refuse the stage if the run's API-call count would exceed its
-ceiling, and say which ceiling.
+you retry, once. Before running `tts/prepare.py` or invoking `fin-assets`, check
+the `budget` block; refuse the stage if the run's API-call count would exceed its
+ceiling, and say which ceiling. `prepare.py` refuses on its own account too —
+it will not spend a credit while `audit-<cut>.md` lacks PASS or the script is
+over 1.3× its char budget.
 
 Hard gates (no retry loops past them):
 - `fin-audit` FAIL ×2 ⇒ stop before any TTS spend.
 - `fin-render` frame-check fail ⇒ one `fin-build` fix pass, then stop.
 
 The render stage is split three ways (a subagent's background task dies when
-the subagent returns — verified 2026-07-28): fin-render invocation 1 does the
-gate-two frame check only; then YOU run the encode as YOUR OWN background task
+the subagent returns — verified 2026-07-28): `fin-render` does the gate-two
+frame check only; then YOU run the encode as YOUR OWN background task
 (`PRODUCER_ENABLE_CHUNKED_ENCODE=true npm run render -- -q high --resolution
 1080p --video-bitrate 12M -o renders/FINAL-1080p-<cut>.mp4` in the project
-dir); when it completes, fin-render invocation 2 does the QA. Notify on
-terminal states.
+dir); when it completes, **YOU run the master QA** — it is no longer a second
+`fin-render` invocation:
+
+```
+python3 tools/pipeline_check.py check render --slug <slug> --cut <cut>
+```
+
+It measures all four thresholds `fin-render` step 3 used to describe — VO drift
+against every clip's `timing.json` placement (Silero VAD, minus the calibrated
+onset latency), true peak against the `qa.peak_dbtp_max` ceiling, a
+black-segment scan, and runtime against the `timing.json` total — and prints the
+numbers. Run the audio finishing below first: the peak is measured on
+`PUBLISH-`, the file that is actually uploaded. Notify on terminal states.
 
 **Then finish the audio — this is yours, not fin-render's** (its ffmpeg
 allowlist is analysis-only). Both steps must happen before you mark `render`
@@ -398,11 +425,7 @@ orchestration.
 
 ## 5 · Close-out (after both renders pass)
 
-1. **Promote facts** (the anti-poisoning step): append the HARD-tagged lines
-   from `vault/videos/<slug>/facts-staging.md` to
-   `vault/knowledge/money-facts-2026.md` — dated, with source URLs. SOFT lines
-   stay in staging. This happens only now, after both renders passed.
-2. **The vidIQ packaging pass — YOU run this, not an agent.** Read
+1. **The vidIQ packaging pass — YOU run this, not an agent.** Read
    `.claude/skills/vidiq/SKILL.md` first, then run recipes **R3** (title lock)
    and **R3b** (tag block) against both packs. Budget ~35 credits for the pair;
    check `vidiq_balance` first.
@@ -416,10 +439,21 @@ orchestration.
      tags, not the title.
    - **If a title changes here, re-run `fin-package`'s thumbnail section.** The
      thumbnail is downstream of the title and is now stale by definition.
+2. **Close out into the vault:** `python3 tools/close_out.py <slug>`. It writes the
+   milestone note's measured half (runtimes, voices, measured loudness, cue counts,
+   chapters locked and the rounds each took), adds the `vault/index.md` catalog
+   line, and promotes the HARD rows out of `facts-staging.md` into
+   `money-facts-2026.md` under a dated heading — the anti-poisoning step, which is
+   why it runs only now, after both renders passed. SOFT and COMPUTED rows stay in
+   staging. Re-running is safe; it never overwrites an existing milestone note.
+   **Then fill every `<!-- TODO close_out: … -->` it left.** Those are the firsts,
+   the durable lessons and what broke — nothing derives them from disk, you are the
+   only thing in the run that holds them, and `vault/CLAUDE.md` calls this out as
+   the distillation the next video starts from. A note left full of TODO markers is
+   an unfinished close-out, not a completed one.
 3. `python3 tools/vault_commit.py commit <slug> -m "finance-video: <slug> — both cuts rendered"`
    (explicit paths only — the tool refuses to touch anything else).
-4. Run `fin-archive`.
-5. Print the completion summary: both render paths, runtimes, QA numbers,
+4. Print the completion summary: both render paths, runtimes, QA numbers,
    thumbnail paths **plus the AI-enhance prompt for each cut**, recommended
    titles with their CTR scores, and — always —
    `Owed before publish: proof-listen (hi, en) · AI-enhance both thumbnails · upload.`

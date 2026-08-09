@@ -366,7 +366,7 @@ Ordered. Each step independently revertible. Branch `refactor/pipeline-v2`; remo
 | 4 | Extract BOXes → `packs/`; repoint agent `Reads` lines | 5 notes (unchanged) + 8 agent files | revert 8 files | step 3 |
 | 5 | `packs/contract.md`; strip the 4 duplicated blocks from 11 agents | 11 agent files | revert | step 4 |
 | 6 | Re-cut `tools/format/` slices | `pipeline_check doctor` | regenerate | step 5 |
-| 7 | **Mechanical deletions**: `fin-voice`, `fin-render`, `fin-archive` → 4 new scripts | 3 agents → `_deprecated/`, 4 new `tools/*.py`, orchestrator | restore 3 files | step 6 |
+| 7 | ✅ **done 2026-08-09** — **Mechanical deletions**: `fin-voice` + `fin-archive` deleted, `fin-render` reduced to gate two → `tools/tts/prepare.py`, `tools/render_chapter.py`, `tools/close_out.py`, `pipeline_check check render` | 2 agents → `_deprecated/`, 3 new `tools/*.py`, orchestrator | restore 2 files + revert | step 6 |
 | 8 | **Merges**: `fin-editor`+`fin-ceo` → `fin-review`; `fin-research`+`fin-facts` → `fin-evidence`; unify round budget | 4 agents → `_deprecated/`, 2 new | restore 4 files | step 7 + evals |
 | 9 | **The behavioural change**: `tools/image_sheet.py`, image acceptance terminal at `fin-assets` | 1 new script, `fin-assets`, `fin-review` | revert 2 files | step 8 + evals |
 | 10 | `storyboard.json` schema; `fin-plan` emits data + ≤1 page | `fin-plan`, `fin-build`, `fin-assets`, `fin-review`, `pipeline_check` | revert | step 9 + evals |
@@ -378,6 +378,43 @@ Steps 4–7 are **behaviour-preserving by construction** — same instructions, 
 work, moved from prompt to script. Steps 8–10 change behaviour and each is measured alone
 against the step-2 baseline. **Vault restructure (Phase 3) rides on step 4** and is scoped there
 rather than as a separate big-bang rewrite.
+
+### 7.1 · What step 7 actually found — three defects, one of them expensive
+
+Moving work from a prompt to a script means the work becomes *testable*, and three
+things failed the moment they were tested. Recorded because the pattern repeats: each
+was a check or a rule that had been reporting green while seeing nothing.
+
+1. **`tools/transcript.py` dropped every annotated VO line.** Its id matcher required
+   the whole line to be `**3.5**`, but `fin-script` marks a rewritten line
+   `**3.5** ★ *expanded +45*`. Ten of `passive-income-number-hi`'s 81 lines carry a
+   marker. `tools/tts/prepare.py` reuses that parser by design (one home for
+   "slice, never retype"), so it would have voiced **71 lines instead of 81**, and
+   `timing.json` derives from the same short list — every downstream check would have
+   agreed with the truncated cut. Caught by round-tripping the new slicer against the
+   `lines.json` the retired agent had already written: both cuts now reproduce it byte
+   for byte, 81 = 81. **No shipped caption pack was affected** — `script-hi.md` is the
+   only finance script with an annotated marker, and `transcript.py` hard-errors on an
+   id mismatch rather than shipping short.
+2. **The tofu guard's own selftest could not fail.** `_selftest` repoints `ROOT` at a
+   temp dir, and `_font_codepoints_via_venv` derived the interpreter path from `ROOT`
+   — so the venv vanished mid-test, `font_codepoints()` cached `None`, and every tofu
+   assertion passed against a checker that could see nothing. The venv path is now
+   bound at import from `__file__`. This is the trap the guard exists to catch, one
+   level up, and it arrived as a side effect of the fix to baseline defect #1.
+3. **The guard was inert on chapter compositions** (baseline defect #2, deferred to
+   this step). It required the literal `FinanceSans` in the composition; chapter
+   projects name the face only in the linked `blockframe.css`. It now follows the
+   `<link>`. Testing for `var(--font)` instead would have been worse — `50-30-20-rule`
+   and `emergency-fund` use `var(--font)` with their own inline definition and no
+   FinanceSans, and would have started failing on glyphs the OS drew correctly.
+   Activated against all six locked chapters: all six now judged, all six clean.
+
+Also applied: `archive_cut.py`'s CREDITS glob, which matched zero files in every
+chapter directory since 2026-08-04 (logged at baseline, deferred until the run
+finished). Eval state is unchanged from the baseline — **41 targets · 302 pass ·
+43 fail · 16 blocker failures**, and 6 targets · 48 pass · 0 fail on the current run
+([evals/results/after-step7-2026-08-09.json](../evals/results/after-step7-2026-08-09.json)).
 
 ---
 

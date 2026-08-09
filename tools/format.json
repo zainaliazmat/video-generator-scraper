@@ -251,6 +251,14 @@
   "vad_onset_latency_seconds": 0.101,
   "vad_grid_seconds": 0.032,
   "_vad_note": "Silero VAD reports onset LATE and quantised — subtract vad_onset_latency_seconds before comparing against the drift target, and re-measure it if the model or window changes.",
+  "vad_min_silence_ms": 300,
+  "vo_drift_target_seconds": 0.1,
+  "vo_drift_match_window_seconds": 0.5,
+  "_vo_drift_note": "The master-QA drift gate, machine-run by `pipeline_check check render` since 2026-08-09 (it was four numeric thresholds inside fin-render's prompt). Each clip's timing.json audio_start is matched to the NEAREST VAD onset within vo_drift_match_window_seconds, not to the Nth onset — a line with an internal danda pause splits into two segments, so positional matching drifts by a whole line from there on. The window is under the 0.8s of inter-line padding, so two lines can never claim the same onset. Measured on both cuts of passive-income-number, 2026-08-09: max |drift| 0.049 s (hi ch2, 13 lines, 34 segments) and 0.055 s (en ch3, 16 lines), mean -0.008 / +0.021 — i.e. the 0.101 s latency constant is confirmed against real renders, and the 0.1 s target has real headroom.",
+  "peak_dbtp_max": -1.0,
+  "_peak_dbtp_note": "True-peak ceiling for the file that is UPLOADED (PUBLISH-, not the FINAL- master). tools/loudnorm.py aims at TP=-2.0 because AAC overshoots the limiter and the overshoot scales with SFX transients — its docstring carries the measurements. This key is the pass/fail line both loudnorm.py and check_render read, so the gate and the tool that has to satisfy it cannot drift apart.",
+  "black_min_seconds": 0.4,
+  "_black_note": "A black stretch this long is a dead frame, not a transition: chapter joints in the master are 0.45 s CROSS-DISSOLVES between two lit scenes and never reach black. Measured zero hits on the passive-income-number drafts.",
   "dissolve_sample_offsets": [
    0.225,
    0.38

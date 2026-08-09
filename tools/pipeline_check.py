@@ -21,6 +21,7 @@ import glob
 import hashlib
 import json
 import os
+import pathlib
 import re
 import subprocess
 import sys
@@ -28,6 +29,12 @@ from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FORMAT_PATH = os.path.join(ROOT, "tools", "format.json")
+# The interpreter that has this repo's dependencies. Bound at import from __file__,
+# NOT from ROOT, because `_selftest` repoints ROOT at a temp dir: a venv path derived
+# from ROOT vanishes mid-test, `font_codepoints` caches None, and the tofu guard's
+# own assertions then pass against a checker that can see nothing. Found 2026-08-09
+# while activating that guard — it is the trap the guard exists to catch, one level up.
+VENV_PY = os.path.join(ROOT, "venv", "bin", "python")
 
 
 def load_format():
@@ -121,6 +128,30 @@ def mean_volume_db(path):
         capture_output=True, text=True)
     m = re.search(r"mean_volume:\s*(-?[\d.]+)\s*dB", out.stderr)
     return float(m.group(1)) if m else -999.0
+
+
+def black_segments(path, min_seconds):
+    """[(start, end)] of stretches at least `min_seconds` long that are ~all black."""
+    out = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-nostats", "-i", path,
+         "-vf", f"blackdetect=d={min_seconds}:pic_th=0.98", "-an", "-f", "null", "-"],
+        capture_output=True, text=True)
+    return [(float(a), float(b)) for a, b in re.findall(
+        r"black_start:([\d.]+)\s+black_end:([\d.]+)", out.stderr)]
+
+
+def true_peak_dbtp(path):
+    """Measured true peak in dBTP, or None.
+
+    tools/loudnorm.py already owns the two-pass measurement and its docstring owns
+    the reasoning about AAC overshoot; re-implementing the ffmpeg call here would be
+    a second home for the same number."""
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import loudnorm
+    try:
+        return float(loudnorm.measure(path)["input_tp"])
+    except (SystemExit, KeyError, ValueError, TypeError):
+        return None
 
 
 def atomic_write_json(path, obj):
@@ -316,6 +347,88 @@ def drift_from_span(real, span):
     if real > hi:
         return (real - hi) / hi
     return 0.0
+
+
+def target_seconds(slug, fmt):
+    """The run's speech target. run.json first, else the tier's own key.
+
+    Each tier names it differently on purpose (format.json `_tier_seconds_note`):
+    short declares a `default_target_seconds`, medium a fixed `target_seconds`,
+    long a `min_seconds` floor. Anything deriving a budget must read the one its
+    tier declares, so the lookup lives here once instead of in every caller."""
+    run = load_run(slug)
+    if run.get("target_seconds"):
+        return run["target_seconds"]
+    tier = fmt.get("tiers", {}).get(run.get("tier"), {})
+    for key in ("target_seconds", "default_target_seconds", "min_seconds"):
+        if key in tier:
+            return tier[key]
+    return None
+
+
+def char_budget(slug, cut, fmt):
+    """Chars of script the cut is budgeted for, or None if it cannot be derived.
+
+    The same formula the orchestrator derives at intake (finance-video.md §2):
+    budget is SPEECH time, so the per-line padding comes off the target before the
+    rate is applied. The naive `target × rate` overshoots by 8-14% and invites a
+    script to pad itself that much."""
+    run = load_run(slug)
+    tier = fmt.get("tiers", {}).get(run.get("tier"), {})
+    target, lines = target_seconds(slug, fmt), tier.get("lines")
+    if not target or not lines:
+        return None
+    lead, tail = scene_padding(fmt, slug)
+    return (target - lines * (lead + tail)) * fmt["cuts"][cut]["chars_per_second"]
+
+
+VOICE_CHAR_CEILING = 1.3
+
+
+def voice_cost_guard(slug, cut, fmt):
+    """Refuse to spend ElevenLabs credits. Returns problems; empty = safe to run.
+
+    `fin-voice`'s two prompt-level refusals (fin-voice.md:27-31), as an assert —
+    strictly harder to skip than an instruction, which is the whole point of the
+    stage becoming a script. Both compare files already on disk:
+
+      * the script has not passed gate one, so the audit may still rewrite lines;
+      * the script overshoots its budget by more than 30%, i.e. the cut would be
+        voiced long and then re-voiced after the trim.
+
+    passive-income-number spent 156 calls — 52% of its TTS budget — on scripts
+    discarded after both cuts were voiced. That was a style change, not a budget
+    overrun, but it is the same lesson: the credit is unrecoverable and the check
+    that prevents it costs nothing."""
+    problems = check_audit(slug, cut, fmt)
+    if problems:
+        return [f"gate one has not passed for -{cut}: {problems[0]} "
+                f"— voicing before the audit risks paying for lines it rewrites"]
+    budget = char_budget(slug, cut, fmt)
+    path = os.path.join(vault_dir(slug), f"script-{cut}.md")
+    if budget is None:
+        return [f"cannot derive the char budget for -{cut} — run.json needs a `tier` "
+                f"that format.json `tiers` declares (with `lines`), or a `target_seconds`"]
+    try:
+        chars = sum(len(t) for _, _, t in read_vo_lines(path))
+    except OSError:
+        return [f"missing script: {path}"]
+    if chars > budget * VOICE_CHAR_CEILING:
+        return [f"script-{cut}.md is {chars:,} VO chars against a budget of "
+                f"{budget:,.0f} ({chars / budget:.2f}×, ceiling "
+                f"{VOICE_CHAR_CEILING}×) — trim the script before spending credits"]
+    return []
+
+
+def read_vo_lines(path):
+    """[(line_id, chapter, text)] sliced from a script — never retyped.
+
+    One home for the slice: tools/transcript.py owns the parser and joins the same
+    lines against the composition's clip times to build captions. A second reader
+    of the same `**N.M**` / `> line` convention is a second thing to keep in step."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import transcript
+    return transcript.read_script(pathlib.Path(path))
 
 
 def check_voice(slug, cut, fmt):
@@ -585,15 +698,14 @@ def font_codepoints():
 
 def _font_codepoints_via_venv():
     """cmap codepoints read by the venv interpreter. None if that fails too."""
-    venv_py = os.path.join(ROOT, "venv", "bin", "python")
-    if not os.path.exists(venv_py):
+    if not os.path.exists(VENV_PY):
         return None
     code = ("import json;from fontTools.ttLib import TTFont;"
             "f=TTFont(%r);"
             "print(json.dumps(sorted({c for t in f['cmap'].tables for c in t.cmap})))"
             % FONT_PATH)
     try:
-        r = subprocess.run([venv_py, "-c", code], capture_output=True, timeout=60)
+        r = subprocess.run([VENV_PY, "-c", code], capture_output=True, timeout=60)
         if r.returncode != 0:
             return None
         return set(json.loads(r.stdout.decode()))
@@ -601,7 +713,38 @@ def _font_codepoints_via_venv():
         return None
 
 
-def uncovered_glyphs(html):
+def declares_financesans(html, base_dir=None):
+    """True when this composition actually paints in FinanceSans.
+
+    The face is named inline on the older single-file cuts and only in the LINKED
+    stylesheet on every chapter project — `font-family: var(--font)` in the HTML,
+    `--font: "FinanceSans", …` in blockframe.css — because `fin-build.md:37-45`
+    mandates "Link the system; never copy it". So the design rule that fixed the
+    lost-font bug is the rule that blinded this guard: measured 2026-08-09, all six
+    passive-income-number chapter projects reported no FinanceSans and scored clean
+    regardless of content (audit/05-baseline.md §6 defect 2).
+
+    Testing for `var(--font)` instead would be worse, not better: 50-30-20-rule and
+    emergency-fund use `var(--font)` with their own inline definition and no
+    FinanceSans at all, so they would start failing on glyphs the OS drew fine.
+    Following the <link> asks the composition what it actually loads."""
+    if "FinanceSans" in html:
+        return True
+    if not base_dir:
+        return False
+    for href in re.findall(r'<link[^>]+href="([^"]+\.css)"', html):
+        if "://" in href:
+            continue
+        path = os.path.normpath(os.path.join(base_dir, href))
+        try:
+            if "FinanceSans" in open(path, encoding="utf-8", errors="replace").read():
+                return True
+        except OSError:
+            continue
+    return False
+
+
+def uncovered_glyphs(html, base_dir=None):
     """On-screen characters FinanceSans cannot draw. Returns a problem list.
 
     A missing glyph renders as tofu (or nothing) and EVERY check passes — the font
@@ -614,7 +757,7 @@ def uncovered_glyphs(html):
     # pre-FinanceSans cuts (50-30-20 legacy, emergency-fund) legitimately draw arrows
     # and Devanagari in whatever the OS supplied, and failing them would be a false
     # alarm on work that shipped fine.
-    if "FinanceSans" not in html:
+    if not declares_financesans(html, base_dir):
         return []
     # <head> never renders — its <title> carries the Devanagari cut name on every hi
     # chapter, which made the first version of this check fire on all of them.
@@ -685,7 +828,7 @@ def check_build(slug, cut, fmt):
         return [f"missing {index}"]
     html = strip_comments(open(index, encoding="utf-8").read())
     problems = stale_script_problems(slug, cut)
-    problems += uncovered_glyphs(html)
+    problems += uncovered_glyphs(html, sdir)
     problems += offcanvas_art(html, fmt)
     # determinism: no render-time network fetches (E-3 class of silent corruption)
     for m in re.finditer(r'(?:src|href)="(https?://[^"]+)"', html):
@@ -825,6 +968,74 @@ def check_build(slug, cut, fmt):
     return problems
 
 
+def vo_onsets(path, min_silence_ms):
+    """Speech onsets in seconds, measured by Silero VAD. None if it cannot run.
+
+    Through the venv, like `_font_codepoints_via_venv`: faster-whisper is not
+    importable under the system python3 every agent invokes this file with.
+
+    VAD, never Whisper, for onsets — `format.json qa._whisper_note`: Whisper merges
+    adjacent lines into one segment and invents outliers, so it answers "was
+    anything dropped", not "when did this line start"."""
+    if not os.path.exists(VENV_PY):
+        return None
+    code = ("import json;"
+            "from faster_whisper.audio import decode_audio;"
+            "from faster_whisper.vad import get_speech_timestamps, VadOptions;"
+            "a=decode_audio(%r, sampling_rate=16000);"
+            "print(json.dumps([t['start']/16000 for t in get_speech_timestamps("
+            "a, VadOptions(min_silence_duration_ms=%d, speech_pad_ms=0))]))"
+            % (path, min_silence_ms))
+    try:
+        r = subprocess.run([VENV_PY, "-c", code], capture_output=True, timeout=1800)
+        if r.returncode != 0:
+            return None
+        return json.loads(r.stdout.decode())
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
+
+
+def vo_drift_problems(path, timing, qa, onsets=None):
+    """Every clip's measured onset against the placement timing.json declares.
+
+    `onsets` is injectable so the matching can be tested without a speech fixture;
+    the VAD path itself was validated against two real renders (the measurements are
+    in `format.json qa._vo_drift_note`)."""
+    if onsets is None:
+        onsets = vo_onsets(path, qa["vad_min_silence_ms"])
+    if onsets is None:
+        return ["cannot measure VO drift: venv/bin/python cannot run faster-whisper's "
+                "VAD. A QA gate that cannot see the work reports green — fix the venv "
+                "(`venv/bin/pip install faster-whisper`) rather than shipping unchecked"]
+    if not onsets:
+        return [f"no speech detected anywhere in {os.path.basename(path)} — the encode "
+                f"has no voice track"]
+    latency, window = qa["vad_onset_latency_seconds"], qa["vo_drift_match_window_seconds"]
+    target = qa["vo_drift_target_seconds"]
+    problems, worst, worst_id, lost = [], 0.0, None, []
+    for line in timing.get("lines", []):
+        want = line.get("audio_start")
+        if want is None:
+            continue
+        near = min(onsets, key=lambda o: abs(o - latency - want))
+        drift = near - latency - want
+        if abs(drift) > window:
+            lost.append(line["id"])
+            continue
+        if abs(drift) > abs(worst):
+            worst, worst_id = drift, line["id"]
+    if lost:
+        problems.append(f"no speech within {window}s of where {len(lost)} clip(s) are "
+                        f"placed: {', '.join(lost[:8])}"
+                        f"{' …' if len(lost) > 8 else ''} — a dropped or displaced clip")
+    if abs(worst) > target:
+        problems.append(f"VO drift {worst:+.3f}s at line {worst_id} exceeds the "
+                        f"{target}s target (VAD onset minus {latency}s latency)")
+    print(f"  vo drift: max {worst:+.3f}s at {worst_id} over "
+          f"{len(timing.get('lines', []))} clips (target ±{target}s)")
+    return problems
+
+
 def check_render(slug, cut, fmt):
     mp4 = os.path.join(studio_dir(slug, cut), "renders", f"FINAL-1080p-{cut}.mp4")
     if not os.path.exists(mp4):
@@ -832,12 +1043,20 @@ def check_render(slug, cut, fmt):
     problems = stale_script_problems(slug, cut)
     if os.path.getsize(mp4) < 1_000_000:
         problems.append(f"render under 1MB — almost certainly a failed encode: {mp4}")
+    qa = fmt["qa"]
     timing_path = os.path.join(studio_dir(slug, cut), "assets", "voice", "timing.json")
     if os.path.exists(timing_path):
-        total = json.load(open(timing_path, encoding="utf-8")).get("total", 0)
+        timing = json.load(open(timing_path, encoding="utf-8"))
+        total = timing.get("total", 0)
         real = ffprobe_duration(mp4)
         if abs(real - total) > 1.0:
             problems.append(f"render runs {real:.1f}s, timing.json total is {total:.1f}s")
+        problems += vo_drift_problems(mp4, timing, qa)
+    # A black stretch inside the master is a dead frame, not a transition — the
+    # chapter joints are cross-dissolves between two lit scenes.
+    for start, end in black_segments(mp4, qa["black_min_seconds"]):
+        problems.append(f"black frames {start:.2f}s–{end:.2f}s ({end - start:.2f}s) — "
+                        f"a dead scene, a missing photograph or a failed chunk")
     # The master is not the upload. ElevenLabs returns clips near -24 LUFS and
     # nothing stages gain, so an un-normalised master ships 7-8 dB under the feed
     # — YouTube attenuates loud uploads but never lifts quiet ones. PUBLISH is the
@@ -845,6 +1064,15 @@ def check_render(slug, cut, fmt):
     pub = os.path.join(studio_dir(slug, cut), "renders", f"PUBLISH-1080p-{cut}.mp4")
     if not os.path.exists(pub):
         problems.append(f"missing {os.path.basename(pub)} — run: tools/loudnorm.py {mp4}")
+    else:
+        peak = true_peak_dbtp(pub)
+        if peak is None:
+            problems.append(f"could not measure the true peak of {os.path.basename(pub)}")
+        elif peak > qa["peak_dbtp_max"]:
+            problems.append(f"{os.path.basename(pub)} peaks at {peak} dBTP, above the "
+                            f"{qa['peak_dbtp_max']} dBTP ceiling — re-run tools/loudnorm.py")
+        else:
+            print(f"  true peak: {peak} dBTP (ceiling {qa['peak_dbtp_max']})")
     return problems
 
 
@@ -974,10 +1202,11 @@ AGENT_DIET = {
     "fin-facts":      ["cuts"],
     "fin-script":     ["tiers", "cuts", "tts", "scene", "script"],
     "fin-audit":      ["tiers", "cuts", "scene", "layout", "script"],
-    # tiers: the cost guard's own formula references target_seconds and the per-line
-    # padding, so without it the stage cannot check its own report. Reported by
-    # fin-voice in the 2026-08-09 rehearsal, which is what MISSING-CONSTANT is for.
-    "fin-voice":      ["cuts", "tts", "tiers"],
+    # fin-voice had a view until 2026-08-09; the stage is now tools/tts/prepare.py,
+    # and a script reads tools/format.json whole rather than a diet of it. Its cost
+    # guard needed `tiers` for target_seconds and the per-line padding — that formula
+    # now lives in `char_budget` above, in one place, instead of being re-derived
+    # from a slice by a prompt.
     "fin-storyboard": ["tiers", "cuts", "scene", "layout", "architectures",
                        "architecture_lock", "chapter_design", "vector_art"],
     "fin-assets":     ["cuts", "scene", "layout", "vector_art", "assets"],
@@ -1793,6 +2022,41 @@ def _selftest():
             "<head> never renders"
         assert uncovered_glyphs('<body>FinanceSans<style>/* ~ */</style><script>//…</script>') == [], \
             "style and script are not on screen"
+        # …and the face is named ONLY in the linked stylesheet on every chapter
+        # project, which is what made this guard inert on all six of them.
+        linked = os.path.join(tmp, "linked")
+        os.makedirs(os.path.join(linked, "assets"), exist_ok=True)
+        with open(os.path.join(linked, "assets", "blockframe.css"), "w") as fh:
+            fh.write('  --font: "FinanceSans", system-ui, sans-serif;\n')
+        page = '<head><link rel="stylesheet" href="assets/blockframe.css"></head><body>~1 pt'
+        assert uncovered_glyphs(page) == [], "no base dir, no stylesheet, no claim"
+        assert uncovered_glyphs(page, linked), \
+            "the linked stylesheet names FinanceSans — the guard must judge this page"
+        assert uncovered_glyphs(page.replace("blockframe", "nope"), linked) == [], \
+            "a stylesheet that is not on disk is not evidence of a face"
+
+        # black frames: a dead scene passes every static check
+        black = os.path.join(tmp, "black.mp4")
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "lavfi",
+                        "-i", "color=c=black:s=320x240:d=2", "-pix_fmt", "yuv420p", black],
+                       check=True)
+        assert black_segments(black, 0.4), "two seconds of black were not detected"
+        assert black_segments(black, 5.0) == [], "a 2s clip cannot hold a 5s black run"
+
+        # VO drift: nearest-onset matching, not positional. The extra onset at 4.9
+        # is a line splitting on its own internal pause — positional matching would
+        # shift every line after it by one.
+        qa = dict(fmt["qa"])
+        lat = qa["vad_onset_latency_seconds"]
+        tim = {"lines": [{"id": "1.1", "audio_start": 0.25},
+                         {"id": "1.2", "audio_start": 5.0}]}
+        assert vo_drift_problems("x", tim, qa,
+                                 onsets=[0.25 + lat, 4.9 + lat, 5.04 + lat]) == []
+        late = vo_drift_problems("x", tim, qa, onsets=[0.25 + lat, 5.2 + lat])
+        assert late and "drift" in late[0], late
+        gone = vo_drift_problems("x", tim, qa, onsets=[0.25 + lat])
+        assert gone and "no speech within" in gone[0], gone
+        assert "no speech detected" in vo_drift_problems("x", tim, qa, onsets=[])[0]
 
         # per-agent format views: every key reaches someone, every view is a subset
         global VIEW_DIR

@@ -39,6 +39,13 @@ TARGET_TP = -2.0     # ceiling; see module docstring for why not -1.0 or -1.5
 TARGET_LRA = 11.0
 
 
+def peak_ceiling():
+    """format.json `qa.peak_dbtp_max` — the pass/fail line, one home."""
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "format.json"),
+              encoding="utf-8") as fh:
+        return float(json.load(fh)["qa"]["peak_dbtp_max"])
+
+
 def _run(cmd):
     return subprocess.run(cmd, capture_output=True, text=True)
 
@@ -83,10 +90,11 @@ def normalize(src, dst=None):
 
     got = measure(dst)
     print(f"  out: {got['input_i']} LUFS  {got['input_tp']} dBTP  -> {dst}")
-    # The gate fin-render already enforces on the master; assert it on the
-    # thing that actually gets uploaded.
-    if float(got["input_tp"]) > -1.0:
-        sys.exit(f"FAIL true peak {got['input_tp']} dBTP is above -1")
+    # The same ceiling `pipeline_check check render` enforces, read from the same
+    # key — this tool exists to satisfy that gate, so a second copy of the number
+    # would let the two disagree silently.
+    if float(got["input_tp"]) > peak_ceiling():
+        sys.exit(f"FAIL true peak {got['input_tp']} dBTP is above {peak_ceiling()}")
     if abs(float(got["input_i"]) - TARGET_I) > 1.0:
         sys.exit(f"FAIL landed at {got['input_i']} LUFS, wanted {TARGET_I}")
     return dst
