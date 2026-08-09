@@ -232,9 +232,22 @@ The built ch1 already dropped one; this file rules on all three.
 
 ### 3b. Font-subset guard — hard, and it has bitten this project
 
-**No `/` and no `?` in any on-screen string in this cut.** The 97-codepoint FinanceSans subset
-carries `₹ · → ▶ × ≈` but **not the solidus**, and a missing glyph renders as tofu with every
-check passing.
+⚠ **CORRECTED 2026-08-09 — this rule was inverted on six of the eight glyphs it named,
+and it is now enforced by code instead of prose.** Measured against the font's own cmap
+(`pipeline_check.font_codepoints()`):
+
+| glyph | this note claimed | actually |
+|---|---|---|
+| `/` `?` | absent — avoid them | **present, always were** |
+| `→` `▶` `×` `≈` | carried | **absent — these are the tofu** |
+| `₹` `·` | carried | carried ✓ |
+
+So the `₹X / MONTH` → `₹X A MONTH` rewrites below cost effort for nothing, while the
+arrows this note called safe are the ones that shipped as tofu (`50-30-20-rule`,
+`emergency-fund`). **Do not hand-maintain a glyph list.** `check_build` now derives
+coverage from `NotoSansFinance-var.woff2` itself and fails any composition whose
+on-screen text uses a glyph the face cannot draw — the font is the only thing that
+can be right about what the font contains.
 
 - Every `num: ₹X / MONTH` in the script renders as **`₹X A MONTH`** — s50, s59, s64, s72, s73.
 - 5.2's cue already says *no question mark on screen*; the `stmt:` renders declaratively.

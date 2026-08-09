@@ -394,3 +394,48 @@ archived           75,741 w of appendices + 19,753 w of .txt + ~114k w of .vtt
 Token saving: **zero** — no agent ever read them, which is exactly why they could
 move. This was hygiene and human legibility, and it is the item whose value I
 argued was lowest at Gate 1.
+
+---
+
+## 2026-08-09 — the tofu guard (`layout.font_subset`)
+
+`fin-storyboard` reported `layout.font_subset` missing during the rehearsal: the
+FinanceSans subset guard existed only as prose in a previous video's storyboard,
+and a missing glyph "silently renders tofu with every check passing."
+
+**The prose was not merely missing — it was inverted on six of the eight glyphs
+it named.** Measured against the font's own cmap:
+
+| glyph | the prose claimed | actually |
+|---|---|---|
+| `/` `?` | absent — avoid | **present** |
+| `→` `▶` `×` `≈` | carried — safe | **absent — these are the tofu** |
+| `₹` `·` | carried | carried ✓ |
+
+So it cost twelve needless string rewrites on `passive-income-number` (`₹X / MONTH`
+→ `₹X A MONTH`) while blessing the arrows that actually shipped as tofu.
+
+**Fixed as a derived check, not a constant.** `uncovered_glyphs()` reads
+`NotoSansFinance-var.woff2`'s real cmap and fails any build whose on-screen text
+uses a glyph the face cannot draw. A `layout.font_subset` constant would have been
+a second home for a fact the font already owns, and would go stale the day the
+subset is regenerated — which is exactly how the prose version died.
+
+Scoping took three passes to get honest, and each false positive is worth
+recording because each was a way to cry wolf:
+
+1. `<head>` never renders — its `<title>` carries the Devanagari cut name on every
+   hi chapter, which fired the check on all of them.
+2. `<style>` and `<script>` bodies are not on screen — CSS comments contain `~`.
+3. **A composition that does not link FinanceSans cannot be judged by its cmap.**
+   The four pre-FinanceSans cuts (`50-30-20-rule/legacy`, `emergency-fund`)
+   legitimately drew arrows and Devanagari in whatever the OS supplied.
+
+Final: **3 of 50 compositions flagged, all true positives** — `credit-history/hi`,
+`credit-history/thumbs` and `good-debt-vs-bad-debt/hi` each shipped a `~` the font
+cannot draw. All seven `passive-income-number` chapters in production are clean.
+
+`fonttools` was installed only transitively via `faster-whisper`'s chain, so a
+lighter resolve would have turned the guard into a silent no-op — the exact
+disease it was written to cure. Now declared in `tools/requirements.txt`, and
+`doctor` fails preflight if it is not importable.

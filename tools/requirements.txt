@@ -12,3 +12,11 @@
 # the composition's data-start table. tools/pipeline_check.py probes for it and
 # .claude/agents/fin-render.md requires it.
 faster-whisper>=1.2
+
+# Tofu guard: pipeline_check.uncovered_glyphs() reads FinanceSans's real cmap and
+# fails a build whose on-screen text uses a glyph the subset does not carry. A
+# missing glyph renders as tofu with EVERY other check green, so this is the only
+# thing standing between it and the upload. Currently arrives transitively via
+# faster-whisper's chain; declared here so a lighter resolve cannot drop it and
+# turn the guard into a silent no-op.
+fonttools>=4.0

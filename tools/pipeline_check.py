@@ -478,6 +478,66 @@ def check_assets(slug, cut, fmt):
     return problems
 
 
+FONT_PATH = os.path.join(ROOT, "tools", "scaffold", "assets", "fonts",
+                         "NotoSansFinance-var.woff2")
+_font_cps = None
+
+
+def font_codepoints():
+    """The glyphs FinanceSans actually carries, read from the file's cmap.
+
+    Derived, never declared. A `layout.font_subset` constant would be a second home
+    for a fact the font already owns, and it would go stale the day the subset is
+    regenerated — which is exactly what happened to the prose version of this rule:
+    a previous video's storyboard warned that `?`, `/` and en-dash were missing, and
+    on 2026-08-09 fin-storyboard rewrote twelve strings to avoid them. All three are
+    present. The prose was wrong AND uncheckable; the font is neither."""
+    global _font_cps
+    if _font_cps is None:
+        try:
+            from fontTools.ttLib import TTFont
+        except ImportError:
+            return None                     # not installed: skip, never false-fail
+        f = TTFont(FONT_PATH)
+        _font_cps = {c for t in f["cmap"].tables for c in t.cmap}
+    return _font_cps
+
+
+def uncovered_glyphs(html):
+    """On-screen characters FinanceSans cannot draw. Returns a problem list.
+
+    A missing glyph renders as tofu (or nothing) and EVERY check passes — the font
+    loads, the layout is valid, contrast is computed on a box that is empty. It is
+    only visible by looking at a frame, which is the one thing no gate does."""
+    cps = font_codepoints()
+    if cps is None:
+        return []
+    # Only judge a composition by this cmap if it actually links this face. The four
+    # pre-FinanceSans cuts (50-30-20 legacy, emergency-fund) legitimately draw arrows
+    # and Devanagari in whatever the OS supplied, and failing them would be a false
+    # alarm on work that shipped fine.
+    if "FinanceSans" not in html:
+        return []
+    # <head> never renders — its <title> carries the Devanagari cut name on every hi
+    # chapter, which made the first version of this check fire on all of them.
+    body = re.sub(r"<head\b.*?</head>", " ", html, flags=re.S | re.I)
+    body = re.sub(r"<(script|style)\b.*?</\1>", " ", body, flags=re.S | re.I)
+    body = re.sub(r"<[^>]+>", " ", body)
+    body = re.sub(r"&[a-zA-Z]+;|&#\d+;", " ", body)
+    bad = {}
+    for ch in body:
+        if ch.isspace() or ord(ch) < 32 or ord(ch) in cps:
+            continue
+        bad.setdefault(ch, 0)
+        bad[ch] += 1
+    if not bad:
+        return []
+    listed = ", ".join(f"{ch!r} (U+{ord(ch):04X}) ×{n}" for ch, n in sorted(bad.items()))
+    return [f"on-screen text uses {len(bad)} glyph(s) FinanceSans does not carry: "
+            f"{listed} — these render as tofu and every check still passes. "
+            f"Rewrite the string; do not add a fallback font (it breaks determinism)."]
+
+
 def check_build(slug, cut, fmt):
     sdir = project_dir(slug, cut)
     index = os.path.join(sdir, "index.html")
@@ -485,6 +545,7 @@ def check_build(slug, cut, fmt):
         return [f"missing {index}"]
     html = strip_comments(open(index, encoding="utf-8").read())
     problems = stale_script_problems(slug, cut)
+    problems += uncovered_glyphs(html)
     # determinism: no render-time network fetches (E-3 class of silent corruption)
     for m in re.finditer(r'(?:src|href)="(https?://[^"]+)"', html):
         problems.append(f"network fetch in composition: {m.group(1)}")
@@ -935,6 +996,10 @@ def doctor(tier):
     if whisper.returncode != 0:
         problems.append("faster-whisper not importable in venv — "
                         "fix: venv/bin/pip install faster-whisper")
+    if font_codepoints() is None:
+        problems.append("fontTools not importable in venv — the tofu guard would "
+                        "silently pass every build; fix: venv/bin/pip install -r "
+                        "tools/requirements.txt")
     problems += architecture_lock_problems(fmt)
     problems += dangling_studio_refs()
     problems += standing_stage_problems()
@@ -1389,6 +1454,16 @@ def _selftest():
 
         # supersession is declared, and a supersession must name a file that exists
         assert standing_stage_problems() == [], standing_stage_problems()
+
+        # tofu guard: derived from the font, scoped to compositions that link it
+        FS = '<head><title>वो</title></head><body>'
+        assert uncovered_glyphs(FS + 'FinanceSans ~1 pt<br>x') , "~ is not in the subset"
+        assert uncovered_glyphs(FS + 'FinanceSans ₹1,000 — "50%" (a-z)?') == []
+        assert uncovered_glyphs(FS + '~ arrows → everywhere') == [], "no FinanceSans, no claim"
+        assert uncovered_glyphs('<head><title>…</title></head><body>FinanceSans ok') == [], \
+            "<head> never renders"
+        assert uncovered_glyphs('<body>FinanceSans<style>/* ~ */</style><script>//…</script>') == [], \
+            "style and script are not on screen"
 
         # per-agent format views: every key reaches someone, every view is a subset
         global VIEW_DIR
