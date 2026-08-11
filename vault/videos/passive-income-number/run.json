@@ -96,30 +96,44 @@
     "fin-assets-en": {
       "status": "done",
       "reason": "",
-      "attempt": 4,
-      "log": "vault/videos/passive-income-number/logs/fin-assets-en-ch3-4.md",
-      "at": "2026-08-08T21:18:32+00:00"
+      "attempt": 2,
+      "log": "vault/videos/passive-income-number/logs/fin-assets-en-ch4-2.md",
+      "at": "2026-08-10T07:49:46+00:00"
     },
     "fin-build-en": {
       "status": "done",
       "reason": "",
-      "attempt": 3,
-      "log": "vault/videos/passive-income-number/logs/fin-build-en-ch3-3.md",
-      "at": "2026-08-08T22:42:00+00:00"
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-build-en-ch4-1.md",
+      "at": "2026-08-10T08:30:49+00:00"
     },
     "fin-assets-hi": {
       "status": "done",
       "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/passive-income-number/logs/fin-assets-hi-ch3-2.md",
-      "at": "2026-08-08T22:42:35+00:00"
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/fin-assets-hi-ch5-1.md",
+      "at": "2026-08-10T09:53:41+00:00"
     },
     "fin-build-hi": {
       "status": "done",
       "reason": "",
       "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/fin-build-hi-ch3-1.md",
-      "at": "2026-08-08T21:19:40+00:00"
+      "log": "vault/videos/passive-income-number/logs/fin-build-hi-ch5-1.md",
+      "at": "2026-08-10T10:38:54+00:00"
+    },
+    "fin-review-hi": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/review-hi-ch4-1.md",
+      "at": "2026-08-10T07:21:52+00:00"
+    },
+    "fin-review-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/passive-income-number/logs/review-en-ch4-1.md",
+      "at": "2026-08-10T08:46:34+00:00"
     }
   },
   "vidiq_spend": {
@@ -186,14 +200,28 @@
         "fps": 30
       },
       "4": {
-        "status": "assets_done_build_pending",
+        "status": "locked",
         "scenes": "s31-s40",
         "lines": "4.1-4.10",
-        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch4-1.md",
-        "at": "2026-08-09"
+        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch4-2.md",
+        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch4-1.md",
+        "review": "vault/videos/passive-income-number/logs/review-hi-ch4-1.md",
+        "draft": "studio/videos/passive-income-number-hi-ch4/renders/DRAFT-ch4.mp4",
+        "sheet": "studio/videos/passive-income-number-hi-ch4/renders/SHEET-ch4.jpg",
+        "frames": 1965,
+        "seconds": 65.5,
+        "fps": 30,
+        "round": 1,
+        "at": "2026-08-10"
       },
       "5": {
-        "status": "pending"
+        "status": "assets_done_build_done_draft_pending",
+        "scenes": "s41-s57",
+        "lines": "5.1-5.17",
+        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch5-1.md",
+        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch5-1.md",
+        "seconds": 113.309,
+        "at": "2026-08-10"
       },
       "6": {
         "status": "pending"
@@ -251,11 +279,19 @@
         "ceo": "vault/videos/passive-income-number/logs/ceo-en-ch3-2.md"
       },
       "4": {
-        "status": "assets_done_build_pending",
+        "status": "locked",
         "scenes": "s40-s52",
         "lines": "4.1-4.13",
-        "assets": "vault/videos/passive-income-number/logs/fin-assets-en-ch4-1.md",
-        "at": "2026-08-09"
+        "assets": "vault/videos/passive-income-number/logs/fin-assets-en-ch4-2.md",
+        "build": "vault/videos/passive-income-number/logs/fin-build-en-ch4-1.md",
+        "review": "vault/videos/passive-income-number/logs/review-en-ch4-1.md",
+        "draft": "studio/videos/passive-income-number-en-ch4/renders/DRAFT-ch4.mp4",
+        "sheet": "studio/videos/passive-income-number-en-ch4/renders/SHEET-ch4.jpg",
+        "frames": 2619,
+        "seconds": 87.3,
+        "fps": 30,
+        "round": 1,
+        "at": "2026-08-10"
       },
       "5": {
         "status": "pending"
@@ -270,5 +306,5 @@
     "reference_scripts": "studio/voice-tests/passive-income-number/style-E-teacher-curiosity.txt (hi ch1-2) and style-E-en-teacher-curiosity.txt (en ch1-2). Both are ch1+ch2 only — chapters 3+ must be restyled to match, keeping their facts and structure unchanged.",
     "line_1_7_en_is_untouchable": "«Everyone asks how much you need invested to live off dividends, and the honest answer costs more than the popular one.» It is the title's own promise and the phrase this format ranks on."
   },
-  "baseline_note": "Run PAUSED at ch3 on both cuts by creator decision 2026-08-09. The token baseline this run existed to produce was recovered from Claude Code session transcripts instead (audit/05-baseline.md), so finishing ch4-7 was no longer required for the audit. ch1-3 locked on both cuts is a matched set. Resume with: /finance-video --resume passive-income-number"
+  "baseline_note": "Run STOPPED CLEANLY at the creator's request 2026-08-10, mid-ch5. No agents in flight. hi ch1-4 and en ch1-4 are LOCKED (a matched set). hi ch5 has assets + build done and VERIFIED; the next command is the draft render, not a rebuild. Resume: /finance-video --resume passive-income-number"
 }

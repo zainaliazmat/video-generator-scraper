@@ -50,6 +50,8 @@ RIDE-ALONG ONLY — logged by the CEO as a note, not a blocker, and the editor m
 
 ## `owed.two_defects_in_the_ruling_TEXT_for_the_ceo`
 
+✅ **CLOSED 2026-08-09 — see `rulings_binding_on_both_cuts.separation_not_rank_2026-08-09`.** All three items were adopted as one rule at the ch4 resume gate. The text below is kept as the reasoning of record; quote the RULING, not this item.
+
 ⚠ RAISED BY fin-editor ON en ch3 AND IT IS ABOUT THE RULINGS THEMSELVES, NOT THE CHAPTER. Both bear on ch4-7 of both cuts.
 1. **THE STOPPING RULE IS BRITTLE IN THE SAME WAY THE RETIRED RANK TEST WAS.** As written it turns on 'longest-held' — and on this chapter s37 lost that title to s26 BY 0.76 SECONDS, i.e. by how long the voice takes to say line 3.3, not by argumentative weight. That is precisely the brittleness the CEO already retired once when it closed the `#1 of N` payoff rank. PROPOSED FIX: a relocated floor is a defect when the new bottom is the payoff, OR the longest-held, **OR AN OUTLIER AGAINST ITS OWN CHAPTER**. s31 fails all three; s37 fails none.
 2. **THE INVARIANT'S SENTENCE SAYS THE CONVERSE OF WHAT IT ENFORCES.** `ground_and_payoff_legibility_2026-08-08` reads 'the darkest longest-held frame must be the chapter's most substantive beat'. READ LITERALLY, s37 SATISFIES that — it is dark and its beat is substantive. But the clause the s21 and s31 blockers actually enforced is the OPPOSITE one: a substantive beat must not be left in the darkest frame. Those are converses, and the text states the wrong direction. The sentence must be rewritten to say ONLY ONE of those things. Until it is, the rule can be quoted to justify the exact defect it was written to stop. || THIRD ITEM AND A PROPOSED UNIFICATION, from the hi ch3 editor: **a rank or superlative clause is decided only by separations that EXCEED THE NOISE of the thing it measures; frames inside the noise band are TIED and the clause is satisfied by any member of the tie — for the legibility measures the band is 1.0 LUMA POINT.** The 1.0 is not invented: fin-build reports three scenes tying at an integer 31 before in-bin interpolation (8-bit grain = 1.0), and the CEO's own re-measure of hi ch2's s16 p10 disagreed with the editor by exactly 1.0 and was called 'inside method noise'. VALIDITY CHECKED IN BOTH DIRECTIONS, as the CEO required of the last clause: it changes NO verdict reached on a real gap (en ch2's s21 was ~25 points down; hi ch2's hero still fails it; hi ch3's own floor is 4.98 clear) — and it COSTS THE PROPOSER SOMETHING, because applied to 'longest-held' it dissolves fin-build's s26-is-second-longest escape on en ch3. **ALL THREE ITEMS ARE ONE RULE**: this qualifier loosens a rank at the top, the en editor's outlier clause tightens one at the bottom, and both are *rank out, separation in*. The CEO's existing near-flat-host patch becomes a worked example rather than a standing exception. ⚠ AND DEFECT 2 IS NO LONGER HYPOTHETICAL: **both fin-assets AND fin-build discharged clause 1 by writing 'the invariant is satisfied by construction'** — i.e. by quoting the literal converse, exactly what the en ch3 editor warned the sentence permits. It has now been exploited twice by agents acting in good faith.
@@ -1379,3 +1381,109 @@ RULED by fin-ceo at the hi ch3 SHIP gate, log `logs/ceo-hi-ch3-3.md`. On `divide
 **Both halves are binding on every later drawn layer of this shape:** the proudness MUST STAY while cells are equal-width, and MUST GO the moment a variant adds unequal widths or a baseline, because at that point a raised cell reads as a *magnitude* rather than a *selection* and the layer starts asserting a quantity it did not measure. fin-editor raised the same constraint independently ("it must not survive into a variant with unequal cells").
 
 Related, from the same gate: **s24's `.art-lift` is load-bearing** — it is the chapter's busiest photograph carrying its most detailed layer. The owed content-agnostic ~48px inset feather promotion into `tools/scaffold/assets/chapter-design.css` must re-measure s24 as well as en-ch2 s16, not assume a no-op. Two reviewers have now been wrong about a feather being a no-op by inferring instead of measuring.
+
+## `rulings_binding_on_both_cuts.separation_not_rank_2026-08-09`
+
+RULED BY THE ORCHESTRATOR at the ch4 resume gate, discharging `owed.two_defects_in_the_ruling_TEXT_for_the_ceo` as ONE RULE, exactly as that item required. Binding on ch4-7 (hi) and ch4-6 (en). The CEO agent no longer exists (`fin-editor` + `fin-ceo` merged into `fin-review` 2026-08-09), and the item's own argument is that piecemeal fixes produce a fourth defect — so it is settled once, here, before the first ch4 brief quotes it again.
+
+1. **THE INVARIANT'S SENTENCE IS REWRITTEN TO STATE ONE DIRECTION ONLY.** It now reads: **a substantive beat must not be left in the chapter's darkest frame.** The old wording — 'the darkest longest-held frame must be the chapter's most substantive beat' — is RETIRED, not carried as an alternative phrasing. It stated the converse of what its own blockers (en ch2 s21, en ch3 s31) actually enforced, and it was exploited twice in good faith: **both fin-assets and fin-build discharged clause 1 by writing "satisfied by construction"**, which is a true reading of the retired sentence and a false reading of the rule. Any agent quoting the retired form is quoting a text that no longer exists.
+
+2. **RANK OUT, SEPARATION IN.** A rank or superlative clause is decided only by separations that EXCEED THE NOISE of the thing it measures; frames inside the noise band are TIED, and the clause is satisfied by any member of the tie. **For the legibility measures the band is 1.0 LUMA POINT.** The 1.0 is measured, not invented: fin-build reports three scenes tying at an integer 31 before in-bin interpolation (8-bit grain = 1.0), and the CEO's own re-measure of hi ch2 s16's p10 disagreed with the editor by exactly 1.0 and was called 'inside method noise'. The near-flat-host-frame patch in `floor_stopping_rule_and_p10_comparator_2026-08-09` §3 becomes a WORKED EXAMPLE of this rule, not a standing exception.
+
+3. **THE STOPPING RULE GAINS THE OUTLIER LIMB.** A relocated floor is a defect when the new bottom is the PAYOFF frame, OR the LONGEST-HELD frame, **OR AN OUTLIER AGAINST ITS OWN CHAPTER**. Without it the rule turned on 'longest-held', which en ch3 decided by 0.76 seconds of voice — the same brittleness the retired `#1 of N` payoff rank had. ⚠ Consequence the proposer pays: applied to 'longest-held', §2's tie band DISSOLVES fin-build's 's26 is only second-longest' escape on en ch3. That is the point — it cost its own author something, which is the test the CEO set for the last clause it adopted.
+
+VALIDITY CHECKED IN BOTH DIRECTIONS, as required: it changes NO verdict reached on a real gap (en ch2's s21 was ~25 points down; hi ch2's hero still fails the payoff clause; hi ch3's floor is 4.98 clear). It only closes ties and only tightens outliers.
+
+⚠ `owed.two_defects_in_the_ruling_TEXT_for_the_ceo` IS CLOSED BY THIS ENTRY. `ground_and_payoff_legibility_2026-08-08`'s invariant sentence is superseded by §1 above; everything else in that entry (ground temperature by argumentative weight; THE LEVER IS ALWAYS THE PHOTOGRAPH) stands unchanged.
+
+<!-- drained 2026-08-09T17:32:00+00:00 -->
+
+## `baseline_note`
+
+Run PAUSED at ch3 on both cuts by creator decision 2026-08-09. The token baseline this run existed to produce was recovered from Claude Code session transcripts instead (audit/05-baseline.md), so finishing ch4-7 was no longer required for the audit. ch1-3 locked on both cuts is a matched set. Resume with: /finance-video --resume passive-income-number
+
+## `rulings_binding_on_both_cuts.container_ladder_CORRECTION_2026-08-09`
+
+⚠ **`container_ladder_2026-08-09` DESCRIBES A FILE THAT NO LONGER SHIPS.** Found by fin-assets-hi ch4 attempt 2, which read the file instead of the ruling — the same move that produced the original ruling. That entry was written against `assets-ch3/final/s22.jpg.src` when s22 was a carved sheesham money box with a brass coin slot. **s22 was REPLACED during the hi ch3 rebuild** and now ships a stacked yard of terracotta gullaks. `owed.ch5_s41_collides_with_the_new_ch3_opener` already refers to the new file; the ladder entry was never updated to match.
+
+**The ladder is unchanged and still FOUR rungs — s22 -> s31 -> s58 -> s62 — only rung 1's description changes.** Rung 1 = MANY fist-sized clay gullaks. Rung 2 = ONE iron-bound domed wooden chest, whole object, filling the frame, with a floor and a broom for scale. The escalation reads on size and count and it is unmistakable, so no re-fetch is owed. ⚠ **s58 and s62 must be briefed against the gullaks, not the box** — quoting the retired description would ask ch5/ch6 to escalate from an object the viewer was never shown.
+
+## `rulings_binding_on_both_cuts.s33_tie_is_not_a_defect_2026-08-09`
+
+RULED BY THE ORCHESTRATOR on fin-assets-hi ch4's escalation, and recorded because it is the FIRST APPLICATION of `separation_not_rank_2026-08-09` §2/§3 and every later chapter will meet the same shape.
+
+s33 (line 4.3, «महीने के दस हज़ार रुपये», the chapter's ₹10,000 beat) sits at the bottom of a **four-way tie spanning 1.08 median points** — s35 23.89 · s33 24.28 · s32 24.52 · s40 24.97. **VERDICT: NOT A DEFECT.** Under §2 those four frames are TIED and the clause is satisfied by any member, so s33 is not "the chapter's darkest frame" in any sense the rule recognises; under §3 it is not the payoff (s34 is), not the longest-held, and not an outlier — an outlier is alone at the bottom by a clear margin, and s33 has three companions inside a band narrower than the measurement's own grain. **A re-fetch here would be exactly the treadmill the stopping rule was adopted to stop**, and it would cost the s32/s33 `HOLD_A` geometry (s33 is a hold crop of its s32 parent — one photograph across 4.2→4.3 as one continuous push) for a move inside the noise.
+
+⚠ THE ESCALATION WAS STILL CORRECT TO MAKE. fin-assets named a real residual — s33's weakness is **contrast collapse and emptiness** (p10 19.59 / p90 40.15), not darkness, and emptiness is what the SOUND-OFF GATE judges, not the luma rank. The gate is the instrument for it; it passed. Carried to fin-review as a P1 look, not as an open blocker.
+
+## `chapters.hi.4.s40_measure_bar_declined_2026-08-10`
+
+fin-review raised s40 as a SHOULD-FIX, not a blocker: it states a comparison in TYPE ONLY, and it is already `arch-b`, whose declared use is a measure bar — so the lever is cheap. **DECLINED by the orchestrator; no round spent.** hi's declared device is the PHOTOGRAPHIC container ladder, which storyboard-hi §9c names as this cut's deliberate replacement for en's drawn measure bar, and hi ch1 shipped creator-approved with ZERO drawn layers. Adding one at s40 would contradict the cut's own device decision to close a finding the reviewer itself would not blocker. ⚠ If a later hi chapter DOES want a drawn measure bar, this decision is the thing to reverse first — the objection is consistency, not the bar.
+
+## `rulings_binding_on_both_cuts.outlier_limb_is_subordinate_to_the_invariant_2026-08-10`
+
+RULED BY THE ORCHESTRATOR on fin-assets-en ch4's finding, and it AMENDS `separation_not_rank_2026-08-09` §3. Binding on ch5-7 (hi) and ch5-6 (en).
+
+en ch4's floor is **s44, alone at the bottom by 6.99 COMP points — 1.88× the next largest gap in the chapter, and 5.4× on RAW.** One stranded frame, not a cluster, so the §3 OUTLIER LIMB genuinely fires (contrast the hi ch4 worked example, where 2.29 below the band was NOT an outlier precisely because the bottom was a six-frame cluster). Two levers were tested rather than argued: seven `background-position` values span **1.04 COMP points, inside the tie band** — the photograph is wet black asphalt end to end and has no brighter part to point at — and the only remaining lever, a re-fetch, **relocates the floor onto s48 at 2.21 separation: line 4.9, `payout DIVIDED BY price`, the chapter's MECHANISM beat and the storyboard's declared 5:00 beat.**
+
+**VERDICT: NO FIX. s44 STAYS.** And the general rule, because this will recur:
+
+**THE STOPPING RULE'S LIMBS SAY WHEN A FLOOR FIX IS *PERMITTED TO BE DEMANDED*, NEVER WHEN ONE IS *REQUIRED IN SPITE OF §1*. §1 is the master clause and §3 serves it. A fix that would move a MORE substantive beat to the bottom is not merely optional — it is FORBIDDEN.** Here §1 is not just satisfied, it is maximally satisfied: line 4.5 is the chapter's LEAST argumentatively loaded beat — `stmt`-only, no figure, no mechanism, no citation, no `foot:`, second-shortest scene — while everything that must be READ sits in the top half (`$5,000 A MONTH` #4, `$1,500,000` #3 and its completion #2, `13.84%` #7). There is no inversion between argumentative weight and legibility anywhere in the chapter. An outlier at the bottom that is also the emptiest beat is the invariant WORKING, not failing.
+
+⚠ The reason this needed saying: §3 was added to fix a brittleness ('longest-held', decided by 0.76s of voice) and it silently became a THIRD independent trigger. Read as independent it demands a fetch here, and that fetch produces the exact defect §1 exists to prevent — the treadmill the stopping rule was adopted to stop, one turn further round.
+
+## `rulings_binding_on_both_cuts.en_tank_becomes_a_drawn_layer_2026-08-10`
+
+RULED BY THE ORCHESTRATOR, discharging the decision `chapters._carry_forward_en_ch2_to_ch4_ch5` explicitly deferred to this point: *"if the frames cannot carry it the fix is a STORYBOARD decision about the object family, not another fetch round."* Binding on en ch4, en ch5 and the pre-assembly pass.
+
+**THE FACTS, MEASURED ACROSS THREE SESSIONS.** The pools do not hold a tank-with-a-tap: en ch2 spent 6 contact sheets / 36 candidates, en ch4 spent 4 more. What shipped — ch2 s10: seven brass lever valves on a horizontal steel manifold over a copper trough, indoors, raking daylight. ch4 s46: an ornate cast cross/rosette knob on a slim outdoor park standpipe, trees and a road behind it, a thin twisted trickle. ch4 s47: a white-painted cross/wheel handle on a brass gate valve, outdoors against foliage. **Neither ch4 frame has a lever; neither has a vessel; and both abandon ch2's own constant** (indoor / steel body / brass lever / workshop light). So the defect is sharper than "no tank": ch4 broke the constant ch2 established.
+
+**AND THE VO SAYS THE WORD.** `script-en.md`: 2.2 plants it («you filled a tank slowly, over years»), 4.7 calls it back («**Go back to the tank**, because twelve percent is a promise about the tap»), 4.10 says «the tank shrank», 4.9 «the papers tested how long a tank lasts». The script's own §3 calls it *load-bearing and it pays off twice*. Voice is locked by hash at 300/350 calls, so the word cannot be removed. A viewer is told *go back to the tank* over a photograph of a park standpipe — the sound-off rule (the image alone must say the scene) fails on the cut's load-bearing device, which is the one place it may not.
+
+**DECISION: THE TANK BECOMES A DRAWN LAYER ON THE en CUT — one Lottie/SVG, built ONCE, used at BOTH 2.2 and 4.7, composited OVER the existing photograph so `image_per_scene` is untouched.** Three reasons it is the right rung: (1) **the script pre-authorised it** — 2.2 carries `lottie candidate: a tank with a level line and one tap … the level is decorative, never a measurement`, and 4.7 carries `lottie candidate: the 2.2 tank with the tap opening and the level dropping`; this is not an invention, it is the fallback the writer wrote down. (2) **Drawn layers are in-family on en and only on en** — en's declared device IS the drawn measure bar, which `container_ladder_2026-08-09` names as the thing hi's photographic ladder replaces. ⚠ Do NOT port this to the hi cut; hi ships zero drawn layers. (3) It is the only lever left that has not already failed 40+ times.
+
+**SCOPE, DELIBERATELY NARROW.** Build the layer in **en ch4 (4.7) now**, since ch4 is being built anyway and it costs no extra round. **en ch2 is NOT reopened mid-flight** — a locked chapter stays locked. Instead: `owed.en_ch2_s10_tank_layer` — apply the SAME layer to 2.2 in one pass **before the full assembly**, batched with `owed.overlay_count_in_the_assembled_master`, which is already a pre-assembly decision. In the shipped cut order the device is then planted at 2.2 before it is called back at 4.7, which is the only order that works. If the creator rejects the layer, the reversal is deleting one element from two scenes.
+
+⚠ **THE LEVEL IS DECORATIVE, NEVER A MEASUREMENT** — the script says so and `no_return_promise` requires it. A drawn level that reads as a quantity would be the video asserting a number it never sourced.
+
+## `owed.en_ch2_s10_tank_layer`
+
+Apply the `en_tank_becomes_a_drawn_layer_2026-08-10` layer to en ch2's 2.2 (s10) in the pre-assembly pass, batched with `owed.overlay_count_in_the_assembled_master`. Until it lands, en's tank is planted at its own callback and nowhere earlier. Reopening en ch2 for this is EXPECTED and pre-authorised; it is not a review round and does not re-open s10's image decision.
+
+## `chapters._carry_forward_en_ch4_to_ch5_s57`
+
+⚠ **s46 HAS ALREADY SPENT s57'S STATEMENT — re-brief s57 against THE FILE, not against §10's text.** §10's four-frame flow ladder is *low flow → wide open, running out → level low, still open → **barely cracked, a thin stream into a tin cup***. **s46 shipped as a thin twisted trickle**, so ch5's s57 has nothing left to escalate DOWN to, and 4.7's own line («12% is a **wider** tap») is under-supported by a narrow stream in the frame beneath it. Same failure shape as the hi container ladder, same fix: correct the brief against the shipping file. Found by fin-assets-en ch4 attempt 2.
+
+## `chapters.en.4.s45_accepted_with_the_sound_off_question_left_open_2026-08-10`
+
+s45 (4.6) **does not obey its storyboard override** — the override asks for *screen turned away, only the glow on the fingers*, and the promoted file is a hand holding a switched-off iPhone with the **screen facing camera** in outdoor daylight. **ACCEPTED anyway; no re-fetch.** fin-assets proved the pool empty for THIS slot rather than inheriting the ch1 amendment: a fresh 6/6 sheet returned a brand mark or a person on every screen-away cell, and it correctly refused to lean on the 2026-08-08 ch1 amendment, whose structural justification (*a face-down phone in a dark room cannot clear `YHIGH ≥ 110` by construction*) does not transfer to an outdoor frame at source `YHIGH 209`. No hard-rule violation exists: the screen is black, carries no wordmark under 10× crop-zoom, and is not the brightest thing in frame — the sunlit leaves are.
+
+⚠ **THE RESIDUAL IS A SOUND-OFF RISK AND IT IS LEFT OPEN ON PURPOSE.** Line 4.6 is «Somewhere on your **feed** there is a payout advertised at ten percent…», and a phone that is plainly SWITCHED OFF says *there is nothing on this screen* — nearer to contradicting the line than supporting it. The *glow on the fingers* the override asks for exists precisely to say *there IS something there, we are just not showing it*. **BUILD INSTRUCTION: frame s45 so the blank screen is not the subject** — push it toward the edge so the frame reads *a phone in a hand*, not *an empty screen*; the three chips (`10% · 12% · "monthly income"`) carry the content. **fin-review settles it ON THE ENCODE**, which is where every image question on this run has actually been settled. If it blockers there, it is a storyboard decision about the object, not another fetch.
+
+## `owed.en_preassembly_batch`
+
+Three en items are DELIBERATELY BATCHED into one pre-assembly pass rather than spending review rounds now. All three reopen en compositions, so they cost one pass together and three separately.
+
+1. **`owed.en_ch2_s10_tank_layer`** — apply en ch4's parameterised tank layer verbatim to 2.2 (s10), so the device is planted before its 4.7 callback.
+2. **s49's three unlabelled bars** (fin-review en ch4, the only TOP finding): the quotient DOUBLES directly under a statement whose third clause is «Smaller tank.» — **the proportions are correct, the labelling inverts the reading.** One label fixes it.
+3. **`owed.overlay_count_in_the_assembled_master`** — the ~162 heavy overlays, already a pre-assembly decision.
+
+⚠ Do this pass BEFORE the concat, not after: every item changes a composition, and the concat is a stream copy of what the compositions rendered.
+
+## `method_learned.predictions_missed_a_sixth_time_2026-08-10`
+
+**The prediction-vs-encode gap is now measured six times on this run and it has never once been an argument for trusting the prediction.** Newest: fin-assets predicted en ch4's s40→s41 median step at **+8.5**; fin-review measured **+1.0** on the encode. The clause still passed (non-negative, and tied either way under the 1.0 band), so nothing was lost — but the miss is 7.5 points, the same order as the five before it, and it lands on the PAYOFF clause of the chapter.
+
+Two things worth carrying to ch5-7: (1) the 1.0-point tie band from `separation_not_rank_2026-08-09` is doing real work here — it absorbed a 7.5-point prediction error into a verdict that did not change, which is exactly what a noise band is for. (2) hi ch4 saw four frames move >3 points and its rank ORDER change at ranks 3-8, while en ch4's magnitudes reproduced (max |Δ| 2.45) and its ORDER still moved at ranks 4-11. **So the order is less stable than the magnitudes, and every clause on this run is a rank.** Shortlist on predictions; settle on the encode; never quote an assets-stage rank table downstream of the encode.
+
+## `owed.stamp_warn_red_on_red_upstream`
+
+⚠ **A REAL CSS BUG, PATCHED LOCALLY IN hi ch5 AND OWED UPSTREAM.** `class="stamp warn"` renders **red text on a red fill** — unreadable — because `.warn` (`blockframe.css:138`) beats `.stamp` (`:124`) on source order. Found by fin-build hi ch5. The local patch keeps that chapter correct; the fix belongs in `blockframe.css` so no later chapter or video rediscovers it. Per `fix-defaults-not-gates` this is the CORRECT-DEFAULT rung, not a check: a check would only tell each chapter it got it wrong again. ⚠ Grep every built chapter for `stamp warn` before assuming hi ch5 is the only victim.
+
+## `chapters.hi.5.s57_swap_point_recut_2026-08-10`
+
+s57's declared framing swap would have completed **0.02s BEFORE the phrase it is anchored to** — re-cut from 5.280/3.905 to 6.050/3.135 against a measured word onset. Recorded because it is the same family as `owed.cascade_offsets_ignore_the_voice`: an offset authored against the template rather than against the voice, landing just early enough that nothing looks wrong in the numbers. `clauses.py` fixed the cascade case; **declared `data-framings` swap points are the case it does NOT cover.**
+
+## `chapters.hi.5._open_for_fin_review`
+
+Four looks handed forward, none of them blockers, all to be settled ON THE DRAFT: (1) **the 5.17 floor tie** — 5.17 sits at the chapter floor and clears the invariant only on a **0.96-point tie with 5.2, inside the 1.0 band by 0.04**, which is a coin flip and not a verdict; no knob was spent on it, deliberately. (2) s55's p10 judgement. (3) **34 heavy overlays on this chapter alone** — feeds `owed.overlay_count_in_the_assembled_master`. (4) Two review-sheet artefacts on s50/s57.
