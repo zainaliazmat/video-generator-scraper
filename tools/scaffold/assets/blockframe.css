@@ -184,10 +184,15 @@ body { margin: 0; background: #000; }
    NOTE: this construct reports a FALSE contrast failure in `npm run check` when
    it sits on a bright fill. Do NOT fix it by lightening the text — that degrades
    the signature element on every future video. It belongs in known_benign. */
-.stamp.warn   { background: var(--warn); }
-.stamp.fund   { background: var(--fund); }
-.stamp.target { background: var(--target); }
-.stamp.pop    { background: var(--pop); }
+   The role modifier must RE-STATE the dark ink: `.warn`/`.fundc`/`.targetc` are
+   declared later than `.stamp` at equal specificity, so `class="stamp warn"`
+   rendered red text on a red fill until 2026-08-12 (found on
+   passive-income-number hi ch5, patched locally there first). These rules are
+   (0,2,0) so they win. */
+.stamp.warn   { background: var(--warn);   color: #0d1017; }
+.stamp.fund   { background: var(--fund);   color: #0d1017; }
+.stamp.target { background: var(--target); color: #0d1017; }
+.stamp.pop    { background: var(--pop);    color: #0d1017; }
 
 /* The itemised money block. */
 .bill { display: flex; flex-direction: column; gap: 16px; width: 820px; }

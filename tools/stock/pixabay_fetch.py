@@ -56,6 +56,7 @@ PIXABAY_API = "https://pixabay.com/api/"
 PEXELS_API = "https://api.pexels.com/v1/search"
 COMMONS_INFO_API = "https://en.wikipedia.org/w/api.php"   # Commons is enwiki's shared file repo
 COMMONS_UA = "YoutubeScraper-fin-assets/1.0 (+finance-video pipeline)"  # Wikimedia rejects generic UAs
+COMMONS_PICK_W = 1880   # == format.json assets.pick_width_px.commons (Pexels' width; see commons_hits)
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROVIDERS = ("pixabay", "pexels", "commons")
 CELL_W, CELL_H, COLS = 512, 288, 3        # 16:9 contact-sheet cells, 3-wide grid
@@ -245,7 +246,7 @@ def commons_hits(query, count):
         pages = _api(generator="images", titles="|".join(h["title"] for h in hits),
                      gimlimit=50, prop="imageinfo",
                      iiprop="url|size|mime|extmetadata",
-                     iiurlwidth=1024).get("query", {}).get("pages", {})
+                     iiurlwidth=COMMONS_PICK_W).get("query", {}).get("pages", {})
     except urllib.error.HTTPError as e:
         sys.exit(f"ERROR {e.code} from Wikimedia: "
                  f"{e.read().decode('utf-8', 'replace')[:300]}")
@@ -261,13 +262,25 @@ def commons_hits(query, count):
         if (info.get("width") or 0) < 1280:
             continue
         author = re.sub(r"<[^>]+>", "", meta.get("Artist", {}).get("value", "") or "").strip()
+        # DOWNLOAD THE THUMBNAIL, NOT THE ORIGINAL. Pixabay serves a bounded
+        # `largeImageURL` (1280) and Pexels a bounded `large2x` (1880); Commons is
+        # the only rung that hands back the uploaded file, and an encyclopedia
+        # photograph of a building is routinely 3888x2592 / 4.3MB. Nothing
+        # downstream wants those pixels — the grade renders at 1920 — but
+        # everything downstream pays for them: passive-income-number en ch5 put a
+        # 4.5x-area outlier (s55, NYSE facade) into a chapter of 1880x1253 files
+        # and stalled fin-assets' terminal full-resolution read on it, 2026-08-12.
+        # MediaWiki never upscales, so `thumburl` is min(original, PICK_W) and the
+        # >=1280 floor below still measures the ORIGINAL, which is what it is for.
+        thumb = info.get("thumburl")
         out.append({
-            "dl": info.get("url"),
-            "preview": info.get("thumburl") or info.get("url"),
+            "dl": thumb or info.get("url"),
+            "preview": thumb or info.get("url"),
             "page": info.get("descriptionurl", ""),
             "author": author or "Wikimedia Commons contributor",
             "license": meta.get("LicenseShortName", {}).get("value") or "see Commons file page",
-            "w": info.get("width"), "h": info.get("height"),
+            "w": info.get("thumbwidth") if thumb else info.get("width"),
+            "h": info.get("thumbheight") if thumb else info.get("height"),
         })
         if len(out) >= count:
             break
@@ -317,7 +330,17 @@ def write_credit(out, line):
     rather than appending a second one. A slot re-picked three times used to leave
     three credits, only one of which named the photographer actually on disk; that
     is a licence error, not untidiness. (japanese-money-methods-en s65 carried five,
-    2026-08-01.) Rewrite-in-place keeps the file 1:1 with the images."""
+    2026-08-01.) Rewrite-in-place keeps the file 1:1 with the images.
+
+    ONE ROW IS ONE LINE, AND IT IS ENFORCED HERE. Commons `extmetadata.Artist` is
+    free HTML whose stripped text can contain a newline, so a Commons row used to
+    span two lines — and the re-key below matches on the first token of each line,
+    so re-picking that slot dropped the keyed first line and STRANDED the second.
+    The orphan then asserted a licence (`CC BY-SA 3.0`) for a file no longer in the
+    chapter: the exact licence error this function exists to prevent, arriving by
+    another door. Found on passive-income-number en ch5, 2026-08-12. Flattening at
+    the write site fixes both halves at once — an unstrandable row cannot strand."""
+    line = re.sub(r"\s*[\r\n]+\s*", " ", line).strip()   # tabs survive: they are the field sep
     path = os.path.join(os.path.dirname(os.path.abspath(out)), "CREDITS.txt")
     slot = os.path.basename(out)
     kept = []

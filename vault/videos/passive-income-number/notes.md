@@ -1487,3 +1487,127 @@ s57's declared framing swap would have completed **0.02s BEFORE the phrase it is
 ## `chapters.hi.5._open_for_fin_review`
 
 Four looks handed forward, none of them blockers, all to be settled ON THE DRAFT: (1) **the 5.17 floor tie** — 5.17 sits at the chapter floor and clears the invariant only on a **0.96-point tie with 5.2, inside the 1.0 band by 0.04**, which is a coin flip and not a verdict; no knob was spent on it, deliberately. (2) s55's p10 judgement. (3) **34 heavy overlays on this chapter alone** — feeds `owed.overlay_count_in_the_assembled_master`. (4) Two review-sheet artefacts on s50/s57.
+
+<!-- drained 2026-08-11T21:07:06+00:00 -->
+
+## `baseline_note`
+
+Run STOPPED CLEANLY at the creator's request 2026-08-10, mid-ch5. No agents in flight. hi ch1-4 and en ch1-4 are LOCKED (a matched set). hi ch5 has assets + build done and VERIFIED; the next command is the draft render, not a rebuild. Resume: /finance-video --resume passive-income-number
+
+## `tool_fixes.three_upstream_bugs_fixed_during_en_ch5_2026-08-12`
+
+Three real defects were found and fixed at their source during the en ch5 resume. All three are the CORRECT-DEFAULT rung of `fix-defaults-not-gates`, not new gates: each one made a wrong state unrepresentable rather than reporting it.
+
+1. **`blockframe.css` — `class="stamp warn"` rendered RED TEXT ON A RED FILL.** `.stamp` sets `color:#0d1017` at line 124 and `.warn` sets `color:var(--warn)` at line 138; equal specificity, later wins. Discharges `owed.stamp_warn_red_on_red_upstream`, raised by fin-build hi ch5 and patched locally there. The four `.stamp.<role>` rules now re-state the dark ink, which is (0,2,0) and wins. ⚠ hi ch5 still carries its local patch in its `<style>` block — harmless (it says the same thing) but it should come out whenever that chapter is next opened, because a second copy of a fix is how the bug comes back. Swept every built chapter and every archived `src/`: **no en chapter uses `stamp warn`**, so nothing on this cut needed back-patching.
+
+2. **`@commons` downloaded the UPLOADED ORIGINAL, and it is what stalled fin-assets en ch5 attempt 1.** Pixabay serves a bounded `largeImageURL` (1280) and Pexels a bounded `large2x` (1880); Commons was the only rung handing back the raw upload, and an encyclopedia photograph of a building is routinely several thousand pixels wide. ch5's s55 (NYSE facade) landed at **3888x2592 / 4.3 MB** in a chapter of 1880x1253 / ~0.3 MB files — 4.5x the pixel area, 9x the bytes — and the agent died inside the terminal full-resolution read on it, 600s with no output. `commons_hits` now requests `iiurlwidth=COMMONS_PICK_W` (1880) and downloads `thumburl`; MediaWiki never upscales, so the `>=1280` acceptance floor still measures the ORIGINAL, which is what that floor is for. `format.json assets.pick_width_px` gained the `commons: 1880` entry it was missing — the table had only two of the three rungs, which is why nothing caught this. Verified live against four Commons hits, all delivered at 1880. s55 was downscaled in place rather than re-fetched: same photograph, right width.
+
+   **The general lesson, and it is the one worth carrying:** the stall presented as an agent/harness problem (a watchdog timeout) and was actually a data problem one stage upstream. The instinct to fix it by changing how the agent reads — batch the reads, skip the full-res pass — would have left a 4.3 MB file in a 0.3 MB chapter and moved the failure somewhere later and quieter.
+
+3. **A Commons author string with a NEWLINE stranded an orphan licence row in `CREDITS.txt`.** `extmetadata.Artist` is free HTML, so its stripped text can span two lines; `write_credit` re-keys on the first token of each line, so re-picking that slot dropped the keyed first line and left the second behind. The orphan then asserted `CC BY-SA 3.0` for a file no longer in the chapter — the exact licence error `write_credit` exists to prevent, arriving by another door. Found by fin-assets en ch5, which fixed the row by hand and correctly routed the root cause out (it may not write `tools/`). Now flattened at the write site, so an unstrandable row cannot strand. Test: multi-line author + re-pick leaves exactly one row per slot and no orphan.
+
+⚠ **Bugs 2 and 3 are the same rung of the same ladder and both belong to `@commons`, which is the newest and least-exercised provider** (added 2026-08-04). It has now produced two defects in one chapter on its second real outing. Anything it returns is worth a harder look than a Pexels pick until it has a few more chapters behind it.
+
+## `owed.en_preassembly_batch_GAINS_A_FOURTH_ITEM_2026-08-12`
+
+`fin-review` en ch5 round 1 found **s57's tank callback ships with no tank and no visible stream** — the carry-forward `chapters._carry_forward_en_ch4_to_ch5_s57`, arriving exactly where ch4 predicted it would. The reviewer's own recommendation, adopted: **s57 rides the pre-assembly batch rather than buying a second ch5 draft render.** It is the same drawn-layer fix as items 1 and 2, on the same cut, reopening a composition the batch already reopens — so it costs nothing extra there and one full round here.
+
+The batch is now FOUR items, still one pass, still BEFORE the concat:
+1. `owed.en_ch2_s10_tank_layer` — ch4's parameterised tank layer applied verbatim to 2.2 (s10), so the device is PLANTED before its 4.7 callback.
+2. ~~**s57 (5.5)**~~ — **PULLED OUT OF THE BATCH 2026-08-12 and folded into the ch5 rebuild instead.** The only reason to defer it was to avoid buying a second ch5 draft render, and s61's re-fetch blocker means ch5 is being rebuilt and re-drafted anyway — so the layer now costs nothing, and deferring it would cost the batch an extra composition. ⚠ Item 1 still stands and is still owed: with both landed the device reads plant (2.2) → callback (4.7) → callback (5.5), which is the only order that works.
+3. **s49's three unlabelled bars** — the quotient doubles directly under «Smaller tank.»; proportions correct, labelling inverts the reading. One label fixes it.
+4. `owed.overlay_count_in_the_assembled_master` — the ~162 heavy overlays, plus ch5's own 34.
+
+## `method_learned.the_encode_overturned_the_build_on_all_three_open_questions_2026-08-12`
+
+en ch5 is the cleanest test yet of `predictions_missed_a_sixth_time_2026-08-10`, because the build stage handed forward **three** open questions instead of settling them, and the encode disagreed with the prediction on all three:
+
+1. **PEAK 2 (s59)** — build predicted it fails **three of four** payoff-legibility limbs. Encode: **PASS**, and not marginally. Ink geometry identical to s63 and s68 *to the pixel*, glyph-vs-ground 4.97:1 (clears AAA-large), count-up completing 1.23s before the cut.
+2. **The floor (s54)** — build predicted the separation at **7.66** points. Encode measured **1.98**. ⚠ The RANK held and the MAGNITUDE did not, which is the opposite of ch4's pattern (magnitudes reproduced, order moved). So neither half of the prediction is reliable on its own; only the direction of the error is stable, and it is always *toward the noise band*.
+3. **Comma clearance** — build named s68 as the chapter's tightest case at `.huge`. Encode: s68 clears **27px**, s63 clears **26px**. It was not the tightest, and both clear.
+
+**The lesson is NOT "the build stage was wrong."** It hedged correctly and said so out loud, three times, which is what let one review settle all three in a single sheet read. The lesson is the standing one, now seven-for-seven: **a predicted rank is a shortlist, never a verdict.** The cost of the alternative is visible here — a build that had "fixed" s59's non-existent legibility failure would have spent a knob, a rebuild and a draft render to break a frame that measures 4.97:1.
+
+## `method_learned.two_selection_defects_reached_review_on_the_same_cut_2026-08-12`
+
+en ch5's s61 and en ch6's s71 both cleared the TERMINAL image gate at `fin-assets` and were both caught one stage later by `fin-review`, on the encode. That is the gate's stated purpose failing twice in one sitting, so it is worth naming what the two have in common — **neither is a defect of the PHOTOGRAPH; both are defects of the photograph AGAINST ITS OWN CAPTION.**
+
+- **s61** is a perfectly good picture of crates. It fails only because line 5.9 says `ROUGHLY 4 TIMES` and the frame shows a **14-crate wall** — a frame that states a multiple, and states the wrong one, directly under the figure.
+- **s71** is a perfectly good picture of a book. It fails only because its own `foot:` reads **`Wiley, August 2025`** while the object is a foxed, hand-bound antique volume — inverting a beat whose entire point is a RECENT upward revision.
+
+**Why the gate cannot catch these by looking harder at images.** The gate reads the promoted photographs — as a sheet for sameness, at full resolution for micro-text. Both of these are only visible when the image is held against **the line and the on-screen element it will carry**, which at fetch time is a storyboard row rather than a composed frame. `fin-assets` was reading the right thing and the wrong pair.
+
+**The cheap correction, and it does not need a new gate** (`fix-defaults-not-gates`: the rank is correct default > unrepresentable wrong state > assert > blocking gate). For any slot whose scene carries **a figure that states a COUNT or a MULTIPLE**, or **a `foot:` that carries a DATE or a PUBLISHER**, the acceptance question is not "is this a good photograph of X" but "**does this frame contradict the number or the citation it will sit under**". Those two shapes are enumerable from the storyboard row before any fetch happens — `num` with a multiple, `foot` with a date — so the brief can name them per slot, which is what the next chapter's asset brief should do rather than asking the reviewer to be more vigilant.
+
+⚠ Both were caught, and caught at the cheapest place after the gate — so the cost was one rebuild each, not a re-render of an assembled cut. The gate is not failing at its job; it is being asked a question it cannot answer from the images alone.
+
+## `rulings_binding_on_both_cuts.s61_ratio_becomes_a_drawn_device_over_a_consenting_photograph_2026-08-12`
+
+RULED BY THE ORCHESTRATOR on `fin-assets` en ch5 attempt 3's escalation, which was correct to escalate: it spent **26 contact-sheet rounds across ~150 cells, 20+ object families and both reachable pools**, refused to ship a near-miss at a terminal gate, and handed up a decision that changes a DECLARATION it does not own. Binding on en ch5; the general limb binds any later chapter whose beat is a ratio.
+
+**THE FACTS.** Line 5.9 is `ROUGHLY 4 TIMES`. The shipped photograph is a 14-crate wall — a frame that states a multiple and states the wrong one, directly under the figure (`fin-review` en ch5's only P1 blocker). A crop was already refused with geometry: `cover` is width-limited on the 1880×1253 source so `background-position` has **0px of horizontal authority**, the ken window holds the whole wall at both extremes, the low right-hand crate physically abuts the stack's base crate, and a true 4-vs-1 window is ~420 source px = **4.6× upscale**. Then the re-fetch: every group either pool holds counts **3, 5, 8 or 10+** — the same wrong-multiple defect being repaired — and the two least-bad candidates failed on count (5 pawns) and on legibility (~2.4:1 against this chapter's measured 4.97–7.90).
+
+**THE DECISION, AND IT IS TWO HALVES THAT ONLY WORK TOGETHER.**
+
+**(a) THE RATIO BECOMES A MINIMAL DRAWN DEVICE** — five identical marks, four grouped and one apart, over a real photograph. This is `tools/packs/fin-assets.md` and `layout.image_relevance` applied exactly as written: *when the beat is an abstraction — a ratio — no photograph exists and searching harder will not conjure one; draw it.* It is the same shape as `en_tank_becomes_a_drawn_layer_2026-08-10` and settled the same way — pools proved empty by measurement, the device is pre-authorised by a document written before the problem, and drawn layers are **in-family on en and only on en** (`container_ladder_2026-08-09`: hi's photographic container ladder is the thing that REPLACES en's drawn device). ⚠ **Do NOT port to hi.** ⚠ It is **not** the §9a measure bar, which §10 rules off this frame — it states a COUNT, never a magnitude: no scale, no ticks, no numerals, no axis.
+
+**(b) AND THE PHOTOGRAPH UNDERNEATH MUST STOP ASSERTING A COMPETING COUNT.** This half is why the ruling is not simply "authorise art", and it is the constraint the blocker's own wording («never add art») was protecting: **a drawn 4-vs-1 over a photograph that visibly shows 14-vs-1 is the composition arguing with itself**, which is strictly worse than the defect being fixed. So s61's image is re-spec'd to `ue#3` — *four white eggs in a bowl and one egg beside it on a dark table* — which `fin-assets` already verified at full resolution, so **nobody re-searches**. Its recorded weakness is exactly the right one: it states the correct ratio and merely lacks SEPARATION, and separation is precisely what the drawn marks supply. Photograph and drawing then say the same true thing, and the drawing asserts what the photograph is structurally incapable of asserting — which is the same test the tank layer had to pass.
+
+⚠ **`no_return_promise` IS SATISFIED AND HERE IS WHY, since a drawn layer near a figure is where it usually is not:** «roughly four times» is an AUDITED figure already in the locked VO. The device restates a sourced comparison the video has already made; it does not forecast, extrapolate, or measure anything the script did not source. A bar with a scale would — which is the other half of why this is marks and not a bar.
+
+**A THIRD THING FALLS OUT AND MUST BE CORRECTED IN TEXT, NOT WORKED AROUND** (`container_ladder_CORRECTION_2026-08-09` is the precedent — a ladder ruling that described a file which no longer shipped). §10 claims a three-beat crate rhyme `s61 → s75/s76 → s77`. It is **already one-legged**: ch6's s77 was fetched as *"large steel shipping container standing alone in an empty yard"*, not a crate. With s61 leaving the crate family the rhyme is **s75/s76 only**, and §10 should say so rather than claim a chain that never existed on disk. ⚠ No chapter is to "restore" the rhyme by re-fetching toward a description; the description is what is wrong.
+
+## `method_learned.age_blind_search_tokens_2026-08-12`
+
+Found by `fin-assets` en ch6 attempt 2 while repairing s71, and it is the cheapest reusable finding of this session.
+
+**`book`, `hardcover` and `dust jacket` are AGE-BLIND tokens.** They describe a form factor that has looked broadly the same for four centuries, so the pools answer them with whatever is most photogenic — and antique volumes are more photogenic than current ones. Sheet 1 came back **four antique volumes out of six**, which is how the original defect (a foxed hand-bound volume under a `foot:` reading `Wiley, August 2025`) got made in the first place. Searching the same token harder just re-draws from the same distribution: 6 of the 12 candidates across the repair were rejected for the *same* antique defect the repair existed to fix.
+
+**THE FIX IS TO ADD A MODERN-ONLY PHYSICAL OBJECT TO THE QUERY, not an adjective.** «neon plastic index flags» removed the entire vintage family in one edit, because no antique volume is photographed with neon plastic tabs in it. Adjectives like *modern*, *new* or *contemporary* do not work here — they are ranking hints the pools largely ignore, while an OBJECT is a hard filter on what can be in the frame.
+
+⚠ **This is the same move as `assets.min_source_yhigh`'s sibling lesson about currency: name a DENOMINATION rather than saying "coins".** The general form: **when a query's noun is age-blind or era-blind, pin the era with an object that could only exist in the era you want.** Worth reaching for on any slot whose scene carries a `foot:` with a DATE — which is exactly the slot class that produced both of today's escaped selection defects (see `two_selection_defects_reached_review_on_the_same_cut_2026-08-12`).
+
+## `tool_fixes.fade_on_art_was_a_silent_no_op_2026-08-12`
+
+FOUND by `fin-build` en ch5 attempt 3 in its OWN snapshot pass, mid-build, not by any checker — `snapshots/qa3/b3` at 53.30s showed both drawn layers standing on screen from frame 0 instead of arriving.
+
+**`chapter-design.css:258` set `.has-photo .art { opacity: .30 !important }`, and `!important` beats a GSAP tween exactly as surely as it beats an authored inline style** — a tween animates by writing inline `opacity`, so `fade("#sN-art")` executed, reported success, and changed nothing. Every checker passed: the element existed, the timeline ran, the frame count was right, and the layer was simply always there.
+
+**The `!important` is NOT vestigial and could not just be deleted** — I checked before touching it. `japanese-money-methods` authors per-scene inline opacity on `.art` (`style="opacity:.6"`, `.72`, `.78`), which is exactly what the override exists to beat, and dropping it would silently re-brighten the drawn layers of a shipped video.
+
+**THE FIX: the resting value becomes a variable, and the `!important` stays on the declaration rather than the value.**
+```css
+.has-photo .art             { opacity: var(--art-op, .30) !important; }
+.has-photo.art-forward .art { --art-op: .52; }
+```
+Verified in Chrome, all four cases: authored inline `opacity:.78` still resolves to .30 / .52 (the override's original job, intact), and writing `--art-op` **on the `.art` element** resolves to that value (a tween can now drive it). ⚠ **The variable must be tweened on `.art` ITSELF, not on the scene** — the class rule sets it on the element, so a value inherited from the parent loses. That was the first thing I got wrong and it is the thing the next person will get wrong.
+
+**Fading the art's CHILD elements also works and needs no variable**, because the rule targets `.art` and not its children. That is what en ch5 shipped, and it remains the simpler move when the layer is an svg with countable children.
+
+⚠ `owed.en_ch4_s46_art_fade_no_op` — **en ch4's s46 has the same no-op and ch4 is LOCKED.** Its band and stream still animate, so the scene is not static, but the tank layer itself does not fade in. Fold it into `owed.en_preassembly_batch` (item 1 already reopens ch2 for the tank layer, and this reopens ch4 for the same device — one pass covers both).
+
+**The general lesson, which is the third instance of one shape today:** `stamp warn` was red-on-red, `@commons` returned an unbounded original, and `fade()` was a no-op — **all three passed every check, because all three produced a well-formed wrong result rather than an error.** A checker that asks "did it run" cannot catch any of them; only a composed frame, a measured dimension, or an eye can. That is the argument for the contact sheet and the snapshot pass being mandatory rather than advisory, and it is why the two defects that DID reach review this session were both caught on the encode.
+
+## `chapters.en.6.stagger_ruled_a_note_and_s70_carried_forward_2026-08-12`
+
+**en ch6 LOCKED at round 2, 0 blockers.** Two things it decided that later work should know.
+
+1. **The s76 → s77 ladder stagger is a NOTE, not a fix, and the reasoning is the reusable part.** At +0.38 into the dissolve there is no second ladder at all; at +0.225 both sets share fill, left edge and all five widths, so it reads as **one ladder settling** over ~4–5 frames. Both available fixes cost more than the defect: aligning breaches the watermark keep-out, and the 24px half-measure **collapses the rung5→overrun gap from 44px to 16px against a 20px rung pitch — which would make the red overrun bar read as *rung 6 of the same series***. That is precisely the `no_return_promise` failure the reviewer was told to guard hardest, so the fix would have manufactured the defect the layer exists to avoid. ⚠ Generalises: on a drawn series, **any change to inter-element spacing is a change to what the series ASSERTS**, not a layout tweak.
+
+2. ⚠ `owed.s70_amber_is_the_thinnest_on_the_cut` — s71's amber measures **3.24:1** worst-5% on the encode, and its already-accepted neighbour **s70 is thinner at 2.53:1** and was never raised. s70 is not what changed and the reviewer correctly did not reopen it. But **it is the frame that fails first if that metric is ever tightened**, so it is the calibration point to check before tightening — not a defect today.
+
+**The prediction ledger closed this chapter at nine-for-nine.** s71's ground: build predicted 31.43 on its own chain, encode measured 50.190 — direction right, value wrong by 18.8. The instrument itself reproduced round 1 within **0.01 YAVG across all twelve unchanged scenes**, so the disagreement is genuinely between the build's chain and the encode, not measurement noise. That is the whole case for `predictions_missed_a_sixth_time_2026-08-10` in one chapter: the measuring is reliable; the PREDICTING is not.
+
+## `rulings_binding_on_both_cuts.the_drawn_ink_contrast_targets_were_structurally_unreachable_2026-08-12`
+
+MEASURED by `fin-build` during the en pre-assembly batch, and it retires two numbers that have been quoted as targets all run.
+
+**THE SCRIM TRANSMITS ~38%.** `.plate` is `z-index: 0` and `.scrim` is `z-index: 1`, so the scrim composites OVER the drawn art — multiplying ink and ground together — while `.stack` type sits above the scrim and is untouched. Every contrast figure computed for a drawn layer before today was computed PRE-scrim, and every one of them landed at roughly half on the encode: ch5's s61 at **2.13:1 against a predicted 5:1**, s57 at **1.70:1 against 4.3:1**.
+
+⚠ **The design's own targets cannot be met by the knob that exists.** At 38% transmission, **3:1 requires `--art-op` 0.97 and 4.3:1 requires 1.21 — i.e. more than fully opaque.** So the 4.3:1 and 5:1 figures are not stretch goals that previous chapters missed; they are unreachable by construction, and any future stage that treats them as a gate will demand a fix that does not exist. **This is a known compensation and NOT a z-order bug** — `chapter-design.css:96` already says "Opacity 26–58%: below that the scrim and grain eat it in" — so the z-order was deliberately left alone; restructuring it would change the look of every shipped chapter to chase a number.
+
+**WHAT SHIPPED: a shared `ART_OP = 0.74`**, measured on rendered frames rather than computed. ch5 s61 **1.70 → 3.12:1** (clears WCAG 3:1), s57 1.69 → 2.18, ch4 s46 1.73 → 2.27, s49 → 2.36, ch2 s10 → 2.48 in both framings. It is bounded not by a target but by **the two limits the rules do impose, both measured**: the ink stays between each photograph's own p99 and p99.9, and under 52% of the frame's quietest type — so it never competes with the picture or the type (rule 9).
+
+**AND THE OLD `.52` WAS NOT WRONG, WHICH IS THE CALIBRATION WORTH KEEPING.** At `.52` the layers sat at ΔRGB 39.4–39.7 — **exactly ch6's encode-validated 38.8–40.7 band**, which `fin-review` measured and PASSED. So `.52` was already at the value a reviewer accepts on the encode; 0.74 lifts to 52.7–86.8. ⚠ The corollary matters more than the lift: **`fin-review` did not blocker the ch5 case at 2.13:1**, because it downscaled to 420px and read the count and the tank without effort. **Big solid shapes tolerate what glyphs do not** — so a WCAG glyph ratio is the wrong instrument for a drawn mark, and reaching for one is what produced an unreachable target in the first place.
+
+⚠ `owed.overlay_count_in_the_assembled_master` — measured today, and **the note's figure was stale**: en ch2 **30**, ch4 **26**, ch5 **32** (the note said 34; this pass added zero overlays). Re-derive the assembled total from the real per-chapter counts before ruling, not from 2 × 81.

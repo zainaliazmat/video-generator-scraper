@@ -254,9 +254,20 @@
    one override is deliberate and global. `.art-forward` buys it back for the
    scenes whose point is a PROPORTION, where the drawn mechanism still wins and
    the photograph is only there to satisfy the rule (see the hybrid finding in
-   vault/knowledge/design-vector-only-chapter.md). */
-.has-photo .art             { opacity: .30 !important; }
-.has-photo.art-forward .art { opacity: .52 !important; }
+   vault/knowledge/design-vector-only-chapter.md).
+
+   ⚠ THE RESTING VALUE IS A VARIABLE BECAUSE `!important` ALSO BEATS GSAP.
+   `!important` is the only thing that outranks an inline style, so it is the
+   right tool against per-scene AUTHORED opacity — but a tween writes inline
+   opacity too, so `fade("#sN-art")` was a SILENT NO-OP and the drawn layer
+   stood on screen from frame 0 instead of arriving. Found on passive-income-
+   number en ch5, 2026-08-12; en ch4's s46 shipped with it (locked, owed).
+   Animating the VARIABLE works, because the `!important` is on the declaration
+   and not on the value: tween `--art-op`, never `opacity`, on a `.has-photo`
+   scene. Fading the art's CHILD elements also works and needs no variable —
+   that is what en ch5 does. */
+.has-photo .art             { opacity: var(--art-op, .30) !important; }
+.has-photo.art-forward .art { --art-op: .52; }
 
 /* THE RULE THE PHOTOGRAPHS TAUGHT (2026-08-05). Drawn art over a still must be
    ADDITIVE — a mechanism, a measurement, a comparison, something the picture

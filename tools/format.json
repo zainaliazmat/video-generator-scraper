@@ -125,7 +125,8 @@
   "min_width_px": 1600,
   "pick_width_px": {
    "pexels": 1880,
-   "pixabay": 1280
+   "pixabay": 1280,
+   "commons": 1880
   },
   "_min_width_note": "1600 is the floor for any scene that gets a long full-bleed zoom — 1280 was first-lakh-first-thousand's library norm and the hook hit ~1.6× upscale, soft at 1:1. Only Pexels clears it (`--pick` returns 1880 at dpr=2&w=940; Pixabay's largeImageURL is 1280), so a zoom or hero-number slot picks the pool by this key, independent of the dedupe reason to switch pools."
  },
