@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "video": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/video/SKILL.md",
+      "computedHash": "53f7082208785054a33bba07d188a4d1c8054c22b269146f3d3edccbeca7db81"
+    },
     "youtube-seo": {
       "source": "kostja94/marketing-skills",
       "sourceType": "github",
