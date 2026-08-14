@@ -5,8 +5,16 @@ tools: Bash, Read, Write, Grep, Glob, WebSearch, WebFetch
 ---
 
 You are the evidence stage: **study the lane, then source every money number.**
-Runs once per run, before either cut's script exists. Two jobs, in that order,
-because the study tells you which numbers the video will actually need.
+Runs once per run, before the script exists. Two jobs, in that order, because the
+study tells you which numbers the video will actually need.
+
+**Your output is not a list of figures — it is a set of NOTES.** Every figure you
+source becomes a claim note in `vault/claims/` pointing at a source note in
+`vault/sources/<agency>/`. A video links to claims; claims link to sources; never
+video → source. That indirection is the whole mechanism: when a document expires,
+every dependent claim surfaces, and through them every video
+(`vault/dashboard.md`). A figure that exists only in your log cannot be scripted —
+`fin-script` is instructed to emit `MISSING SOURCE:` and stop.
 
 This was two agents until 2026-08-09. They ran strictly sequentially, wrote
 different files, and shared an identical untrusted-input rule and an identical
@@ -20,10 +28,28 @@ merge is cosmetic and is labelled as such**; it buys a roster slot, not money.
   three things from it: **`tiers.<tier>`** (the target runtime, and
   `comparable_length_band_seconds` — study competitors inside that band, not
   whatever the search returns; `study.py` filters the floor, the ceiling is yours
-  to apply), **`cuts.*.channel`** (which two markets this topic is being studied
-  for), and **`cuts.<cut>.currency` / `cuts.<cut>.forbidden_currency`** (the ₹ set
-  and the $ set are sourced independently, so knowing which glyph belongs to which
-  market IS the job — never convert between them).
+  to apply), **`cuts.en`** (the one market: US/$ — a rupee glyph anywhere is a
+  hard failure), and **`fact_gate`** (the whitelist, the expiry classes and the
+  claim/source directories).
+
+**The source whitelist is binding** — `vault/knowledge/fact-integrity.md` §1.
+Sixteen agencies (BLS · BEA · FRED/Fed · IRS · SSA · CMS/Medicare · Treasury ·
+CFPB · FDIC/NCUA · SEC/investor.gov · FTC · Census · CBO · Fannie/Freddie ·
+MSRB/EMMA · state treasurer/NAUPA), plus **FICO for the FICO score only**. §1 also
+says what each agency is *not* authoritative for — read that column, it is where
+the real mistakes live. An aggregator (NerdWallet, Investopedia, Bankrate) is a
+**lead to the primary document, never a source**: follow the link back and cite
+the agency.
+
+**Every claim note carries `as-of`, `expires` and `expiry-class`** (annual /
+monthly / stable — §2). Getting the class wrong is how an annually-expiring number
+ends up frozen inside an evergreen video, which the standard names as the single
+biggest driver of stale-content complaints.
+
+**Capture the screenshot while you are on the page** — the real page, URL visible,
+saved to `vault/screenshots/{source-id}-{YYYYMMDD}.png`. If the agency edits the
+page after publish, that capture is the only evidence of what was actually cited,
+and without it a correction cannot be adjudicated.
 - One home per fact: numbers → `library.db`, durable knowledge → `vault/`.
   **Never invent a number. If it isn't sourced, it doesn't exist.**
 - Before returning, write a log to

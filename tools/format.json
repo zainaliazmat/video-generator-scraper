@@ -348,5 +348,60 @@
    "use": "Quote a REAL, topical social post (X or Reddit) inside a scene when one genuinely relates to the video's argument. A component, never a whole architecture, and never fabricated — an invented post is a fabricated fact and breaks the never-invent rule.",
    "caution": "Real posts mean real usernames and real people on screen. Prefer posts from institutional or public accounts; do not put a private individual's handle in a monetised video criticising their money decisions."
   }
+ },
+ "packaging": {
+  "_note": "Packaging gates for Money Mavens (creator plan 2026-08-15). fin-package enforces these; the slate records the score that passed. Prose: vault/knowledge/niches/moneymavens-launch-slate.md.",
+  "title_score_min": 75,
+  "_title_score_min_note": "A REAL return from vidiq_score_title, never rounded and never estimated. Below 75, regenerate — do not proceed. Score with the FINISHED script summary as the `description`: titles score better when the tool can see what the video contains, which is why 20 of the 30 slate titles were deliberately left unscored until production. A high score on a promise the script cannot keep still fails fact-integrity gate 8 — the SS-taxation cluster had all eight generated options rejected that way.",
+  "thumbnail_objects": 1,
+  "thumbnail_red_elements": 1,
+  "thumbnail_text_words": [
+   2,
+   4
+  ],
+  "thumbnail_allcaps_words_max": 1,
+  "_thumbnail_note": "From vidiq_similar_thumbnails, US, 3-month window, across the 50K-500K view cluster of small US senior-finance channels: ONE concrete object (a form, a card, a bank window, a table) - not a person, not a chart; exactly ONE red element; 2-4 words that never repeat the title; no emoji, no brackets; high contrast, cool background, warm subject. ALL-CAPS works in this niche (Rd07Bc_Q0LM, 257,650 views) but one word per thumbnail at most.",
+  "intent_alternation": "search, browse, browse, search, browse, search — never two browse videos back to back in the first month. Search builds the durable floor; browse supplies the spikes that feed it."
+ },
+ "fact_gate": {
+  "_note": "The ten-point pre-publish gate. Canonical prose + the source whitelist: vault/knowledge/fact-integrity.md §8 and §1. ANY single failure blocks publish; fin-audit owns it.",
+  "standard": "vault/knowledge/fact-integrity.md",
+  "as_of_required": true,
+  "_as_of_note": "Every on-screen figure carries 'as of [Month Year]' ON THE FRAME that shows it. Not the description, not a closing card.",
+  "labels": [
+   "verified",
+   "estimate",
+   "opinion"
+  ],
+  "_labels_note": "Three-label discipline, on screen AND in script (fact-integrity §3). A label must never drift mid-sentence — split the sentence instead. An `estimate` shows the word example/illustration in frame plus its inputs.",
+  "expiry_classes": [
+   "annual",
+   "monthly",
+   "stable"
+  ],
+  "_expiry_note": "annual = re-verify every January (IRS brackets, contribution limits, COLA, Part B premium, IRMAA, earnings test). monthly = re-verify before every publish that uses it (CPI, fed funds, Treasury yields, FDIC rate caps, saving rate). stable = re-verify annually (FDIC limit per category, FCRA retention, RMD age + Uniform Lifetime Table). An annually-expiring number inside an evergreen video is the #1 stale-content complaint driver.",
+  "claim_notes_dir": "vault/claims",
+  "source_notes_dir": "vault/sources",
+  "_indirection_note": "A video links to CLAIMS; claims link to SOURCES. Never video -> source. That indirection is the whole mechanism: when one document expires, every dependent claim surfaces, and through them every video.",
+  "disclaimer": "This video is general financial education, not financial, tax, or legal advice. No specific product, fund, bank, or provider is recommended. Figures are current as of the date shown on screen and change over time. Confirm anything that affects your own decision with the issuing agency or a licensed professional.",
+  "disclaimer_placements": [
+   "spoken",
+   "onscreen",
+   "description",
+   "pinned"
+  ],
+  "_disclaimer_note": "All four required. spoken = within the first 45s if any figure appears before then. onscreen = lower third at the FIRST dollar figure. description = above the fold, before the chapters. pinned = on any video touching taxes, Medicare, or Social Security claiming. Additions: 'Confirm with a tax professional' (tax) / 'Confirm with Medicare.gov or SHIP, your state's free Medicare counseling program' (Medicare)."
+ },
+ "source_screenshot": {
+  "_note": "Screenshot-the-source is a DISTINCT asset class from stock photography (fact-integrity §4) and the stock rules do not apply to it. Screen-record the REAL government page — never rebuild the table in a graphics tool, which is exactly what layout.image_relevance would otherwise push you toward.",
+  "min_hold_seconds": 3.0,
+  "_min_hold_note": "3s is the floor for reading one row. Checked this against the build gate rather than assuming a conflict: check_build enforces scene.max_scene_seconds (9.0s), which 3s clears easily — scene.max_static_hold_seconds (2.0) is MOTION GUIDANCE and is not machine-enforced anywhere. So no exemption is needed. What the 2.0 does tell you still applies: a source shot must carry motion (the row highlight arriving, a slow push) or it reads as a dead frame. Hold the page, animate the highlight.",
+  "url_visible": true,
+  "highlight_rows_max": 1,
+  "_highlight_note": "Exactly ONE row or line highlighted. Never annotate more than one thing — a second annotation is the frame arguing with itself.",
+  "min_per_video": 1,
+  "capture_dir": "vault/screenshots",
+  "capture_name": "{source-id}-{YYYYMMDD}.png",
+  "scene_class": "source-shot"
  }
 }

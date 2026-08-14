@@ -97,10 +97,44 @@ lives on §E.
 
 ## E — moneymavens101 (@moneymavens101) — LIVE, 6 videos uploaded + scheduled
 The **US / English / $** finance channel — since 2026-08-15 the **only** finance
-channel ([[us-english-script-style]]). Studio:
+channel — **repositioned 2026-08-15 to US retirement money, audience 50+**
+([[us-english-script-style]]). Studio:
 https://studio.youtube.com/channel/UChNmDWhioyD5S_08AI6cSaA
-Avatar (pink coin-face): `assets/brand/moneymavens101.jpg` — watermarked onto
-every `-en` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
+
+**Brand (creator, 2026-08-15 — new logo, banner and About text).** Navy
+`#1B2A41`-family ground, cream `MM` monogram, single red underline rule. The
+banner tagline is the positioning in one line: *"Retirement money, explained
+with the source on screen."*
+Avatar: `assets/brand/moneymavens101.jpg` — watermarked onto every cut
+([[design-finance-blockframe]] §1). ⚠️ **The file on disk is still the old pink
+coin-face; the new MM mark has not been saved into the repo** — until it is,
+every render carries the retired avatar. See "Owed" below.
+
+**Positioning.** The channel covers the money decisions Americans face at 50 and
+beyond — Social Security claiming, Medicare enrollment, RMDs, credit after 60,
+bank account paperwork, and the forms that cost families thousands when nobody
+files them. Every figure comes from **SSA, Medicare, IRS, FDIC or CFPB**, shown
+on screen with its publication date. No jargon, no stock tips, no get-rich-quick.
+
+**Stated cadence: Monday, Wednesday, Friday.** Three uploads a week is a
+production constraint, not a preference — see the note under the video table.
+
+### About text (live on the channel, 2026-08-15)
+> Money rules that actually make sense — with the source on screen.
+>
+> Money Mavens breaks down the money decisions Americans face at 50 and
+> beyond: Social Security claiming, Medicare enrollment, required minimum
+> distributions, credit after 60, bank account paperwork, and the forms
+> that cost families thousands when nobody files them.
+>
+> Every figure comes from the IRS, the Social Security Administration,
+> Medicare, the FDIC, or the CFPB — shown on screen with the date it was
+> published. Real dollar examples you can run with your own numbers today.
+>
+> No jargon. No stock tips. No get-rich-quick schemes.
+> New videos Monday, Wednesday, and Friday.
+>
+> Educational content, not financial, tax, or legal advice.
 
 | Video | Slug | URL | State |
 |---|---|---|---|
@@ -112,10 +146,41 @@ every `-en` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
 | How long late payments stay on your report — 7 years | credit-history | https://youtu.be/yoN-gAATN6Y | live · archived |
 
 **All six are shipped and archived** (credit-history closed 2026-07-31).
+⚠️ **All six pre-date the 2026-08-15 repositioning** — they are general
+budgeting videos aimed at a 20-35 viewer, not retirement videos for a 50+ one.
+They are the channel's back catalogue, not its template. Do not use them as the
+style reference for a new video; use [[us-english-script-style]].
 
 **Structural note (2026-08-15):** the old ₹/$ pairing is gone. One topic now
 produces **one** upload, to this channel, researched and packaged against US
 demand — never a translation of anything ([[us-english-script-style]]).
+
+**⚠️ The cadence and the pipeline disagree — unresolved.** The About text
+promises Mon/Wed/Fri. A `/finance-video` run currently costs ~2–3 h wall clock
+(≈36 min of it ffmpeg) for ONE video, plus creator review at every chapter under
+the chapter-by-chapter rule. Three a week is reachable at SHORT tier; it is not
+reachable at MEDIUM/LONG with per-chapter review. Either the tier drops, the
+review loop loosens, or the cadence does. Decide before promising it in public —
+it is already in the About text.
+
+**The plan is live (2026-08-15).** Topic queue + title scores:
+[[niches/moneymavens-launch-slate]] (first **10 committed**, 11-30 queued). Evidence
+bar: [[fact-integrity]]. Launch gates + cadence: [[../workflows/moneymavens-90-day-plan]].
+Verification surface: [[../dashboard]].
+
+**Owed on the rebrand (2026-08-15):**
+- Save the new MM logo to `assets/brand/moneymavens101.jpg`, then regenerate the
+  watermark: `python3 tools/make_watermark.py en`. Until then every render
+  stamps the retired pink coin-face.
+- Re-check the six back-catalogue titles/thumbnails against the new positioning.
+- ~~Re-run topic research for the 50+ lane~~ — **done**, the slate replaces
+  [[niches/finance-topics-2026-07-31]] (which was ranked for a general-budgeting
+  audience and does not carry this one).
+- **Decide the speech rate.** The plan writes to 140 wpm; the voice measures 17.57
+  chars/s (~180 wpm). A 1,250-word script renders ~6:52, not 9:00. Either write
+  ~1,640 words per 9 min or slow the voice and re-measure — see
+  [[us-english-script-style]].
+- **Approve thumbnail generation** (~180-250 vidIQ credits for the first five).
 
 ⚠️ **Policy exposure:** every upload on this channel is
 synthetic-narration finance content in one repeating 9-segment template.

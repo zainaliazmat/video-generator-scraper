@@ -45,7 +45,22 @@ shipping.
    them; a gate that re-derives its own rule can only ever agree with itself.
 3. The hook's payoff promise lands inside 15 seconds.
 4. No product or platform recommended; names appear only as price evidence.
-5. Currency purity: no ₹ anywhere in the file (prose and notes included).
+5. Currency purity: no ₹ anywhere in the file (prose and notes included), and no
+   banned non-US term (`lakh`, `crore`, `cheque`, `flat`, `queue`, `mobile` as
+   phone, `-ise`/`-our` spellings, ISA/SIPP/RRSP/TFSA/PPF/EPF/SIP/NPS).
+6. **The ten-point fact gate** — `vault/knowledge/fact-integrity.md` §8, mirrored
+   in `tools/format/fin-audit.json fact_gate`. **Any single failure blocks.** In
+   order: every number has a named source in frame · every number carries "as of
+   [Month Year]" · every source is whitelisted or labelled secondary · annual
+   figures re-verified since the last January · monthly figures re-verified this
+   month · every claim tagged verified/estimate/opinion on screen AND in script ·
+   no model output without its inputs visible · the title promises nothing the
+   script does not deliver · no specific product/fund/bank/security named as a
+   recommendation · the disclaimer present in all four places (spoken, on-screen,
+   description, pinned).
+7. **Claim-note coverage:** every figure in the script resolves to a note in
+   `vault/claims/` whose `expires` is in the future. An expired claim is a FAIL,
+   not a warning — that is the stale-evergreen failure the standard exists to stop.
 6. No cite refs like `(28:4)` and no bare Latin digits in VO text — both are
    known silent TTS failures.
 7. Persona rules: no host persona, no first-person expertise, no

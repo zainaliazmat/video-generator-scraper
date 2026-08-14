@@ -25,9 +25,11 @@ THE VIDEO
 - Rendered draft: newest file in that project's renders/*.mp4
 - Composition (the actual visuals + timing + animation): index.html
 - Narration: the English VO in assets/voice/ (durations drive the scene timing)
-- Audience: US adults, 20-35, first real paychecks. Delivery is direct,
- second-person, a little blunt. Style is a bold "blockframe" motion-graphics
- look, 16:9. Educational only — no specific products recommended.
+- Audience: Americans 50+, deciding on Social Security, Medicare, RMDs,
+ credit after 60 and bank paperwork. Delivery is plain, direct and respectful —
+ never scolding, never chummy. Every figure carries its agency and publication
+ date ON SCREEN. Style is a bold "blockframe" motion-graphics look, 16:9.
+ Educational only — no specific products recommended.
 - Channel knowledge lives in vault/knowledge/ (us-english-script-style,
  niches/us-market-2026, design-finance-blockframe). Read what's useful;
  don't feel bound by it.

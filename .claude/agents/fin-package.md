@@ -39,6 +39,15 @@ release and checks the project against a runtime it does not ship on.
   that style directly: **red left-aligned hook text (a number / time-trap
   framing) over the video's OWN re-graded scene photo** — the channel's
   established composition. No centred-mega-number or bare-split alternates.
+- **The Money Mavens thumbnail pattern (creator plan 2026-08-15,
+  `packaging` in the constants file) overrides the generic style above where they
+  differ.** From `vidiq_similar_thumbnails` across the 50K–500K cluster of small
+  US senior-finance channels: **ONE concrete object** as the subject — a form, a
+  card, a bank window, a table — **not a person, not a chart**; **exactly ONE red
+  element** (circle, arrow or line, never two); **2–4 words** of on-image text
+  that **never repeat the title**; high contrast, cool background, warm subject;
+  no emoji, no brackets. ALL-CAPS does work in this niche but **one word maximum**,
+  or none.
 - Match the video's own design system (design-finance-blockframe) — never
   AI-collage, shocked-face or red-box styles.
 - **≤12 chars per line, ≤2 lines**, one focal colour, one accent. Legibility
@@ -129,8 +138,17 @@ Re-run the legibility assert and `check`-equivalent measurement on the RETURNED
 image, not on the pre-enhance render. It is a different picture.
 
 ## Publish pack — researched per market, never invented
-- Title options from YouTube autocomplete plus the competitor scoreboard,
-  researched against **US** demand (`gl=us`).
+- Title options from `vidiq_generate_titles`, run **with the finished script
+  summary as the `description`** — titles score better when the tool can see what
+  the video actually contains. Then `vidiq_score_title` on the winner.
+- **HARD GATE: the score must be ≥ `packaging.title_score_min` (75).** Record the
+  REAL number — never round up, never estimate, never proceed below it. Write it
+  into the video note as `title-score` + `title-scored-on`.
+- **A high score on a promise the script cannot keep still fails.** Precedent: an
+  entire generated cluster scored well on "keep your benefits" / "stop losing
+  money" / "minimize taxes" and all eight were rejected, because the video cannot
+  deliver those outcomes. Score is necessary, not sufficient.
+- Autocomplete plus the competitor scoreboard remain the demand evidence, `gl=us`.
   **If autocomplete returns nothing, say so — never invent evidence.**
 - Description with REAL chapter timestamps read from the render, on-screen
   source citations, verified-autocomplete tags.

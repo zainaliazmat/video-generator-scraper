@@ -1260,27 +1260,30 @@ def next_architecture(fmt=None, tier="short"):
 # generated files and threading --cut through every read.
 VIEW_DIR = os.path.join(ROOT, "tools", "format")
 AGENT_DIET = {
-    "fin-evidence":   ["tiers", "cuts"],
-    "fin-script":     ["tiers", "cuts", "tts", "scene", "script"],
-    "fin-audit":      ["tiers", "cuts", "scene", "layout", "script"],
+    "fin-evidence":   ["tiers", "cuts", "fact_gate"],
+    "fin-script":     ["tiers", "cuts", "tts", "scene", "script", "fact_gate"],
+    "fin-audit":      ["tiers", "cuts", "scene", "layout", "script", "fact_gate",
+                       "source_screenshot"],
     # fin-voice had a view until 2026-08-09; the stage is now tools/tts/prepare.py,
     # and a script reads tools/format.json whole rather than a diet of it. Its cost
     # guard needed `tiers` for target_seconds and the per-line padding — that formula
     # now lives in `char_budget` above, in one place, instead of being re-derived
     # from a slice by a prompt.
     "fin-storyboard": ["tiers", "cuts", "scene", "layout", "architectures",
-                       "architecture_lock", "chapter_design", "vector_art"],
-    "fin-assets":     ["cuts", "scene", "layout", "vector_art", "assets"],
+                       "architecture_lock", "chapter_design", "vector_art",
+                       "source_screenshot"],
+    "fin-assets":     ["cuts", "scene", "layout", "vector_art", "assets",
+                       "source_screenshot"],
     "fin-build":      ["cuts", "scene", "layout", "colors", "architectures",
                        "architecture_lock", "chapter_design", "vector_art",
-                       "video_scene", "known_benign"],
+                       "video_scene", "known_benign", "source_screenshot"],
     # fin-review = the old fin-editor view. fin-ceo never had one — its prompt named
     # no constants — and pass 2 still names none, so the merged diet is unchanged.
     # `qa` is fin-render's old row: gate two samples inside cross-dissolves at
     # qa.dissolve_sample_offsets, and that is the one thing the chapter passes cannot
     # see because a boundary does not exist until the cut is assembled.
     "fin-review":     ["cuts", "scene", "layout", "chapter_design", "vector_art", "qa"],
-    "fin-package":    ["cuts", "layout", "hyperframes_pin"],
+    "fin-package":    ["cuts", "layout", "hyperframes_pin", "packaging", "fact_gate"],
     # An agent whose prompt reads no constants file gets no view: a file nobody opens
     # is a file to keep in sync for nothing. Add one the same day its prompt names
     # the keys it needs.
@@ -1307,6 +1310,16 @@ KNOWLEDGE_DIR = os.path.join(ROOT, "vault", "knowledge")
 # "read its BOX"; `Read` then loads the whole 12-35 KB file anyway. This makes the
 # instruction executable: 104,319 B of notes carry 10,876 B of BOX (10.4%).
 BOX_DIET = {
+    # fact-integrity is the evidence bar for every Money Mavens video (2026-08-15).
+    # It reaches the four stages that can actually violate it: evidence sources the
+    # figures, script writes them, audit gates them, package writes the disclaimer
+    # and the title promise.
+    "fin-evidence": [("fact-integrity", [])],
+    "fin-script": [("fact-integrity", []),
+                   ("us-english-script-style", [])],
+    "fin-audit": [("fact-integrity", []),
+                  ("us-english-script-style", [])],
+    "fin-package": [("fact-integrity", [])],
     "fin-storyboard": [("design-finance-blockframe", []),
                        ("design-chapter-archetypes", []),
                        ("design-icons-emoji-lottie", [])],
