@@ -165,7 +165,7 @@ def build(slug, cut):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
-    ap.add_argument("--cut", required=True, choices=["hi", "en"])
+    ap.add_argument("--cut", default="en", choices=["en"])
     a = ap.parse_args()
 
     md, srt = build(a.slug, a.cut)

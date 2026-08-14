@@ -7,8 +7,8 @@ the resume unit is the clip, not the stage), ffprobes every clip, and writes
 assets/voice/timing.json atomically. Durations are MEASURED, never estimated —
 this file is the single source the composition's four timing copies derive from.
 
-  python3 tools/tts/batch.py --project studio/videos/<slug>-hi --cut hi
-  FIN_FAKE_APIS=1 python3 tools/tts/batch.py --project … --cut hi   # zero-cost
+  python3 tools/tts/batch.py --project studio/videos/<slug>-en --cut en
+  FIN_FAKE_APIS=1 python3 tools/tts/batch.py --project … --cut en   # zero-cost
 
 Exit codes: 0 ok · 1 postcondition failed · 2 terminal API error · 3 retryable.
 """
@@ -156,20 +156,20 @@ def _selftest():
         os.makedirs(vdir)
         lines = [{"id": "h1", "text": "x" * 40}, {"id": "h2", "text": "y" * 80}]
         pc.atomic_write_json(os.path.join(vdir, "lines.json"), lines)
-        assert run(tmp, "hi") == 0
+        assert run(tmp, "en") == 0
         timing = json.load(open(os.path.join(vdir, "timing.json"), encoding="utf-8"))
         assert len(timing["lines"]) == 2 and timing["total"] > 0
         # resume: a second run must not regenerate anything
         mtime = os.path.getmtime(os.path.join(vdir, "h1.mp3"))
         mtime2 = os.path.getmtime(os.path.join(vdir, "h2.mp3"))
-        assert run(tmp, "hi") == 0
+        assert run(tmp, "en") == 0
         assert os.path.getmtime(os.path.join(vdir, "h1.mp3")) == mtime, "clip was regenerated"
         # …but an EDITED line must regenerate, or the new text ships against the old
         # audio and every downstream check still passes. This is the audit-rewrites-
         # one-line case, which is the normal outcome of gate one.
         lines[0]["text"] = "z" * 41
         pc.atomic_write_json(os.path.join(vdir, "lines.json"), lines)
-        assert run(tmp, "hi") == 0
+        assert run(tmp, "en") == 0
         assert os.path.getmtime(os.path.join(vdir, "h1.mp3")) != mtime, \
             "edited line was NOT regenerated — new text is paired with old audio"
         assert open(os.path.join(vdir, "h1.txt"), encoding="utf-8").read() == "z" * 41
@@ -177,11 +177,11 @@ def _selftest():
             "an untouched line was regenerated"
         # --only regenerates just what it names, and rejects an unknown id
         m1 = os.path.getmtime(os.path.join(vdir, "h1.mp3"))
-        assert run(tmp, "hi", only=["h2"]) == 0
+        assert run(tmp, "en", only=["h2"]) == 0
         assert os.path.getmtime(os.path.join(vdir, "h1.mp3")) == m1, "--only touched another clip"
         assert os.path.getmtime(os.path.join(vdir, "h2.mp3")) != mtime2, "--only skipped its target"
         try:
-            run(tmp, "hi", only=["nope"])
+            run(tmp, "en", only=["nope"])
             raise AssertionError("--only accepted an id not in lines.json")
         except SystemExit:
             pass
@@ -190,9 +190,9 @@ def _selftest():
         # lines were byte-identical across the restyle, so a bare resume would have
         # shipped them in the retired voice with every downstream check green.
         assert open(os.path.join(vdir, ".voice"), encoding="utf-8").read() \
-            == pc.load_format()["cuts"]["hi"]["voice_id"]
+            == pc.load_format()["cuts"]["en"]["voice_id"]
         before = {i: os.path.getmtime(os.path.join(vdir, f"{i}.mp3")) for i in ("h1", "h2")}
-        assert run(tmp, "hi", voice="SOME_OTHER_VOICE_ID") == 0
+        assert run(tmp, "en", voice="SOME_OTHER_VOICE_ID") == 0
         for i in ("h1", "h2"):
             assert os.path.getmtime(os.path.join(vdir, f"{i}.mp3")) != before[i], \
                 f"{i} kept its old-voice audio after the voice changed"
@@ -200,7 +200,7 @@ def _selftest():
         # …and clips with no stamp at all stop the run rather than guess.
         os.remove(os.path.join(vdir, ".voice"))
         try:
-            run(tmp, "hi")
+            run(tmp, "en")
             raise AssertionError("unstamped clips were resumed on an unknown voice")
         except SystemExit:
             pass
@@ -212,7 +212,7 @@ def _selftest():
 def main(argv=None):
     p = argparse.ArgumentParser(description="batch TTS + timing.json for one cut")
     p.add_argument("--project", help="studio/videos/<slug>-<cut> directory")
-    p.add_argument("--cut", choices=["hi", "en"])
+    p.add_argument("--cut", default="en", choices=["en"])
     p.add_argument("--voice", help="override format.json voice id")
     p.add_argument("--model", help="override format.json model")
     p.add_argument("--seed", type=int, help="fixed seed for reproducible takes")

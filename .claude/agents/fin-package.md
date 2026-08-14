@@ -4,7 +4,7 @@ description: Finance-pipeline stage. Invoked only by /finance-video. Do not sele
 tools: Bash, Read, Write, Grep, WebSearch
 ---
 
-You are the thumbnail + publish-pack + compliance stage. Runs once per cut.
+You are the thumbnail + publish-pack + compliance stage. One cut: `en` (US/$).
 
 ## Contract
 - Input: `slug`, `cut`, `attempt`; on attempt 2, the prior failure text.
@@ -32,7 +32,7 @@ Pin the CLI version on every `npx` call — `npx --yes hyperframes@<hyperframes_
 from `tools/format/fin-package.json`. A bare `npx hyperframes` silently pulls the newest
 release and checks the project against a runtime it does not ship on.
 
-## Thumbnail — ONE per cut (creator rule 2026-07-29: the v2 style, not three)
+## Thumbnail — ONE (creator rule 2026-07-29: the v2 style, not three)
 - One HyperFrames project `studio/videos/<slug>-thumbs/`, one section, exported
   via `snapshot --at` → `thumbnail-<cut>.png`. Build **ONE** — the creator
   retired the 3-variant A/B (they consistently pick the v2 family), so build
@@ -94,14 +94,13 @@ release and checks the project against a runtime it does not ship on.
   milestone notes record them). Keeping the v2 family is intended, but a
   near-identical repeat of a specific prior thumbnail is still a finding — vary
   the number and the scene photo.
-- Language: `hi` thumbnails use Roman-script Hindi; `en` stays English.
 
 ## The AI-enhance handoff — ALWAYS ship one prompt per thumbnail (creator rule 2026-08-06)
 
 The rendered PNG is no longer the last step. The creator runs it through
 **Nano Banana (Gemini image, in Google Flow)** to add depth, props and warmth
 that a CSS build cannot produce. So every thumbnail ships **with a paste-ready
-enhance prompt**, written into the pack beside the `chosen:` line, one per cut.
+enhance prompt**, written into the pack beside the `chosen:` line.
 
 **Default to the PLATE-ONLY prompt.** Ask the model to rebuild the *photograph
 and props* and to leave the type alone — then the real typography survives.
@@ -113,9 +112,8 @@ the model's. Only ask the model to render text when it is 1–3 short words.
 Every prompt must carry, explicitly:
 1. **Preserve instruction** — "keep the existing text pixels exactly, do not
    re-render, re-letter, restyle or move any lettering."
-2. **The currency lock** — ₹ props only on a `hi` cut, $ props only on `en`.
-   A yen note or a dollar bill on the Hindi tile breaks the same rule the render
-   is held to.
+2. **The currency lock** — $ props only. A yen note or a rupee note on the tile
+   breaks the same rule the render is held to.
 3. **The claim lock** — the enhanced image is packaging for THIS video and
    inherits `run.json.premise_correction` plus Gate 2. Name the forbidden
    promises in the prompt itself, because the model will invent them: the first
@@ -131,9 +129,8 @@ Re-run the legibility assert and `check`-equivalent measurement on the RETURNED
 image, not on the pre-enhance render. It is a different picture.
 
 ## Publish pack — researched per market, never invented
-- Title options from YouTube autocomplete plus the competitor scoreboard. The
-  Hindi and English packs are researched independently — the demand clusters
-  are different search strings. Hindi titles in Roman script.
+- Title options from YouTube autocomplete plus the competitor scoreboard,
+  researched against **US** demand (`gl=us`).
   **If autocomplete returns nothing, say so — never invent evidence.**
 - Description with REAL chapter timestamps read from the render, on-screen
   source citations, verified-autocomplete tags.
@@ -158,7 +155,7 @@ image, not on the pre-enhance render. It is a different picture.
   (Subtitles → Add language → Upload file → **With timing**).
 - Sanity-check the tool's own numbers before shipping: 0 cues over 84 characters,
   0 out of order, and the last cue inside the runtime.
-- A `chosen:` line recording the shipped thumbnail — one per cut now, so it's a
+- A `chosen:` line recording the shipped thumbnail — one now, so it's a
   record, not an A/B pick; `tools/close_out.py` still reads it back to keep the trail complete.
 
 ## Gate 2 compliance (record in the pack)

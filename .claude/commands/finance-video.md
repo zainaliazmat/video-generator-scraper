@@ -1,5 +1,5 @@
 ---
-description: "Topic → rendered Hindi/₹ + US-English/$ finance videos with thumbnails and publish packs. Fully autonomous after one confirm."
+description: "Topic → a rendered US-English/$ finance video with thumbnail and publish pack. Fully autonomous after one confirm."
 argument-hint: "\"topic\" | --resume [slug] | --list | --from <stage> --slug <slug> | --dry-run | --yes"
 ---
 
@@ -88,15 +88,15 @@ slug". Never silently overwrite a run.
 slug            <slug>
 tier            SHORT · target 2:45
 style           <name>  (default was <default>[ LOCKED])    ← asked, question 2
-char budgets    hi ~1,986 (13.03 c/s) · en ~2,454 (16.1 c/s)  ← SHORT example; formula below
-voices          hi Harsh HTUuC7OeeEt6OL5fViVe · en Brian nPczCjzI2devNBz1zQrb
-est. TTS chars  ~4,500 across both cuts
+char budget     en ~2,454 (17.57 c/s)  ← SHORT example; formula below
+voice           en Brian nPczCjzI2devNBz1zQrb
+est. TTS chars  ~2,500
 est. wall clock ~2h–3h (≈36 min of that is ffmpeg)
-outputs         studio/videos/<slug>-{hi,en}/renders/ · vault/videos/<slug>/
+outputs         studio/videos/<slug>-en/renders/ · vault/videos/<slug>/
 ```
 
-Both cuts always ship, one per channel (hi → @cashguruguides,
-en → @moneymavens101) — there is nothing to ask.
+One cut ships, to @moneymavens101 (US/$) — there is nothing to ask.
+The Hindi lane and @cashguruguides were retired 2026-08-15.
 
 **Derive the char budget from SPEECH time, not runtime.** `chars_per_second` is
 chars per second *of audio*; a scene also charges non-audio padding, so
@@ -131,7 +131,7 @@ the voice stage, generate the first two VO lines only —
 `python3 tools/tts/prepare.py <slug> --cut <cut> --only 1.1 1.2`
 — and hand them over with the script's opening. Two calls, ~30 seconds. This exists
 because `passive-income-number` spent **156 calls, 52% of its whole TTS budget**, on
-style-A scripts discarded after both cuts were fully voiced; the cheap comparison
+style-A scripts discarded after the cut was fully voiced; the cheap comparison
 that settled it (`studio/voice-tests/passive-income-number/style-E-*.txt`, ch1–ch2
 only) was run 156 calls too late. If the creator changes style or voice on hearing
 the sample, re-run `fin-script` — that is the whole point, and it now costs two
@@ -144,11 +144,11 @@ Rulings, incidents, tool fixes, carry-forwards and anything you would prefix wit
 this is not a warning you can ignore, the key will be gone on the next transition.
 
 **Derive the TTS ceiling from the tier — never hardcode it.** One clip per VO
-line per cut, so `max_elevenlabs_calls = format.json tiers.<tier>.lines × 2 cuts
-× 1.2` (the 20% covers per-line regens). SHORT ⇒ 9×2×1.2 ≈ **22**, MEDIUM ⇒
-78×2×1.2 ≈ **188**, LONG ⇒ 92×2×1.2 ≈ **221**. The old fixed `30` was a SHORT-tier
-number that silently blocked every longer run at the voice stage
-(hit on japanese-money-methods LONG, 2026-08-01, where the two cuts need 184).
+line, so `max_elevenlabs_calls = format.json tiers.<tier>.lines × 1.2` (the 20%
+covers per-line regens). SHORT ⇒ 9×1.2 ≈ **11**, MEDIUM ⇒ 78×1.2 ≈ **94**,
+LONG ⇒ 92×1.2 ≈ **111**. The old fixed `30` was a SHORT-tier number that silently
+blocked every longer run at the voice stage (hit on japanese-money-methods LONG,
+2026-08-01).
 The ceiling exists to catch a runaway loop, not to cap a legitimately long video.
 
 ## 3 · The stage machine
@@ -394,52 +394,27 @@ chapter before you let it lock:
    creator request 2026-08-05 — the viewer must never be shown that the video is
    chapter-based or slide-numbered. If one appears, reject the chapter.
 
-## 3a · Pipeline the two cuts (overlap safely — where the wall-clock is won)
+## 3a · One cut, one lane (2026-08-15)
 
-Phase 1 is sequential (shared vault paths). Phase 2 (hi) and Phase 3 (en) write
-SEPARATE paths (`studio/videos/<slug>-{hi,en}/`, `*-{hi,en}.md`), so **pipeline
-them** — do not finish all of hi before starting en. The gain comes ONLY from
-overlapping stages that use different resources, never from running the same
-heavy stage twice at once.
+This used to be the dual-cut pipelining section: phase 2 (hi) and phase 3 (en)
+wrote separate paths, so the orchestrator overlapped one cut's model-bound
+stages with the other's machine-bound ones. **There is one cut now, so there is
+nothing to overlap and that machinery is gone.** Run the stage machine straight
+through.
 
-Classify each stage:
-- **Model-bound** (LLM inference, light local, independent files): `script`,
-  `audit`, `storyboard`, `package`, `voice`. Overlap these freely.
-- **Machine-bound** (saturate your CPU/GPU, already multi-core internally):
-  `assets` (fetch + vision), `build` (headless Chrome), the **encode**, and
-  `render` frame-check / QA (whisper).
+Two rules from it still hold, because they were never really about having two
+cuts:
 
-Rule: **overlap one cut's machine-bound stage with the other cut's model-bound
-stages** (e.g. write `fin-script-en` while the hi encode runs). NEVER run the
-same machine-bound stage for both cuts at once — two encodes / two builds / two
-whisper-QAs on one box split the same cores: no wall-clock gain, and memory
-thrash that can make it slower.
-
-Guardrails that make overlap safe (MUST):
-- **`fin-assets` never runs for both cuts at once.** Both dedupe against every
-  image on disk; concurrently they keep the SAME photo before either lands it (a
-  cross-cut dup slips the check), and they double the peak Pixabay/Pexels rate
-  (Pexels free tier = 200/hr → 429s). Start en-assets only after hi-assets has
-  written its images.
-- **Serialize `run.json`:** only you write it, and you process
-  task-notifications ONE AT A TIME, so every `mark` read-modify-write stays
-  atomic even with parallel agents in flight.
+- **Serialize `run.json`:** only you write it, and you process task-notifications
+  ONE AT A TIME, so every `mark` read-modify-write stays atomic even with
+  parallel chapter agents in flight.
 - **Narrative lives in `notes.md`, and you read it on purpose.** When a chapter
   brief needs a prior ruling, open `notes.md` and quote that ONE ruling into that
   agent's prompt. Never park it in `run.json` so the next fourteen transitions
-  re-read it — that was 75% of the last run's standing token bill.
-- **Budget is shared:** before a spend stage (`voice`/`assets`) on either cut,
-  check the `budget` ceiling against BOTH cuts' in-flight spend, not just this
-  cut's.
-- **Hard gates are per-cut:** an `audit`-×2 or frame-check stop on one cut never
-  stops the other; a finished hi cut still ships if en fails (§3.5).
+  re-read it — that was 75% of a past run's standing token bill.
 
-Canonical shape: `fin-script-en` during the hi encode; `fin-audit-en` /
-`tts/prepare.py --cut en` during hi render-QA; `fin-package-hi` during en voice/storyboard;
-the two `fin-assets` and the two encodes always staggered. The machine-bound
-stages are the floor — pipelining hides the model-bound work inside them but
-cannot beat the core count; going below it needs cloud/Lambda encode, not more
-orchestration.
+The machine-bound stages (`assets`, `build`, the encode, whisper QA) are the
+wall-clock floor. Going below it needs cloud/Lambda encode, not orchestration.
 
 ## 4 · Trust rules
 
@@ -477,7 +452,7 @@ orchestration.
    only thing in the run that holds them, and `vault/CLAUDE.md` calls this out as
    the distillation the next video starts from. A note left full of TODO markers is
    an unfinished close-out, not a completed one.
-3. `python3 tools/vault_commit.py commit <slug> -m "finance-video: <slug> — both cuts rendered"`
+3. `python3 tools/vault_commit.py commit <slug> -m "finance-video: <slug> — rendered"`
    (explicit paths only — the tool refuses to touch anything else).
 4. Print the completion summary: both render paths, runtimes, QA numbers,
    thumbnail paths **plus the AI-enhance prompt for each cut**, recommended
@@ -501,10 +476,10 @@ expected, not a failure.
    (`HANDOVER.md`, `NEXT-SESSION-PROMPT.md`) once folded; a session file dies
    with its session, so anything durable in it must move to a knowledge note
    first.
-3. `tools/archive_cut.py <slug> --hi <url> --en <url>` (`--dry-run` first).
+3. `tools/archive_cut.py <slug> --en <url>` (`--dry-run` first).
    **Read its output** — it prints one line per directory, and the count must
    match `ls -d studio/videos/<slug>*`.
-4. vidIQ post-publish: `score_thumbnail` on both cuts (the first time it is
-   possible — it needs a live `videoId`), then **recipe R5 at 28 days** for the
-   retention curve. ⚠️ Owned-channel tools work only for channels in
-   `vidiq_user_channels`; today that is @moneymavens101 only.
+4. vidIQ post-publish: `score_thumbnail` (the first time it is possible — it
+   needs a live `videoId`), then **recipe R5 at 28 days** for the retention
+   curve. Owned-channel tools need the channel in `vidiq_user_channels`;
+   @moneymavens101 is authorized.

@@ -43,41 +43,12 @@
       "log": "vault/videos/first-lakh-first-thousand/logs/fin-facts-1.md",
       "at": "2026-07-30T21:53:13+00:00"
     },
-    "fin-script-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-script-hi-1.md",
-      "at": "2026-07-30T22:11:50+00:00"
-    },
-    "fin-audit-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-audit-hi-1.md",
-      "at": "2026-07-30T22:20:25+00:00"
-    },
-    "fin-voice-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-voice-hi-1.md",
-      "at": "2026-07-30T22:37:29+00:00",
-      "script_sha256": "49a3853ee8214e943eeb958bdc2bf7f545dc79dd40ee812fb19251bb31625bcc"
-    },
     "fin-script-en": {
       "status": "done",
       "reason": "",
       "attempt": 1,
       "log": "vault/videos/first-lakh-first-thousand/logs/fin-script-en-1.md",
       "at": "2026-07-30T22:38:08+00:00"
-    },
-    "fin-storyboard-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-storyboard-hi-1.md",
-      "at": "2026-07-30T22:48:03+00:00"
     },
     "fin-audit-en": {
       "status": "done",
@@ -94,20 +65,6 @@
       "at": "2026-07-30T23:39:39+00:00",
       "script_sha256": "634fd26b9c1aa91c195954078ec25e783d8b359fc3fd31e11aa64d6a12637e8b"
     },
-    "fin-assets-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-assets-hi-1.md",
-      "at": "2026-07-30T23:39:39+00:00"
-    },
-    "fin-build-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-build-hi-2.md",
-      "at": "2026-07-31T05:20:43+00:00"
-    },
     "fin-storyboard-en": {
       "status": "done",
       "reason": "",
@@ -121,20 +78,6 @@
       "attempt": 1,
       "log": "vault/videos/first-lakh-first-thousand/logs/fin-assets-en-1.md",
       "at": "2026-07-31T01:09:32+00:00"
-    },
-    "fin-render-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 4,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-render-hi-4.md",
-      "at": "2026-07-31T07:32:25+00:00"
-    },
-    "fin-package-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/first-lakh-first-thousand/logs/fin-package-hi-1.md",
-      "at": "2026-07-31T03:16:47+00:00"
     },
     "fin-build-en": {
       "status": "done",

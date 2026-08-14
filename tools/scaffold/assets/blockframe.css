@@ -1,6 +1,6 @@
 /* ===========================================================================
    BLOCKFRAME — the finance design system, as ONE file.
-   Channels: @cashguruguides (₹) · @moneymavens101 ($)
+   Channel: @moneymavens101 ($) — US-only since 2026-08-15
 
    This file is the implementation. `vault/knowledge/design-finance-blockframe.md`
    is the rationale — read it for WHY, read this for WHAT.
@@ -12,13 +12,16 @@
    Why this file exists (audit 2026-07-29): fin-build used to scaffold each new
    cut by copying the PREVIOUS cut's index.html. Five videos of copy-of-a-copy
    produced five divergent stylesheets, a `.decision` that meant two different
-   components inside one run, an `.gt` chevron fix that reached `en` but never
-   `hi`, and four cuts that silently lost @font-face and rendered in Arial Black.
+   components inside one run, a `.gt` chevron fix that reached one cut but not
+   its sibling, and four cuts that silently lost @font-face and rendered in
+   Arial Black.
    One file, linked not copied, is the fix.
    =========================================================================== */
 
-/* Self-hosted variable face. Real weight 100-900 (no synthetic bold). Carries
-   U+20B9 ₹. Deterministic — no render-time network fetch, ever. */
+/* Self-hosted variable face. Real weight 100-900 (no synthetic bold).
+   Deterministic — no render-time network fetch, ever. (It still carries U+20B9 ₹
+   from the retired ₹ lane; harmless, and re-subsetting risks losing a glyph the
+   $ cut does use, e.g. U+2192 →.) */
 @font-face {
   font-family: "FinanceSans";
   src: url(fonts/NotoSansFinance-var.woff2) format("woff2-variations");
@@ -98,13 +101,12 @@ body { margin: 0; background: #000; }
    class on #root. Missing that class renders nothing (a transparent 84px box),
    which is what `pipeline_check check build` asserts against.
    Bottom-right is where YouTube's own branding watermark sits, so leave that
-   feature off for these channels — two marks in one corner. */
+   feature off for this channel — two marks in one corner. */
 #root::after {
   content: ""; position: absolute; right: 64px; bottom: 40px;
   width: 84px; height: 84px; z-index: 50; pointer-events: none;
   opacity: 0.5; background: center / contain no-repeat;
 }
-#root.cut-hi::after { background-image: url(img/wm-hi.png); }  /* @cashguruguides */
 #root.cut-en::after { background-image: url(img/wm-en.png); }  /* @moneymavens101 */
 
 .stack { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
@@ -162,8 +164,7 @@ body { margin: 0; background: #000; }
 }
 
 /* Animated and money figures must never shimmy as digits change. Grouping is
-   locale-bound and set in JS: Intl.NumberFormat("en-IN") for -hi (1,24,564),
-   "en-US" for -en. A \B(?=(\d{3})+(?!\d)) regex is WRONG for India. */
+   locale-bound and set in JS: Intl.NumberFormat("en-US") for -en (9,000). */
 .mega, .huge, .counter, .head2, .billrow, .statstrip {
   font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
 }

@@ -36,7 +36,7 @@ import os
 import re
 import sys
 
-SLUG_RE = re.compile(r"(?:vault|studio)/videos/([a-z0-9]+(?:-[a-z0-9]+)+?)(?:-(?:hi|en)(?:-ch\d+)?)?[/\s'\"`]")
+SLUG_RE = re.compile(r"(?:vault|studio)/videos/([a-z0-9]+(?:-[a-z0-9]+)+?)(?:-en(?:-ch\d+)?)?[/\s'\"`]")
 
 PROJECT_SLUG = "-home-zain-ali-Documents-YoutubeScraper"
 SESSIONS_DIR = os.path.expanduser(f"~/.claude/projects/{PROJECT_SLUG}")
@@ -318,9 +318,9 @@ def selftest():
         {"type": "assistant", "message": {"content": [
             {"type": "tool_use", "name": "Agent", "id": "t1",
              "input": {"subagent_type": "fin-build",
-                       "prompt": "slug my-video-slug cut hi; log to "
+                       "prompt": "slug my-video-slug cut en; log to "
                                  "vault/videos/my-video-slug/logs/x.md and build "
-                                 "studio/videos/my-video-slug-hi-ch2/index.html"}}],
+                                 "studio/videos/my-video-slug-en-ch2/index.html"}}],
             "usage": {"input_tokens": 10, "output_tokens": 5,
                       "cache_creation_input_tokens": 100, "cache_read_input_tokens": 900}}},
         {"type": "user", "toolUseResult": {"totalTokens": 12345, "totalDurationMs": 60000,

@@ -134,7 +134,7 @@
  * box (252px) ends 9.5px under the baseline while comma ink descends 42.19px, so
  * 32.7px hangs below the box against a 22px stack gap — whatever follows a mega
  * gets struck through. THE TRIGGER IS THE COMMA: `3.0%` descends 4.7px and never
- * collides, `₹10,00,000` does, so it hits every lakh/crore rung and nothing else.
+ * collides, a grouped currency figure does, so it hits every thousands rung and nothing else.
  * Found on passive-income-number ch2 s15, where both strings stayed legible and
  * `hyperframes check` reported 11/11 AA straight over the collision. .11em, not
  * px, so a future change to the mega's size carries its clearance with it. */

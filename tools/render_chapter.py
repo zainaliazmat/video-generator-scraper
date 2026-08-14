@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Draft-render one chapter and build its contact sheet.
 
-    python3 tools/render_chapter.py <slug> --cut hi --chapter 3
-    python3 tools/render_chapter.py <slug> --cut hi --chapter 3 --check   # gate first
+    python3 tools/render_chapter.py <slug> --cut en --chapter 3
+    python3 tools/render_chapter.py <slug> --cut en --chapter 3 --check   # gate first
     python3 tools/render_chapter.py --selftest
 
 Replaces `fin-render --chapter N` (its §0). That stage was an agent wrapping two
@@ -141,7 +141,7 @@ def selftest():
         assert composition_fps(os.path.join(tmp, "nope.html")) == DEFAULT_FPS
 
         # the stale-composition guard is the point of this file existing
-        proj = os.path.join(tmp, "studio", "videos", "s-hi-ch1")
+        proj = os.path.join(tmp, "studio", "videos", "s-en-ch1")
         os.makedirs(proj)
         for name in ("index.html", "build.mjs"):
             with open(os.path.join(proj, name), "w") as fh:
@@ -151,7 +151,7 @@ def selftest():
         global ROOT
         keep, ROOT = ROOT, tmp
         try:
-            render_chapter("s", "hi", 1)
+            render_chapter("s", "en", 1)
         except SystemExit as e:
             assert "build.mjs is newer" in str(e), e
         else:
@@ -167,7 +167,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("slug", nargs="?")
-    ap.add_argument("--cut", choices=("hi", "en"))
+    ap.add_argument("--cut", default="en", choices=("en",))
     ap.add_argument("--chapter", type=int)
     ap.add_argument("--check", action="store_true", help="run `npm run check` first")
     ap.add_argument("--timeout", type=int, default=3600)

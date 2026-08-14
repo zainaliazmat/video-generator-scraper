@@ -3,18 +3,6 @@
  "design_doc": "vault/knowledge/design-finance-blockframe.md",
  "hyperframes_pin": "0.7.66",
  "cuts": {
-  "hi": {
-   "channel": "@cashguruguides",
-   "currency": "₹",
-   "forbidden_currency": "$",
-   "locale": "en-IN",
-   "number_scale": "indian",
-   "_number_scale_note": "`locale` alone does not say how a figure reaches the screen. INDIAN = 2,2,3 digit grouping in every on-screen numeral (₹1,17,000 · ₹10,00,000 · ₹1,00,00,000) and lakh/crore WORDS in the spoken line once a figure passes ₹1,00,000 — never `1.2 lakh` as a numeral, never a western-grouped ₹117,000. Codifies what shipped on passive-income-number-hi; en is `western` (1,000s grouping, thousand/million words).",
-   "voice_id": "LHJy3mhZWsvhUjy0zUM1",
-   "voice_name": "Amrut Deshmukh",
-   "chars_per_second": 14.281,
-   "_voice_note": "Amrut Deshmukh, creator pick 2026-08-07, replaces Harsh. Free tier. 9.60% faster per line than Harsh — a voice change ALWAYS re-budgets chars_per_second. History: vault/workflows/voiceover-tts.md."
-  },
   "en": {
    "channel": "@moneymavens101",
    "currency": "$",
@@ -25,7 +13,8 @@
    "voice_name": "Brian",
    "_chars_per_second_note": "17.57 is tuned for MEDIUM/LONG. ⚠ A SHORT cut will run ~9% long on this key — re-measure before trusting it. Provenance: vault/workflows/voiceover-tts.md.",
    "chars_per_second": 17.57
-  }
+  },
+  "_note": "US/$ only since 2026-08-15. The Hindi cut and @cashguruguides are retired; `en` is the sole cut and every stage is single-cut. History: vault/knowledge/channels.md §D."
  },
  "tts": {
   "model": "eleven_multilingual_v2",

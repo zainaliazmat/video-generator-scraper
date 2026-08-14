@@ -5,11 +5,11 @@ The rule (vault/CLAUDE.md § the finished-video rule): a YouTube URL means the
 video is finished. Its home is YouTube, its knowledge home is the vault. Give
 this script the URL and it does the rest.
 
-    tools/archive_cut.py <slug> --hi <url> --en <url> [--dry-run]
+    tools/archive_cut.py <slug> --en <url> [--dry-run]
     tools/archive_cut.py --self-check
 
 Copies the text that reproduces the video (composition, prompts, VO lines,
-thumbnails) into vault/videos/<slug>/src/{hi,en,thumbs}/, verifies every file
+thumbnails) into vault/videos/<slug>/src/{en,thumbs}/, verifies every file
 landed byte-for-byte, records the URLs in the milestone note, and only then
 deletes studio/videos/<slug>*. Nothing under studio/videos is in any git, so
 the order matters: copy, verify, then delete.
@@ -58,9 +58,9 @@ KEEP = (
 )
 DROP = {"package-lock.json"}  # regenerable, and big
 
-CHANNEL = {"hi": "@cashguruguides", "en": "@moneymavens101"}
+CHANNEL = {"en": "@moneymavens101"}  # US/$ only since 2026-08-15
 
-# ponytail: two topics predate the -hi/-en convention. One-off, not a naming system.
+# ponytail: two topics predate the -en suffix convention. One-off, not a naming system.
 ALIAS = {"50-30-20-rule": ["50-30-20-thumbs"]}
 
 
@@ -68,15 +68,14 @@ def cut_dirs(root, slug):
     """studio dirs for this slug -> [(dest_name, src_dir)], one entry per dir.
 
     ⚠️ This returned a DICT until 2026-08-06 and that silently lost work. Any dir
-    whose suffix was not exactly -hi/-en/-thumbs mapped to "hi", collided, fell
+    whose suffix was not an exact known cut name mapped to one key, collided, fell
     through to the single "legacy" key, and every later collision OVERWROTE it.
     Archiving japanese-money-methods that way put 4 of its 22 directories in the
-    plan and dropped 18 — including both cuts' eight chapter projects and the -en
-    master — while printing "archived …" and exiting 0. Worse, a chapter project
-    won the "hi" key, so the real -hi cut was filed under `legacy/`.
+    plan and dropped 18 — including the eight chapter projects and the -en
+    master — while printing "archived …" and exiting 0.
 
     The dest is now the suffix itself, so it is unique by construction and a
-    collision is impossible rather than silent. Bare dir = the hi cut.
+    collision is impossible rather than silent. Bare dir = the en cut.
     """
     videos = root / "studio" / "videos"
     found = [d for d in videos.glob(f"{slug}*") if d.is_dir()]
@@ -84,7 +83,7 @@ def cut_dirs(root, slug):
     out = []
     for d in sorted(found):
         suffix = d.name[len(slug):].lstrip("-") if d.name.startswith(slug) else "thumbs"
-        out.append((suffix or "hi", d))
+        out.append((suffix or "en", d))
     return out
 
 
@@ -181,7 +180,7 @@ def self_check():
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
-        cut = root / "studio" / "videos" / "demo-hi"
+        cut = root / "studio" / "videos" / "demo-en"
         (cut / "assets" / "img").mkdir(parents=True)
         (cut / "assets" / "voice").mkdir(parents=True)
         (cut / "node_modules" / "junk").mkdir(parents=True)
@@ -189,48 +188,48 @@ def self_check():
         (cut / "package-lock.json").write_text("{}")
         (cut / "assets" / "img" / "s1.jpg.src").write_text("a prompt")
         (cut / "assets" / "img" / "s1.jpg").write_bytes(b"\xff" * 99)
-        (cut / "assets" / "voice" / "h1.txt").write_text("a line")
-        (cut / "assets" / "voice" / "h1.mp3").write_bytes(b"\x00" * 99)
+        (cut / "assets" / "voice" / "e1.txt").write_text("a line")
+        (cut / "assets" / "voice" / "e1.mp3").write_bytes(b"\x00" * 99)
         (cut / "node_modules" / "junk" / "readme.md").write_text("noise")
         # the contact sheet survives; the draft and the master do not
         (cut / "renders").mkdir()
         (cut / "renders" / "SHEET-ch1.jpg").write_bytes(b"\xff" * 99)
         (cut / "renders" / "DRAFT-ch1.mp4").write_bytes(b"\x00" * 99)
-        (cut / "renders" / "FINAL-1080p-hi.mp4").write_bytes(b"\x00" * 99)
+        (cut / "renders" / "FINAL-1080p-en.mp4").write_bytes(b"\x00" * 99)
         thumbs = root / "studio" / "videos" / "demo-thumbs"
         thumbs.mkdir()
-        (thumbs / "thumbnail-hi-v2.png").write_bytes(b"\x89PNG")
+        (thumbs / "thumbnail-en-v2.png").write_bytes(b"\x89PNG")
 
-        archive(root, "demo", {"hi": "https://youtu.be/X", "en": ""}, today="2026-01-01")
+        archive(root, "demo", {"en": "https://youtu.be/X"}, today="2026-01-01")
 
         src = root / "vault" / "videos" / "demo" / "src"
         kept = {str(p.relative_to(src)) for p in src.rglob("*") if p.is_file()}
-        assert kept == {"hi/index.html", "hi/assets/img/s1.jpg.src",
-                        "hi/assets/voice/h1.txt", "hi/renders/SHEET-ch1.jpg",
-                        "thumbs/thumbnail-hi-v2.png"}, kept
+        assert kept == {"en/index.html", "en/assets/img/s1.jpg.src",
+                        "en/assets/voice/e1.txt", "en/renders/SHEET-ch1.jpg",
+                        "thumbs/thumbnail-en-v2.png"}, kept
         assert not cut.exists() and not thumbs.exists(), "studio dirs not deleted"
         note = (root / "vault" / "videos" / "demo" / "index.md").read_text()
-        assert "https://youtu.be/X" in note and "@cashguruguides" in note, note
-        assert "`src/thumbs/thumbnail-hi-v2.png`" in note, note
+        assert "https://youtu.be/X" in note and "@moneymavens101" in note, note
+        assert "`src/thumbs/thumbnail-en-v2.png`" in note, note
 
         # a URL is mandatory: no URL, no deletion
         cut.mkdir(parents=True)
         (cut / "index.html").write_text("<html>")
         try:
-            archive(root, "demo", {"hi": "", "en": ""})
+            archive(root, "demo", {"en": ""})
             raise AssertionError("archived without a URL")
         except SystemExit:
             pass
         assert cut.exists(), "deleted a cut that had no URL"
 
     # REGRESSION (2026-08-06): every studio dir must get its own step. The dict
-    # version of cut_dirs() collapsed these eight to three and deleted nothing it
-    # had not archived, so chapter projects and the -en master were left on disk
+    # version of cut_dirs() collapsed these to fewer and deleted nothing it
+    # had not archived, so chapter projects and the master were left on disk
     # while the run reported success.
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
-        names = ["multi-hi", "multi-en", "multi-thumbs", "multi-hi-full",
-                 "multi-en-full", "multi-hi-ch1", "multi-hi-ch2", "multi-en-ch1"]
+        names = ["multi-en", "multi-thumbs", "multi-en-full",
+                 "multi-en-ch1", "multi-en-ch2"]
         for n in names:
             d = root / "studio" / "videos" / n
             d.mkdir(parents=True)
@@ -239,13 +238,11 @@ def self_check():
         assert len(steps) == len(names), f"lost dirs: {len(steps)} steps for {len(names)} dirs"
         dests = [s[1].name for s in steps]
         assert len(set(dests)) == len(dests), f"dest collision: {dests}"
-        assert set(dests) == {"hi", "en", "thumbs", "hi-full", "en-full",
-                              "hi-ch1", "hi-ch2", "en-ch1"}, dests
-        archive(root, "multi", {"hi": "https://youtu.be/X", "en": "https://youtu.be/Y"},
-                today="2026-01-01")
+        assert set(dests) == {"en", "thumbs", "en-full", "en-ch1", "en-ch2"}, dests
+        archive(root, "multi", {"en": "https://youtu.be/Y"}, today="2026-01-01")
         left = list((root / "studio" / "videos").glob("multi*"))
         assert not left, f"not deleted: {left}"
-        for n in ("hi", "hi-ch1", "en-full"):
+        for n in ("en", "en-ch1", "en-full"):
             got = (root / "vault" / "videos" / "multi" / "src" / n / "index.html").read_text()
             assert got == f"<html>multi-{n}", got
 
@@ -256,7 +253,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("slug", nargs="?")
-    p.add_argument("--hi", default="", help="YouTube URL of the Hindi cut")
     p.add_argument("--en", default="", help="YouTube URL of the English cut")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--self-check", action="store_true")
@@ -264,6 +260,6 @@ if __name__ == "__main__":
     if a.self_check:
         self_check()
     elif a.slug:
-        archive(ROOT, a.slug, {"hi": a.hi, "en": a.en}, a.dry_run)
+        archive(ROOT, a.slug, {"en": a.en}, a.dry_run)
     else:
         p.error("give a slug, or --self-check")

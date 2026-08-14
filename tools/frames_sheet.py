@@ -15,8 +15,8 @@ Each cell carries the index, the chapter + scene id, and TWO timestamps: one
 into the chapter mp4 and one into the concatenated preview, so a note can be
 scrubbed against either file.
 
-    tools/frames_sheet.py <slug> --cut hi
-    tools/frames_sheet.py <slug> --cut hi --chapters 3,4 -o /tmp/x.png
+    tools/frames_sheet.py <slug> --cut en
+    tools/frames_sheet.py <slug> --cut en --chapters 3,4 -o /tmp/x.png
 
 Exits non-zero if a chapter's render or sheet index is missing, naming it —
 never silently produces a partial sheet.
@@ -73,7 +73,7 @@ def discover(slug, cut, chapters):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
-    ap.add_argument("--cut", default="hi")
+    ap.add_argument("--cut", default="en", choices=("en",))
     ap.add_argument("--chapters", help="comma list, e.g. 3,4,5 (default: all found)")
     ap.add_argument("-o", "--out")
     a = ap.parse_args()

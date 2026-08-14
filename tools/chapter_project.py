@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate a standalone chapter project from a shipped cut, on the archetype layer.
 
-    python3 tools/chapter_project.py <slug> --cut hi --chapter 3
+    python3 tools/chapter_project.py <slug> --cut en --chapter 3
 
 Reads  studio/videos/<slug>-<cut>/index.html          (the SHIPPED photographic cut)
        studio/videos/<slug>-<cut>-ch<N>/chapter.json  (the design spec, hand-authored)
@@ -454,7 +454,7 @@ def scaffold(slug, cut, chapter):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
-    ap.add_argument("--cut", default="hi")
+    ap.add_argument("--cut", default="en", choices=("en",))
     ap.add_argument("--chapter", type=int, required=True)
     ap.add_argument("--scaffold", action="store_true", help="(re)make assets links first")
     a = ap.parse_args()

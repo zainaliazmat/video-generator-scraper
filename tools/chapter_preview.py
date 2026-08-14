@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Concatenate a cut's chapter drafts into ONE preview mp4, stream-copy.
 
-    python3 tools/chapter_preview.py <slug> --cut hi
+    python3 tools/chapter_preview.py <slug> --cut en
 
 Writes studio/videos/<slug>-<cut>-PREVIEW.mp4 and prints the joint table.
 
@@ -81,7 +81,7 @@ def chapters(slug, cut):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
-    ap.add_argument("--cut", default="hi")
+    ap.add_argument("--cut", default="en", choices=("en",))
     ap.add_argument("-o", "--out")
     a = ap.parse_args()
 

@@ -8,7 +8,7 @@ stage: ADOPTED — the sourced money-fact corpus; entries carry their own dates
 # Consumer money facts — India & USA (2026)
 
 Built for the two-version finance format (Hindi/₹ + English/$). Replaces the
-⚠ VERIFY block that sat in [[india-finance-market]]. Blog-tier figures are
+⚠ VERIFY block that sat in. Blog-tier figures are
 labelled; **only the official-tier rows should carry a claim on screen.**
 
 ## India (₹)
@@ -36,11 +36,11 @@ video's differentiator vs every translated-from-American finance channel.
 
 **Scripting nuances that matter in India:**
 - The rule applies to **in-hand**, not **CTC** — the single most common Indian
-  misread of it. Worth a dedicated beat.
+ misread of it. Worth a dedicated beat.
 - ₹30,000/mo in-hand is the right worked example: near median, matches the
-  20–28 first-salary audience. Splits to ₹15,000 / ₹9,000 / ₹6,000.
+ 20–28 first-salary audience. Splits to ₹15,000 / ₹9,000 / ₹6,000.
 - Vehicles named generically only: SIP, RD, FD, PPF, savings account, UPI.
-  Never a specific fund or bank.
+ Never a specific fund or bank.
 
 ## USA ($)
 
@@ -73,14 +73,14 @@ the Fed rather than by us. Pair the two rows: **$400 shortfall → 22% APR**.
 **Scripting nuances that matter in the US:**
 - Take-home, not gross — after tax and after 401k.
 - Paying off 20%+ APR card debt is the guaranteed-return investment; it belongs
-  inside the 20, not outside it.
+ inside the 20, not outside it.
 - $4,000/mo take-home is the worked example → $2,000 / $1,200 / $800.
 - **$3,000/mo expenses** is the emergency-fund worked example → 3-month target
-  **$9,000**, first milestone **$1,000**, at **$50/week = 20 weeks**. Chosen to
-  sit just under the $4,000 take-home example so the two videos agree.
+ **$9,000**, first milestone **$1,000**, at **$50/week = 20 weeks**. Chosen to
+ sit just under the $4,000 take-home example so the two videos agree.
 - Park it in a **high-yield savings account at a different bank, FDIC insured**.
-  Say "**1–2 days away, not instant**" (ACH reality) — the friction is the
-  feature. Never "instant access" (that's the India/UPI framing).
+ Say "**1–2 days away, not instant**" (ACH reality) — the friction is the
+ feature. Never "instant access" (that's the India/UPI framing).
 
 ## Promoted 2026-07-28 (pay-yourself-first run — HARD rows only; SOFT stayed in the run's facts-staging.md)
 
@@ -92,15 +92,15 @@ the Fed rather than by us. Pair the two rows: **$400 shortfall → 22% APR**.
 | India auto-transfer product names | **Standing Instruction (SI)** and **UPI Autopay** — say both | HDFC/SBI product pages; NPCI (caps in [[subscription-economics-2026]]) | HARD (terminology) |
 
 - **Paycheck-to-paycheck framing rule:** self-report surveys run 66% (PYMNTS
-  Jan 2026, SOFT — definition is "income spoken for", not "broke"). Say
-  "between 1 in 4 and 2 in 3, depending on how you count" or use BofA's 1-in-4
-  as the conservative floor. Never "most Americans" with no source.
+ Jan 2026, SOFT — definition is "income spoken for", not "broke"). Say
+ "between 1 in 4 and 2 in 3, depending on how you count" or use BofA's 1-in-4
+ as the conservative floor. Never "most Americans" with no source.
 - **Durable HYSA on-screen claim:** "roughly **10×** the typical savings
-  account" (3–4% vs 0.38% natl avg, Jul 2026) — order-of-magnitude holds while
-  APYs move.
+ account" (3–4% vs 0.38% natl avg, Jul 2026) — order-of-magnitude holds while
+ APYs move.
 - **No HARD "X% of salaried Indians save first" stat exists** (searched
-  PLFS/RBI/Deloitte/YouGov 2026-07-28). The honest anchor is the RBI 7.0% net
-  financial savings row above. Do not rediscover fintech-PR percentages.
+ PLFS/RBI/Deloitte/YouGov 2026-07-28). The honest anchor is the RBI 7.0% net
+ financial savings row above. Do not rediscover fintech-PR percentages.
 
 ## Promoted 2026-07-29 (good-debt-vs-bad-debt run — HARD rows only; COMPUTED amortization figures stayed in the run's facts-staging.md)
 
@@ -179,17 +179,17 @@ modern convention — don't attribute it to Clason.
 - Niche CPM/RPM tables (see [[us-market-2026]] rule zero — different topic, same disease).
 - A specific fund, bank, app or product recommendation, in either market.
 - **A high-yield savings APY.** Rates move monthly; "earning real interest instead
-  of nothing" is the durable claim. A number dates the video.
+ of nothing" is the durable claim. A number dates the video.
 - **"CICRA 2005 requires negative entries to be deleted after 7 years" — FABRICATED.
-  Never say this in an India cut.** Nine Indian blogs assert it (zetapp, gocredit,
-  freed.care, bajajhousingfinance, loansparadise, srfc, airtel, paytm and others);
-  **no primary supports it**, and the statute appears to say the opposite — CICRA
-  sets a seven-year **minimum** preservation with **no maximum**, which is why some
-  agencies were reporting data up to 25 years old (BIIA, 2015; RBI consulted on a
-  maximum and reached no conclusion). This is the **US FCRA 7-year rule imported
-  into India** by content farms. Scripting an India credit cut from search results
-  will reproduce it. The US 7-year rule (15 U.S.C. §1681c(a)) is real — **in the $
-  cut only**. Caught 2026-07-29, credit-history run.
+ Never say this in an India cut.** Nine Indian blogs assert it (zetapp, gocredit,
+ freed.care, bajajhousingfinance, loansparadise, srfc, airtel, paytm and others);
+ **no primary supports it**, and the statute appears to say the opposite — CICRA
+ sets a seven-year **minimum** preservation with **no maximum**, which is why some
+ agencies were reporting data up to 25 years old (BIIA, 2015; RBI consulted on a
+ maximum and reached no conclusion). This is the **US FCRA 7-year rule imported
+ into India** by content farms. Scripting an India credit cut from search results
+ will reproduce it. The US 7-year rule (15 U.S.C. §1681c(a)) is real — **in the $
+ cut only**. Caught 2026-07-29, credit-history run.
 - **A FICO band number beside the Experian auto-APR tiers.** Different models
-  (FICO vs VantageScore); pairing them on screen invents a relationship neither
-  source states. See the credit-history promoted block above.
+ (FICO vs VantageScore); pairing them on screen invents a relationship neither
+ source states. See the credit-history promoted block above.

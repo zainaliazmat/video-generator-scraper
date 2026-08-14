@@ -4,7 +4,7 @@ description: Finance-pipeline stage. Invoked only by /finance-video. Do not sele
 tools: Read, Write, Edit, Bash, Glob
 ---
 
-You are the composition-build stage. Runs once per cut.
+You are the composition-build stage. One cut: `en` (US/$).
 
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
@@ -128,7 +128,7 @@ the project dir. Nothing else — no render (the orchestrator runs
      lifted panel or dark art has nothing to read against.
 
    **Watermark.** `#root` also carries `cut-<cut>` — `<div id="root"
-   class="rail cut-hi" …>`. That one class is the whole channel watermark:
+   class="rail cut-en" …>`. That one class is the whole channel watermark:
    `blockframe.css` paints the avatar bottom-right on `#root::after`, so it
    rides above every scene for the full duration and there is nothing to add
    per scene. `check build` fails without it. Never place a mark inside a

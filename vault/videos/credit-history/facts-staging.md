@@ -51,18 +51,18 @@ the Hindi cut. See Claim ₹-2.
 - **Figure:** FICO Score range **300–850**. "Good" = **670–739**; **800+** = "exceptional"; lenders' best-offer cutoff sits in the **upper 700s**.
 - **Date:** current, July 2026.
 - **Sources:**
-  1. **myFICO / FICO** (primary — the score's owner defines its own range): https://www.myfico.com/credit-education/credit-scores — "Most credit scores have a 300-850 score range."
-  2. **FICO corporate blog** on the 850 ceiling: https://www.fico.com/blogs/perfect-credit-score-understanding-850-fico-score
-  3. **CFPB** consumer education poster "Understanding credit scores" (regulator): https://files.consumerfinance.gov/f/documents/cfpb_building_blocks_activities_understanding-credit-scores_poster.pdf
+ 1. **myFICO / FICO** (primary — the score's owner defines its own range): https://www.myfico.com/credit-education/credit-scores — "Most credit scores have a 300-850 score range."
+ 2. **FICO corporate blog** on the 850 ceiling: https://www.fico.com/blogs/perfect-credit-score-understanding-850-fico-score
+ 3. **CFPB** consumer education poster "Understanding credit scores" (regulator): https://files.consumerfinance.gov/f/documents/cfpb_building_blocks_activities_understanding-credit-scores_poster.pdf
 - **Tag:** **HARD** (definitional, from the score's owner, plus regulator corroboration).
 
 ### Claim $-2 — What the FICO score is made of
 - **Figure:** **Payment history 35%** · **Amounts owed (utilisation) 30%** · Length of credit history 15% · Credit mix 10% · New credit 10%.
 - **Date:** current, July 2026 (myFICO read 2026-07-29). Weights unchanged for two decades.
 - **Sources (two independent):**
-  1. **myFICO** (primary, fetched directly): https://www.myfico.com/credit-education/whats-in-your-credit-score — verbatim category weights above.
-  2. **Federal Reserve Board, *Report to the Congress on Credit Scoring and Its Effects on the Availability and Affordability of Credit*** (regulator, independent of FICO): https://www.federalreserve.gov/boarddocs/rptcongress/creditscore/general.htm — "Payment history accounts for about **35 percent** of the FICO score's predictive accuracy, consumer indebtedness accounts for about **30 percent**, and length of credit history accounts for **15 percent**." ⚠ the report is from **2007** — it corroborates the top three weights, not the 10/10 split, and is old. It is cited as independent confirmation of the two load-bearing numbers only.
-  3. **CFPB, "What is a FICO score?"** (regulator): https://www.consumerfinance.gov/ask-cfpb/what-is-a-fico-score-en-1883/
+ 1. **myFICO** (primary, fetched directly): https://www.myfico.com/credit-education/whats-in-your-credit-score — verbatim category weights above.
+ 2. **Federal Reserve Board, *Report to the Congress on Credit Scoring and Its Effects on the Availability and Affordability of Credit*** (regulator, independent of FICO): https://www.federalreserve.gov/boarddocs/rptcongress/creditscore/general.htm — "Payment history accounts for about **35 percent** of the FICO score's predictive accuracy, consumer indebtedness accounts for about **30 percent**, and length of credit history accounts for **15 percent**." ⚠ the report is from **2007** — it corroborates the top three weights, not the 10/10 split, and is old. It is cited as independent confirmation of the two load-bearing numbers only.
+ 3. **CFPB, "What is a FICO score?"** (regulator): https://www.consumerfinance.gov/ask-cfpb/what-is-a-fico-score-en-1883/
 - **Tag:** **HARD** for the 35% and 30% figures (score owner + Federal Reserve agree). **SOFT-adjacent** for the 15/10/10 tail — single-sourced to myFICO. Only 35/30 should go on screen.
 - **Script value:** "the two biggest levers are 35% + 30% = **65% of your score**" — pay on time, keep the balance low. That single line covers the whole "what builds it" beat.
 
@@ -70,27 +70,27 @@ the Hindi cut. See Claim ₹-2.
 - **Figure:** Most negative information, **7 years**. Bankruptcy **10 years**. Civil judgments: 7 years *or* until the statute of limitations expires, **whichever is longer**. Collections: 7 years from the delinquency that led to collection.
 - **Date:** statute current 2026 (FCRA as amended; FTC republished text March 2026).
 - **Sources (two independent primaries, both read directly):**
-  1. **15 U.S.C. § 1681c(a)** — the statute itself, via Cornell LII: https://www.law.cornell.edu/uscode/text/15/1681c — "Any other adverse item of information, other than records of convictions of crimes which antedates the report by more than seven years"; "Cases under title 11 … antedate the report by more than 10 years."
-  2. **CFPB, Ask CFPB** (regulator): https://www.consumerfinance.gov/ask-cfpb/how-long-does-negative-information-stay-on-my-credit-report-en-323/ — "A credit reporting company generally can report most negative information for seven years"; "Bankruptcies can stay on your report for up to ten years."
+ 1. **15 U.S.C. § 1681c(a)** — the statute itself, via Cornell LII: https://www.law.cornell.edu/uscode/text/15/1681c — "Any other adverse item of information, other than records of convictions of crimes which antedates the report by more than seven years"; "Cases under title 11 … antedate the report by more than 10 years."
+ 2. **CFPB, Ask CFPB** (regulator): https://www.consumerfinance.gov/ask-cfpb/how-long-does-negative-information-stay-on-my-credit-report-en-323/ — "A credit reporting company generally can report most negative information for seven years"; "Bankruptcies can stay on your report for up to ten years."
 - **Tag:** **HARD** — statute + regulator, read directly, in agreement. **This is the strongest claim in the file and should carry the en hero.**
 - **On-screen wording:** "**seven years**" is safe and exact. Do not say "forever". Do not say "7 years from when you pay it off" — the clock runs from the **original delinquency**, not from payment (per §1681c(a)(4) collections language).
 
 ### Claim $-4 — What bad credit costs: auto loan APR by credit tier (THE MONEY)
 - **Figure (Experian tier grid, new / used vehicle APR):**
 
-  | FICO band | Tier | New | Used |
-  |---|---|---|---|
-  | 781–850 | Super prime | **4.55%** | **6.30%** |
-  | 661–780 | Prime | 6.23% | 8.77% |
-  | 601–660 | Near prime | 9.67% | 14.03% |
-  | 501–600 | Subprime | 13.44% | 19.42% |
-  | 300–500 | Deep subprime | **16.01%** | **21.77%** |
+ | FICO band | Tier | New | Used |
+ |---|---|---|---|
+ | 781–850 | Super prime | **4.55%** | **6.30%** |
+ | 661–780 | Prime | 6.23% | 8.77% |
+ | 601–660 | Near prime | 9.67% | 14.03% |
+ | 501–600 | Subprime | 13.44% | 19.42% |
+ | 300–500 | Deep subprime | **16.01%** | **21.77%** |
 
 - **Date:** ⚠ **AMBIGUOUS.** The Experian article body says "in the first quarter (Q1) of 2026" and is dated 2026-07-13, but the table's own label reads "as of Q1 2025". **Do not put a quarter label on screen.**
 - **Sources:**
-  1. **Experian, "Average Car Loan Interest Rates by Credit Score"** (fetched directly), restating **Experian State of the Automotive Finance Market** — Experian *is* the primary owner of this dataset: https://www.experian.com/blogs/ask-experian/average-car-loan-interest-rates-by-credit-score/
-  2. **LendingTree** (independent — its own marketplace loan-request data, not Experian's): https://www.lendingtree.com/auto/refinance/rates-by-credit-score/ — average auto rate at a **700 credit score = 8.22% new / 10.75% used**. Sits in the same place as Experian's prime band (661–780: 6.23% / 8.77%), a little higher; **corroborates the shape, not the decimals.**
-  3. **Bankrate** (independent weekly rate survey): https://www.bankrate.com/loans/auto-loans/average-car-loan-interest-rates-by-credit-score/ and https://www.bankrate.com/data-center/auto-loan/ — 60-month new-car average **6.96%** as of **2026-07-23**.
+ 1. **Experian, "Average Car Loan Interest Rates by Credit Score"** (fetched directly), restating **Experian State of the Automotive Finance Market** — Experian *is* the primary owner of this dataset: https://www.experian.com/blogs/ask-experian/average-car-loan-interest-rates-by-credit-score/
+ 2. **LendingTree** (independent — its own marketplace loan-request data, not Experian's): https://www.lendingtree.com/auto/refinance/rates-by-credit-score/ — average auto rate at a **700 credit score = 8.22% new / 10.75% used**. Sits in the same place as Experian's prime band (661–780: 6.23% / 8.77%), a little higher; **corroborates the shape, not the decimals.**
+ 3. **Bankrate** (independent weekly rate survey): https://www.bankrate.com/loans/auto-loans/average-car-loan-interest-rates-by-credit-score/ and https://www.bankrate.com/data-center/auto-loan/ — 60-month new-car average **6.96%** as of **2026-07-23**.
 - ⚠ **RECORDED CONFLICT (all kept, none picked):** three different values for super-prime / "excellent credit" new-car APR are in circulation, **all attributed to Experian**: **4.55%** (Experian's own page), **4.66%** (search-surfaced restatement), **4.88%** (via Bankrate). This is exactly why no decimal goes on screen.
 - **Tag:** **SOFT on any exact decimal** (date ambiguity + a three-way conflict). **HARD on the shape**: super-prime used-car money costs roughly **6%** and deep-subprime roughly **22%** — Experian's own framing is that deep-subprime used rates are "**three times higher**" than super prime, and LendingTree/Bankrate independently land in the same band structure.
 - **On-screen rule:** say "**about three times the interest rate for the same car**" or "roughly 6% versus roughly 21%". Never a decimal, never a quarter.
@@ -117,8 +117,8 @@ Tagged **COMPUTED**, not a sourced statistic. Derived from Claim $-4 rates.
 - **Figure:** TransUnion CIBIL Score = a three-digit number from **300 to 900**. Above ~**700** is generally treated as good; lenders' best pricing starts around **750–800**.
 - **Date:** current, July 2026.
 - **Sources:**
-  1. **TransUnion CIBIL** (primary — the score's owner): https://www.cibil.com/blog/what-is-cibil-score and https://www.cibil.com/faq/credit-score-and-loan-basics — "ranges from 300 to 900". *cibil.com blocks direct fetch (HTTP 403); text obtained via domain-restricted search of cibil.com itself.*
-  2. **Union Bank of India** and **Bank of Maharashtra** published rate cards (Claim ₹-4) price loans in bands running from below-600 up to 800+, independently confirming the same scale in commercial use.
+ 1. **TransUnion CIBIL** (primary — the score's owner): https://www.cibil.com/blog/what-is-cibil-score and https://www.cibil.com/faq/credit-score-and-loan-basics — "ranges from 300 to 900". *cibil.com blocks direct fetch (HTTP 403); text obtained via domain-restricted search of cibil.com itself.*
+ 2. **Union Bank of India** and **Bank of Maharashtra** published rate cards (Claim ₹-4) price loans in bands running from below-600 up to 800+, independently confirming the same scale in commercial use.
 - **Tag:** **HARD** (definitional primary + two lenders' price cards using the scale).
 
 ### Claim ₹-2 — What CIBIL says drives the score
@@ -132,47 +132,47 @@ Tagged **COMPUTED**, not a sourced statistic. Derived from Claim $-4 rates.
 - **Figure:** A missed payment remains **visible on the CIBIL report for 36 months (3 years)** of month-by-month payment history. CIBIL's own wording adds that it "will always be a part of your credit history" even after that window. **There is no statutory auto-delete.**
 - **Date:** current, July 2026.
 - **Sources:**
-  1. **TransUnion CIBIL** (primary, via domain-restricted search of cibil.com): 36-month visibility of missed payments; and — separately — "as per the Credit Information Companies (Regulation) Act 2005, no correction, deletion or addition to any information in the database can be made by CIBIL without confirmation from the concerned bank/financial institution." https://www.cibil.com/blog/failed-credit-card-payments · https://www.cibil.com/credit-score-repair · https://www.cibil.com/faq/credit-score-and-loan-basics
-  2. **BIIA (Business Information Industry Association)**, industry press, on the actual statutory position: under **CICRA 2005 bureaus must report loan data for at least seven years, with no maximum limit specified**, which "resulted in some agencies reporting data up to 25 years old"; RBI wrote to bureaus and banks seeking views on a maximum preservation period and **no conclusion had been reached**. https://www.biia.com/india-retention-period-of-loan-information-held-at-credit-bureaus-under-discussion/ — ⚠ **dated 2015-09-08.** Recorded as the only account found of what the Act actually says; the 7-year *minimum, no maximum* reading is the load-bearing part.
-  3. **CICRA 2005 primary text** — *not obtained.* indiacode.nic.in and rbi.org.in both refused or failed to connect (see log). The statute reference is therefore second-hand.
+ 1. **TransUnion CIBIL** (primary, via domain-restricted search of cibil.com): 36-month visibility of missed payments; and — separately — "as per the Credit Information Companies (Regulation) Act 2005, no correction, deletion or addition to any information in the database can be made by CIBIL without confirmation from the concerned bank/financial institution." https://www.cibil.com/blog/failed-credit-card-payments · https://www.cibil.com/credit-score-repair · https://www.cibil.com/faq/credit-score-and-loan-basics
+ 2. **BIIA (Business Information Industry Association)**, industry press, on the actual statutory position: under **CICRA 2005 bureaus must report loan data for at least seven years, with no maximum limit specified**, which "resulted in some agencies reporting data up to 25 years old"; RBI wrote to bureaus and banks seeking views on a maximum preservation period and **no conclusion had been reached**. https://www.biia.com/india-retention-period-of-loan-information-held-at-credit-bureaus-under-discussion/ — ⚠ **dated 2015-09-08.** Recorded as the only account found of what the Act actually says; the 7-year *minimum, no maximum* reading is the load-bearing part.
+ 3. **CICRA 2005 primary text** — *not obtained.* indiacode.nic.in and rbi.org.in both refused or failed to connect (see log). The statute reference is therefore second-hand.
 - **Tag:** **SOFT** on the 36-month figure (CIBIL primary, but obtained via search index and single-sourced) and **SOFT** on the CICRA characterisation (one dated secondary). **Neither is safe as a bare number on screen without fin-script confirming it.**
 - **Recorded conflict (both kept, per contract):**
-  - Blog tier (zetapp, gocredit, freed.care, bajajhousingfinance, loansparadise, srfc, airtel, paytm): "CIBIL keeps defaulter records **7 years** from the last default; under CICRA 2005 the negative entry **must be removed automatically** after 7 years."
-  - Primary/industry tier: CICRA sets a **minimum** preservation of seven years and **no maximum**; CIBIL cannot delete anything without the lender's confirmation.
-  - These are contradictory. **The blog version appears to be the US FCRA rule imported into India.** Do not use it.
+ - Blog tier (zetapp, gocredit, freed.care, bajajhousingfinance, loansparadise, srfc, airtel, paytm): "CIBIL keeps defaulter records **7 years** from the last default; under CICRA 2005 the negative entry **must be removed automatically** after 7 years."
+ - Primary/industry tier: CICRA sets a **minimum** preservation of seven years and **no maximum**; CIBIL cannot delete anything without the lender's confirmation.
+ - These are contradictory. **The blog version appears to be the US FCRA rule imported into India.** Do not use it.
 - **Safe on-screen wording for the hi cut:** *"Your report carries a month-by-month record of the last 36 months — one missed EMI is visible there for three years, and the account history behind it does not simply disappear."* That is defensible from CIBIL's own words. **Say "3 years / 36 months", never "7 years".**
 
 ### Claim ₹-4 — What a low CIBIL score costs: risk-based home-loan pricing (THE MONEY)
 - **Figure:** Lenders publish home-loan rate cards **keyed directly to the CIBIL band**. Two independent public rate cards:
 
-  | Lender | CIBIL band | Rate |
-  |---|---|---|
-  | Union Bank of India | 800 & above | EBLR − 0.60% = **7.40%** |
-  | Union Bank of India | 750–799 | EBLR − 0.45% = **7.55%** |
-  | Union Bank of India | 700–749 | EBLR − 0.05% to + 0.05% = **7.90–8.05%** |
-  | Union Bank of India | below 700 | EBLR + 0.20% to + 0.30% = **8.15–8.30%** (+0.10% borrower risk premium) |
-  | Bank of Maharashtra | 750 & above | RLLR + 1.65% = **9.85%** |
-  | Bank of Maharashtra | 700–749 | RLLR + 2.00% = **10.20%** |
-  | Bank of Maharashtra | below 600 | RLLR + 2.65% = **10.85%** |
+ | Lender | CIBIL band | Rate |
+ |---|---|---|
+ | Union Bank of India | 800 & above | EBLR − 0.60% = **7.40%** |
+ | Union Bank of India | 750–799 | EBLR − 0.45% = **7.55%** |
+ | Union Bank of India | 700–749 | EBLR − 0.05% to + 0.05% = **7.90–8.05%** |
+ | Union Bank of India | below 700 | EBLR + 0.20% to + 0.30% = **8.15–8.30%** (+0.10% borrower risk premium) |
+ | Bank of Maharashtra | 750 & above | RLLR + 1.65% = **9.85%** |
+ | Bank of Maharashtra | 700–749 | RLLR + 2.00% = **10.20%** |
+ | Bank of Maharashtra | below 600 | RLLR + 2.65% = **10.85%** |
 
 - **Date:** Union Bank card is labelled **"w.e.f. 07.07.2025"** — a year old, rates have moved. Bank of Maharashtra card is undated in the extract (its implied RLLR ≈ 8.20%).
 - **Sources (two independent lender price cards, both on the lenders' own domains):**
-  1. **Union Bank of India**, *Rate of Interest for Retail Lending Schemes w.e.f. 07.07.2025*: https://www.unionbankofindia.co.in/pdf/retail_roi.pdf (+ https://www.unionbankofindia.co.in/english/home-loancibil.aspx)
-  2. **Bank of Maharashtra**, retail rate document: https://bankofmaharashtra.in/writereaddata/documentlibrary/e2cf8cfc-5da5-4548-85a5-0dacb1f9cea6.pdf
-  - ⚠ **Neither PDF was fetched directly** (connection refused / DNS failure — see log). Both grids come from the search index of the banks' own documents.
+ 1. **Union Bank of India**, *Rate of Interest for Retail Lending Schemes w.e.f. 07.07.2025*: https://www.unionbankofindia.co.in/pdf/retail_roi.pdf (+ https://www.unionbankofindia.co.in/english/home-loancibil.aspx)
+ 2. **Bank of Maharashtra**, retail rate document: https://bankofmaharashtra.in/writereaddata/documentlibrary/e2cf8cfc-5da5-4548-85a5-0dacb1f9cea6.pdf
+ - ⚠ **Neither PDF was fetched directly** (connection refused / DNS failure — see log). Both grids come from the search index of the banks' own documents.
 - **Tag:** **HARD on the spread** — two independent lenders' published cards agree that top-band vs bottom-band is worth roughly **0.75 to 1.00 percentage point** on a home loan. **SOFT on every specific rate** (Union Bank's card is a year stale; BoM's base rate is undated).
-- **On-screen rule:** never a specific bank, never a specific rate. The claim is **"the same loan, the same bank, priced about one percentage point apart purely on your score"** — which is what both cards show. (Named-lender ban: [[knowledge/niches/india-finance-market]].)
+- **On-screen rule:** never a specific bank, never a specific rate. The claim is **"the same loan, the same bank, priced about one percentage point apart purely on your score"** — which is what both cards show. (Named-lender ban:.)
 
 ### Claim ₹-5 — RBI consumer-protection numbers (supports the "check it before you need it" beat)
 - **Figures:**
-  - **Fortnightly reporting:** credit institutions must report to CICs on the **15th and last day of every month**, effective **1 January 2025** — so a missed payment now surfaces within about **two weeks**, not 30–45 days.
-  - **₹100 per day compensation** if a credit-information complaint is not resolved within **30 days** (CI gets 21 days, CIC gets 9); RBI circular dated **26 October 2023**, effective six months later (**26 April 2024**).
-  - **One free full credit report per calendar year** from each CIC.
-  - Also surfaced but unverified: **Credit Information Reporting Amendment Directions, 2025**, said to come into force **1 July 2026**. Contents unknown — flagged, not used.
+ - **Fortnightly reporting:** credit institutions must report to CICs on the **15th and last day of every month**, effective **1 January 2025** — so a missed payment now surfaces within about **two weeks**, not 30–45 days.
+ - **₹100 per day compensation** if a credit-information complaint is not resolved within **30 days** (CI gets 21 days, CIC gets 9); RBI circular dated **26 October 2023**, effective six months later (**26 April 2024**).
+ - **One free full credit report per calendar year** from each CIC.
+ - Also surfaced but unverified: **Credit Information Reporting Amendment Directions, 2025**, said to come into force **1 July 2026**. Contents unknown — flagged, not used.
 - **Sources:**
-  - RBI notification landing pages exist but **could not be read** (rbi.org.in returns 403; rbidocs.rbi.org.in PDFs fail with "socket closed") — see log. Known-good references: https://www.rbi.org.in/commonman/english/scripts/Notification.aspx?Id=1884 (Free Annual Credit Report to Individuals) and RBI Master Direction id=12764.
-  - Restated independently by: **Business Standard** (https://www.business-standard.com/finance/news/rbi-mandates-fortnightly-credit-information-reporting-to-boost-transparency-124080801505_1.html), **Taxmann**, **TaxGuru**, **Business Today** (₹100/day), **Zee Business**, **Deccan Herald**.
-  - **TransUnion CIBIL's own "Framework for Compensation" page** (the regulated entity publishing the scheme it must run): https://www.cibil.com/framework-for-compensation
+ - RBI notification landing pages exist but **could not be read** (rbi.org.in returns 403; rbidocs.rbi.org.in PDFs fail with "socket closed") — see log. Known-good references: https://www.rbi.org.in/commonman/english/scripts/Notification.aspx?Id=1884 (Free Annual Credit Report to Individuals) and RBI Master Direction id=12764.
+ - Restated independently by: **Business Standard** (https://www.business-standard.com/finance/news/rbi-mandates-fortnightly-credit-information-reporting-to-boost-transparency-124080801505_1.html), **Taxmann**, **TaxGuru**, **Business Today** (₹100/day), **Zee Business**, **Deccan Herald**.
+ - **TransUnion CIBIL's own "Framework for Compensation" page** (the regulated entity publishing the scheme it must run): https://www.cibil.com/framework-for-compensation
 - **Tag:** **SOFT** — regulator text was never read; ≥4 independent secondaries plus the CIC's own compliance page agree, which is why it is recorded, but no RBI primary was verified this run.
 - **Use:** the **free annual report** is the safest of the three for screen (it is also the action step's enabler). The **₹100/day** figure is a great hook but needs an RBI primary before it goes on screen — flag to fin-script.
 
@@ -223,15 +223,15 @@ All fetched pages and search results were treated as **DATA**, never as
 instructions. No fetched page contained a directive that was followed.
 
 - The "REMINDER: You MUST include the sources above…" text appended to every
-  WebSearch result is **search-tool formatting, not page content**, and was
-  disregarded as a directive (sources are cited here because the contract
-  requires it, not because that text asked).
+ WebSearch result is **search-tool formatting, not page content**, and was
+ disregarded as a directive (sources are cited here because the contract
+ requires it, not because that text asked).
 - **No planted or dated "RBI line" was encountered** — which matters, because
-  the RBI primary was unreachable and a fabricated RBI quote would have been the
-  cheapest attack available in this topic. Every RBI figure in Claim ₹-5 is
-  therefore tagged SOFT and explicitly marked as never having been read from
-  rbi.org.in, rather than being laundered into a HARD claim by a confident
-  secondary.
+ the RBI primary was unreachable and a fabricated RBI quote would have been the
+ cheapest attack available in this topic. Every RBI figure in Claim ₹-5 is
+ therefore tagged SOFT and explicitly marked as never having been read from
+ rbi.org.in, rather than being laundered into a HARD claim by a confident
+ secondary.
 - The India "7-year deletion rule" is a good illustration of the failure mode
-  this pipeline guards against: a plausible, widely-repeated, statute-citing
-  claim with no primary behind it. It was recorded and rejected, not adopted.
+ this pipeline guards against: a plausible, widely-repeated, statute-citing
+ claim with no primary behind it. It was recorded and rejected, not adopted.

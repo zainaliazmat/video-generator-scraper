@@ -13,7 +13,7 @@ anchored to and the text the frame renders, and fails when the VO speaks money
 over a bare frame.
 
 Scene sN is anchored to timing.json lines[N-1] — one line = one clip = one scene,
-the pipeline's own invariant (script-hi.md "Engine rule"). Verified per run: the
+the pipeline's own invariant (the script's "Engine rule"). Verified per run: the
 scene ids present across a cut's chapter projects must be exactly 1..len(lines).
 
 Money in the VO is detected on MAGNITUDE WORDS, not on a currency mark. Digits are

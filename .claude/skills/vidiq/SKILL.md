@@ -88,13 +88,13 @@ is *only* for "competitors of X" — do not use it for topic discovery.
 
 **a) `channelCountry` is not the audience and is not the language.** Every
 geo-ish parameter in this API means *where the channel is registered*. For our
-Hindi/₹ cut you want the video-title language:
+US/$ cut you want the video-title language plus a US geo where one is offered:
 
 ```
-outliers      → language: 'hi',            contentType: 'long'
-trending      → videoTitleLanguage: 'hi'
-channel_search→ languages: ['hi'], exactLanguage: true   (kills hi+en channels
-                                                          that mostly post en)
+outliers      → language: 'en',            contentType: 'long'
+trending      → videoTitleLanguage: 'en'
+channel_search→ languages: ['en'], exactLanguage: true
+keyword volume→ country/gl: 'us'          (the one place geo IS the audience)
 ```
 
 `channelCountry: 'IN'` alone returns Indian channels publishing in English —
@@ -141,7 +141,7 @@ Each one is priced. A whole video should not exceed ~40 credits of vidIQ.
 Run before `/finance-video`, alongside (not instead of) the vault niche notes.
 
 ```
-outliers            keyword:<area> language:'hi' contentType:'long'
+outliers            keyword:<area> language:'en' contentType:'long'
                     publishedWithin:'threeMonths' minSubscribers:1000
                     maxSubscribers:500000                              5
 outliers            same, language:'en'                                5
@@ -311,7 +311,7 @@ Per `vault/CLAUDE.md`'s two-home rule:
 
 - **Raw scraped rows** stay in `library.db`. Do not paste vidIQ JSON into vault
   notes.
-- **The finding** — "Hindi breakouts in this lane run 15–22 min", "this phrase
+- **The finding** — "breakouts in this lane run 15–22 min", "this phrase
   has no in-country volume", "retention falls off a cliff at 0:38" — goes to the
   right vault note, dated, with the tool + params that produced it so it can be
   re-run.

@@ -4,7 +4,7 @@ description: Finance-pipeline stage. Invoked only by /finance-video. Do not sele
 tools: Bash, Read, Write, Edit
 ---
 
-You are the stock-image stage. Runs once per cut. Image rejection is the top
+You are the stock-image stage. One cut: `en` (US/$). Image rejection is the top
 defect source on record — your job is to LOOK at every image, not to fetch.
 
 ## Contract
@@ -36,7 +36,7 @@ Nothing else.
 Query knobs apply per slot in the manifest (compose freely, e.g. `rupee notes@pexels#3`):
 `#N` starts from the Nth result; `@pexels` fetches from **Pexels** — a separate,
 non-overlapping pool: reach for it when a slot keeps failing the cross-project md5
-dedup (the ₹/India Pixabay pool is small and largely spent). Needs `PEXELS_API_KEY`.
+dedup (Pixabay's usable pool thins fast on a repeated topic). Needs `PEXELS_API_KEY`.
 
 1. **Build sheets:** `--manifest <img>/manifest.json --candidates 6`. Per slot this
    runs ONE API search + downloads 6 small previews and tiles them into a numbered
@@ -48,14 +48,14 @@ dedup (the ₹/India Pixabay pool is small and largely spent). Needs `PEXELS_API
    `vault/knowledge/stock-photo-sourcing.md` itself only when a fetch keeps failing and
    you need the measured numbers):
    - demonetised pre-2016 ₹500 notes (current series is stone grey)
-   - dollars answering a ₹ query, and vice versa
+   - a non-US currency answering a $ query
    - readable brand marks — payment terminals, cards, logos
    - **never a phone-screen photo as a background** (someone else's brand, and
      the brightest thing in frame — has shipped three times undetected)
    - chart direction contradicting the VO line
    - faces on dense scenes — hands and objects don't fight typography
    - **no identifiable person as the subject of a negative money claim** — a
-     recognisable face under "you waste ₹24,564/yr" violates the licence
+     recognisable face under "you waste $1,596/yr" violates the licence
      (unflattering use). Object-led is the default, not the fallback.
    If a fine detail is ambiguous at grid size, confirm the chosen cell's full image
    with Read after step 3. If ALL six fail, edit that slot's query (synonym /
@@ -163,8 +163,8 @@ to it.
    do you Read the remote sheet: one vision pass over twelve, same as the photo
    flow. It prints how many cells it actually got (`9/12`), so a preview that
    failed to download cannot pass as a rejected candidate. Reject on the
-   same trap list plus: wrong currency symbol drawn into the artwork ($ in a ₹
-   cut is the commonest), a readable brand mark, and any asset whose people
+   same trap list plus: wrong currency symbol drawn into the artwork (a rupee
+   glyph is the commonest), a readable brand mark, and any asset whose people
    carry a different illustration style from the one already chosen for this
    video — style consistency across the cut beats any single asset.
 3. **Save a new asset into the library before using it:**

@@ -84,6 +84,6 @@ India math is built bottom-up instead of copying a survey average.
 1. **US leads with a survey gap** ($86 guessed vs $219 real) — the drama is *self-deception*.
 2. **India leads with a bottom-up stack** (₹2,047/mo itemised) — the drama is *addition*. Indian viewers price-check on screen instantly; a survey average would get called fake, an itemised list of real price cards cannot be.
 3. Both land the same shape: one count-up to an annual number, then translated into **weeks of your own salary**.
-4. Neither script names a product as a recommendation — platforms appear only as price evidence. (Educational-only rule, [[knowledge/niches/india-finance-market]].)
+4. Neither script names a product as a recommendation — platforms appear only as price evidence. (Educational-only rule.)
 
-Related: [[knowledge/niches/india-finance-market]] · [[knowledge/niches/us-market-2026]] · [[videos/needs-vs-wants/script-hi]] · [[videos/needs-vs-wants/script-en]]
+Related: [[knowledge/niches/us-market-2026]] · [[videos/needs-vs-wants/script-hi]] · [[videos/needs-vs-wants/script-en]]

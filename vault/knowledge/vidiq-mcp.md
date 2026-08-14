@@ -60,32 +60,32 @@ Two videos are already live and waiting for it: `credit-history`
 ## Decisions
 
 1. **Measurement only.** The generation family (`generate_video`,
-   `generate_script`, `generate_thumbnail`, `voiceover_generate`,
-   `generate_music`, `motion_graphics`, `compose`, …) is **not used.** The
-   pipeline owns production end-to-end and
-   [[design-finance-blockframe]] §0 is a code-enforced architecture lock a
-   generated asset cannot satisfy. Secondary reason: 22–25 credits each is most
-   of a topic-selection pass. Generic AI video is the crowd we are trying to
-   leave, not join.
+ `generate_script`, `generate_thumbnail`, `voiceover_generate`,
+ `generate_music`, `motion_graphics`, `compose`, …) is **not used.** The
+ pipeline owns production end-to-end and
+ [[design-finance-blockframe]] §0 is a code-enforced architecture lock a
+ generated asset cannot satisfy. Secondary reason: 22–25 credits each is most
+ of a topic-selection pass. Generic AI video is the crowd we are trying to
+ leave, not join.
 2. **No `fin-*` agent calls it during a run.** Same conclusion as
-   [[claude-design-mcp]], for a different reason: the agents have no credit
-   budget to reason about and a mid-run 402 would fail a stage. vidIQ is used
-   *around* `/finance-video` — topic selection before, autopsy after — by the
-   orchestrating session, which can read `vidiq_balance` first.
+ [[claude-design-mcp]], for a different reason: the agents have no credit
+ budget to reason about and a mid-run 402 would fail a stage. vidIQ is used
+ *around* `/finance-video` — topic selection before, autopsy after — by the
+ orchestrating session, which can read `vidiq_balance` first.
 3. **Nothing it returns is a fact.** Volumes, RPMs and
-   `video_earnings_estimate` are models with a date on them.
-   [[niches/us-market-2026]] already records the cost of treating guessed CPMs
-   as evidence. Findings go into the right vault note dated and with the tool +
-   params that produced them; raw JSON goes nowhere.
+ `video_earnings_estimate` are models with a date on them.
+ [[niches/us-market-2026]] already records the cost of treating guessed CPMs
+ as evidence. Findings go into the right vault note dated and with the tool +
+ params that produced them; raw JSON goes nowhere.
 4. **Read-only against YouTube.** The only write verb is
-   `update_competitors`, which edits our own watchlist. It cannot upload or
-   retitle anything, so it needs no ship-gate.
+ `update_competitors`, which edits our own watchlist. It cannot upload or
+ retitle anything, so it needs no ship-gate.
 
 ## The trap worth naming here
 
 Every geo parameter in the API means **where the channel is registered** — not
 the audience, not the language. `channelCountry: 'IN'` returns Indian channels
 publishing in English, which is a different market from the one
-[[niches/india-finance-market]] describes. The Hindi cut's data comes from
+ describes. The Hindi cut's data comes from
 `language: 'hi'` (+ `contentType: 'long'`, which non-English requires). Getting
 this backwards produces a confident, well-sourced, wrong topic pick.

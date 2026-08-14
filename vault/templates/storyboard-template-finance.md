@@ -1,19 +1,19 @@
 ---
-summary: Storyboard SPEC template for the FINANCE channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, scene-DOM + GSAP cue table, written straight into index.html (no build.mjs). Copy to vault/videos/<slug>/, fill, then build. Forked from storyboard-template.md, which encodes the bright TechToolTester system and does not apply here.
+summary: Storyboard SPEC template for the FINANCE channel (@moneymavens101 $) — dark blockframe, scene-DOM + GSAP cue table, written straight into index.html (no build.mjs). Copy to vault/videos/<slug>/, fill, then build. Forked from storyboard-template.md, which encodes the bright TechToolTester system and does not apply here.
 updated: 2026-07-28
-source: the shipped needs-vs-wants pair + [[../knowledge/design-finance-blockframe]]
+source: the shipped needs-vs-wants cut + [[../knowledge/design-finance-blockframe]]
 stage: ADOPTED — template for finance cuts
 ---
 
-# STORYBOARD — <video title> · <hi | en> cut
+# STORYBOARD — <video title> · en cut
 
 **Project:** `studio/videos/<slug>-<cut>/` · **Script:** `script-<cut>.md`
 **Design:** [[../knowledge/design-finance-blockframe]] — the **dark** system.
 Do **not** use `design-techtooltester` (bright, non-finance) for this format.
-**Channel:** <@cashguruguides ₹ | @moneymavens101 $>
+**Channel:** @moneymavens101 ($)
 **Tier:** <SHORT 9-segment blockframe | MEDIUM 8:30 per-line | LONG >10min per-line>
-**Runtime target:** <mm:ss> · **VO:** <Harsh `HTUuC7…` hi | Brian `nPczCj…` en>
-**Rate:** <Hindi 12.5 chars/s | English 15 chars/s> · **Grade:** dark blockframe
+**Runtime target:** <mm:ss> · **VO:** Brian `nPczCj…`
+**Rate:** English ~17.6 chars/s (`tools/format.json`) · **Grade:** dark blockframe
 
 ## Colour semantics for THIS video (derived from the thesis — mandatory)
 

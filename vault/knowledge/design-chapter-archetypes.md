@@ -43,7 +43,7 @@ stage: ADOPTED — the standing layout system for chapter-based cuts
 > 10. **Building a chapter is a generator job** — `tools/chapter_project.py`. The
 >    generator owns timings, strings, `.bg`, audio and shipped motion; the spec owns
 >    archetype, ground, whether art survives, the art, the measure bar. Chapter
->    membership comes from the VO line id, so `-en` is never `-hi`'s map.
+>    membership comes from the VO line id, so the map is derived, never hand-kept.
 >
 > **Open the body when:** you are BUILDING or FIXING a composition — §"What a drawn
 > layer has to look like" and §"The gotchas that cost renders" are eight failures
@@ -257,7 +257,7 @@ fourteen scene chapter is the top of the range, not the target.
    for a whole multiple of 3.
 5. **An absolutely-positioned `<p>` keeps its UA margin.** `.measure-lab` shipped
    without `margin: 0`, so its 1em top margin pushed every measure label 22px
-   down onto its own track, in both cuts, on every chapter that carries a bar —
+   down onto its own track, on every chapter that carries a bar —
    invisible in source, obvious on the encode, and the creator caught it before
    we did (2026-08-06). Every other text class in `blockframe.css` sets
    `margin: 0`; a new absolutely-positioned text component must too, and should

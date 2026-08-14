@@ -97,9 +97,8 @@ function fill(sel, at, dur) {
   tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: dur == null ? 0.8 : dur, ease: "power2.out" }, at);
 }
 
-/** count a number up, grouped for the cut's locale.
-    `locale` is "en-IN" for -hi (1,24,564) and "en-US" for -en. Never group with
-    a regex — \B(?=(\d{3})+(?!\d)) is wrong for India and prints 124,564.
+/** count a number up, grouped for the cut's locale ("en-US"). Never group with
+    a hand-rolled regex — Intl handles the separator rules.
     Seek-safe: the value is derived from the tween's own progress, not accumulated. */
 function countUp(sel, at, from, to, locale, dur, prefix, suffix) {
   var fmt = new Intl.NumberFormat(locale || "en-US");

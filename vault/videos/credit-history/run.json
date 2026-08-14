@@ -37,56 +37,6 @@
       "log": "vault/videos/credit-history/logs/fin-facts-2.md",
       "at": "2026-07-29T06:50:36+00:00"
     },
-    "fin-script-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/credit-history/logs/fin-script-hi-2.md",
-      "at": "2026-07-29T07:05:13+00:00"
-    },
-    "fin-audit-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/credit-history/logs/fin-audit-hi-1.md",
-      "at": "2026-07-29T07:26:54+00:00"
-    },
-    "fin-voice-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/credit-history/logs/fin-voice-hi-1.md",
-      "at": "2026-07-29T07:31:08+00:00",
-      "script_sha256": "c45cfe51f577239fcdf32d1f61ae89f710b8a25853a73eb6444b2fd547f37590"
-    },
-    "fin-storyboard-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/credit-history/logs/fin-storyboard-hi-1.md",
-      "at": "2026-07-29T07:44:15+00:00"
-    },
-    "fin-assets-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/credit-history/logs/fin-assets-hi-1.md",
-      "at": "2026-07-29T08:06:06+00:00"
-    },
-    "fin-build-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/credit-history/logs/fin-build-hi-2.md",
-      "at": "2026-07-29T08:56:15+00:00"
-    },
-    "fin-render-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/credit-history/logs/fin-render-hi-2.md",
-      "at": "2026-07-29T09:54:21+00:00"
-    },
     "fin-script-en": {
       "status": "done",
       "reason": "",
@@ -122,13 +72,6 @@
       "attempt": 1,
       "log": "vault/videos/credit-history/logs/fin-assets-en-1.md",
       "at": "2026-07-29T10:10:29+00:00"
-    },
-    "fin-package-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/credit-history/logs/fin-package-hi-1.md",
-      "at": "2026-07-29T10:10:36+00:00"
     },
     "fin-build-en": {
       "status": "done",

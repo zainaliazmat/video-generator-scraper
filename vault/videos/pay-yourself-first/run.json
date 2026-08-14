@@ -37,63 +37,6 @@
       "log": "vault/videos/pay-yourself-first/logs/fin-facts-1.md",
       "at": "2026-07-27T22:48:55+00:00"
     },
-    "fin-script-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-script-hi-1.md",
-      "at": "2026-07-27T22:52:42+00:00"
-    },
-    "fin-audit-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-audit-hi-1.md",
-      "at": "2026-07-27T22:57:06+00:00"
-    },
-    "fin-voice-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-voice-hi-1.md",
-      "at": "2026-07-27T23:00:07+00:00",
-      "script_sha256": "469f1b81726670a093d1e752ad840a000928371ca45ac8954545964a9341b8e7"
-    },
-    "fin-storyboard-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-storyboard-hi-1.md",
-      "at": "2026-07-27T23:05:17+00:00"
-    },
-    "fin-assets-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-assets-hi-1.md",
-      "at": "2026-07-27T23:16:35+00:00"
-    },
-    "fin-build-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-build-hi-1.md",
-      "at": "2026-07-27T23:31:30+00:00"
-    },
-    "fin-render-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-render-hi-1.md",
-      "at": "2026-07-28T00:48:56+00:00"
-    },
-    "fin-package-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/pay-yourself-first/logs/fin-package-hi-1.md",
-      "at": "2026-07-28T00:58:44+00:00"
-    },
     "fin-script-en": {
       "status": "done",
       "reason": "",

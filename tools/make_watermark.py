@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Channel avatar -> the on-video watermark the scaffold ships.
 
-    tools/make_watermark.py hi   # assets/brand/cashguruguides.jpg  -> wm-hi.png
+    tools/make_watermark.py en   # assets/brand/moneymavens101.jpg -> wm-en.png
     tools/make_watermark.py en   # assets/brand/moneymavens101.jpg  -> wm-en.png
 
 The avatars arrive as square JPEGs: a circular mark on a white field. Pasted
@@ -14,7 +14,7 @@ import sys, os
 from PIL import Image, ImageDraw
 
 SIZE = 256
-SOURCES = {"hi": "cashguruguides.jpg", "en": "moneymavens101.jpg"}
+SOURCES = {"en": "moneymavens101.jpg"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 

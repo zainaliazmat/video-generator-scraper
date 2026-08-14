@@ -1,6 +1,6 @@
 ---
-summary: The /finance-video pipeline — one topic in, a rendered Hindi/₹ video (@cashguruguides) and a US-English/$ video (@moneymavens101) out, each with 3 thumbnail variants and a researched publish pack. Eleven fin-* agents own judgment; scripts in tools/ own mechanics; pipeline_check.py is the only thing that can mark a stage done.
-updated: 2026-07-28
+summary: The /finance-video pipeline — one topic in, one rendered US-English/$ video (@moneymavens101) out, with a thumbnail and a researched publish pack. US-only since 2026-08-15 (the Hindi/₹ cut and @cashguruguides are retired). Eleven fin-* agents own judgment; scripts in tools/ own mechanics; pipeline_check.py is the only thing that can mark a stage done.
+updated: 2026-08-15
 source: docs/superpowers/specs/2026-07-27-finance-video-agent-pipeline-design.md (spec + 5 review rounds, 24/24 consensus) — this note is the human-facing operating doc
 stage: ADOPTED — the human doc for /finance-video
 ---
@@ -20,16 +20,16 @@ FIN_FAKE_APIS=1 /finance-video "…" --dry-run     # zero-credit rehearsal
 ## What a run produces
 
 ```
-studio/videos/<slug>-<cut>/renders/PUBLISH-1080p-<cut>.mp4   (hi + en — the upload)
-studio/videos/<slug>-<cut>/renders/captions-<cut>.srt        (hi + en — the subtitles)
-studio/videos/<slug>-thumbs/thumbnail-{hi,en}.png            (ONE per cut, not variants)
-vault/videos/<slug>/   scripts, audits, storyboards, publish packs, narration-{hi,en}.md,
+studio/videos/<slug>-en/renders/PUBLISH-1080p-en.mp4   (the upload)
+studio/videos/<slug>-en/renders/captions-en.srt        (the subtitles)
+studio/videos/<slug>-thumbs/thumbnail-en.png           (ONE, not variants)
+vault/videos/<slug>/   script, audit, storyboard, publish pack, narration-en.md,
                        run.json, logs/
 ```
 
-Both cuts always ship, one per channel. The `-en` cut is a US **rewrite** (never
-a translation): $ figures, US institutions, Brian voice. Hindi cut: standard
-Hindi, Harsh voice ([[knowledge/niches/india-finance-market]]).
+One cut, one channel: **@moneymavens101, US/$**. It is written for the US market
+from the start — $ figures, US institutions, US shocks, Brian voice — never a
+translation of anything ([[knowledge/us-english-script-style]]).
 
 ## The moving parts (one home per fact)
 
@@ -68,14 +68,14 @@ architecture, not a longer run of the same one. Rule 0 of
 - Editing a script after voice ran invalidates everything downstream (content
   hash in run.json) — stale mp3s cannot ship on resume.
 - `fin-facts` writes only to `facts-staging.md`; HARD facts are promoted to
-  [[knowledge/money-facts-2026]] **after** both renders pass. A bad run is one
+  [[knowledge/money-facts-2026]] **after** the render passes. A bad run is one
   `git revert` of explicit paths (`tools/vault_commit.py`).
 - Fetched pages, transcripts and autocomplete are treated as untrusted data in
   every agent that touches them; no agent reads `.env` or writes `.claude/`.
 
 ## Still human (owed after every run)
 
-Proof-listen (hi, en) · thumbnail pick (write it into the pack's `chosen:`
+Proof-listen · thumbnail pick (write it into the pack's `chosen:`
 line) · upload · analytics after 28 days — `fin-archive` may not write
 [[knowledge/best-practices]] until those analytics exist.
 
@@ -97,8 +97,7 @@ When every chapter of a cut is locked you get **two artifacts, together**:
 | `studio/videos/<slug>-<cut>-PREVIEW.mp4` | all chapters concatenated, stream-copy |
 
 **The numbering is the protocol.** Reply with frame numbers — *"#7 and #12 are
-wrong"* — and each resolves to exactly one frame. Numbers are stable across fix
-rounds for a cut.
+wrong"* — and each resolves to exactly one frame. Numbers are stable across fix rounds.
 
 Two things about the preview that are expected, not defects: the chapter joints
 are **hard cuts** (the cross-dissolve only returns in the full assembly), and its
@@ -140,10 +139,10 @@ Two checks that are worth the minutes, because neither the log nor
 the narration text on the video.
 
 ```bash
-python3 tools/transcript.py <slug> --cut hi     # and --cut en
+python3 tools/transcript.py <slug> --cut en
 ```
 
-Writes two files per cut:
+Writes two files:
 
 - `studio/videos/<slug>-<cut>/renders/captions-<cut>.srt` — **the upload.**
   YouTube Studio → the video → Subtitles → Add language → *Upload file* →

@@ -4,12 +4,12 @@
 A stage is `done` when THIS script says so, never on an agent's say-so (spec E-1).
 
   # verify one stage's artifacts:
-  python3 tools/pipeline_check.py check voice --slug credit-card-trap --cut hi
+  python3 tools/pipeline_check.py check voice --slug credit-card-trap --cut en
 
   # verify AND record the result in vault/videos/<slug>/run.json (the only
   # writer of `done`; the orchestrator calls this, agents never do):
-  python3 tools/pipeline_check.py mark voice --slug credit-card-trap --cut hi \
-      --attempt 1 --log vault/videos/credit-card-trap/logs/fin-voice-hi-1.md
+  python3 tools/pipeline_check.py mark voice --slug credit-card-trap --cut en \
+      --attempt 1 --log vault/videos/credit-card-trap/logs/fin-voice-en-1.md
 
   # offline fixture test (needs ffmpeg/ffprobe, no network, no credits):
   python3 tools/pipeline_check.py --selftest
@@ -1700,7 +1700,7 @@ def drain_to_notes(run, slug):
             _drain(run[section], None, section, moved)   # underscore rule only
     chapters = run.get("chapters")
     if isinstance(chapters, dict):
-        _drain(chapters, {"hi", "en"}, "chapters", moved)
+        _drain(chapters, {"en"}, "chapters", moved)
         for cut, cuts in chapters.items():
             if not isinstance(cuts, dict):
                 continue
@@ -1781,7 +1781,7 @@ def _selftest():
     real_root = ROOT
     try:
         ROOT = tmp
-        slug, cut = "selftest-topic", "hi"
+        slug, cut = "selftest-topic", "en"
         vdir = os.path.join(studio_dir(slug, cut), "assets", "voice")
         os.makedirs(vdir)
         # a well-formed run decides style and voice at intake (2b)
@@ -1837,17 +1837,17 @@ def _selftest():
         mark("script", slug, "en", ["bad"], 1, "")
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
         assert run["stages"]["fin-script-en"]["status"] == "failed"
-        with open(os.path.join(vault_dir(slug), "script-hi.md"), "w", encoding="utf-8") as fh:
+        with open(os.path.join(vault_dir(slug), "script-en.md"), "w", encoding="utf-8") as fh:
             fh.write("original script " + "x" * 600)
-        logrel = os.path.join("vault", "videos", slug, "logs", "fin-voice-hi-2.md")
+        logrel = os.path.join("vault", "videos", slug, "logs", "fin-voice-en-2.md")
         logabs = os.path.join(ROOT, logrel)
         os.makedirs(os.path.dirname(logabs), exist_ok=True)
         open(logabs, "w").close()
         mark("voice", slug, cut, [], 2, logrel)
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
-        assert run["stages"]["fin-voice-hi"] == {**run["stages"]["fin-voice-hi"],
+        assert run["stages"]["fin-voice-en"] == {**run["stages"]["fin-voice-en"],
                                                 "status": "done", "attempt": 2}
-        assert run["stages"]["fin-voice-hi"]["script_sha256"]
+        assert run["stages"]["fin-voice-en"]["script_sha256"]
 
         # the stale-log guard: a log that predates the work it describes is a leftover
         # from an earlier attempt, and accepting one certifies unverified work as done.
@@ -1868,13 +1868,13 @@ def _selftest():
         # artifact being fine is exactly the case the guard exists for.
         mark("build", slug, cut, [], 3, logrel)
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
-        assert run["stages"]["fin-build-hi"]["status"] == "failed", "stale log must not mark done"
-        assert "OLDER" in run["stages"]["fin-build-hi"]["reason"]
+        assert run["stages"]["fin-build-en"]["status"] == "failed", "stale log must not mark done"
+        assert "OLDER" in run["stages"]["fin-build-en"]["reason"]
         os.utime(logabs, None)                        # now
         assert stale_log(logrel, slug, cut, "build") is None
         mark("build", slug, cut, [], 4, logrel)
         run = json.load(open(os.path.join(vault_dir(slug), "run.json"), encoding="utf-8"))
-        assert run["stages"]["fin-build-hi"]["status"] == "done"
+        assert run["stages"]["fin-build-en"]["status"] == "done"
         # and a stage with no single artifact to compare against is existence-only,
         # never age — a later stage legitimately postdates an earlier stage's log.
         os.utime(logabs, (1, 1))
@@ -2037,7 +2037,7 @@ def _selftest():
 
         # X-8: editing the script after voice ran must invalidate downstream stages
         assert stale_script_problems(slug, cut) == []
-        with open(os.path.join(vault_dir(slug), "script-hi.md"), "a", encoding="utf-8") as fh:
+        with open(os.path.join(vault_dir(slug), "script-en.md"), "a", encoding="utf-8") as fh:
             fh.write("\naudit rewrote this line")
         assert any("stale" in p for p in stale_script_problems(slug, cut))
 
@@ -2045,12 +2045,12 @@ def _selftest():
         ruling = "RULED at the ch2 CEO gate.\nBinding on ch3-6." + "x" * 200
         run = {"slug": slug, "tier": "medium", "budget": {"elevenlabs_calls": 12,
                "_spend_log": ruling}, "owed": {"a_thing": ruling},
-               "chapters": {"hi": {"1": {"status": "done", "scenes": 9,
+               "chapters": {"en": {"1": {"status": "done", "scenes": 9,
                                          "why_s16_was_prop_money": ruling}}}}
         moved = drain_to_notes(run, slug)
         assert moved == 3, moved
         assert run == {"slug": slug, "tier": "medium", "budget": {"elevenlabs_calls": 12},
-                       "chapters": {"hi": {"1": {"status": "done", "scenes": 9}}}}, run
+                       "chapters": {"en": {"1": {"status": "done", "scenes": 9}}}}, run
         notes = open(os.path.join(vault_dir(slug), "notes.md"), encoding="utf-8").read()
         assert notes.count(ruling) == 3, notes.count(ruling)   # verbatim, not JSON-escaped
         assert "\\n" not in notes, "a drained ruling must stay readable prose"
@@ -2178,7 +2178,7 @@ def main(argv=None):
     p.add_argument("stage", nargs="?", choices=sorted(CHECKS))
     p.add_argument("--tier", default="short", choices=["short", "medium", "long"])
     p.add_argument("--slug")
-    p.add_argument("--cut", choices=["hi", "en"])
+    p.add_argument("--cut", default="en", choices=["en"])
     p.add_argument("--attempt", type=int, default=1)
     p.add_argument("--chapter", type=int,
                    help="chapter-loop mode: check the standalone chapter project "
@@ -2221,7 +2221,7 @@ def main(argv=None):
         print("FAIL doctor" if problems else "PASS doctor")
         return 1 if problems else 0
     if not (args.mode and args.stage and args.slug):
-        p.error("need: <check|mark> <stage> --slug <slug> [--cut hi|en]")
+        p.error("need: <check|mark> <stage> --slug <slug> [--cut en|en]")
     if args.stage in PER_CUT and not args.cut:
         p.error(f"stage '{args.stage}' needs --cut")
     if args.chapter:

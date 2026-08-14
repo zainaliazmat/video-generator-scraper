@@ -1,7 +1,7 @@
 ---
 summary: The durable design system for the finance channels (@cashguruguides ₹ · @moneymavens101 $) — dark blockframe, photographic backgrounds under a single grade, heavy type, chip/stamp motion language. Extracted from the shipped needs-vs-wants pair. Copy into each video's DESIGN.md. **§0 — blockframe-9 is LOCKED by creator decision 2026-07-30 (thirteen styles reviewed side by side); this supersedes every "next cut MUST change architecture" flag in the vault, and moves the sameness budget onto the non-layout levers.**
 updated: 2026-08-01
-source: distilled from vault/videos/needs-vs-wants/src/hi/index.html + needs-vs-wants-en/index.html (both shipped) and vault/videos/needs-vs-wants/storyboard-hi.md · verified against the rendered output 2026-07-28
+source: distilled from the shipped needs-vs-wants cut (vault/videos/needs-vs-wants/src/en/index.html + storyboard-en.md) · verified against the rendered output 2026-07-28. The ₹-cut half of the original distillation was deleted with the Hindi lane 2026-08-15.
 stage: ADOPTED — the standing design system for both finance channels
 ---
 
@@ -10,28 +10,28 @@ stage: ADOPTED — the standing design system for both finance channels
 > **BOX — the decisions. The CSS below is the authority for every value; this box
 > carries only what the CSS cannot say.**
 > 1. **blockframe-9 is LOCKED** (creator 2026-07-30, thirteen styles reviewed side
->    by side). This supersedes every "the next cut MUST change architecture" flag
->    in the vault. The sameness budget moves onto the non-layout levers.
+> by side). This supersedes every "the next cut MUST change architecture" flag
+> in the vault. The sameness budget moves onto the non-layout levers.
 > 2. **Every architecture must carry a photograph in every scene.** Machine-enforced:
->    `format.json architectures[*].image_per_scene: true`, and `doctor` refuses one
->    that does not. A style that renders type on flat colour cannot be added, however
->    good the mockup.
+> `format.json architectures[*].image_per_scene: true`, and `doctor` refuses one
+> that does not. A style that renders type on flat colour cannot be added, however
+> good the mockup.
 > 3. **Live style verdicts** — `x-post`/`reddit-post` usable as a COMPONENT, never an
->    architecture; `swiss-grid`/`vignelli` approved to pursue; `news-ticker`,
->    `code-snippet`, `code-typing` rejected as off-genre. `ledger-rail` was built,
->    rendered and rejected — do not re-propose it.
+> architecture; `swiss-grid`/`vignelli` approved to pursue; `news-ticker`,
+> `code-snippet`, `code-typing` rejected as off-genre. `ledger-rail` was built,
+> rendered and rejected — do not re-propose it.
 > 4. **Colour is roles, never meanings. One role colour per scene.**
 > 5. **The type ladder is stepped, never interpolated.** Do not substitute Archivo
->    Black, despite [[design-techtooltester]] naming it.
+> Black, despite [[design-techtooltester]] naming it.
 > 6. **`.scene { isolation: isolate }` and the four-layer scrim order are
->    load-bearing** — changing either silently changes every frame.
+> load-bearing** — changing either silently changes every frame.
 > 7. **Determinism: everything vendored.** GSAP and fonts self-hosted, no CDN, no
->    `Date.now()`, no unseeded random, no render-time fetch. A slow CDN produces a
->    render that SUCCEEDS with every element frozen at frame 0 and passes `check`.
+> `Date.now`, no unseeded random, no render-time fetch. A slow CDN produces a
+> render that SUCCEEDS with every element frozen at frame 0 and passes `check`.
 > 8. **The checker is evidence, not authority.** Fail loudly on a NEW finding; never
->    edit a design token to satisfy a checker.
+> edit a design token to satisfy a checker.
 > 9. **Supersedes [[design-techtooltester]] for all finance work.** MEDIUM/LONG cuts
->    extend this with [[design-chapter-archetypes]], which owns the archetype layer.
+> extend this with [[design-chapter-archetypes]], which owns the archetype layer.
 >
 > **Open the body when:** you need a VALUE (a token, a timing, a component's markup,
 > the grade constants) and `blockframe.css` / `format.json` did not answer it — which
@@ -41,9 +41,9 @@ stage: ADOPTED — the standing design system for both finance channels
 > the implementation is two files and they are linked, never copied:**
 >
 > - `tools/scaffold/assets/blockframe.css` — tokens, grade, scrim, type
->   ladder, every component, and the `.rail` architecture variant.
+> ladder, every component, and the `.rail` architecture variant.
 > - `tools/scaffold/assets/js/motion.js` — every motion helper, including the
->   scene transitions this doc used to have no answer for.
+> scene transitions this doc used to have no answer for.
 >
 > Where they disagree with the prose below, **the files win** — they are what
 > renders.
@@ -83,7 +83,7 @@ blocks (`data-chart`/`nyt-graph`, `news-ticker`, `kinetic-type`, `swiss-grid`/
 glass) — and **chose to keep blockframe-9.**
 
 Mechanically: `tools/format.json` now carries `architecture_lock:
-"blockframe-9"`. `pipeline_check.next_architecture()` returns it and the
+"blockframe-9"`. `pipeline_check.next_architecture` returns it and the
 `architecture` CLI prints `LOCKED`; `doctor` refuses a lock naming an
 architecture that does not exist, so a typo cannot degrade to silent rotation.
 The rotation code stays — delete the key to resume cycling.
@@ -138,14 +138,14 @@ style"*). The lock is the pre-selected default, not an imposition — see
 
 **Two open threads**, both under research 2026-07-30:
 - **Swiss/Vignelli with compulsory photography.** The tension is real: that
-  tradition as popularly imitated is image-sparse, which is exactly what got the
-  other styles rejected. The research question is how the tradition *actually*
-  places photographs in a grid (Müller-Brockmann's photographic posters,
-  Vignelli's Knoll and Rizzoli work), and whether that yields a direction here.
+ tradition as popularly imitated is image-sparse, which is exactly what got the
+ other styles rejected. The research question is how the tradition *actually*
+ places photographs in a grid (Müller-Brockmann's photographic posters,
+ Vignelli's Knoll and Rizzoli work), and whether that yields a direction here.
 - **Stock video behind the frames.** Wanted "even in future"; blocked on whether
-  the deterministic frame-walking renderer can seek a `<video>` element per
-  frame. Do not put `<video>` in a composition until `format.json`
-  `_stock_video_note` says it is proven.
+ the deterministic frame-walking renderer can seek a `<video>` element per
+ frame. Do not put `<video>` in a composition until `format.json`
+ `_stock_video_note` says it is proven.
 
 **`social-quote` rules** (`format.json _components`): a real post only — an
 invented one is a fabricated fact and breaks the never-invent rule. Prefer
@@ -167,20 +167,20 @@ honestly i dont like it"*. Both cuts were regenerated on `blockframe-9`.
 Three things this cost, worth knowing before anyone offers a non-default style again:
 
 1. **Storyboards and compositions are architecture-specific; nothing else is.**
-   Research, facts, scripts, audits, voice and images all survived the switch
-   untouched. The rebuild was two storyboards and two builds — real, but bounded.
+ Research, facts, scripts, audits, voice and images all survived the switch
+ untouched. The rebuild was two storyboards and two builds — real, but bounded.
 2. **A finished master had to be discarded.** The hi cut was already encoded,
-   mixed and normalised to −14 LUFS when the rejection came. **Show the creator a
-   rendered frame before the first encode, not after** — snapshotting costs about
-   two minutes against ~35 per encode.
+ mixed and normalised to −14 LUFS when the rejection came. **Show the creator a
+ rendered frame before the first encode, not after** — snapshotting costs about
+ two minutes against ~35 per encode.
 3. **Full-bleed changes the image-resolution economics.** In `ledger-rail` a
-   1280px Pixabay file sat in a 740px panel and was oversampled. Under
-   `blockframe-9` every photo is full-bleed at `inset:-8%` ⇒ roughly **1.63× on the
-   long edge**. The Pixabay key has no full-HD access (`fullHDURL`/`imageURL`
-   absent — verified against the API 2026-08-01), so 1280px is its ceiling and
-   Pexels `large2x` at 1880px is the only upgrade path. **Route every hero, SOLO and
-   closing frame to Pexels**; Pixabay is fine for texture under a scrim, where the
-   grade plus 5% grain reads as soft focus. See [[stock-photo-sourcing]].
+ 1280px Pixabay file sat in a 740px panel and was oversampled. Under
+ `blockframe-9` every photo is full-bleed at `inset:-8%` ⇒ roughly **1.63× on the
+ long edge**. The Pixabay key has no full-HD access (`fullHDURL`/`imageURL`
+ absent — verified against the API 2026-08-01), so 1280px is its ceiling and
+ Pexels `large2x` at 1880px is the only upgrade path. **Route every hero, SOLO and
+ closing frame to Pexels**; Pixabay is fine for texture under a scrim, where the
+ grade plus 5% grain reads as soft focus. See [[stock-photo-sourcing]].
 
 ⚠ **Untested at length:** the three blockframe-9 cuts shipped before this one were
 9-scene SHORTs. A 92-scene LONG puts ~92 `.scrim` divs in one document and trips
@@ -191,7 +191,7 @@ first finalised chunk of any long blockframe-9 encode before trusting the master
 ### `.scene { isolation: isolate; }` is load-bearing (found 2026-08-01)
 
 `.scene` is `position:absolute` with `z-index:auto`, which does **not** create a
-stacking context. So `.stack` (z 2) and `.rail .railcol` (z 3) escaped into the
+stacking context. So `.stack` (z 2) and `.rail.railcol` (z 3) escaped into the
 **root** stacking context and outranked the *incoming* section, which paints in
 the z-0 band. For the whole `transition_seconds` (0.45s) cross-dissolve, the
 **outgoing** scene's headline and rail number painted on top of the incoming
@@ -231,31 +231,31 @@ The channel avatar rides the bottom-right corner for the **whole** video, every
 cut, every architecture. Three decisions worth keeping:
 
 - **It hangs off `#root`, not off a scene.** A mark inside `.scene` dissolves
-  with the scene it lives in and has to be repeated ~86 times. As a `::after` on
-  the root it is painted once, above every scene, and a build cannot forget it
-  on scene 43. The composition's entire share of the work is the `cut-<cut>`
-  class on `#root` — which `check build` asserts, because the failure mode is a
-  fully green run that ships an unbranded video.
+ with the scene it lives in and has to be repeated ~86 times. As a `::after` on
+ the root it is painted once, above every scene, and a build cannot forget it
+ on scene 43. The composition's entire share of the work is the `cut-<cut>`
+ class on `#root` — which `check build` asserts, because the failure mode is a
+ fully green run that ships an unbranded video.
 - **Alpha, not `border-radius`.** The avatars are circles on a *white* JPEG
-  field; CSS rounding cannot clip the source's own corners on a dark frame. The
-  circle is cut into the PNG (`tools/make_watermark.py`, originals in
-  `assets/brand/`), so the derivative is a real transparent disc.
+ field; CSS rounding cannot clip the source's own corners on a dark frame. The
+ circle is cut into the PNG (`tools/make_watermark.py`, originals in
+ `assets/brand/`), so the derivative is a real transparent disc.
 - **Bottom-right is also where YouTube paints its own branding watermark.**
-  Leave that channel feature switched off, or the corner carries two marks.
+ Leave that channel feature switched off, or the corner carries two marks.
 
-`hi` ⇒ `wm-hi.png` (@cashguruguides, green) · `en` ⇒ `wm-en.png`
+`en` ⇒ `wm-en.png`
 (@moneymavens101, pink) — [[channels]].
 
 ### The scrim (four layers, in order)
 
 ```css
 .scrim {
-  position: absolute; inset: 0; z-index: 1;
-  background:
-    radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
-    radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13,16,23,0.46), transparent 80%),
-    radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13,16,23,0.14), rgba(13,16,23,0.58)),
-    linear-gradient(180deg, rgba(13,16,23,0.40), rgba(13,16,23,0.10) 46%, rgba(13,16,23,0.52));
+ position: absolute; inset: 0; z-index: 1;
+ background:
+ radial-gradient(ellipse 72% 64% at 50% 52%, var(--tint, transparent), transparent 72%),
+ radial-gradient(ellipse 88% 78% at 50% 53%, rgba(13,16,23,0.46), transparent 80%),
+ radial-gradient(ellipse 115% 105% at 50% 54%, rgba(13,16,23,0.14), rgba(13,16,23,0.58)),
+ linear-gradient(180deg, rgba(13,16,23,0.40), rgba(13,16,23,0.10) 46%, rgba(13,16,23,0.52));
 }
 ```
 
@@ -267,8 +267,8 @@ down so type reads, then vignette the frame.
 ## 2. Colour — roles, never meanings
 
 ```css
---bg     #0d1017    --panel  #161b25    --ink   #f5f3ec    --muted #98a2b3
---fund   #22c55e    --warn   #ef4444    --target #f59e0b   --pop   #ff5c39
+--bg #0d1017 --panel #161b25 --ink #f5f3ec --muted #98a2b3
+--fund #22c55e --warn #ef4444 --target #f59e0b --pop #ff5c39
 ```
 
 | Token | Role | Not |
@@ -292,8 +292,8 @@ the audit stage checks each coloured element against it. The check that matters:
 ### Per-scene tint (shipped reference)
 
 ```
-s1 red .12   s2 —(photo-free)  s3 green .10   s4 amber .12   s5 green .10
-s6 green .10 s7 —(photo-free)  s8 orange .12  s9 green .13
+s1 red.12 s2 —(photo-free) s3 green.10 s4 amber.12 s5 green.10
+s6 green.10 s7 —(photo-free) s8 orange.12 s9 green.13
 ```
 *(Historical reference — needs-vs-wants shipped with photo-free s2/s7. As of
 2026-07-28 every scene carries a `.bg`; the tint ladder still applies.)*
@@ -309,9 +309,9 @@ Self-hosted variable face — no system-font dependency, no network fetch:
 
 ```css
 @font-face {
-  font-family: "FinanceSans";
-  src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
-  font-weight: 100 900; font-style: normal; font-display: block;
+ font-family: "FinanceSans";
+ src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+ font-weight: 100 900; font-style: normal; font-display: block;
 }
 --font: "FinanceSans", system-ui, sans-serif;
 ```
@@ -345,8 +345,8 @@ Overriding inline is allowed **only to a value already on the ladder** (the ship
 pair drops `.huge` to 88 and 76, `.mega` to 240). Shrinking a focal element below
 76 to make it fit is a layout failure, not a type decision — restructure instead.
 
-**Numerals:** `font-variant-numeric: tabular-nums` on `.counter .mega .billrow
-.head2 .huge`, so animated figures do not shimmy. Grouping is locale-bound —
+**Numerals:** `font-variant-numeric: tabular-nums` on `.counter.mega.billrow
+.head2.huge`, so animated figures do not shimmy. Grouping is locale-bound —
 `Intl.NumberFormat("en-IN")` for `-hi` (gives `1,24,564`), `"en-US"` for `-en`.
 A plain `\B(?=(\d{3})+(?!\d))` regex is **wrong for India** and prints `124,564`.
 
@@ -357,20 +357,20 @@ A plain `\B(?=(\d{3})+(?!\d))` regex is **wrong for India** and prints `124,564`
 ## 4. Components
 
 - **`.chip`** — pill, `--panel` fill, 3px border, `999px` radius. Border colour
-  carries the role (`.fund` `.warn` `.target`). Max **3 per row**, **≤22 chars
-  each**; rows declared explicitly in the storyboard. `.row` has `flex-wrap: wrap`,
-  so four long chips silently wrap 3+1 into a ragged orphan that no checker flags.
+ carries the role (`.fund` `.warn` `.target`). Max **3 per row**, **≤22 chars
+ each**; rows declared explicitly in the storyboard. `.row` has `flex-wrap: wrap`,
+ so four long chips silently wrap 3+1 into a ragged orphan that no checker flags.
 - **`.stamp`** — the verdict. Solid role-colour fill, `#0d1017` text,
-  `rotate(-4deg)`, `back.out` entry. One per scene at most.
+ `rotate(-4deg)`, `back.out` entry. One per scene at most.
 - **`.bill` / `.billrow`** — the itemised money block, 780px wide,
-  `justify-content: space-between`, `.total` bordered in `--warn`.
+ `justify-content: space-between`, `.total` bordered in `--warn`.
 - **`.decision`** — `LABEL → verdict-pill` rows (`.v-cancel` `.v-down` `.v-keep`).
 - **`.track2` / `.fill2` / `.ticks`** — 740px progress bar; ticks are a repeating
-  gradient at `100%/12` for a twelve-month read.
+ gradient at `100%/12` for a twelve-month read.
 - **`.statstrip`** — a cited statistic on a translucent `--warn` bed.
 - **`.cta`** — `--pop` block, `#0d1017` text, closes the video.
 - **`.arrow` / `.arr` / `.tri`** — `→` and `▶` are **drawn in CSS**, not typed.
-  Both are absent from the subset; em-based so they scale with the host font-size.
+ Both are absent from the subset; em-based so they scale with the host font-size.
 
 **Audio: one bed + the SFX kit** (`tools/audio/kit.json` — count lives there, not here) (creator rule 2026-07-30, supersedes
 "No SFX — voice + motion only", which the audit found was a fork artefact from
@@ -378,28 +378,28 @@ the bright TechToolTester system rather than a tested decision, and which never
 mentioned music at all).
 
 - Kit + prompts: `tools/audio/kit.json`. Generate once with
-  `tools/audio/sfx.py --kit` — cached by name, so it costs one API call per
-  sound **ever**, not per video. Files land in `studio/library/sfx/`,
-  peak-normalised to the level named in the kit.
+ `tools/audio/sfx.py --kit` — cached by name, so it costs one API call per
+ sound **ever**, not per video. Files land in `studio/library/sfx/`,
+ peak-normalised to the level named in the kit.
 - Each sound is bound to ONE motion helper (`chip`→pop, `stamp`→the verdict
-  slam, and so on — the kit names them, and it grows). **A sound with no
-  helper does not belong in the kit.** The cue budget is per TIER —
-  `format.json tiers.<tier>.max_sfx_cues`, because the short-cut figure applied
-  literally to a chapter cut gives one transition for eighty-odd boundaries. A
-  sound is punctuation, and if every reveal has one then none of them means
-  anything.
+ slam, and so on — the kit names them, and it grows). **A sound with no
+ helper does not belong in the kit.** The cue budget is per TIER —
+ `format.json tiers.<tier>.max_sfx_cues`, because the short-cut figure applied
+ literally to a chapter cut gives one transition for eighty-odd boundaries. A
+ sound is punctuation, and if every reveal has one then none of them means
+ anything.
 - One music bed per video, ducked ~6 dB under speech (≈18 LU below the voice).
-  Deliberately featureless — anything with a melody competes with a spoken number.
+ Deliberately featureless — anything with a melody competes with a spoken number.
 - **Mixed in post, never in the composition.** `tools/audio/mix.py` reads the
-  cue list at `assets/audio.json` and mixes with ffmpeg's sidechain compressor;
-  `tools/loudnorm.py` then takes the result to −14 LUFS. The renderer does not
-  guarantee in-page volume automation, and a bed that silently fails to duck
-  would bury the voice in a video that passes every check. The composition stays
-  voice-only: one `<audio>` row per line.
+ cue list at `assets/audio.json` and mixes with ffmpeg's sidechain compressor;
+ `tools/loudnorm.py` then takes the result to −14 LUFS. The renderer does not
+ guarantee in-page volume automation, and a bed that silently fails to duck
+ would bury the voice in a video that passes every check. The composition stays
+ voice-only: one `<audio>` row per line.
 - ⚠️ ElevenLabs **music** generation needs the `music_generation` permission on
-  the API key; the SFX endpoint does not. Until that is enabled, `mix.py` runs
-  SFX-only and says so. Free fallback with no channel-count limit: the YouTube
-  Audio Library — drop a file at `studio/library/music/<bed-name>.mp3`.
+ the API key; the SFX endpoint does not. Until that is enabled, `mix.py` runs
+ SFX-only and says so. Free fallback with no channel-count limit: the YouTube
+ Audio Library — drop a file at `studio/library/music/<bed-name>.mp3`.
 **No logo outro.** Neither finance channel has a brand mark yet
 ([[channels]] D/E) — the video closes on the `.cta` block. Build the wordmarks
 before reinstating the standing logo rule.
@@ -436,39 +436,39 @@ All helpers live on one paused GSAP timeline registered to `window.__timelines`:
 ### Rules
 
 0. **Every boundary is a transition** (2026-07-29). The first six videos hard-cut
-   between all nine scenes — measured on a real master with `ffmpeg scdet`, the
-   boundary frame-delta was 5.85–10.72 against a mid-scene 0.053–0.377, and five
-   of eight boundaries tripped a generic cut detector. `dissolve` (0.45s) is the
-   default; `shove` is for at most two real turns in the argument.
-   The mechanism has **two** parts, both asserted by `pipeline_check check_build`:
-   (i) every scene but the last carries
-   `data-duration = scene_duration + scene.transition_seconds`, so it stays on
-   screen while the next fades in over it (root duration unchanged) — without it
-   the dissolve plays against black and every other check still passes; and
-   (ii) **adjacent scenes alternate `data-track-index` 1/2**, because
-   `hyperframes check` rejects two overlapping clips on one track. Verified
-   2026-07-30 on the real `credit-history-en` composition: butt-joined → check
-   passes; +0.45s overlap on one track → **8 × `overlapping_clips_same_track`**;
-   +0.45s overlap with alternating tracks → **check passes, 22/22 contrast**.
-   Track index is a timing lane, not paint order, so z-order is unaffected.
+ between all nine scenes — measured on a real master with `ffmpeg scdet`, the
+ boundary frame-delta was 5.85–10.72 against a mid-scene 0.053–0.377, and five
+ of eight boundaries tripped a generic cut detector. `dissolve` (0.45s) is the
+ default; `shove` is for at most two real turns in the argument.
+ The mechanism has **two** parts, both asserted by `pipeline_check check_build`:
+ (i) every scene but the last carries
+ `data-duration = scene_duration + scene.transition_seconds`, so it stays on
+ screen while the next fades in over it (root duration unchanged) — without it
+ the dissolve plays against black and every other check still passes; and
+ (ii) **adjacent scenes alternate `data-track-index` 1/2**, because
+ `hyperframes check` rejects two overlapping clips on one track. Verified
+ 2026-07-30 on the real `credit-history-en` composition: butt-joined → check
+ passes; +0.45s overlap on one track → **8 × `overlapping_clips_same_track`**;
+ +0.45s overlap with alternating tracks → **check passes, 22/22 contrast**.
+ Track index is a timing lane, not paint order, so z-order is unaffected.
 1. **Alternate `ken` direction.** Never two pushes in a row. Shipped order across
-   the photo scenes: `in, out, in, out, in, out, in`.
+ the photo scenes: `in, out, in, out, in, out, in`.
 2. **Every scene carries a full-bleed `.bg` photo under the grade — photo-free
-   scenes are RETIRED** (creator rule 2026-07-28, supersedes the earlier
-   2-per-video rest-beat cap; `format.json photo_free_scene_ratio` is now 0).
-   Every scene therefore gets `ken`; `drift` survives only as the motion for
-   overlay stacks, not as a substitute for a background. **No scene may hold a
-   static frame beyond ~2s.**
+ scenes are RETIRED** (creator rule 2026-07-28, supersedes the earlier
+ 2-per-video rest-beat cap; `format.json photo_free_scene_ratio` is now 0).
+ Every scene therefore gets `ken`; `drift` survives only as the motion for
+ overlay stacks, not as a substitute for a background. **No scene may hold a
+ static frame beyond ~2s.**
 3. **Keyword-matched imagery** (creator rule 2026-07-28): when the VO names a
-   concrete thing (gym, bill, phone, bank, family), the frame shows that thing —
-   either as the scene's `.bg` or as a cut-in timed to the word's cue. The
-   storyboard lists per scene: the bg keyword + each cut-in keyword with the VO
-   word it lands on. Dense scenes still get the *calmest* background (texture
-   reading of the keyword, not a busy literal shot) — density is managed by
-   choosing a quieter image, never by dropping the image.
+ concrete thing (gym, bill, phone, bank, family), the frame shows that thing —
+ either as the scene's `.bg` or as a cut-in timed to the word's cue. The
+ storyboard lists per scene: the bg keyword + each cut-in keyword with the VO
+ word it lands on. Dense scenes still get the *calmest* background (texture
+ reading of the keyword, not a busy literal shot) — density is managed by
+ choosing a quieter image, never by dropping the image.
 4. **One focal element per scene.** Never `.huge` and `.mega` together.
 5. **Reveal spacing ≥0.8s** between consecutive cues, except a declared cascade
-   (≤5 items at fixed 0.6-0.7s). Something must be on screen by scene start +0.5s.
+ (≤5 items at fixed 0.6-0.7s). Something must be on screen by scene start +0.5s.
 6. **≤6 elements visible simultaneously.**
 
 ---
@@ -477,8 +477,8 @@ All helpers live on one paused GSAP timeline registered to `window.__timelines`:
 
 ```
 scene_duration = 0.4 (VO lead-in) + clip_duration + 1.0 (tail)
-scene_start    = previous scene_start + previous scene_duration
-audio start    = scene_start + 0.4
+scene_start = previous scene_start + previous scene_duration
+audio start = scene_start + 0.4
 ```
 
 Verified across both shipped cuts (hi s1: `0.4 + 17.74 + 1.0 = 19.14` ✓;
@@ -506,36 +506,36 @@ Surplus time from a longer clip goes into **holds, never into a cascade**.
 Full rules in [[stock-photo-sourcing]]. The load-bearing ones:
 
 - **Object-led, not scene-led.** Photos sit under `grayscale(.32) brightness(.62)`
-  with heavy type on top — they are texture, not information. ₹500 notes carry
-  "India" more reliably than any photo of a person, and they actually exist in the
-  library (India-with-people queries are ~20% usable).
+ with heavy type on top — they are texture, not information. ₹500 notes carry
+ "India" more reliably than any photo of a person, and they actually exist in the
+ library (India-with-people queries are ~20% usable).
 - **The densest scene gets the calmest background.** Reach for a texture first on
-  any scene carrying more than ~4 stacked elements.
+ any scene carrying more than ~4 stacked elements.
 - **Never a phone-screen photo as a background.** The screen is someone else's
-  brand and it is the brightest thing in frame. This has now shipped **three**
-  times undetected — most recently `s8` of the Hindi cut, upside down, with the
-  carrier string `MTN-SA` legible.
+ brand and it is the brightest thing in frame. This has now shipped **three**
+ times undetected — most recently `s8` of the Hindi cut, upside down, with the
+ carrier string `MTN-SA` legible.
 - **Faces fight the typography; hands and objects don't.** Also a licence issue:
-  Pixabay bars unflattering use of identifiable people, and a recognisable face
-  under a voiceover about wasted money is exactly that.
+ Pixabay bars unflattering use of identifiable people, and a recognisable face
+ under a voiceover about wasted money is exactly that.
 - **Check what the picture is saying** — a falling chart under a "this grows your
-  money" line, demonetised pre-2016 ₹500 notes, dollars answering a ₹ query.
+ money" line, demonetised pre-2016 ₹500 notes, dollars answering a ₹ query.
 - **Drop a cut-in rather than fake it.** Single-photo scenes read fine.
 - **No image may repeat across videos or channels.** Verified failure: one
-  `s9.jpg` is byte-identical in three shipped projects across *both* channels,
-  because Pixabay's top hit is deterministic and different queries collapse to it.
-  Key an asset ledger by md5 and refuse a hash already used anywhere.
+ `s9.jpg` is byte-identical in three shipped projects across *both* channels,
+ because Pixabay's top hit is deterministic and different queries collapse to it.
+ Key an asset ledger by md5 and refuse a hash already used anywhere.
 
 ---
 
 ## 8. Determinism
 
 - GSAP is **vendored** at `assets/js/gsap.min.js`. Never a CDN: if the fetch is
-  slow past first paint, `gsap` is undefined, no timeline registers, and the render
-  **succeeds** — producing a video with every element static from frame 0, which
-  `npm run check` will not catch because it hits the same network.
-- Font is self-hosted. No `Date.now()`, no unseeded `Math.random()`, no
-  render-time fetches.
+ slow past first paint, `gsap` is undefined, no timeline registers, and the render
+ **succeeds** — producing a video with every element static from frame 0, which
+ `npm run check` will not catch because it hits the same network.
+- Font is self-hosted. No `Date.now`, no unseeded `Math.random`, no
+ render-time fetches.
 - Pin the CLI with a committed lockfile, not `npx --yes`.
 
 ## 9. The checker is evidence, not authority
@@ -557,8 +557,8 @@ finding; never edit a token to satisfy a checker.
 
 ## Related
 
-[[channels]] · [[stock-photo-sourcing]] · [[niches/india-finance-market]] ·
-[[us-english-script-style]] · [[../workflows/voiceover-tts]] ·
+[[channels]] · [[stock-photo-sourcing]] 
+[[us-english-script-style]] · [[../workflows/voiceover-tts]] 
 [[design-techtooltester]] (the *other* system — bright, non-finance)
 
 
@@ -587,7 +587,7 @@ HARD creator rule, restated 2026-07-30 while rejecting most of the thirteen cand
 
 ### `_known_benign_note`
 
-Empty is the correct state. The one entry ever added — invalid_parent_traversal_in_asset_path — was WRONG, and cost four cuts their browser checks: it reasoned the ../ urls were a static-analysis false positive because the render looked right, which was true. What it missed is that a lint ERROR makes `hyperframes check` SKIP the layout and contrast passes entirely, so those four cuts shipped with WCAG and layout never actually run. Fixed at the root 2026-08-01 by moving blockframe.css to assets/blockframe.css so the urls need no ../ at all. Lesson: 'the output looks fine' does not establish that a finding is benign — check what the finding SUPPRESSES.
+Empty is the correct state. The one entry ever added — invalid_parent_traversal_in_asset_path — was WRONG, and cost four cuts their browser checks: it reasoned the../ urls were a static-analysis false positive because the render looked right, which was true. What it missed is that a lint ERROR makes `hyperframes check` SKIP the layout and contrast passes entirely, so those four cuts shipped with WCAG and layout never actually run. Fixed at the root 2026-08-01 by moving blockframe.css to assets/blockframe.css so the urls need no../ at all. Lesson: 'the output looks fine' does not establish that a finding is benign — check what the finding SUPPRESSES.
 
 ### `_stock_video_note`
 

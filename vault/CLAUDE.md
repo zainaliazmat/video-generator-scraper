@@ -41,10 +41,10 @@ only, never a shipped video.
 One command per finished video:
 
 ```bash
-tools/archive_cut.py <slug> --hi <url> --en <url>     # --dry-run to preview
+tools/archive_cut.py <slug> --en <url>     # --dry-run to preview
 ```
 
-It copies the reproducing text into `vault/videos/<slug>/src/{hi,en,thumbs}/`,
+It copies the reproducing text into `vault/videos/<slug>/src/{en,thumbs}/`,
 byte-verifies every file, records the URLs in the milestone note, then deletes
 `studio/videos/<slug>*`. Copy → verify → delete, in that order, because
 **nothing under `studio/videos/` is tracked by any git** — a bad copy is
@@ -91,8 +91,8 @@ unrecoverable. It refuses to delete anything without a URL.
 Thumbnail |` table, what `src/` holds, and what is still owed. `archive_cut.py`
 writes it; keep the shape when editing by hand.
 
-Channel is implied by the cut, not by the path: `hi/` = @cashguruguides,
-`en/` = @moneymavens101 ([[knowledge/channels]]).
+`en/` = @moneymavens101, the sole finance channel ([[knowledge/channels]]).
+The Hindi `@cashguruguides` lane was retired 2026-08-15 — there is no `hi/` cut.
 
 ⚠️ `../compositions/` is the text-only mirror — the only git-tracked copy of the code
 for anything not archived under `vault/videos/<slug>/src/`. As of **2026-07-31** it holds

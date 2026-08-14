@@ -211,7 +211,7 @@ is not yours.
 
 # GATE TWO — the assembled cut, when you are called with no chapter
 
-Called once per cut, after every chapter has locked and been concatenated, **before
+Called after every chapter has locked and been concatenated, **before
 the ~18-minute encode**. It is a safety net, not a first look: every scene here has
 already been through both passes above on its own chapter draft. So do **not** re-run
 pass 1 or pass 2. There is exactly one thing that does not exist until assembly, and

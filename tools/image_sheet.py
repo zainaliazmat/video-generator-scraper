@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Tile a chapter's PROMOTED full-res photographs into one labelled sheet.
 
-    python3 tools/image_sheet.py <slug> --cut hi --chapter 3
-    python3 tools/image_sheet.py --project studio/videos/<slug>-hi-ch3
+    python3 tools/image_sheet.py <slug> --cut en --chapter 3
+    python3 tools/image_sheet.py --project studio/videos/<slug>-en-ch3
     python3 tools/image_sheet.py --selftest
 
 Writes `<project>/assets-ch<N>/final/IMAGES-ch<N>.jpg` and a `.json` index.
@@ -83,7 +83,7 @@ def derived_from(jpg):
     A HOLD keeps one photograph across two lines as ONE continuous push, so its
     second scene ships a centre crop of the first ("same image across lines = one
     continuous zoom, never a self-dissolve" — the creator rule of 2026-07-23, and
-    `storyboard-hi.md` §6b). On a grid those two cells look identical, and they are
+    the storyboard §6b). On a grid those two cells look identical, and they are
     SUPPOSED to. Found on the first real run of this tool: `passive-income-number`
     hi ch2 shows two such pairs (s14/s15, s17/s18) in a chapter that is locked and
     correct. Unlabelled, every hold would read as a repetition finding and cost a
@@ -180,7 +180,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("slug", nargs="?")
-    ap.add_argument("--cut", choices=("hi", "en"))
+    ap.add_argument("--cut", default="en", choices=("en",))
     ap.add_argument("--chapter", type=int)
     ap.add_argument("--project", help="chapter project dir, instead of slug/cut/chapter")
     ap.add_argument("-o", "--out")

@@ -87,11 +87,29 @@ def list_voices(key):
         print(f"{v['voice_id']:<24}  {v.get('name','?')}  ({labels})")
 
 
+def _fake_rate():
+    """chars/s the fake clip is sized at — READ from format.json, never frozen.
+
+    A hardcoded 13.0 silently drifted out of the ±35% duration check the moment
+    the cut's real rate moved (en is 17.57): the dry run then failed on every
+    line for a reason that had nothing to do with the run. The fake has to track
+    whatever the one home says the voice does.
+    """
+    try:
+        import json
+        here = os.path.dirname(os.path.abspath(__file__))
+        fmt = json.load(open(os.path.join(here, "..", "format.json"), encoding="utf-8"))
+        rates = [c["chars_per_second"] for c in fmt["cuts"].values()
+                 if isinstance(c, dict) and "chars_per_second" in c]
+        return sum(rates) / len(rates) if rates else 13.0
+    except Exception:
+        return 13.0
+
+
 def fake_synthesize(text, out):
     """FIN_FAKE_APIS=1: a local sine-tone mp3 sized from char count. A tone, not
-    silence, so the pipeline's silent-clip guard still passes on dry runs.
-    13 chars/s sits within the ±35% duration check for both 12.5 and 15."""
-    dur = max(1.2, len(text) / 13.0)
+    silence, so the pipeline's silent-clip guard still passes on dry runs."""
+    dur = max(1.2, len(text) / _fake_rate())
     os.makedirs(os.path.dirname(os.path.abspath(out)) or ".", exist_ok=True)
     subprocess.run(
         ["ffmpeg", "-y", "-v", "error", "-f", "lavfi",

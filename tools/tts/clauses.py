@@ -9,9 +9,9 @@ voice named three things the picture had already shown. en ch1 s6 has the same d
 more mildly. fin-ceo ruled the DEFAULT should derive cascade offsets from measured
 clause boundaries — a check would only tell each chapter it got it wrong again.
 
-    tools/tts/clauses.py <slug> --cut hi --line 1.6            # onsets, human-readable
-    tools/tts/clauses.py <slug> --cut hi --line 1.6 --n 3      # force exactly 3 clauses
-    tools/tts/clauses.py <slug> --cut hi --line 1.6 --offsets  # bare `+2.50 +3.95 +5.10`
+    tools/tts/clauses.py <slug> --cut en --line 1.6            # onsets, human-readable
+    tools/tts/clauses.py <slug> --cut en --line 1.6 --n 3      # force exactly 3 clauses
+    tools/tts/clauses.py <slug> --cut en --line 1.6 --offsets  # bare `+2.50 +3.95 +5.10`
 
 `--offsets` prints scene-relative anchors ready to paste into a build: they include the
 clip's own `audio_start - scene_start` lead-in from timing.json, because a cascade is
@@ -142,31 +142,39 @@ def main():
 
 
 def selftest():
-    """One runnable check against the clip this tool was written for: hi 1.6, whose
-    three cells fin-ceo re-anchored to +2.50 / +3.95 / +5.10 by ear and by envelope."""
-    voice = os.path.join(ROOT, "studio/videos/passive-income-number-hi/assets/voice")
-    mp3 = os.path.join(voice, "1.6.mp3")
-    if not os.path.exists(mp3):
-        print("SKIP clauses.py --selftest — %s not on disk" % mp3)
-        return
-    rows = json.load(open(os.path.join(voice, "timing.json")))["lines"]
-    row = next(r for r in rows if r["id"] == "1.6")
-    lead = row["audio_start"] - row["scene_start"]
-    cells = [p + lead for p in onsets(mp3, 4)[1:]]     # --cells 3
-    assert len(cells) == 3, cells
-    assert cells == sorted(cells), cells
-    # every anchor inside the scene, none before the audio
-    assert cells[0] >= lead - 1e-6, cells
-    assert cells[-1] < row["scene_duration"], (cells, row["scene_duration"])
-    # the defect being fixed: the fixed +1.10 anchor put the LAST cell before the FIRST
-    # spoken noun. Any honest measurement must put cell 3 well past it.
-    assert cells[-1] > 1.10, "measured onsets must beat the fixed +1.10 anchor: %s" % cells
-    # agreement with fin-ceo's independent by-hand envelope reading (+2.50 +3.95 +5.10).
-    # Two different methods within 0.05s is what makes this tool trustworthy at all.
-    for got, want in zip(cells, (2.50, 3.95, 5.10)):
-        assert abs(got - want) < 0.10, "drifted from the hand measurement: %s" % cells
-    print("PASS clauses.py --selftest — hi 1.6 cells %s (fin-ceo measured +2.50 +3.95 +5.10)"
-          % " ".join("+%.2f" % c for c in cells))
+    """Synthetic check of onsets(): a built clip with KNOWN clause gaps.
+
+    This used to measure `passive-income-number-hi` 1.6 against fin-ceo's by-hand
+    read. That cut was deleted with the Hindi lane (2026-08-15) and the check went
+    permanently to SKIP — a check that can no longer fail is not evidence
+    (vault/knowledge/evidence-discipline). So the ground truth is now CONSTRUCTED:
+    tone/silence/tone at offsets we choose, which exercises the same threshold
+    sweep and still fails if the sweep, the lead-in or the tail guard break.
+
+    The tolerance is 0.06s, the residual the real-clip check measured (it landed
+    within 0.05s and a hair LATE). Late remains the safe direction — do not
+    "correct" the residual toward zero.
+    """
+    import tempfile
+    # speech at 0.00-1.00, 1.60-2.60, 3.40-4.60, then 0.60s of tail
+    want = [0.0, 1.60, 3.40]
+    filt = ("sine=frequency=440:duration=1.0,apad=pad_dur=0.6[a];"
+            "sine=frequency=440:duration=1.0,apad=pad_dur=0.8[b];"
+            "sine=frequency=440:duration=1.2,apad=pad_dur=0.6[c];"
+            "[a][b][c]concat=n=3:v=0:a=1[out]")
+    with tempfile.TemporaryDirectory() as tmp:
+        mp3 = os.path.join(tmp, "synthetic.mp3")
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-filter_complex", filt,
+                        "-map", "[out]", "-q:a", "2", mp3], check=True)
+        got = onsets(mp3, 3)
+        assert len(got) == 3, "expected 3 clause onsets, got %s" % got
+        assert got == sorted(got), got
+        # the tail-guard must not invent a clause out of the trailing silence
+        assert got[-1] < duration(mp3) - 0.25, (got, duration(mp3))
+        for g, w in zip(got, want):
+            assert abs(g - w) < 0.06, "drifted from the built gaps: %s vs %s" % (got, want)
+    print("PASS clauses.py --selftest — synthetic cells %s (built at %s)"
+          % (" ".join("+%.2f" % c for c in got), " ".join("+%.2f" % w for w in want)))
 
 
 if __name__ == "__main__":

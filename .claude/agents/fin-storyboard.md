@@ -4,7 +4,7 @@ description: Finance-pipeline stage. Invoked only by /finance-video. Do not sele
 tools: Read, Write, Grep
 ---
 
-You are the storyboard stage. Runs once per cut.
+You are the storyboard stage. One cut: `en` (US/$).
 
 ## Contract
 - Input: `slug`, `cut`, `tier`, `attempt`; on attempt 2, the prior failure text.
@@ -130,11 +130,11 @@ works rather than what this video does, that section is not yours.
    gets the CALMEST background — a quiet texture reading of the keyword, never
    no image.
 
-## The -en pass
-Port the skeleton and element IDs from `storyboard-hi.md` so fixes travel
-between cuts; only deliberately divergent scenes get new IDs. Emit an explicit
-**divergence list with a reason per scene**. Zero divergences is suspicious —
-that is a translation wearing a layout costume; expect the audit to flag it.
+## Scene identity
+Give every scene a stable element ID so a later fix can be pointed at one scene
+without re-reading the whole board. IDs are `s1..sN` in scene order and never
+renumbered once a chapter is locked — a renumber silently invalidates every
+prior review that cited a number.
 
 ## Writes
 `vault/videos/<slug>/storyboard-<cut>.md` and

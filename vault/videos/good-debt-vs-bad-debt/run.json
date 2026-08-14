@@ -37,49 +37,6 @@
       "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-facts-1.md",
       "at": "2026-07-28T14:17:07+00:00"
     },
-    "fin-script-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-script-hi-2.md",
-      "at": "2026-07-28T14:40:11+00:00"
-    },
-    "fin-audit-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-audit-hi-1.md",
-      "at": "2026-07-28T14:52:59+00:00"
-    },
-    "fin-voice-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-voice-hi-1.md",
-      "at": "2026-07-28T15:01:02+00:00",
-      "script_sha256": "d3cdf5e5ad4bc16fb21388bd6e6536fc814194662be14bcdbaba99523c99e93b"
-    },
-    "fin-storyboard-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-storyboard-hi-1.md",
-      "at": "2026-07-28T15:16:09+00:00"
-    },
-    "fin-assets-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-assets-hi-2.md",
-      "at": "2026-07-28T17:33:08+00:00"
-    },
-    "fin-build-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-build-hi-1.md",
-      "at": "2026-07-28T16:33:01+00:00"
-    },
     "fin-script-en": {
       "status": "done",
       "reason": "",
@@ -93,13 +50,6 @@
       "attempt": 1,
       "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-audit-en-1.md",
       "at": "2026-07-28T18:13:16+00:00"
-    },
-    "fin-render-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 3,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-render-hi-3.md",
-      "at": "2026-07-28T18:25:52+00:00"
     },
     "fin-voice-en": {
       "status": "done",
@@ -115,13 +65,6 @@
       "attempt": 1,
       "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-storyboard-en-1.md",
       "at": "2026-07-28T18:41:17+00:00"
-    },
-    "fin-package-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/good-debt-vs-bad-debt/logs/fin-package-hi-1.md",
-      "at": "2026-07-28T18:41:58+00:00"
     },
     "fin-assets-en": {
       "status": "done",

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Voice one cut: slice the script into lines.json, guard the spend, run batch.py.
 
-    python3 tools/tts/prepare.py <slug> --cut hi
-    python3 tools/tts/prepare.py <slug> --cut hi --only 1.1 1.2   # the sample pair
-    python3 tools/tts/prepare.py <slug> --cut hi --dry-run        # guard + slice only
+    python3 tools/tts/prepare.py <slug> --cut en
+    python3 tools/tts/prepare.py <slug> --cut en --only 1.1 1.2   # the sample pair
+    python3 tools/tts/prepare.py <slug> --cut en --dry-run        # guard + slice only
     python3 tools/tts/prepare.py --selftest
 
 Replaces the `fin-voice` agent (audit/01-capability-matrix.md §5). All four of its
@@ -147,7 +147,7 @@ def _selftest():
         os.makedirs(vault)
         fmt = json.load(open(os.path.join(keep, "tools", "format.json"), encoding="utf-8"))
         tier = fmt["tiers"]["medium"]
-        rate = fmt["cuts"]["hi"]["chars_per_second"]
+        rate = fmt["cuts"]["en"]["chars_per_second"]
         budget = (tier["target_seconds"]
                   - tier["lines"] * (tier["lead_in_seconds"] + tier["tail_seconds"])) * rate
         with open(os.path.join(vault, "run.json"), "w", encoding="utf-8") as fh:
@@ -158,35 +158,35 @@ def _selftest():
             per = max(1, total_chars // 4)
             for i in range(4):
                 body += [f"**1.{i + 1}**", "> " + "क" * per]
-            with open(os.path.join(vault, "script-hi.md"), "w", encoding="utf-8") as fh:
+            with open(os.path.join(vault, "script-en.md"), "w", encoding="utf-8") as fh:
                 fh.write("\n".join(body) + "\n")
 
         write_script(int(budget * 0.9))
         # no audit note at all -> refuse
-        assert pc.voice_cost_guard("s", "hi", fmt), "voiced a script that never passed gate one"
-        with open(os.path.join(vault, "audit-hi.md"), "w", encoding="utf-8") as fh:
+        assert pc.voice_cost_guard("s", "en", fmt), "voiced a script that never passed gate one"
+        with open(os.path.join(vault, "audit-en.md"), "w", encoding="utf-8") as fh:
             fh.write("verdict: FAIL\n")
-        assert pc.voice_cost_guard("s", "hi", fmt), "voiced a script whose audit says FAIL"
-        with open(os.path.join(vault, "audit-hi.md"), "w", encoding="utf-8") as fh:
+        assert pc.voice_cost_guard("s", "en", fmt), "voiced a script whose audit says FAIL"
+        with open(os.path.join(vault, "audit-en.md"), "w", encoding="utf-8") as fh:
             fh.write("verdict: PASS\n")
-        assert pc.voice_cost_guard("s", "hi", fmt) == [], "blocked a script inside budget"
+        assert pc.voice_cost_guard("s", "en", fmt) == [], "blocked a script inside budget"
 
         write_script(int(budget * pc.VOICE_CHAR_CEILING) + 400)
-        over = pc.voice_cost_guard("s", "hi", fmt)
+        over = pc.voice_cost_guard("s", "en", fmt)
         assert over and "ceiling" in over[0], over
 
         # the slice keeps every line, in order, and retypes nothing
         write_script(int(budget * 0.5))
-        lines = slice_lines("s", "hi")
+        lines = slice_lines("s", "en")
         assert [l["id"] for l in lines] == ["1.1", "1.2", "1.3", "1.4"], lines
-        raw = open(os.path.join(vault, "script-hi.md"), encoding="utf-8").read()
+        raw = open(os.path.join(vault, "script-en.md"), encoding="utf-8").read()
         for l in lines:
             assert l["text"] in raw, "a line was not sliced verbatim from the script"
 
         # gen_vo_<cut>.sh carries no absolute cd — the archive gotcha
         proj = os.path.join(tmp, "proj")
         os.makedirs(proj)
-        sh = open(write_gen_vo(proj, "s", "hi"), encoding="utf-8").read()
+        sh = open(write_gen_vo(proj, "s", "en"), encoding="utf-8").read()
         assert "cd " not in sh and sh.count("\n") == 4, sh
         print("selftest OK")
     finally:
@@ -197,7 +197,7 @@ def _selftest():
 def main(argv=None):
     p = argparse.ArgumentParser(description="slice, guard and voice one cut")
     p.add_argument("slug", nargs="?")
-    p.add_argument("--cut", choices=["hi", "en"])
+    p.add_argument("--cut", default="en", choices=["en"])
     p.add_argument("--only", nargs="+", metavar="ID",
                    help="regenerate ONLY these line ids (the two-line sample pair)")
     p.add_argument("--force", action="store_true", help="regenerate every clip")

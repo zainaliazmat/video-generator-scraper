@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fold the approved CHAPTER designs back into ONE full-length composition.
 
-    python3 tools/cut_assemble.py <slug> --cut hi
+    python3 tools/cut_assemble.py <slug> --cut en
 
 Writes studio/videos/<slug>-<cut>-full/index.html  <- THE MASTER composition
        studio/videos/<slug>-<cut>/assets/audio.json <- the merged cue list
@@ -445,7 +445,7 @@ def scaffold(slug, cut):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
-    ap.add_argument("--cut", default="hi")
+    ap.add_argument("--cut", default="en", choices=("en",))
     a = ap.parse_args()
     scaffold(a.slug, a.cut)
     assemble(a.slug, a.cut)

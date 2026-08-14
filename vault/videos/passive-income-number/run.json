@@ -1,13 +1,12 @@
 {
   "slug": "passive-income-number",
-  "topic": "How much you actually need invested for your money to pay you every month \u2014 the passive-income number. hi/\u20b9 cut: SIP + SWP corpus \u2192 monthly income, framed as financial freedom / passive income, and the word 'dividends' is BANNED in the \u20b9 cut (India search volume: dividends 2,531/mo \u00b7 live off dividends 2,907 \u00b7 dividend investing 2,807, vs financial freedom 92,825 \u00b7 passive income 46,094). en/$ cut: the US 'how much you need invested to live off dividends' framing, which is the phrase the format twins actually rank on.",
+  "topic": "How much you actually need invested for your money to pay you every month — the passive-income number. The US 'how much you need invested to live off dividends' framing, which is the phrase the format twins actually rank on.",
   "tier": "medium",
   "target_seconds": 510,
   "architecture": "blockframe-9",
   "architecture_default": "blockframe-9 (LOCKED)",
   "architecture_differs_from_default": false,
   "cuts": [
-    "hi",
     "en"
   ],
   "started": "2026-08-07",
@@ -15,9 +14,8 @@
     "no_return_promise": "Never promise or imply a return rate. The corpus number is arithmetic FROM a stated assumption, never a forecast. Say the assumption out loud in the VO the first time a number depends on it.",
     "withdrawal_rate_on_screen": "Every corpus figure must carry its assumed withdrawal/return rate ON SCREEN in the same frame as the number. A number without its assumption visible is a fabricated promise.",
     "no_unsourced_retire_early": "No 'retire early', 'quit your job', or financial-freedom-by-age claim that is not sourced and dated in facts-staging.md.",
-    "hi_currency_framing": "\u20b9 cut: SIP/SWP vocabulary, financial freedom / passive income framing. The word 'dividend' (and its Hindi/Devanagari transliterations) must not appear in the hi script, on-screen text, title, or tags.",
-    "market_rewrite_not_translation": "The en cut is a US rewrite (US vehicles, US numbers, Brian voice), not a translation of the hi cut \u2014 see vault/knowledge/us-english-script-style.md.",
-    "derived_income_carries_assumption": "EXTENDED 2026-08-07 during ch2 review. `withdrawal_rate_on_screen` was written about CORPUS figures, so the build assert let s17's `WHAT \u20b92,500 BUYS` through bare \u2014 correctly, by the letter. But \u20b92,500/month is the corpus's OUTPUT at 3.0%, i.e. the promise the video actually makes, and `no_return_promise` says a number without its assumption visible is a fabricated promise. So a DERIVED INCOME figure carries the rate in frame or an explicit ILLUSTRATIVE marker, same as a corpus. Every rung has a 'what X buys' beat, so this lives in the build assert, not in per-chapter review."
+    "market_rewrite_not_translation": "The cut is written for the US from scratch (US vehicles, US numbers, Brian voice) — never a translation. See vault/knowledge/us-english-script-style.md.",
+    "derived_income_carries_assumption": "EXTENDED 2026-08-07 during ch2 review. `withdrawal_rate_on_screen` was written about CORPUS figures, so the build assert let s17's `WHAT ₹2,500 BUYS` through bare — correctly, by the letter. But ₹2,500/month is the corpus's OUTPUT at 3.0%, i.e. the promise the video actually makes, and `no_return_promise` says a number without its assumption visible is a fabricated promise. So a DERIVED INCOME figure carries the rate in frame or an explicit ILLUSTRATIVE marker, same as a corpus. Every rung has a 'what X buys' beat, so this lives in the build assert, not in per-chapter review."
   },
   "stages": {
     "fin-research": {
@@ -34,35 +32,12 @@
       "log": "vault/videos/passive-income-number/logs/fin-facts-1.md",
       "at": "2026-08-06T22:14:21+00:00"
     },
-    "fin-script-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/passive-income-number/logs/fin-script-hi-2.md",
-      "at": "2026-08-07T22:15:31+00:00",
-      "superseded_reason": ""
-    },
     "fin-script-en": {
       "status": "done",
       "reason": "",
       "attempt": 2,
       "log": "vault/videos/passive-income-number/logs/fin-script-en-2.md",
       "at": "2026-08-07T18:22:19+00:00"
-    },
-    "fin-audit-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 3,
-      "log": "vault/videos/passive-income-number/logs/fin-audit-hi-3.md",
-      "at": "2026-08-08T01:30:13+00:00"
-    },
-    "fin-voice-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 3,
-      "log": "vault/videos/passive-income-number/logs/fin-voice-hi-3.md",
-      "at": "2026-08-08T01:37:57+00:00",
-      "script_sha256": "976c53bac30ed337b0433ade696d050e27a12ff9af1eedd90a2639eea0216aff"
     },
     "fin-audit-en": {
       "status": "done",
@@ -78,13 +53,6 @@
       "log": "vault/videos/passive-income-number/logs/fin-voice-en-2.md",
       "at": "2026-08-07T18:55:09+00:00",
       "script_sha256": "144d30dff2ee2595bb5c49e026441198ed34f111de759008ce97eeb1fd82f654"
-    },
-    "fin-storyboard-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 2,
-      "log": "vault/videos/passive-income-number/logs/fin-storyboard-hi-2.md",
-      "at": "2026-08-08T02:04:48+00:00"
     },
     "fin-storyboard-en": {
       "status": "done",
@@ -107,27 +75,6 @@
       "log": "vault/videos/passive-income-number/logs/fin-build-en-preassembly-1.md",
       "at": "2026-08-12T00:00:00+00:00"
     },
-    "fin-assets-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/fin-assets-hi-ch5-1.md",
-      "at": "2026-08-10T09:53:41+00:00"
-    },
-    "fin-build-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/fin-build-hi-ch5-1.md",
-      "at": "2026-08-10T10:38:54+00:00"
-    },
-    "fin-review-hi": {
-      "status": "done",
-      "reason": "",
-      "attempt": 1,
-      "log": "vault/videos/passive-income-number/logs/review-hi-ch4-1.md",
-      "at": "2026-08-10T07:21:52+00:00"
-    },
     "fin-review-en": {
       "status": "done",
       "reason": "",
@@ -148,88 +95,6 @@
     "pixabay_calls": 0
   },
   "chapters": {
-    "hi": {
-      "1": {
-        "status": "locked",
-        "scenes": "s1-s8",
-        "lines": "1.1-1.8",
-        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch1-1.md",
-        "render": "vault/videos/passive-income-number/logs/fin-render-hi-ch1-1.md",
-        "draft": "studio/videos/passive-income-number-hi-ch1/renders/DRAFT-ch1.mp4",
-        "sheet": "studio/videos/passive-income-number-hi-ch1/renders/SHEET-ch1.jpg",
-        "frames": 1275,
-        "seconds": 42.5,
-        "fps": 30,
-        "at": "2026-08-08",
-        "editor": "vault/videos/passive-income-number/logs/editor-hi-ch1-styleE-1.md",
-        "ceo": "vault/videos/passive-income-number/logs/ceo-hi-ch1-1.md",
-        "round": 3
-      },
-      "2": {
-        "status": "locked",
-        "scenes": "s9-s21",
-        "lines": "2.1-2.13",
-        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch2-1.md",
-        "at": "2026-08-09",
-        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch2-1.md",
-        "render": "vault/videos/passive-income-number/logs/fin-render-hi-ch2-1.md",
-        "draft": "studio/videos/passive-income-number-hi-ch2/renders/DRAFT-ch2.mp4",
-        "sheet": "studio/videos/passive-income-number-hi-ch2/renders/SHEET-ch2.jpg",
-        "frames": 2446,
-        "seconds": 81.533,
-        "fps": 30,
-        "editor": "vault/videos/passive-income-number/logs/editor-hi-ch2-styleE-1.md",
-        "round": 2,
-        "ceo": "vault/videos/passive-income-number/logs/ceo-hi-ch2-1.md"
-      },
-      "3": {
-        "status": "locked",
-        "scenes": "s22-s30",
-        "lines": "3.1-3.9",
-        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch3-3.md",
-        "at": "2026-08-09",
-        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch3-3.md",
-        "draft": "studio/videos/passive-income-number-hi-ch3/renders/DRAFT-ch3.mp4",
-        "sheet": "studio/videos/passive-income-number-hi-ch3/renders/SHEET-ch3.jpg",
-        "seconds": 61.143,
-        "editor": "vault/videos/passive-income-number/logs/editor-hi-ch3-3.md",
-        "render": "vault/videos/passive-income-number/logs/fin-render-hi-ch3-4.md",
-        "ceo": "vault/videos/passive-income-number/logs/ceo-hi-ch3-3.md",
-        "round": 3,
-        "frames": 1835,
-        "fps": 30
-      },
-      "4": {
-        "status": "locked",
-        "scenes": "s31-s40",
-        "lines": "4.1-4.10",
-        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch4-2.md",
-        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch4-1.md",
-        "review": "vault/videos/passive-income-number/logs/review-hi-ch4-1.md",
-        "draft": "studio/videos/passive-income-number-hi-ch4/renders/DRAFT-ch4.mp4",
-        "sheet": "studio/videos/passive-income-number-hi-ch4/renders/SHEET-ch4.jpg",
-        "frames": 1965,
-        "seconds": 65.5,
-        "fps": 30,
-        "round": 1,
-        "at": "2026-08-10"
-      },
-      "5": {
-        "status": "assets_done_build_done_draft_pending",
-        "scenes": "s41-s57",
-        "lines": "5.1-5.17",
-        "assets": "vault/videos/passive-income-number/logs/fin-assets-hi-ch5-1.md",
-        "build": "vault/videos/passive-income-number/logs/fin-build-hi-ch5-1.md",
-        "seconds": 113.309,
-        "at": "2026-08-10"
-      },
-      "6": {
-        "status": "pending"
-      },
-      "7": {
-        "status": "pending"
-      }
-    },
     "en": {
       "1": {
         "status": "locked",
@@ -326,8 +191,9 @@
     }
   },
   "style_decision": {
-    "what_style_E_is": "(1) Cold open is a WHAT-IF, not a statement \u2014 the withheld thing is the promise, its arrival is the payoff. (2) Teaching register signposted throughout (\u00ab\u092f\u0939\u093e\u0901 \u0927\u094d\u092f\u093e\u0928 \u0926\u0940\u091c\u093f\u090f\u00bb / \u00abNotice this\u00bb, \u00abThink of it this way\u00bb, \u00abWork it through\u00bb). (3) One analogy introduced early that PAYS OFF LATER, so a later beat lands as a callback rather than a new idea. (4) Arithmetic stepped across lines, never compressed into one.",
-    "reference_scripts": "studio/voice-tests/passive-income-number/style-E-teacher-curiosity.txt (hi ch1-2) and style-E-en-teacher-curiosity.txt (en ch1-2). Both are ch1+ch2 only \u2014 chapters 3+ must be restyled to match, keeping their facts and structure unchanged.",
-    "line_1_7_en_is_untouchable": "\u00abEveryone asks how much you need invested to live off dividends, and the honest answer costs more than the popular one.\u00bb It is the title's own promise and the phrase this format ranks on."
-  }
+    "what_style_E_is": "(1) Cold open is a WHAT-IF, not a statement — the withheld thing is the promise, its arrival is the payoff. (2) Teaching register signposted throughout («यहाँ ध्यान दीजिए» / «Notice this», «Think of it this way», «Work it through»). (3) One analogy introduced early that PAYS OFF LATER, so a later beat lands as a callback rather than a new idea. (4) Arithmetic stepped across lines, never compressed into one.",
+    "reference_scripts": "studio/voice-tests/passive-income-number/style-E-teacher-curiosity.txt (hi ch1-2) and style-E-en-teacher-curiosity.txt (en ch1-2). Both are ch1+ch2 only — chapters 3+ must be restyled to match, keeping their facts and structure unchanged.",
+    "line_1_7_en_is_untouchable": "«Everyone asks how much you need invested to live off dividends, and the honest answer costs more than the popular one.» It is the title's own promise and the phrase this format ranks on."
+  },
+  "voices": {}
 }

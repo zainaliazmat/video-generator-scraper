@@ -59,7 +59,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # directory of copies. Shape:
 #   {"holds": [["s13","s14"]], "buzz": {"s1": 0.95}, "counted": ["s2"],
 #    "dry": ["s1","s2"]}
-HOLDS = {"hi": set(), "en": set()}
+HOLDS = {"en": set()}
 BUZZ = {}
 COUNTED = set()
 
@@ -291,7 +291,7 @@ def main():
     a = ap.parse_args()
 
     proj = os.path.abspath(a.project)
-    cut = "hi" if "-hi" in os.path.basename(proj) else "en"
+    cut = "en"
     ch = int(re.search(r"-ch(\d+)$", os.path.basename(proj)).group(1))
     src = os.path.join(proj, "index-claudedesign.html")
     if not os.path.exists(src):

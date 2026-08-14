@@ -2,7 +2,7 @@
 summary: The two-channel plan — Channel A "TechToolTester" (AI-tools, locked niche, LIVE) and Channel B (cinematic history, planned). How they cross-feed.
 updated: 2026-08-01
 source: creator, 2026-07-05 (channel created); niche evidence per [[niches/ai-tools-creator-video]]
-stage: ADOPTED — the two finance channels and their positioning
+stage: ADOPTED — @moneymavens101 is the sole finance channel (Hindi @cashguruguides retired 2026-08-15)
 ---
 
 # Channels
@@ -82,27 +82,22 @@ positioning + audience before locking its niche note.
 partial (mid-RPM, no affiliates — volume/brand play). Evidence:
 [[niches/cinematic-history]]. First topic locked: **Pompeii — The Last Day**.
 
-## D — CashGuruGuides (@cashguruguides) — LIVE, 6 videos uploaded + scheduled
-The **India / Hindi / ₹** finance channel. Studio:
-https://studio.youtube.com/channel/UCHbj4hVEud49Sy2e9-V9gcg
-Avatar (green coin-face): `assets/brand/cashguruguides.jpg` — watermarked onto
-every `-hi` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
+## D — CashGuruGuides (@cashguruguides) — ❌ RETIRED 2026-08-15
+Creator decision 2026-08-15: **the India/Hindi/₹ finance channel is being deleted
+and the finance lane is US-only from here.** No further `-hi` cuts are produced.
+The pipeline no longer has a Hindi cut — `tools/format.json` declares `en` only,
+and every `fin-*` stage is single-cut ([[../workflows/finance-video]]).
 
-| Video | Slug | URL | State |
-|---|---|---|---|
-| Har Saal ₹24,564 Chup-Chaap Gayab — Aapke Subscriptions Ka Sach | needs-vs-wants | https://youtu.be/I9cxxhcdfg0 | live · archived |
-| ₹30,000 Salary Kaise Manage Kare \| 50-30-20 Rule Ka India Version | 50-30-20-rule | https://youtu.be/FstXhGwOCjo | live · archived |
-| One Repair From Broke — Emergency Fund Explained in Haryanvi \| Start With ₹2,500 | emergency-fund | https://youtu.be/vZG7fkPwpzI | live · archived |
-| Good Debt vs Bad Debt / minimum-payment trap (₹ cut) | good-debt-vs-bad-debt | https://youtu.be/f-doI5d0NRk | live · archived |
-| Pay Yourself First (₹ cut) | pay-yourself-first | https://youtu.be/PKU0_TeJ9_c | live · archived |
-| CIBIL Score / one missed EMI = 36 mahine (₹ cut) | credit-history | https://youtu.be/j_YM-im4qz4 | live · archived |
-
-`archived` = source moved to `../videos/<slug>/src/hi/`, studio dir deleted per
-the finished-video rule ([[CLAUDE]]).
+Its six uploads were live at retirement (needs-vs-wants · 50-30-20-rule ·
+emergency-fund · good-debt-vs-bad-debt · pay-yourself-first · credit-history).
+Their Hindi source, scripts, storyboards, publish packs and stage logs were
+deleted from the vault in the same pass; `git log` before 2026-08-15 is the only
+remaining copy. The `-en` half of every one of those videos is untouched and
+lives on §E.
 
 ## E — moneymavens101 (@moneymavens101) — LIVE, 6 videos uploaded + scheduled
-The **US / English / $** finance channel. The `-en` cuts are a US rewrite, not a
-translation ([[us-english-script-style]]). Studio:
+The **US / English / $** finance channel — since 2026-08-15 the **only** finance
+channel ([[us-english-script-style]]). Studio:
 https://studio.youtube.com/channel/UChNmDWhioyD5S_08AI6cSaA
 Avatar (pink coin-face): `assets/brand/moneymavens101.jpg` — watermarked onto
 every `-en` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
@@ -112,22 +107,20 @@ every `-en` cut from 2026-08-01 ([[design-finance-blockframe]] §1).
 | You Think You Spend $86 a Month on Subscriptions. It's $219. | needs-vs-wants | https://youtu.be/4DimmIqnxSM | live · archived |
 | The 50/30/20 Budget Rule Doesn't Survive 2026 Rent (Here's the Fix) | 50-30-20-rule | https://youtu.be/-qrvQMrETn0 | live · archived |
 | Emergency Fund 2026: How Much, Where to Keep It, How to Start | emergency-fund | https://youtu.be/6dFBciWSs0o | live · archived |
-| The Credit Card Minimum-Payment Trap ($ cut) | good-debt-vs-bad-debt | https://youtu.be/gC2QlQiLqhw | live · archived |
-| Pay Yourself First ($ cut) | pay-yourself-first | https://youtu.be/mlvp4xZTROg | live · archived |
-| How long late payments stay on your report — 7 years ($ cut) | credit-history | https://youtu.be/yoN-gAATN6Y | live · archived |
+| The Credit Card Minimum-Payment Trap | good-debt-vs-bad-debt | https://youtu.be/gC2QlQiLqhw | live · archived |
+| Pay Yourself First | pay-yourself-first | https://youtu.be/mlvp4xZTROg | live · archived |
+| How long late payments stay on your report — 7 years | credit-history | https://youtu.be/yoN-gAATN6Y | live · archived |
 
-**All six pairs are shipped and archived** (credit-history closed 2026-07-31); no finance
-cut remains in `studio/videos/`.
+**All six are shipped and archived** (credit-history closed 2026-07-31).
 
-**Why this matters structurally (2026-07-28):** the ₹/$ pair is not two cuts of
-one upload — it is one upload each to **two separate channels**, each of which
-needs its own cadence, its own demand cluster, and its own packaging. That is
-the justification for "always both cuts" that the design spec was missing.
+**Structural note (2026-08-15):** the old ₹/$ pairing is gone. One topic now
+produces **one** upload, to this channel, researched and packaged against US
+demand — never a translation of anything ([[us-english-script-style]]).
 
-⚠️ **Policy exposure, both D and E:** every upload on both channels is
+⚠️ **Policy exposure:** every upload on this channel is
 synthetic-narration finance content in one repeating 9-segment template.
 [[niches/us-market-2026]] records the 2026 AI-expert carve-out for finance and
-that enforcement is **channel-level**. Gate 2 has not been run on either channel.
+that enforcement is **channel-level**. Gate 2 has not been run.
 
 ## C — Urdu history channel (decided 2026-07-07, **never created — superseded**)
 > **2026-07-31:** the first Urdu history video (Pompeii) shipped on **B

@@ -7,7 +7,7 @@ stage: ADOPTED — the audit method
 
 # Workflow — video engagement audit (open-handed)
 
-Drop the prompt below into a fresh Claude Code session **in this repo** and swap the project path for whichever video you want audited (`studio/videos/<slug>`). It hands Claude the goal + the artifacts + how to inspect them, then gets out of the way — no forced steps, so it uses its own creative-director judgment. Pairs with [[knowledge/haryanvi-hindi-script-style]] and [[knowledge/niches/india-finance-market]].
+Drop the prompt below into a fresh Claude Code session **in this repo** and swap the project path for whichever video you want audited (`studio/videos/<slug>`). It hands Claude the goal + the artifacts + how to inspect them, then gets out of the way — no forced steps, so it uses its own creative-director judgment.
 
 > **Why open-handed:** a rigid checklist caps the audit at what we already thought of. This prompt sets the objective (hold the viewer, make it more interesting) and lets Claude bring frameworks we didn't list.
 
@@ -20,19 +20,17 @@ interesting, more engaging, and better at holding a viewer to the end —
 then tell me, plainly and specifically.
 
 THE VIDEO
-- Project: studio/videos/<slug>-hi   (a cut still IN production — an archived
-  video has no render left to audit; see the finished-video rule in vault/CLAUDE.md)
+- Project: studio/videos/<slug>-en (a cut still IN production — an archived
+ video has no render left to audit; see the finished-video rule in vault/CLAUDE.md)
 - Rendered draft: newest file in that project's renders/*.mp4
 - Composition (the actual visuals + timing + animation): index.html
-- Narration: the Haryanvi-Hindi VO in assets/voice/ (script text in
-  assets/voice/haryanvi-lines.json; durations drive the scene timing)
-- Audience: young Indians, 20-28, first salaries. Delivery is Hindi in a
-  Haryanvi accent (meant to be funny, blunt, attention-grabbing). Style is
-  a bold "blockframe" motion-graphics look, 16:9, ~2-3 min. Educational
-  only — no specific products recommended.
-- Channel knowledge lives in vault/knowledge/ (haryanvi-hindi-script-style,
-  indian-business-culture-slang, niches/india-finance-market). Read what's
-  useful; don't feel bound by it.
+- Narration: the English VO in assets/voice/ (durations drive the scene timing)
+- Audience: US adults, 20-35, first real paychecks. Delivery is direct,
+ second-person, a little blunt. Style is a bold "blockframe" motion-graphics
+ look, 16:9. Educational only — no specific products recommended.
+- Channel knowledge lives in vault/knowledge/ (us-english-script-style,
+ niches/us-market-2026, design-finance-blockframe). Read what's useful;
+ don't feel bound by it.
 
 HOW TO LOOK (use whatever gets you the truest picture — you decide)
 You can read index.html to see exactly how every scene is built, take frame
@@ -50,9 +48,9 @@ Look at all of it and tell me honestly:
 - Is the hook strong enough in the first 3-5 seconds? Would you keep watching?
 - Where does attention sag, and why — pacing, repetition, dead air, a weak beat?
 - Is the script tight, clear, and funny where it should be? Any wasted lines,
-  any confusing bits, any better way to say it in Haryanvi?
+ any confusing bits, any better way to say it?
 - Are the visuals appealing and legible, or flat/templated? Color, type,
-  motion, transitions, negative space, variety scene-to-scene?
+ motion, transitions, negative space, variety scene-to-scene?
 - Does audio + visual land on the same beat (numbers appearing as spoken, etc.)?
 - What's the single highest-impact change? What are the next few?
 
