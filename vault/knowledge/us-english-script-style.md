@@ -16,8 +16,10 @@ stage: ADOPTED — the register for every video on @moneymavens101
 >    sections, each `claim → source on screen → worked example → what it means for you`,
 >    ONE idea per section · PROOF woven through, ≥1 screenshot-the-source held 3s+ ·
 >    CTA = ONE physical action, today, under 5 minutes, needing nothing they lack.
-> 3. **Budget length from `chars_per_second` in format.json, never from 140 wpm** —
->    they disagree by ~2 min on a 9-min script and the gate reads the file.
+>  3. **Length: ~1,470 words for 9 min, ~1,640 for 10 min** (settled 2026-08-15 —
+>    keep the voice, write longer; 140 wpm is retired). Budget from `format.json`
+>    (`chars_per_second` 17.57 ÷ `chars_per_word` 5.63 = 3.121 words/s of audio) and
+>    **subtract per-line padding from the target first** — 73.6 s of a LONG cut is not audio.
 > 4. **Retired anchors** (they were written for a 25-year-old): "two DoorDash orders",
 >    "transfer the day after payday", the mock-scold sign-off. Register is plain,
 >    direct, respectful — never scolding, never chummy, never guilt.
@@ -96,16 +98,17 @@ looking at.
 
 ## Script architecture — the five-part shape
 
-Every script follows this. Word counts are for a ~9-minute video **at the plan's ~140 wpm**
-— see the rate warning below before you budget length.
+Every script follows this. Word counts below are for a **9-minute / ~1,470-word** cut;
+for a 10-minute / ~1,640-word cut the extra words all go into PAYOFF — the hook, stakes
+and CTA do not grow. See "Length" below for the arithmetic and the per-tier table.
 
 | Part | Length | Rule |
 |---|---|---|
-| **HOOK** | first 8 sec, ~25 words | State the surprising fact or the stake. **No greeting, no "in today's video", no channel name, no "welcome back".** Open on the thing itself. |
-| **STAKES** | next 30 sec, ~70 words | Why this costs the viewer something. Name the dollar amount or the deadline. Say what they will know by the end. |
-| **PAYOFF** | the body, ~900 words | Three to five numbered sections. Each: **claim → source on screen → worked example → what it means for you.** One idea per section — never braid two. |
+| **HOOK** | first 8 sec, ~25 words (fixed) | State the surprising fact or the stake. **No greeting, no "in today's video", no channel name, no "welcome back".** Open on the thing itself. |
+| **STAKES** | next 30 sec, ~70 words (fixed) | Why this costs the viewer something. Name the dollar amount or the deadline. Say what they will know by the end. |
+| **PAYOFF** | the body, **~1,255 words** (9 min) / **~1,425** (10 min) | Three to five numbered sections. Each: **claim → source on screen → worked example → what it means for you.** One idea per section — never braid two. |
 | **PROOF** | woven throughout | Every figure appears with its source and as-of date visible. **At least one screenshot-the-source moment per video, held 3+ seconds.** |
-| **CTA** | final ~120 words | ONE specific physical action, doable today, in under 5 minutes, requiring nothing they do not already have. Then a one-line recap. Then the subscribe ask, once, plainly. |
+| **CTA** | final ~120 words (fixed) | ONE specific physical action, doable today, in under 5 minutes, requiring nothing they do not already have. Then a one-line recap. Then the subscribe ask, once, plainly. |
 
 > Good hook: *"There is a Medicare penalty that never goes away. Not for one year. For as
 > long as you have Part B."*
@@ -116,20 +119,42 @@ Every script follows this. Word counts are for a ~9-minute video **at the plan's
 > payable-on-death section, and check whether a name is listed. If it is blank, that is
 > the whole problem, and it takes ten minutes to fix at a branch."*
 
-⚠️ **The 140 wpm target and the measured voice rate disagree — resolve before budgeting.**
-The plan specifies ~1,250 words for ~9 minutes (140 wpm). Brian at default settings is
-measured at **17.57 chars/s** in `tools/format.json`, which is ~180 wpm. A 1,250-word
-script therefore renders at about **6:52, not 9:00**. Two honest options, and the choice
-is a creative one, not a rounding error:
-- **Keep the voice, write longer** — ~1,640 words per 9 min. Same delivery as the shipped
-  library.
-- **Slow the voice, keep the word count** — set an ElevenLabs `speed` below 1.0 and
-  **re-measure `chars_per_second`**, because a voice or speed change always re-budgets it
-  (`tools/format.json cuts.en._chars_per_second_note`). Slower suits a 50+ audience and a
-  deliberate, source-led register.
-Until this is settled, **budget from the measured rate in `format.json`**, never from
-140 wpm — the char-budget gate reads the file, so a script written to the wpm figure
-fails gate one for a reason that has nothing to do with the writing.
+## Length — SETTLED 2026-08-15: keep the voice, write longer
+
+**Creator decision: Brian stays at his measured rate and the scripts get longer.** The
+plan's **140 wpm is retired as a budgeting input** — it describes a delivery pace this
+voice does not have. Budget from `tools/format.json`, which now carries both constants:
+
+| | value | where it came from |
+|---|---|---|
+| `cuts.en.chars_per_second` | **17.57** | measured on shipped MEDIUM/LONG renders |
+| `script.chars_per_word` | **5.63** | measured 2026-08-15 across all seven shipped `-en` scripts (45,802 chars / 8,130 words) |
+
+⇒ the voice delivers **3.121 words per second _of audio_**.
+
+**Padding is charged per line and is not audio, so it comes off the target first.** That
+subtraction is the entire difference between a script that passes gate one and one that
+overruns — at 92 lines it is 73.6 seconds, well over a minute of runtime that carries no
+words at all.
+
+```
+words = (target_seconds − lines × (lead_in + tail)) × chars_per_second ÷ chars_per_word
+```
+
+| Runtime | Tier | Lines | Padding | Audio | Chars | **Words** |
+|---|---|---|---|---|---|---|
+| 8:30 | MEDIUM | 78 | 62.4 s | 447.6 s | 7,864 | **~1,400** |
+| 9:00 | MEDIUM (in tolerance) | ~85 | 68.0 s | 472.0 s | 8,293 | **~1,470** |
+| 10:00 | LONG | 92 | 73.6 s | 526.4 s | 9,249 | **~1,640** |
+
+> **On the ~1,640 figure:** it is exactly right — for the **10-minute** cut, which renders
+> at 9:59. For a **9-minute** video the padding-aware budget is **~1,470**, not 1,640;
+> writing 1,640 words to a 9:00 target overshoots by about a minute and fails gate one at
+> `length_tolerance_pct`. Five of the committed ten are 9 min and five are 10 min — check
+> the video note's `length-min` before you start writing.
+
+Pass/fail is ±`script.length_tolerance_pct` (10%) of the char budget, and `fin-audit`
+enforces it by reading the file, never by re-deriving the rule.
 
 ## Localization — hard rules
 

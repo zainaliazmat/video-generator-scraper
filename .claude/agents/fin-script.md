@@ -75,11 +75,15 @@ different viewer and is NOT a style reference.
 - **Three labels, never drifting:** every claim is a verified fact, a reasonable
   estimate, or an opinion, and it is marked as one in the script AND in the
   on-screen list. If a sentence starts as fact and ends as inference, split it.
-- **Budget length from `chars_per_second` in format.json, never from a words-per-
-  minute figure.** The plan's 140 wpm and the measured 17.57 c/s disagree by about
-  two minutes on a nine-minute script; the char-budget gate reads the file, so a
-  script written to wpm fails gate one for a reason unrelated to its writing.
-  The open decision is recorded in `us-english-script-style`.
+- **Length is settled (2026-08-15): keep the voice, write longer.** 140 wpm is
+  retired as a budgeting input. Budget from `format.json` — `chars_per_second`
+  (17.57) ÷ `chars_per_word` (5.63) = **3.121 words per second OF AUDIO** — and
+  **subtract the per-line padding from the target before you convert**, because
+  padding is not audio: at 92 lines it is 73.6 s. Targets: **~1,400 words** at
+  MEDIUM 8:30 · **~1,470** at 9:00 · **~1,640** at LONG 10:00. Read the video
+  note's `length-min` and `word-budget` before writing — five of the committed ten
+  are 9 min and five are 10, and 1,640 words against a 9:00 target overruns by
+  about a minute and fails gate one.
 - **Banned outright:** invented or "approximately recalled" statistics · a decimal
   on anything inherently imprecise (the long-run market return is a SHAPE) · named
   funds/banks/cards/securities as recommendations · emoji or ALL-CAPS in the script

@@ -63,6 +63,12 @@ that feed it.** Never two browse videos back to back in the first month.
 | 9 | B4 | [[../../videos/fdic-joint-and-trust-coverage/index]] | Joint Accounts and Trust Funds: Does Your FDIC Coverage Double? | **77** | browse | 9 |
 | 10 | S5 | [[../../videos/social-security-tax-threshold/index]] | The Social Security Tax Threshold That Has Never Been Adjusted for Inflation | **83** | search | 10 |
 
+**Script length (settled 2026-08-15).** Brian keeps his measured 17.57 c/s and the
+scripts get longer — 140 wpm is retired as a budgeting input. The five 9-minute cuts are
+MEDIUM at **~1,470 words / 8,293 chars**; the five 10-minute cuts are LONG at **~1,640
+words / 9,248 chars**. Each video note carries its own `word-budget` and `char-budget`.
+Arithmetic and the padding subtraction that makes it right: [[../us-english-script-style]] §Length.
+
 ⚠️ **B4 scored 77** — it clears the 75 floor by two points and is the weakest committed
 title. Re-run `vidiq_generate_titles` against the finished script before producing it;
 if nothing beats 77, ship it, but it is the first candidate to drop if the ten become nine.

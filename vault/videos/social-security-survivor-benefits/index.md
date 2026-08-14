@@ -9,9 +9,11 @@ intent: search
 target-keyword: social security
 keyword-volume-us: 47100
 length-min: 10
+word-budget: 1640
+char-budget: 9248
 slate-position: 6
 status: research
-tier: medium
+tier: long
 cut: en
 publish-date:
 youtube-id:
@@ -59,6 +61,8 @@ Two benefit statements, one greyed out, an arrow between them.
 One object · one red element · 2–4 words, never a repeat of the title · no emoji.
 
 ## Section outline
+
+**Budget: ~1,640 words / 9,248 VO chars** (LONG tier, 10:00, ~92 lines, 73.6s of that runtime is per-line padding and carries no words). HOOK ~25 · STAKES ~70 · CTA ~120 are fixed, so PAYOFF takes ~1,430. Gate one allows ±10%.
 
 <!-- three to five numbered sections; each: claim → source on screen → worked example →
      what it means for you. ONE idea per section, never braided. -->

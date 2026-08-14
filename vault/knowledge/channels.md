@@ -176,10 +176,10 @@ Verification surface: [[../dashboard]].
 - ~~Re-run topic research for the 50+ lane~~ — **done**, the slate replaces
   [[niches/finance-topics-2026-07-31]] (which was ranked for a general-budgeting
   audience and does not carry this one).
-- **Decide the speech rate.** The plan writes to 140 wpm; the voice measures 17.57
-  chars/s (~180 wpm). A 1,250-word script renders ~6:52, not 9:00. Either write
-  ~1,640 words per 9 min or slow the voice and re-measure — see
-  [[us-english-script-style]].
+- ~~Decide the speech rate~~ — **settled 2026-08-15: keep Brian, write longer.**
+  140 wpm retired as a budgeting input. ~1,470 words at 9 min, ~1,640 at 10 min;
+  `script.chars_per_word` (5.63) measured from the shipped scripts and stored in
+  `tools/format.json`. See [[us-english-script-style]] §Length.
 - **Approve thumbnail generation** (~180-250 vidIQ credits for the first five).
 
 ⚠️ **Policy exposure:** every upload on this channel is

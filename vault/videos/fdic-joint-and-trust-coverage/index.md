@@ -9,6 +9,8 @@ intent: browse
 target-keyword: joint bank account rules
 keyword-volume-us: null
 length-min: 9
+word-budget: 1470
+char-budget: 8293
 slate-position: 9
 status: research
 tier: medium
@@ -61,6 +63,8 @@ Two name plates on one account, coverage brackets drawn around each.
 One object · one red element · 2–4 words, never a repeat of the title · no emoji.
 
 ## Section outline
+
+**Budget: ~1,470 words / 8,293 VO chars** (MEDIUM tier, 9:00, ~85 lines, 68.0s of that runtime is per-line padding and carries no words). HOOK ~25 · STAKES ~70 · CTA ~120 are fixed, so PAYOFF takes ~1,260. Gate one allows ±10%.
 
 <!-- three to five numbered sections; each: claim → source on screen → worked example →
      what it means for you. ONE idea per section, never braided. -->
