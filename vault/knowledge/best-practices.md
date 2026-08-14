@@ -106,7 +106,7 @@ fine and usually better than a literal screenshot.
 - **Face lifts CTR ~25–30%** if you have one (pointing/reacting). We're faceless → lean on the
   logo-battle + drama instead (Nate's 363k is faceless: crowned Claude + cracked editors).
 - **Don't over-bait:** CTR with weak retention gets punished (watch-time share is weighted).
-- **Specs:** 1280×720, < 2 MB. Text in English per [[english-titles-descriptions]].
+- **Specs:** 1280×720, < 2 MB. Text in English per `english-titles-descriptions` (Claude memory).
 - **Build:** Canva `generate-design` (design_type youtube_thumbnail) for the polished vibrant scene;
   composite the exact real logo locally (ImageMagick) if the AI's version is off. Study the top
   competitors first: `curl https://img.youtube.com/vi/<VIDEO_ID>/maxresdefault.jpg` → view → copy the pattern.

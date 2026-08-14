@@ -309,5 +309,5 @@ currency glyph at all, so sound-off it said "a notification arrived" rather than
 Escalate only if a scene genuinely needs a specific depiction: Wikimedia
 Commons / Library of Congress for historical (see
 [[../videos/video-hist-01-travel/asset-sourcing]]), or generate the image
-per [[scene-image-prompt-rules]]. For the finance format, object-led Pixabay
+per `scene-image-prompt-rules` (Claude memory). For the finance format, object-led Pixabay
 has been sufficient.

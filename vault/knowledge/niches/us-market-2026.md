@@ -75,7 +75,7 @@ are marketing. Caveat: cross-platform, not YouTube-isolated.
   situation over and over with the same outcome."*
 - **2026 clarification: AI "expert" personas in health, legal, finance and
   politics are ineligible regardless of added value.** This guts the highest-CPM
-  verticals for a synthetic-narrator build. See [[depiction-no-prophet-faces]]
+  verticals for a synthetic-narrator build. See `depiction-no-prophet-faces` (Claude memory)
   for the parallel rule on our own content.
 - **Enforcement is channel-level.** A pattern across recent uploads kills
   monetisation for the whole channel. Documented: 588k-sub Bible-story channel
@@ -173,4 +173,4 @@ The binding rules, now evidence-backed:
 worry that shaped [[../../..|the pipeline review]] was aimed at the wrong axis;
 sameness is the axis that matters.
 - vidIQ MCP connector is unauthorised; authorising it unlocks per-keyword
-  competition data instead of inference. See [[two-home-memory-architecture]].
+  competition data instead of inference. See `two-home-memory-architecture` (Claude memory).

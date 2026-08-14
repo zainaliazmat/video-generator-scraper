@@ -17,8 +17,8 @@ knowledge lives here.
 - **URL:** https://www.youtube.com/watch?v=qyBqfJGwnEI
 - **Channel:** HistoryFramesFilm (@historyframesfilm) — the cinematic-history lane ([[../../knowledge/niches/cinematic-history]]).
 - **Publish:** scheduled 2026-07-11 02:00 PKT (≈ prior-evening US primetime).
-- **Working title:** "The Golden Age of Travel: From Ocean Liners to Jets" (final title/description set on YouTube; titles+desc in English per [[english-titles-descriptions]]).
-- **Format:** compressed-entire-history — 4:04, 14 scenes, 1841→today. (Note: the niche note had *locked* Pompeii day-in-the-life first; in reality the **compressed-history format shipped first**. [[video-hist-01-pompeii]] remains a drafted, not-yet-shipped day-in-the-life piece.)
+- **Working title:** "The Golden Age of Travel: From Ocean Liners to Jets" (final title/description set on YouTube; titles+desc in English per `english-titles-descriptions` (Claude memory)).
+- **Format:** compressed-entire-history — 4:04, 14 scenes, 1841→today. (Note: the niche note had *locked* Pompeii day-in-the-life first; in reality the **compressed-history format shipped first**. [[../video-hist-01-pompeii/index]] remains a drafted, not-yet-shipped day-in-the-life piece.)
 - **Style:** vintage B&W parallax history slideshow (Ken Burns + film grain + blue-sepia grade + serif titles), built with HyperFrames + Claude Code.
 - **Core idea / tagline:** crossing the world went from *weeks* to *hours* — "how the world learned to wander."
 
@@ -47,7 +47,7 @@ some sources say 1953 — verify vs the sourced image) · 1970 Boeing 747 · tod
 Don't restart. Reuse the runbook + design system; improve on: (a) apply a stronger
 hook in the first 0:15 (per [[../../knowledge/best-practices#Hooks]] — ordinary-life
 cold open + dramatic irony from the Pompeii study), (b) add the Islamic/religious POV
-angle where a topic authentically carries one ([[islamic-pov-in-stories]]), (c) measure
+angle where a topic authentically carries one (`islamic-pov-in-stories`, Claude memory), (c) measure
 CTR/AVD once live and feed it back into [[../../knowledge/best-practices]].
 
 ## Published + archived (2026-07-31)

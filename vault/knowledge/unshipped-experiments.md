@@ -55,7 +55,7 @@ records a delivery, and there was none.
    written rules — quiet, non-graphic, verify date *and* side, never gore / ghost-train /
    named-massacre, *"when in doubt, the emptier, quieter frame"* — plus a pre-delivery
    checkbox that enforces them. Same shape as the no-revered-faces rule
-   ([[depiction-no-prophet-faces]] in memory): put it in the checklist or it doesn't hold.
+   (`depiction-no-prophet-faces` in Claude memory): put it in the checklist or it doesn't hold.
 7. **The critique pass.** soul-of-coffee kept a `critique/` directory with a full proxy
    frame per scene, an all-scenes contact sheet, and **paired before/after stills** for
    each fix (grain, outro trim, text fade). Reviewing a grid instead of a video is what

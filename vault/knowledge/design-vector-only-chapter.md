@@ -133,7 +133,7 @@ So the honest read is **not** "vector replaces photography". It is:
 Which is roughly s13 s15 s16 s17 s19 s20 better, s11 s12 s14 s18 s21 worse. A hybrid —
 drawn for the argument, photographed for the people — beats either pure form, and is
 close to what `image_per_scene` + the Lottie cap were already pushing toward.
-This trial suspended [[finance-every-frame-has-image]] deliberately; it does not
+This trial suspended `finance-every-frame-has-image` (Claude memory) deliberately; it does not
 overturn it.
 
 ## Files
