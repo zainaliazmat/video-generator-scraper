@@ -76,8 +76,40 @@
       "attempt": 1,
       "log": "vault/videos/financial-freedom-after-50/logs/fin-build-en-1.md",
       "at": "2026-08-15T09:20:47+00:00"
+    },
+    "fin-review-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/financial-freedom-after-50/logs/review-en-ch2-2.md",
+      "at": "2026-08-15T12:04:43+00:00"
     }
   },
-  "chapters": {},
+  "chapters": {
+    "en": {
+      "1": {
+        "status": "locked",
+        "draft": "studio/videos/financial-freedom-after-50-en-ch1/renders/DRAFT-ch1.mp4",
+        "sheet": "studio/videos/financial-freedom-after-50-en-ch1/renders/SHEET-ch1.jpg",
+        "review": "vault/videos/financial-freedom-after-50/logs/review-en-ch1-2.md",
+        "round": 2,
+        "seconds": 68.672,
+        "fps": 30,
+        "frames": 2061,
+        "at": "2026-08-15T00:00:00+00:00"
+      },
+      "2": {
+        "status": "locked",
+        "draft": "studio/videos/financial-freedom-after-50-en-ch2/renders/DRAFT-ch2.mp4",
+        "sheet": "studio/videos/financial-freedom-after-50-en-ch2/renders/SHEET-ch2.jpg",
+        "review": "vault/videos/financial-freedom-after-50/logs/review-en-ch2-2.md",
+        "round": 2,
+        "seconds": 108.667,
+        "fps": 30,
+        "frames": 3260,
+        "at": "2026-08-15T00:00:00+00:00"
+      }
+    }
+  },
   "vidiq_spend": 0
 }

@@ -98,3 +98,70 @@ reads the selftest: a sample run exits **nonzero on purpose** (the verify pass s
   quarantined. A real vidIQ lane study is OWED, filtered to the LONG comparable band
   (480–1800 s). This cut is being written against no measured lane; treat its retention
   curve as the first real datapoint.
+
+## Chapter loop — chapters 1 and 2 locked (2026-08-15)
+
+Both locked at **round 2 of 3**. Stopped here at creator request; chapter 3 not started.
+
+- **ch1** — 11 scenes / 68.672 s / 2061 f. Round 1 REWORK, 4 P1: a payoff frame that named
+  "five steps" over an uncountable fanned stack, two staircases back to back (s9/s10), an
+  `arch-d art-off` pair without `centred` leaving a `.brule` over an empty 656 px band, and a
+  closer crushed to unreadable dark wood.
+- **ch2** — 17 scenes / 108.667 s / 3260 f. Round 1 REWORK, 4 P1: the chapter's only figure
+  frame painted its source line **1.4 s before the figure**, a B&W puddle where the bucket
+  metaphor should have continued, a *snowman* where the line demanded motion, and the SHOVE
+  closer crushed by the grade over a well-lit source.
+
+### Durable rulings, for chapter 3 onward
+
+1. **A frame that names a count must show the count.** ch1's storyboard assumed a photograph
+   carried "five steps"; it did not, and no drawn layer was budgeted to say so. The fix that
+   worked was not the card chain the reviewer asked for — it was wooden numerals `1 2 3 4 5`,
+   countable at 1.5× on a phone. **The reviewer logged its own ask as the wrong ask**, so a
+   later pass does not restore it.
+2. **Sound-off is per LINE and per ADJACENCY.** Both chapters lost a blocker to two adjacent
+   frames saying the same thing (two staircases; a "dark passage to light" repeat). Only the
+   *promoted* sheet read caught the second — the candidate read did not.
+3. **A citation may never precede its figure.** Non-negotiable for this audience: a source
+   stamp over a hole where the number should be is a claim of verification with nothing
+   verified. Cue order is `pop(num)` then `fade(foot)`, ~1 s apart.
+4. **Crushed closers are a grade defect, not a fetch defect.** Both chapters' final scenes came
+   back near-black over correct, well-lit sources. The lever is per-image brightness (exposed
+   by the grade) plus a wider ken — not a re-pick, and never a per-scene `filter:`.
+5. **A monochrome source cannot be graded.** `grayscale(.32)` has nothing to take from a B&W
+   jpg, so a "dim run" is fixed at the source image, not in the stack. Check candidates at 1:1
+   for colour before promoting.
+6. **`storyboard-en.md` §6's `ctr: N` rows are not reliable** — `.arch-d .stack` is
+   `align-self:start`, so the chip row never occupies the lower band §6 assumes. Judge each
+   scene against the rendered band. Both locked chapters ship `centred`.
+7. **`data-framings` is COMMA-separated.** §3's DOM example writes it space-separated;
+   `check_build` splits on `,` only and `float()` crashes on the space form.
+8. **`per-line-chapters` has no `body_class` entry** in `tools/format/fin-build.json` (only the
+   three short-tier entries exist). Both chapters applied the empty default — `class="cut-en"`,
+   no `swiss-band`, no `rail`. Chapter 3 must match or the two disagree.
+9. **Restate `window.__timelines = window.__timelines || {};`** in every chapter project or the
+   layout and contrast passes die on `missing_timeline_registry`.
+
+### Known-good, do not touch
+ch2's s23 photo swap and its s18 icon (`assets/icons/step-arrow-down.svg`, written back to the
+shared kit) were named the best-built things in the chapter.
+
+### Owed, none of it blocking
+- **`ken()` has no horizontal lever.** `assets/js/motion.js:133-137` hard-codes
+  `xPercent: -2.5 → +2.5` and `plateKen()` is scale-only, so a review note asking to pan a
+  `.bg` horizontally is unimplementable as written. Use `background-position` or inline
+  brightness instead — both exist.
+- **CC BY-SA attribution has no route to the description.** ch2's s22 (Rocky Mountain NP snow
+  roller, @commons, CC BY-SA 4.0) carries its credit row in `assets-ch2/final/CREDITS.txt`, but
+  nothing in `tools/format/*.json` requires credits to reach the video description. Attribution
+  is a licence *condition*, not a courtesy. Close it as a `fin-package` default, not a note on
+  this cut.
+- **`composition_heavy_overlay_count_high`** (34 overlays in ch2, ~52 expected in ch3) is not a
+  render failure — every layer paints, `blackdetect` is clean over the full chapter. It costs
+  only on scenes whose source is already low-key. Fix those scenes; never thin the stack globally.
+- **Two flat runs survive as should-fixes**, neither blocking: ch1 00:23–00:31 (an 8.271 s dark
+  chess hold after the chapter's loudest frame) and ch2's s19–s21 (16 s of three pale paper
+  close-ups, which the already-authorised s21 roll-down arrow closes on its own).
+- **`blockframe.css` ~184–192: the stray paragraph after `known_benign. */` is live CSS** and
+  eats the `.stamp.warn` rule — red-on-red for every cut that ships a red verdict stamp. One
+  `/*` fixes it; `hyperframes check` cannot see it.
