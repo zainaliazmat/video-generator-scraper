@@ -151,3 +151,50 @@ Three that are decisions, not chores:
    stale it. The thumbnail was re-checked against the new title and deliberately KEPT — the
    figure-free title turns the tile's `$1.5M at 4.0%` / `$5.6M at 1.08%` into the answer to the
    question the title asks.
+
+## Published + archived (2026-08-15)
+
+**State: LIVE on YouTube · source archived · studio dir deleted.**
+
+| Cut | Channel | URL | Thumbnail |
+|---|---|---|---|
+| en | @moneymavens101 | https://youtu.be/Cl2yHv203TQ | `src/thumbs/thumbnail-en.png` |
+
+**Source: `src/`** — composition, meta/package JSON, `gen_vo_*.sh`, the VO lines
+(`assets/voice/*.txt`), the image prompts (`assets/img/*.src`), stock CREDITS and the
+thumbnail PNGs. `studio/videos/passive-income-number*` is **deleted** per the finished-video rule
+(`vault/CLAUDE.md`). **Re-render is reproducible, not free** — the scene photos and VO
+mp3s are gone, so a rebuild re-pays image gens + ElevenLabs off the archived prompts
+and lines. `gen_vo_*.sh` still `cd`s into the deleted studio path — repoint it first.
+
+**7.7 GB reclaimed** — `studio/videos/` went 9.2 GB → 1.5 GB against a 9.4 MB archive.
+
+⚠ **`archive_cut.py` was leaving the review artifacts behind, and this cut is why it no longer
+does.** Its glob is `if d.is_dir()`, so the per-cut FILES beside the directories —
+`-FRAMES.png` (14 MB) and the two `-PREVIEW*.mp4` (184 MB) — survived every archive ever run.
+201 MB on this slug alone, and they made §6's own instruction ("the count must match
+`ls -d studio/videos/<slug>*`") **impossible to satisfy**, because the file entries could never
+be accounted for. New `strays()` deletes them and the run now prints
+`9 directories + 3 loose file(s) = 12 entries`, which matches. They are dropped rather than
+archived deliberately: the PREVIEWs are renders, and every frame in FRAMES.png already survives
+as `renders/SHEET-ch*.jpg`. What FRAMES.png added was its NUMBERING — the protocol for a review
+round that is over by the time anything is archived.
+
+### Still owed
+
+1. ⚠ **The AI-enhanced thumbnail was NOT saved, and it may not be recoverable.** §6.1 says to
+   store it as `thumbnail-<cut>-ai.png` BEFORE archiving, because it is the file actually on
+   YouTube. Only the pre-enhance render `thumbnail-en.png` was on disk. Fetching the live one
+   failed — `i.ytimg.com/vi/Cl2yHv203TQ/{maxres,hq}default.jpg` both return **HTTP 404** (a
+   1,097-byte 120×90 placeholder), so YouTube has not published the image yet.
+   **If the thumbnail was AI-enhanced before upload, copy that PNG into
+   `src/thumbs/thumbnail-en-ai.png` now** — it is the second consecutive video to miss this
+   after japanese-money-methods, which is no longer a slip but a pattern the protocol step is
+   failing to prevent.
+2. **vidIQ `score_thumbnail` — attempted and it errored**, exactly as japanese-money-methods
+   predicted ("the vidIQ index lags a scheduled upload"). Re-run once the video is indexed.
+3. **Analytics after 28 days** — vidIQ recipe R5: `channel_analytics` audience_retention
+   filtered to this videoId, plus traffic_sources. The retention curve says where the script
+   failed; traffic sources say whether the title or the thumbnail is the thing to fix next.
+4. **The disclaimer decision** and **the 128-cue proof-listen** — both above, both still open,
+   both channel-level rather than per-video.

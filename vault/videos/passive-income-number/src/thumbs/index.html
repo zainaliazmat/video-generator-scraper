@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Passive-Income Number — Thumbnail (en)</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      /* ════════════════════════════════════════════════════════════════════════
+         passive-income-number — ONE thumbnail, en cut, @moneymavens101.
+         Design system: vault/knowledge/design-finance-blockframe.md (the DARK
+         system). The video rendered in `blockframe-9`, so this uses blockframe
+         grammar. ONE build, no A/B variants (creator rule 2026-07-29).
+
+         ── WHERE TO RE-CUT IF THE TITLE MOVES ──────────────────────────────────
+         A thumbnail is DOWNSTREAM of its title. A vidIQ R3 title-lock pass runs
+         after fin-package and may replace the title. If it does, edit ONLY the
+         `<div id="type-en">` block at the bottom of this file — the three text
+         nodes `#t-subject`, `#t-figure-a`, `#t-figure-b`. The photograph is a
+         separate sibling layer (`<div id="plate-en">`) and never needs touching:
+         the plate asserts "a large store of money", which is true under any
+         title this video can honestly carry.
+         Then re-export:
+             cd studio/videos/passive-income-number-thumbs
+             npx --yes hyperframes@0.7.66 snapshot . --at 0 --no-end   # t=0: plate scale is exactly 1.000
+             npm run check
+         and re-run the 320x180 legibility measurement on the NEW png.
+
+         ── THE COPY, AND WHY IT IS THIS COPY ───────────────────────────────────
+         Title (script-en.md, recommended):
+           "How Much You Need Invested To Live Off Dividends ($5,000/Month)"
+         The packaging rule (tools/format/fin-package.json packaging) says the
+         tile's words must NEVER repeat the title. The title already sells the
+         INCOME ($5,000/month). So the tile sells the other half of the hero
+         pair — the PRICE, which the title cannot fit:
+
+             Same paycheck.
+             $1.5M  at 4.0%       <- green: a division that closed at a sourced rate
+             $5.6M  at 1.08%      <- red:   what the assumption costs when it changes
+
+         Cover-the-title test: a stranger reads "one monthly paycheck costs either
+         1.5 million or 5.6 million, depending on the rate" — a closed statement,
+         with its referent ("Same paycheck.") on the tile, not in the title.
+
+         ── COLOUR IS NOT DECORATION HERE ───────────────────────────────────────
+         storyboard-en.md section 1 fixes this video's colour semantics, and the
+         thumbnail inherits them verbatim rather than inventing a tile palette:
+           --fund  green = a division that CLOSED at a rate the video sourced
+                           -> $1,500,000 at 4.0% is green in the render (4.2/4.3)
+           --warn  red   = what an assumption COSTS when it changes
+                           -> $5,555,556 at 1.08% is red in the render (5.6/5.7)
+         The storyboard's own thesis check — "amber never lands on $5,555,556,
+         red never lands on the 4.0% working rate itself" — is satisfied.
+         RED IS USED EXACTLY ONCE, on one line, and there is no red rule, circle,
+         arrow or underline anywhere (packaging.thumbnail_red_elements = 1).
+
+         ── THE HONESTY CONSTRAINTS BIND THE TILE, NOT JUST THE VIDEO ───────────
+         run.json.constraints:
+           no_return_promise                 -> nothing on the tile forecasts a
+                                                return. Both figures are division.
+           withdrawal_rate_on_screen         -> every corpus figure carries its
+                                                rate IN THE SAME LINE, inline,
+                                                one em to its right. Not a
+                                                footnote, not a sub-line.
+           derived_income_carries_assumption -> the derived income ($5,000/month)
+                                                is deliberately ABSENT from the
+                                                tile. It lives in the title with
+                                                its own parenthetical.
+           no_unsourced_retire_early         -> no "retire", "quit", "freedom",
+                                                "financial independence" anywhere.
+         Every numeral is in script-en.md and on screen in the render:
+           1.5   -> 4.2/4.3 ("one and a half million"), frame num $1,500,000
+           4.0   -> 2.3 onward, in fourteen corpus frames as "AT A 4.0%
+                    WITHDRAWAL RATE"
+           5.6   -> 5.7 VO ("five point six million"); the frame carries the
+                    unrounded $5,555,556. THE TILE ROUNDS TO THE SCRIPT'S OWN
+                    SPOKEN FORM — flagged in the pack, not silent.
+           1.08  -> 5.7 frame stmt "$5,555,556 AT 1.08%"
+
+         ── THE PLATE ──────────────────────────────────────────────────────────
+         `plate-vault.jpg` is a BYTE-IDENTICAL copy of the cut's own scene photo
+         s41.jpg (md5 9e99f67b08eb537eff2cf7f54dc6af91) — the frame that carries
+         "RUNG FOUR · $1,500,000 · AT A 4.0% WITHDRAWAL RATE" at 4:15. No new
+         fetch, no sibling-cut borrow, no retired asset, no AI art.
+
+         The SOUND-OFF TEST (fin-package.json layout.image_relevance), applied to
+         the tile: a closed bank vault door under "$1.5M / $5.6M" says "this is
+         what has to be standing behind the paycheck". It does not argue with the
+         claim — the documented failure it is checked against is the balanced
+         scale under "thirty times apart", a photograph that said the opposite of
+         its words. A closed vault says nothing about rates, promises no return,
+         and shows no growth curve.
+
+         ONE OBJECT (packaging.thumbnail_objects = 1). The source photograph has
+         two vault doors on one brick wall. The crop below puts the RIGHT door —
+         the pale one with the spoked handwheel — as the hero at x 754-1220, and
+         pushes the left door back to x 191-583, where the type scrim sits at
+         ~0.88 opacity and crushes it to wall texture. Measured, not hoped: see
+         the `background-position` arithmetic on `.plate`.
+
+         ── FACELESS IS PERMANENT ───────────────────────────────────────────────
+         No person, no face, no hands, no presenter. The plate has none and the
+         AI-enhance prompt in the pack forbids adding any.
+         ════════════════════════════════════════════════════════════════════════ */
+      @font-face {
+        font-family: "FinanceSans";
+        src: url(assets/fonts/NotoSansFinance-var.woff2) format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --bg: #0d1017;
+        --ink: #f5f3ec;
+        --muted: #98a2b3;
+        --fund: #22c55e;
+        --warn: #ef4444;
+        --target: #f59e0b;
+        --font: "FinanceSans", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #000; }
+      #root { font-family: var(--font); }
+
+      /* `isolation: isolate` is load-bearing. Without it `.thumb` is
+         position:absolute with z-index:auto and creates NO stacking context, so
+         the z-indexed children (.plate 0 / .scrim 1 / .type 2) compete in one
+         flat context up at #root. `hyperframes check` reports that as
+         `text_occluded ... inside div.scrim`. Same class of defect as the
+         missing `.scene` stacking context in tools/format.json qa._dissolve_note. */
+      .thumb {
+        position: absolute; inset: 0; overflow: hidden; isolation: isolate;
+        background: var(--bg); color: var(--ink);
+        display: flex; align-items: center; padding: 0 64px;
+      }
+
+      /* ── LAYER 1 of 3: THE PHOTOGRAPH. Never edited for a title change. ──────
+         Crop arithmetic, so a later editor can move it without guessing.
+         Source plate-vault.jpg is 1880x1253. background-size: 180% of a 1280px
+         frame = 2304px wide, so s = 2304/1880 = 1.2255 and the rendered plate is
+         2304 x 1535.
+           right (hero) door  source x  990-1370  ->  1213-1679   (w 466)
+           left  door         source x  530- 850  ->   650-1042
+           door               source y  270-1040  ->   331-1275   (h 944)
+         background-position-x 45%: the horizontal overflow is 2304-1280 = 1024,
+         so the shift is 0.45 x 1024 = 461px left.
+           hero door  ->  752-1218   (66px right margin, no edge contact)
+           left door  ->  189- 581   (ends at 45.4% of frame width, under a
+                                      ~0.88 scrim -> reads as brick, not a door)
+         background-position-y 55%: vertical overflow 1535-720 = 815, shift
+         0.55 x 815 = 448px up.
+           door -> y -117 to 827. It bleeds ~117px off the top and ~107px off the
+           bottom, which is deliberate: at 320x180 a whole small door reads as a
+           grey rectangle, a bled large door reads as A VAULT. The handwheel,
+           the bolt bars and the rivet line all stay inside the frame.
+
+         GRADE. blockframe.css ships .bg { grayscale(.32) brightness(.62) } and
+         fin-package.json grade_note forbids stacking a darkening pass on top of
+         an already-dark frame. This plate is BRIGHT (daylight brick), so the
+         grade goes the other way: brightness stays near neutral and saturate is
+         pulled DOWN to 0.52. That single number does the packaging plan's
+         "cool background, warm subject" without a second layer, because the
+         brick is strongly saturated red-orange and the vault door is a
+         near-neutral cream — desaturation takes the wall a long way toward grey
+         and barely touches the door. One filter cannot separate a subject and a
+         ground that start close in value; these start far apart in CHROMA, so
+         chroma is the lever. */
+      .plate {
+        position: absolute; inset: 0; z-index: 0;
+        background-image: url(assets/img/plate-vault.jpg);
+        background-repeat: no-repeat;
+        background-size: 180%;
+        background-position: 45% 55%;
+        filter: saturate(0.52) brightness(0.94) contrast(1.16);
+      }
+
+      /* ── LAYER 2 of 3: the scrim. Left-heavy, and it MUST reach zero on the
+         right or the photograph is not on the thumbnail at all (the v1
+         failure recorded in japanese-money-methods: 0.96 alpha across an
+         already-dark plate = type on black).
+         The ramp is tuned to two measured x-positions, not chosen by eye:
+           45.4% -> ~0.88  the left door's right edge, crushed to texture
+           58.8% -> ~0.22  the hero door's left edge, essentially clear
+           64%+  -> ~0.03  the hero door's dial and handwheel, untouched */
+      .scrim {
+        position: absolute; inset: 0; z-index: 1;
+        background:
+          linear-gradient(90deg,
+            rgba(13,16,23,0.95) 0%,
+            rgba(13,16,23,0.93) 34%,
+            rgba(13,16,23,0.88) 46%,
+            rgba(13,16,23,0.35) 56%,
+            rgba(13,16,23,0.05) 64%,
+            rgba(13,16,23,0.00) 72%),
+          linear-gradient(180deg, rgba(13,16,23,0.34), transparent 42%, rgba(13,16,23,0.46));
+      }
+      .grain {
+        position: absolute; inset: 0; z-index: 1; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url(assets/img/grain.png); background-size: cover;
+      }
+
+      /* ── LAYER 3 of 3: the type. THIS is the block a title change re-cuts. ───
+         max-width must fit the WIDEST line, not the column you imagined: `.figure`
+         is `white-space: nowrap`, so a line wider than this box does not wrap, it
+         overflows silently and still looks right in the export. `hyperframes
+         check` usually reports that as `text_occluded ... inside div.scrim`, but
+         japanese-money-methods proved it can instead surface as a bogus
+         `sweep_static` timeline failure — so when check fails here, BISECT THE
+         COPY before believing the fixHint. Widest line measured at export:
+         `$5.6M at 1.08%` = 590px. 660 leaves headroom for one longer re-cut. */
+      .type { position: relative; z-index: 2; max-width: 660px; }
+
+      /* THREE text blocks. No fourth, and NO body-copy sub-line, ever
+         (creator, 2026-08-06: "I don't like the text on the thumbnail" — the
+         build that drew that carried a 36-character sub at 34px). */
+
+      /* Block 1 — THE REFERENT. Two words. It is what makes the tile stand alone:
+         "$1.5M or $5.6M" with no referent is the `30 GUNA FARQ` failure (thirty
+         times WHAT?). "Same paycheck." is also the render's own head at 5.7.
+         Sentence case, not caps: packaging.thumbnail_allcaps_words_max is 1, and
+         "or none" is cleaner than spending the single allowance on a connector. */
+      .subject {
+        font-size: 54px; font-weight: 800; letter-spacing: 0.2px; color: var(--ink);
+        margin: 0 0 26px 0; white-space: nowrap;
+        text-shadow: 0 3px 20px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,0.88);
+      }
+
+      /* Blocks 2 and 3 — THE PRICE PAIR. The rate is a `<span>` INSIDE the line,
+         not a caption under it: run.json.constraints.withdrawal_rate_on_screen
+         says a corpus number without its assumption visible is a fabricated
+         promise, and a number and its rate on separate rows can be cropped
+         apart by a browse-row overlay. Inline, they cannot. */
+      .figure {
+        font-size: 138px; line-height: 1.02; font-weight: 900; letter-spacing: -3px;
+        margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums;
+        text-shadow: 0 4px 30px rgba(0,0,0,0.94), 0 2px 6px rgba(0,0,0,0.82);
+      }
+      .figure .rate {
+        font-size: 45px; font-weight: 800; letter-spacing: 0.4px;
+        margin-left: 18px; vertical-align: 0.42em;
+      }
+      .fundc { color: var(--fund); }
+      .warnc { color: var(--warn); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1280" data-height="720" data-start="0" data-duration="4"
+         style="position: relative; width: 1280px; height: 720px; overflow: hidden;">
+
+      <!-- ONE section. ONE thumbnail. No variants (creator rule 2026-07-29). -->
+      <section id="v2-en" class="thumb clip" data-start="0" data-duration="4" data-track-index="1">
+
+        <!-- PLATE LAYER — the cut's own s41.jpg. Do not edit on a title change. -->
+        <!-- data-layout-allow-overflow: the 4s plate drift below scales this layer
+             past the section box on purpose; `.thumb` has overflow:hidden and clips it.
+             Declared, so `check` reports 0 info instead of 8 cosmetic ones. -->
+        <div id="plate-en" class="plate" data-layout-allow-overflow></div>
+        <div class="scrim"></div>
+        <div class="grain"></div>
+
+        <!-- TYPE LAYER — RE-CUT HERE, and only here, if the title moves. -->
+        <div id="type-en" class="type">
+          <p id="t-subject" class="subject">Same paycheck.</p>
+          <h1 id="t-figure-a" class="figure fundc">$1.5M<span class="rate">at 4.0%</span></h1>
+          <h1 id="t-figure-b" class="figure warnc">$5.6M<span class="rate">at 1.08%</span></h1>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // A still frame is still SEEKED frame by frame, and `hyperframes check`
+      // sweeps the timeline and compares what it gets back.
+      //
+      // ⚠ MEASURED HERE, 2026-08-15 — a proxy tween is NOT enough on a
+      // single-clip composition. The first build carried the japanese-money-
+      // methods pattern verbatim:
+      //     .to({ t: 0 }, { t: 1, duration: 4, ease: "none" })
+      // and `check` failed `Layout ✗ t=0s sweep_static ... Timeline did not
+      // advance under seek; every green verdict on this run is unreliable.`
+      // Bisected before believing the fixHint (the japanese lesson: a fixHint is
+      // the checker's GUESS at cause). It was not an overflowing nowrap line this
+      // time — `.type` max-width is 660 and the widest line measures 608 — and it
+      // was not the tween. The difference is structural: that project held TWO
+      // 2-second clips inside a 4-second composition, so seeking swapped which
+      // section was visible and the sweep saw different pixels. This project ships
+      // ONE thumbnail (creator rule 2026-07-29), so one clip spans the whole
+      // composition and every seek returned an IDENTICAL frame. The checker was
+      // telling the truth.
+      //
+      // Fix: give the PHOTOGRAPH a real 4s drift, so the sweep sees real motion.
+      // It is scoped to `#plate-en` and never to `#type-en` — the type must be
+      // pixel-stable, because the export is taken at t=0 where scale is exactly
+      // 1.000 and the crop arithmetic documented on `.plate` holds byte-for-byte.
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true })
+        .fromTo("#plate-en", { scale: 1 }, { scale: 1.04, duration: 4, ease: "none" });
+    </script>
+  </body>
+</html>

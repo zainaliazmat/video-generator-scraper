@@ -1,0 +1,13 @@
+s72.jpg	https://www.pexels.com/photo/detailed-vintage-globe-map-showing-asia-30769311/	by UMA media	Pexels License
+s77.jpg	https://www.pexels.com/photo/metal-cargo-container-on-a-grass-field-14890007/	by seyfi durmaz	Pexels License
+s78.jpg	https://www.pexels.com/photo/close-up-photo-of-ledger-s-list-164686/	by Pixabay	Pexels License
+s79.jpg	https://www.pexels.com/photo/selective-focus-photography-of-black-iphone-turned-off-on-table-1350462/	by Hasan Albari	Pexels License
+s80.jpg	https://www.pexels.com/photo/empty-room-with-chair-and-brick-wall-interior-31939684/	by Rô Acunha	Pexels License
+s69.jpg	https://www.pexels.com/photo/wind-vane-beside-roof-36882/	by Pixabay	Pexels License
+s70.jpg	https://www.pexels.com/photo/close-up-of-photo-of-books-327882/	by Lum3n	Pexels License
+s73.jpg	https://www.pexels.com/photo/close-up-photo-of-arrows-on-an-archery-target-6540714/	by Kampus Production	Pexels License
+s76.jpg	https://www.pexels.com/photo/wooden-crates-beside-a-house-10096953/	by Mathias Reding	Pexels License
+s81.jpg	https://www.pexels.com/photo/brown-pen-on-white-notebook-303532/	by Lum3n	Pexels License
+s74.jpg	https://www.pexels.com/photo/ladder-on-orange-wall-10032033/	by Nevein	Pexels License
+s75.jpg	https://www.pexels.com/photo/wooden-crates-beside-a-house-10096953/	by Mathias Reding	Pexels License  (derived crop of s76.jpg)
+s71.jpg	https://www.pexels.com/photo/white-papers-in-close-up-shot-12585551/	by BOOM 💥 Photography	Pexels License

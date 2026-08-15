@@ -1,0 +1,13 @@
+s40.jpg	https://www.pexels.com/photo/close-up-photo-of-dollar-bills-4386374/	by https://kaboompics.com/	Pexels License
+s41.jpg	https://www.pexels.com/photo/steel-heavy-doors-of-vault-19882101/	by wutthichai charoenburi	Pexels License
+s45.jpg	https://www.pexels.com/photo/person-holding-black-iphone-4-3639946/	by Wajahat Ahmad Khan	Pexels License
+s46.jpg	https://www.pexels.com/photo/tap-with-drinking-water-along-the-street-13682101/	by Murat Halıcı	Pexels License
+s50.jpg	https://www.pexels.com/photo/close-up-of-stack-of-newspapers-5505718/	by Mike van Schoonderwalt	Pexels License
+s47.jpg	https://www.pexels.com/photo/close-up-of-rusty-industrial-water-pipe-35016079/	by Alex Khoury	Pexels License
+s44.jpg	https://www.pexels.com/photo/black-and-white-pedestrian-lane-13413234/	by Jenkin Shen	Pexels License
+s51.jpg	https://commons.wikimedia.org/wiki/File:Unemployed_men_queued_outside_a_depression_soup_kitchen_opened_in_Chicago_by_Al_Capone,_02-1931_-_NARA_-_541927.jpg	by Unknown authorUnknown author or not provided	Public domain
+s48.jpg	https://www.pexels.com/photo/dried-herbs-and-incense-on-a-weighing-scale-12809521/	by Chinese Medicine Podcast Podcast	Pexels License
+s52.jpg	https://www.pexels.com/photo/broken-porcelain-in-dirt-15241236/	by Alfo Medeiros	Pexels License
+s49.jpg	https://www.pexels.com/photo/pain-peel-off-over-the-wooden-wall-8240498/	by Brett Sayles	Pexels License
+s42.jpg	https://www.pexels.com/photo/steel-heavy-doors-of-vault-19882101/	by wutthichai charoenburi	Pexels License  (derived 1600x900 crop of s41.jpg — same photograph, credit re-keyed)
+s43.jpg	https://www.pexels.com/photo/close-up-on-mans-hands-tempering-pencil-over-drawing-9617403/	by Ron Lach	Pexels License

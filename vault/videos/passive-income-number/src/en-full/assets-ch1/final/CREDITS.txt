@@ -1,0 +1,9 @@
+s1.jpg	https://www.pexels.com/photo/white-apple-iphone-on-wooden-table-48605/	by Negative Space	Pexels License
+s2.jpg	https://www.pexels.com/photo/books-bed-stack-standing-9615255/	by Ron Lach	Pexels License
+s4 lottie	assets/lottie/phone-notify-credit-usd	see assets/lottie/index.json	in-house — nothing to attribute
+s4.jpg	https://www.pexels.com/photo/black-iphone-5-beside-white-ceramic-mug-on-white-table-5052863/	by cottonbro studio	Pexels License	(derived crop of s3.jpg)
+s7.jpg	https://www.pexels.com/photo/close-up-photo-of-person-s-hands-on-a-laptop-10430644/	by Ivan Mudruk	Pexels License
+s8.jpg	https://www.pexels.com/photo/ladder-leaning-on-circular-walls-11084908/	by Rafael DeSoto	Pexels License
+s6.jpg	https://www.pexels.com/photo/a-bag-with-groceries-on-the-floor-7363085/	by RDNE Stock project	Pexels License
+s5.jpg	https://www.pexels.com/photo/arrow-on-target-6669448/	by RDNE Stock project	Pexels License
+s3.jpg	https://www.pexels.com/photo/black-iphone-5-beside-white-ceramic-mug-on-white-table-5052863/	by cottonbro studio	Pexels License

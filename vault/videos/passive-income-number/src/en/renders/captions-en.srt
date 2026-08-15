@@ -1,0 +1,595 @@
+1
+00:00:00,250 --> 00:00:02,993
+Imagine a day when your phone does not ring once.
+
+2
+00:00:03,793 --> 00:00:08,704
+No alarm. No call from work. No message reminding you what you owe someone.
+
+3
+00:00:09,504 --> 00:00:14,049
+And on that same day, before noon, money is deposited into your account.
+
+4
+00:00:14,849 --> 00:00:18,362
+Notice this — the phone buzzes exactly once that day,
+
+5
+00:00:18,362 --> 00:00:21,014
+and that one buzz is the money arriving.
+
+6
+00:00:21,814 --> 00:00:25,001
+You did not get rich. You reached one specific number.
+
+7
+00:00:25,801 --> 00:00:30,712
+That number has one job: to quietly pay your groceries, your gas, and your rent.
+
+8
+00:00:31,512 --> 00:00:34,790
+Everyone asks how much you need invested to live off dividends,
+
+9
+00:00:34,790 --> 00:00:37,599
+and the honest answer costs more than the popular one.
+
+10
+00:00:38,399 --> 00:00:41,601
+In this video that number is built one rung at a time,
+
+11
+00:00:41,601 --> 00:00:45,870
+starting with the smallest, and one condition rides along on every rung.
+
+12
+00:00:46,670 --> 00:00:51,032
+Start with the rate, because a number without a rate is a wish with a comma in it.
+
+13
+00:00:51,832 --> 00:00:55,649
+Think of it this way — you filled a tank slowly, over years,
+
+14
+00:00:55,649 --> 00:00:58,606
+and the only question that matters is how much
+
+15
+00:00:58,606 --> 00:01:01,628
+you can draw out each year without emptying it.
+
+16
+00:01:02,428 --> 00:01:05,828
+That question has a number, and the number is four percent —
+
+17
+00:01:05,828 --> 00:01:09,795
+but understand where it comes from, because four percent is not a law.
+
+18
+00:01:10,594 --> 00:01:13,650
+It is two papers, and both of them have names and dates.
+
+19
+00:01:14,451 --> 00:01:18,734
+William Bengen published the first one in the Journal of Financial Planning,
+
+20
+00:01:18,734 --> 00:01:20,538
+in October nineteen ninety-four.
+
+21
+00:01:21,337 --> 00:01:24,751
+He tested a portfolio split half in stocks and half in bonds,
+
+22
+00:01:24,751 --> 00:01:27,606
+across retirements starting in nineteen twenty-six.
+
+23
+00:01:28,407 --> 00:01:31,461
+Four years later, three Trinity University professors ran
+
+24
+00:01:31,461 --> 00:01:34,676
+it again and published it in February nineteen ninety-eight.
+
+25
+00:01:35,476 --> 00:01:37,201
+Across thirty-year retirements,
+
+26
+00:01:37,201 --> 00:01:41,040
+four percent survived ninety-five percent of the periods they tested.
+
+27
+00:01:41,840 --> 00:01:44,527
+So four percent is the working number here,
+
+28
+00:01:44,527 --> 00:01:48,527
+and it is a finding with a date, not a promise about your money.
+
+29
+00:01:49,328 --> 00:01:53,407
+Now watch what it buys. Take a yearly bill, divide it by four percent,
+
+30
+00:01:53,407 --> 00:01:56,146
+and that is the money the bill needs behind it.
+
+31
+00:01:56,946 --> 00:01:59,746
+The Labor Department says the average household spent ten
+
+32
+00:01:59,746 --> 00:02:02,693
+thousand one hundred sixty-nine dollars on food in one year.
+
+33
+00:02:03,492 --> 00:02:08,322
+Work it through — that is about eight hundred and forty-seven dollars a month,
+
+34
+00:02:08,322 --> 00:02:10,179
+walked out of a store in bags.
+
+35
+00:02:10,980 --> 00:02:12,175
+Divided by four percent,
+
+36
+00:02:12,175 --> 00:02:16,257
+the grocery bill needs two hundred fifty-four thousand dollars standing behind it.
+
+37
+00:02:17,057 --> 00:02:21,064
+Two hundred fifty-four thousand dollars, drawn at four percent a year,
+
+38
+00:02:21,064 --> 00:02:23,640
+and the grocery bill stops costing you hours.
+
+39
+00:02:24,439 --> 00:02:28,651
+That is rung one. Notice what changed: the bill is the same,
+
+40
+00:02:28,651 --> 00:02:31,388
+but your hours are no longer paying it.
+
+41
+00:02:32,188 --> 00:02:34,278
+Rung two is parked outside your building.
+
+42
+00:02:35,078 --> 00:02:37,232
+The same survey puts transportation at
+
+43
+00:02:37,232 --> 00:02:40,407
+thirteen thousand three hundred eighteen dollars a year.
+
+44
+00:02:41,207 --> 00:02:45,594
+Work it through — that is about eleven hundred and ten dollars a month,
+
+45
+00:02:45,594 --> 00:02:48,312
+all of it: payment, insurance, gas, repairs.
+
+46
+00:02:49,112 --> 00:02:50,355
+Divided by four percent,
+
+47
+00:02:50,355 --> 00:02:52,607
+the car and everything it costs needs about
+
+48
+00:02:52,607 --> 00:02:54,911
+three hundred thirty-three thousand dollars.
+
+49
+00:02:55,711 --> 00:02:58,686
+Rung three is the biggest line in the American budget,
+
+50
+00:02:58,686 --> 00:03:01,275
+and it has a landlord or a bank attached to it.
+
+51
+00:03:02,075 --> 00:03:04,688
+Housing came to twenty-six thousand two hundred
+
+52
+00:03:04,688 --> 00:03:07,691
+sixty-six dollars for the average household that year.
+
+53
+00:03:08,492 --> 00:03:10,799
+That is a third of everything they spent,
+
+54
+00:03:10,799 --> 00:03:14,343
+and about two thousand one hundred eighty-nine dollars a month.
+
+55
+00:03:15,143 --> 00:03:16,432
+Divided by four percent,
+
+56
+00:03:16,432 --> 00:03:20,942
+rent or the mortgage needs about six hundred fifty-seven thousand dollars behind it.
+
+57
+00:03:21,742 --> 00:03:24,383
+Say that one slowly, because it is where the number
+
+58
+00:03:24,383 --> 00:03:27,541
+stops sounding like savings and starts sounding like a house.
+
+59
+00:03:28,341 --> 00:03:31,110
+Now understand what those papers say about themselves.
+
+60
+00:03:31,910 --> 00:03:34,930
+The Trinity study states in one sentence that it
+
+61
+00:03:34,930 --> 00:03:38,075
+did not adjust for taxes or for transaction costs.
+
+62
+00:03:38,875 --> 00:03:41,890
+So every rung on this ladder is a before-tax number,
+
+63
+00:03:41,890 --> 00:03:44,674
+and your real one is bigger than the arithmetic.
+
+64
+00:03:45,474 --> 00:03:47,311
+The second limit is the clock,
+
+65
+00:03:47,311 --> 00:03:50,986
+because both papers were built for a thirty-year retirement.
+
+66
+00:03:51,786 --> 00:03:54,661
+Trinity's own conclusion says early retirees who
+
+67
+00:03:54,661 --> 00:03:58,134
+expect long payouts should plan on lower withdrawal rates.
+
+68
+00:03:58,934 --> 00:04:03,273
+That is the only sourced sentence about stopping work early in this video,
+
+69
+00:04:03,273 --> 00:04:04,446
+and it is a warning.
+
+70
+00:04:05,246 --> 00:04:07,989
+Which brings up the number you actually came here for.
+
+71
+00:04:08,789 --> 00:04:12,321
+Five thousand dollars a month is sixty thousand dollars a year,
+
+72
+00:04:12,321 --> 00:04:15,293
+and it sits deliberately below the average household.
+
+73
+00:04:16,093 --> 00:04:19,210
+Work it through — sixty thousand dollars a year,
+
+74
+00:04:19,210 --> 00:04:23,042
+divided by four percent, is one and a half million dollars.
+
+75
+00:04:23,842 --> 00:04:27,621
+One and a half million dollars, at a four percent withdrawal rate,
+
+76
+00:04:27,621 --> 00:04:29,511
+is five thousand dollars a month.
+
+77
+00:04:30,310 --> 00:04:33,063
+Notice what that is. It is division —
+
+78
+00:04:33,063 --> 00:04:36,710
+not a forecast, not a market call, not a promise.
+
+79
+00:04:37,510 --> 00:04:42,421
+Now the warning, and it is the reason most people never reach any of these rungs.
+
+80
+00:04:43,221 --> 00:04:46,999
+Somewhere on your feed there is a payout advertised at ten percent,
+
+81
+00:04:46,999 --> 00:04:49,255
+or twelve, and it looks like a shortcut.
+
+82
+00:04:50,056 --> 00:04:54,000
+Go back to the tank, because twelve percent is a promise about the tap.
+
+83
+00:04:54,800 --> 00:04:58,110
+The papers tested how long a tank lasts at each rate,
+
+84
+00:04:58,110 --> 00:05:00,233
+and no advertisement changes that.
+
+85
+00:05:01,034 --> 00:05:03,432
+The number on the screen is usually real,
+
+86
+00:05:03,432 --> 00:05:06,180
+because a yield is a payout divided by a price.
+
+87
+00:05:06,980 --> 00:05:10,592
+So a yield can double without one extra dollar being paid out,
+
+88
+00:05:10,592 --> 00:05:13,563
+because the price fell and the tank shrank with it.
+
+89
+00:05:14,363 --> 00:05:16,292
+Going back to eighteen seventy-one,
+
+90
+00:05:16,292 --> 00:05:19,804
+the highest reading ever was thirteen point eight four percent,
+
+91
+00:05:19,804 --> 00:05:21,364
+in June nineteen thirty-two.
+
+92
+00:05:22,163 --> 00:05:24,970
+That was the bottom of the Great Depression,
+
+93
+00:05:24,970 --> 00:05:28,798
+and the yield was enormous because the prices had collapsed.
+
+94
+00:05:29,599 --> 00:05:32,901
+So a very big yield is very often a very small price,
+
+95
+00:05:32,901 --> 00:05:35,268
+and a smaller price is a smaller tank.
+
+96
+00:05:36,067 --> 00:05:38,656
+Which leaves the question in the title. What
+
+97
+00:05:38,656 --> 00:05:41,363
+if you only spend what the portfolio pays you,
+
+98
+00:05:41,363 --> 00:05:42,702
+and never sell a share?
+
+99
+00:05:43,502 --> 00:05:48,413
+That is the dividends-only route, and it is a real strategy with a real price tag.
+
+100
+00:05:49,213 --> 00:05:52,975
+Right now the S and P five hundred's dividend yield is about one percent.
+
+101
+00:05:53,775 --> 00:05:56,137
+One tracker reads one point zero four,
+
+102
+00:05:56,137 --> 00:06:00,488
+another reads one point zero eight, and July was the lowest on record.
+
+103
+00:06:01,288 --> 00:06:03,387
+Think of it this way — same tank,
+
+104
+00:06:03,387 --> 00:06:08,158
+but now you may only take what it hands you, and that is about one percent.
+
+105
+00:06:08,959 --> 00:06:13,374
+So run the same division at one percent, and watch what happens to the number.
+
+106
+00:06:14,173 --> 00:06:18,692
+That same five thousand a month, from index dividends alone at about one percent,
+
+107
+00:06:18,692 --> 00:06:20,756
+needs five point six million dollars.
+
+108
+00:06:21,556 --> 00:06:23,853
+One and a half million at four percent,
+
+109
+00:06:23,853 --> 00:06:28,269
+or five point six million at about one percent, for the identical paycheck.
+
+110
+00:06:29,070 --> 00:06:31,680
+Notice what changed: nothing but the rate,
+
+111
+00:06:31,680 --> 00:06:35,470
+and the same paycheck now costs roughly four times the money.
+
+112
+00:06:36,270 --> 00:06:40,200
+Funds built around high-dividend stocks pay more than the index does,
+
+113
+00:06:40,200 --> 00:06:41,965
+at roughly three percent today.
+
+114
+00:06:42,764 --> 00:06:44,155
+At about three percent,
+
+115
+00:06:44,155 --> 00:06:48,328
+that five thousand a month lands near one point nine million dollars.
+
+116
+00:06:49,128 --> 00:06:51,525
+Three routes, three rates, one paycheck,
+
+117
+00:06:51,525 --> 00:06:55,241
+and the rate you assume is the entire difference between them.
+
+118
+00:06:56,041 --> 00:06:59,150
+Rung five is the whole month, not one slice of it.
+
+119
+00:06:59,950 --> 00:07:02,793
+The average American household spent seventy-eight
+
+120
+00:07:02,793 --> 00:07:05,749
+thousand five hundred thirty-five dollars that year.
+
+121
+00:07:06,549 --> 00:07:10,857
+Work it through — that is six thousand five hundred forty-five a month,
+
+122
+00:07:10,857 --> 00:07:14,255
+and at four percent it needs one point nine six million.
+
+123
+00:07:15,055 --> 00:07:18,077
+The same whole month from index dividends alone,
+
+124
+00:07:18,077 --> 00:07:21,351
+at about one percent, is over seven million dollars.
+
+125
+00:07:22,150 --> 00:07:24,202
+One more thing about the four percent,
+
+126
+00:07:24,202 --> 00:07:27,819
+because it is not a settled number and nobody should pretend it is.
+
+127
+00:07:28,619 --> 00:07:31,427
+Morningstar puts the safe starting rate at three point
+
+128
+00:07:31,427 --> 00:07:34,288
+nine percent for someone retiring in twenty twenty-six.
+
+129
+00:07:35,088 --> 00:07:38,755
+Bengen himself moved his own number up to four point seven percent,
+
+130
+00:07:38,755 --> 00:07:41,436
+in a book published in August twenty twenty-five.
+
+131
+00:07:42,235 --> 00:07:44,559
+And a two thousand ten study found the four
+
+132
+00:07:44,559 --> 00:07:47,747
+percent rule did not hold up across most developed markets.
+
+133
+00:07:48,547 --> 00:07:49,892
+Same rule, three answers,
+
+134
+00:07:49,892 --> 00:07:53,928
+which is exactly why the rate belongs next to the number every single time.
+
+135
+00:07:54,728 --> 00:07:57,915
+So here is the ladder in order, all of it at four percent.
+
+136
+00:07:58,715 --> 00:08:02,076
+At four percent, groceries are a quarter of a million. The car,
+
+137
+00:08:02,076 --> 00:08:05,011
+a third of a million. Housing, two thirds of a million.
+
+138
+00:08:05,811 --> 00:08:08,616
+Both at four percent. Five thousand a month,
+
+139
+00:08:08,616 --> 00:08:13,334
+one and a half million. The average household, one point nine six million.
+
+140
+00:08:14,134 --> 00:08:18,095
+And that same five thousand a month from index dividends alone,
+
+141
+00:08:18,095 --> 00:08:21,239
+at about one percent, near five point six million.
+
+142
+00:08:22,039 --> 00:08:23,865
+Every one of those is a division,
+
+143
+00:08:23,865 --> 00:08:27,185
+and every one is only as good as the rate sitting beside it.
+
+144
+00:08:27,986 --> 00:08:31,207
+Now go back to the day this started on. No alarm,
+
+145
+00:08:31,207 --> 00:08:34,099
+no call from work, and one buzz before noon.
+
+146
+00:08:34,898 --> 00:08:37,082
+That number does not buy a lifestyle. It
+
+147
+00:08:37,082 --> 00:08:39,757
+buys back the hours that used to go to the bills.
+
+148
+00:08:40,557 --> 00:08:43,431
+If the number is less mysterious now, subscribe,
+
+149
+00:08:43,431 --> 00:08:47,323
+because the next one prices the rungs nobody puts on a thumbnail.

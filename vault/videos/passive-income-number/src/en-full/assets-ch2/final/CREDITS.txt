@@ -1,0 +1,16 @@
+s13.jpg	https://www.pexels.com/photo/white-book-page-with-black-background-7033651/	by Tima Miroshnichenko	Pexels License
+s16.jpg	https://www.pexels.com/photo/corner-of-paper-stack-20062955/	by Michaela St	Pexels License
+s11.jpg	https://www.pexels.com/photo/close-up-shot-of-a-rusty-nail-9756167/	by Engin Akyurt	Pexels License
+s10.jpg	https://www.pexels.com/photo/close-up-of-vintage-industrial-brass-faucets-38336727/	by BI ravencrow	Pexels License
+s12.jpg	https://www.pexels.com/photo/white-canvas-on-wall-in-studio-6373678/	by Monstera Production	Pexels License
+s23.jpg	https://www.pexels.com/photo/brown-wooden-ladder-996127/	by Pille  Kirsi	Pexels License
+s9.jpg	https://www.pexels.com/photo/notepad-and-pencil-on-black-7718885/	by MART  PRODUCTION	Pexels License
+s17.jpg	https://www.pexels.com/photo/wooden-case-with-printing-keys-lying-on-paper-3838319/	by cottonbro studio	Pexels License
+s19.jpg	https://www.pexels.com/photo/chicken-eggs-in-box-placed-on-kitchen-counter-7262896/	by Sarah  Chai	Pexels License
+s22.jpg	https://www.pexels.com/photo/vintage-time-cards-in-filing-system-38814009/	by Cord Allman	Pexels License
+s14.jpg	https://www.pexels.com/photo/brown-wooden-wall-mounted-rack-6550462/	by Tima Miroshnichenko	Pexels License
+s18.jpg	https://www.pexels.com/photo/a-person-writing-on-a-piece-of-cardboard-8715553/	by Katya Wolf	Pexels License
+s10b.jpg	https://www.pexels.com/photo/close-up-of-vintage-industrial-brass-faucets-38336727/	by BI ravencrow	Pexels License	(derived crop of s10.jpg)
+s20.jpg	https://www.pexels.com/photo/vegetable-stall-at-supermarket-9705830/	by Greta Hoffman	Pexels License
+s15.jpg	https://www.pexels.com/photo/several-books-1973856/	by Suzy Hazelwood	Pexels License
+s21.jpg	https://www.pexels.com/photo/close-up-photograph-of-rye-bread-11513152/	by Frank Schrader	Pexels License
