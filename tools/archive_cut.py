@@ -154,6 +154,12 @@ def archive(root, slug, urls, dry_run=False, today=None):
         print(f"{src.relative_to(root)} -> {dest_dir.relative_to(root)}  ({len(files)} files)")
         for f, _ in files:
             print(f"    {f.relative_to(src)}")
+    loose = strays(root, slug)
+    for f in loose:
+        print(f"{f.relative_to(root)} -> DELETED, not archived "
+              f"({f.stat().st_size // (1 << 20)} MB review artifact — see strays())")
+    print(f"\n{len(steps)} director{'y' if len(steps) == 1 else 'ies'} + {len(loose)} "
+          f"loose file(s) = {len(steps) + len(loose)} entries under studio/videos/{slug}*")
     if dry_run:
         print("\n(dry run — nothing copied or deleted)")
         return
@@ -173,7 +179,31 @@ def archive(root, slug, urls, dry_run=False, today=None):
     for src, _, _ in steps:
         shutil.rmtree(src)
         print(f"deleted {src.relative_to(root)}")
+    for f in strays(root, slug):
+        size = f.stat().st_size
+        f.unlink()
+        print(f"deleted {f.relative_to(root)}  ({size // (1 << 20)} MB, review artifact)")
     print(f"archived {slug} -> vault/videos/{slug}/src/")
+
+
+def strays(root, slug):
+    """The per-cut FILES beside the cut directories — `<slug>-<cut>-FRAMES.png`
+    and `<slug>-<cut>-PREVIEW*.mp4`, written by frames_sheet.py / chapter_preview.py
+    for the creator's batch review.
+
+    The directory glob is `if d.is_dir()`, so these were left behind forever: 201 MB
+    on passive-income-number alone, and they made the protocol's own instruction
+    ("the count must match `ls -d studio/videos/<slug>*`") impossible to satisfy,
+    because the file entries could never be accounted for.
+
+    They are dropped, not archived, and both halves of that are deliberate. The
+    PREVIEWs are renders, which the archive drops by rule. FRAMES.png is a composed
+    sheet — but every frame in it already survives as `renders/SHEET-ch*.jpg`, which
+    KEEP holds precisely so composed frames outlive the archive. What FRAMES.png adds
+    over those is its NUMBERING, and that is the protocol for a review round which,
+    by the time anything is archived, is over."""
+    return sorted(p for p in (root / "studio" / "videos").glob(f"{slug}*")
+                  if p.is_file())
 
 
 def self_check():
