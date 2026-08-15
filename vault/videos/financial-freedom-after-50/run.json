@@ -1,0 +1,83 @@
+{
+  "slug": "financial-freedom-after-50",
+  "topic": "The Never Too Late Guide to Financial Freedom After 50 - a 5-step roadmap (stabilize, maximize catch-up contributions, protect, income flexibility, deliberate withdrawal transition) for the 50+ viewer who feels hopelessly behind on retirement savings.",
+  "tier": "long",
+  "target_seconds": 746,
+  "architecture": "per-line-chapters",
+  "architecture_default": "per-line-chapters",
+  "architecture_differs_from_default": false,
+  "cuts": [
+    "en"
+  ],
+  "started": "2026-08-15",
+  "voices": {
+    "en": "nPczCjzI2devNBz1zQrb"
+  },
+  "constraints": {
+    "creator_wording_is_source_of_truth": "vault/videos/financial-freedom-after-50/source-draft.md is the creator's own finished script, supplied 2026-08-15. fin-script REFORMATS it into single-sentence VO lines plus `## Chapter N` headings and does NOT rewrite voice, phrasing, structure or examples. The only permitted edits are (a) factual corrections forced by fin-audit and (b) splitting a sentence that exceeds one comfortable VO line.",
+    "every_figure_carries_agency_and_date": "Every on-screen money figure carries its issuing agency and the publication date of the source. Non-negotiable for the 50+ audience, who act on these numbers. See vault/knowledge/money-facts-2026.md.",
+    "no_return_promise": "Never promise or imply a return rate or a guaranteed outcome. The 8% delayed-retirement-credit and the 24-32% figure are statutory SSA mechanics, not market returns, and must be described as such.",
+    "contribution_limits_are_2026_irs": "Every 401(k)/403(b)/IRA/HSA/catch-up figure must be the IRS 2026 published number, cited to the IRS notice and dated. The draft's figures are creator-supplied and UNVERIFIED until fin-evidence confirms them.",
+    "no_advice_framing": "Educational framing only - no 'you should', no personalised recommendation, no implication of a fiduciary relationship. NO first-person expertise or experience claim anywhere in the cut. SUPERSEDES the intake wording: the draft's 'fifteen years in the trenches' line was carried at intake pending a ruling; on 2026-08-15 the creator confirmed it is not a literal biographical claim and ruled REPLACE. Line 1.8 now reads 'People in their fifties and sixties who felt hopelessly behind have been building futures they are excited about, using the exact roadmap in this video.' Do not restore the original, and do not introduce a substitute credential claim anywhere else.",
+    "market_rewrite_not_translation": "US market only: $ figures, US institutions (IRS, SSA, Medicare), Brian voice, @moneymavens101. See vault/knowledge/english-cut-is-us-market.md."
+  },
+  "budget": {
+    "elevenlabs_calls": 123,
+    "max_elevenlabs_calls": 154,
+    "pixabay_calls": 0
+  },
+  "stages": {
+    "fin-evidence": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/financial-freedom-after-50/logs/fin-evidence-2.md",
+      "at": "2026-08-15T02:20:33+00:00"
+    },
+    "fin-script-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 2,
+      "log": "vault/videos/financial-freedom-after-50/logs/fin-script-en-2.md",
+      "at": "2026-08-15T06:42:35+00:00"
+    },
+    "fin-audit-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/financial-freedom-after-50/logs/fin-audit-en-1.md",
+      "at": "2026-08-15T06:52:37+00:00"
+    },
+    "fin-voice-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "",
+      "at": "2026-08-15T07:13:39+00:00",
+      "script_sha256": "006f041cfa861805f843d5e9010e392ad8a2233190607466fda87ddaae9fdab6"
+    },
+    "fin-storyboard-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/financial-freedom-after-50/logs/fin-storyboard-en-1.md",
+      "at": "2026-08-15T07:35:04+00:00"
+    },
+    "fin-assets-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/financial-freedom-after-50/logs/fin-assets-en-1.md",
+      "at": "2026-08-15T07:55:20+00:00"
+    },
+    "fin-build-en": {
+      "status": "done",
+      "reason": "",
+      "attempt": 1,
+      "log": "vault/videos/financial-freedom-after-50/logs/fin-build-en-1.md",
+      "at": "2026-08-15T09:20:47+00:00"
+    }
+  },
+  "chapters": {},
+  "vidiq_spend": 0
+}
