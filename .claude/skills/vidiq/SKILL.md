@@ -28,10 +28,20 @@ It does not touch the YouTube Data API quota, and it does not replace
 
 ## 0. Budget first — this is the binding constraint
 
-Check `vidiq_balance` (free) before any session that will spend. As of
-2026-08-06 the account is on the **free tier: 150 renewable credits/month**
-(+40 non-renewing add-on). That is **30 paid calls a month.** Everything else in
-this skill exists to keep that number from being wasted.
+Check `vidiq_balance` (free) before any session that will spend — **it is free, so
+read it, never carry a number forward from a note.** As of **2026-08-15** the
+account holds **5,453 credits**: 5,380 renewable of a **6,000/month** cap
+resetting **2026-09-14**, plus 73 add-on. That is ~1,090 paid calls a month, and
+a whole video's ~40-credit budget is well under 1% of it.
+
+⚠ **This number moved by a factor of 36 and a stale copy of it did damage.** The
+line here used to read "free tier: 150 renewable/month … 30 paid calls a month"
+(2026-08-06), and `passive-income-number` carried a matching "only 13 remain,
+ration it or defer the title lock" into its run notes. On 2026-08-15 that was
+about to buy a deliberately degraded packaging pass on a finished video, against
+a real balance of 5,453. **Batching and one-shot discipline below are still right
+— they are good practice, not austerity — but do not DROP a recipe for budget
+without re-reading the balance first.**
 
 | Cost | Tools |
 |---|---|

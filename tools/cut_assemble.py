@@ -181,12 +181,20 @@ def handbuilt(path, ch, offset, last_scene_id):
                         (re.search(r"var D = \{(.*?)\};", html, re.S) or
                          re.match("", "")).group(1))) if "var D" in html else {}
 
-    script = html[html.rindex("<script>") + len("<script>"):html.rindex("</script>")]
-    # Everything after the declarations, minus this chapter's own globals.
-    start = script.index("var IDS") if "var IDS" in script else 0
-    lines = script[script.index("\n", start) + 1:].split("\n")
-    body = [cp.rebase_motion(ln, -offset) for ln in lines
-            if not TAIL_NOISE.match(ln)]
+    # EVERY attribute-less <script>, in document order — not just the last one.
+    # A hand-built chapter keeps its timeline in one block, so `rindex` used to
+    # be right. A build.mjs chapter emits TWO: the motion timeline first, then
+    # the RATE ASSERT. Taking the last one silently dropped every ken/rise/
+    # countUp/playLottie in the cut and left a master of 81 static slides that
+    # merely cross-dissolved — and nothing caught it, because `hyperframes
+    # check` reports "Motion 0 errors" when there is no motion to check.
+    body = []
+    for blk in re.findall(r"<script>(.*?)</script>", html, re.S):
+        # Everything after the declarations, minus this chapter's own globals.
+        start = blk.index("var IDS") if "var IDS" in blk else 0
+        body += [cp.rebase_motion(ln, -offset)
+                 for ln in blk[blk.index("\n", start) + 1:].split("\n")
+                 if not TAIL_NOISE.match(ln)]
     while body and not body[-1].strip():
         body.pop()
 
@@ -196,10 +204,129 @@ def handbuilt(path, ch, offset, last_scene_id):
             "megas": [], "lottie": lottie, "D": D, "tail": []}
 
 
+def take_rate_assert(body):
+    """Lift a chapter's RATE ASSERT out of its body. -> (body, block or None).
+
+    Every chapter carries its own copy, so a verbatim merge writes six of them
+    into one file, each scanning all 81 scenes. Identical copies are merely
+    wasteful; a DIVERGENT one is not, and they do diverge — on this cut ch1's
+    predates the `derived_income_carries_assumption` extension and is missing
+    the BILL branch. A stale copy that throws (or fails to) on scenes it was
+    never written for would surface in the 18-minute master render and nowhere
+    earlier, so the master keeps exactly ONE, and the caller says which."""
+    text = "\n".join(body)
+    m = re.search(r"\(function \(\)\s*\{(?:(?!\}\)\(\);).)*\}\)\(\);", text, re.S)
+    if not m or "RATE ASSERT" not in m.group(0):
+        return body, None
+    start = m.start()
+    lead = list(re.finditer(r"/\*.*?\*/", text[:start], re.S))
+    if lead and not text[lead[-1].end():start].strip():
+        start = lead[-1].start()          # swallow the prose comment above it
+    return (text[:start] + text[m.end():]).rstrip().split("\n"), m.group(0)
+
+
+def from_chapters(slug, cut):
+    """Cut-level facts for a cut whose CHAPTERS are the origin, not a carving.
+
+    §3b builds chapter-first, so a run reaches assembly having never produced a
+    full-length index.html — there was nothing to carve chapters out of, the
+    chapters came first. (`japanese-money-methods` went the other way, which is
+    why the shipped file used to be assumed.) Nothing is lost, only spread out:
+    `assets/voice/timing.json` is the one home of every start and duration —
+    one VO line is one clip is one scene, the pipeline's own invariant — and
+    each chapter's index.html holds its sections, audio rows and styling
+    rebased to zero. The chapter offset is the timing of its first line, which
+    is the same constant `chapter_project.py` rebased BY, so this is its exact
+    inverse rather than a re-derivation."""
+    T = json.load(open(os.path.join(ROOT, "studio/videos", f"{slug}-{cut}",
+                                    "assets/voice/timing.json"), encoding="utf-8"))
+    lines, root = T["lines"], T["total"]
+
+    chdirs = []
+    for ch in range(1, 99):
+        p = os.path.join(ROOT, "studio/videos", f"{slug}-{cut}-ch{ch}")
+        if not os.path.exists(os.path.join(p, "index.html")):
+            break
+        chdirs.append((ch, p))
+    if not chdirs:
+        sys.exit(f"no {slug}-{cut}/index.html and no {slug}-{cut}-ch1/index.html "
+                 "— nothing to assemble from")
+
+    parts, scenes, audio, chapters, acts, n = [], [], [], [], [], 0
+    for k, (ch, chdir) in enumerate(chdirs):
+        path = os.path.join(chdir, "index.html")
+        html = open(path, encoding="utf-8").read()
+        secs = re.findall(r'<section[^>]*class="[^"]*\bscene\b[^"]*"[^>]*>', html)
+        final = k == len(chdirs) - 1
+        offset = lines[n]["scene_start"]
+
+        for j, tag in enumerate(secs):
+            a = dict(re.findall(r'(id|data-[\w-]+)="([^"]*)"', tag))
+            t = lines[n + j]
+            # The chapter is only trusted for its DESIGN. That it sits where the
+            # voice says it does is asserted, not assumed — this is the one check
+            # that would catch a chapter rebuilt against a re-cut line.
+            assert abs(float(a["data-start"]) + offset - t["scene_start"]) < 2e-3, \
+                (f"ch{ch} {a['id']}: starts at {float(a['data-start']) + offset} "
+                 f"but timing.json line {t['id']} says {t['scene_start']}")
+            # Only the CUT's final scene keeps a bare duration; every chapter's
+            # own last scene gets the +0.45 cross-dissolve overlap back.
+            bare = final and j == len(secs) - 1
+            scenes.append({"id": a["id"], "attrs": dict(
+                a, **{"data-start": cp.num(t["scene_start"]),
+                      "data-duration": cp.num(t["scene_duration"]
+                                              + (0 if bare else OVERLAP))})})
+
+        for row in re.findall(r"<audio[^>]*></audio>", html):
+            audio.append(re.sub(
+                r'data-start="([\d.]+)"',
+                lambda m: f'data-start="{cp.num(float(m.group(1)) + offset)}"',
+                row, count=1))
+
+        p = handbuilt(path, ch, offset, None if final else
+                      re.search(r'id="(s\d+)"', secs[-1]).group(1))
+        p["body"], p["assert"] = take_rate_assert(p["body"])
+        p["ch"], p["src"], p["ids"] = ch, "index.html (chapter-first)", \
+            [re.search(r'id="(s\d+)"', s).group(1) for s in secs]
+        p["path"] = path
+        parts.append(p)
+        chapters.append((ch, [{"attrs": {"data-start": cp.num(offset)}}]))
+        m = re.search(r"acts:\s*(\[[^\]]*\])", html)
+        if m:
+            acts += json.loads(m.group(1).replace("'", '"'))
+        n += len(secs)
+
+    if n != len(lines):
+        sys.exit(f"{n} scenes across {len(chdirs)} chapters but timing.json has "
+                 f"{len(lines)} lines — a chapter is missing or double-counted")
+
+    blocks = [p.pop("assert") for p in parts]
+    keep = max([b for b in blocks if b], key=len, default=None)
+    if keep and len(set(b for b in blocks if b)) > 1:
+        print(f"  rate assert: {len(set(b for b in blocks if b))} variants across "
+              f"chapters, keeping the strictest ({len(keep)} chars)")
+
+    head = open(os.path.join(chdirs[0][1], "index.html"), encoding="utf-8").read()
+    title = re.search(r"<title>(.*?)</title>", head, re.S).group(1)
+    return (parts, scenes, audio, chapters, root, acts,
+            re.search(r'id="root"[^>]*class="([^"]*)"', head).group(1),
+            re.split(r"\s*·\s*CHAPTER", title)[0].strip(), [keep] if keep else [])
+
+
 def assemble(slug, cut):
     cutdir = os.path.join(ROOT, "studio/videos", f"{slug}-{cut}")
     outdir = os.path.join(ROOT, "studio/videos", f"{slug}-{cut}-full")
     shipped = os.path.join(cutdir, "index.html")
+    if not os.path.exists(shipped):
+        (parts, scenes, audio, chapters, root, acts, rootcls, title,
+         extra_tail) = from_chapters(slug, cut)
+        ids = [s["id"] for s in scenes]
+        S = ", ".join(f'{s["id"]}: {s["attrs"]["data-start"]}' for s in scenes)
+        D = {}
+        for p in parts:
+            D.update(p["D"])
+        return emit(slug, cut, cutdir, outdir, parts, scenes, audio, chapters,
+                    ids, S, D, root, acts, rootcls, title, extra_tail)
     scenes, audio, script = cp.parse_cut(shipped)
     html = open(shipped, encoding="utf-8").read()
     root = float(re.search(r'id="root"[^>]*data-duration="([\d.]+)"', html).group(1))
@@ -235,6 +362,7 @@ def assemble(slug, cut):
                 sys.exit(f"ch{ch}: neither chapter.json nor index-claudedesign.html")
             p = handbuilt(hand, ch, offset,
                           mine[-1]["id"] if ch < len(chapters) else None)
+            p["path"] = hand
             src = "index-claudedesign.html (spliced verbatim)"
         p["ch"], p["src"], p["ids"] = ch, src, [s["id"] for s in mine]
         parts.append(p)
@@ -244,6 +372,15 @@ def assemble(slug, cut):
     D = {}
     for p in parts:
         D.update(p["D"])
+    return emit(slug, cut, cutdir, outdir, parts, scenes, audio, chapters,
+                ids, S, D, root, acts, rootcls, title, [])
+
+
+def emit(slug, cut, cutdir, outdir, parts, scenes, audio, chapters,
+         ids, S, D, root, acts, rootcls, title, extra_tail):
+    """Write the master, verify it and merge the cue list. Shared by both paths:
+    what differs between a carved cut and a chapter-first one is where the facts
+    come FROM, not what gets written."""
     lottie = [l for p in parts for l in p["lottie"]]
     css = "\n".join(x for p in parts for x in (p["megas"] + [p["css"]]) if x.strip())
     provenance = "\n".join(f"     ch{p['ch']:<2} {p['ids'][0]}-{p['ids'][-1]:<4} "
@@ -258,15 +395,18 @@ def assemble(slug, cut):
 <!-- ===========================================================================
      THE MASTER — all {len(ids)} scenes, {cp.num(root)}s, one composition, one render.
 
-     ASSEMBLED by tools/cut_assemble.py from the eight approved chapter projects
-     plus studio/videos/{slug}-{cut}/index.html (which stays the one home of every
-     timing, on-screen string and .bg). Do not hand-edit: change a chapter.json
-     or a hand-built chapter and re-run the assembler.
+     ASSEMBLED by tools/cut_assemble.py from the {len(parts)} approved chapter projects,
+     each named below with what it was assembled FROM. Do not hand-edit: change
+     the chapter and re-run the assembler.
 
 {provenance}
 
+     Every start and duration is checked attribute-by-attribute against
+     studio/videos/{slug}-{cut}/assets/voice/timing.json, which is measured from the
+     voice and is the one home of both.
+
      Every chapter's last scene has its +0.45s cross-dissolve overlap BACK — the
-     chapter generator strips it because a chapter has no successor. The seven
+     chapter generator strips it because a chapter has no successor. The {len(parts) - 1}
      chapter joints are therefore real dissolves here, not the hard cuts that
      tools/chapter_preview.py produces.
      =========================================================================== -->
@@ -305,6 +445,7 @@ sceneTransitions(IDS, S{f", {{ acts: {json.dumps(acts)} }}" if acts else ""});
 {(chr(10) * 2).join(chr(10).join(p["body"]) for p in parts)}
 
 {chr(10).join(x for p in parts for x in p["tail"])}
+{chr(10).join(extra_tail)}
 window.__timelines = window.__timelines || {{}};
 register();
 </script>
@@ -314,7 +455,9 @@ register();
     os.makedirs(outdir, exist_ok=True)
     dest = os.path.join(outdir, "index.html")
     open(dest, "w", encoding="utf-8").write(out)
-    verify(dest, scenes, audio, root)
+    paths = [p.get("path") for p in parts]
+    verify(dest, scenes, audio, root,
+           sources=paths if all(paths) else ())
     merge_audio(slug, cut, chapters, cutdir)
     print(f"{slug}-{cut}-full: {len(ids)} scenes {ids[0]}-{ids[-1]}  "
           f"root {cp.num(root)}s  {len(audio)} voice rows  timing OK")
@@ -337,7 +480,7 @@ register();
     return outdir
 
 
-def verify(dest, scenes, audio, root):
+def verify(dest, scenes, audio, root, sources=()):
     """Every timing attribute must equal the SHIPPED cut's, exactly.
 
     Not "sums to the right total" — the failure this project keeps hitting
@@ -367,6 +510,56 @@ def verify(dest, scenes, audio, root):
     assert au == audio, f"{len(au)} voice rows written, {len(audio)} expected"
     assert h.count("register()") == 1, "more than one register() survived the merge"
     assert h.count("sceneTransitions(") == 1, "more than one sceneTransitions()"
+    verify_motion(h, sources)
+
+
+# Every helper in motion.js whose absence means a scene simply does not animate.
+MOTION_CALLS = ("ken", "rise", "pop", "popEach", "fade", "draw", "breathe", "pulse",
+                "fill", "exit", "countUp", "countDown", "span", "plateKen", "drift",
+                "dissolve", "shove", "playLottie")
+
+
+def verify_motion(h, sources):
+    """The master must carry every motion call its chapters do.
+
+    THIS EXISTS BECAUSE THE MERGE LOST ALL OF THEM ONCE AND NOTHING NOTICED
+    (gate two, 2026-08-15). `handbuilt` took the LAST inline <script>, which in a
+    build.mjs chapter is the rate assert, not the timeline — so the master
+    rendered 81 static slides that cross-dissolved, for 29 minutes, and passed
+    `hyperframes check`, whose Motion section reports "0 errors" when there is
+    nothing to animate. Absence is invisible to every checker that asks whether
+    what ran was well-formed; only a count against the source can see it."""
+    if not sources:
+        # A carved cut's generated chapters take their motion from the shipped
+        # cut's one script, so there is no per-chapter file to count against.
+        # Say so rather than printing a reassuring zero.
+        print("  motion: not verified (no per-chapter source files)")
+        return
+
+    def calls(text):
+        # Comments FIRST. These files document their motion in prose — "s9's
+        # dissolve is against the incoming boundary", "one ken( per scene" — and
+        # the merge legitimately drops some of those blocks (the declarations
+        # preamble, the rate assert's header, every CSS comment). Counting them
+        # compares prose against code and reports a loss that never happened.
+        text = re.sub(r"/\*.*?\*/|<!--.*?-->", "", text, flags=re.S)
+        return {c: len(re.findall(rf"\b{c}\s*\(", text)) for c in MOTION_CALLS}
+
+    want = {c: 0 for c in MOTION_CALLS}
+    for src in sources:
+        for c, n in calls(open(src, encoding="utf-8").read()).items():
+            want[c] += n
+    got, short = calls(h), []
+    for c in MOTION_CALLS:
+        # >= not ==: `emit` adds the cut's own sceneTransitions/register tail, and
+        # a chapter's own globals are dropped on purpose. Losing calls is the bug.
+        if got[c] < want[c]:
+            short.append(f"{c} {got[c]}/{want[c]}")
+    assert not short, ("the merge DROPPED motion calls the chapters declare: "
+                       + ", ".join(short) + " — the master would render as static "
+                       "slides. See verify_motion().")
+    print(f"  motion: {sum(got[c] for c in MOTION_CALLS)} calls carried "
+          f"({sum(want.values())} declared across {len(sources)} chapters)")
 
 
 def merge_audio(slug, cut, chapters, cutdir):
@@ -421,31 +614,107 @@ def scaffold(slug, cut):
             return
         os.symlink(target, p)
 
+    # WHERE EACH SHARED ASSET COMES FROM, and it is not one place.
+    # `fonts` and `img` (grain.png, wm-en.png) belong to the DESIGN SYSTEM and
+    # are linked from tools/scaffold like the two stylesheets beside them — not
+    # from the cut. The cut also has an `assets/img/`, and it is a different
+    # thing wearing the same name: a manifest of the sourced photographs. Taking
+    # the cut's because it merely EXISTS is what shadowed grain.png and wm-en.png
+    # into 404s on the first chapter-first assembly. A chapter project links
+    # these exactly this way — see the live links in any -ch<N>/assets/.
     link("../../../../tools/scaffold/assets/blockframe.css", "assets/blockframe.css")
     link("../../../../tools/scaffold/assets/chapter-design.css", "assets/chapter-design.css")
     link("../../../../../tools/scaffold/assets/js/motion.js", "assets/js/motion.js")
+    for sub in ("fonts", "img"):
+        link(f"../../../../tools/scaffold/assets/{sub}", f"assets/{sub}")
+
+    # The rest are the CUT's, and a chapter-first run keeps some of them beside
+    # the chapters instead — so each is resolved by looking, not assumed.
+    def owner(rel):
+        for cand in [f"{slug}-{cut}"] + [f"{slug}-{cut}-ch{c}" for c in range(1, 9)]:
+            if os.path.exists(os.path.join(ROOT, "studio/videos", cand, "assets", rel)):
+                return cand
+        return None
+
     for f in ("gsap.min.js", "lottie.min.js"):
-        if os.path.exists(os.path.join(ROOT, "studio/videos", f"{slug}-{cut}/assets/js", f)):
-            link(f"../{cutrel}/js/{f}", f"assets/js/{f}")
-    for sub in ("fonts", "img", "voice", "lottie"):
-        if os.path.exists(os.path.join(ROOT, "studio/videos", f"{slug}-{cut}/assets", sub)):
-            link(f"{cutrel}/{sub}", f"assets/{sub}")
+        home = owner(f"js/{f}")
+        if home:
+            link(f"../../../{home}/assets/js/{f}", f"assets/js/{f}")
+    for sub in ("voice", "lottie"):
+        home = owner(sub)
+        if home:
+            link(f"../../{home}/assets/{sub}", f"assets/{sub}")
     # The hand-built chapters keep their photographs beside themselves.
     for ch in range(1, 9):
         src = os.path.join(ROOT, "studio/videos", f"{slug}-{cut}-ch{ch}", f"assets-ch{ch}")
         if os.path.isdir(src):
             link(f"../{slug}-{cut}-ch{ch}/assets-ch{ch}", f"assets-ch{ch}")
-    link(f"../{slug}-{cut}/node_modules", "node_modules")
+    # The npm project comes from the cut dir when one was scaffolded, else from
+    # the first chapter. A chapter-wise run never scaffolds the cut dir — the
+    # chapters ARE the projects — so the cut dir is routinely a bare assets/
+    # stub and the old unconditional copy died on FileNotFoundError.
+    def npm_home():
+        for cand in [f"{slug}-{cut}"] + [f"{slug}-{cut}-ch{c}" for c in range(1, 9)]:
+            p = os.path.join(ROOT, "studio/videos", cand)
+            if os.path.exists(os.path.join(p, "package.json")) and \
+               os.path.isdir(os.path.join(p, "node_modules")):
+                return cand
+        sys.exit(f"no package.json + node_modules under studio/videos/{slug}-{cut}*"
+                 " — run `npm i` in the cut or a chapter project first")
+
+    home = npm_home()
+    link(f"../{home}/node_modules", "node_modules")
     if not os.path.exists(os.path.join(d, "package.json")):
         import shutil
-        shutil.copy(os.path.join(ROOT, "studio/videos", f"{slug}-{cut}/package.json"),
+        shutil.copy(os.path.join(ROOT, "studio/videos", home, "package.json"),
                     os.path.join(d, "package.json"))
+
+
+def _selftest():
+    """The guard that would have caught the 2026-08-15 silent-motion-loss, tested
+    in both directions — a guard that only ever passes is not a guard."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        src = os.path.join(d, "ch1.html")
+        open(src, "w", encoding="utf-8").write(
+            '<script src="assets/js/gsap.min.js"></script>\n'
+            "<script>\nvar IDS = [\"s1\"];\n"
+            'ken("#s1-bg", 0, 4, false);\ncountUp("#s1-num", 1.2, 1.0, 0, 95);\n'
+            "</script>\n"
+            "<script>\n/* RATE ASSERT */\n(function () { var x = 1; })();\n</script>")
+
+        # 1. the real failure: only the LAST <script> survives, so motion is gone.
+        try:
+            verify_motion('<script>\n(function () { var x = 1; })();\n</script>', [src])
+            raise AssertionError("verify_motion passed a master with NO motion")
+        except AssertionError as e:
+            assert "DROPPED motion calls" in str(e), e
+
+        # 2. the merged-whole case must pass.
+        verify_motion('<script>\nken("#s1-bg", 0, 4, false);\n'
+                      'countUp("#s1-num", 1.2, 1.0, 0, 95);\n</script>', [src])
+
+        # 3. prose describing motion must not be counted as motion — the false
+        #    positive this guard actually produced on its first run.
+        verify_motion("/* one ken( per scene, and a countUp( on the hero */\n"
+                      '<script>\nken("#s1-bg", 0, 4, false);\n'
+                      'countUp("#s1-num", 1.2, 1.0, 0, 95);\n</script>', [src])
+
+        # 4. no sources -> says so rather than passing silently.
+        verify_motion("<script></script>", [])
+    print("selftest OK")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("slug")
+    ap.add_argument("slug", nargs="?")
     ap.add_argument("--cut", default="en", choices=("en",))
+    ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
+    if a.selftest:
+        _selftest()
+        sys.exit(0)
+    if not a.slug:
+        ap.error("slug is required (or pass --selftest)")
     scaffold(a.slug, a.cut)
     assemble(a.slug, a.cut)
